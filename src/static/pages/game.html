@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Analysis — The Bet</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="../index.html">
+      <div class="nav-logo-icon">TB</div>
+      THE BET
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../index.html">Home</a>
+      <a class="nav-link active" href="games.html">Games</a>
+      <a class="nav-link" href="teams.html">Teams</a>
+    </div>
+    <div class="nav-badge"><span class="nav-dot"></span>2026 Season</div>
+  </div>
+</nav>
+
+<main class="container page-content" id="content">
+  <div class="empty"><div class="empty-icon">🏈</div><div class="empty-title">Loading game...</div></div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>The Bet · D1 Football Predictor · 2026 Season · <span class="footer-accent">For entertainment purposes</span></p>
+  </div>
+</footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/predictor.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const gameId = params.get("id");
+const gameData = GAMES.find(g => g.id === gameId);
+
+if (!gameData) {
+  document.getElementById("content").innerHTML = `<div class="empty"><div class="empty-icon">❌</div><div class="empty-title">Game not found</div><div class="empty-sub">The game you're looking for doesn't exist.</div><a href="games.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">← Back to Games</a></div>`;
+} else {
+  const game = resolveGame(gameData);
+  const pred = predictGame(game);
+  const { homeTeam: home, awayTeam: away } = game;
+  const isHomeFavored = pred.predictedSpread >= 0;
+  const winner = isHomeFavored ? home : away;
+
+  const confCls = { elite:"badge-elite", high:"badge-high", medium:"badge-medium", low:"badge-low" }[pred.confidence];
+  const confLbl = { elite:"ELITE PICK", high:"HIGH CONFIDENCE", medium:"MODERATE", low:"LOW CONFIDENCE" }[pred.confidence];
+
+  // Predicted score
+  const halfTotal = pred.predictedTotal / 2;
+  const halfSpread = Math.abs(pred.predictedSpread) / 2;
+  const homeScore = isHomeFavored ? halfTotal + halfSpread : halfTotal - halfSpread;
+  const awayScore = isHomeFavored ? halfTotal - halfSpread : halfTotal + halfSpread;
+
+  const homePct = isHomeFavored ? pred.winProbability : 100 - pred.winProbability;
+  const awayPct = 100 - homePct;
+
+  // Factor icon
+  const fIcon = impact => impact === "positive" ? "↑" : impact === "negative" ? "↓" : "→";
+  const fColor = impact => impact === "positive" ? "var(--primary)" : impact === "negative" ? "var(--danger)" : "var(--muted)";
+
+  // Social buzz
+  const buzz = pred.socialBuzz;
+
+  // Platform badge class
+  const platCls = p => `platform-${p.replace("-","_").replace(" ","_")}`;
+  const platLbl = { twitter:"𝕏 Twitter", reddit:"R Reddit", insider:"★ Insider", "beat-writer":"✎ Beat Writer" };
+
+  // Key players for these teams
+  const players = KEY_PLAYERS.filter(p => p.teamId === home.id || p.teamId === away.id).slice(0, 4);
+
+  // Breakdown items
+  const bd = pred.modelBreakdown;
+  const bdItems = [
+    { label: "Offense vs Defense Matchup", value: bd.offenseVsDefense, color: "var(--accent)" },
+    { label: "Recent Form",               value: bd.recentForm,        color: "var(--primary)" },
+    { label: "Home Field Advantage",      value: bd.homeFieldAdvantage,color: "#34d399" },
+    { label: "Head-to-Head History",      value: bd.headToHead,        color: "var(--gold)" },
+    { label: "Coaching Edge",             value: bd.coachingEdge,      color: "#c084fc" },
+    { label: "Recruiting / Talent",       value: bd.recruitingEdge,    color: "#38bdf8" },
+    { label: "Social Signal",             value: bd.socialSignal,      color: "#f472b6" },
+  ];
+
+  // Stat comparison rows
+  const statRows = [
+    { label: "Points / Game",        hv: home.stats.pointsPerGame,          av: away.stats.pointsPerGame,         fmt: v=>v.toFixed(1), hib: true },
+    { label: "Points Allowed / Game",hv: home.stats.pointsAllowedPerGame,   av: away.stats.pointsAllowedPerGame,  fmt: v=>v.toFixed(1), hib: false },
+    { label: "Total Yards / Game",   hv: home.stats.yardsPerGame,           av: away.stats.yardsPerGame,          fmt: v=>v.toFixed(0), hib: true },
+    { label: "Yards Allowed / Game", hv: home.stats.yardsAllowedPerGame,    av: away.stats.yardsAllowedPerGame,   fmt: v=>v.toFixed(0), hib: false },
+    { label: "Passing Yards / Game", hv: home.stats.passingYardsPerGame,    av: away.stats.passingYardsPerGame,   fmt: v=>v.toFixed(0), hib: true },
+    { label: "Rushing Yards / Game", hv: home.stats.rushingYardsPerGame,    av: away.stats.rushingYardsPerGame,   fmt: v=>v.toFixed(0), hib: true },
+    { label: "3rd Down %",           hv: home.stats.thirdDownPct,           av: away.stats.thirdDownPct,          fmt: v=>(v*100).toFixed(1)+"%", hib: true },
+    { label: "Red Zone %",           hv: home.stats.redZonePct,             av: away.stats.redZonePct,            fmt: v=>(v*100).toFixed(1)+"%", hib: true },
+    { label: "Turnover Margin",      hv: home.stats.turnoversForced-home.stats.turnoversPerGame, av: away.stats.turnoversForced-away.stats.turnoversPerGame, fmt: v=>v.toFixed(1), hib: true },
+    { label: "Sacks / Game",         hv: home.stats.sacks,                  av: away.stats.sacks,                 fmt: v=>v.toFixed(1), hib: true },
+  ];
+
+  document.getElementById("content").innerHTML = `
+    <a class="back-link" href="games.html">← Back to Games</a>
+
+    <!-- Matchup header -->
+    <div class="matchup-header mb-5" style="background:linear-gradient(135deg,${home.color}12 0%,var(--card) 40%,${away.color}12 100%)">
+      <div class="flex items-center justify-between mb-5" style="flex-wrap:wrap;gap:8px">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-xs text-muted">${fmtDate(game.date)} · ${game.time} ET</span>
+          <span class="text-xs text-muted">·</span>
+          <span class="text-xs text-muted">${game.venue}, ${game.venueCity}</span>
+          <span class="text-xs text-muted">·</span>
+          <span class="text-xs text-muted">${game.network}</span>
+          ${game.isConferenceGame?'<span class="badge badge-conf">CONF GAME</span>':""}
+        </div>
+        <span class="badge ${confCls}">${confLbl}</span>
+      </div>
+      <div class="matchup-teams">
+        <div class="team-chip">
+          <div class="team-logo team-logo-lg" style="background:${away.color}">${away.abbreviation.slice(0,3)}</div>
+          <div><div style="font-size:1.1rem;font-weight:800;color:var(--text)">${away.name}</div><div class="text-xs text-muted">${away.mascot} · ${away.wins}-${away.losses} · Away</div></div>
+        </div>
+        <div class="matchup-vs"><div class="matchup-vs-txt">VS</div><div class="matchup-vs-wk">Week ${game.week}</div></div>
+        <div class="team-chip team-chip-r">
+          <div><div style="font-size:1.1rem;font-weight:800;color:var(--text);text-align:right">${home.name}</div><div class="text-xs text-muted text-right">${home.mascot} · ${home.wins}-${home.losses} · Home</div></div>
+          <div class="team-logo team-logo-lg" style="background:${home.color}">${home.abbreviation.slice(0,3)}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main detail grid -->
+    <div class="detail-grid">
+
+      <!-- LEFT: Predictions -->
+      <div>
+
+        <!-- Prediction summary card -->
+        <div class="card card-p mb-5">
+          <div class="section-label">Our Prediction</div>
+          <div style="border-radius:12px;padding:20px;margin-bottom:16px;border:2px solid ${winner.color}50;background:${winner.color}18">
+            <div class="flex justify-between items-center">
+              <div>
+                <div class="text-xs text-muted mb-1" style="letter-spacing:1px;text-transform:uppercase">Predicted Winner</div>
+                <div style="font-size:1.6rem;font-weight:900;color:var(--text)">${winner.name}</div>
+                <div class="text-xs text-muted">${winner.mascot} · ${winner.wins}-${winner.losses}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-muted mb-1" style="letter-spacing:1px;text-transform:uppercase">Win Probability</div>
+                <div style="font-size:2.8rem;font-weight:900;color:${winner.color}">${pred.winProbability}%</div>
+              </div>
+            </div>
+            <div style="margin-top:14px;height:8px;background:var(--border);border-radius:20px;overflow:hidden">
+              <div style="width:${pred.winProbability}%;height:100%;border-radius:20px;background:${winner.color}"></div>
+            </div>
+          </div>
+
+          <!-- Win prob bar -->
+          <div class="mb-5">
+            <div class="flex justify-between text-xs text-muted mb-1">
+              <span>${away.name} (${isHomeFavored?100-pred.winProbability:pred.winProbability}%)</span>
+              <span>${home.name} (${isHomeFavored?pred.winProbability:100-pred.winProbability}%)</span>
+            </div>
+            <div class="win-prob-bar">
+              <div style="width:${awayPct}%;background:${away.color}"></div>
+              <div style="width:${homePct}%;background:${home.color}"></div>
+            </div>
+          </div>
+
+          <!-- 3 pick boxes -->
+          <div class="grid-3">
+            <!-- ATS -->
+            <div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${pred.spreadPick.side==="no-bet"?"var(--border)":pred.spreadPick.side==="home"?"rgba(99,102,241,.5)":"rgba(245,158,11,.5)"};background:${pred.spreadPick.side==="no-bet"?"var(--surface)":pred.spreadPick.side==="home"?"rgba(99,102,241,.1)":"rgba(245,158,11,.1)"}">
+              <div class="text-xs text-muted mb-1" style="text-transform:uppercase;letter-spacing:.5px">ATS Pick</div>
+              ${pred.spreadPick.side === "no-bet"
+                ? `<div style="font-size:1rem;font-weight:700;color:var(--muted)">No Bet</div><div class="text-xs text-muted mt-1">No significant edge</div>`
+                : `<div style="font-size:1rem;font-weight:800;color:${pred.spreadPick.side==="home"?"var(--accent)":"var(--gold)"}">${pred.spreadPick.team}</div>
+                   ${game.bettingLines?`<div class="text-xs text-muted mt-1">${fmtSpread(pred.spreadPick.side==="home"?game.bettingLines.spread:-game.bettingLines.spread)}</div>`:""}
+                   <div class="text-xs text-muted mt-1">Edge +${pred.spreadPick.edge} pts</div>`}
+            </div>
+            <!-- Total -->
+            <div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${pred.totalPick.side==="no-bet"?"var(--border)":pred.totalPick.side==="over"?"rgba(16,185,129,.5)":"rgba(239,68,68,.5)"};background:${pred.totalPick.side==="no-bet"?"var(--surface)":pred.totalPick.side==="over"?"rgba(16,185,129,.1)":"rgba(239,68,68,.1)"}">
+              <div class="text-xs text-muted mb-1" style="text-transform:uppercase;letter-spacing:.5px">Total Pick</div>
+              ${pred.totalPick.side === "no-bet"
+                ? `<div style="font-size:1rem;font-weight:700;color:var(--muted)">No Bet</div><div class="text-xs text-muted mt-1">No significant edge</div>`
+                : `<div style="font-size:2rem;font-weight:900;color:${pred.totalPick.side==="over"?"var(--primary)":"var(--danger)"}">${pred.totalPick.side.toUpperCase()}</div>
+                   ${game.bettingLines?`<div class="text-xs text-muted mt-0">O/U ${game.bettingLines.total}</div>`:""}
+                   <div class="text-xs text-muted mt-1">Model: ${pred.predictedTotal.toFixed(1)} pts</div>`}
+            </div>
+            <!-- Score -->
+            <div style="border-radius:12px;padding:16px;text-align:center;border:2px solid var(--border);background:var(--surface)">
+              <div class="text-xs text-muted mb-1" style="text-transform:uppercase;letter-spacing:.5px">Predicted Score</div>
+              <div style="font-size:1.2rem;font-weight:900;color:var(--text)">${Math.round(homeScore)}&ndash;${Math.round(awayScore)}</div>
+              <div class="text-xs text-muted mt-1">${home.abbreviation} vs ${away.abbreviation}</div>
+              <div class="text-xs text-muted">Total: ${pred.predictedTotal.toFixed(1)}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vegas lines -->
+        ${game.bettingLines ? `
+        <div class="card card-p mb-5">
+          <div class="section-label">Vegas Lines vs Model</div>
+          <div class="vegas-grid">
+            <div class="vegas-cell">
+              <div class="vegas-label">Vegas Spread</div>
+              <div class="vegas-val">${fmtSpread(game.bettingLines.spread)}</div>
+              <div class="vegas-sub">${game.bettingLines.spread<0?home.abbreviation:away.abbreviation} favored</div>
+            </div>
+            <div class="vegas-cell">
+              <div class="vegas-label">Model Spread</div>
+              <div class="vegas-val" style="color:var(--accent)">${fmtSpread(-pred.predictedSpread)}</div>
+              <div class="vegas-sub">${pred.predictedSpread>=0?home.abbreviation:away.abbreviation} favored</div>
+            </div>
+            <div class="vegas-cell">
+              <div class="vegas-label">Vegas Total</div>
+              <div class="vegas-val">${game.bettingLines.total}</div>
+              <div class="vegas-sub">${game.bettingLines.provider}</div>
+            </div>
+            <div class="vegas-cell">
+              <div class="vegas-label">Model Total</div>
+              <div class="vegas-val" style="color:var(--accent)">${pred.predictedTotal.toFixed(1)}</div>
+              <div class="vegas-sub">${pred.predictedTotal>game.bettingLines.total?`+${(pred.predictedTotal-game.bettingLines.total).toFixed(1)} over`:`${(pred.predictedTotal-game.bettingLines.total).toFixed(1)} under`}</div>
+            </div>
+          </div>
+          <div class="ml-grid">
+            <div class="ml-cell">
+              <div><div class="text-xs text-muted mb-1">${home.name} ML</div><div style="font-size:1.2rem;font-weight:800;color:var(--text)">${fmtML(game.bettingLines.homeMoneyline)}</div></div>
+              ${pred.moneylineValue==="home"?'<span class="badge badge-elite">VALUE</span>':""}
+            </div>
+            <div class="ml-cell">
+              <div><div class="text-xs text-muted mb-1">${away.name} ML</div><div style="font-size:1.2rem;font-weight:800;color:var(--text)">${fmtML(game.bettingLines.awayMoneyline)}</div></div>
+              ${pred.moneylineValue==="away"?'<span class="badge badge-elite">VALUE</span>':""}
+            </div>
+          </div>
+        </div>` : ""}
+
+        <!-- Prediction factors -->
+        <div class="card card-p mb-5">
+          <div class="section-label">Prediction Factors</div>
+          ${pred.factors.map(f => `
+            <div class="factor">
+              <div class="factor-top">
+                <div class="factor-name"><span style="color:${fColor(f.impact)};margin-right:6px;font-size:1rem">${fIcon(f.impact)}</span>${f.name}</div>
+                <div class="factor-meta">
+                  ${f.favoredTeam !== "neither"
+                    ? `<span style="font-size:.72rem;padding:2px 8px;border-radius:12px;border:1px solid ${(f.favoredTeam==="home"?home.color:away.color)+"50"};background:${(f.favoredTeam==="home"?home.color:away.color)+"18"};color:${f.favoredTeam==="home"?home.color:away.color}">${f.favoredTeam==="home"?home.abbreviation:away.abbreviation}</span>`
+                    : ""}
+                  <span class="text-xs text-muted">Mag: ${f.magnitude}/10</span>
+                </div>
+              </div>
+              <div class="factor-desc">${f.description}</div>
+              <div class="factor-bar"><div class="factor-bar-fill" style="width:${f.magnitude*10}%;background:${fColor(f.impact)}"></div></div>
+            </div>`).join("")}
+        </div>
+
+        <!-- Stats comparison -->
+        <div class="card card-p mb-5">
+          <div class="section-label">Head-to-Head Stats</div>
+          <div class="flex justify-between text-xs text-muted mb-4">
+            <div class="flex items-center gap-2"><div style="width:10px;height:10px;border-radius:50%;background:${home.color}"></div>${home.name}</div>
+            <div class="flex items-center gap-2">${away.name}<div style="width:10px;height:10px;border-radius:50%;background:${away.color}"></div></div>
+          </div>
+          ${statRows.map(row => {
+            const hWins = row.hib ? row.hv > row.av : row.hv < row.av;
+            const aWins = row.hib ? row.av > row.hv : row.av < row.hv;
+            const mx = Math.max(Math.abs(row.hv), Math.abs(row.av), 1);
+            const hp = Math.min(100, Math.abs(row.hv)/mx*100);
+            const ap = Math.min(100, Math.abs(row.av)/mx*100);
+            return `
+              <div class="stat-comp-row">
+                <div class="stat-comp-labels">
+                  <span style="color:${hWins?home.color:"var(--muted)"};font-weight:${hWins?"700":"400"}">${row.fmt(row.hv)}</span>
+                  <span class="text-muted">${row.label}</span>
+                  <span style="color:${aWins?away.color:"var(--muted)"};font-weight:${aWins?"700":"400"}">${row.fmt(row.av)}</span>
+                </div>
+                <div class="stat-comp-bars">
+                  <div class="stat-comp-bar-l"><div class="stat-comp-fill" style="width:${hp}%;background:${hWins?home.color:"#334155"}"></div></div>
+                  <div class="stat-comp-bar-r"><div class="stat-comp-fill" style="width:${ap}%;background:${aWins?away.color:"#334155"}"></div></div>
+                </div>
+              </div>`;
+          }).join("")}
+        </div>
+
+        <!-- Key players -->
+        ${players.length ? `
+        <div class="card card-p mb-5">
+          <div class="section-label">Key Players to Watch</div>
+          <div class="grid-2">
+            ${players.map(p => {
+              const teamColor = p.teamId === home.id ? home.color : away.color;
+              const teamName  = p.teamId === home.id ? home.name : away.name;
+              return `
+                <div class="player-card">
+                  <div class="player-header">
+                    <div class="player-avatar" style="background:${teamColor}">#${p.number}</div>
+                    <div>
+                      <div class="player-name">${p.name}</div>
+                      <div class="player-meta">${p.position} · ${p.year} · ${teamName}</div>
+                    </div>
+                    <div style="margin-left:auto">${p.injuryStatus !== "healthy" ? `<span class="badge badge-danger">${p.injuryStatus.toUpperCase()}</span>` : '<span class="badge badge-ok">ACTIVE</span>'}</div>
+                  </div>
+                  ${p.stats.passingYards !== undefined ? `
+                  <div class="player-stats">
+                    <div><span class="player-stat-key">Pass Yds</span></div><div><span class="player-stat-val">${p.stats.passingYards}</span></div>
+                    <div><span class="player-stat-key">TDs</span></div><div><span class="player-stat-val">${p.stats.passingTDs}</span></div>
+                    <div><span class="player-stat-key">INT</span></div><div><span class="player-stat-val">${p.stats.interceptions}</span></div>
+                    <div><span class="player-stat-key">Comp%</span></div><div><span class="player-stat-val">${p.stats.completionPct}%</span></div>
+                  </div>` : ""}
+                </div>`;
+            }).join("")}
+          </div>
+        </div>` : ""}
+
+      </div><!-- /left -->
+
+      <!-- RIGHT: Breakdown + Social -->
+      <div>
+
+        <!-- Model breakdown -->
+        <div class="card card-p mb-5">
+          <div class="section-label">Model Breakdown</div>
+          ${bdItems.map(item => `
+            <div class="breakdown-row">
+              <div class="breakdown-label"><span>${item.label}</span><span style="font-weight:700;color:var(--text)">${item.value}</span></div>
+              <div class="breakdown-bar"><div class="breakdown-fill" style="width:${item.value}%;background:${item.color}"></div></div>
+            </div>`).join("")}
+        </div>
+
+        <!-- Coaching -->
+        <div class="card card-p mb-5">
+          <div class="section-label">Coaching</div>
+          ${[{team: home, side:"Home"},{team: away, side:"Away"}].map(({team, side}) => `
+            <div class="coaching-card">
+              <div class="coaching-top">
+                <div class="team-logo team-logo-sm" style="background:${team.color}">${team.abbreviation.slice(0,2)}</div>
+                <span style="font-size:.875rem;font-weight:700;color:var(--text)">${side}: ${team.name}</span>
+              </div>
+              <div class="coaching-details">
+                <div>Coach: <span>${team.coachName}</span></div>
+                <div>Record: <span>${team.coachRecord}</span></div>
+                <div>Recruiting: <span style="color:var(--primary)">#${team.recruitingRank} nationally</span></div>
+              </div>
+            </div>`).join("")}
+        </div>
+
+        <!-- Social buzz -->
+        <div class="card card-p mb-5">
+          <div class="section-label">Social Sentiment</div>
+          <div class="social-grid">
+            ${[{team: home, buzz: buzz.homeTeamBuzz, sent: buzz.sentimentHome},{team: away, buzz: buzz.awayTeamBuzz, sent: buzz.sentimentAway}].map(({team, bz, sent}) => `
+              <div class="social-card">
+                <div class="text-xs text-muted mb-1">${team.name}</div>
+                <div class="social-score">${buzz[team.id===home.id?"homeTeamBuzz":"awayTeamBuzz"]}</div>
+                <div class="text-xs text-muted">/ 100 buzz score</div>
+                <div style="margin-top:8px;height:4px;background:var(--border);border-radius:2px;overflow:hidden">
+                  <div style="width:${buzz[team.id===home.id?"homeTeamBuzz":"awayTeamBuzz"]}%;height:100%;background:${team.id===home.id?"var(--primary)":"var(--accent)"}"></div>
+                </div>
+              </div>`).join("")}
+          </div>
+
+          <div class="section-label mt-4">Trending</div>
+          <div class="trending-tags mb-4">
+            ${buzz.trendingTopics.map(t => `<div class="trending-tag">${t}</div>`).join("")}
+          </div>
+
+          ${buzz.injuryAlerts.length ? `
+            <div class="section-label">Injury Report</div>
+            ${buzz.injuryAlerts.map(a => `
+              <div class="injury-card">
+                <div class="injury-header">
+                  <span class="injury-icon">⚠</span>
+                  <span class="injury-name">${a.player}</span>
+                  <span class="injury-pos">${a.position}</span>
+                  <span class="badge badge-${a.impact==="high"?"danger":a.impact==="medium"?"medium":"low"}" style="margin-left:4px">${a.team}</span>
+                </div>
+                <div class="injury-meta">
+                  <span class="injury-status">${a.status}</span>
+                  <span class="text-muted">·</span>
+                  <span class="impact-${a.impact} fw-bold" style="font-size:.75rem;text-transform:uppercase">${a.impact} impact</span>
+                </div>
+                <div class="text-xs text-muted mt-1">${a.notes}</div>
+              </div>`).join("")}` : ""}
+
+          <div class="section-label mt-4">Insider Intel</div>
+          ${buzz.insiderTips.map(tip => `
+            <div class="insider-card">
+              <div class="insider-header">
+                <span class="platform-badge ${platCls(tip.platform)}">${platLbl[tip.platform]||tip.platform}</span>
+                <span class="fw-bold text-sm">${tip.source}</span>
+                <span class="text-xs text-muted">${tip.handle}</span>
+                <span class="text-xs text-muted ml-auto">${tip.timestamp}</span>
+              </div>
+              <div class="insider-content">${tip.content}</div>
+              <div class="insider-footer">
+                <span class="reliability">Reliability: <span>${"★".repeat(tip.reliability)}${"☆".repeat(5-tip.reliability)}</span></span>
+                ${tip.tags.map(t => `<span style="font-size:.65rem;padding:2px 6px;border-radius:4px;background:var(--border);color:var(--muted)">${t}</span>`).join("")}
+              </div>
+            </div>`).join("")}
+        </div>
+
+      </div><!-- /right -->
+
+    </div><!-- /detail-grid -->
+
+    <div style="margin-top:24px;padding:14px 20px;border-radius:10px;background:var(--surface);border:1px solid var(--border);text-align:center;font-size:.75rem;color:var(--muted)">
+      Predictions generated by The Bet AI Model · For entertainment purposes only · Always gamble responsibly
+    </div>
+  `;
+
+  document.title = `${away.name} @ ${home.name} — The Bet`;
+}
+</script>
+</body>
+</html>

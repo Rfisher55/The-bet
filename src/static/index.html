@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Bet — D1 Football Predictor</title>
+  <meta name="description" content="AI-powered D1 college football predictions: winner, spread, and over/under using stats, players, coaching & social media signals." />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-icon">TB</div>
+      THE BET
+      <span class="badge badge-conf" style="font-size:.6rem;margin-left:4px">D1 CFB</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link active" href="index.html">Home</a>
+      <a class="nav-link" href="pages/games.html">Games</a>
+      <a class="nav-link" href="pages/teams.html">Teams</a>
+    </div>
+    <div class="nav-badge">
+      <span class="nav-dot"></span>
+      2026 Season
+    </div>
+  </div>
+</nav>
+
+<!-- ── Main ── -->
+<main class="container page-content">
+
+  <!-- Hero -->
+  <section class="hero mb-6">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      2026 Season · AI-Powered Predictions
+    </div>
+    <h1 class="hero-title">
+      WIN THE BET.<br>
+      <span>KNOW THE GAME.</span>
+    </h1>
+    <p class="hero-sub">
+      The most advanced D1 college football predictor. Winner, spread, and over/under —
+      powered by team stats, player data, coaching tendencies, and social media intelligence.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="pages/games.html">View All Picks →</a>
+      <a class="btn btn-outline" href="pages/teams.html">Team Rankings</a>
+    </div>
+  </section>
+
+  <!-- Model performance -->
+  <section class="mb-6">
+    <div class="section-label">2025 Season Model Performance</div>
+    <div class="stats-strip" id="model-stats"></div>
+  </section>
+
+  <!-- Top picks -->
+  <section class="mb-6">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">Top Picks — Week 1</div>
+      <a href="pages/games.html" class="text-sm text-primary" style="text-decoration:underline">All games →</a>
+    </div>
+    <div class="grid-3" id="top-picks"></div>
+  </section>
+
+  <!-- Featured games -->
+  <section class="mb-6">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">Featured Games — 2026 Season</div>
+      <a href="pages/games.html" class="text-sm text-primary" style="text-decoration:underline">All games →</a>
+    </div>
+    <div class="grid-auto" id="featured-games"></div>
+  </section>
+
+  <!-- How it works -->
+  <section class="mb-6">
+    <div class="section-label">How The Bet Works</div>
+    <div class="grid-3">
+      <div class="how-card fade-up delay-1">
+        <div class="how-icon">📊</div>
+        <div class="how-title">Stats Engine</div>
+        <div class="how-desc">Processes 50+ team and player metrics including PPG, yards per game, turnover margin, 3rd down %, red zone efficiency, and more.</div>
+      </div>
+      <div class="how-card fade-up delay-2">
+        <div class="how-icon">🧠</div>
+        <div class="how-title">AI Predictor</div>
+        <div class="how-desc">Combines offensive vs. defensive matchup analysis, home field advantage, recent form weighting, recruiting talent, and coaching tendencies.</div>
+      </div>
+      <div class="how-card fade-up delay-3">
+        <div class="how-icon">📱</div>
+        <div class="how-title">Social Intelligence</div>
+        <div class="how-desc">Aggregates insider tips, injury reports, practice reports, and sentiment from beat writers, Reddit, and Twitter/X for edge-finding signals.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    <div class="disclaimer-icon">ℹ</div>
+    <div>
+      <div class="disclaimer-title">Data Sources</div>
+      <div class="disclaimer-text">
+        Powered by College Football Data API (CFBD), ESPN feeds, beat writer reports, and social media
+        aggregation. Predictions are for entertainment purposes only. Gambling involves risk — only bet
+        what you can afford to lose. Add your CFBD API key in
+        <code>.env.local</code> for live data.
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <p>The Bet · D1 Football Predictor · 2026 Season · <span class="footer-accent">For entertainment purposes</span></p>
+    <p style="margin-top:4px;opacity:.5;font-size:.72rem">Predictions use team stats, coaching data, recruiting rankings &amp; social media signals. Always gamble responsibly.</p>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/predictor.js"></script>
+<script>
+// ── Render model stats
+(function() {
+  const stats = [
+    { label: "Straight Up", value: `${MODEL_RECORD.straightUp.wins}-${MODEL_RECORD.straightUp.losses}`, sub: `${(MODEL_RECORD.straightUp.pct * 100).toFixed(1)}%`, color: "var(--primary)" },
+    { label: "Against the Spread", value: `${MODEL_RECORD.atsRecord.wins}-${MODEL_RECORD.atsRecord.losses}`, sub: `${(MODEL_RECORD.atsRecord.pct * 100).toFixed(1)}%`, color: "var(--accent)" },
+    { label: "Over / Under", value: `${MODEL_RECORD.totalRecord.wins}-${MODEL_RECORD.totalRecord.losses}`, sub: `${(MODEL_RECORD.totalRecord.pct * 100).toFixed(1)}%`, color: "var(--gold)" },
+    { label: "Estimated ROI", value: `+${MODEL_RECORD.roi}%`, sub: "flat betting", color: "var(--primary)" },
+  ];
+  document.getElementById("model-stats").innerHTML = stats.map(s => `
+    <div class="stat-cell fade-up">
+      <div class="stat-cell-label">${s.label}</div>
+      <div class="stat-cell-value" style="color:${s.color}">${s.value}</div>
+      <div class="stat-cell-sub">${s.sub}</div>
+    </div>`).join("");
+})();
+
+// ── Generate predictions for all games
+const allPredictions = GAMES.map(g => ({ game: resolveGame(g), prediction: null }));
+allPredictions.forEach(p => { p.prediction = predictGame(p.game); });
+
+// ── Top picks
+(function() {
+  const picks = allPredictions
+    .filter(p => p.prediction.spreadPick.side !== "no-bet" && p.prediction.spreadPick.confidence >= 65)
+    .slice(0, 3);
+  const icons = ["🏆","🎯","⚡"];
+  const labels = ["#1 Pick of the Week","#2 Pick of the Week","#3 Pick of the Week"];
+  document.getElementById("top-picks").innerHTML = picks.map((p, i) => {
+    const { game, prediction: pred } = p;
+    const sp = pred.spreadPick;
+    const lineVal = sp.side === "home"
+      ? fmtSpread(game.bettingLines.spread)
+      : fmtSpread(-game.bettingLines.spread);
+    const chipCls = sp.side === "home" ? "pick-home" : "pick-away";
+    const chipColor = sp.side === "home" ? "var(--accent)" : "var(--gold)";
+    return `
+      <div class="top-pick fade-up delay-${i+1}">
+        <div class="pick-rank">
+          <span class="pick-rank-icon">${icons[i]}</span>
+          <span class="pick-rank-label">${labels[i]}</span>
+        </div>
+        <div class="flex items-center gap-3 mb-3">
+          <div class="team-logo team-logo-sm" style="background:${game.awayTeam.color}">${game.awayTeam.abbreviation.slice(0,3)}</div>
+          <span class="text-xs text-muted">@</span>
+          <div class="team-logo team-logo-sm" style="background:${game.homeTeam.color}">${game.homeTeam.abbreviation.slice(0,3)}</div>
+          <div style="margin-left:4px">
+            <div class="text-sm fw-bold">${game.awayTeam.abbreviation} @ ${game.homeTeam.abbreviation}</div>
+            <div class="text-xs text-muted">${fmtDate(game.date)}</div>
+          </div>
+        </div>
+        <div class="pick-chip ${chipCls} mb-3" style="text-align:left">
+          <div class="pick-chip-label">ATS Pick</div>
+          <div class="pick-chip-val" style="font-size:1rem;color:${chipColor}">${sp.team}</div>
+          <div class="pick-chip-sub">Line: ${lineVal}</div>
+        </div>
+        <div class="flex justify-between text-xs text-muted">
+          <span>Confidence: <strong style="color:var(--text)">${sp.confidence}%</strong></span>
+          <span>Edge: <strong style="color:var(--primary)">+${sp.edge} pts</strong></span>
+        </div>
+      </div>`;
+  }).join("") || '<p class="text-muted text-sm">No high-confidence picks found this week.</p>';
+})();
+
+// ── Featured games (elite + high confidence)
+(function() {
+  const featured = allPredictions
+    .filter(p => p.prediction.confidence === "elite" || p.prediction.confidence === "high")
+    .slice(0, 6);
+
+  document.getElementById("featured-games").innerHTML = featured.map(({ game, prediction: pred }) => {
+    return renderGameCard(game, pred, "pages/game.html");
+  }).join("");
+})();
+
+function renderGameCard(game, pred, baseUrl) {
+  const isHomeFavored = pred.predictedSpread >= 0;
+  const winner = isHomeFavored ? game.homeTeam : game.awayTeam;
+  const loser  = isHomeFavored ? game.awayTeam : game.homeTeam;
+  const confCls = { elite: "badge-elite", high: "badge-high", medium: "badge-medium", low: "badge-low" }[pred.confidence];
+  const confLbl = { elite: "ELITE PICK", high: "HIGH CONF", medium: "MODERATE", low: "LOW CONF" }[pred.confidence];
+
+  const sp = pred.spreadPick;
+  const tp = pred.totalPick;
+  const ats = sp.side === "no-bet" ? `<div class="pick-chip pick-neutral"><div class="pick-chip-label">ATS Pick</div><div class="pick-chip-val">No edge</div></div>`
+    : `<div class="pick-chip ${sp.side === "home" ? "pick-home" : "pick-away"}">
+        <div class="pick-chip-label">ATS Pick</div>
+        <div class="pick-chip-val">${sp.team.split(" ").pop()}</div>
+        ${game.bettingLines ? `<div class="pick-chip-sub">${fmtSpread(sp.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread)}</div>` : ""}
+       </div>`;
+
+  const tot = tp.side === "no-bet" ? `<div class="pick-chip pick-neutral"><div class="pick-chip-label">Total</div><div class="pick-chip-val">No edge</div></div>`
+    : `<div class="pick-chip ${tp.side === "over" ? "pick-over" : "pick-under"}">
+        <div class="pick-chip-label">Total</div>
+        <div class="pick-chip-val">${tp.side.toUpperCase()}</div>
+        ${game.bettingLines ? `<div class="pick-chip-sub">${game.bettingLines.total}</div>` : ""}
+       </div>`;
+
+  const homePct = isHomeFavored ? pred.winProbability : 100 - pred.winProbability;
+  const awayPct = 100 - homePct;
+
+  return `
+    <a class="card card-link card-p" href="${baseUrl}?id=${game.id}">
+      <div class="game-card-header">
+        <div class="game-card-meta">
+          <span>Wk ${game.week}</span>
+          <span style="color:var(--border)">·</span>
+          <span>${fmtDate(game.date)} · ${game.time}</span>
+          ${game.isConferenceGame ? '<span class="badge badge-conf">CONF</span>' : ""}
+        </div>
+        <span class="badge ${confCls}">${confLbl}</span>
+      </div>
+      <div class="game-card-matchup">
+        <div class="team-chip">
+          <div class="team-logo team-logo-md" style="background:${game.awayTeam.color}">${game.awayTeam.abbreviation.slice(0,3)}</div>
+          <div>
+            <div class="team-name">${game.awayTeam.name}</div>
+            <div class="team-sub">${game.awayTeam.mascot} · ${game.awayTeam.wins}-${game.awayTeam.losses}</div>
+          </div>
+        </div>
+        <div class="game-card-vs">
+          <div class="game-card-vs-text">VS</div>
+          <div class="game-card-vs-net">${game.network}</div>
+        </div>
+        <div class="team-chip team-chip-r">
+          <div>
+            <div class="team-name text-right">${game.homeTeam.name}</div>
+            <div class="team-sub text-right">${game.homeTeam.mascot} · ${game.homeTeam.wins}-${game.homeTeam.losses}</div>
+          </div>
+          <div class="team-logo team-logo-md" style="background:${game.homeTeam.color}">${game.homeTeam.abbreviation.slice(0,3)}</div>
+        </div>
+      </div>
+      <div class="pred-row">
+        <div class="pred-dot" style="background:${winner.color}"></div>
+        <div class="pred-winner">${winner.name} wins</div>
+        <div class="pred-prob">${pred.winProbability}% chance</div>
+      </div>
+      <div class="prob-bar">
+        <div class="prob-bar-labels"><span>${game.awayTeam.abbreviation}</span><span>${game.homeTeam.abbreviation}</span></div>
+        <div class="prob-bar-track">
+          <div style="width:${awayPct}%;background:${game.awayTeam.color}"></div>
+          <div style="width:${homePct}%;background:${game.homeTeam.color}"></div>
+        </div>
+      </div>
+      <div class="pick-chips">
+        ${ats}
+        ${tot}
+        <div class="pick-chip pick-neutral">
+          <div class="pick-chip-label">Confidence</div>
+          <div class="pick-chip-val" style="color:${pred.winProbability>=75?"var(--primary)":pred.winProbability>=60?"var(--success)":"var(--gold)"}">${pred.winProbability}%</div>
+          <div style="height:3px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden">
+            <div style="width:${pred.winProbability}%;height:100%;background:var(--primary);border-radius:2px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="game-card-footer">
+        <span>${game.venue}</span>
+        <span class="game-card-footer-link">View analysis →</span>
+      </div>
+    </a>`;
+}
+window.renderGameCard = renderGameCard;
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Games — The Bet D1 Football Predictor</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="../index.html">
+      <div class="nav-logo-icon">TB</div>
+      THE BET
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../index.html">Home</a>
+      <a class="nav-link active" href="games.html">Games</a>
+      <a class="nav-link" href="teams.html">Teams</a>
+    </div>
+    <div class="nav-badge"><span class="nav-dot"></span>2026 Season</div>
+  </div>
+</nav>
+
+<main class="container page-content">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">2026 GAME PREDICTIONS</h1>
+    <p class="page-sub">AI-powered picks for every D1 matchup — winner, spread, and over/under.</p>
+    <div class="page-stats" id="page-stats"></div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar mb-5">
+    <input id="search" class="field" placeholder="Search team..." style="width:160px" />
+    <div class="chip-row" id="conf-chips"></div>
+    <select id="week-select" class="field">
+      <option value="all">All Weeks</option>
+    </select>
+    <div class="chip-row ml-auto" id="sort-chips">
+      <div class="chip active" data-sort="date">By Date</div>
+      <div class="chip" data-sort="confidence">By Confidence</div>
+    </div>
+  </div>
+
+  <!-- Results count -->
+  <div class="text-xs text-muted mb-3" id="result-count"></div>
+
+  <!-- Game grid -->
+  <div class="grid-auto" id="game-grid"></div>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>The Bet · D1 Football Predictor · 2026 Season · <span class="footer-accent">For entertainment purposes</span></p>
+  </div>
+</footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/predictor.js"></script>
+<script>
+const CONFERENCES = ["all", "SEC", "Big Ten", "ACC", "Independent"];
+
+let filterConf = "all", filterWeek = "all", search = "", sortBy = "date";
+
+// Build all predictions
+const allPredictions = GAMES.map(g => ({ game: resolveGame(g), prediction: predictGame(resolveGame(g)) }));
+
+// Page stats
+(function() {
+  const elite = allPredictions.filter(p => p.prediction.confidence === "elite").length;
+  const high  = allPredictions.filter(p => p.prediction.confidence === "high").length;
+  const ats   = allPredictions.filter(p => p.prediction.spreadPick.side !== "no-bet").length;
+  document.getElementById("page-stats").innerHTML = [
+    { label: "Total Games", value: allPredictions.length, color: "var(--text)" },
+    { label: "Elite Picks", value: elite, color: "var(--primary)" },
+    { label: "High Confidence", value: high, color: "#34d399" },
+    { label: "ATS Picks", value: ats, color: "var(--accent)" },
+  ].map(s => `<div class="page-stat"><span class="page-stat-val" style="color:${s.color}">${s.value}</span><span class="page-stat-label">${s.label}</span></div>`).join("");
+})();
+
+// Conf chips
+(function() {
+  document.getElementById("conf-chips").innerHTML = CONFERENCES.map(c => `<div class="chip${c === "all" ? " active" : ""}" data-conf="${c}">${c === "all" ? "All Conf." : c}</div>`).join("");
+  document.getElementById("conf-chips").addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    document.querySelectorAll("#conf-chips .chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    filterConf = chip.dataset.conf;
+    render();
+  });
+})();
+
+// Week options
+(function() {
+  const weeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
+  const sel = document.getElementById("week-select");
+  weeks.forEach(w => { const o = document.createElement("option"); o.value = w; o.textContent = `Week ${w}`; sel.appendChild(o); });
+  sel.addEventListener("change", () => { filterWeek = sel.value === "all" ? "all" : parseInt(sel.value); render(); });
+})();
+
+// Search
+document.getElementById("search").addEventListener("input", e => { search = e.target.value.toLowerCase(); render(); });
+
+// Sort
+document.getElementById("sort-chips").addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  document.querySelectorAll("#sort-chips .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active");
+  sortBy = chip.dataset.sort;
+  render();
+});
+
+function render() {
+  let list = [...allPredictions];
+  if (filterConf !== "all") list = list.filter(({game:g}) => g.homeTeam.conference === filterConf || g.awayTeam.conference === filterConf);
+  if (filterWeek !== "all") list = list.filter(({game:g}) => g.week === filterWeek);
+  if (search) list = list.filter(({game:g}) => g.homeTeam.name.toLowerCase().includes(search) || g.awayTeam.name.toLowerCase().includes(search));
+  if (sortBy === "confidence") {
+    const o = { elite:4, high:3, medium:2, low:1 };
+    list.sort((a,b) => (o[b.prediction.confidence]||0) - (o[a.prediction.confidence]||0));
+  } else {
+    list.sort((a,b) => a.game.date.localeCompare(b.game.date));
+  }
+
+  document.getElementById("result-count").textContent = `Showing ${list.length} game${list.length !== 1 ? "s" : ""}`;
+
+  if (list.length === 0) {
+    document.getElementById("game-grid").innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🏈</div><div class="empty-title">No games found</div><div class="empty-sub">Try adjusting your filters</div></div>`;
+    return;
+  }
+
+  document.getElementById("game-grid").innerHTML = list.map(({game, prediction}) => renderGameCard(game, prediction, "game.html")).join("");
+}
+
+function renderGameCard(game, pred, baseUrl) {
+  const isHomeFavored = pred.predictedSpread >= 0;
+  const winner = isHomeFavored ? game.homeTeam : game.awayTeam;
+  const confCls = { elite:"badge-elite", high:"badge-high", medium:"badge-medium", low:"badge-low" }[pred.confidence];
+  const confLbl = { elite:"ELITE PICK", high:"HIGH CONF", medium:"MODERATE", low:"LOW CONF" }[pred.confidence];
+
+  const sp = pred.spreadPick, tp = pred.totalPick;
+  const ats = sp.side === "no-bet"
+    ? `<div class="pick-chip pick-neutral"><div class="pick-chip-label">ATS Pick</div><div class="pick-chip-val">No edge</div></div>`
+    : `<div class="pick-chip ${sp.side==="home"?"pick-home":"pick-away"}"><div class="pick-chip-label">ATS Pick</div><div class="pick-chip-val">${sp.team.split(" ").pop()}</div>${game.bettingLines?`<div class="pick-chip-sub">${fmtSpread(sp.side==="home"?game.bettingLines.spread:-game.bettingLines.spread)}</div>`:""}</div>`;
+  const tot = tp.side === "no-bet"
+    ? `<div class="pick-chip pick-neutral"><div class="pick-chip-label">Total</div><div class="pick-chip-val">No edge</div></div>`
+    : `<div class="pick-chip ${tp.side==="over"?"pick-over":"pick-under"}"><div class="pick-chip-label">Total</div><div class="pick-chip-val">${tp.side.toUpperCase()}</div>${game.bettingLines?`<div class="pick-chip-sub">${game.bettingLines.total}</div>`:""}</div>`;
+
+  const homePct = isHomeFavored ? pred.winProbability : 100 - pred.winProbability;
+  const awayPct = 100 - homePct;
+
+  return `
+    <a class="card card-link card-p" href="${baseUrl}?id=${game.id}">
+      <div class="game-card-header">
+        <div class="game-card-meta">
+          <span>Wk ${game.week}</span><span style="color:var(--border)">·</span>
+          <span>${fmtDate(game.date)} · ${game.time}</span>
+          ${game.isConferenceGame?'<span class="badge badge-conf">CONF</span>':""}
+        </div>
+        <span class="badge ${confCls}">${confLbl}</span>
+      </div>
+      <div class="game-card-matchup">
+        <div class="team-chip">
+          <div class="team-logo team-logo-md" style="background:${game.awayTeam.color}">${game.awayTeam.abbreviation.slice(0,3)}</div>
+          <div><div class="team-name">${game.awayTeam.name}</div><div class="team-sub">${game.awayTeam.mascot} · ${game.awayTeam.wins}-${game.awayTeam.losses}</div></div>
+        </div>
+        <div class="game-card-vs"><div class="game-card-vs-text">VS</div><div class="game-card-vs-net">${game.network}</div></div>
+        <div class="team-chip team-chip-r">
+          <div><div class="team-name text-right">${game.homeTeam.name}</div><div class="team-sub text-right">${game.homeTeam.mascot} · ${game.homeTeam.wins}-${game.homeTeam.losses}</div></div>
+          <div class="team-logo team-logo-md" style="background:${game.homeTeam.color}">${game.homeTeam.abbreviation.slice(0,3)}</div>
+        </div>
+      </div>
+      <div class="pred-row">
+        <div class="pred-dot" style="background:${winner.color}"></div>
+        <div class="pred-winner">${winner.name} wins</div>
+        <div class="pred-prob">${pred.winProbability}% chance</div>
+      </div>
+      <div class="prob-bar">
+        <div class="prob-bar-labels"><span>${game.awayTeam.abbreviation}</span><span>${game.homeTeam.abbreviation}</span></div>
+        <div class="prob-bar-track">
+          <div style="width:${awayPct}%;background:${game.awayTeam.color}"></div>
+          <div style="width:${homePct}%;background:${game.homeTeam.color}"></div>
+        </div>
+      </div>
+      <div class="pick-chips">${ats}${tot}
+        <div class="pick-chip pick-neutral">
+          <div class="pick-chip-label">Confidence</div>
+          <div class="pick-chip-val" style="color:${pred.winProbability>=75?"var(--primary)":pred.winProbability>=60?"var(--success)":"var(--gold)"}">${pred.winProbability}%</div>
+          <div style="height:3px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden"><div style="width:${pred.winProbability}%;height:100%;background:var(--primary);border-radius:2px"></div></div>
+        </div>
+      </div>
+      <div class="game-card-footer"><span>${game.venue}</span><span class="game-card-footer-link">View analysis →</span></div>
+    </a>`;
+}
+
+render();
+</script>
+</body>
+</html>

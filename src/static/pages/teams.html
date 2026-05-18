@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teams — The Bet D1 Football Predictor</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="../index.html">
+      <div class="nav-logo-icon">TB</div>
+      THE BET
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../index.html">Home</a>
+      <a class="nav-link" href="games.html">Games</a>
+      <a class="nav-link active" href="teams.html">Teams</a>
+    </div>
+    <div class="nav-badge"><span class="nav-dot"></span>2026 Season</div>
+  </div>
+</nav>
+
+<main class="container page-content">
+
+  <div class="page-header">
+    <h1 class="page-title">TEAM POWER RANKINGS</h1>
+    <p class="page-sub">Composite ratings based on offense, defense, recruiting, coaching, and efficiency metrics.</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar mb-5">
+    <input id="search" class="field" placeholder="Search team..." style="width:160px" />
+    <div class="chip-row" id="conf-chips"></div>
+    <div class="chip-row ml-auto" id="sort-chips">
+      <div class="chip active" data-sort="rating">Overall</div>
+      <div class="chip" data-sort="offense">Offense</div>
+      <div class="chip" data-sort="defense">Defense</div>
+      <div class="chip" data-sort="record">Record</div>
+    </div>
+  </div>
+
+  <!-- Table header -->
+  <div class="team-row" style="cursor:default;background:var(--surface);margin-bottom:4px;opacity:.7;pointer-events:none">
+    <div class="text-xs text-muted fw-bold">#</div>
+    <div class="text-xs text-muted fw-bold" style="grid-column:2/4">Team</div>
+    <div class="text-xs text-muted fw-bold text-center">W-L</div>
+    <div class="text-xs text-muted fw-bold text-center hide-sm">Overall</div>
+    <div class="text-xs text-muted fw-bold text-center hide-md">Offense</div>
+    <div class="text-xs text-muted fw-bold text-center hide-md">Defense</div>
+    <div class="text-xs text-muted fw-bold text-center hide-md">SP+</div>
+    <div></div>
+  </div>
+
+  <div id="teams-list"></div>
+
+  <div style="margin-top:32px" class="card card-p">
+    <div class="section-label">Rating System</div>
+    <div class="grid-2" style="gap:12px">
+      <div class="text-xs text-muted"><strong style="color:var(--text)">Overall Rating</strong> — Composite score combining all factors (0–100)</div>
+      <div class="text-xs text-muted"><strong style="color:var(--accent)">Offense Rating</strong> — Scoring, yards, efficiency, pace (0–100)</div>
+      <div class="text-xs text-muted"><strong style="color:var(--gold)">Defense Rating</strong> — Points allowed, turnovers, sacks, rush D (0–100)</div>
+      <div class="text-xs text-muted"><strong style="color:var(--primary)">SP+</strong> — ESPN's college football predictive power metric</div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>The Bet · D1 Football Predictor · 2026 Season · <span class="footer-accent">For entertainment purposes</span></p>
+  </div>
+</footer>
+
+<script src="../js/data.js"></script>
+<script>
+const CONFERENCES = ["all","SEC","Big Ten","ACC","Independent"];
+let filterConf = "all", search = "", sortBy = "rating";
+
+// Conf chips
+document.getElementById("conf-chips").innerHTML = CONFERENCES.map(c => `<div class="chip${c==="all"?" active":""}" data-conf="${c}">${c==="all"?"All":c}</div>`).join("");
+document.getElementById("conf-chips").addEventListener("click", e => {
+  const chip = e.target.closest(".chip"); if (!chip) return;
+  document.querySelectorAll("#conf-chips .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active"); filterConf = chip.dataset.conf; render();
+});
+
+document.getElementById("sort-chips").addEventListener("click", e => {
+  const chip = e.target.closest(".chip"); if (!chip) return;
+  document.querySelectorAll("#sort-chips .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active"); sortBy = chip.dataset.sort; render();
+});
+
+document.getElementById("search").addEventListener("input", e => { search = e.target.value.toLowerCase(); render(); });
+
+function render() {
+  let teams = Object.values(TEAMS);
+  if (filterConf !== "all") teams = teams.filter(t => t.conference === filterConf);
+  if (search) teams = teams.filter(t => t.name.toLowerCase().includes(search) || t.mascot.toLowerCase().includes(search) || t.abbreviation.toLowerCase().includes(search));
+
+  switch(sortBy) {
+    case "offense": teams.sort((a,b) => b.offensiveRating - a.offensiveRating); break;
+    case "defense": teams.sort((a,b) => b.defensiveRating - a.defensiveRating); break;
+    case "record":  teams.sort((a,b) => b.wins/(b.wins+b.losses) - a.wins/(a.wins+a.losses)); break;
+    default:        teams.sort((a,b) => b.rating - a.rating);
+  }
+
+  if (teams.length === 0) {
+    document.getElementById("teams-list").innerHTML = `<div class="empty"><div class="empty-icon">🏈</div><div class="empty-title">No teams found</div><div class="empty-sub">Try a different search</div></div>`;
+    return;
+  }
+
+  const rankColor = i => i===0?"#f59e0b":i===1?"#94a3b8":i===2?"#92400e":"var(--muted)";
+  const ratingColor = v => v>=95?"var(--primary)":v>=85?"#34d399":v>=75?"var(--gold)":"var(--muted)";
+
+  document.getElementById("teams-list").innerHTML = teams.map((team, i) => {
+    const winPct = team.wins / (team.wins + team.losses);
+    return `
+      <a class="team-row" href="games.html?team=${encodeURIComponent(team.name)}">
+        <div class="team-rank ${i<3?`rank-${i+1}`:""}">${i+1}</div>
+        <div style="grid-column:2/4;display:flex;align-items:center;gap:12px">
+          <div class="team-logo team-logo-md" style="background:${team.color}">${team.abbreviation.slice(0,3)}</div>
+          <div><div class="team-name">${team.name}</div><div class="team-sub">${team.conference}</div></div>
+        </div>
+        <div class="text-center">
+          <span style="font-size:.875rem;font-weight:700;color:var(--text)">${team.wins}-${team.losses}</span>
+        </div>
+        <div class="rating-cell hide-sm">
+          <div class="rating-bar-wrap"><div class="rating-bar" style="width:${team.rating}%;background:${ratingColor(team.rating)}"></div></div>
+          <div class="rating-val">${team.rating}</div>
+        </div>
+        <div class="rating-cell hide-md">
+          <div class="rating-bar-wrap"><div class="rating-bar" style="width:${team.offensiveRating}%;background:var(--accent)"></div></div>
+          <div class="rating-val">${team.offensiveRating}</div>
+        </div>
+        <div class="rating-cell hide-md">
+          <div class="rating-bar-wrap"><div class="rating-bar" style="width:${team.defensiveRating}%;background:var(--gold)"></div></div>
+          <div class="rating-val">${team.defensiveRating}</div>
+        </div>
+        <div class="text-center hide-md">
+          <span style="font-weight:700;color:${ratingColor(team.rating*0.9)}">+${team.spRating.toFixed(1)}</span>
+        </div>
+        <div class="text-right text-muted" style="transition:color .15s">→</div>
+      </a>`;
+  }).join("");
+}
+
+render();
+</script>
+</body>
+</html>
