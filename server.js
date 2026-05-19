@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 /**
  * The Bet — Static file server
- * Serves src/static on port 3000 with correct MIME types and CORS.
+ * Serves the website root on port 3000 with correct MIME types and CORS.
  */
 const http = require("http");
 const fs   = require("fs");
 const path = require("path");
 const url  = require("url");
 
-const ROOT = path.join(__dirname, "src", "static");
+const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
 
 const MIME = {
