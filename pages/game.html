@@ -919,8 +919,8 @@ function renderGamePage(gData) {
                       ${s !== "healthy" ? (() => {
                         const why = whyNotActive(p);
                         const pf = p.personalFlags;
-                        const focusNote = pf && pf.distractionLevel >= 5 ? (pf.distractionNote || pf.distractionType || ("Focus concern level " + pf.distractionLevel + "/10")) : "";
-                        const fullReason = [why, focusNote].filter(Boolean).join(" · ");
+                        const focusShort = pf && pf.distractionLevel >= 5 ? (pf.distractionType ? pf.distractionType.replace(/_/g," ") : "focus concern") : "";
+                        const fullReason = [why, focusShort].filter(Boolean).join(" · ");
                         return fullReason ? `<div style="font-size:.7rem;color:${sc};font-weight:600;margin-top:1px">${fullReason}</div>` : "";
                       })() : ""}
                     </div>
@@ -938,18 +938,22 @@ function renderGamePage(gData) {
         <div style="margin-bottom:22px">
           <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>PLAYER INTELLIGENCE FEEDS<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
           <div style="display:grid;gap:8px">
-            ${practiceNotes.map(p => {
+            ${practiceNotes.map((p, fi) => {
               const t = p.teamId === home.id ? home : away;
               const dl = p.personalFlags.distractionLevel || 0;
+              const feedId = `pif-${fi}`;
               return `
-                <div style="padding:10px 12px;border-left:3px solid ${t.color};background:var(--surface);border-radius:0 8px 8px 0">
-                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">
+                <div style="padding:10px 12px;border-left:3px solid ${t.color};background:var(--surface);border-radius:0 8px 8px 0;cursor:pointer" onclick="(function(el){var d=el.querySelector('.pif-body');var c=el.querySelector('.pif-chev');if(!d)return;var open=d.style.display!=='none';d.style.display=open?'none':'block';if(c)c.textContent=open?'▸':'▾';})(this)">
+                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
                     <span style="font-size:.8rem;font-weight:700;color:var(--text)">${p.name}</span>
                     <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${t.abbreviation}</span>
-                    ${dl >= 6 ? `<span title="Focus concern — distraction level ${dl}/10. High scores indicate off-field issues that may affect performance." style="margin-left:auto;font-size:.62rem;padding:1px 5px;border-radius:4px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700;cursor:help">⚠ FOCUS RISK ${dl}/10</span>` : ""}
+                    ${dl >= 6 ? `<span style="margin-left:auto;font-size:.62rem;padding:1px 5px;border-radius:4px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700">⚠ FOCUS RISK ${dl}/10</span>` : `<span style="margin-left:auto;font-size:.6rem;color:var(--muted)">INTEL</span>`}
+                    <span class="pif-chev" style="font-size:.72rem;color:var(--muted)">▸</span>
                   </div>
-                  <div style="font-size:.8rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${p.personalFlags.distractionNote}"</div>
-                  ${p.personalFlags.socialMediaPattern ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:4px">🐦 Twitter: ${p.personalFlags.socialMediaPattern}</div>` : ""}
+                  <div class="pif-body" style="display:none;margin-top:8px">
+                    <div style="font-size:.8rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${p.personalFlags.distractionNote}"</div>
+                    ${p.personalFlags.socialMediaPattern ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:4px">Social: ${p.personalFlags.socialMediaPattern}</div>` : ""}
+                  </div>
                 </div>`;
             }).join("")}
           </div>

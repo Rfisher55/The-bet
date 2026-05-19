@@ -9,7 +9,7 @@ const LIVE = (() => {
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
   const SEASON    = 2026;
   const KEY_STORE   = "theBet_cfbdKey";
-  const CACHE_STORE = "theBet_liveCache_v10";  // v10 = KEY_PLAYERS all FBS, programHealth w/ fanMorale/cohesion, lat cold weather
+  const CACHE_STORE = "theBet_liveCache_v11";  // v11 = ESPN rosters/injuries/team news/stats/live scores for all 16 curated teams
   const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
 
   // ── Explicit school-name → internal-ID mapping ──────────────
@@ -228,6 +228,132 @@ const LIVE = (() => {
     };
   }
 
+  // ── ESPN team IDs for the 16 curated teams ──────────────────
+  const ESPN_TEAM_IDS = {
+    alabama:333, auburn:2, clemson:228, florida:57, florida_state:52,
+    georgia:61, lsu:99, miami:2390, michigan:130, notre_dame:87,
+    ohio_state:194, oregon:2483, penn_state:213, tennessee:2633,
+    texas:251, wisconsin:275,
+  };
+
+  // ── ESPN: fetch current rosters for all 16 curated teams ────
+  async function fetchESPNRosters() {
+    const results = {};
+    await Promise.allSettled(
+      Object.entries(ESPN_TEAM_IDS).map(async ([teamId, espnId]) => {
+        try {
+          const r = await fetch(`${ESPN_BASE}/teams/${espnId}/roster?limit=150`);
+          if (!r.ok) return;
+          const d = await r.json();
+          const players = [];
+          // ESPN returns athletes in position groups
+          for (const group of (d.athletes || [])) {
+            for (const athlete of (group.items || group.athletes || [])) {
+              players.push({
+                name:        (athlete.displayName || athlete.fullName || "").trim(),
+                number:      (athlete.jersey || "").toString(),
+                position:    athlete.position?.abbreviation || "",
+                year:        athlete.experience?.displayValue || "",
+                heightWeight: (athlete.displayHeight && athlete.displayWeight)
+                  ? `${athlete.displayHeight} / ${athlete.displayWeight}` : "",
+                status:      (athlete.injuries?.[0]?.status || athlete.status?.type || "active").toLowerCase(),
+                injuryType:  athlete.injuries?.[0]?.longComment || athlete.injuries?.[0]?.type || null,
+              });
+            }
+          }
+          results[teamId] = players;
+        } catch {}
+      })
+    );
+    return results;
+  }
+
+  // ── ESPN: fetch injury reports for all 16 curated teams ─────
+  async function fetchESPNInjuries() {
+    const results = {};
+    await Promise.allSettled(
+      Object.entries(ESPN_TEAM_IDS).map(async ([teamId, espnId]) => {
+        try {
+          const r = await fetch(`${ESPN_BASE}/teams/${espnId}?enable=injuries`);
+          if (!r.ok) return;
+          const d = await r.json();
+          const injuries = (d.team?.injuries || []).map(inj => ({
+            name:       (inj.athlete?.displayName || "").trim(),
+            status:     (inj.status || "questionable").toLowerCase(),
+            injuryType: inj.longComment || inj.type || "",
+          }));
+          if (injuries.length) results[teamId] = injuries;
+        } catch {}
+      })
+    );
+    return results;
+  }
+
+  // ── ESPN: fetch recent team news for curated teams ───────────
+  async function fetchESPNTeamNews() {
+    const allNews = [];
+    await Promise.allSettled(
+      Object.entries(ESPN_TEAM_IDS).map(async ([teamId, espnId]) => {
+        try {
+          const r = await fetch(`${ESPN_BASE}/teams/${espnId}/news?limit=5`);
+          if (!r.ok) return;
+          const d = await r.json();
+          for (const a of (d.articles || [])) {
+            allNews.push({
+              teamId,
+              headline:    a.headline || "",
+              description: a.description || "",
+              url:         a.links?.web?.href || "",
+              published:   a.published || "",
+            });
+          }
+        } catch {}
+      })
+    );
+    return allNews;
+  }
+
+  // ── ESPN: fetch team-specific stats for curated teams ───────
+  async function fetchESPNTeamStats() {
+    const results = {};
+    await Promise.allSettled(
+      Object.entries(ESPN_TEAM_IDS).map(async ([teamId, espnId]) => {
+        try {
+          const r = await fetch(`${ESPN_BASE}/teams/${espnId}/statistics`);
+          if (!r.ok) return;
+          const d = await r.json();
+          const cats = {};
+          for (const cat of (d.results?.stats?.categories || [])) {
+            for (const stat of (cat.stats || [])) {
+              cats[stat.abbreviation || stat.name] = stat.value;
+            }
+          }
+          if (Object.keys(cats).length) results[teamId] = cats;
+        } catch {}
+      })
+    );
+    return results;
+  }
+
+  // ── ESPN: fetch scoreboard with live game status ─────────────
+  async function fetchESPNLiveScores() {
+    try {
+      const r = await fetch(`${ESPN_BASE}/scoreboard?groups=80&limit=50`);
+      if (!r.ok) return [];
+      const d = await r.json();
+      return (d.events || []).map(e => ({
+        id:       e.id,
+        status:   e.status?.type?.name || "pre",
+        clock:    e.status?.displayClock || "",
+        period:   e.status?.period || 0,
+        homeId:   e.competitions?.[0]?.competitors?.find(c => c.homeAway === "home")?.team?.location,
+        homeScore:e.competitions?.[0]?.competitors?.find(c => c.homeAway === "home")?.score,
+        awayId:   e.competitions?.[0]?.competitors?.find(c => c.homeAway === "away")?.team?.location,
+        awayScore:e.competitions?.[0]?.competitors?.find(c => c.homeAway === "away")?.score,
+      }));
+    } catch { return []; }
+  }
+
   // ── ESPN: fetch all FBS games for a season (no API key required) ──
   async function fetchESPNSchedule(season) {
     // Fetch all weeks (0–17 covers regular season + conf championships)
@@ -392,9 +518,15 @@ const LIVE = (() => {
       updateModalStatus();
 
       // Launch all no-key sources immediately in parallel with CFBD
-      const espnPromise    = fetchESPNSchedule(SEASON).catch(() => []);
-      const espnNewsPromise = fetchESPNNews().catch(() => []);
-      const redditPromise  = fetchRedditCFB().catch(() => []);
+      const espnPromise      = fetchESPNSchedule(SEASON).catch(() => []);
+      const espnNewsPromise  = fetchESPNNews().catch(() => []);
+      const redditPromise    = fetchRedditCFB().catch(() => []);
+      // ESPN team-specific sources (rosters, injuries, team news, stats, live scores)
+      const espnRostersPromise   = fetchESPNRosters().catch(() => ({}));
+      const espnInjuriesPromise  = fetchESPNInjuries().catch(() => ({}));
+      const espnTeamNewsPromise  = fetchESPNTeamNews().catch(() => []);
+      const espnTeamStatsPromise = fetchESPNTeamStats().catch(() => ({}));
+      const espnLivePromise      = fetchESPNLiveScores().catch(() => []);
 
       // All CFBD endpoints in one parallel batch — any failure is silently skipped
       const cfbdDefs = [
@@ -455,13 +587,19 @@ const LIVE = (() => {
       // 2026 schedule (CFBD)
       const games2026 = [...cfbd.reg26, ...cfbd.post26];
 
-      // ESPN schedule + news + Reddit (all ran in parallel with CFBD above)
-      const espnEvents  = await espnPromise;
-      const espnNews    = await espnNewsPromise;
-      const redditPosts = await redditPromise;
+      // ESPN schedule + news + Reddit + rosters/injuries/team data (all ran in parallel)
+      const espnEvents     = await espnPromise;
+      const espnNews       = await espnNewsPromise;
+      const redditPosts    = await redditPromise;
+      const espnRosters    = await espnRostersPromise;
+      const espnInjuries   = await espnInjuriesPromise;
+      const espnTeamNews   = await espnTeamNewsPromise;
+      const espnTeamStats  = await espnTeamStatsPromise;
+      const espnLiveScores = await espnLivePromise;
       onEndpointDone();
       const espnGames = espnEvents.map(e => mapESPNGame(e)).filter(Boolean);
-      console.log(`[LIVE] ESPN: ${espnGames.length} games | CFBD 2026: ${games2026.length} | Reddit: ${redditPosts.length} posts`);
+      const rosterCount = Object.values(espnRosters).reduce((s,r)=>s+r.length,0);
+      console.log(`[LIVE] ESPN: ${espnGames.length} games | CFBD 2026: ${games2026.length} | Reddit: ${redditPosts.length} posts | Rosters: ${rosterCount} players across ${Object.keys(espnRosters).length} teams`);
 
       // Choose primary schedule source: ESPN if full, CFBD if full, else merge with 2025 data
       let gamesFromApi;
@@ -503,6 +641,11 @@ const LIVE = (() => {
         playersReceiving: cfbd.playersReceiving,
         playersDefensive: cfbd.playersDefensive,
         espnNews,
+        espnTeamNews,
+        espnRosters,
+        espnInjuries,
+        espnTeamStats,
+        espnLiveScores,
         redditPosts,
         fetchedAt:   new Date().toISOString(),
       };
@@ -1266,6 +1409,120 @@ const LIVE = (() => {
         };
       }
     });
+
+    // ── 1b. Merge ESPN rosters + injuries into KEY_PLAYERS for curated teams ──
+    if (typeof KEY_PLAYERS !== "undefined" && Array.isArray(KEY_PLAYERS)) {
+      const espnRosters   = data.espnRosters   || {};
+      const espnInjuries  = data.espnInjuries  || {};
+
+      // For each curated team that has ESPN roster data, update player info
+      Object.entries(espnRosters).forEach(([teamId, rosterPlayers]) => {
+        const teamKPs = KEY_PLAYERS.filter(p => p.teamId === teamId);
+        if (!teamKPs.length || !rosterPlayers.length) return;
+
+        // Build a name-lookup from ESPN (last name → player record)
+        const espnByLast = {};
+        const espnByFull = {};
+        rosterPlayers.forEach(ep => {
+          const words = ep.name.split(" ");
+          const last  = words[words.length - 1].toLowerCase();
+          if (!espnByLast[last]) espnByLast[last] = [];
+          espnByLast[last].push(ep);
+          espnByFull[ep.name.toLowerCase()] = ep;
+        });
+
+        // Pull ESPN injury data for this team
+        const injMap = {};
+        (espnInjuries[teamId] || []).forEach(inj => {
+          injMap[inj.name.toLowerCase()] = inj;
+        });
+
+        teamKPs.forEach(kp => {
+          const kpWords  = kp.name.split(" ");
+          const kpLast   = kpWords[kpWords.length - 1].toLowerCase();
+          const kpFull   = kp.name.toLowerCase();
+
+          // Try exact name match first, then last-name match
+          const ep = espnByFull[kpFull] ||
+            (espnByLast[kpLast]?.length === 1 ? espnByLast[kpLast][0] : null);
+
+          if (ep) {
+            // Found in ESPN roster — update metadata and mark verified
+            if (ep.number)      kp.number = ep.number;
+            if (ep.year)        kp.year   = ep.year;
+            if (ep.heightWeight && !kp.heightWeight) kp.heightWeight = ep.heightWeight;
+            kp._espnVerified = true;
+
+            // Check ESPN injury status
+            const injEntry = injMap[kp.name.toLowerCase()];
+            if (injEntry) {
+              const s = injEntry.status.toLowerCase();
+              kp.injuryStatus = s.includes("out") ? "out" : s.includes("doubt") ? "doubtful" : "questionable";
+              if (injEntry.injuryType) kp.injuryType = injEntry.injuryType;
+            }
+          } else {
+            // Not found in ESPN roster — player may have left
+            kp._espnNotFound = true;
+          }
+        });
+
+        // Add any ESPN roster players who are NOT yet in KEY_PLAYERS for this team
+        const kpNames = new Set(teamKPs.map(p => p.name.toLowerCase()));
+        const teamObj = window.TEAMS ? TEAMS[teamId] : null;
+        let liveIdx   = KEY_PLAYERS.filter(p => p.teamId === teamId && p._espnVerified).length;
+        rosterPlayers.forEach(ep => {
+          if (kpNames.has(ep.name.toLowerCase())) return; // already curated
+          if (!ep.position || !ep.name) return;
+          // Only add skilled-position players (QB/RB/WR/TE/EDGE/LB/CB/S/DE/DT)
+          const incl = ["QB","RB","WR","TE","EDGE","DE","DT","LB","OLB","ILB","CB","S","DB","FS","SS"];
+          if (!incl.includes(ep.position)) return;
+          const injEntry = injMap[ep.name.toLowerCase()];
+          const injStatus = injEntry
+            ? (injEntry.status.includes("out") ? "out" : injEntry.status.includes("doubt") ? "doubtful" : "questionable")
+            : (ep.status !== "active" ? "questionable" : "healthy");
+          KEY_PLAYERS.push({
+            id: `p_live_${teamId.slice(0,6)}_${ep.position}_espn${++liveIdx}`,
+            name:        ep.name,
+            position:    ep.position,
+            teamId,
+            year:        ep.year        || "",
+            number:      ep.number      || "",
+            heightWeight:ep.heightWeight|| "",
+            hometown:    "",
+            injuryStatus: injStatus,
+            practiceStatus: injStatus === "healthy" ? "full" : "limited",
+            injuryType:  injEntry?.injuryType || ep.injuryType || null,
+            injuryHistory:[], injuryProneRating:3, impact:"medium",
+            personalFlags:{ distractionLevel:2, distractionNote:"", socialMediaPattern:"normal",
+                            nflDraftStatus:"", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"low" },
+            performanceMetrics:null, stats:null, scoutReport:"",
+            _espnVerified: true,
+          });
+        });
+      });
+
+      // Expose ESPN team stats + team news on TEAMS
+      if (window.TEAMS) {
+        Object.entries(data.espnTeamStats || {}).forEach(([teamId, stats]) => {
+          if (TEAMS[teamId]) TEAMS[teamId]._espnStats = stats;
+        });
+        const teamNewsMap = {};
+        (data.espnTeamNews || []).forEach(n => {
+          if (!teamNewsMap[n.teamId]) teamNewsMap[n.teamId] = [];
+          teamNewsMap[n.teamId].push(n);
+        });
+        Object.entries(teamNewsMap).forEach(([teamId, articles]) => {
+          if (TEAMS[teamId]) TEAMS[teamId]._espnNews = articles;
+        });
+      }
+
+      // Expose live scores globally
+      if ((data.espnLiveScores || []).length) {
+        window.__espnLiveScores = data.espnLiveScores;
+      }
+
+      console.log(`[LIVE] ESPN roster merge: ${Object.keys(espnRosters).length} teams | verified: ${KEY_PLAYERS.filter(p=>p._espnVerified).length} | notFound: ${KEY_PLAYERS.filter(p=>p._espnNotFound).length}`);
+    }
 
     // ── 2. Build KEY_PLAYERS for all FBS teams without curated entries ──
     if (typeof KEY_PLAYERS !== "undefined" && Array.isArray(KEY_PLAYERS)) {
