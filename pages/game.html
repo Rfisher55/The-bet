@@ -823,7 +823,7 @@ if (!gameData) {
 
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">🎯 Player Intelligence</div>
+        <div class="section-label">🎯 Player Intelligence <span style="font-size:.65rem;color:var(--muted);font-weight:400">(2025 stats · 2026 roster)</span></div>
         <div class="player-exp-grid">
           ${allPlayers.map(p => playerCard(p)).join("")}
         </div>
@@ -861,7 +861,7 @@ if (!gameData) {
   function renderStats() {
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">Head-to-Head Stats</div>
+        <div class="section-label">Head-to-Head Stats <span style="font-size:.65rem;color:var(--muted);font-weight:400">(2025 — prediction basis)</span></div>
         <div class="flex justify-between text-xs text-muted mb-4">
           <div class="flex items-center gap-2"><div style="width:10px;height:10px;border-radius:50%;background:${home.color}"></div>${home.name}</div>
           <div class="flex items-center gap-2">${away.name}<div style="width:10px;height:10px;border-radius:50%;background:${away.color}"></div></div>
@@ -1189,7 +1189,7 @@ if (!gameData) {
           <div class="team-logo team-logo-lg" style="background:${away.color}">${away.abbreviation.slice(0, 3)}</div>
           <div>
             <div style="font-size:1.1rem;font-weight:800;color:var(--text)">${away.name}</div>
-            <div class="text-xs text-muted">${away.mascot} · ${away.wins}-${away.losses} · Away</div>
+            <div class="text-xs text-muted">${away.mascot} · ${away.lastSeasonRecord||away.wins+'-'+away.losses+' (\'25)'} · Away</div>
             <div class="text-xs text-muted">${away.conference}</div>
           </div>
         </div>
@@ -1201,7 +1201,7 @@ if (!gameData) {
         <div class="team-chip team-chip-r">
           <div>
             <div style="font-size:1.1rem;font-weight:800;color:var(--text);text-align:right">${home.name}</div>
-            <div class="text-xs text-muted text-right">${home.mascot} · ${home.wins}-${home.losses} · Home</div>
+            <div class="text-xs text-muted text-right">${home.mascot} · ${home.lastSeasonRecord||home.wins+'-'+home.losses+' (\'25)'} · Home</div>
             <div class="text-xs text-muted text-right">${home.conference}</div>
           </div>
           <div class="team-logo team-logo-lg" style="background:${home.color}">${home.abbreviation.slice(0, 3)}</div>

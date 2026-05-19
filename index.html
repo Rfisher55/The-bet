@@ -54,7 +54,7 @@
 
   <!-- Model performance -->
   <section class="mb-6">
-    <div class="section-label">2025 Season Model Performance</div>
+    <div class="section-label">Historical Model Performance (2025 Prediction Basis)</div>
     <div class="stats-strip" id="model-stats"></div>
   </section>
 
@@ -241,7 +241,7 @@ function renderGameCard(game, pred, baseUrl) {
           <div class="team-logo team-logo-md" style="background:${game.awayTeam.color}">${game.awayTeam.abbreviation.slice(0,3)}</div>
           <div>
             <div class="team-name">${game.awayTeam.name}</div>
-            <div class="team-sub">${game.awayTeam.mascot} · ${game.awayTeam.wins}-${game.awayTeam.losses}</div>
+            <div class="team-sub">${game.awayTeam.mascot} · ${game.awayTeam.lastSeasonRecord || game.awayTeam.wins+'-'+game.awayTeam.losses+' (\'25)'}</div>
           </div>
         </div>
         <div class="game-card-vs">
@@ -251,7 +251,7 @@ function renderGameCard(game, pred, baseUrl) {
         <div class="team-chip team-chip-r">
           <div>
             <div class="team-name text-right">${game.homeTeam.name}</div>
-            <div class="team-sub text-right">${game.homeTeam.mascot} · ${game.homeTeam.wins}-${game.homeTeam.losses}</div>
+            <div class="team-sub text-right">${game.homeTeam.mascot} · ${game.homeTeam.lastSeasonRecord || game.homeTeam.wins+'-'+game.homeTeam.losses+' (\'25)'}</div>
           </div>
           <div class="team-logo team-logo-md" style="background:${game.homeTeam.color}">${game.homeTeam.abbreviation.slice(0,3)}</div>
         </div>

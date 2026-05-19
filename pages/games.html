@@ -168,11 +168,11 @@ function renderGameCard(game, pred, baseUrl) {
       <div class="game-card-matchup">
         <div class="team-chip">
           <div class="team-logo team-logo-md" style="background:${game.awayTeam.color}">${game.awayTeam.abbreviation.slice(0,3)}</div>
-          <div><div class="team-name">${game.awayTeam.name}</div><div class="team-sub">${game.awayTeam.mascot} · ${game.awayTeam.wins}-${game.awayTeam.losses}</div></div>
+          <div><div class="team-name">${game.awayTeam.name}</div><div class="team-sub">${game.awayTeam.mascot} · ${game.awayTeam.lastSeasonRecord||game.awayTeam.wins+'-'+game.awayTeam.losses+' (\'25)'}</div></div>
         </div>
         <div class="game-card-vs"><div class="game-card-vs-text">VS</div><div class="game-card-vs-net">${game.network}</div></div>
         <div class="team-chip team-chip-r">
-          <div><div class="team-name text-right">${game.homeTeam.name}</div><div class="team-sub text-right">${game.homeTeam.mascot} · ${game.homeTeam.wins}-${game.homeTeam.losses}</div></div>
+          <div><div class="team-name text-right">${game.homeTeam.name}</div><div class="team-sub text-right">${game.homeTeam.mascot} · ${game.homeTeam.lastSeasonRecord||game.homeTeam.wins+'-'+game.homeTeam.losses+' (\'25)'}</div></div>
           <div class="team-logo team-logo-md" style="background:${game.homeTeam.color}">${game.homeTeam.abbreviation.slice(0,3)}</div>
         </div>
       </div>

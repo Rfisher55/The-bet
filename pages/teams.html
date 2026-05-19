@@ -46,7 +46,7 @@
   <div class="team-row" style="cursor:default;background:var(--surface);margin-bottom:4px;opacity:.7;pointer-events:none">
     <div class="text-xs text-muted fw-bold">#</div>
     <div class="text-xs text-muted fw-bold" style="grid-column:2/4">Team</div>
-    <div class="text-xs text-muted fw-bold text-center">W-L</div>
+    <div class="text-xs text-muted fw-bold text-center">'25 W-L</div>
     <div class="text-xs text-muted fw-bold text-center hide-sm">Overall</div>
     <div class="text-xs text-muted fw-bold text-center hide-md">Offense</div>
     <div class="text-xs text-muted fw-bold text-center hide-md">Defense</div>
@@ -125,7 +125,8 @@ function render() {
           <div><div class="team-name">${team.name}</div><div class="team-sub">${team.conference}</div></div>
         </div>
         <div class="text-center">
-          <span style="font-size:.875rem;font-weight:700;color:var(--text)">${team.wins}-${team.losses}</span>
+          <div style="font-size:.75rem;font-weight:700;color:var(--primary)">2026</div>
+          <div style="font-size:.8rem;color:var(--muted)">${team.lastSeasonRecord || team.wins+'-'+team.losses+' (\'25)'}</div>
         </div>
         <div class="rating-cell hide-sm">
           <div class="rating-bar-wrap"><div class="rating-bar" style="width:${team.rating}%;background:${ratingColor(team.rating)}"></div></div>
