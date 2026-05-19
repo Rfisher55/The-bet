@@ -324,6 +324,52 @@ if (!gameData) {
       </div>`).join("");
   }
 
+  /* 3b — Game Preview / Written Analysis */
+  function renderGamePreview() {
+    const gp = game.gamePreview;
+    if (!gp) return "";
+    const pickTeam = gp.thePick && gp.thePick.team ? gp.thePick.team : "";
+    const pickLine = gp.thePick && gp.thePick.line ? gp.thePick.line : "";
+    const pickConf = gp.thePick && gp.thePick.confidence ? gp.thePick.confidence : "";
+    const pickUnit = gp.thePick && gp.thePick.unit ? gp.thePick.unit : 1;
+    const pickReason = gp.thePick && gp.thePick.reasoning ? gp.thePick.reasoning : "";
+    const confColor = { HIGH: "var(--primary)", MEDIUM: "var(--gold)", LOW: "var(--muted)" }[pickConf] || "var(--muted)";
+    const sectionIcons = {
+      "OFFENSIVE EDGE": "⚔️",
+      "DEFENSIVE BATTLEGROUND": "🛡️",
+      "KEY X-FACTOR": "⚡",
+      "COACHING EDGE": "🧠",
+      "THE PICK": "🎯",
+    };
+    const analysisHTML = (gp.analysis || []).map(a => `
+      <div style="margin-bottom:18px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+          <span style="font-size:1rem">${sectionIcons[a.section] || "📋"}</span>
+          <span style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l)">${a.section}</span>
+        </div>
+        <p style="font-size:.875rem;color:var(--text-soft);line-height:1.75;margin:0">${a.text}</p>
+      </div>`).join("");
+    return `
+      <div class="card card-p mb-5" style="border-color:rgba(16,185,129,.25);background:linear-gradient(135deg,rgba(16,185,129,.04) 0%,var(--card) 60%)">
+        <div class="section-label mb-4">📰 Game Analysis &amp; Preview</div>
+        <h2 style="font-size:1.2rem;font-weight:900;color:var(--text);letter-spacing:.5px;margin-bottom:10px;line-height:1.35">${gp.headline || ""}</h2>
+        <p style="font-size:.9rem;color:var(--text-soft);line-height:1.8;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)">${gp.synopsis || ""}</p>
+        ${analysisHTML}
+        ${pickTeam ? `
+        <div style="margin-top:20px;padding:16px 20px;border-radius:var(--radius-lg);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px">
+          <div>
+            <div style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">The Bet Model Pick</div>
+            <div style="font-size:1.3rem;font-weight:900;color:var(--primary)">${pickTeam} ${pickLine}</div>
+            <div style="font-size:.78rem;color:var(--muted-l);margin-top:4px;line-height:1.5">${pickReason}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0">
+            <div style="font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:${confColor};border:1px solid ${confColor};border-radius:20px;padding:2px 12px">${pickConf}</div>
+            <div style="font-size:.72rem;color:var(--muted)">Units: ${pickUnit}</div>
+          </div>
+        </div>` : ""}
+      </div>`;
+  }
+
   /* 4 — X-Factor Alerts Panel */
   function renderXFactors() {
     const xf = safe(() => pred.xFactors, null) || safe(() => game.xFactors, null);
@@ -337,7 +383,7 @@ if (!gameData) {
               <div class="flex items-center gap-2 mb-2">
                 <span style="font-size:1.2rem">${catIcon(x.category)}</span>
                 <span style="font-size:.7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:${severityColor(x.severity)}">${(x.severity || "").toUpperCase()}</span>
-                ${x.impactTeam ? `<span style="margin-left:auto;font-size:.65rem;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.07);color:var(--muted-l)">${x.impactTeam === "home" ? home.abbreviation : x.impactTeam === "away" ? away.abbreviation : "BOTH"}</span>` : ""}
+                ${x.impactTeam ? `<span style="margin-left:auto;font-size:.65rem;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.07);color:var(--muted-l)">${x.impactTeam === game.homeTeamId || x.impactTeam === "home" ? home.abbreviation : x.impactTeam === game.awayTeamId || x.impactTeam === "away" ? away.abbreviation : "BOTH"}</span>` : ""}
               </div>
               <div style="font-size:.875rem;font-weight:700;color:var(--text);margin-bottom:5px">${x.title || ""}</div>
               <div style="font-size:.78rem;color:var(--muted-l);line-height:1.5">${x.description || ""}</div>
@@ -1177,7 +1223,7 @@ if (!gameData) {
         <div class="flex items-center gap-2 flex-wrap">
           <span class="text-xs text-muted">${fmtDate(game.date)} · ${game.time} ET</span>
           <span class="text-xs text-muted">·</span>
-          <span class="text-xs text-muted">${game.venue}, ${game.venueCity}</span>
+          <span class="text-xs text-muted">${game.venue}${game.venueCity ? ", " + game.venueCity : ""}</span>
           <span class="text-xs text-muted">·</span>
           <span class="text-xs text-muted">${game.network}</span>
           ${game.isConferenceGame ? '<span class="badge badge-conf">CONF GAME</span>' : ""}
@@ -1208,6 +1254,8 @@ if (!gameData) {
         </div>
       </div>
     </div>
+
+    ${renderGamePreview()}
 
     ${renderXFactors()}
 
