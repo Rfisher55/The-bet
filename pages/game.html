@@ -583,11 +583,24 @@ if (!gameData) {
       { label: "SECONDARY", positions: ["CB","S","DB","FS","SS","NB","SAF"] },
       { label: "SPECIAL TEAMS", positions: ["K","P","LS","RS","KR","PR"] }
     ];
+    function whyNotActive(p) {
+      const parts = [];
+      const inj = (p.injuryType || "").trim();
+      if (inj && inj !== "none" && inj !== "null") parts.push(inj);
+      if (p.practiceStatus && !/^full$/i.test(p.practiceStatus)) parts.push(p.practiceStatus);
+      if (!parts.length && p.injuryHistory && p.injuryHistory.length) {
+        const recent = p.injuryHistory[p.injuryHistory.length - 1];
+        if (recent.type) parts.push(recent.type);
+        if (recent.note && parts.length < 2) parts.push(recent.note.slice(0, 40));
+      }
+      return parts.join(" · ");
+    }
     function statusBadge(p) {
       const s = (p.injuryStatus || "healthy").toLowerCase();
       if (s === "healthy") return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">✓ ACTIVE</span>`;
       const c = s === "out" ? ["rgba(239,68,68,.2)","rgba(239,68,68,.5)","var(--danger)"] : s === "doubtful" ? ["rgba(239,68,68,.1)","rgba(239,68,68,.3)","#f87171"] : ["rgba(245,158,11,.12)","rgba(245,158,11,.4)","var(--gold)"];
-      return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:${c[0]};border:1px solid ${c[1]};color:${c[2]};font-weight:700">${s.toUpperCase()}</span>`;
+      const why = whyNotActive(p);
+      return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:${c[0]};border:1px solid ${c[1]};color:${c[2]};font-weight:700">${s.toUpperCase()}${why ? " · " + why : ""}</span>`;
     }
     function keyStat(p) {
       const s = p.stats || {};
@@ -683,6 +696,13 @@ if (!gameData) {
                       ${hasAlert ? `<span title="${alertTip}" style="font-size:.58rem;padding:1px 5px;border-radius:5px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700;cursor:help">⚠ ${alertLabel}</span>` : ""}
                     </div>
                     ${ks ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:1px">${ks}</div>` : ""}
+                    ${(p.injuryStatus && p.injuryStatus !== "healthy") ? (() => {
+                      const pf = p.personalFlags;
+                      const focusNote = pf && pf.distractionLevel >= 5 ? (pf.distractionNote || pf.distractionType || "Focus concern") : "";
+                      const sc2 = (p.injuryStatus||"").toLowerCase()==="out"?"#f87171":(p.injuryStatus||"").toLowerCase()==="doubtful"?"#f87171":"var(--gold)";
+                      const reason = [whyNotActive(p), focusNote].filter(Boolean).join(" · ");
+                      return reason ? `<div style="font-size:.68rem;color:${sc2};font-weight:600;margin-top:1px">↳ ${reason}</div>` : "";
+                    })() : ""}
                   </div>
                   <span style="font-size:.72rem;color:var(--muted);flex-shrink:0">▾</span>
                 </div>
@@ -902,7 +922,13 @@ if (!gameData) {
                         <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${p.year||""}</span>
                         ${p.nflDraftStatus ? `<span style="font-size:.58rem;color:var(--gold)">🏆</span>` : ""}
                       </div>
-                      ${p.injuryType && p.injuryType !== "none" && p.injuryType !== null ? `<div style="font-size:.7rem;color:var(--muted-l)">${p.injuryType}</div>` : ""}
+                      ${s !== "healthy" ? (() => {
+                        const why = whyNotActive(p);
+                        const pf = p.personalFlags;
+                        const focusNote = pf && pf.distractionLevel >= 5 ? (pf.distractionNote || pf.distractionType || ("Focus concern level " + pf.distractionLevel + "/10")) : "";
+                        const fullReason = [why, focusNote].filter(Boolean).join(" · ");
+                        return fullReason ? `<div style="font-size:.7rem;color:${sc};font-weight:600;margin-top:1px">${fullReason}</div>` : "";
+                      })() : ""}
                     </div>
                     <div style="text-align:right;flex-shrink:0">
                       <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:${sc}">${s === "healthy" ? "ACTIVE" : s.toUpperCase()}</div>
@@ -1499,7 +1525,8 @@ if (!gameData) {
             </div>
             <div style="text-align:right">
               ${p.injuryStatus && p.injuryStatus !== "healthy"
-                ? `<span class="badge badge-danger">${p.injuryStatus.toUpperCase()}</span>`
+                ? `<span class="badge badge-danger">${p.injuryStatus.toUpperCase()}</span>
+                   ${(() => { const w = whyNotActive(p); return w ? `<div class="text-xxs" style="color:#f87171;margin-top:3px;font-weight:700">${w}</div>` : ""; })()}`
                 : '<span class="badge badge-ok">ACTIVE</span>'}
               ${ps ? `<div class="text-xxs text-muted mt-1">${ps}</div>` : ""}
             </div>
