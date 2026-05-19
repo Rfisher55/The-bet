@@ -77,11 +77,9 @@
     /* ── Key Insight Box ── */
     .key-insight-box {
       border-radius: var(--radius-lg); padding: 18px 20px; margin-bottom: 20px;
-      border-left: 4px solid var(--primary);
+      border: 1px solid rgba(16,185,129,.2);
+      border-left-width: 4px;
       background: linear-gradient(135deg, rgba(16,185,129,.07) 0%, var(--card) 100%);
-      border-top: 1px solid rgba(16,185,129,.2);
-      border-right: 1px solid rgba(16,185,129,.1);
-      border-bottom: 1px solid rgba(16,185,129,.1);
       position: relative;
     }
     .key-insight-badge {
@@ -1156,7 +1154,7 @@ if (!gameData) {
         if (btn) {
           btn.textContent = "Copied!";
           btn.classList.add("copied");
-          setTimeout(() => { btn.innerHTML = "📤 Share Pick"; btn.classList.remove("copied"); }, 2000);
+          setTimeout(() => { btn.innerHTML = "&#128228; Share Pick"; btn.classList.remove("copied"); }, 2000);
         }
       }).catch(() => {});
     };
