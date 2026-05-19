@@ -9,7 +9,7 @@ const LIVE = (() => {
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
   const SEASON    = 2026;
   const KEY_STORE   = "theBet_cfbdKey";
-  const CACHE_STORE = "theBet_liveCache_v8";   // v8 = full data: records, raw stats, ATS, returning, draft, venues, logos
+  const CACHE_STORE = "theBet_liveCache_v9";   // v9 = situational records, vsRanked, nightGame, closeGame, O/U, standings, coachingProfile
   const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
 
   // ── Explicit school-name → internal-ID mapping ──────────────
@@ -90,7 +90,7 @@ const LIVE = (() => {
   let _relativeTimeInterval = null;
   let _rateLimitRetryTimer  = null;
 
-  const ENDPOINT_COUNT = 26; // 22 CFBD + 1 ESPN schedule + 1 ESPN news + 1 Reddit + 1 spare
+  const ENDPOINT_COUNT = 28; // 24 CFBD + 1 ESPN schedule + 1 ESPN news + 1 Reddit + 1 spare
 
   function getKey() { return localStorage.getItem(KEY_STORE) || window.CFBD_DEFAULT_KEY || null; }
   function setKey(k) { if (k) localStorage.setItem(KEY_STORE, k.trim()); else localStorage.removeItem(KEY_STORE); }
@@ -399,6 +399,10 @@ const LIVE = (() => {
         // NFL Draft pipeline — 2 years shows talent production trend
         ["/draft/picks?year=2025",                                           "draft25"],
         ["/draft/picks?year=2026",                                           "draft26"],
+        // AP/CFP weekly rankings for vsRanked computation
+        ["/rankings?year=2025&seasonType=regular",                           "rankings25"],
+        // Conference standings
+        ["/standings?year=2025",                                             "standings25"],
       ];
 
       const cfbdResults = await Promise.allSettled(
@@ -458,6 +462,8 @@ const LIVE = (() => {
         returning:   cfbd.returning,
         draft25:     cfbd.draft25,
         draft26:     cfbd.draft26,
+        rankings25:  cfbd.rankings25,
+        standings25: cfbd.standings25,
         espnNews,
         redditPosts,
         fetchedAt:   new Date().toISOString(),
@@ -657,57 +663,151 @@ const LIVE = (() => {
     window.__portalIn  = portalIn;
     window.__portalOut = portalOut;
 
-    // 2025 betting lines → spread by game ID (for ATS calculation)
+    // 2025 betting lines → spread + total by game ID
     const lines25Map = {};
+    const totals25Map = {};
     (data.lines25 || []).forEach(g => {
       if (!g.lines?.length) return;
       const best = g.lines.find(l => l.provider === "consensus") || g.lines[0];
       const spread = parseFloat(best?.spread);
       if (!isNaN(spread)) lines25Map[g.id] = spread;
+      const total = parseFloat(best?.overUnder);
+      if (!isNaN(total)) totals25Map[g.id] = total;
     });
 
-    // Calculate real 2025 ATS records from completed game results + lines
-    const atsMap = {};   // teamId → { wins, losses, pushes, homeWins, homeLosses, awayWins, awayLosses }
-    const wlMap  = {};   // teamId → { wins, losses, homeW, homeL, awayW, awayL, confW, confL }
+    // Conference standings map
+    const standingsMap = {};
+    (data.standings25 || []).forEach(s => { if (s.team) standingsMap[s.team] = s; });
+
+    // Weekly AP rankings → which teams were ranked each week (for vsRanked calc)
+    const rankedByWeek = {}; // week → Set of teamIds
+    (data.rankings25 || []).forEach(wkEntry => {
+      const week = wkEntry.week;
+      const ap = (wkEntry.polls || []).find(p => p.poll === "AP Top 25");
+      if (!ap) return;
+      if (!rankedByWeek[week]) rankedByWeek[week] = new Set();
+      (ap.ranks || []).forEach(r => {
+        if (r.school) rankedByWeek[week].add(schoolToId(r.school));
+      });
+    });
+
+    // Build per-team 2025 game history (for situational records)
+    const teamGameHistory = {}; // teamId → [{week,isHome,isNight,isConf,isNeutral,won,margin,myPoints,oppPoints,gameId,opponentId,spread,total}]
     (data.games25 || []).forEach(g => {
       if (g.home_points == null || g.away_points == null) return;
       const homeId = schoolToId(g.home_team);
       const awayId = schoolToId(g.away_team);
-      // W/L records
+      const isNight = (() => {
+        if (!g.start_date) return false;
+        try { const h = new Date(g.start_date).getUTCHours(); return h >= 22; } catch { return false; }
+      })();
+      const base = {
+        week: g.week || 0, gameId: g.id, isNight, isConf: g.conference_game || false,
+        isNeutral: g.neutral_site || false, spread: lines25Map[g.id] ?? null, total: totals25Map[g.id] ?? null,
+      };
+      const homeG = { ...base, isHome: true,  opponentId: awayId, myPoints: g.home_points, oppPoints: g.away_points, won: g.home_points > g.away_points, margin: g.home_points - g.away_points };
+      const awayG = { ...base, isHome: false, opponentId: homeId, myPoints: g.away_points, oppPoints: g.home_points, won: g.away_points > g.home_points, margin: g.away_points - g.home_points };
+      if (!teamGameHistory[homeId]) teamGameHistory[homeId] = [];
+      if (!teamGameHistory[awayId]) teamGameHistory[awayId] = [];
+      teamGameHistory[homeId].push(homeG);
+      teamGameHistory[awayId].push(awayG);
+    });
+    Object.keys(teamGameHistory).forEach(id => teamGameHistory[id].sort((a, b) => a.week - b.week));
+
+    // Per-game ATS result helper
+    function gameATS(g) {
+      if (g.spread === null) return null;
+      const homeMargin = g.isHome ? g.margin : -g.margin;
+      const adj = homeMargin + g.spread;
+      if (Math.abs(adj) <= 0.5) return "push";
+      return (g.isHome ? adj > 0 : adj < 0) ? "win" : "loss";
+    }
+
+    // Compute comprehensive situational records per team from game history
+    const situationalRecords = {};
+    const atsMap = {}; // teamId → aggregate { wins, losses, pushes, pct, homeW, homeL, awayW, awayL }
+
+    Object.entries(teamGameHistory).forEach(([teamId, games]) => {
+      function nr() { return { wins: 0, losses: 0, pushes: 0 }; }
+      const s = {
+        atsFavorite: nr(), atsUnderdog: nr(), nightGame: nr(),
+        afterLoss: nr(), afterBigWin: nr(), vsRanked: nr(),
+        confGame: nr(), road: nr(), closeGame: nr(), ouOver: nr(),
+      };
+      const agg = { wins: 0, losses: 0, pushes: 0, homeW: 0, homeL: 0, awayW: 0, awayL: 0 };
+
+      function addATS(cat, ats) {
+        if (!ats) return;
+        if (ats === "push") s[cat].pushes++;
+        else if (ats === "win") s[cat].wins++;
+        else s[cat].losses++;
+      }
+
+      games.forEach((g, i) => {
+        const ats = gameATS(g);
+
+        // Aggregate ATS
+        if (ats) {
+          if (ats === "win") { agg.wins++; if (g.isHome) agg.homeW++; else agg.awayW++; }
+          else if (ats === "loss") { agg.losses++; if (g.isHome) agg.homeL++; else agg.awayL++; }
+          else agg.pushes++;
+        }
+
+        // Favourite / underdog (negative spread = home favoured)
+        if (g.spread !== null) {
+          const isFav = g.isHome ? g.spread <= 0 : g.spread >= 0;
+          addATS(isFav ? "atsFavorite" : "atsUnderdog", ats);
+        }
+
+        if (g.isNight) addATS("nightGame", ats);
+
+        if (i > 0) {
+          const prev = games[i - 1];
+          if (g.week - prev.week <= 2) {
+            if (!prev.won)                         addATS("afterLoss",   ats);
+            if (prev.won && prev.margin >= 21)     addATS("afterBigWin", ats);
+          }
+        }
+
+        if (rankedByWeek[g.week]?.has(g.opponentId)) addATS("vsRanked", ats);
+        if (g.isConf) addATS("confGame", ats);
+        if (!g.isHome && !g.isNeutral) addATS("road", ats);
+
+        // Close game (straight-up margin ≤7)
+        if (Math.abs(g.margin) <= 7) { if (g.won) s.closeGame.wins++; else s.closeGame.losses++; }
+
+        // Over / Under
+        if (g.total !== null) {
+          const diff = (g.myPoints + g.oppPoints) - g.total;
+          if (Math.abs(diff) <= 0.5) s.ouOver.pushes++;
+          else if (diff > 0) s.ouOver.wins++;
+          else s.ouOver.losses++;
+        }
+      });
+
+      Object.values(s).forEach(r => { const t = r.wins + r.losses; r.pct = t > 0 ? +(r.wins / t).toFixed(3) : null; });
+      const at = agg.wins + agg.losses;
+      agg.pct = at > 0 ? +(agg.wins / at).toFixed(3) : 0.5;
+      atsMap[teamId] = agg;
+      situationalRecords[teamId] = s;
+    });
+
+    // Also build simple W/L map from game history
+    const wlMap = {};
+    (data.games25 || []).forEach(g => {
+      if (g.home_points == null || g.away_points == null) return;
+      const homeId = schoolToId(g.home_team);
+      const awayId = schoolToId(g.away_team);
       if (!wlMap[homeId]) wlMap[homeId] = { wins:0, losses:0, homeW:0, homeL:0, awayW:0, awayL:0, confW:0, confL:0 };
       if (!wlMap[awayId]) wlMap[awayId] = { wins:0, losses:0, homeW:0, homeL:0, awayW:0, awayL:0, confW:0, confL:0 };
-      if (g.home_points > g.away_points) {
-        wlMap[homeId].wins++; wlMap[homeId].homeW++;
-        wlMap[awayId].losses++; wlMap[awayId].awayL++;
-      } else {
-        wlMap[homeId].losses++; wlMap[homeId].homeL++;
-        wlMap[awayId].wins++; wlMap[awayId].awayW++;
-      }
+      if (g.home_points > g.away_points) { wlMap[homeId].wins++; wlMap[homeId].homeW++; wlMap[awayId].losses++; wlMap[awayId].awayL++; }
+      else                               { wlMap[homeId].losses++; wlMap[homeId].homeL++; wlMap[awayId].wins++; wlMap[awayId].awayW++; }
       if (g.conference_game) {
         if (g.home_points > g.away_points) { wlMap[homeId].confW++; wlMap[awayId].confL++; }
-        else { wlMap[homeId].confL++; wlMap[awayId].confW++; }
-      }
-      // ATS records
-      const spread = lines25Map[g.id];
-      if (spread == null) return;
-      if (!atsMap[homeId]) atsMap[homeId] = { wins:0, losses:0, pushes:0, homeW:0, homeL:0, awayW:0, awayL:0 };
-      if (!atsMap[awayId]) atsMap[awayId] = { wins:0, losses:0, pushes:0, homeW:0, homeL:0, awayW:0, awayL:0 };
-      const margin = g.home_points - g.away_points;
-      const adj    = margin + spread; // positive = home covered
-      if (Math.abs(adj) <= 0.5) {
-        atsMap[homeId].pushes++; atsMap[awayId].pushes++;
-      } else if (adj > 0) {
-        atsMap[homeId].wins++; atsMap[homeId].homeW++;
-        atsMap[awayId].losses++; atsMap[awayId].awayL++;
-      } else {
-        atsMap[homeId].losses++; atsMap[homeId].homeL++;
-        atsMap[awayId].wins++; atsMap[awayId].awayW++;
+        else                               { wlMap[homeId].confL++; wlMap[awayId].confW++; }
       }
     });
-    Object.values(atsMap).forEach(r => {
-      const t = r.wins + r.losses;
-      r.pct = t > 0 ? +(r.wins / t).toFixed(3) : 0.5;
-    });
+    Object.values(atsMap).forEach(r => { if (!r.pct) { const t = r.wins + r.losses; r.pct = t > 0 ? +(r.wins / t).toFixed(3) : 0.5; } });
 
     // ESPN News → index by team name
     const newsByTeam = {};
@@ -833,22 +933,52 @@ const LIVE = (() => {
         return null;
       }
 
-      // Real raw stats from 2025
+      // Real raw stats from 2025 — CFBD returns season totals; divide by games
       function buildRealStats() {
         const raw = rawStatsMap[t.school] || {};
-        const games = raw._games || 1;
-        // CFBD may provide raw season totals — convert to per-game
-        const pts  = raw.points  ? raw.points  / games : null;
-        const ptsa = raw.pointsAllowed != null ? raw.pointsAllowed / games : null;
-        const yds  = raw.totalYards ? raw.totalYards / games : null;
-        const ydsa = raw.yardsAllowed ? raw.yardsAllowed / games : null;
+        const g_  = raw._games || 13; // default to 13-game season
+        function pg(field) { return raw[field] != null ? +(raw[field] / g_).toFixed(2) : null; }
         const base = { ...derivedStats };
-        if (pts  != null) base.pointsPerGame        = +pts.toFixed(1);
-        if (ptsa != null) base.pointsAllowedPerGame = +ptsa.toFixed(1);
-        if (yds  != null) base.yardsPerGame         = +yds.toFixed(1);
-        if (ydsa != null) base.yardsAllowedPerGame  = +ydsa.toFixed(1);
-        if (adv?.offense?.successRate) base.thirdDownPct = +adv.offense.successRate.toFixed(3);
-        if (adv?.defense?.havocTotal)  base.turnoversForced = +((adv.defense.havocTotal || 0) * 13).toFixed(1);
+
+        // Scoring
+        const ppg  = pg("points");          if (ppg  != null) base.pointsPerGame        = ppg;
+        const papg = pg("pointsAgainst");   if (papg != null) base.pointsAllowedPerGame = papg;
+
+        // Yardage
+        const ypg  = pg("totalYards");      if (ypg  != null) base.yardsPerGame         = ypg;
+        const yapg = pg("yardsAllowed") ?? pg("totalYardsAllowed");
+                                            if (yapg != null) base.yardsAllowedPerGame  = yapg;
+        const pypg = pg("netPassingYards"); if (pypg != null) base.passingYardsPerGame  = pypg;
+        const rypg = pg("rushingYards");    if (rypg != null) base.rushingYardsPerGame  = rypg;
+
+        // Turnovers (offensive = lost, defensive = forced)
+        const intThrown  = pg("interceptionsThrown");
+        const fumLost    = pg("fumblesLost");
+        const intForced  = pg("interceptions");   // defensive INTs
+        const fumRec     = pg("fumblesRecovered");
+        if (intThrown != null || fumLost   != null) base.turnoversPerGame  = +((intThrown || 0) + (fumLost || 0)).toFixed(2);
+        if (intForced != null || fumRec    != null) base.turnoversForced   = +((intForced || 0) + (fumRec  || 0)).toFixed(2);
+
+        // Third down: prefer raw rate, else advanced success rate
+        const td3 = raw["thirdDownConversions"], td3a = raw["thirdDownAttempts"];
+        if (td3 != null && td3a > 0) base.thirdDownPct = +(td3 / td3a).toFixed(3);
+        else if (adv?.offense?.successRate) base.thirdDownPct = +adv.offense.successRate.toFixed(3);
+
+        // Red zone (CFBD stat names vary)
+        const rzConv = raw["redZoneConversions"], rzAtt = raw["redZoneAttempts"];
+        if (rzConv != null && rzAtt > 0) base.redZonePct = +(rzConv / rzAtt).toFixed(3);
+
+        // Sacks
+        const sks  = pg("sacks");          if (sks  != null) base.sacks        = sks;
+        const sksa = pg("sacksAllowed");   if (sksa != null) base.sacksAllowed  = sksa;
+
+        // Advanced overrides
+        if (adv?.defense?.havocTotal) base.turnoversForced = +((adv.defense.havocTotal * g_) / g_).toFixed(2);
+
+        // Run/pass tendency from yardage split (for coaching profile)
+        if (rypg != null && pypg != null && rypg + pypg > 0) {
+          base._runPct = Math.round(rypg / (rypg + pypg) * 100);
+        }
         return base;
       }
 
@@ -899,20 +1029,63 @@ const LIVE = (() => {
         const recStr = seasonRecordStr();
         if (recStr) ex.lastSeasonRecord = recStr;
 
-        // Real ATS record from 2025 game results + lines
+        // Real ATS record + comprehensive situational records
         const atsEntry = atsMap[id];
         if (atsEntry && atsEntry.wins + atsEntry.losses > 3) {
-          ex.atsRecord = {
-            wins: atsEntry.wins, losses: atsEntry.losses, pushes: atsEntry.pushes,
-            pct:  atsEntry.pct,
-          };
+          ex.atsRecord = { wins: atsEntry.wins, losses: atsEntry.losses, pushes: atsEntry.pushes, pct: atsEntry.pct };
+        }
+        const sit = situationalRecords[id];
+        if (sit) {
           if (!ex.situational) ex.situational = {};
-          ex.situational.atsHome  = atsEntry.homeW + atsEntry.homeL > 0
-            ? { wins: atsEntry.homeW, losses: atsEntry.homeL,
-                pct: +(atsEntry.homeW / (atsEntry.homeW + atsEntry.homeL)).toFixed(3) } : undefined;
-          ex.situational.atsAway  = atsEntry.awayW + atsEntry.awayL > 0
-            ? { wins: atsEntry.awayW, losses: atsEntry.awayL,
-                pct: +(atsEntry.awayW / (atsEntry.awayW + atsEntry.awayL)).toFixed(3) } : undefined;
+          // Core situational records used directly by predictor
+          if (sit.afterLoss.wins  + sit.afterLoss.losses  > 1) ex.situational.afterLoss   = sit.afterLoss;
+          if (sit.afterBigWin.wins+ sit.afterBigWin.losses> 1) ex.situational.afterBigWin  = sit.afterBigWin;
+          if (sit.vsRanked.wins   + sit.vsRanked.losses   > 1) ex.situational.vsRanked     = sit.vsRanked;
+          if (sit.nightGame.wins  + sit.nightGame.losses  > 1) ex.situational.nightGame    = sit.nightGame;
+          // Favourite / underdog ATS
+          if (sit.atsFavorite.wins + sit.atsFavorite.losses > 1) ex.situational.atsFavorite = sit.atsFavorite;
+          if (sit.atsUnderdog.wins + sit.atsUnderdog.losses > 1) ex.situational.atsUnderdog = sit.atsUnderdog;
+          // Home/away ATS from aggregate
+          if (atsEntry) {
+            if (atsEntry.homeW + atsEntry.homeL > 1) ex.situational.atsHome = { wins: atsEntry.homeW, losses: atsEntry.homeL, pct: +(atsEntry.homeW / (atsEntry.homeW + atsEntry.homeL)).toFixed(3) };
+            if (atsEntry.awayW + atsEntry.awayL > 1) ex.situational.atsAway = { wins: atsEntry.awayW, losses: atsEntry.awayL, pct: +(atsEntry.awayW / (atsEntry.awayW + atsEntry.awayL)).toFixed(3) };
+          }
+          // Additional situational
+          if (sit.road.wins     + sit.road.losses     > 1) ex.situational.road     = sit.road;
+          if (sit.confGame.wins + sit.confGame.losses > 1) ex.situational.confGame  = sit.confGame;
+          if (sit.closeGame.wins+ sit.closeGame.losses> 1) ex.situational.closeGame = sit.closeGame;
+          if (sit.ouOver.wins   + sit.ouOver.losses   > 1) ex.situational.ouRecord  = sit.ouOver;
+        }
+
+        // Coaching profile — patch with real data
+        const realStats = buildRealStats();
+        ex.stats = realStats;
+        if (!ex.coachingProfile) ex.coachingProfile = {};
+        if (atsEntry && atsEntry.wins + atsEntry.losses > 3) {
+          ex.coachingProfile.atsRecord = `${atsEntry.wins}-${atsEntry.losses}`;
+          if (sit?.atsFavorite.wins + (sit?.atsFavorite.losses||0) > 1)
+            ex.coachingProfile.atsAsFavorite = `${sit.atsFavorite.wins}-${sit.atsFavorite.losses}`;
+          if (sit?.atsUnderdog.wins + (sit?.atsUnderdog.losses||0) > 1)
+            ex.coachingProfile.atsAsUnderdog = `${sit.atsUnderdog.wins}-${sit.atsUnderdog.losses}`;
+        }
+        if (sit?.closeGame.wins + (sit?.closeGame.losses||0) > 1)
+          ex.coachingProfile.closeGameRecord = `${sit.closeGame.wins}-${sit.closeGame.losses} (games decided by ≤7)`;
+        if (sit?.vsRanked.wins + (sit?.vsRanked.losses||0) > 1)
+          ex.coachingProfile.bigSpotRecord = `${sit.vsRanked.wins}-${sit.vsRanked.losses} (vs ranked)`;
+        if (realStats._runPct != null && !ex.coachingProfile.tendencies?.runPassRatio)
+          (ex.coachingProfile.tendencies = ex.coachingProfile.tendencies || {}).runPassRatio = realStats._runPct;
+
+        // Conference standing
+        const standing = standingsMap[t.school];
+        if (standing) {
+          ex.conferenceStanding = {
+            confWins:    standing.wins,
+            confLosses:  standing.losses,
+            homeRecord:  standing.home  ? `${standing.home.wins}-${standing.home.losses}`   : null,
+            awayRecord:  standing.away  ? `${standing.away.wins}-${standing.away.losses}`    : null,
+            pointsFor:   standing.points,
+            pointsAgainst: standing.points_against,
+          };
         }
 
         // Recruiting trend
@@ -926,10 +1099,28 @@ const LIVE = (() => {
 
       } else if (window.TEAMS) {
         const atsEntry = atsMap[id];
-        const realAts  = atsEntry && atsEntry.wins + atsEntry.losses > 3 ? {
-          wins: atsEntry.wins, losses: atsEntry.losses,
-          pushes: atsEntry.pushes, pct: atsEntry.pct,
-        } : null;
+        const sit      = situationalRecords[id] || {};
+        const realStats = buildRealStats();
+        const standing  = standingsMap[t.school];
+        const stubSituational = {};
+        if (atsEntry) {
+          if (atsEntry.homeW + atsEntry.homeL > 1) stubSituational.atsHome = { wins: atsEntry.homeW, losses: atsEntry.homeL, pct: +(atsEntry.homeW / (atsEntry.homeW + atsEntry.homeL)).toFixed(3) };
+          if (atsEntry.awayW + atsEntry.awayL > 1) stubSituational.atsAway = { wins: atsEntry.awayW, losses: atsEntry.awayL, pct: +(atsEntry.awayW / (atsEntry.awayW + atsEntry.awayL)).toFixed(3) };
+        }
+        ['afterLoss','afterBigWin','vsRanked','nightGame','atsFavorite','atsUnderdog','road','confGame','closeGame'].forEach(k => {
+          if (sit[k] && sit[k].wins + sit[k].losses > 1) stubSituational[k] = sit[k];
+        });
+        if (sit.ouOver && sit.ouOver.wins + sit.ouOver.losses > 1) stubSituational.ouRecord = sit.ouOver;
+
+        const stubCoachingProfile = {};
+        if (atsEntry && atsEntry.wins + atsEntry.losses > 3) {
+          stubCoachingProfile.atsRecord = `${atsEntry.wins}-${atsEntry.losses}`;
+          if (sit.atsFavorite?.wins + (sit.atsFavorite?.losses||0) > 1) stubCoachingProfile.atsAsFavorite = `${sit.atsFavorite.wins}-${sit.atsFavorite.losses}`;
+          if (sit.atsUnderdog?.wins + (sit.atsUnderdog?.losses||0) > 1) stubCoachingProfile.atsAsUnderdog = `${sit.atsUnderdog.wins}-${sit.atsUnderdog.losses}`;
+        }
+        if (sit.closeGame?.wins + (sit.closeGame?.losses||0) > 1) stubCoachingProfile.closeGameRecord = `${sit.closeGame.wins}-${sit.closeGame.losses} (games decided by ≤7)`;
+        if (sit.vsRanked?.wins  + (sit.vsRanked?.losses||0)  > 1) stubCoachingProfile.bigSpotRecord   = `${sit.vsRanked.wins}-${sit.vsRanked.losses} (vs ranked)`;
+        if (realStats._runPct != null) stubCoachingProfile.tendencies = { runPassRatio: realStats._runPct };
 
         TEAMS[id] = {
           id,
@@ -938,8 +1129,8 @@ const LIVE = (() => {
           mascot:          t.mascot || "",
           conference:      t.conference || "Independent",
           color, altColor, logo,
-          wins:  rec25?.total?.wins   || 0,
-          losses: rec25?.total?.losses || 0,
+          wins:  rec25?.total?.wins   || wlMap[id]?.wins   || 0,
+          losses: rec25?.total?.losses || wlMap[id]?.losses || 0,
           lastSeasonRecord: seasonRecordStr() || "2025",
           rating:          eloRating  || derivedRating,
           offensiveRating: realOffRating || sp_off_rating,
@@ -949,25 +1140,24 @@ const LIVE = (() => {
           recruitingTrend: { rank2024: rk24, rank2025: rk25, rank2026: rk26 },
           coachName:  coach,
           coachRecord: coachRec || "0-0",
-          stadiumCapacity: capacity,
-          timezone,
+          stadiumCapacity: capacity, timezone,
           nflDraftRecent:  draft ? { total: draft.total, firstRound: draft.firstRound } : null,
           _returningPct:   retPct,
-          stats:           buildRealStats(),
-          atsRecord:       realAts,
-          situational: atsEntry ? {
-            atsHome: atsEntry.homeW + atsEntry.homeL > 0
-              ? { wins: atsEntry.homeW, losses: atsEntry.homeL,
-                  pct: +(atsEntry.homeW / (atsEntry.homeW + atsEntry.homeL)).toFixed(3) } : undefined,
-            atsAway: atsEntry.awayW + atsEntry.awayL > 0
-              ? { wins: atsEntry.awayW, losses: atsEntry.awayL,
-                  pct: +(atsEntry.awayW / (atsEntry.awayW + atsEntry.awayL)).toFixed(3) } : undefined,
-          } : {},
-          programHealth: computeProgramHealth(null),
-          weatherProfile: { isDome, coldWeatherAdvantage: 5 },
-          schedule: { daysSinceLastGame: 7, isComingOffBigWin: false, isComingOffBigLoss: false,
-                      hasLookaheadGame: false, consecutiveRoadGames: 0, travelBurdenRating: 4 },
-          coachingProfile: {},
+          stats:           realStats,
+          atsRecord:       atsEntry && atsEntry.wins + atsEntry.losses > 3
+            ? { wins: atsEntry.wins, losses: atsEntry.losses, pushes: atsEntry.pushes, pct: atsEntry.pct } : null,
+          situational:     stubSituational,
+          conferenceStanding: standing ? {
+            confWins: standing.wins, confLosses: standing.losses,
+            homeRecord: standing.home ? `${standing.home.wins}-${standing.home.losses}` : null,
+            awayRecord: standing.away ? `${standing.away.wins}-${standing.away.losses}` : null,
+            pointsFor: standing.points, pointsAgainst: standing.points_against,
+          } : null,
+          programHealth:   computeProgramHealth(null),
+          weatherProfile:  { isDome, coldWeatherAdvantage: 5 },
+          schedule:        { daysSinceLastGame: 7, isComingOffBigWin: false, isComingOffBigLoss: false,
+                             hasLookaheadGame: false, consecutiveRoadGames: 0, travelBurdenRating: 4 },
+          coachingProfile: stubCoachingProfile,
           fromLive: true,
         };
       }
