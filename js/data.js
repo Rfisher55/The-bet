@@ -3,7 +3,7 @@
    2026 D1 CFB Season Projections
    ═══════════════════════════════════════════════════ */
 
-const TEAMS = {
+var TEAMS = {
   ohio_state: {
     id: "ohio_state",
     name: "Ohio State",
@@ -1839,7 +1839,7 @@ const KEY_PLAYERS = [
     scoutReport:"The most NFL-ready player on Wisconsin's defense. His motor and hand technique are already at the next level. Notre Dame's left tackle will be tested from the first snap — if Bollers creates early disruption, Wisconsin's defense can keep the game competitive deep into the second half." }
 ];
 
-const GAMES = [
+var GAMES = [
   /* ═══════════════════════════════════════════════════
      WEEK 1 — Sept 5-6, 2026
      ═══════════════════════════════════════════════════ */
