@@ -1409,7 +1409,7 @@ const KEY_PLAYERS = [
     personalFlags:{ distractionLevel:3, distractionNote:"Evans transferred from Temple specifically to compete for a starting role. His North Philly background gives him a toughness that resonates with Penn State's identity. Working with a new QB is his biggest adjustment.", socialMediaPattern:"normal", nflDraftStatus:"projected round 4-5", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
     performanceMetrics:{ clutchRating:77, bigGameRating:75, coldWeatherRating:78, roadGameRating:74, primeTimeRating:78, consistencyRating:76, pressureRating:77, explosivePlayRating:82 },
     stats:{ gamesPlayed:12, receivingYards:614, receivingTDs:6, receptions:48, yardsPerReception:12.8 },
-    scoutReport:"Physical slot receiver who battles for every yard after the catch. His Temple background means he's played in front of difficult environments — the Penn State adjustment is more about scheme sophistication than temperament. He and Pribula are building chemistry quickly per camp reports. Miami's secondary will test his ability to separate." },
+    scoutReport:"Physical slot receiver who battles for every yard after the catch. His Temple background means he's played in front of difficult environments — the Penn State adjustment is more about scheme sophistication than temperament. He and Becht are building chemistry quickly per camp reports. Miami's secondary will test his ability to separate." },
 
   { id:"p_psu_05", name:"Coziah Izzard", position:"DT", teamId:"penn_state", year:"JR", number:"97", heightWeight:"6'4\" / 295", hometown:"Fayetteville, GA",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
@@ -1548,15 +1548,15 @@ const KEY_PLAYERS = [
     personalFlags:{ distractionLevel:3, distractionNote:"Anderson is a burner who has played behind more physical receivers for two years. As the featured WR in 2026, his frame (175 lbs) raises durability questions over a 12-game season. He's added 8 lbs of muscle since January — coaches say it shows.", socialMediaPattern:"normal", nflDraftStatus:"projected round 3-4", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
     performanceMetrics:{ clutchRating:82, bigGameRating:80, coldWeatherRating:64, roadGameRating:77, primeTimeRating:85, consistencyRating:76, pressureRating:78, explosivePlayRating:95 },
     stats:{ gamesPlayed:12, receivingYards:814, receivingTDs:8, receptions:58, yardsPerReception:14.0 },
-    scoutReport:"Pure speed threat who becomes Nussmeier's WR1 after Lacy's departure. His 4.32 speed creates vertical stress on every defense — cornerbacks who shade inside get burned instantly. Tennessee's DB will bracket him early; the question is whether LSU can exploit the voids that creates for the run game and checkdowns." },
+    scoutReport:"Pure speed threat who is Leavitt's WR1 in the new offense. His 4.32 speed creates vertical stress on every defense — cornerbacks who shade inside get burned instantly. Tennessee's DB will bracket him early; the question is whether LSU can exploit the voids that creates for the run game and checkdowns." },
 
   { id:"p_lsu_04", name:"Trey'Dez Green", position:"TE", teamId:"lsu", year:"JR", number:"84", heightWeight:"6'5\" / 245", hometown:"Lafayette, LA",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
     injuryHistory:[], injuryProneRating:1, impact:"medium",
-    personalFlags:{ distractionLevel:2, distractionNote:"Baton Rouge-area kid who embodies Death Valley passion. His blocking has improved dramatically — went from liability to asset. Nussmeier trusts him as the safety valve on third down.", socialMediaPattern:"normal", nflDraftStatus:"projected round 4-5", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
+    personalFlags:{ distractionLevel:2, distractionNote:"Baton Rouge-area kid who embodies Death Valley passion. His blocking has improved dramatically — went from liability to asset. Leavitt trusts him as the safety valve on third down.", socialMediaPattern:"normal", nflDraftStatus:"projected round 4-5", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
     performanceMetrics:{ clutchRating:79, bigGameRating:77, coldWeatherRating:72, roadGameRating:75, primeTimeRating:81, consistencyRating:80, pressureRating:78, explosivePlayRating:74 },
     stats:{ gamesPlayed:12, receivingYards:412, receivingTDs:4, receptions:36, yardsPerReception:11.4 },
-    scoutReport:"Local product who has become a reliable third-down option for Nussmeier. His blocking improvement has been the offseason revelation — Kelly's staff pushed him hard in the weight room and it shows. Tennessee's linebackers will struggle to match his length in coverage on seam routes." },
+    scoutReport:"Local product who has become a reliable third-down option under the new staff. His blocking improvement has been the offseason revelation — Kiffin's staff pushed him hard in the weight room and it shows. Tennessee's linebackers will struggle to match his length in coverage on seam routes." },
 
   { id:"p_lsu_05", name:"Kalani Hicks", position:"RB", teamId:"lsu", year:"JR", number:"21", heightWeight:"6'0\" / 218", hometown:"Baton Rouge, LA",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
