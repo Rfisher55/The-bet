@@ -244,9 +244,9 @@ function getConferences() {
     return a.localeCompare(b);
   });
 }
-let filterConf = "all", filterDivision = "all", filterMomentum = "all", searchQ = "", sortBy = "rating", viewMode = "grid";
+let filterConf = "all", filterDivision = "all", filterMomentum = "all", filterElite = false, searchQ = "", sortBy = "rating", viewMode = "grid";
 
-// Stats strip
+// Stats strip — build HTML only (listener wired once below)
 function buildStatsStrip() {
   const teams = Object.values(TEAMS);
   const rising = teams.filter(t => t.programHealth && t.programHealth.programMomentum === "rising").length;
@@ -255,16 +255,42 @@ function buildStatsStrip() {
   const avgNil = nilTeams.length ? Math.round(nilTeams.reduce((a,t) => a + t.programHealth.nilStrength, 0) / nilTeams.length) : 0;
   const p4 = teams.filter(t => POWER4.includes(t.conference)).length;
   const g5 = teams.filter(t => !POWER4.includes(t.conference)).length;
-  document.getElementById("page-stats").innerHTML = [
-    { label: "Teams", value: teams.length, color: "var(--text)" },
-    { label: "Elite (90+)", value: elite, color: "var(--primary)" },
-    { label: "Trending Up", value: rising, color: "#34d399" },
-    { label: "Avg NIL Score", value: avgNil, color: "#c084fc" },
-    { label: "Power 4", value: p4, color: "var(--gold)" },
-    { label: "Group of 5", value: g5, color: "var(--accent)" },
-  ].map(s => `<div class="stat-cell"><div class="stat-cell-val" style="color:${s.color}">${s.value}</div><div class="stat-cell-sub">${s.label}</div></div>`).join("");
+  const cells = [
+    { label: "Teams",        value: teams.length, color: "var(--text)",    action: "all" },
+    { label: "Elite (90+)", value: elite,         color: "var(--primary)", action: "elite" },
+    { label: "Trending Up", value: rising,        color: "#34d399",        action: "rising" },
+    { label: "Avg NIL Score",value: avgNil,       color: "#c084fc",        action: "nil" },
+    { label: "Power 4",     value: p4,            color: "var(--gold)",    action: "power4" },
+    { label: "Group of 5",  value: g5,            color: "var(--accent)",  action: "g5" },
+  ];
+  document.getElementById("page-stats").innerHTML = cells.map(s =>
+    `<div class="stat-cell stat-cell-clickable" data-stat-action="${s.action}" title="Click to filter">
+      <div class="stat-cell-val" style="color:${s.color}">${s.value}</div>
+      <div class="stat-cell-sub">${s.label}</div>
+    </div>`
+  ).join("");
 }
 buildStatsStrip();
+
+// One-time delegated listener on the strip container
+document.getElementById("page-stats").addEventListener("click", function(e) {
+  const cell = e.target.closest(".stat-cell-clickable");
+  if (!cell) return;
+  const act = cell.dataset.statAction;
+  document.querySelectorAll("#page-stats .stat-cell-clickable").forEach(c => c.classList.remove("active"));
+  cell.classList.add("active");
+  filterConf = "all"; filterDivision = "all"; filterMomentum = "all"; filterElite = false; searchQ = "";
+  document.getElementById("search").value = "";
+  document.querySelectorAll("#conf-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.conf === "all"));
+  document.querySelectorAll("#div-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.div === "all"));
+  document.querySelectorAll("#mom-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.mom === "all"));
+  if (act === "elite") { filterElite = true; }
+  else if (act === "rising") { filterMomentum = "rising"; document.querySelectorAll("#mom-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.mom === "rising")); }
+  else if (act === "nil") { sortBy = "nil"; document.querySelectorAll("#sort-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.sort === "nil")); }
+  else if (act === "power4") { filterDivision = "power4"; document.querySelectorAll("#div-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.div === "power4")); }
+  else if (act === "g5") { filterDivision = "g5"; document.querySelectorAll("#div-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.div === "g5")); }
+  render();
+});
 
 // Conf chips — built dynamically from loaded TEAMS
 function initConfChips() {
@@ -506,6 +532,8 @@ function render() {
 
   if (filterDivision === "power4") teams = teams.filter(t => POWER4.includes(t.conference));
   else if (filterDivision === "g5") teams = teams.filter(t => !POWER4.includes(t.conference));
+
+  if (filterElite) teams = teams.filter(t => t.rating >= 90);
 
   if (filterMomentum !== "all") teams = teams.filter(t => {
     const m = t.programHealth?.programMomentum || "stable";

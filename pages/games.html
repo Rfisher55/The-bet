@@ -67,15 +67,10 @@
     .result-count-text { font-size:.8rem;font-weight:700;color:var(--text); }
     .result-count-sub  { font-size:.65rem;color:var(--muted);margin-left:4px; }
 
-    /* ── Signal dots (7-signal bar) ── */
-    .signal-dots { display:flex;gap:4px;align-items:center;margin-top:8px; }
-    .signal-dot { width:10px;height:10px;border-radius:50%;transition:all .2s; }
-    .signal-dot.filled { background:var(--primary);box-shadow:0 0 4px rgba(16,185,129,.5); }
-    .signal-dot.empty  { background:var(--border); }
-    .signal-dot.high   { background:#34d399; }
-    .signal-dot.accent { background:var(--accent); }
-    .signal-dot.gold   { background:var(--gold); }
-    .signal-dot.danger { background:var(--danger); }
+    /* ── Stat cell clickable ── */
+    .stat-cell-clickable { cursor:pointer;transition:border-color .15s,transform .15s,box-shadow .15s; }
+    .stat-cell-clickable:hover { border-color:rgba(16,185,129,.5);transform:translateY(-2px);box-shadow:0 4px 16px rgba(16,185,129,.15); }
+    .stat-cell-clickable.active { border-color:var(--primary);box-shadow:0 0 0 2px rgba(16,185,129,.2); }
 
     /* ── Best pick view-button ── */
     .bp-btn { display:block;text-align:center;font-size:.85rem;padding:12px 20px;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;text-decoration:none;letter-spacing:.3px;transition:opacity .15s; }
@@ -250,18 +245,52 @@ try {
   document.getElementById("game-grid").innerHTML = `<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--danger)">${e.message}</div>`;
 }
 
-// Stats bar
-(function() {
+// Stats bar — build HTML only (listener wired once below)
+function buildStatsStrip() {
   const elite = allPredictions.filter(p => p.prediction.confidence === "elite").length;
   const high  = allPredictions.filter(p => p.prediction.confidence === "high").length;
   const ats   = allPredictions.filter(p => p.prediction.spreadPick && p.prediction.spreadPick.side !== "no-bet").length;
-  document.getElementById("page-stats").innerHTML = [
-    { label: "Games", value: allPredictions.length, color: "var(--text)" },
-    { label: "Elite Picks", value: elite, color: "var(--primary)" },
-    { label: "High Conf", value: high, color: "#34d399" },
-    { label: "ATS Edges", value: ats, color: "var(--accent)" },
-  ].map(s => `<div class="stat-cell"><div class="stat-cell-val" style="color:${s.color}">${s.value}</div><div class="stat-cell-sub">${s.label}</div></div>`).join("");
-})();
+  const cells = [
+    { label: "Games",      value: allPredictions.length, color: "var(--text)",    action: "all" },
+    { label: "Elite Picks",value: elite,                 color: "var(--primary)", action: "elite" },
+    { label: "High Conf",  value: high,                  color: "#34d399",        action: "high" },
+    { label: "ATS Edges",  value: ats,                   color: "var(--accent)",  action: "ats" },
+  ];
+  document.getElementById("page-stats").innerHTML = cells.map(s =>
+    `<div class="stat-cell stat-cell-clickable" data-stat-action="${s.action}" title="Click to filter">
+      <div class="stat-cell-val" style="color:${s.color}">${s.value}</div>
+      <div class="stat-cell-sub">${s.label}</div>
+    </div>`
+  ).join("");
+}
+buildStatsStrip();
+
+// One-time delegated listener on the strip container
+document.getElementById("page-stats").addEventListener("click", function(e) {
+  const cell = e.target.closest(".stat-cell-clickable");
+  if (!cell) return;
+  const act = cell.dataset.statAction;
+  document.querySelectorAll("#page-stats .stat-cell-clickable").forEach(c => c.classList.remove("active"));
+  cell.classList.add("active");
+  if (act === "all") {
+    qualityFilter = "all"; typeFilter = "all";
+    document.querySelectorAll("#conf-chips-quality .chip").forEach(c => c.classList.toggle("active", c.dataset.q === "all"));
+    document.querySelectorAll("#conf-chips-type .chip").forEach(c => c.classList.toggle("active", c.dataset.t === "all"));
+  } else if (act === "elite") {
+    qualityFilter = "elite"; typeFilter = "all";
+    document.querySelectorAll("#conf-chips-quality .chip").forEach(c => c.classList.toggle("active", c.dataset.q === "elite"));
+    document.querySelectorAll("#conf-chips-type .chip").forEach(c => c.classList.toggle("active", c.dataset.t === "all"));
+  } else if (act === "high") {
+    qualityFilter = "high"; typeFilter = "all";
+    document.querySelectorAll("#conf-chips-quality .chip").forEach(c => c.classList.toggle("active", c.dataset.q === "high"));
+    document.querySelectorAll("#conf-chips-type .chip").forEach(c => c.classList.toggle("active", c.dataset.t === "all"));
+  } else if (act === "ats") {
+    qualityFilter = "all"; typeFilter = "lines";
+    document.querySelectorAll("#conf-chips-quality .chip").forEach(c => c.classList.toggle("active", c.dataset.q === "all"));
+    document.querySelectorAll("#conf-chips-type .chip").forEach(c => c.classList.toggle("active", c.dataset.t === "lines"));
+  }
+  render();
+});
 
 // Conference filter
 const CONF_STATE = { active: "all" };
@@ -365,25 +394,6 @@ function renderBestPick(weekNum) {
     ? `<div style="font-size:.72rem;color:var(--muted);margin-top:2px">Predicted: <strong style="color:var(--text)">${away.abbreviation} ${bpAwayScore}–${bpHomeScore} ${home.abbreviation}</strong></div>`
     : "";
 
-  // 7-signal dots — reflect model breakdown signals
-  const signalValues = [
-    { label:"Base",    val: Math.abs(pred.predictedSpread||0), max:15 },
-    { label:"Player",  val: Math.abs((pred.playerImpactAdj?.home||0)-(pred.playerImpactAdj?.away||0))+2.5, max:5 },
-    { label:"Situational", val: Math.abs((pred.situationalAdj?.home||0)-(pred.situationalAdj?.away||0))+2, max:4 },
-    { label:"Weather", val: Math.abs(pred.weatherImpact?.totalAdj||0) > 0.5 ? 3 : 5, max:5 },
-    { label:"Coaching", val: (pred.coachingEdge?.pts||0)+1, max:4 },
-    { label:"Momentum", val: Math.abs((pred.programMomentumAdj?.home||0)-(pred.programMomentumAdj?.away||0))+1, max:2 },
-    { label:"Sharp",   val: pred.sharpMoneySignal?.strength||3, max:10 },
-  ];
-  const signalDotsHtml = `<div class="signal-dots">
-    ${signalValues.map((s,i) => {
-      const filled = s.val / s.max >= 0.5;
-      const cls = filled ? (i===0?"filled":i===6?(pred.sharpAlert?"accent":"filled"):i%2===0?"high":"filled") : "empty";
-      return `<div class="signal-dot ${cls}" title="${s.label}: ${s.val.toFixed(1)}/${s.max}"></div>`;
-    }).join("")}
-    <span style="font-size:.58rem;color:var(--muted);margin-left:2px">7-signal model</span>
-  </div>`;
-
   const bpCard = document.getElementById("best-pick-card");
   bpCard.style.display = "";
   bpCard.innerHTML = `
@@ -413,7 +423,6 @@ function renderBestPick(weekNum) {
         <div style="font-size:1rem;font-weight:900;color:var(--primary)">+${sp.edge} pts</div>
       </div>` : ""}
     </div>
-    ${signalDotsHtml}
     ${wxBadge(game.weather) !== `<span class="wx-badge wx-ok">☀️ ${(game.weather||{}).tempF||65}°F</span>` ? `<div style="margin-top:8px">${wxBadge(game.weather)}</div>` : ""}
     <div style="margin-top:12px">
       <a href="game.html?id=${game.id}" class="bp-btn">View Full Analysis →</a>
@@ -728,13 +737,13 @@ render();
 
 // Re-render when live data arrives
 window.addEventListener("liveDataReady", function() {
-  // Rebuild predictions and reinit conf chips with full team/game set
   try {
     allPredictions = GAMES.map(g => {
       try { const game = resolveGame(g); return { game, prediction: predictGame(game) }; }
       catch(e) { return null; }
     }).filter(Boolean);
   } catch(e) { console.error(e); }
+  buildStatsStrip();
   initConfChips();
   buildWeekTabs();
   renderBestPick(activeWeek > 0 ? activeWeek : 1);

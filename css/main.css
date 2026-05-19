@@ -310,6 +310,9 @@ select.field { cursor: pointer; }
 .stat-cell-label { font-size: .7rem; color: var(--muted-l); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
 .stat-cell-value, .stat-cell-val { font-size: 1.6rem; font-weight: 800; }
 .stat-cell-sub { font-size: .75rem; color: var(--muted-l); margin-top: 2px; }
+.stat-cell-clickable { cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s; user-select: none; }
+.stat-cell-clickable:hover { border-color: rgba(16,185,129,.5); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(16,185,129,.15); }
+.stat-cell-clickable.active { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(16,185,129,.2); }
 @media (max-width: 768px) { .stats-strip { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 420px) { .stats-strip { grid-template-columns: 1fr 1fr; } }
 
