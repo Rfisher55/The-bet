@@ -692,9 +692,9 @@ function renderGamePage(gData) {
                     ${ks ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:1px">${ks}</div>` : ""}
                     ${(p.injuryStatus && p.injuryStatus !== "healthy") ? (() => {
                       const pf = p.personalFlags;
-                      const focusNote = pf && pf.distractionLevel >= 5 ? (pf.distractionNote || pf.distractionType || "Focus concern") : "";
+                      const focusShort = pf && pf.distractionLevel >= 5 ? (pf.distractionType ? pf.distractionType.replace(/_/g," ") : "focus concern") : "";
                       const sc2 = (p.injuryStatus||"").toLowerCase()==="out"?"#f87171":(p.injuryStatus||"").toLowerCase()==="doubtful"?"#f87171":"var(--muted)";
-                      const reason = [whyNotActive(p), focusNote].filter(Boolean).join(" · ");
+                      const reason = [whyNotActive(p), focusShort].filter(Boolean).join(" · ");
                       return reason ? `<div style="font-size:.68rem;color:${sc2};font-weight:600;margin-top:1px">↳ ${reason}</div>` : "";
                     })() : ""}
                   </div>
