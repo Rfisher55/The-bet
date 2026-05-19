@@ -1670,7 +1670,7 @@ const KEY_PLAYERS = [
     personalFlags:{ distractionLevel:1, distractionNote:"Knoxville native playing in front of his hometown every home game. Has turned down better offers to be a Vol. The team's emotional leader alongside Pearce. Zero off-field issues — coaches describe him as 'the person you'd want your child to grow up to be.'", socialMediaPattern:"quiet", nflDraftStatus:"undrafted projection", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
     performanceMetrics:{ clutchRating:82, bigGameRating:80, coldWeatherRating:83, roadGameRating:79, primeTimeRating:81, consistencyRating:83, pressureRating:81, explosivePlayRating:74 },
     stats:{ gamesPlayed:11, tackles:98, sacks:3.5, tacklesForLoss:9, interceptions:2, passDeflections:6 },
-    scoutReport:"High-effort linebacker who covers a lot of ground. LSU's Mason Taylor on crossing routes is his most difficult assignment — Birchfield has struggled with elite TE speed historically. If Brian Kelly spots this, expect Taylor to be on the move constantly in the second half." },
+    scoutReport:"High-effort linebacker who covers a lot of ground. LSU's Mason Taylor on crossing routes is his most difficult assignment — Birchfield has struggled with elite TE speed historically. If Kiffin's staff spots this, expect Taylor to be on the move constantly in the second half." },
 
   /* ── MIAMI ── */
   { id:"p_mia_01", name:"Emory Williams", position:"QB", teamId:"miami", year:"GR", number:"14", heightWeight:"6'2\" / 209", hometown:"Atlanta, GA",
@@ -1854,7 +1854,7 @@ const GAMES = [
     xFactors: [
       { title: "Death Valley Night Opener", description: "Tiger Stadium at 8 PM is the most electric opener in college football. LSU holds a 91-27 all-time home record in night games. Visiting teams average 1.8 additional false starts and a 12% higher three-and-out rate in this environment.", impactTeam: "lsu", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Clemson QB Uncertainty", description: "Clemson enters with questions at quarterback heading into 2026. Their signal-caller has limited experience in hostile road environments at this scale. Tiger Stadium at night represents the most difficult road opener any team faces.", impactTeam: "clemson", impactDirection: "negative", severity: 8, category: "player" },
-      { title: "Brian Kelly Home Fortress", description: "Brian Kelly is 28-6 at Tiger Stadium, an .824 home win percentage. His teams cover at home at a 71% rate — one of the best in the SEC.", impactTeam: "lsu", impactDirection: "positive", severity: 7, category: "coaching" },
+      { title: "Kiffin Home Opener at Tiger Stadium", description: "Lane Kiffin opens his LSU tenure on the biggest stage in college football. His Ole Miss teams were explosive and aggressive — Death Valley night gives him an immediate recruiting and psychological weapon. New staff energy often produces Day 1 over-performance.", impactTeam: "lsu", impactDirection: "positive", severity: 7, category: "coaching" },
       { title: "LSU Blue Chip Ratio", description: "LSU returns 7 four-star or higher players in the starting lineup on each side of the ball. Their talent advantage over Clemson in this game is significant at the skill positions and secondary.", impactTeam: "lsu", impactDirection: "positive", severity: 7, category: "recruiting" }
     ],
     gamePreview: {
@@ -1864,10 +1864,10 @@ const GAMES = [
         { section: "OFFENSIVE EDGE", text: "LSU holds the clear offensive advantage. With a veteran offensive line and weapons at every skill position, the Tigers have the firepower to score early and build a cushion. Clemson's secondary has shown vulnerability against spread-option concepts — expect LSU to attack the slot and exploit mismatches on early downs." },
         { section: "DEFENSIVE BATTLEGROUND", text: "LSU's defensive front will test Clemson's offensive line from the first snap. The Tigers have four potential first-round picks on defense. If Clemson can establish their run game, they stay competitive — if LSU's front shuts that down, this becomes a long night for the Tigers' offense." },
         { section: "KEY X-FACTOR", text: "The Death Valley night atmosphere. Visiting teams average 1.8 more false starts and a 12% higher three-and-out rate in this building after dark. If Clemson's offense gets rattled on their first two drives, LSU covers by double digits." },
-        { section: "COACHING EDGE", text: "Brian Kelly has built Tiger Stadium into an impenetrable fortress, going 28-6 at home. Dabo Swinney is brilliant but historically vulnerable in true hostile road environments, especially in season openers away from Death Valley." },
+        { section: "COACHING EDGE", text: "Lane Kiffin is one of the most aggressive offensive minds in college football, and Death Valley gives him an immediate home advantage on Day 1 as LSU's coach. Dabo Swinney is brilliant but historically vulnerable in true hostile road environments, especially in season openers away from Death Valley." },
         { section: "THE PICK", text: "LSU -3.5 is the play. Tiger Stadium at night plus a veteran LSU roster versus a Clemson team with real quarterback questions is a perfect storm for the home team. Expect LSU to build a lead by halftime and cover." }
       ],
-      thePick: { team: "LSU", line: "-3.5", confidence: "HIGH", unit: 2, reasoning: "Death Valley night game + Clemson QB questions + Kelly home record = LSU cover" }
+      thePick: { team: "LSU", line: "-3.5", confidence: "HIGH", unit: 2, reasoning: "Death Valley night game + Clemson QB questions + Kiffin home opener energy = LSU cover" }
     },
     socialIntel: {
       lineMovement: [
@@ -1877,7 +1877,7 @@ const GAMES = [
       ],
       publicBetting: { homePct: 58, awayPct: 42, overPct: 54, underPct: 46 },
       beatWriter: [
-        { reporter: "Pete Thamel", outlet: "ESPN", report: "LSU ran their crowd-noise drill for the third straight day — Brian Kelly clearly wants zero mental errors in the season opener. The Tigers' secondary looks elite and two freshmen WRs are drawing rave reviews from scouts in camp.", team: "lsu", sentiment: "positive", daysAgo: 2 },
+        { reporter: "Pete Thamel", outlet: "ESPN", report: "LSU ran their crowd-noise drill for the third straight day — Lane Kiffin clearly wants zero mental errors in his debut as Tigers head coach. The secondary looks elite and two freshmen WRs are drawing rave reviews from scouts in camp.", team: "lsu", sentiment: "positive", daysAgo: 2 },
         { reporter: "David Hood", outlet: "TigerNet", report: "Clemson's starting center was limited in Thursday practice with an undisclosed lower-body issue. Dabo held an extended film session specifically on LSU's defensive stunts and twists. QB reps look sharp but the OL depth is a real concern heading into Death Valley.", team: "clemson", sentiment: "negative", daysAgo: 1 }
       ]
     }
@@ -2184,7 +2184,7 @@ const GAMES = [
     xFactors: [
       { title: "Big House Crowd Factor", description: "Michigan Stadium holds 107,601 fans — the largest stadium in America. In a primetime or big-game atmosphere, The Big House creates sustained crowd noise that Penn State's offense must communicate through for 60 minutes. Penn State is 2-6 in their last 8 visits to Ann Arbor.", impactTeam: "michigan", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Michigan Offensive Line Advantage", description: "Michigan's offensive line is among the Big Ten's best and has been built specifically for power football in October. Against Penn State's front seven, the run game will set up the play-action passing that defines Michigan's system.", impactTeam: "michigan", impactDirection: "positive", severity: 8, category: "matchup" },
-      { title: "James Franklin Road Record at Big House", description: "Franklin is 2-4 all-time at Michigan Stadium. His offense tends to struggle with the communication required to execute against Michigan's defensive signals in this environment.", impactTeam: "penn_state", impactDirection: "negative", severity: 7, category: "coaching" },
+      { title: "Matt Campbell Penn State Road Debut", description: "Campbell is coaching his first true road game in a hostile Big Ten environment as Penn State's new head coach. First-year coaches at power programs show more variance on the road — their systems are still being installed under game conditions.", impactTeam: "penn_state", impactDirection: "negative", severity: 7, category: "coaching" },
       { title: "Big Ten Standings Implications", description: "The loser of this game must essentially run the table in conference play to reach the Big Ten Championship. Both teams know what is at stake, which elevates the intensity and physical nature of the contest.", impactTeam: "michigan", impactDirection: "positive", severity: 7, category: "motivation" }
     ],
     gamePreview: {
@@ -2193,11 +2193,11 @@ const GAMES = [
       analysis: [
         { section: "OFFENSIVE EDGE", text: "Michigan's offense is built for power football with an elite offensive line. At home, the Wolverines can dictate tempo and impose their will through the run game. Penn State's offense is more explosive vertically, but Michigan's home environment historically limits the big plays that define Penn State's offense." },
         { section: "DEFENSIVE BATTLEGROUND", text: "Both defenses are elite Big Ten units. Michigan's front four creates consistent pressure without blitzing, which is the system's foundation. Penn State's offense must block Michigan's defensive line for 60 minutes on the road — a tall order at The Big House." },
-        { section: "KEY X-FACTOR", text: "Franklin's road record at Michigan Stadium. He is 2-4 all-time in Ann Arbor, and his offense has averaged 4.2 fewer points per game there than his season average. The environment specifically disrupts Penn State's pre-snap communication." },
-        { section: "COACHING EDGE", text: "Sherrone Moore has Michigan executing the system with physical consistency. Franklin is an excellent game-planner but has historically struggled in The Big House, and his offense has never solved Michigan's home crowd advantage." },
-        { section: "THE PICK", text: "Michigan -3.5 at home is solid. Home-field edge, Michigan's offensive line dominance in favorable matchups, and Franklin's historically poor record in Ann Arbor give the Wolverines the cover." }
+        { section: "KEY X-FACTOR", text: "Kyle Whittingham vs Matt Campbell is a first-time matchup between two new head coaches. The Big House adds another layer of uncertainty for Campbell's Penn State, which is still installing his Iowa State system. Whittingham has 21 seasons of Power conference head coaching experience." },
+        { section: "COACHING EDGE", text: "Kyle Whittingham brings 21 seasons of experience as a Power conference head coach to Michigan. Matt Campbell is excellent — his Iowa State program consistently exceeded expectations — but this is his first year at a blue blood, and his first big road game at The Big House." },
+        { section: "THE PICK", text: "Michigan -3.5 at home is solid. Home-field edge, Whittingham's experience advantage, and Campbell still installing his system in Year 1 give the Wolverines the cover." }
       ],
-      thePick: { team: "Michigan", line: "-3.5", confidence: "HIGH", unit: 2, reasoning: "Big House home advantage + Michigan O-line dominant at home + Franklin 2-4 at Michigan Stadium" }
+      thePick: { team: "Michigan", line: "-3.5", confidence: "HIGH", unit: 2, reasoning: "Big House home advantage + Whittingham 21-year coaching experience + Campbell Year 1 road variance" }
     },
     socialIntel: {
       lineMovement: [
@@ -2207,8 +2207,8 @@ const GAMES = [
       ],
       publicBetting: { homePct: 55, awayPct: 45, overPct: 46, underPct: 54 },
       beatWriter: [
-        { reporter: "Austin Meek", outlet: "The Athletic", report: "Sherrone Moore confirmed Michigan's starting quarterback is fully healthy after early-camp concerns. The Wolverines held an unusually spirited closed practice Thursday — Big House sellout energy is building in Ann Arbor with over 110,000 expected.", team: "michigan", sentiment: "positive", daysAgo: 1 },
-        { reporter: "Josh Moyer", outlet: "Centre Daily Times", report: "James Franklin confirmed Penn State's starting safety will miss this game with an ankle injury — a potential game-changer against Michigan's power run game. The Nittany Lions installed a new defensive front rotation Thursday to compensate.", team: "penn_state", sentiment: "negative", daysAgo: 1 }
+        { reporter: "Austin Meek", outlet: "The Athletic", report: "Kyle Whittingham confirmed Michigan's starting quarterback is fully healthy after early-camp concerns. The Wolverines held an unusually spirited closed practice Thursday — Big House sellout energy is building in Ann Arbor with over 110,000 expected.", team: "michigan", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Josh Moyer", outlet: "Centre Daily Times", report: "Matt Campbell confirmed Penn State's starting safety will miss this game with an ankle injury — a potential game-changer against Michigan's power run game. The Nittany Lions installed a new defensive front rotation Thursday to compensate.", team: "penn_state", sentiment: "negative", daysAgo: 1 }
       ]
     }
   },
@@ -2250,7 +2250,7 @@ const GAMES = [
       publicBetting: { homePct: 53, awayPct: 47, overPct: 50, underPct: 50 },
       beatWriter: [
         { reporter: "Seth Emerson", outlet: "The Athletic", report: "Georgia has had an unusual amount of energy in Jacksonville week practices — Kirby Smart credited the senior class for raising the intensity. The Bulldogs' defensive line rotation is at full strength with no injury concerns heading into the World's Largest Outdoor Cocktail Party.", team: "georgia", sentiment: "positive", daysAgo: 2 },
-        { reporter: "Edgar Thompson", outlet: "Gainesville Sun", report: "Billy Napier confirmed Florida's starting quarterback will play despite a mid-week shoulder issue that limited Wednesday practice. The Gators held an extensive film session on Georgia's press-coverage tendencies — their receivers coach noted specific route adjustments for this matchup.", team: "florida", sentiment: "neutral", daysAgo: 1 }
+        { reporter: "Edgar Thompson", outlet: "Gainesville Sun", report: "Jon Sumrall confirmed Florida's starting quarterback will play despite a mid-week shoulder issue that limited Wednesday practice. The Gators held an extensive film session on Georgia's press-coverage tendencies — their receivers coach noted specific route adjustments for this matchup.", team: "florida", sentiment: "neutral", daysAgo: 1 }
       ]
     }
   },
@@ -2346,7 +2346,7 @@ const GAMES = [
     xFactors: [
       { title: "Tiger Stadium Night Game Effect", description: "LSU's record in night games at Tiger Stadium is 38-4 over the last decade. The atmosphere literally changes outcomes — visiting teams average 18% more false starts than against LSU in day games, and opposing offenses average 4.2 fewer points than their season PPG.", impactTeam: "lsu", impactDirection: "positive", severity: 10, category: "environment" },
       { title: "Alabama Away-Game November Performance", description: "Alabama is 8-6 ATS in true road games in November over the last four seasons. The emotional and physical toll of the SEC schedule by November affects even the Crimson Tide on the road.", impactTeam: "alabama", impactDirection: "negative", severity: 8, category: "situational" },
-      { title: "Brian Kelly Night Game Preparation", description: "Kelly specifically simulates crowd noise above 110 decibels in Tuesday and Wednesday practice sessions. His team is prepared to communicate through the chaos of Tiger Stadium. Alabama's staff must do the same with less experience in this specific environment.", impactTeam: "lsu", impactDirection: "positive", severity: 8, category: "coaching" },
+      { title: "Kiffin Tiger Stadium Night Game Advantage", description: "Lane Kiffin's coaching background at SEC programs gives him deep familiarity with how to leverage crowd noise as a preparation variable. LSU's staff simulates above-110-decibel noise in Tuesday and Wednesday practices — Alabama's staff has less experience with this specific environment.", impactTeam: "lsu", impactDirection: "positive", severity: 8, category: "coaching" },
       { title: "SEC Championship Game Stakes", description: "The winner of this game has a clear path to the SEC Championship. Both teams arrive with identical or near-identical conference records — the motivation is absolute. In games with these stakes, the home team historically covers 62% of the time.", impactTeam: "lsu", impactDirection: "positive", severity: 8, category: "motivation" }
     ],
     gamePreview: {
@@ -2356,7 +2356,7 @@ const GAMES = [
         { section: "OFFENSIVE EDGE", text: "Alabama's offense has the edge in pure talent and execution metrics. However, Tiger Stadium's noise levels have historically caused Alabama's offense to average 4.2 fewer points per game than their season average. Communication breakdowns cause pre-snap penalties that turn manageable down-and-distance into difficult situations." },
         { section: "DEFENSIVE BATTLEGROUND", text: "LSU's defensive front four are all NFL Draft candidates. Alabama's offensive line — while excellent — will face their most physical challenge of the season. If LSU can force one or two three-and-outs early, the crowd volume reaches a level that becomes self-sustaining." },
         { section: "KEY X-FACTOR", text: "Tiger Stadium after dark is the single greatest home-field advantage in college football. LSU's 38-4 night game home record over the last decade is not a coincidence — it is evidence that the environment generates measurable performance advantages worth 3-4 points on the scoreboard." },
-        { section: "COACHING EDGE", text: "Kelly has built LSU's program culture around this game. His weekly preparation specifically accounts for the crowd as a performance variable. Alabama's staff is excellent but does not have Kelly's specific Tiger Stadium night game institutional knowledge." },
+        { section: "COACHING EDGE", text: "Kiffin's aggressive offensive system and SEC experience give LSU a credible coaching edge in this matchup. He prepares specifically for crowd noise as a performance variable. Alabama's staff is excellent, but Kiffin's offensive mind in this specific environment is a genuine factor." },
         { section: "THE PICK", text: "LSU +1.5 is the pick. The home field advantage in this specific venue on this specific night is worth 3-4 points that the line does not account for. Alabama may win the game, but LSU covers comfortably. Take the Tigers." }
       ],
       thePick: { team: "LSU", line: "+1.5", confidence: "HIGH", unit: 2, reasoning: "Tiger Stadium night game = 3-4 point advantage not priced into 1.5-point line" }
@@ -2369,7 +2369,7 @@ const GAMES = [
       ],
       publicBetting: { homePct: 57, awayPct: 43, overPct: 59, underPct: 41 },
       beatWriter: [
-        { reporter: "Pete Thamel", outlet: "ESPN", report: "Death Valley is expected to break the decibel record for a regular-season game Saturday night. Brian Kelly held a rare joint offensive and defensive practice Thursday with full sound pumped at practice — LSU's veterans looked completely unfazed. This locker room is as focused as any Kelly team in Baton Rouge.", team: "lsu", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Pete Thamel", outlet: "ESPN", report: "Death Valley is expected to break the decibel record for a regular-season game Saturday night. Lane Kiffin held a rare joint offensive and defensive practice Thursday with full sound pumped at practice — LSU's veterans looked completely unfazed. Kiffin called the atmosphere 'unlike anything I've experienced anywhere else.'", team: "lsu", sentiment: "positive", daysAgo: 1 },
         { reporter: "Cecil Hurt", outlet: "Tuscaloosa News", report: "DeBoer called LSU's stadium 'the most difficult road environment in America' on Wednesday's presser. Alabama confirmed both starting cornerbacks are healthy but travel party sources note the Tide will deploy a new two-high safety shell specifically to limit LSU's deep-shot passing game.", team: "alabama", sentiment: "neutral", daysAgo: 2 }
       ]
     }
@@ -2437,7 +2437,7 @@ const GAMES = [
         { section: "OFFENSIVE EDGE", text: "Texas has the offensive edge this week because they are fresh and specifically prepared. The Longhorns have a week of clean preparation while LSU will be physically and emotionally recovering from the Alabama battle. Texas's speed advantage at the skill positions will be magnified against a tired LSU defense." },
         { section: "DEFENSIVE BATTLEGROUND", text: "Texas's defense is fresh and prepared with a full week of film study on LSU's offensive tendencies. LSU's offense must generate points without the emotional fuel of a rivalry game — and that is harder than it sounds for a team that peaked seven days ago." },
         { section: "KEY X-FACTOR", text: "The LSU letdown data. LSU is 4-9 ATS in the game after Alabama over the last decade. The pattern is not coincidental — it is a documented, measurable effect of emotional expenditure in the rivalry game. This situation checks every letdown box." },
-        { section: "COACHING EDGE", text: "Sarkisian has specifically prepared his staff for this game knowing LSU would be spent after Alabama. His game plan will attack LSU's fatigue systematically. Kelly is excellent but must manage a depleted roster." },
+        { section: "COACHING EDGE", text: "Sarkisian has specifically prepared his staff for this game knowing LSU would be spent after Alabama. His game plan will attack LSU's fatigue systematically. Kiffin is excellent but faces the classic challenge of managing a depleted roster one week after an emotional rivalry game." },
         { section: "THE PICK", text: "Texas +4 is the clear value pick. The letdown factor alone is worth 3-4 points, Texas is the better rested team, and Sarkisian has had a full week to prepare for a tired LSU defense. Take the Longhorns with the points." }
       ],
       thePick: { team: "Texas", line: "+4", confidence: "HIGH", unit: 2, reasoning: "Classic letdown spot — LSU 4-9 ATS post-Alabama + Texas full week fresh prep + speed mismatch" }
@@ -2450,7 +2450,7 @@ const GAMES = [
       ],
       publicBetting: { homePct: 53, awayPct: 47, overPct: 64, underPct: 36 },
       beatWriter: [
-        { reporter: "Pete Thamel", outlet: "ESPN", report: "LSU's wide receiver corps looked exceptional in Thursday's practice — Brian Kelly confirmed two freshmen WRs are firmly in the two-deep and delivering on their recruiting profiles. The Tigers' preparation this week has centered on stopping Texas's quick-passing game before the Longhorns get into rhythm.", team: "lsu", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Pete Thamel", outlet: "ESPN", report: "LSU's wide receiver corps looked exceptional in Thursday's practice — Lane Kiffin confirmed two freshmen WRs are firmly in the two-deep and delivering on their recruiting profiles. The Tigers' preparation this week has centered on stopping Texas's quick-passing game before the Longhorns get into rhythm.", team: "lsu", sentiment: "positive", daysAgo: 1 },
         { reporter: "Brian Davis", outlet: "Austin American-Statesman", report: "Texas's offensive coordinator held an extra session Thursday installing new motion concepts specifically for LSU's defensive alignment tendencies. Sarkisian confirmed the team is healthy and the Longhorns are treating the Baton Rouge trip as a legitimate championship audition.", team: "texas", sentiment: "positive", daysAgo: 2 }
       ]
     }
@@ -2490,7 +2490,7 @@ const GAMES = [
       publicBetting: { homePct: 67, awayPct: 33, overPct: 48, underPct: 52 },
       beatWriter: [
         { reporter: "James Crepea", outlet: "The Oregonian", report: "Autzen Stadium is sold out and the Duck Walk preparation this week has extra electricity after last year's Big Ten title run. Dan Lanning confirmed Oregon's entire starting lineup is healthy and the Ducks are treating this Michigan game as a statement for New York Six consideration.", team: "oregon", sentiment: "positive", daysAgo: 1 },
-        { reporter: "Austin Meek", outlet: "The Athletic", report: "Michigan's offensive staff is installing new run-blocking concepts specifically for Oregon's 3-3-5 defensive alignment — a scheme Michigan has limited experience facing. Sherrone Moore confirmed no injury issues but noted the long road trip to Eugene adds preparation complexity for a Wolverines team fighting for bowl eligibility.", team: "michigan", sentiment: "negative", daysAgo: 2 }
+        { reporter: "Austin Meek", outlet: "The Athletic", report: "Michigan's offensive staff is installing new run-blocking concepts specifically for Oregon's 3-3-5 defensive alignment — a scheme Michigan has limited experience facing. Kyle Whittingham confirmed no injury issues but noted the long road trip to Eugene adds preparation complexity for a Wolverines team still learning his system.", team: "michigan", sentiment: "negative", daysAgo: 2 }
       ]
     }
   },
@@ -2532,7 +2532,7 @@ const GAMES = [
       publicBetting: { homePct: 57, awayPct: 43, overPct: 60, underPct: 40 },
       beatWriter: [
         { reporter: "John Brice", outlet: "Vol Report", report: "Neyland under the lights on a Thursday night is the most underrated atmosphere in the SEC. Heupel confirmed this week's short-week preparation is no concern — Tennessee does it every year and the routine is perfected. The defensive staff specifically designed a new 3-down look for LSU's perimeter passing game.", team: "tennessee", sentiment: "positive", daysAgo: 1 },
-        { reporter: "Pete Thamel", outlet: "ESPN", report: "LSU faces a short week after a physical Saturday game and Brian Kelly acknowledged the recovery challenge. The Tigers arrived in Knoxville by charter Friday evening and held a brief walkthrough. Kelly confirmed his starting QB is healthy but declined to detail the overall injury report ahead of the Thursday game.", team: "lsu", sentiment: "negative", daysAgo: 1 }
+        { reporter: "Pete Thamel", outlet: "ESPN", report: "LSU faces a short week after a physical Saturday game and Lane Kiffin acknowledged the recovery challenge. The Tigers arrived in Knoxville by charter Friday evening and held a brief walkthrough. Kiffin confirmed his starting QB is healthy but declined to detail the overall injury report ahead of the Thursday game.", team: "lsu", sentiment: "negative", daysAgo: 1 }
       ]
     }
   },
@@ -2574,7 +2574,7 @@ const GAMES = [
       publicBetting: { homePct: 68, awayPct: 32, overPct: 52, underPct: 48 },
       beatWriter: [
         { reporter: "Dan Hope", outlet: "Eleven Warriors", report: "Ryan Day has been preparing for THE GAME since the first week of September. Ohio Stadium will host the loudest home crowd since 2019 — media access was restricted Thursday as Day implemented final game-plan installations. Sources inside the program say the Buckeyes are operating at the highest focus level of the season.", team: "ohio_state", sentiment: "positive", daysAgo: 1 },
-        { reporter: "Austin Meek", outlet: "The Athletic", report: "Sherrone Moore delivered a fiery team address Thursday night — Michigan's locker room motivation to end Ohio State's home winning streak is at an all-time high under Moore. The Wolverines confirm full health on their defensive two-deep and installed two new wrinkles specifically for Ohio State's interior RPO packages.", team: "michigan", sentiment: "positive", daysAgo: 1 }
+        { reporter: "Austin Meek", outlet: "The Athletic", report: "Kyle Whittingham delivered a fiery team address Thursday night — Michigan's locker room motivation to prove itself in Year 1 under Whittingham against Ohio State is significant. The Wolverines confirm full health on their defensive two-deep and installed two new wrinkles specifically for Ohio State's interior RPO packages.", team: "michigan", sentiment: "positive", daysAgo: 1 }
       ]
     }
   },
@@ -2588,7 +2588,7 @@ const GAMES = [
     bettingLines: { spread: -16, moneylineHome: -900, moneylineAway: 640, total: 52.5 },
     xFactors: [
       { title: "Iron Bowl Underdog Cover History", description: "Auburn has covered the spread as a double-digit underdog in the Iron Bowl in 6 of the last 9 games. The rivalry factor systematically reduces the effective spread — 16 points is simply too many in any game called the Iron Bowl.", impactTeam: "auburn", impactDirection: "positive", severity: 9, category: "situational" },
-      { title: "Hugh Freeze Iron Bowl Motivation", description: "Freeze specifically uses Alabama as a recruiting and motivational touchstone throughout the season. His teams are always maximally motivated for this game regardless of record. An Auburn team playing with nothing to lose is dangerous against a large spread.", impactTeam: "auburn", impactDirection: "positive", severity: 8, category: "coaching" },
+      { title: "Alex Golesh Iron Bowl Debut Motivation", description: "Golesh is coaching his first Iron Bowl and will use the Alabama rivalry as a defining moment for his Auburn tenure. First-year coaches often get maximum emotional performance from their rosters in rivalry games — the players elevate to reward their new coach. An Auburn team playing with nothing to lose is dangerous against a large spread.", impactTeam: "auburn", impactDirection: "positive", severity: 8, category: "coaching" },
       { title: "Alabama Talent Advantage Is Decisive", description: "Alabama's roster depth at every position is 15-20 percent superior by recruiting composite rankings. The Tide have been preparing for this game all season and will execute at an elite level.", impactTeam: "alabama", impactDirection: "positive", severity: 8, category: "recruiting" },
       { title: "16-Point Rival Spread History", description: "In all major college football rivalries (Alabama-Auburn, Ohio State-Michigan, Georgia-Florida, etc.), the underdog covers 58% of the time when the spread reaches double digits. The rivalry factor is quantifiable and consistent.", impactTeam: "auburn", impactDirection: "positive", severity: 8, category: "situational" }
     ],
@@ -2598,11 +2598,11 @@ const GAMES = [
       analysis: [
         { section: "OFFENSIVE EDGE", text: "Alabama's offense is dramatically superior in every measurable category. However, in the Iron Bowl, both teams play with a level of emotional intensity that narrows effective talent gaps. Alabama will score — the question is whether they can get the meaningless fourth-quarter touchdown that covers this large spread." },
         { section: "DEFENSIVE BATTLEGROUND", text: "Alabama's defense will dominate Auburn's offense in the first three quarters. Auburn's defense, which has been average all season, will bend but make enough stops to keep the score within the spread until the game's final minutes." },
-        { section: "KEY X-FACTOR", text: "Auburn's underdog cover history in this specific rivalry. The Tigers have covered as a double-digit underdog in 6 of the last 9 Iron Bowl games. The rivalry emotion, the state pride, and Hugh Freeze's specific preparation for Alabama are worth 7-10 points against the spread historically." },
-        { section: "COACHING EDGE", text: "Alabama has the coaching advantage in raw ability, but Hugh Freeze knows exactly how to motivate Auburn for this one game. His pre-game preparation and emotional investment in beating Alabama is a known quantity." },
+        { section: "KEY X-FACTOR", text: "Auburn's underdog cover history in this specific rivalry. The Tigers have covered as a double-digit underdog in 6 of the last 9 Iron Bowl games. The rivalry emotion, the state pride, and the fact that Golesh is coaching his first Iron Bowl with maximum motivation are worth 7-10 points against the spread historically." },
+        { section: "COACHING EDGE", text: "Alabama has the coaching advantage in raw experience, but Golesh comes in motivated to establish his Auburn program with a statement. His South Florida teams were aggressive and never quit — expect Auburn to play their most complete game of the season in this spot." },
         { section: "THE PICK", text: "Auburn +16 is the only bet. No matter how good Alabama is, 16 points in the Iron Bowl is too many. Auburn will compete emotionally through three quarters and keep this within two scores. Take the points." }
       ],
-      thePick: { team: "Auburn", line: "+16", confidence: "MEDIUM", unit: 1.5, reasoning: "Iron Bowl underdog cover history 6-of-9 + 16 points too many in any rivalry game + Freeze motivation" }
+      thePick: { team: "Auburn", line: "+16", confidence: "MEDIUM", unit: 1.5, reasoning: "Iron Bowl underdog cover history 6-of-9 + 16 points too many in any rivalry game + Golesh debut motivation" }
     },
     socialIntel: {
       lineMovement: [
@@ -2613,7 +2613,7 @@ const GAMES = [
       publicBetting: { homePct: 74, awayPct: 26, overPct: 50, underPct: 50 },
       beatWriter: [
         { reporter: "Cecil Hurt", outlet: "Tuscaloosa News", report: "Alabama practiced with unusual emotion this week — the rivalry factor is real regardless of records. DeBoer held a Friday walkthrough that sources called 'dialed in' with zero complacency allowed. The Tide's two-deep is at full health heading into the Iron Bowl.", team: "alabama", sentiment: "positive", daysAgo: 1 },
-        { reporter: "Josh Bean", outlet: "AL.com", report: "Hugh Freeze rallied Auburn with an extended team meeting Thursday, reportedly invoking past Iron Bowl upsets including the Kick Six. The Tigers arrive in Tuscaloosa as heavy underdogs but confirmed their starting quarterback is healthy and the team's attitude in practice has been feisty all week.", team: "auburn", sentiment: "positive", daysAgo: 2 }
+        { reporter: "Josh Bean", outlet: "AL.com", report: "Alex Golesh rallied Auburn with an extended team meeting Thursday, reportedly invoking past Iron Bowl upsets including the Kick Six and the 2010 national championship run. The Tigers arrive in Tuscaloosa as heavy underdogs but confirmed their starting quarterback is healthy and the team's attitude in practice has been feisty all week.", team: "auburn", sentiment: "positive", daysAgo: 2 }
       ]
     }
   },
