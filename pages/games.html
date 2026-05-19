@@ -25,10 +25,10 @@
     .search-input:focus { border-color:var(--primary); }
 
     /* ── Game card tweaks for mobile ── */
-    @media (max-width:500px) {
-      .game-grid-inner { grid-template-columns:1fr !important; }
+    .game-grid-inner { display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px; }
+    @media (max-width:640px) {
+      .game-grid-inner { grid-template-columns:1fr; }
     }
-    .game-grid-inner { display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px; }
 
     /* ── Weather badge ── */
     .wx-badge { display:inline-flex;align-items:center;gap:3px;font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:8px;border:1px solid;vertical-align:middle; }
@@ -203,20 +203,18 @@ document.getElementById("sort-chips").addEventListener("click", e => {
 
 // Week detection & tabs
 const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
-const weekLabels = { 1:"Wk 1", 2:"Wk 2", 3:"Wk 3", 4:"Wk 4", 5:"Wk 5", 6:"Wk 6", 7:"Wk 7", 8:"Wk 8", 9:"Wk 9", 10:"Wk 10", 11:"Wk 11", 12:"Wk 12", 13:"Wk 13", 14:"Wk 14", 15:"SEC/B10 Champs", 16:"CFP" };
-let activeWeek = allWeeks[0]; // Default week 1
+const weekLabels = { 1:"Wk 1", 2:"Wk 2", 3:"Wk 3", 4:"Wk 4", 5:"Wk 5", 6:"Wk 6", 7:"Wk 7", 8:"Wk 8", 9:"Wk 9", 10:"Wk 10", 11:"Wk 11", 12:"Wk 12", 13:"Wk 13", 14:"Wk 14", 15:"Champs", 16:"CFP" };
+let activeWeek = 0; // 0 = All Weeks (default)
 
 (function() {
   const strip = document.getElementById("week-strip");
-  strip.innerHTML = allWeeks.map(w =>
-    `<button class="week-tab${w===activeWeek?" active":""}" data-week="${w}">${weekLabels[w]||"Wk "+w}</button>`
-  ).join("");
+  strip.innerHTML = `<button class="week-tab active" data-week="0">All Games</button>`
+    + allWeeks.map(w => `<button class="week-tab" data-week="${w}">${weekLabels[w]||"Wk "+w}</button>`).join("");
   strip.addEventListener("click", e => {
     const tab = e.target.closest(".week-tab");
     if (!tab) return;
     activeWeek = parseInt(tab.dataset.week);
     document.querySelectorAll(".week-tab").forEach(t => t.classList.toggle("active", parseInt(t.dataset.week)===activeWeek));
-    // Clear search when switching weeks
     searchTeam = "";
     document.getElementById("search").value = "";
     render();
@@ -348,31 +346,31 @@ function renderGameCard(game, pred) {
       </div>
 
       <!-- Pick chips -->
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
         ${sp.side !== "no-bet" ? `
-          <div style="flex:1;min-width:90px;padding:7px 10px;border-radius:8px;background:${sp.side==="home"?home.color+"18":away.color+"18"};border:1px solid ${sp.side==="home"?home.color+"40":away.color+"40"}">
-            <div style="font-size:.55rem;font-weight:800;color:var(--muted);letter-spacing:1px">ATS PICK</div>
-            <div style="font-size:.88rem;font-weight:900;color:var(--text)">${sp.team.split(" ").pop()}</div>
-            <div style="font-size:.65rem;color:var(--muted)">${sp.side==="home"?fmtSpread(game.bettingLines.spread):fmtSpread(-game.bettingLines.spread)}</div>
+          <div style="padding:8px 10px;border-radius:8px;background:${sp.side==="home"?home.color+"22":away.color+"22"};border:1px solid ${sp.side==="home"?home.color+"55":away.color+"55"}">
+            <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">ATS PICK</div>
+            <div style="font-size:.85rem;font-weight:900;color:var(--text)">${sp.team.split(" ").pop()}</div>
+            <div style="font-size:.65rem;color:var(--muted-l)">${sp.side==="home"?fmtSpread(game.bettingLines.spread):fmtSpread(-game.bettingLines.spread)}</div>
           </div>` : `
-          <div style="flex:1;min-width:90px;padding:7px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
-            <div style="font-size:.55rem;font-weight:800;color:var(--muted);letter-spacing:1px">ATS</div>
-            <div style="font-size:.78rem;color:var(--muted)">No edge</div>
+          <div style="padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
+            <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">ATS</div>
+            <div style="font-size:.8rem;color:var(--muted-l)">No edge</div>
           </div>`}
         ${tp.side !== "no-bet" ? `
-          <div style="flex:1;min-width:90px;padding:7px 10px;border-radius:8px;background:${tp.side==="over"?"rgba(16,185,129,.08)":"rgba(99,102,241,.08)"};border:1px solid ${tp.side==="over"?"rgba(16,185,129,.25)":"rgba(99,102,241,.25)"}">
-            <div style="font-size:.55rem;font-weight:800;color:var(--muted);letter-spacing:1px">TOTAL</div>
-            <div style="font-size:.88rem;font-weight:900;color:${tp.side==="over"?"var(--primary)":"var(--accent)"}">${tp.side.toUpperCase()}</div>
-            <div style="font-size:.65rem;color:var(--muted)">${game.bettingLines?game.bettingLines.total:""}</div>
+          <div style="padding:8px 10px;border-radius:8px;background:${tp.side==="over"?"rgba(16,185,129,.12)":"rgba(239,68,68,.1)"};border:1px solid ${tp.side==="over"?"rgba(16,185,129,.3)":"rgba(239,68,68,.3)"}">
+            <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">TOTAL</div>
+            <div style="font-size:.85rem;font-weight:900;color:${tp.side==="over"?"var(--primary)":"var(--danger)"}">${tp.side.toUpperCase()}</div>
+            <div style="font-size:.65rem;color:var(--muted-l)">${game.bettingLines?game.bettingLines.total:""}</div>
           </div>` : `
-          <div style="flex:1;min-width:90px;padding:7px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
-            <div style="font-size:.55rem;font-weight:800;color:var(--muted);letter-spacing:1px">TOTAL</div>
-            <div style="font-size:.78rem;color:var(--muted)">No edge</div>
+          <div style="padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
+            <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">TOTAL</div>
+            <div style="font-size:.8rem;color:var(--muted-l)">No edge</div>
           </div>`}
-        <div style="flex:1;min-width:90px;padding:7px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border);text-align:right">
-          <div style="font-size:.55rem;font-weight:800;color:var(--muted);letter-spacing:1px">SPREAD</div>
-          <div style="font-size:.88rem;font-weight:900;color:var(--text)">${game.bettingLines?fmtSpread(game.bettingLines.spread):"—"}</div>
-          <div style="font-size:.65rem;color:var(--muted)">Vegas</div>
+        <div style="padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border);text-align:right">
+          <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">SPREAD</div>
+          <div style="font-size:.85rem;font-weight:900;color:var(--text)">${game.bettingLines?fmtSpread(game.bettingLines.spread):"—"}</div>
+          <div style="font-size:.65rem;color:var(--muted-l)">Vegas</div>
         </div>
       </div>
 
@@ -412,10 +410,13 @@ function render() {
   } else {
     document.getElementById("schedule-header-row").innerHTML = "";
     document.getElementById("week-strip").style.opacity = "1";
-    // Filter by week
-    list = list.filter(p => p.game.week === activeWeek);
-    // Show best pick for this week
-    renderBestPick(activeWeek);
+    if (activeWeek === 0) {
+      // All weeks — show best pick of entire schedule
+      renderBestPick(1);
+    } else {
+      list = list.filter(p => p.game.week === activeWeek);
+      renderBestPick(activeWeek);
+    }
   }
 
   // Conference filter
@@ -461,7 +462,7 @@ function clearSearch() {
 })();
 
 // Initial render
-renderBestPick(activeWeek);
+renderBestPick(1);
 render();
 </script>
 </body>

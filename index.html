@@ -253,18 +253,18 @@ try {
     const chipCls = sp.side === "home" ? "pick-home" : "pick-away";
     const chipColor = sp.side === "home" ? "var(--accent)" : "var(--gold)";
     return `
-      <div class="top-pick fade-up delay-${i+1}">
+      <a class="top-pick fade-up delay-${i+1}" href="pages/game.html?id=${game.id}">
         <div class="pick-rank">
           <span class="pick-rank-icon">${icons[i]}</span>
           <span class="pick-rank-label">${labels[i]}</span>
         </div>
-        <div class="flex items-center gap-3 mb-3">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
           <div class="team-logo team-logo-sm" style="background:${game.awayTeam.color}">${game.awayTeam.abbreviation.slice(0,3)}</div>
-          <span class="text-xs text-muted">@</span>
+          <span style="font-size:.75rem;color:var(--muted-l)">@</span>
           <div class="team-logo team-logo-sm" style="background:${game.homeTeam.color}">${game.homeTeam.abbreviation.slice(0,3)}</div>
           <div style="margin-left:4px">
-            <div class="text-sm fw-bold">${game.awayTeam.abbreviation} @ ${game.homeTeam.abbreviation}</div>
-            <div class="text-xs text-muted">${fmtDate(game.date)}</div>
+            <div style="font-size:.88rem;font-weight:700;color:var(--text)">${game.awayTeam.abbreviation} @ ${game.homeTeam.abbreviation}</div>
+            <div style="font-size:.7rem;color:var(--muted-l)">${fmtDate(game.date)} · ${game.network}</div>
           </div>
         </div>
         <div class="pick-chip ${chipCls} mb-3" style="text-align:left">
@@ -272,12 +272,13 @@ try {
           <div class="pick-chip-val" style="font-size:1rem;color:${chipColor}">${sp.team}</div>
           <div class="pick-chip-sub">Line: ${lineVal}</div>
         </div>
-        <div class="flex justify-between text-xs text-muted">
-          <span>Confidence: <strong style="color:var(--text)">${sp.confidence}%</strong></span>
+        <div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted-l)">
+          <span>Conf: <strong style="color:var(--text)">${sp.confidence}%</strong></span>
           <span>Edge: <strong style="color:var(--primary)">+${sp.edge} pts</strong></span>
         </div>
-      </div>`;
-  }).join("") || '<p class="text-muted text-sm">No high-confidence picks found this week.</p>';
+        <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:.7rem;color:var(--primary);font-weight:700;text-align:right">Full Analysis →</div>
+      </a>`;
+  }).join("") || '<p style="color:var(--muted-l);font-size:.9rem">No high-confidence picks found this week.</p>';
 })();
 
 // ── Featured games (elite + high confidence)
