@@ -424,7 +424,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "11-3 (2025)",
     rating: 87, offensiveRating: 84, defensiveRating: 90, spRating: 18.4,
     recruitingRank: 10,
-    coachName: "James Franklin", coachRecord: "109-51",
+    coachName: "Matt Campbell", coachRecord: "69-35",
     stats: {
       pointsPerGame: 33.2, pointsAllowedPerGame: 17.4,
       yardsPerGame: 408.4, yardsAllowedPerGame: 282.1,
@@ -506,7 +506,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "8-4 (2025)",
     rating: 82, offensiveRating: 80, defensiveRating: 84, spRating: 13.8,
     recruitingRank: 11,
-    coachName: "Sherrone Moore", coachRecord: "16-11",
+    coachName: "Kyle Whittingham", coachRecord: "165-80",
     stats: {
       pointsPerGame: 29.8, pointsAllowedPerGame: 20.1,
       yardsPerGame: 378.2, yardsAllowedPerGame: 298.4,
