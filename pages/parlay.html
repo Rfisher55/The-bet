@@ -32,6 +32,16 @@
     .pick-btn.selected-home-ml { background:rgba(16,185,129,.15);border-color:var(--primary);color:var(--primary); }
     .pick-btn.selected-away-ml { background:rgba(99,102,241,.12);border-color:var(--accent);color:var(--accent); }
 
+    /* ── Pick button "added" animation ── */
+    @keyframes pick-pop {
+      0%   { transform:scale(1); }
+      40%  { transform:scale(1.13); }
+      100% { transform:scale(1); }
+    }
+    .pick-btn.pick-added {
+      animation:pick-pop .28s ease-out forwards;
+    }
+
     /* ── Game row ── */
     .parlay-game-row {
       padding:14px 16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--card);
@@ -51,8 +61,17 @@
     /* ── Grade badge ── */
     .parlay-grade { width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:900;flex-shrink:0; }
 
-    /* ── Auto build ── */
-    .auto-build-btn { width:100%;padding:14px;font-size:1rem;font-weight:900;border-radius:12px;background:var(--primary);color:#fff;border:none;cursor:pointer;letter-spacing:.5px;transition:opacity .15s; }
+    /* ── Auto build inline btn (summary header) ── */
+    .auto-build-inline-btn {
+      padding:7px 14px;border-radius:9px;font-size:.78rem;font-weight:800;cursor:pointer;border:none;
+      background:linear-gradient(135deg,#7c3aed,var(--accent));color:#fff;letter-spacing:.4px;
+      transition:opacity .15s,transform .1s;white-space:nowrap;
+    }
+    .auto-build-inline-btn:hover { opacity:.88; }
+    .auto-build-inline-btn:active { transform:scale(.96); }
+
+    /* ── Auto build hero button ── */
+    .auto-build-btn { width:100%;padding:14px;font-size:1rem;font-weight:900;border-radius:12px;background:linear-gradient(135deg,#7c3aed,var(--accent));color:#fff;border:none;cursor:pointer;letter-spacing:.5px;transition:opacity .15s; }
     .auto-build-btn:hover { opacity:.9; }
     .auto-build-btn:active { opacity:.75; }
 
@@ -66,9 +85,79 @@
     .legs-area { min-height:44px;display:flex;flex-wrap:wrap;align-items:center;gap:4px; }
     .legs-empty { font-size:.8rem;color:var(--muted);font-style:italic; }
 
+    /* ── Parlay name input ── */
+    .parlay-name-input {
+      background:transparent;border:none;border-bottom:1px dashed var(--border-l);
+      color:var(--text);font-size:.88rem;font-weight:700;padding:2px 4px;width:100%;
+      outline:none;transition:border-color .15s;
+    }
+    .parlay-name-input:focus { border-bottom-color:var(--primary); }
+    .parlay-name-input::placeholder { color:var(--muted); }
+
+    /* ── Wager row ── */
+    .wager-row { display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px; }
+    .wager-quick-btn {
+      padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);
+      color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer;transition:all .15s;
+    }
+    .wager-quick-btn:hover { border-color:var(--accent);color:var(--accent); }
+    .wager-quick-btn.active { background:rgba(99,102,241,.15);border-color:var(--accent);color:var(--accent); }
+    .wager-custom-input {
+      padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);
+      color:var(--text);font-size:.82rem;font-weight:700;width:80px;outline:none;transition:border-color .15s;
+    }
+    .wager-custom-input:focus { border-color:var(--accent); }
+    .wager-payout-display {
+      font-size:.92rem;font-weight:800;color:var(--primary);white-space:nowrap;
+      padding:6px 12px;border-radius:8px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);
+    }
+
+    /* ── Win probability visual bar ── */
+    .win-prob-bar-wrap { margin-top:12px; }
+    .win-prob-bar-track {
+      height:10px;border-radius:5px;background:var(--surface);border:1px solid var(--border);overflow:hidden;position:relative;margin-top:6px;
+    }
+    .win-prob-bar-fill {
+      height:100%;border-radius:5px;transition:width .45s ease,background .35s;
+    }
+    .win-prob-labels { display:flex;justify-content:space-between;font-size:.6rem;color:var(--muted);margin-top:4px; }
+    .win-prob-pct {
+      font-size:2rem;font-weight:900;line-height:1;margin-bottom:2px;
+    }
+    .win-prob-subtitle { font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted); }
+
+    /* ── Toast notification ── */
+    #pick-toast {
+      position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+      background:rgba(16,185,129,.92);color:#fff;font-size:.82rem;font-weight:800;
+      padding:9px 20px;border-radius:20px;z-index:9999;pointer-events:none;
+      opacity:0;transition:opacity .2s,transform .2s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.4);
+    }
+    #pick-toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
+
+    /* ── Empty state ── */
+    .parlay-empty-state {
+      padding:24px 16px;text-align:center;
+    }
+    .parlay-empty-icon { font-size:2.2rem;margin-bottom:10px; }
+    .parlay-empty-title { font-size:1rem;font-weight:900;color:var(--text);margin-bottom:6px; }
+    .parlay-empty-sub { font-size:.78rem;color:var(--muted-l);line-height:1.55;margin-bottom:14px; }
+    .parlay-empty-steps { display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px; }
+    .parlay-empty-step {
+      display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--muted-l);
+      padding:6px 12px;border-radius:20px;background:var(--surface);border:1px solid var(--border);
+    }
+    .parlay-empty-step-num { width:18px;height:18px;border-radius:50%;background:var(--primary);color:#fff;font-size:.65rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .browse-picks-btn {
+      padding:8px 20px;border-radius:9px;background:var(--primary);color:#fff;font-size:.8rem;font-weight:800;
+      border:none;cursor:pointer;transition:opacity .15s;
+    }
+    .browse-picks-btn:hover { opacity:.85; }
+
     @media (max-width:600px) {
       .pick-btn { min-width:60px;font-size:.68rem;padding:6px 8px; }
       .parlay-odds-big { font-size:1.3rem; }
+      .win-prob-pct { font-size:1.5rem; }
     }
   </style>
 </head>
@@ -98,16 +187,44 @@
     <p class="page-sub">Build your parlay from our model's picks. Auto-build selects the strongest edges of the week.</p>
   </div>
 
-  <!-- Auto Build -->
+  <!-- Auto Build hero button -->
   <button class="auto-build-btn mb-5" onclick="autoBuild()">⚡ Auto-Build Best Parlay</button>
 
   <!-- Current Parlay Card -->
   <div class="card card-p mb-5" id="parlay-summary">
+
+    <!-- Parlay name + Auto-build inline -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+      <div style="flex:1;min-width:160px">
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:4px">PARLAY NAME</div>
+        <input class="parlay-name-input" id="parlay-name" type="text" placeholder="Week X Parlay" maxlength="48"
+          oninput="saveParlayName()" />
+      </div>
+      <button class="auto-build-inline-btn" onclick="autoBuild()">⚡ Auto Build</button>
+    </div>
+
     <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:14px">
       <div class="parlay-grade" id="parlay-grade" style="background:var(--surface);border:2px solid var(--border);color:var(--muted)">—</div>
       <div style="flex:1">
         <div style="font-size:.58rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:4px">YOUR PARLAY</div>
-        <div class="legs-area" id="legs-display"><span class="legs-empty">Select picks below to build your parlay</span></div>
+        <div class="legs-area" id="legs-display"></div>
+      </div>
+    </div>
+
+    <!-- Win probability visual -->
+    <div class="win-prob-bar-wrap" id="win-prob-section" style="display:none;margin-bottom:14px">
+      <div style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap">
+        <div>
+          <div class="win-prob-pct" id="win-prob-pct-big">0%</div>
+          <div class="win-prob-subtitle">Model Win Probability</div>
+        </div>
+        <div style="flex:1;min-width:120px">
+          <div style="font-size:.65rem;color:var(--muted-l);font-weight:700;margin-bottom:4px" id="win-prob-tier-label"></div>
+          <div class="win-prob-bar-track">
+            <div class="win-prob-bar-fill" id="win-prob-bar-fill" style="width:0%"></div>
+          </div>
+          <div class="win-prob-labels"><span>0%</span><span>50%</span><span>100%</span></div>
+        </div>
       </div>
     </div>
 
@@ -131,10 +248,24 @@
       </div>
     </div>
 
+    <!-- Wager calculator -->
+    <div id="wager-section" style="display:none;padding:12px;border-radius:10px;background:var(--surface);border:1px solid var(--border);margin-bottom:12px">
+      <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:8px">WAGER CALCULATOR</div>
+      <div class="wager-row">
+        <button class="wager-quick-btn" data-amount="10" onclick="setWager(10)">$10</button>
+        <button class="wager-quick-btn active" data-amount="25" onclick="setWager(25)">$25</button>
+        <button class="wager-quick-btn" data-amount="50" onclick="setWager(50)">$50</button>
+        <button class="wager-quick-btn" data-amount="100" onclick="setWager(100)">$100</button>
+        <input class="wager-custom-input" id="wager-custom" type="number" min="1" max="99999" placeholder="Custom"
+          oninput="setWagerCustom(this.value)" />
+        <div class="wager-payout-display" id="wager-payout-display">—</div>
+      </div>
+    </div>
+
     <!-- Analysis text -->
     <div id="parlay-analysis" style="font-size:.8rem;color:var(--muted-l);font-style:italic;line-height:1.55"></div>
 
-    <!-- Clear button -->
+    <!-- Action buttons -->
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
       <button onclick="clearParlay()" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer">Clear All</button>
       <button onclick="copyParlay(this)" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer">📋 Copy Picks</button>
@@ -167,6 +298,9 @@
   <div id="game-list"></div>
 
 </main>
+
+<!-- Toast notification -->
+<div id="pick-toast">&#10003; Added to parlay</div>
 
 <!-- Sticky bottom parlay bar -->
 <div class="parlay-bar" id="parlay-bar" style="display:none">
@@ -221,8 +355,11 @@
 <script src="../js/predictor.js"></script>
 <script>
 // ── Parlay state ──
-// picks = { [gameId]: { side: "home"|"away"|"over"|"under"|"home-ml"|"away-ml", odds, teamName, label } }
+// picks = { [gameId]: { side: "home"|"away"|"over"|"under"|"home-ml"|"away-ml", odds, teamName, label, confidence } }
 const picks = {};
+
+// ── Wager state ──
+let wager = 25;
 
 // ── Build predictions ──
 let allPreds = [];
@@ -240,6 +377,24 @@ let parlayConfFilter = "all";
 
 const weekLabels = { 1:"Wk 1",2:"Wk 2",3:"Wk 3",4:"Wk 4",5:"Wk 5",6:"Wk 6",7:"Wk 7",8:"Wk 8",9:"Wk 9",10:"Wk 10",11:"Wk 11",12:"Wk 12",13:"Wk 13",14:"Wk 14",15:"Champs",16:"CFP" };
 
+// ── Parlay name (localStorage) ──
+function loadParlayName() {
+  const saved = localStorage.getItem("theBet_parlayName");
+  const el = document.getElementById("parlay-name");
+  if (saved) {
+    el.value = saved;
+  } else {
+    el.value = "Week " + (activeWeek || 1) + " Parlay";
+  }
+}
+function saveParlayName() {
+  const val = document.getElementById("parlay-name").value.trim();
+  if (val) localStorage.setItem("theBet_parlayName", val);
+}
+function getParlayName() {
+  return document.getElementById("parlay-name").value.trim() || ("Week " + (activeWeek || 1) + " Parlay");
+}
+
 // ── Week tabs ──
 function buildParlayWeekTabs() {
   const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
@@ -249,6 +404,7 @@ function buildParlayWeekTabs() {
   ).join("");
 }
 buildParlayWeekTabs();
+loadParlayName();
 document.getElementById("week-strip").addEventListener("click", e => {
   const tab = e.target.closest(".week-tab");
   if (!tab) return;
@@ -318,7 +474,6 @@ function modelProb(gameId, side) {
   const p = allPreds.find(p => p.game.id === gameId);
   if (!p) return 0.5;
   const pred = p.prediction;
-  const isHomeFavored = pred.predictedSpread >= 0;
   const homeWinProb = pred.winProbability / 100;
   const awayWinProb = 1 - homeWinProb;
   if (side === "home") return homeWinProb;
@@ -337,6 +492,48 @@ function combinedModelProb() {
   return entries.reduce((acc, [gameId, pick]) => acc * modelProb(gameId, pick.side), 1);
 }
 
+// ── Wager calculator ──
+function setWager(amount) {
+  wager = amount;
+  // update quick buttons
+  document.querySelectorAll(".wager-quick-btn").forEach(b => {
+    b.classList.toggle("active", parseInt(b.dataset.amount) === amount);
+  });
+  // clear custom input
+  const custom = document.getElementById("wager-custom");
+  if (custom) custom.value = "";
+  updateWagerDisplay();
+}
+function setWagerCustom(val) {
+  const n = parseFloat(val);
+  if (!isNaN(n) && n > 0) {
+    wager = n;
+    document.querySelectorAll(".wager-quick-btn").forEach(b => b.classList.remove("active"));
+  }
+  updateWagerDisplay();
+}
+function updateWagerDisplay() {
+  const entries = Object.entries(picks);
+  const el = document.getElementById("wager-payout-display");
+  if (!el) return;
+  if (!entries.length) { el.textContent = "—"; return; }
+  const legOdds = entries.map(([,p]) => p.odds);
+  const parlay = calcParlayOdds(legOdds);
+  if (!parlay) { el.textContent = "—"; return; }
+  const payout = wager * parlay.decimal;
+  const profit = payout - wager;
+  el.textContent = `Bet $${wager % 1 === 0 ? wager : wager.toFixed(2)} → Win $${Math.round(profit)}`;
+}
+
+// ── Toast notification ──
+let toastTimer = null;
+function showPickToast() {
+  const toast = document.getElementById("pick-toast");
+  toast.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 1500);
+}
+
 // ── Update parlay summary ──
 function updateSummary() {
   const entries = Object.entries(picks);
@@ -349,13 +546,27 @@ function updateSummary() {
   const analysisEl = document.getElementById("parlay-analysis");
   const legsDisplay = document.getElementById("legs-display");
   const bar = document.getElementById("parlay-bar");
+  const wagerSection = document.getElementById("wager-section");
+  const winProbSection = document.getElementById("win-prob-section");
 
   legsEl.textContent = legs;
   document.getElementById("bar-legs").textContent = legs;
   bar.style.display = legs > 0 ? "" : "none";
 
   if (!legs) {
-    legsDisplay.innerHTML = `<span class="legs-empty">Select picks below to build your parlay</span>`;
+    // Empty state
+    legsDisplay.innerHTML = `
+      <div class="parlay-empty-state">
+        <div class="parlay-empty-icon">🎯</div>
+        <div class="parlay-empty-title">Build your parlay</div>
+        <div class="parlay-empty-sub">Pick spreads, totals, or moneylines below — 2 to 8 legs recommended for the best risk/reward balance.</div>
+        <div class="parlay-empty-steps">
+          <div class="parlay-empty-step"><div class="parlay-empty-step-num">1</div>Choose a week &amp; filter</div>
+          <div class="parlay-empty-step"><div class="parlay-empty-step-num">2</div>Click any pick button</div>
+          <div class="parlay-empty-step"><div class="parlay-empty-step-num">3</div>Review parlay odds above</div>
+        </div>
+        <button class="browse-picks-btn" onclick="document.getElementById('game-list').scrollIntoView({behavior:'smooth'})">Browse Top Picks ↓</button>
+      </div>`;
     oddsEl.textContent = "+0"; oddsEl.style.color="var(--muted)";
     probEl.textContent = "0%"; probEl.style.color="var(--muted)";
     evEl.textContent = "—"; evEl.style.color="var(--muted)";
@@ -363,13 +574,18 @@ function updateSummary() {
     analysisEl.textContent = "";
     document.getElementById("bar-odds").textContent = "+0";
     document.getElementById("bar-prob").textContent = "0%";
+    if (wagerSection) wagerSection.style.display = "none";
+    if (winProbSection) winProbSection.style.display = "none";
     return;
   }
+
+  // Show wager + win prob sections
+  if (wagerSection) wagerSection.style.display = "";
+  if (winProbSection) winProbSection.style.display = "";
 
   // Leg pills
   legsDisplay.innerHTML = entries.map(([gid, pick]) => {
     const p = allPreds.find(p => p.game.id === gid);
-    const home = p?.game?.homeTeam, away = p?.game?.awayTeam;
     const sideColor = pick.side === "home" || pick.side === "home-ml" || pick.side === "over" ? "var(--primary)" : "var(--accent)";
     return `<span class="leg-pill">
       <span style="color:${sideColor};font-weight:800">${pick.label}</span>
@@ -392,6 +608,31 @@ function updateSummary() {
   probEl.textContent = modelPct + "%";
   probEl.style.color = modelPct >= 50 ? "var(--primary)" : modelPct >= 35 ? "var(--gold)" : "var(--danger)";
   document.getElementById("bar-prob").textContent = modelPct + "%";
+
+  // Win probability visual bar
+  const barFill = document.getElementById("win-prob-bar-fill");
+  const pctBig = document.getElementById("win-prob-pct-big");
+  const tierLabel = document.getElementById("win-prob-tier-label");
+  if (barFill && pctBig) {
+    pctBig.textContent = modelPct + "%";
+    barFill.style.width = Math.min(modelPct, 100) + "%";
+    if (modelPct >= 30) {
+      barFill.style.background = "var(--primary)";
+      pctBig.style.color = "var(--primary)";
+      if (tierLabel) tierLabel.textContent = "Strong parlay — solid model confidence";
+    } else if (modelPct >= 15) {
+      barFill.style.background = "var(--gold)";
+      pctBig.style.color = "var(--gold)";
+      if (tierLabel) tierLabel.textContent = "Moderate risk — consider trimming legs";
+    } else {
+      barFill.style.background = "var(--danger)";
+      pctBig.style.color = "var(--danger)";
+      if (tierLabel) tierLabel.textContent = "High risk — long shot territory";
+    }
+  }
+
+  // Wager payout
+  updateWagerDisplay();
 
   // Expected value on $100 bet
   const payout = parlay.decimal * 100 - 100;
@@ -421,7 +662,6 @@ function updateSummary() {
   gradeEl.style.color = gradeColor;
 
   // Analysis
-  const riskTier = legs >= 5 ? "high-risk" : legs >= 3 ? "moderate-risk" : "low-risk";
   const advice = evNum >= 10
     ? `This parlay shows positive expected value (+$${ev} per $100) based on our model. The picks have genuine edge against the Vegas lines.`
     : evNum >= 0
@@ -432,12 +672,24 @@ function updateSummary() {
 }
 
 // ── Select/deselect a pick ──
-function selectPick(gameId, side, odds, label) {
+function selectPick(gameId, side, odds, label, confidence) {
+  const btn = event && event.target ? event.target.closest(".pick-btn") : null;
   if (picks[gameId] && picks[gameId].side === side) {
     removePick(gameId);
     return;
   }
-  picks[gameId] = { side, odds, label };
+  picks[gameId] = { side, odds, label, confidence: confidence || "—" };
+
+  // Button pop animation + toast
+  if (btn) {
+    btn.classList.remove("pick-added");
+    // force reflow to restart animation
+    void btn.offsetWidth;
+    btn.classList.add("pick-added");
+    setTimeout(() => btn.classList.remove("pick-added"), 400);
+  }
+  showPickToast();
+
   renderGameList();
   updateSummary();
 }
@@ -458,20 +710,26 @@ function clearParlay() {
 // ── Auto-build ──
 function autoBuild() {
   clearParlay();
+
+  // Show brief status message
+  const analysisEl = document.getElementById("parlay-analysis");
+  if (analysisEl) analysisEl.textContent = "Auto-building...";
+
   const confWeight = { elite:4, high:3, medium:2, low:1 };
   const candidates = allPreds
     .filter(({ prediction:pred }) => {
       const sp = pred.spreadPick || {};
-      return sp.side !== "no-bet" && (pred.confidence === "elite" || pred.confidence === "high") && sp.edge >= 1.5;
+      return sp.side !== "no-bet" && sp.edge >= 1;
     })
     .sort((a, b) => {
-      const aScore = (confWeight[a.prediction.confidence]||1) * 2 + (a.prediction.spreadPick.edge||0);
-      const bScore = (confWeight[b.prediction.confidence]||1) * 2 + (b.prediction.spreadPick.edge||0);
-      return bScore - aScore;
+      const aEdge = (a.prediction.spreadPick||{}).edge || 0;
+      const bEdge = (b.prediction.spreadPick||{}).edge || 0;
+      return bEdge - aEdge;
     })
-    .slice(0, 4);
+    .slice(0, 3);
 
   if (!candidates.length) {
+    if (analysisEl) analysisEl.textContent = "";
     alert("No strong model edges found across all games. Try adding picks manually from the list below.");
     return;
   }
@@ -481,10 +739,10 @@ function autoBuild() {
     const home = game.homeTeam, away = game.awayTeam;
     if (sp.side === "home") {
       const label = `${home.name.split(" ").pop()} ${fmtSpread(game.bettingLines.spread)}`;
-      picks[game.id] = { side:"home", odds:-110, label };
+      picks[game.id] = { side:"home", odds:-110, label, confidence: pred.confidence || "—" };
     } else if (sp.side === "away") {
       const label = `${away.name.split(" ").pop()} ${fmtSpread(-game.bettingLines.spread)}`;
-      picks[game.id] = { side:"away", odds:-110, label };
+      picks[game.id] = { side:"away", odds:-110, label, confidence: pred.confidence || "—" };
     }
   });
 
@@ -496,7 +754,7 @@ function autoBuild() {
     totals.forEach(({ game, prediction:pred }) => {
       const tp = pred.totalPick;
       const label = `${game.homeTeam.abbreviation}/${game.awayTeam.abbreviation} ${tp.side.toUpperCase()} ${game.bettingLines.total}`;
-      picks[game.id] = { side: tp.side, odds:-110, label };
+      picks[game.id] = { side: tp.side, odds:-110, label, confidence: pred.confidence || "—" };
     });
   }
 
@@ -505,18 +763,41 @@ function autoBuild() {
   scrollToSummary();
 }
 
-// ── Copy picks ──
+// ── Copy picks (enhanced) ──
 function copyParlay(btn) {
   const entries = Object.entries(picks);
   if (!entries.length) return;
-  const text = entries.map(([gid, pick]) => {
+  const legOdds = entries.map(([,p]) => p.odds);
+  const parlay = calcParlayOdds(legOdds);
+  const modelWinProb = combinedModelProb();
+  const wagerAmt = wager;
+  const payoutAmt = wagerAmt * parlay.decimal;
+  const profitAmt = payoutAmt - wagerAmt;
+
+  const legsText = entries.map(([gid, pick], i) => {
     const p = allPreds.find(p => p.game.id === gid);
     const date = p ? fmtDate(p.game.date) : "";
-    return `${date}: ${pick.label} (${pick.odds > 0 ? "+" : ""}${pick.odds})`;
+    const conf = pick.confidence ? ` [${pick.confidence} confidence]` : "";
+    return `  ${i+1}. ${date}: ${pick.label} (${pick.odds > 0 ? "+" : ""}${pick.odds})${conf}`;
   }).join("\n");
-  const parlay = calcParlayOdds(entries.map(([,p]) => p.odds));
-  const full = `THE BET - ${entries.length}-Leg Parlay\n${"─".repeat(28)}\n${text}\n${"─".repeat(28)}\nPayout: ${parlay.american > 0 ? "+" : ""}${parlay.american} | Model Win Prob: ${Math.round(combinedModelProb()*100)}%\nthebetcfb.com`;
-  navigator.clipboard?.writeText(full).then(() => { btn.textContent = "✓ Copied!"; setTimeout(()=>{btn.textContent="📋 Copy Picks";},1500); }).catch(()=>{});
+
+  const americanDisplay = parlay.american > 0 ? "+" + parlay.american : "" + parlay.american;
+  const full = [
+    `THE BET — ${getParlayName()}`,
+    `${"─".repeat(36)}`,
+    legsText,
+    `${"─".repeat(36)}`,
+    `Parlay Odds : ${americanDisplay}`,
+    `Wager       : $${wagerAmt % 1 === 0 ? wagerAmt : wagerAmt.toFixed(2)}`,
+    `Potential Win: $${Math.round(profitAmt)} (return $${Math.round(payoutAmt)})`,
+    `Model Win %  : ${Math.round(modelWinProb * 100)}%`,
+    `thebetcfb.com`
+  ].join("\n");
+
+  navigator.clipboard?.writeText(full).then(() => {
+    btn.textContent = "✓ Copied!";
+    setTimeout(() => { btn.textContent = "📋 Copy Picks"; }, 1500);
+  }).catch(() => {});
 }
 
 // ── Scroll ──
@@ -559,6 +840,7 @@ function renderGameList() {
     const pick = picks[game.id];
     const hasPick = !!pick;
     const confCls = { elite:"badge-elite", high:"badge-high", medium:"badge-medium", low:"badge-low" }[pred.confidence]||"badge-low";
+    const predConf = pred.confidence || "low";
 
     // Determine recommended pick
     let recText = "";
@@ -586,12 +868,12 @@ function renderGameList() {
             <div style="font-size:.62rem;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>
           </div>
           <div style="display:flex;align-items:center;gap:6px">
-            ${hasPick ? `<span style="font-size:.6rem;padding:2px 8px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">✓ ADDED</span>` : ""}
+            ${hasPick ? `<span style="font-size:.6rem;padding:2px 8px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">&#10003; ADDED</span>` : ""}
             <span class="badge ${confCls}">${pred.confidence.toUpperCase()}</span>
           </div>
         </div>
 
-        ${recText ? `<div style="font-size:.68rem;color:var(--primary);font-weight:700;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:6px;padding:5px 10px;margin-bottom:8px">⭐ ${recText}</div>` : ""}
+        ${recText ? `<div style="font-size:.68rem;color:var(--primary);font-weight:700;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:6px;padding:5px 10px;margin-bottom:8px">&#11088; ${recText}</div>` : ""}
 
         <!-- Pick buttons -->
         <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -599,11 +881,11 @@ function renderGameList() {
           <div style="flex:1;min-width:130px">
             <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;text-transform:uppercase">Spread</div>
             <div style="display:flex;gap:5px">
-              <button class="${btnCls("home")}" style="flex:1" onclick="selectPick('${game.id}','home',-110,'${home.name.split(" ").pop()} ${fmtSpread(bl.spread||0)}')">
+              <button class="${btnCls("home")}" style="flex:1" onclick="selectPick('${game.id}','home',-110,'${home.name.split(" ").pop()} ${fmtSpread(bl.spread||0)}','${predConf}')">
                 ${home.abbreviation} ${fmtSpread(bl.spread||0)}
                 <div style="font-size:.6rem;color:inherit;opacity:.7">-110</div>
               </button>
-              <button class="${btnCls("away")}" style="flex:1" onclick="selectPick('${game.id}','away',-110,'${away.name.split(" ").pop()} ${fmtSpread(-(bl.spread||0))}')">
+              <button class="${btnCls("away")}" style="flex:1" onclick="selectPick('${game.id}','away',-110,'${away.name.split(" ").pop()} ${fmtSpread(-(bl.spread||0))}','${predConf}')">
                 ${away.abbreviation} ${fmtSpread(-(bl.spread||0))}
                 <div style="font-size:.6rem;color:inherit;opacity:.7">-110</div>
               </button>
@@ -613,11 +895,11 @@ function renderGameList() {
           ${bl.total ? `<div style="flex:1;min-width:130px">
             <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;text-transform:uppercase">Total ${bl.total}</div>
             <div style="display:flex;gap:5px">
-              <button class="${btnCls("over")}" style="flex:1" onclick="selectPick('${game.id}','over',-110,'${home.abbreviation}/${away.abbreviation} OVER ${bl.total}')">
+              <button class="${btnCls("over")}" style="flex:1" onclick="selectPick('${game.id}','over',-110,'${home.abbreviation}/${away.abbreviation} OVER ${bl.total}','${predConf}')">
                 OVER
                 <div style="font-size:.6rem;opacity:.7">-110</div>
               </button>
-              <button class="${btnCls("under")}" style="flex:1" onclick="selectPick('${game.id}','under',-110,'${home.abbreviation}/${away.abbreviation} UNDER ${bl.total}')">
+              <button class="${btnCls("under")}" style="flex:1" onclick="selectPick('${game.id}','under',-110,'${home.abbreviation}/${away.abbreviation} UNDER ${bl.total}','${predConf}')">
                 UNDER
                 <div style="font-size:.6rem;opacity:.7">-110</div>
               </button>
@@ -627,11 +909,11 @@ function renderGameList() {
           ${bl.moneylineHome && bl.moneylineAway ? `<div style="flex:1;min-width:130px">
             <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;text-transform:uppercase">Moneyline</div>
             <div style="display:flex;gap:5px">
-              <button class="${btnCls("home-ml")}" style="flex:1" onclick="selectPick('${game.id}','home-ml',${bl.moneylineHome},'${home.abbreviation} ML ${fmtML(bl.moneylineHome)}')">
+              <button class="${btnCls("home-ml")}" style="flex:1" onclick="selectPick('${game.id}','home-ml',${bl.moneylineHome},'${home.abbreviation} ML ${fmtML(bl.moneylineHome)}','${predConf}')">
                 ${home.abbreviation}<br>
                 <span style="font-size:.72rem;font-weight:900">${fmtML(bl.moneylineHome)}</span>
               </button>
-              <button class="${btnCls("away-ml")}" style="flex:1" onclick="selectPick('${game.id}','away-ml',${bl.moneylineAway},'${away.abbreviation} ML ${fmtML(bl.moneylineAway)}')">
+              <button class="${btnCls("away-ml")}" style="flex:1" onclick="selectPick('${game.id}','away-ml',${bl.moneylineAway},'${away.abbreviation} ML ${fmtML(bl.moneylineAway)}','${predConf}')">
                 ${away.abbreviation}<br>
                 <span style="font-size:.72rem;font-weight:900">${fmtML(bl.moneylineAway)}</span>
               </button>
@@ -641,7 +923,7 @@ function renderGameList() {
 
         <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px">
           <div style="font-size:.65rem;color:var(--muted)">Model: <strong style="color:var(--text)">${pred.predictedSpread>=0?home.name:away.name}</strong> wins · ${pred.winProbability}% prob · Spread ${fmtSpread(-pred.predictedSpread)}</div>
-          <a href="game.html?id=${game.id}" style="font-size:.65rem;color:var(--primary);font-weight:700;text-decoration:none">Full Analysis →</a>
+          <a href="game.html?id=${game.id}" style="font-size:.65rem;color:var(--primary);font-weight:700;text-decoration:none">Full Analysis &#8594;</a>
         </div>
       </div>`;
   }).join("");
