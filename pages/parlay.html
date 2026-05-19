@@ -174,6 +174,7 @@
       <a class="nav-link" href="games.html">Games</a>
       <a class="nav-link active" href="parlay.html">Parlay</a>
       <a class="nav-link" href="teams.html">Teams</a>
+      <a class="nav-link" href="picks.html">My Picks</a>
     </div>
     <div class="nav-badge"><span class="nav-dot"></span>2026 Live</div>
   </div>
@@ -186,6 +187,9 @@
     <h1 class="page-title">PARLAY BUILDER</h1>
     <p class="page-sub">Build your parlay from our model's picks. Auto-build selects the strongest edges of the week.</p>
   </div>
+
+  <!-- Stats strip -->
+  <div class="stats-strip mb-5" id="page-stats"></div>
 
   <!-- Auto Build hero button -->
   <button class="auto-build-btn mb-5" onclick="autoBuild()">⚡ Auto-Build Best Parlay</button>
@@ -347,6 +351,10 @@
     <a class="bottom-nav-item" href="teams.html">
       <span class="bottom-nav-icon">📊</span>
       <span class="bottom-nav-label">Teams</span>
+    </a>
+    <a class="bottom-nav-item" href="picks.html">
+      <span class="bottom-nav-icon">📋</span>
+      <span class="bottom-nav-label">Picks</span>
     </a>
   </div>
 </nav>
@@ -929,6 +937,43 @@ function renderGameList() {
   }).join("");
 }
 
+// Stats strip
+function buildStatsStrip() {
+  const elite = allPreds.filter(p => p.prediction.confidence === "elite").length;
+  const hasLines = allPreds.filter(p => p.game.bettingLines && p.game.bettingLines.spread != null).length;
+  const legs = Object.keys(picks).length;
+  const cells = [
+    { label: "Available",  value: allPreds.length, color: "var(--text)",    action: "all" },
+    { label: "Elite Picks",value: elite,            color: "var(--primary)", action: "elite" },
+    { label: "Has Lines",  value: hasLines,         color: "#34d399",        action: "lines" },
+    { label: "Your Legs",  value: legs,             color: "var(--accent)",  action: "legs" },
+  ];
+  document.getElementById("page-stats").innerHTML = cells.map(s =>
+    `<div class="stat-cell stat-cell-clickable" data-stat-action="${s.action}" title="Click to filter">
+      <div class="stat-cell-val" style="color:${s.color}">${s.value}</div>
+      <div class="stat-cell-sub">${s.label}</div>
+    </div>`
+  ).join("");
+}
+buildStatsStrip();
+
+document.getElementById("page-stats").addEventListener("click", function(e) {
+  const cell = e.target.closest(".stat-cell-clickable");
+  if (!cell) return;
+  const act = cell.dataset.statAction;
+  document.querySelectorAll("#page-stats .stat-cell-clickable").forEach(c => c.classList.remove("active"));
+  cell.classList.add("active");
+  if (act === "all") { edgeFilter = "all"; parlayConfFilter = "all"; }
+  else if (act === "elite") { parlayConfFilter = "elite"; edgeFilter = "all"; }
+  else if (act === "lines") { edgeFilter = "lines"; parlayConfFilter = "all"; }
+  else if (act === "legs") {
+    // Scroll to current parlay summary
+    document.getElementById("parlay-summary").scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+  renderGameList();
+});
+
 // Initial render
 renderGameList();
 updateSummary();
@@ -941,6 +986,7 @@ window.addEventListener("liveDataReady", function() {
       catch(e) { console.error(g.id, e); return null; }
     }).filter(Boolean);
   } catch(e) { console.error(e); }
+  buildStatsStrip();
   buildParlayWeekTabs();
   initParlayConfChips();
   renderGameList();
