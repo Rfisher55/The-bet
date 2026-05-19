@@ -367,6 +367,7 @@ document.getElementById("week-strip").addEventListener("click", e => {
   activeWeek = parseInt(tab.dataset.week);
   document.querySelectorAll("#week-strip .week-tab").forEach(t => t.classList.toggle("active", parseInt(t.dataset.week)===activeWeek));
   searchTeam = "";
+  filterTeamId = "";
   document.getElementById("search").value = "";
   render();
 });
@@ -437,8 +438,12 @@ function renderBestPick(weekNum) {
 }
 
 // Team schedule search
-let searchTeam = "";
+// filterTeamId: exact ID match (used when navigating from teams page via ?teamId=)
+// searchTeam: fuzzy name match (used when typing in search box)
+let searchTeam   = "";
+let filterTeamId = "";
 document.getElementById("search").addEventListener("input", e => {
+  filterTeamId = "";   // clear exact-ID filter when user types
   searchTeam = e.target.value.toLowerCase().trim();
   render();
 });
@@ -566,21 +571,36 @@ function render() {
   let list = [...allPredictions];
 
   // Team schedule search
-  if (searchTeam) {
-    list = list.filter(({ game }) =>
-      game.homeTeam.name.toLowerCase().includes(searchTeam) ||
-      game.awayTeam.name.toLowerCase().includes(searchTeam) ||
-      game.homeTeam.abbreviation.toLowerCase().includes(searchTeam) ||
-      game.awayTeam.abbreviation.toLowerCase().includes(searchTeam) ||
-      game.homeTeam.mascot.toLowerCase().includes(searchTeam) ||
-      game.awayTeam.mascot.toLowerCase().includes(searchTeam)
-    );
-    const matchedTeam = allPredictions.find(({ game }) =>
-      game.homeTeam.name.toLowerCase().includes(searchTeam) ||
-      game.awayTeam.name.toLowerCase().includes(searchTeam)
-    );
+  if (filterTeamId || searchTeam) {
+    if (filterTeamId) {
+      // Exact ID match — prevents "Tennessee" matching "Tennessee State" games
+      list = list.filter(({ game }) =>
+        game.homeTeamId === filterTeamId || game.awayTeamId === filterTeamId
+      );
+    } else {
+      // Fuzzy typed search — use word-boundary check to avoid prefix collisions
+      list = list.filter(({ game }) => {
+        const fields = [
+          game.homeTeam.name, game.awayTeam.name,
+          game.homeTeam.abbreviation, game.awayTeam.abbreviation,
+          game.homeTeam.mascot, game.awayTeam.mascot,
+        ].map(s => s ? s.toLowerCase() : "");
+        // Exact word starts-with: match only if team name begins at a word boundary
+        const esc = searchTeam.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const re  = new RegExp("\\b" + esc);
+        return fields.some(f => re.test(f));
+      });
+    }
+    const matchedTeam = filterTeamId
+      ? allPredictions.find(({ game }) => game.homeTeamId === filterTeamId || game.awayTeamId === filterTeamId)
+      : allPredictions.find(({ game }) =>
+          game.homeTeam.name.toLowerCase().includes(searchTeam) ||
+          game.awayTeam.name.toLowerCase().includes(searchTeam)
+        );
     const teamName = matchedTeam
-      ? (matchedTeam.game.homeTeam.name.toLowerCase().includes(searchTeam) ? matchedTeam.game.homeTeam.name : matchedTeam.game.awayTeam.name)
+      ? (filterTeamId
+          ? (matchedTeam.game.homeTeamId === filterTeamId ? matchedTeam.game.homeTeam.name : matchedTeam.game.awayTeam.name)
+          : (matchedTeam.game.homeTeam.name.toLowerCase().includes(searchTeam) ? matchedTeam.game.homeTeam.name : matchedTeam.game.awayTeam.name))
       : searchTeam;
     document.getElementById("schedule-header-row").innerHTML = list.length
       ? `<div class="schedule-header"><span style="font-size:.85rem;font-weight:800;color:var(--text)">${teamName} Schedule (${list.length} games)</span><span class="schedule-clear" onclick="clearSearch()">Clear ×</span></div>`
@@ -673,12 +693,14 @@ function render() {
 
 function clearSearch() {
   searchTeam = "";
+  filterTeamId = "";
   document.getElementById("search").value = "";
   render();
 }
 
 function clearAllFilters() {
   searchTeam = "";
+  filterTeamId = "";
   document.getElementById("search").value = "";
   CONF_STATE.active = "all";
   qualityFilter = "all";
@@ -701,7 +723,16 @@ function clearAllFilters() {
   const filterParam = params.get("filter");
   const confParam = params.get("conf");
 
-  if (teamParam) {
+  const teamIdParam = params.get("teamId");
+  if (teamIdParam) {
+    // Exact ID — use precise filter (no partial-name confusion)
+    filterTeamId = teamIdParam;
+    const t = window.TEAMS && TEAMS[teamIdParam];
+    const displayName = t ? t.name : teamIdParam;
+    document.getElementById("search").value = displayName;
+    searchTeam = "";
+  } else if (teamParam) {
+    // Legacy ?team= param — fuzzy search by name
     searchTeam = teamParam.toLowerCase().trim();
     document.getElementById("search").value = teamParam;
   }

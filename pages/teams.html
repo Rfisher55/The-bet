@@ -407,7 +407,7 @@ function renderCard(team, rank) {
   const proj = projectedRecord(team);
 
   return `
-    <a class="team-card" href="games.html?team=${encodeURIComponent(team.name)}">
+    <a class="team-card" href="games.html?teamId=${encodeURIComponent(team.id)}">
       <div class="team-card-header" style="background:${team.color}"></div>
       <div class="team-card-body">
         <!-- Rank + momentum badge -->
@@ -484,7 +484,7 @@ function renderListRow(team, rank) {
   const ratingPct = Math.min(100, team.rating || 0);
 
   return `
-    <a class="team-list-row" href="games.html?team=${encodeURIComponent(team.name)}">
+    <a class="team-list-row" href="games.html?teamId=${encodeURIComponent(team.id)}">
       <div class="tlr-rank" style="color:${rank<=3?"var(--gold)":"var(--muted)"}">${rank}</div>
       <div style="display:flex;align-items:center;gap:10px;min-width:0">
         <div class="team-logo" style="background:${team.color};width:28px;height:28px;font-size:.55rem;flex-shrink:0">${team.abbreviation.slice(0,3)}</div>

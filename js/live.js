@@ -858,17 +858,37 @@ const LIVE = (() => {
     window.__espnNewsByTeam = newsByTeam;
 
     // Reddit posts → index by team name mention in title/flair
+    // Build regex per team that excludes prefix matches:
+    // e.g., "Tennessee" gets (?!\s+State) so it won't match "Tennessee State"
     const redditByTeam = {};
     const teamNamesList = window.TEAMS
       ? Object.values(TEAMS).map(t => ({ name: t.name, id: t.id }))
       : [];
+    const allTeamNamesLower = teamNamesList.map(t => (t.name || "").toLowerCase());
+    const teamRegexCache = {};
+    teamNamesList.forEach(({ name }) => {
+      if (!name || name.length < 4) return;
+      const lower  = name.toLowerCase();
+      const esc    = lower.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      // Find other names that extend this one (e.g., "Tennessee State" extends "Tennessee")
+      const extensions = allTeamNamesLower.filter(n => n !== lower && n.startsWith(lower + " "));
+      let pattern = "\\b" + esc;
+      if (extensions.length > 0) {
+        const firstWords = [...new Set(extensions.map(n => {
+          const suffix = n.slice(lower.length).trim();
+          return suffix.split(/\s+/)[0].replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        }))];
+        pattern += "(?!\\s+(?:" + firstWords.join("|") + ")\\b)";
+      }
+      pattern += "\\b";
+      teamRegexCache[lower] = new RegExp(pattern, "i");
+    });
     (data.redditPosts || []).forEach(post => {
       const text = (post.title + " " + (post.flair || "")).toLowerCase();
       teamNamesList.forEach(({ name, id }) => {
         if (!name || name.length < 4) return;
-        // Use word-boundary regex to prevent "Tennessee" matching "Tennessee State" posts
-        const escaped = name.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        if (new RegExp("\\b" + escaped + "\\b").test(text)) {
+        const re = teamRegexCache[name.toLowerCase()];
+        if (re && re.test(text)) {
           if (!redditByTeam[id]) redditByTeam[id] = [];
           redditByTeam[id].push(post);
         }
