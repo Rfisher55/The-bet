@@ -2,6 +2,10 @@
 # Start The Bet — D1 Football Predictor
 # Usage: ./serve.sh [port]
 PORT=${1:-3000}
-echo "Starting The Bet on http://localhost:$PORT"
+
+# Kill any existing server on that port
+fuser -k "${PORT}/tcp" 2>/dev/null || true
+
+echo "Starting The Bet on http://localhost:${PORT}"
 echo "Press Ctrl+C to stop."
-npx http-server src/static -p "$PORT" -c-1 --cors -o
+PORT="$PORT" node "$(dirname "$0")/server.js"
