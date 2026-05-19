@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
-   THE BET — Live Data Layer v4
-   Fetches ALL FBS teams + ALL 2026 games from CFBD + ESPN APIs.
+   THE BET — Live Data Layer v5
+   Sources: CFBD API, ESPN public API, Reddit r/CFB (public JSON)
    Key set via window.CFBD_DEFAULT_KEY in config.js (or user-entered).
    ═══════════════════════════════════════════════════════════════ */
 
@@ -9,7 +9,7 @@ const LIVE = (() => {
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
   const SEASON    = 2026;
   const KEY_STORE   = "theBet_cfbdKey";
-  const CACHE_STORE = "theBet_liveCache_v6";   // v6 = 200-game threshold + 2025 fallback
+  const CACHE_STORE = "theBet_liveCache_v7";   // v7 = multi-source: real stats, elo, transfers, news, reddit
   const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
 
   // ── Explicit school-name → internal-ID mapping ──────────────
@@ -90,7 +90,7 @@ const LIVE = (() => {
   let _relativeTimeInterval = null;
   let _rateLimitRetryTimer  = null;
 
-  const ENDPOINT_COUNT = 12; // 9 CFBD + 1 ESPN + 2 potential 2025 fallback calls
+  const ENDPOINT_COUNT = 17; // 13 CFBD + 1 ESPN schedule + 1 ESPN news + 1 Reddit + 1 spare
 
   function getKey() { return localStorage.getItem(KEY_STORE) || window.CFBD_DEFAULT_KEY || null; }
   function setKey(k) { if (k) localStorage.setItem(KEY_STORE, k.trim()); else localStorage.removeItem(KEY_STORE); }
@@ -225,6 +225,60 @@ const LIVE = (() => {
     return events.filter(e => { if (seen.has(e.id)) return false; seen.add(e.id); return true; });
   }
 
+  // ── ESPN News: returns recent CFB articles ───────────────────
+  async function fetchESPNNews() {
+    try {
+      const r = await fetch(`${ESPN_BASE}/news?limit=50`);
+      if (!r.ok) return [];
+      const d = await r.json();
+      return (d.articles || []).map(a => ({
+        headline:    a.headline    || "",
+        description: a.description || "",
+        url:         a.links?.web?.href || "",
+        published:   a.published   || "",
+        teams: (a.categories || [])
+          .filter(c => c.team?.displayName)
+          .map(c => c.team.displayName),
+      }));
+    } catch { return []; }
+  }
+
+  // ── Reddit r/CFB: public JSON, no key needed ─────────────────
+  async function fetchRedditCFB() {
+    try {
+      // Fetch both "new" and "hot" in parallel for broader coverage
+      const [newRes, hotRes] = await Promise.all([
+        fetch("https://www.reddit.com/r/CFB/new.json?limit=100", {
+          headers: { "Accept": "application/json" }
+        }).then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch("https://www.reddit.com/r/CFB/hot.json?limit=50", {
+          headers: { "Accept": "application/json" }
+        }).then(r => r.ok ? r.json() : null).catch(() => null),
+      ]);
+      const posts = [];
+      const seen = new Set();
+      for (const res of [newRes, hotRes]) {
+        if (!res?.data?.children) continue;
+        for (const c of res.data.children) {
+          const p = c.data;
+          if (!p?.title || seen.has(p.id)) continue;
+          seen.add(p.id);
+          posts.push({
+            id:          p.id,
+            title:       p.title,
+            score:       p.score       || 0,
+            upvoteRatio: p.upvote_ratio || 0.5,
+            comments:    p.num_comments || 0,
+            url:         "https://reddit.com" + (p.permalink || ""),
+            created:     p.created_utc  || 0,
+            flair:       p.link_flair_text || "",
+          });
+        }
+      }
+      return posts;
+    } catch { return []; }
+  }
+
   // ── ESPN event → CFBD-compatible game object ─────────────────
   function mapESPNGame(event) {
     const comp = event.competitions?.[0];
@@ -308,8 +362,10 @@ const LIVE = (() => {
     try {
       updateModalStatus();
 
-      // Launch ESPN fetch immediately — no API key needed, runs in parallel with CFBD
-      const espnPromise = fetchESPNSchedule(SEASON).catch(() => []);
+      // Launch all no-key sources immediately in parallel with CFBD
+      const espnPromise    = fetchESPNSchedule(SEASON).catch(() => []);
+      const espnNewsPromise = fetchESPNNews().catch(() => []);
+      const redditPromise  = fetchRedditCFB().catch(() => []);
 
       const endpointPromises = [
         api("/teams/fbs",                                                        apiKey).then(v => { onEndpointDone(); return v; }),
@@ -321,11 +377,16 @@ const LIVE = (() => {
         api(`/coaches?year=${SEASON}`,                                           apiKey).then(v => { onEndpointDone(); return v; }),
         api(`/recruiting/teams?year=${SEASON}`,                                  apiKey).then(v => { onEndpointDone(); return v; }),
         api(`/lines?year=${SEASON}`,                                             apiKey).then(v => { onEndpointDone(); return v; }),
+        // Real historical stats for calibrating team ratings
+        api("/stats/season/advanced?year=2025&classification=fbs",               apiKey).then(v => { onEndpointDone(); return v; }),
+        api("/ratings/elo?year=2025",                                            apiKey).then(v => { onEndpointDone(); return v; }),
+        // Transfer portal — who came in / went out for 2026
+        api("/portal?year=2026",                                                 apiKey).then(v => { onEndpointDone(); return v; }),
       ];
 
       // All primary data fetched in parallel — failures are caught individually
       const [teamsRes, regularRes, postRes, spRes, sp25Res, talentRes,
-             coachesRes, recruitRes, linesRes] =
+             coachesRes, recruitRes, linesRes, advStatsRes, eloRes, portalRes] =
         await Promise.allSettled(endpointPromises);
 
       // Merge SP+ 2026 (preferred) with 2025 fallback
@@ -338,11 +399,14 @@ const LIVE = (() => {
         ...(postRes.status    === "fulfilled" ? (postRes.value    || []) : []),
       ];
 
-      // ESPN results (ran in parallel with CFBD calls above)
-      const espnEvents = await espnPromise;
+      // ESPN schedule + news + Reddit (all ran in parallel)
+      const espnEvents  = await espnPromise;
+      const espnNews    = await espnNewsPromise;
+      const redditPosts = await redditPromise;
       onEndpointDone();
       const espnGames = espnEvents.map(e => mapESPNGame(e)).filter(Boolean);
-      console.log(`[LIVE] ESPN: ${espnGames.length} events | CFBD ${SEASON}: ${games2026.length} games`);
+      console.log(`[LIVE] ESPN: ${espnGames.length} games, ${espnNews.length} news articles | ` +
+                  `Reddit: ${redditPosts.length} posts | CFBD ${SEASON}: ${games2026.length} games`);
 
       // Prefer ESPN when it has full season coverage (200+ = meaningful schedule)
       let gamesFromApi;
@@ -369,18 +433,25 @@ const LIVE = (() => {
       }
 
       const payload = {
-        fbsTeams:   teamsRes.status   === "fulfilled" ? (teamsRes.value   || []) : [],
-        games:      gamesFromApi,
-        spRatings:  spMerged,
-        talent:     talentRes.status  === "fulfilled" ? (talentRes.value  || []) : [],
-        coaches:    coachesRes.status === "fulfilled" ? (coachesRes.value || []) : [],
-        recruiting: recruitRes.status === "fulfilled" ? (recruitRes.value || []) : [],
-        lines:      linesRes.status   === "fulfilled" ? (linesRes.value   || []) : [],
-        fetchedAt:  new Date().toISOString(),
+        fbsTeams:    teamsRes.status    === "fulfilled" ? (teamsRes.value    || []) : [],
+        games:       gamesFromApi,
+        spRatings:   spMerged,
+        talent:      talentRes.status   === "fulfilled" ? (talentRes.value   || []) : [],
+        coaches:     coachesRes.status  === "fulfilled" ? (coachesRes.value  || []) : [],
+        recruiting:  recruitRes.status  === "fulfilled" ? (recruitRes.value  || []) : [],
+        lines:       linesRes.status    === "fulfilled" ? (linesRes.value    || []) : [],
+        advStats:    advStatsRes.status === "fulfilled" ? (advStatsRes.value || []) : [],
+        eloRatings:  eloRes.status      === "fulfilled" ? (eloRes.value      || []) : [],
+        portal:      portalRes.status   === "fulfilled" ? (portalRes.value   || []) : [],
+        espnNews,
+        redditPosts,
+        fetchedAt:   new Date().toISOString(),
       };
 
       console.log(`[LIVE] Fetched: ${payload.fbsTeams.length} teams, ${payload.games.length} games, ` +
-                  `${payload.spRatings.length} SP+ ratings, ${payload.lines.length} line entries`);
+                  `${payload.spRatings.length} SP+, ${payload.advStats.length} adv-stats, ` +
+                  `${payload.eloRatings.length} elo, ${payload.portal.length} portal, ` +
+                  `${payload.espnNews.length} news, ${payload.redditPosts.length} reddit`);
 
       saveCache(payload);
       applyData(payload);
@@ -467,6 +538,23 @@ const LIVE = (() => {
     }, 30 * 1000);
   }
 
+  // ── Rating helpers using real data ──────────────────────────
+  function ppaToOffRating(ppa) {
+    // PPA (Predicted Points Added per play): +0.3 = elite, 0 = avg, -0.3 = poor
+    if (ppa === null || ppa === undefined) return null;
+    return Math.min(99, Math.max(40, Math.round(72 + ppa * 95)));
+  }
+  function ppaToDefRating(ppa) {
+    // Defense PPA: negative = fewer points allowed = better defense
+    if (ppa === null || ppa === undefined) return null;
+    return Math.min(99, Math.max(40, Math.round(72 - ppa * 95)));
+  }
+  function eloToRating(elo) {
+    // CFBD Elo typically ranges 1200 (weak G5) → 2000 (national champ level)
+    if (!elo) return null;
+    return Math.min(99, Math.max(40, Math.round((elo - 1200) / 800 * 55 + 44)));
+  }
+
   // ── Apply fetched data to TEAMS + GAMES ─────────────────────
   function applyData(data) {
     // Build lookup maps
@@ -486,6 +574,64 @@ const LIVE = (() => {
 
     const recruitMap = {};
     (data.recruiting || []).forEach(r => { if (r.team) recruitMap[r.team] = r.rank; });
+
+    // Advanced stats (2025 actuals) → offensive/defensive PPA per team
+    const advStatsMap = {};
+    (data.advStats || []).forEach(s => {
+      if (s.team) advStatsMap[s.team] = s;
+    });
+
+    // Elo ratings → overall team quality
+    const eloMap = {};
+    (data.eloRatings || []).forEach(e => {
+      // Keep the most recent entry per team (highest week)
+      if (!e.team) return;
+      if (!eloMap[e.team] || (e.week || 0) > (eloMap[e.team].week || 0)) eloMap[e.team] = e;
+    });
+
+    // Transfer portal → net transfer balance per team
+    const portalIn  = {};   // team → [entries]
+    const portalOut = {};
+    (data.portal || []).forEach(p => {
+      if (p.destination) {
+        if (!portalIn[p.destination])  portalIn[p.destination]  = [];
+        portalIn[p.destination].push(p);
+      }
+      if (p.origin) {
+        if (!portalOut[p.origin]) portalOut[p.origin] = [];
+        portalOut[p.origin].push(p);
+      }
+    });
+    // Expose portal data globally for game pages
+    window.__portalIn  = portalIn;
+    window.__portalOut = portalOut;
+
+    // ESPN News → index by team name for display on game pages
+    const newsByTeam = {};
+    (data.espnNews || []).forEach(article => {
+      (article.teams || []).forEach(teamName => {
+        if (!newsByTeam[teamName]) newsByTeam[teamName] = [];
+        newsByTeam[teamName].push(article);
+      });
+    });
+    window.__espnNewsByTeam = newsByTeam;
+
+    // Reddit posts → index by team name mention in title/flair
+    const redditByTeam = {};
+    const teamNames = window.TEAMS
+      ? Object.values(TEAMS).map(t => ({ name: t.name, id: t.id }))
+      : [];
+    (data.redditPosts || []).forEach(post => {
+      const text = (post.title + " " + (post.flair || "")).toLowerCase();
+      teamNames.forEach(({ name, id }) => {
+        if (!name || name.length < 4) return;
+        if (text.includes(name.toLowerCase())) {
+          if (!redditByTeam[id]) redditByTeam[id] = [];
+          redditByTeam[id].push(post);
+        }
+      });
+    });
+    window.__redditByTeam = redditByTeam;
 
     // Index betting lines by CFBD game ID (for CFBD-sourced games)
     // and by week+matchup key (for ESPN-sourced games that lack CFBD IDs)
@@ -533,31 +679,68 @@ const LIVE = (() => {
       const color    = fixColor(t.color)     || "#1a1a2e";
       const altColor = fixColor(t.alt_color) || "#444444";
 
+      // Real advanced stats + Elo for this team
+      const adv      = advStatsMap[t.school] || null;
+      const offPPA   = adv?.offense?.ppa;
+      const defPPA   = adv?.defense?.ppa;
+      const eloEntry = eloMap[t.school] || null;
+      const eloRating = eloEntry ? eloToRating(eloEntry.elo) : null;
+      const realOffRating = ppaToOffRating(offPPA);
+      const realDefRating = ppaToDefRating(defPPA);
+
+      // Transfer portal adjustment: stars coming in vs stars going out
+      const ins  = portalIn[t.school]  || [];
+      const outs = portalOut[t.school] || [];
+      const avgStarsIn  = ins.length  ? ins.reduce((s, p)  => s + (p.stars  || 2.5), 0) / ins.length  : null;
+      const avgStarsOut = outs.length ? outs.reduce((s, p) => s + (p.stars  || 2.5), 0) / outs.length : null;
+      const netPortalStars = (avgStarsIn || 0) - (avgStarsOut || 0);
+
       if (window.TEAMS && TEAMS[id]) {
-        // Update existing curated team with live SP+ and coach data
+        // Update existing curated team with live data
         const ex = TEAMS[id];
         ex.spRating  = spOverall;
         ex.spRank    = spRank;
-        // Only overwrite coach if it wasn't manually set in data.js
         if (!ex.coachName || ex.coachName === "Unknown") ex.coachName = coach;
-        // Blend stats: for curated teams keep their manually set stats,
-        // but patch any missing fields with SP+-derived values
+
+        // Use real advanced stats for ratings when available, else SP+ fallback
+        if (realOffRating) ex.offensiveRating = realOffRating;
+        else if (Math.abs(spOverall) > 1) ex.offensiveRating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
+
+        if (realDefRating) ex.defensiveRating = realDefRating;
+        else if (Math.abs(spOverall) > 1) ex.defensiveRating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
+
+        // Elo-based overall rating when available
+        if (eloRating) ex.rating = eloRating;
+        else if (Math.abs(spOverall) > 1) ex.rating = derivedRating;
+
+        // Real 2025 stats from advanced metrics
         if (ex.stats) {
           const s = ex.stats;
           if (!s.pointsPerGame)        s.pointsPerGame        = derivedStats.pointsPerGame;
           if (!s.pointsAllowedPerGame) s.pointsAllowedPerGame = derivedStats.pointsAllowedPerGame;
+          if (adv?.offense?.successRate) s.thirdDownPct = +adv.offense.successRate.toFixed(3);
         } else {
           ex.stats = derivedStats;
         }
-        // Update rating if SP+ data is significantly different (trust SP+)
-        if (Math.abs(spOverall) > 1) {
-          ex.rating          = derivedRating;
-          ex.offensiveRating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
-          ex.defensiveRating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
+
+        // Update program health based on real portal activity
+        if (ex.programHealth) {
+          if (ins.length > 0 || outs.length > 0) {
+            ex.programHealth.transferPortalRating = Math.min(90, Math.max(20, Math.round(55 + netPortalStars * 8)));
+            const eliteIns = ins.filter(p => (p.stars || 0) >= 4).length;
+            if (eliteIns >= 3 && !ex.programHealth._manualMomentum) ex.programHealth.programMomentum = "rising";
+          }
         }
+
         ex.recruitingRank = recruitRk;
       } else if (window.TEAMS) {
-        // Add new stub team for every other FBS program
+        // Add new stub team — use real stats/elo when available, else SP+ proxy
+        const stubOffRating = realOffRating || Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
+        const stubDefRating = realDefRating || Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
+        const stubRating    = eloRating     || derivedRating;
+        const portalRating  = (ins.length > 0 || outs.length > 0)
+          ? Math.min(90, Math.max(20, Math.round(55 + netPortalStars * 8)))
+          : 50;
         TEAMS[id] = {
           id,
           name:           t.school,
@@ -567,21 +750,20 @@ const LIVE = (() => {
           color,
           altColor,
           wins: 0, losses: 0, lastSeasonRecord: "2025",
-          rating:          derivedRating,
-          offensiveRating: Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9))),
-          defensiveRating: Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9))),
+          rating:          stubRating,
+          offensiveRating: stubOffRating,
+          defensiveRating: stubDefRating,
           spRating:        spOverall,
           spRank,
           recruitingRank:  recruitRk,
           coachName:       coach,
           coachRecord:     "0-0",
           stats:           derivedStats,
-          // Minimum required fields so predictor never crashes
           atsRecord:       null,
           situational:     {},
-          programHealth:   { nilStrength: 50, transferPortalRating: 50, coachHotSeat: 3,
-                             programMomentum: "stable", fanMorale: 60,
-                             lockerRoomCohesion: 65, depthChartStability: 65 },
+          programHealth:   { nilStrength: 50, transferPortalRating: portalRating, coachHotSeat: 3,
+                             programMomentum: ins.filter(p => (p.stars||0) >= 4).length >= 3 ? "rising" : "stable",
+                             fanMorale: 60, lockerRoomCohesion: 65, depthChartStability: 65 },
           weatherProfile:  { isDome: false, coldWeatherAdvantage: 5 },
           schedule:        { daysSinceLastGame: 7, isComingOffBigWin: false,
                              isComingOffBigLoss: false, hasLookaheadGame: false,

@@ -1873,64 +1873,106 @@ function renderGamePage(gData) {
       </div>`;
   }
 
-  /* 16 — Social Sentiment + Insider Intel (RIGHT column) */
+  /* 16 — Live News + Social Intel (ESPN news + Reddit r/CFB) */
   function renderSocial() {
+    const newsByTeam = window.__espnNewsByTeam || {};
+    const redditByTeam = window.__redditByTeam || {};
+    const portalIn  = window.__portalIn  || {};
+    const portalOut = window.__portalOut || {};
+
+    function espnNewsBlock(team) {
+      const articles = (newsByTeam[team.name] || []).slice(0, 3);
+      if (!articles.length) return "";
+      return articles.map(a => {
+        const ago = a.published
+          ? (() => {
+              const diff = Date.now() - new Date(a.published).getTime();
+              const h = Math.round(diff / 36e5);
+              return h < 1 ? "just now" : h < 24 ? `${h}h ago` : `${Math.floor(h/24)}d ago`;
+            })()
+          : "";
+        return `
+          <a href="${a.url || "#"}" target="_blank" rel="noopener" style="display:block;text-decoration:none;padding:8px 10px;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+            <div style="font-size:.72rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:3px">${a.headline}</div>
+            ${a.description ? `<div style="font-size:.65rem;color:var(--muted);line-height:1.4">${a.description.slice(0, 100)}${a.description.length > 100 ? "…" : ""}</div>` : ""}
+            <div style="font-size:.6rem;color:var(--muted);margin-top:4px">ESPN${ago ? " · " + ago : ""}</div>
+          </a>`;
+      }).join("");
+    }
+
+    function redditBlock(team) {
+      const posts = (redditByTeam[team.id] || []).sort((a, b) => b.score - a.score).slice(0, 3);
+      if (!posts.length) return "";
+      return posts.map(p => {
+        const sentColor = p.upvoteRatio >= 0.85 ? "var(--primary)" : p.upvoteRatio >= 0.7 ? "var(--gold)" : "var(--muted)";
+        const ago = p.created
+          ? (() => {
+              const diff = Date.now() - p.created * 1000;
+              const h = Math.round(diff / 36e5);
+              return h < 1 ? "just now" : h < 24 ? `${h}h ago` : `${Math.floor(h/24)}d ago`;
+            })()
+          : "";
+        return `
+          <a href="${p.url}" target="_blank" rel="noopener" style="display:block;text-decoration:none;padding:8px 10px;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+            <div style="font-size:.7rem;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:3px">${p.title.slice(0, 100)}${p.title.length > 100 ? "…" : ""}</div>
+            <div style="display:flex;gap:8px;align-items:center;font-size:.6rem;color:var(--muted)">
+              <span style="color:${sentColor};font-weight:700">▲ ${p.score}</span>
+              <span>${p.comments} comments</span>
+              ${ago ? `<span>${ago}</span>` : ""}
+              <span style="margin-left:auto">r/CFB</span>
+            </div>
+          </a>`;
+      }).join("");
+    }
+
+    function portalBlock(team) {
+      const ins  = (portalIn[team.name]  || []).slice(0, 3);
+      const outs = (portalOut[team.name] || []).slice(0, 3);
+      if (!ins.length && !outs.length) return "";
+      const row = (p, dir) => {
+        const stars = p.stars ? "★".repeat(Math.round(p.stars)) + "☆".repeat(5 - Math.round(p.stars)) : "";
+        return `<div style="font-size:.68rem;padding:4px 0;border-bottom:1px solid var(--border);display:flex;gap:6px;align-items:center">
+          <span style="color:${dir === "in" ? "var(--primary)" : "var(--danger)"};font-weight:800;font-size:.6rem">${dir === "in" ? "IN" : "OUT"}</span>
+          <span style="font-weight:700;color:var(--text)">${p.firstName || ""} ${p.lastName || ""}</span>
+          <span style="color:var(--muted)">${p.position || ""}</span>
+          ${stars ? `<span style="color:var(--gold);font-size:.55rem;margin-left:auto">${stars}</span>` : ""}
+          ${dir === "in" && p.origin      ? `<span style="color:var(--muted);font-size:.6rem;margin-left:auto">from ${p.origin}</span>`       : ""}
+          ${dir === "out" && p.destination ? `<span style="color:var(--muted);font-size:.6rem;margin-left:auto">to ${p.destination}</span>` : ""}
+        </div>`;
+      };
+      return `
+        <div style="margin-bottom:8px;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+          <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">2026 TRANSFER PORTAL</div>
+          ${ins.map(p => row(p, "in")).join("")}
+          ${outs.map(p => row(p, "out")).join("")}
+        </div>`;
+    }
+
+    const homeNews    = espnNewsBlock(home);
+    const awayNews    = espnNewsBlock(away);
+    const homeReddit  = redditBlock(home);
+    const awayReddit  = redditBlock(away);
+    const homePortal  = portalBlock(home);
+    const awayPortal  = portalBlock(away);
+    const hasAnyLive  = homeNews || awayNews || homeReddit || awayReddit || homePortal || awayPortal;
+
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">Social Sentiment</div>
-        <div class="social-grid">
-          ${[{ team: home, key: "homeTeamBuzz" }, { team: away, key: "awayTeamBuzz" }].map(({ team, key }) => {
-            const bz = buzz[key] || 0;
-            return `
-              <div class="social-card">
-                <div class="text-xs text-muted mb-1">${team.name}</div>
-                <div class="social-score">${bz}</div>
-                <div class="text-xs text-muted">/ 100 buzz score</div>
-                <div style="margin-top:8px;height:4px;background:var(--border);border-radius:2px;overflow:hidden">
-                  <div style="width:${bz}%;height:100%;background:${team.id === home.id ? "var(--primary)" : "var(--accent)"}"></div>
-                </div>
-              </div>`;
-          }).join("")}
-        </div>
+        <div class="section-label">Live Intel — News &amp; Social</div>
+        <div style="font-size:.62rem;color:var(--muted);margin-bottom:12px">Real-time data from ESPN, Reddit r/CFB, and CFBD transfer portal</div>
 
-        <div class="section-label mt-4">Trending</div>
-        <div class="trending-tags mb-4">
-          ${(buzz.trendingTopics || []).map(t => `<div class="trending-tag">${t}</div>`).join("")}
-        </div>
-
-        ${(buzz.injuryAlerts || []).length ? `
-          <div class="section-label">Injury Report</div>
-          ${(buzz.injuryAlerts || []).map(a => `
-            <div class="injury-card">
-              <div class="injury-header">
-                <span class="injury-icon" title="Injury alert — ${a.status}${a.impact ? ', ' + a.impact + ' impact' : ''}">⚠</span>
-                <span class="injury-name">${a.player}</span>
-                <span class="injury-pos">${a.position}</span>
-                <span class="badge badge-${a.impact === "high" ? "danger" : a.impact === "medium" ? "medium" : "low"}" style="margin-left:4px">${a.team}</span>
-              </div>
-              <div class="injury-meta">
-                <span class="injury-status">${a.status}</span>
-                <span class="text-muted">·</span>
-                <span class="impact-${a.impact} fw-bold" style="font-size:.75rem;text-transform:uppercase">${a.impact} impact</span>
-              </div>
-              <div class="text-xs text-muted mt-1">${a.notes}</div>
-            </div>`).join("")}` : ""}
-
-        <div class="section-label mt-4">Insider Intel</div>
-        ${(buzz.insiderTips || []).map(tip => `
-          <div class="insider-card" style="border:1px solid var(--border-l)">
-            <div class="insider-header">
-              <span class="platform-badge ${platCls(tip.platform)}">${platLbl[tip.platform] || tip.platform}</span>
-              <span class="fw-bold text-sm">${tip.source}</span>
-              <span class="text-xs text-muted">${tip.handle}</span>
-              <span class="text-xs text-muted ml-auto">${tip.timestamp}</span>
-            </div>
-            <div class="insider-content">${tip.content}</div>
-            <div class="insider-footer">
-              <span class="reliability">Reliability: <span>${"★".repeat(tip.reliability)}${"☆".repeat(5 - tip.reliability)}</span></span>
-              ${(tip.tags || []).map(t => `<span style="font-size:.65rem;padding:2px 6px;border-radius:4px;background:var(--border);color:var(--muted)">${t}</span>`).join("")}
-            </div>
-          </div>`).join("")}
+        ${hasAnyLive ? `
+          ${(homeNews || homeReddit || homePortal) ? `
+            <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${home.color};margin-bottom:6px">${home.name}</div>
+            ${homePortal}${homeNews}${homeReddit}` : ""}
+          ${(awayNews || awayReddit || awayPortal) ? `
+            <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${away.color};margin:10px 0 6px">${away.name}</div>
+            ${awayPortal}${awayNews}${awayReddit}` : ""}
+        ` : `
+          <div style="font-size:.75rem;color:var(--muted);padding:12px 0;text-align:center">
+            No recent news found — data updates every 30 minutes
+          </div>
+        `}
       </div>`;
   }
 
