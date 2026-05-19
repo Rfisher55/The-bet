@@ -9,7 +9,7 @@ const LIVE = (() => {
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
   const SEASON    = 2026;
   const KEY_STORE   = "theBet_cfbdKey";
-  const CACHE_STORE = "theBet_liveCache_v7";   // v7 = multi-source: real stats, elo, transfers, news, reddit
+  const CACHE_STORE = "theBet_liveCache_v8";   // v8 = full data: records, raw stats, ATS, returning, draft, venues, logos
   const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
 
   // ── Explicit school-name → internal-ID mapping ──────────────
@@ -90,7 +90,7 @@ const LIVE = (() => {
   let _relativeTimeInterval = null;
   let _rateLimitRetryTimer  = null;
 
-  const ENDPOINT_COUNT = 17; // 13 CFBD + 1 ESPN schedule + 1 ESPN news + 1 Reddit + 1 spare
+  const ENDPOINT_COUNT = 26; // 22 CFBD + 1 ESPN schedule + 1 ESPN news + 1 Reddit + 1 spare
 
   function getKey() { return localStorage.getItem(KEY_STORE) || window.CFBD_DEFAULT_KEY || null; }
   function setKey(k) { if (k) localStorage.setItem(KEY_STORE, k.trim()); else localStorage.removeItem(KEY_STORE); }
@@ -367,91 +367,108 @@ const LIVE = (() => {
       const espnNewsPromise = fetchESPNNews().catch(() => []);
       const redditPromise  = fetchRedditCFB().catch(() => []);
 
-      const endpointPromises = [
-        api("/teams/fbs",                                                        apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/games?year=${SEASON}&seasonType=regular&classification=fbs`,       apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/games?year=${SEASON}&seasonType=postseason&classification=fbs`,    apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/ratings/sp?year=${SEASON}`,                                        apiKey).then(v => { onEndpointDone(); return v; }),
-        api("/ratings/sp?year=2025",                                             apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/talent?year=${SEASON}`,                                            apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/coaches?year=${SEASON}`,                                           apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/recruiting/teams?year=${SEASON}`,                                  apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/lines?year=${SEASON}`,                                             apiKey).then(v => { onEndpointDone(); return v; }),
-        // Real historical stats for calibrating team ratings
-        api("/stats/season/advanced?year=2025&classification=fbs",               apiKey).then(v => { onEndpointDone(); return v; }),
-        api("/ratings/elo?year=2025",                                            apiKey).then(v => { onEndpointDone(); return v; }),
-        // Transfer portal — who came in / went out for 2026
-        api("/portal?year=2026",                                                 apiKey).then(v => { onEndpointDone(); return v; }),
+      // All CFBD endpoints in one parallel batch — any failure is silently skipped
+      const cfbdDefs = [
+        // Core team + schedule data
+        ["/teams/fbs",                                                       "teams"],
+        [`/games?year=${SEASON}&seasonType=regular&classification=fbs`,      "reg26"],
+        [`/games?year=${SEASON}&seasonType=postseason&classification=fbs`,   "post26"],
+        // SP+ ratings — 2026 preferred, 2025 fallback
+        [`/ratings/sp?year=${SEASON}`,                                       "sp26"],
+        ["/ratings/sp?year=2025",                                            "sp25"],
+        // Talent, coaches, recruiting (3 years for trend)
+        [`/talent?year=${SEASON}`,                                           "talent"],
+        [`/coaches?year=${SEASON}`,                                          "coaches"],
+        [`/recruiting/teams?year=${SEASON}`,                                 "rec26"],
+        ["/recruiting/teams?year=2025",                                      "rec25"],
+        ["/recruiting/teams?year=2024",                                      "rec24"],
+        // Betting lines (current + 2025 for ATS calc)
+        [`/lines?year=${SEASON}`,                                            "lines26"],
+        ["/lines?year=2025",                                                 "lines25"],
+        // Real 2025 season data for team calibration
+        ["/records?year=2025&classification=fbs",                            "records25"],
+        ["/stats/season?year=2025&classification=fbs",                       "stats25"],
+        ["/stats/season/advanced?year=2025&classification=fbs",              "advStats25"],
+        ["/ratings/elo?year=2025",                                           "elo25"],
+        // 2025 actual game results (for ATS record calculation)
+        ["/games?year=2025&seasonType=regular&classification=fbs",           "games25reg"],
+        ["/games?year=2025&seasonType=postseason&classification=fbs",        "games25post"],
+        // 2026 program data
+        [`/portal?year=${SEASON}`,                                           "portal"],
+        [`/returning?year=${SEASON}`,                                        "returning"],
+        // NFL Draft pipeline — 2 years shows talent production trend
+        ["/draft/picks?year=2025",                                           "draft25"],
+        ["/draft/picks?year=2026",                                           "draft26"],
       ];
 
-      // All primary data fetched in parallel — failures are caught individually
-      const [teamsRes, regularRes, postRes, spRes, sp25Res, talentRes,
-             coachesRes, recruitRes, linesRes, advStatsRes, eloRes, portalRes] =
-        await Promise.allSettled(endpointPromises);
+      const cfbdResults = await Promise.allSettled(
+        cfbdDefs.map(([ep]) => api(ep, apiKey).then(v => { onEndpointDone(); return v; }))
+      );
 
-      // Merge SP+ 2026 (preferred) with 2025 fallback
-      const sp26  = spRes.status     === "fulfilled" ? (spRes.value   || []) : [];
-      const sp25  = sp25Res.status   === "fulfilled" ? (sp25Res.value || []) : [];
-      const spMerged = sp26.length > 0 ? sp26 : sp25;
+      // Map results → named object; failures default to []
+      const cfbd = {};
+      cfbdDefs.forEach(([, name], i) => {
+        cfbd[name] = cfbdResults[i].status === "fulfilled" ? (cfbdResults[i].value || []) : [];
+      });
 
-      const games2026 = [
-        ...(regularRes.status === "fulfilled" ? (regularRes.value || []) : []),
-        ...(postRes.status    === "fulfilled" ? (postRes.value    || []) : []),
-      ];
+      // SP+: prefer 2026 data, fall back to 2025
+      const spMerged = cfbd.sp26.length > 0 ? cfbd.sp26 : cfbd.sp25;
 
-      // ESPN schedule + news + Reddit (all ran in parallel)
+      // 2026 schedule (CFBD)
+      const games2026 = [...cfbd.reg26, ...cfbd.post26];
+
+      // ESPN schedule + news + Reddit (all ran in parallel with CFBD above)
       const espnEvents  = await espnPromise;
       const espnNews    = await espnNewsPromise;
       const redditPosts = await redditPromise;
       onEndpointDone();
       const espnGames = espnEvents.map(e => mapESPNGame(e)).filter(Boolean);
-      console.log(`[LIVE] ESPN: ${espnGames.length} games, ${espnNews.length} news articles | ` +
-                  `Reddit: ${redditPosts.length} posts | CFBD ${SEASON}: ${games2026.length} games`);
+      console.log(`[LIVE] ESPN: ${espnGames.length} games | CFBD 2026: ${games2026.length} | Reddit: ${redditPosts.length} posts`);
 
-      // Prefer ESPN when it has full season coverage (200+ = meaningful schedule)
+      // Choose primary schedule source: ESPN if full, CFBD if full, else merge with 2025 data
       let gamesFromApi;
       if (espnGames.length >= 200) {
         gamesFromApi = espnGames;
-        console.log(`[LIVE] Using ESPN as primary schedule (${espnGames.length} games)`);
       } else if (games2026.length >= 200) {
         gamesFromApi = games2026;
-        console.log(`[LIVE] Using CFBD as primary schedule (${games2026.length} games)`);
       } else {
-        // 2026 schedule not fully released — supplement with 2025 completed season data
-        console.log(`[LIVE] 2026 thin (ESPN: ${espnGames.length}, CFBD: ${games2026.length}) — fetching 2025 season`);
-        const [reg25, post25] = await Promise.allSettled([
-          api("/games?year=2025&seasonType=regular&classification=fbs",    apiKey),
-          api("/games?year=2025&seasonType=postseason&classification=fbs", apiKey),
-        ]);
-        const games2025 = [
-          ...(reg25.status  === "fulfilled" ? (reg25.value  || []) : []),
-          ...(post25.status === "fulfilled" ? (post25.value || []) : []),
-        ];
-        // ESPN + CFBD 2026 games first (deduplicate against static), then 2025 season
+        // 2026 schedule not fully released — use already-fetched 2025 data
+        const games2025 = [...cfbd.games25reg, ...cfbd.games25post];
         gamesFromApi = [...espnGames, ...games2026, ...games2025];
-        console.log(`[LIVE] Combined: ${gamesFromApi.length} total games`);
+        console.log(`[LIVE] Thin 2026 — merged with 2025: ${gamesFromApi.length} total`);
       }
 
       const payload = {
-        fbsTeams:    teamsRes.status    === "fulfilled" ? (teamsRes.value    || []) : [],
+        fbsTeams:    cfbd.teams,
         games:       gamesFromApi,
         spRatings:   spMerged,
-        talent:      talentRes.status   === "fulfilled" ? (talentRes.value   || []) : [],
-        coaches:     coachesRes.status  === "fulfilled" ? (coachesRes.value  || []) : [],
-        recruiting:  recruitRes.status  === "fulfilled" ? (recruitRes.value  || []) : [],
-        lines:       linesRes.status    === "fulfilled" ? (linesRes.value    || []) : [],
-        advStats:    advStatsRes.status === "fulfilled" ? (advStatsRes.value || []) : [],
-        eloRatings:  eloRes.status      === "fulfilled" ? (eloRes.value      || []) : [],
-        portal:      portalRes.status   === "fulfilled" ? (portalRes.value   || []) : [],
+        talent:      cfbd.talent,
+        coaches:     cfbd.coaches,
+        recruiting:  cfbd.rec26,
+        rec25:       cfbd.rec25,
+        rec24:       cfbd.rec24,
+        lines:       cfbd.lines26,
+        lines25:     cfbd.lines25,
+        records25:   cfbd.records25,
+        stats25:     cfbd.stats25,
+        advStats:    cfbd.advStats25,
+        eloRatings:  cfbd.elo25,
+        games25:     [...cfbd.games25reg, ...cfbd.games25post],
+        portal:      cfbd.portal,
+        returning:   cfbd.returning,
+        draft25:     cfbd.draft25,
+        draft26:     cfbd.draft26,
         espnNews,
         redditPosts,
         fetchedAt:   new Date().toISOString(),
       };
 
       console.log(`[LIVE] Fetched: ${payload.fbsTeams.length} teams, ${payload.games.length} games, ` +
-                  `${payload.spRatings.length} SP+, ${payload.advStats.length} adv-stats, ` +
-                  `${payload.eloRatings.length} elo, ${payload.portal.length} portal, ` +
-                  `${payload.espnNews.length} news, ${payload.redditPosts.length} reddit`);
+                  `SP+:${payload.spRatings.length} ELO:${payload.eloRatings.length} ` +
+                  `AdvStats:${payload.advStats.length} Records:${payload.records25.length} ` +
+                  `Portal:${payload.portal.length} Returning:${payload.returning.length} ` +
+                  `Draft:${payload.draft25.length + payload.draft26.length} ` +
+                  `News:${espnNews.length} Reddit:${redditPosts.length}`);
 
       saveCache(payload);
       applyData(payload);
@@ -557,56 +574,142 @@ const LIVE = (() => {
 
   // ── Apply fetched data to TEAMS + GAMES ─────────────────────
   function applyData(data) {
-    // Build lookup maps
+
+    // ── Build all lookup maps ────────────────────────────────
     const spMap = {};
     (data.spRatings || []).forEach(r => { if (r.team) spMap[r.team] = r; });
 
     const talentMap = {};
     (data.talent || []).forEach(t => { if (t.school) talentMap[t.school] = t.talent; });
 
+    // Coach name + career record
     const coachMap = {};
+    const coachRecordMap = {};
     (data.coaches || []).forEach(c => {
       if (!Array.isArray(c.schools) || !c.schools.length) return;
       const cur = c.schools.find(s => s.year === SEASON) ||
                   c.schools.sort((a, b) => b.year - a.year)[0];
-      if (cur?.school) coachMap[cur.school] = `${c.firstName} ${c.lastName}`;
+      if (!cur?.school) return;
+      const name = `${c.firstName} ${c.lastName}`;
+      coachMap[cur.school] = name;
+      // Sum all seasons for career W/L record
+      const totalW = c.schools.reduce((s, sc) => s + (sc.wins  || 0), 0);
+      const totalL = c.schools.reduce((s, sc) => s + (sc.losses|| 0), 0);
+      if (totalW + totalL > 0) coachRecordMap[cur.school] = `${totalW}-${totalL}`;
     });
 
     const recruitMap = {};
-    (data.recruiting || []).forEach(r => { if (r.team) recruitMap[r.team] = r.rank; });
+    (data.recruiting  || []).forEach(r => { if (r.team) recruitMap[r.team]  = r.rank; });
+    const recruit25Map = {};
+    (data.rec25 || []).forEach(r => { if (r.team) recruit25Map[r.team] = r.rank; });
+    const recruit24Map = {};
+    (data.rec24 || []).forEach(r => { if (r.team) recruit24Map[r.team] = r.rank; });
 
-    // Advanced stats (2025 actuals) → offensive/defensive PPA per team
-    const advStatsMap = {};
-    (data.advStats || []).forEach(s => {
-      if (s.team) advStatsMap[s.team] = s;
+    // 2025 actual win/loss records
+    const recordsMap = {};
+    (data.records25 || []).forEach(r => { if (r.team) recordsMap[r.team] = r; });
+
+    // 2025 raw season stats — CFBD may return { statName, statValue } rows OR nested objects
+    const rawStatsMap = {};
+    (data.stats25 || []).forEach(row => {
+      if (!row.team) return;
+      if (!rawStatsMap[row.team]) rawStatsMap[row.team] = {};
+      if (row.statName !== undefined) {
+        rawStatsMap[row.team][row.statName] = row.statValue;
+        if (row.games) rawStatsMap[row.team]._games = row.games;
+      } else {
+        Object.assign(rawStatsMap[row.team], row);
+      }
     });
 
-    // Elo ratings → overall team quality
+    // 2025 advanced stats → PPA per team
+    const advStatsMap = {};
+    (data.advStats || []).forEach(s => { if (s.team) advStatsMap[s.team] = s; });
+
+    // Elo → keep most recent week per team
     const eloMap = {};
     (data.eloRatings || []).forEach(e => {
-      // Keep the most recent entry per team (highest week)
       if (!e.team) return;
       if (!eloMap[e.team] || (e.week || 0) > (eloMap[e.team].week || 0)) eloMap[e.team] = e;
     });
 
-    // Transfer portal → net transfer balance per team
-    const portalIn  = {};   // team → [entries]
+    // Returning production 2026
+    const returningMap = {};
+    (data.returning || []).forEach(r => { if (r.team) returningMap[r.team] = r; });
+
+    // NFL Draft picks (2025 + 2026) by school
+    const draftMap = {};
+    [...(data.draft25 || []), ...(data.draft26 || [])].forEach(p => {
+      if (!p.college) return;
+      if (!draftMap[p.college]) draftMap[p.college] = { total: 0, firstRound: 0, rounds: [] };
+      draftMap[p.college].total++;
+      draftMap[p.college].rounds.push(p.round || 7);
+      if ((p.round || 7) <= 1) draftMap[p.college].firstRound++;
+    });
+
+    // Transfer portal → in/out per school name
+    const portalIn  = {};
     const portalOut = {};
     (data.portal || []).forEach(p => {
-      if (p.destination) {
-        if (!portalIn[p.destination])  portalIn[p.destination]  = [];
-        portalIn[p.destination].push(p);
-      }
-      if (p.origin) {
-        if (!portalOut[p.origin]) portalOut[p.origin] = [];
-        portalOut[p.origin].push(p);
-      }
+      if (p.destination) { if (!portalIn[p.destination])  portalIn[p.destination]  = []; portalIn[p.destination].push(p);  }
+      if (p.origin)      { if (!portalOut[p.origin])      portalOut[p.origin]      = []; portalOut[p.origin].push(p);      }
     });
-    // Expose portal data globally for game pages
     window.__portalIn  = portalIn;
     window.__portalOut = portalOut;
 
-    // ESPN News → index by team name for display on game pages
+    // 2025 betting lines → spread by game ID (for ATS calculation)
+    const lines25Map = {};
+    (data.lines25 || []).forEach(g => {
+      if (!g.lines?.length) return;
+      const best = g.lines.find(l => l.provider === "consensus") || g.lines[0];
+      const spread = parseFloat(best?.spread);
+      if (!isNaN(spread)) lines25Map[g.id] = spread;
+    });
+
+    // Calculate real 2025 ATS records from completed game results + lines
+    const atsMap = {};   // teamId → { wins, losses, pushes, homeWins, homeLosses, awayWins, awayLosses }
+    const wlMap  = {};   // teamId → { wins, losses, homeW, homeL, awayW, awayL, confW, confL }
+    (data.games25 || []).forEach(g => {
+      if (g.home_points == null || g.away_points == null) return;
+      const homeId = schoolToId(g.home_team);
+      const awayId = schoolToId(g.away_team);
+      // W/L records
+      if (!wlMap[homeId]) wlMap[homeId] = { wins:0, losses:0, homeW:0, homeL:0, awayW:0, awayL:0, confW:0, confL:0 };
+      if (!wlMap[awayId]) wlMap[awayId] = { wins:0, losses:0, homeW:0, homeL:0, awayW:0, awayL:0, confW:0, confL:0 };
+      if (g.home_points > g.away_points) {
+        wlMap[homeId].wins++; wlMap[homeId].homeW++;
+        wlMap[awayId].losses++; wlMap[awayId].awayL++;
+      } else {
+        wlMap[homeId].losses++; wlMap[homeId].homeL++;
+        wlMap[awayId].wins++; wlMap[awayId].awayW++;
+      }
+      if (g.conference_game) {
+        if (g.home_points > g.away_points) { wlMap[homeId].confW++; wlMap[awayId].confL++; }
+        else { wlMap[homeId].confL++; wlMap[awayId].confW++; }
+      }
+      // ATS records
+      const spread = lines25Map[g.id];
+      if (spread == null) return;
+      if (!atsMap[homeId]) atsMap[homeId] = { wins:0, losses:0, pushes:0, homeW:0, homeL:0, awayW:0, awayL:0 };
+      if (!atsMap[awayId]) atsMap[awayId] = { wins:0, losses:0, pushes:0, homeW:0, homeL:0, awayW:0, awayL:0 };
+      const margin = g.home_points - g.away_points;
+      const adj    = margin + spread; // positive = home covered
+      if (Math.abs(adj) <= 0.5) {
+        atsMap[homeId].pushes++; atsMap[awayId].pushes++;
+      } else if (adj > 0) {
+        atsMap[homeId].wins++; atsMap[homeId].homeW++;
+        atsMap[awayId].losses++; atsMap[awayId].awayL++;
+      } else {
+        atsMap[homeId].losses++; atsMap[homeId].homeL++;
+        atsMap[awayId].wins++; atsMap[awayId].awayW++;
+      }
+    });
+    Object.values(atsMap).forEach(r => {
+      const t = r.wins + r.losses;
+      r.pct = t > 0 ? +(r.wins / t).toFixed(3) : 0.5;
+    });
+
+    // ESPN News → index by team name
     const newsByTeam = {};
     (data.espnNews || []).forEach(article => {
       (article.teams || []).forEach(teamName => {
@@ -618,12 +721,12 @@ const LIVE = (() => {
 
     // Reddit posts → index by team name mention in title/flair
     const redditByTeam = {};
-    const teamNames = window.TEAMS
+    const teamNamesList = window.TEAMS
       ? Object.values(TEAMS).map(t => ({ name: t.name, id: t.id }))
       : [];
     (data.redditPosts || []).forEach(post => {
       const text = (post.title + " " + (post.flair || "")).toLowerCase();
-      teamNames.forEach(({ name, id }) => {
+      teamNamesList.forEach(({ name, id }) => {
         if (!name || name.length < 4) return;
         if (text.includes(name.toLowerCase())) {
           if (!redditByTeam[id]) redditByTeam[id] = [];
@@ -633,8 +736,7 @@ const LIVE = (() => {
     });
     window.__redditByTeam = redditByTeam;
 
-    // Index betting lines by CFBD game ID (for CFBD-sourced games)
-    // and by week+matchup key (for ESPN-sourced games that lack CFBD IDs)
+    // 2026 betting lines — by game ID and by week+matchup
     const linesMap = {};
     const linesByMatchup = {};
     (data.lines || []).forEach(g => {
@@ -653,7 +755,6 @@ const LIVE = (() => {
         moneylineAway: best.awayMoneyline ? parseInt(best.awayMoneyline) : undefined,
       };
       linesMap[g.id] = lineEntry;
-      // Secondary lookup by matchup for ESPN games
       if (g.home_team && g.away_team) {
         const mk = `${g.week}|${schoolToId(g.home_team)}|${schoolToId(g.away_team)}`;
         linesByMatchup[mk] = lineEntry;
@@ -663,111 +764,209 @@ const LIVE = (() => {
     // ── 1. Inject / update teams ─────────────────────────────
     (data.fbsTeams || []).forEach(t => {
       if (!t.school) return;
-      const id       = schoolToId(t.school);
-      const sp       = spMap[t.school] || {};
-      const spOverall = sp.rating || 0;
-      const spRank   = sp.ranking || 80;
-      const talent   = talentMap[t.school] || 850;
+      const id        = schoolToId(t.school);
+      const sp        = spMap[t.school] || {};
+      const spOverall = sp.rating  || 0;
+      const spRank    = sp.ranking || 80;
       const recruitRk = recruitMap[t.school] || spRank;
-      const coach    = coachMap[t.school] || "Unknown";
+      const coach     = coachMap[t.school]  || "Unknown";
+      const coachRec  = coachRecordMap[t.school] || null;
 
       const derivedRating = Math.min(99, Math.max(35, Math.round(70 + spOverall)));
       const derivedStats  = spToStats(spOverall);
 
-      // Normalize color string
       const fixColor = c => c ? (c.startsWith("#") ? c : "#" + c) : null;
       const color    = fixColor(t.color)     || "#1a1a2e";
       const altColor = fixColor(t.alt_color) || "#444444";
+      const logo     = t.logos?.[0] || null;
+      const isDome   = t.location?.dome || false;
+      const capacity = t.location?.capacity || null;
+      const timezone = t.location?.timezone || null;
 
-      // Real advanced stats + Elo for this team
-      const adv      = advStatsMap[t.school] || null;
-      const offPPA   = adv?.offense?.ppa;
-      const defPPA   = adv?.defense?.ppa;
-      const eloEntry = eloMap[t.school] || null;
-      const eloRating = eloEntry ? eloToRating(eloEntry.elo) : null;
+      // Rating sources (real data preferred, SP+ proxy as fallback)
+      const adv         = advStatsMap[t.school] || null;
+      const offPPA      = adv?.offense?.ppa;
+      const defPPA      = adv?.defense?.ppa;
+      const eloEntry    = eloMap[t.school] || null;
+      const eloRating   = eloEntry ? eloToRating(eloEntry.elo) : null;
       const realOffRating = ppaToOffRating(offPPA);
       const realDefRating = ppaToDefRating(defPPA);
+      const sp_off_rating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
 
-      // Transfer portal adjustment: stars coming in vs stars going out
+      // Transfer portal balance
       const ins  = portalIn[t.school]  || [];
       const outs = portalOut[t.school] || [];
-      const avgStarsIn  = ins.length  ? ins.reduce((s, p)  => s + (p.stars  || 2.5), 0) / ins.length  : null;
-      const avgStarsOut = outs.length ? outs.reduce((s, p) => s + (p.stars  || 2.5), 0) / outs.length : null;
-      const netPortalStars = (avgStarsIn || 0) - (avgStarsOut || 0);
+      const avgStarsIn  = ins.length  ? ins.reduce((s, p) => s + (p.stars || 2.5), 0) / ins.length  : 0;
+      const avgStarsOut = outs.length ? outs.reduce((s, p) => s + (p.stars || 2.5), 0) / outs.length : 0;
+      const netPortalStars = avgStarsIn - avgStarsOut;
+      const eliteIns = ins.filter(p => (p.stars || 0) >= 4).length;
+      const portalRating = (ins.length > 0 || outs.length > 0)
+        ? Math.min(90, Math.max(20, Math.round(55 + netPortalStars * 8)))
+        : null;
+
+      // Returning production 2026
+      const ret    = returningMap[t.school] || null;
+      const retPct = ret ? (ret.percentPPA || ret.usage || 0.5) : null;
+
+      // NFL Draft talent pipeline (recent 2 years)
+      const draft = draftMap[t.school] || null;
+
+      // Recruiting trend (3 years)
+      const rk26 = recruitMap[t.school]   || null;
+      const rk25 = recruit25Map[t.school] || null;
+      const rk24 = recruit24Map[t.school] || null;
+
+      // Real 2025 W/L record
+      const rec25  = recordsMap[t.school] || null;
+      const wl25   = wlMap[schoolToId(t.school)] || null;
+
+      // Computed season record string
+      function seasonRecordStr() {
+        if (rec25?.total) {
+          const w = rec25.total.wins || 0, l = rec25.total.losses || 0;
+          const cw = rec25.conferenceGames?.wins || 0, cl = rec25.conferenceGames?.losses || 0;
+          return `${w}-${l}${cw+cl > 0 ? ` (${cw}-${cl} conf)` : ""}`;
+        }
+        if (wl25 && wl25.wins + wl25.losses > 0) {
+          return `${wl25.wins}-${wl25.losses}`;
+        }
+        return null;
+      }
+
+      // Real raw stats from 2025
+      function buildRealStats() {
+        const raw = rawStatsMap[t.school] || {};
+        const games = raw._games || 1;
+        // CFBD may provide raw season totals — convert to per-game
+        const pts  = raw.points  ? raw.points  / games : null;
+        const ptsa = raw.pointsAllowed != null ? raw.pointsAllowed / games : null;
+        const yds  = raw.totalYards ? raw.totalYards / games : null;
+        const ydsa = raw.yardsAllowed ? raw.yardsAllowed / games : null;
+        const base = { ...derivedStats };
+        if (pts  != null) base.pointsPerGame        = +pts.toFixed(1);
+        if (ptsa != null) base.pointsAllowedPerGame = +ptsa.toFixed(1);
+        if (yds  != null) base.yardsPerGame         = +yds.toFixed(1);
+        if (ydsa != null) base.yardsAllowedPerGame  = +ydsa.toFixed(1);
+        if (adv?.offense?.successRate) base.thirdDownPct = +adv.offense.successRate.toFixed(3);
+        if (adv?.defense?.havocTotal)  base.turnoversForced = +((adv.defense.havocTotal || 0) * 13).toFixed(1);
+        return base;
+      }
+
+      // Program health computed from real signals
+      function computeProgramHealth(existing) {
+        const base = existing || { nilStrength: 50, transferPortalRating: 50, coachHotSeat: 3,
+                                    programMomentum: "stable", fanMorale: 60,
+                                    lockerRoomCohesion: 65, depthChartStability: 65 };
+        // Only overwrite fields not manually set (manualMomentum guard)
+        if (portalRating !== null) base.transferPortalRating = portalRating;
+        if (!base._manualMomentum) {
+          if      (eliteIns >= 3 || (retPct != null && retPct > 0.78)) base.programMomentum = "rising";
+          else if (retPct != null && retPct < 0.38)                    base.programMomentum = "rebuilding";
+          else if (retPct != null && retPct > 0.65)                    base.programMomentum = "stable";
+        }
+        if (retPct != null)
+          base.depthChartStability = Math.min(95, Math.max(30, Math.round(45 + retPct * 55)));
+        // Draft picks → NIL appeal (more NFL talent = better NIL program)
+        if (draft && draft.total > 0) {
+          const draftBoost = Math.min(25, draft.total * 4 + draft.firstRound * 6);
+          if (!existing) base.nilStrength = Math.min(97, 50 + draftBoost);
+          else           base.nilStrength = Math.min(97, (base.nilStrength || 50) + Math.round(draftBoost * 0.4));
+        }
+        return base;
+      }
 
       if (window.TEAMS && TEAMS[id]) {
-        // Update existing curated team with live data
         const ex = TEAMS[id];
-        ex.spRating  = spOverall;
-        ex.spRank    = spRank;
+        ex.spRating = spOverall;
+        ex.spRank   = spRank;
+        if (logo && !ex.logo) ex.logo = logo;
+        if (isDome) ex.weatherProfile = { ...(ex.weatherProfile || {}), isDome: true };
+        if (capacity && !ex.stadiumCapacity) ex.stadiumCapacity = capacity;
+        if (timezone && !ex.timezone) ex.timezone = timezone;
         if (!ex.coachName || ex.coachName === "Unknown") ex.coachName = coach;
+        if (coachRec) ex.coachRecord = coachRec;
 
-        // Use real advanced stats for ratings when available, else SP+ fallback
-        if (realOffRating) ex.offensiveRating = realOffRating;
-        else if (Math.abs(spOverall) > 1) ex.offensiveRating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
-
-        if (realDefRating) ex.defensiveRating = realDefRating;
-        else if (Math.abs(spOverall) > 1) ex.defensiveRating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
-
-        // Elo-based overall rating when available
+        // Ratings — real data wins over estimates
+        ex.offensiveRating = realOffRating || sp_off_rating;
+        ex.defensiveRating = realDefRating || sp_off_rating;
         if (eloRating) ex.rating = eloRating;
         else if (Math.abs(spOverall) > 1) ex.rating = derivedRating;
 
-        // Real 2025 stats from advanced metrics
-        if (ex.stats) {
-          const s = ex.stats;
-          if (!s.pointsPerGame)        s.pointsPerGame        = derivedStats.pointsPerGame;
-          if (!s.pointsAllowedPerGame) s.pointsAllowedPerGame = derivedStats.pointsAllowedPerGame;
-          if (adv?.offense?.successRate) s.thirdDownPct = +adv.offense.successRate.toFixed(3);
-        } else {
-          ex.stats = derivedStats;
+        // Real stats (patch existing object)
+        ex.stats = buildRealStats();
+
+        // Real 2025 record
+        const recStr = seasonRecordStr();
+        if (recStr) ex.lastSeasonRecord = recStr;
+
+        // Real ATS record from 2025 game results + lines
+        const atsEntry = atsMap[id];
+        if (atsEntry && atsEntry.wins + atsEntry.losses > 3) {
+          ex.atsRecord = {
+            wins: atsEntry.wins, losses: atsEntry.losses, pushes: atsEntry.pushes,
+            pct:  atsEntry.pct,
+          };
+          if (!ex.situational) ex.situational = {};
+          ex.situational.atsHome  = atsEntry.homeW + atsEntry.homeL > 0
+            ? { wins: atsEntry.homeW, losses: atsEntry.homeL,
+                pct: +(atsEntry.homeW / (atsEntry.homeW + atsEntry.homeL)).toFixed(3) } : undefined;
+          ex.situational.atsAway  = atsEntry.awayW + atsEntry.awayL > 0
+            ? { wins: atsEntry.awayW, losses: atsEntry.awayL,
+                pct: +(atsEntry.awayW / (atsEntry.awayW + atsEntry.awayL)).toFixed(3) } : undefined;
         }
 
-        // Update program health based on real portal activity
-        if (ex.programHealth) {
-          if (ins.length > 0 || outs.length > 0) {
-            ex.programHealth.transferPortalRating = Math.min(90, Math.max(20, Math.round(55 + netPortalStars * 8)));
-            const eliteIns = ins.filter(p => (p.stars || 0) >= 4).length;
-            if (eliteIns >= 3 && !ex.programHealth._manualMomentum) ex.programHealth.programMomentum = "rising";
-          }
-        }
+        // Recruiting trend
+        ex.recruitingRank  = recruitRk;
+        ex.recruitingTrend = { rank2024: rk24, rank2025: rk25, rank2026: rk26 };
+        if (draft) ex.nflDraftRecent = { total: draft.total, firstRound: draft.firstRound };
+        if (retPct != null) ex._returningPct = retPct;
 
-        ex.recruitingRank = recruitRk;
+        // Program health — real signals
+        ex.programHealth = computeProgramHealth(ex.programHealth);
+
       } else if (window.TEAMS) {
-        // Add new stub team — use real stats/elo when available, else SP+ proxy
-        const stubOffRating = realOffRating || Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
-        const stubDefRating = realDefRating || Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
-        const stubRating    = eloRating     || derivedRating;
-        const portalRating  = (ins.length > 0 || outs.length > 0)
-          ? Math.min(90, Math.max(20, Math.round(55 + netPortalStars * 8)))
-          : 50;
+        const atsEntry = atsMap[id];
+        const realAts  = atsEntry && atsEntry.wins + atsEntry.losses > 3 ? {
+          wins: atsEntry.wins, losses: atsEntry.losses,
+          pushes: atsEntry.pushes, pct: atsEntry.pct,
+        } : null;
+
         TEAMS[id] = {
           id,
-          name:           t.school,
-          abbreviation:   t.abbreviation || id.toUpperCase().slice(0, 4),
-          mascot:         t.mascot || "",
-          conference:     t.conference || "Independent",
-          color,
-          altColor,
-          wins: 0, losses: 0, lastSeasonRecord: "2025",
-          rating:          stubRating,
-          offensiveRating: stubOffRating,
-          defensiveRating: stubDefRating,
-          spRating:        spOverall,
-          spRank,
+          name:            t.school,
+          abbreviation:    t.abbreviation || id.toUpperCase().slice(0, 4),
+          mascot:          t.mascot || "",
+          conference:      t.conference || "Independent",
+          color, altColor, logo,
+          wins:  rec25?.total?.wins   || 0,
+          losses: rec25?.total?.losses || 0,
+          lastSeasonRecord: seasonRecordStr() || "2025",
+          rating:          eloRating  || derivedRating,
+          offensiveRating: realOffRating || sp_off_rating,
+          defensiveRating: realDefRating || sp_off_rating,
+          spRating:   spOverall, spRank,
           recruitingRank:  recruitRk,
-          coachName:       coach,
-          coachRecord:     "0-0",
-          stats:           derivedStats,
-          atsRecord:       null,
-          situational:     {},
-          programHealth:   { nilStrength: 50, transferPortalRating: portalRating, coachHotSeat: 3,
-                             programMomentum: ins.filter(p => (p.stars||0) >= 4).length >= 3 ? "rising" : "stable",
-                             fanMorale: 60, lockerRoomCohesion: 65, depthChartStability: 65 },
-          weatherProfile:  { isDome: false, coldWeatherAdvantage: 5 },
-          schedule:        { daysSinceLastGame: 7, isComingOffBigWin: false,
-                             isComingOffBigLoss: false, hasLookaheadGame: false,
-                             consecutiveRoadGames: 0, travelBurdenRating: 4 },
+          recruitingTrend: { rank2024: rk24, rank2025: rk25, rank2026: rk26 },
+          coachName:  coach,
+          coachRecord: coachRec || "0-0",
+          stadiumCapacity: capacity,
+          timezone,
+          nflDraftRecent:  draft ? { total: draft.total, firstRound: draft.firstRound } : null,
+          _returningPct:   retPct,
+          stats:           buildRealStats(),
+          atsRecord:       realAts,
+          situational: atsEntry ? {
+            atsHome: atsEntry.homeW + atsEntry.homeL > 0
+              ? { wins: atsEntry.homeW, losses: atsEntry.homeL,
+                  pct: +(atsEntry.homeW / (atsEntry.homeW + atsEntry.homeL)).toFixed(3) } : undefined,
+            atsAway: atsEntry.awayW + atsEntry.awayL > 0
+              ? { wins: atsEntry.awayW, losses: atsEntry.awayL,
+                  pct: +(atsEntry.awayW / (atsEntry.awayW + atsEntry.awayL)).toFixed(3) } : undefined,
+          } : {},
+          programHealth: computeProgramHealth(null),
+          weatherProfile: { isDome, coldWeatherAdvantage: 5 },
+          schedule: { daysSinceLastGame: 7, isComingOffBigWin: false, isComingOffBigLoss: false,
+                      hasLookaheadGame: false, consecutiveRoadGames: 0, travelBurdenRating: 4 },
           coachingProfile: {},
           fromLive: true,
         };
