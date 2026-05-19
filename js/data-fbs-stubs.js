@@ -30,7 +30,7 @@
     ["purdue",            "Purdue",            "PUR",  "Big Ten",             "#CEB888","Boilermakers",     65,"Ryan Walters"],
     ["rutgers",           "Rutgers",           "RUT",  "Big Ten",             "#CC0033","Scarlet Knights",  62,"Greg Schiano"],
     ["ucla",              "UCLA",              "UCLA", "Big Ten",             "#2D68C4","Bruins",           72,"DeShaun Foster"],
-    ["usc",               "USC",               "USC",  "Big Ten",             "#9D2235","Trojans",          78,"Lincoln Riley"],
+    ["usc",               "USC",               "USC",  "Big Ten",             "#990000","Trojans",          78,"Lincoln Riley"],
     ["washington",        "Washington",        "WASH", "Big Ten",             "#32006E","Huskies",          72,"Jedd Fisch"],
     // ── ACC ───────────────────────────────────────────────────────────
     ["boston_college",    "Boston College",    "BC",   "ACC",                 "#98002E","Eagles",           65,"Bill O'Brien"],
@@ -104,7 +104,7 @@
     ["south_alabama",     "South Alabama",     "USA",  "Sun Belt",            "#00205B","Jaguars",          61,"Kane Wommack"],
     ["southern_miss",     "Southern Miss",     "USM",  "Sun Belt",            "#FFD046","Golden Eagles",    59,"Will Hall"],
     ["texas_state",       "Texas State",       "TXST", "Sun Belt",            "#501214","Bobcats",          61,"G.J. Kinne"],
-    ["troy",              "Troy",              "TROY", "Sun Belt",            "#862633","Trojans",          61,"Jon Sumrall"],
+    ["troy",              "Troy",              "TROY", "Sun Belt",            "#862633","Trojans",          61,"Cody Kennedy"],
     // ── MAC ───────────────────────────────────────────────────────────
     ["akron",             "Akron",             "AKR",  "MAC",                 "#002147","Zips",             56,"Joe Moorhead"],
     ["ball_state",        "Ball State",        "BAST", "MAC",                 "#BA0C2F","Cardinals",        57,"Mike Neu"],
@@ -133,6 +133,9 @@
     ["army",              "Army",              "ARMY", "FBS Independents",    "#000000","Black Knights",    66,"Jeff Monken"],
     ["uconn",             "Connecticut",       "UCON", "FBS Independents",    "#000E2F","Huskies",          55,"Jim Mora"],
     ["umass",             "Massachusetts",     "MASS", "FBS Independents",    "#881C1C","Minutemen",        51,"Don Brown"],
+    // ── Pac-2 ─────────────────────────────────────────────────────────
+    ["oregon_state",      "Oregon State",      "ORST", "Pac-2",               "#DC4405","Beavers",          65,"Trent Bray"],
+    ["washington_state",  "Washington State",  "WSU",  "Pac-2",               "#981E32","Cougars",          64,"Jake Dickert"],
   ];
 
   const defaultStats = {

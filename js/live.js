@@ -25,6 +25,8 @@ const LIVE = (() => {
     "Michigan State":"michigan_state","Minnesota":"minnesota","Nebraska":"nebraska",
     "Northwestern":"northwestern","Purdue":"purdue","Rutgers":"rutgers","UCLA":"ucla",
     "USC":"usc","Washington":"washington","UCLA Bruins":"ucla",
+    // Pac-2
+    "Oregon State":"oregon_state","Washington State":"washington_state",
     // SEC
     "Arkansas":"arkansas","Kentucky":"kentucky","Mississippi State":"mississippi_state",
     "Missouri":"missouri","Ole Miss":"ole_miss","Mississippi":"ole_miss",
@@ -952,6 +954,7 @@ const LIVE = (() => {
       const realOffRating = ppaToOffRating(offPPA);
       const realDefRating = ppaToDefRating(defPPA);
       const sp_off_rating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
+      const sp_def_rating = Math.min(99, Math.max(35, Math.round(70 - spOverall * 0.9)));
 
       // Transfer portal balance
       const ins  = portalIn[t.school]  || [];
@@ -1100,7 +1103,7 @@ const LIVE = (() => {
 
         // Ratings — real data wins over estimates
         ex.offensiveRating = realOffRating || sp_off_rating;
-        ex.defensiveRating = realDefRating || sp_off_rating;
+        ex.defensiveRating = realDefRating || sp_def_rating;
         if (eloRating) ex.rating = eloRating;
         else if (Math.abs(spOverall) > 1) ex.rating = derivedRating;
 
@@ -1232,7 +1235,7 @@ const LIVE = (() => {
           lastSeasonRecord: seasonRecordStr() || "2025",
           rating:          eloRating  || derivedRating,
           offensiveRating: realOffRating || sp_off_rating,
-          defensiveRating: realDefRating || sp_off_rating,
+          defensiveRating: realDefRating || sp_def_rating,
           spRating:   spOverall, spRank,
           recruitingRank:  recruitRk,
           recruitingTrend: { rank2024: rk24, rank2025: rk25, rank2026: rk26 },
@@ -1356,7 +1359,7 @@ const LIVE = (() => {
 
         const teamId  = id;
         let pIdx = 0;
-        const mkId = pos => `p_live_${id.slice(0, 6)}_${++pIdx}`;
+        const mkId = pos => `p_live_${id.slice(0, 6)}_${pos}_${++pIdx}`;
 
         // QB — top passer by yards
         topN(passingPlayers, t.school, "YDS", 1).forEach(({ name, stats }) => {
