@@ -162,6 +162,27 @@
   </div>
 </footer>
 
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a class="bottom-nav-item" href="../index.html">
+      <span class="bottom-nav-icon">🏠</span>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a class="bottom-nav-item active" href="games.html">
+      <span class="bottom-nav-icon">🏈</span>
+      <span class="bottom-nav-label">Games</span>
+    </a>
+    <a class="bottom-nav-item" href="parlay.html">
+      <span class="bottom-nav-icon">🎯</span>
+      <span class="bottom-nav-label">Parlay</span>
+    </a>
+    <a class="bottom-nav-item" href="teams.html">
+      <span class="bottom-nav-icon">📊</span>
+      <span class="bottom-nav-label">Teams</span>
+    </a>
+  </div>
+</nav>
+
 <script src="../js/data.js"></script>
 <script src="../js/predictor.js"></script>
 <script>
@@ -1027,63 +1048,90 @@ if (!gameData) {
 
   /* 8 — Weather Intel (RIGHT column) */
   function renderWeather() {
-    const wf = game.weatherForecast || null;
+    const wx = game.weather || null;
     const wi = pred.weatherImpact || null;
     const homeWp = safe(() => home.weatherProfile, null);
     const awayWp = safe(() => away.weatherProfile, null);
 
-    if (!wf && !wi) return "";
+    if (!wx && !wi) return "";
+
+    const tempF = wx ? wx.tempF : null;
+    const windMph = wx ? wx.windMph : null;
+    const humidity = wx ? wx.humidity : null;
+    const condition = wx ? wx.condition : "Clear";
+    const indoors = wx ? wx.indoors : false;
+
+    const condEmoji = indoors ? "🏟️"
+      : condition && condition.toLowerCase().includes("snow") ? "❄️"
+      : condition && condition.toLowerCase().includes("rain") ? "🌧️"
+      : windMph >= 20 ? "💨"
+      : tempF >= 88 ? "🌡️"
+      : tempF <= 38 ? "🥶"
+      : "☀️";
+
+    const wxImpactColor = wi && Math.abs(wi.totalAdj||0) >= 3 ? "var(--danger)" : wi && Math.abs(wi.totalAdj||0) >= 1 ? "var(--gold)" : "var(--primary)";
 
     return `
       <div class="card card-p mb-5">
         <div class="section-label">🌤️ Weather Intel</div>
-        ${wf ? `
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
-            <div style="text-align:center;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
-              <div class="wx-icon">🌡️</div>
-              <div style="font-size:1.1rem;font-weight:800;color:var(--text);margin-top:4px">${wf.temperature !== undefined ? wf.temperature + "°F" : "—"}</div>
-              <div class="text-xs text-muted">Temp</div>
-            </div>
-            <div style="text-align:center;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
-              <div class="wx-icon">🌬️</div>
-              <div style="font-size:1.1rem;font-weight:800;color:var(--text);margin-top:4px">${wf.windSpeed !== undefined ? wf.windSpeed + " mph" : "—"}</div>
-              <div class="text-xs text-muted">${wf.windDirection || "Wind"}</div>
-            </div>
-            <div style="text-align:center;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
-              <div class="wx-icon">${wf.precipitation > 0.3 ? "🌧️" : wf.temperature < 32 ? "⛄" : wf.precipitation > 0 ? "🌦️" : "☀️"}</div>
-              <div style="font-size:1.1rem;font-weight:800;color:var(--text);margin-top:4px">${wf.precipitation !== undefined ? (wf.precipitation * 100).toFixed(0) + "%" : "—"}</div>
-              <div class="text-xs text-muted">Precip%</div>
-            </div>
-          </div>
-          ${wf.condition ? `<div class="text-xs" style="color:var(--muted-l);margin-bottom:12px;font-style:italic">${wf.condition}</div>` : ""}` : ""}
-        ${wi ? `
-          <div style="padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px">
-            <div class="flex justify-between text-xs mb-2">
-              <span class="text-muted">Weather Impact on Total</span>
-              <span style="font-weight:700;color:${(wi.totalAdj || 0) < 0 ? "var(--danger)" : "var(--primary)"}">${(wi.totalAdj || 0) >= 0 ? "+" : ""}${wi.totalAdj || 0} pts</span>
-            </div>
-            <div class="flex justify-between text-xs mb-1">
-              <span class="text-muted">${home.abbreviation} adj</span>
-              <span style="color:${(wi.homeAdj || 0) >= 0 ? "var(--primary)" : "var(--danger)"};font-weight:700">${(wi.homeAdj || 0) >= 0 ? "+" : ""}${wi.homeAdj || 0}</span>
-            </div>
-            <div class="flex justify-between text-xs">
-              <span class="text-muted">${away.abbreviation} adj</span>
-              <span style="color:${(wi.awayAdj || 0) >= 0 ? "var(--primary)" : "var(--danger)"};font-weight:700">${(wi.awayAdj || 0) >= 0 ? "+" : ""}${wi.awayAdj || 0}</span>
-            </div>
-            ${wi.note ? `<div class="text-xs text-muted mt-2" style="font-style:italic;border-top:1px solid var(--border);padding-top:8px">${wi.note}</div>` : ""}
+        ${wx ? `
+          <div style="display:grid;grid-template-columns:repeat(${indoors?1:3},1fr);gap:8px;margin-bottom:12px">
+            ${indoors ? `
+              <div style="text-align:center;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
+                <div style="font-size:1.5rem">🏟️</div>
+                <div style="font-size:.95rem;font-weight:800;color:var(--text);margin-top:4px">Dome Game</div>
+                <div class="text-xs text-muted">Weather not a factor</div>
+              </div>` : `
+              <div style="text-align:center;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
+                <div style="font-size:1.2rem">${condEmoji}</div>
+                <div style="font-size:1.1rem;font-weight:800;color:var(--text);margin-top:4px">${tempF !== null ? tempF + "°F" : "—"}</div>
+                <div class="text-xs text-muted">${condition || "Clear"}</div>
+              </div>
+              <div style="text-align:center;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
+                <div style="font-size:1.2rem">💨</div>
+                <div style="font-size:1.1rem;font-weight:800;color:var(--text);margin-top:4px">${windMph !== null ? windMph + " mph" : "—"}</div>
+                <div class="text-xs text-muted">Wind</div>
+              </div>
+              <div style="text-align:center;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
+                <div style="font-size:1.2rem">💧</div>
+                <div style="font-size:1.1rem;font-weight:800;color:var(--text);margin-top:4px">${humidity !== null ? humidity + "%" : "—"}</div>
+                <div class="text-xs text-muted">Humidity</div>
+              </div>`}
           </div>` : ""}
-        ${homeWp || awayWp ? `
-          <div class="text-xs text-muted mb-2" style="letter-spacing:1px;text-transform:uppercase">Cold Weather Advantage</div>
+        ${wi && (Math.abs(wi.totalAdj||0) > 0.1 || wi.note) ? `
+          <div style="padding:12px;background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.2);border-radius:var(--radius);margin-bottom:10px">
+            <div style="font-size:.65rem;font-weight:900;letter-spacing:1.5px;color:var(--danger);text-transform:uppercase;margin-bottom:8px">Weather Impact on Scoring</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">
+              <div style="text-align:center">
+                <div style="font-size:.58rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:2px">Total Adj</div>
+                <div style="font-size:1rem;font-weight:900;color:${(wi.totalAdj||0) < 0 ? "var(--danger)" : "var(--primary)"}">${(wi.totalAdj||0) >= 0 ? "+" : ""}${wi.totalAdj||0}</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:.58rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:2px">${home.abbreviation} Adj</div>
+                <div style="font-size:1rem;font-weight:900;color:${(wi.homeAdj||0) < 0 ? "var(--danger)" : "var(--primary)"}">${(wi.homeAdj||0) >= 0 ? "+" : ""}${wi.homeAdj||0}</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:.58rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:2px">${away.abbreviation} Adj</div>
+                <div style="font-size:1rem;font-weight:900;color:${(wi.awayAdj||0) < 0 ? "var(--danger)" : "var(--primary)"}">${(wi.awayAdj||0) >= 0 ? "+" : ""}${wi.awayAdj||0}</div>
+              </div>
+            </div>
+            ${wi.note ? `<div class="text-xs text-muted" style="font-style:italic;border-top:1px solid rgba(239,68,68,.15);padding-top:8px">${wi.note}</div>` : ""}
+          </div>` : `
+          <div style="padding:10px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);border-radius:var(--radius);margin-bottom:10px">
+            <div class="text-xs text-muted" style="font-style:italic">Weather conditions are favorable — no significant impact on scoring projections.</div>
+          </div>`}
+        ${(homeWp || awayWp) && !indoors ? `
+          <div class="text-xs" style="color:var(--muted-l);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Team Weather Profiles</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             ${homeWp ? `
               <div style="padding:8px;background:var(--surface);border:1px solid ${home.color}30;border-radius:var(--radius)">
                 <div class="text-xs text-muted mb-1">${home.abbreviation}</div>
-                <div class="text-xs" style="color:var(--text-soft)">${homeWp.coldWeatherAdv || homeWp.experience || homeWp.note || "Standard"}</div>
+                <div class="text-xs" style="color:var(--text-soft)">${homeWp.coldWeatherRecord || homeWp.rainRecord || "Standard profile"}</div>
               </div>` : ""}
             ${awayWp ? `
               <div style="padding:8px;background:var(--surface);border:1px solid ${away.color}30;border-radius:var(--radius)">
                 <div class="text-xs text-muted mb-1">${away.abbreviation}</div>
-                <div class="text-xs" style="color:var(--text-soft)">${awayWp.coldWeatherAdv || awayWp.experience || awayWp.note || "Standard"}</div>
+                <div class="text-xs" style="color:var(--text-soft)">${awayWp.coldWeatherRecord || awayWp.rainRecord || "Standard profile"}</div>
               </div>` : ""}
           </div>` : ""}
       </div>`;
@@ -1513,8 +1561,8 @@ if (!gameData) {
 
     function phCard(team, ph) {
       if (!ph) return "";
-      const mom = ph.momentum || "";
-      const hs  = ph.hotSeatLevel || 0;
+      const mom = ph.programMomentum || ph.momentum || "";
+      const hs  = ph.coachHotSeat || ph.hotSeatLevel || 0;
       return `
         <div style="padding:12px;border-radius:var(--radius);border:1px solid ${team.color}25;background:${team.color}06;margin-bottom:10px">
           <div class="flex items-center gap-2 mb-3">
@@ -1533,8 +1581,8 @@ if (!gameData) {
               </div>` : ""}
             ${ph.transferPortalRating !== undefined ? `
               <div>
-                <div class="flex justify-between mb-1"><span class="text-muted">Transfer Portal</span><span style="color:var(--text-soft)">${ph.transferPortalRating}/10</span></div>
-                ${meterBar(ph.transferPortalRating, 10, "var(--accent)", 5)}
+                <div class="flex justify-between mb-1"><span class="text-muted">Transfer Portal</span><span style="color:${ph.transferPortalRating >= 70 ? "var(--primary)" : ph.transferPortalRating >= 50 ? "var(--gold)" : "var(--danger)"}">${ph.transferPortalRating}/100</span></div>
+                ${meterBar(ph.transferPortalRating, 100, ph.transferPortalRating >= 70 ? "var(--primary)" : "var(--accent)", 5)}
               </div>` : ""}
             ${ph.fanMorale !== undefined ? `
               <div>
@@ -1548,11 +1596,11 @@ if (!gameData) {
               </div>` : ""}
             ${ph.depthChartStability !== undefined ? `
               <div>
-                <div class="flex justify-between mb-1"><span class="text-muted">Depth Stability</span><span style="color:var(--text-soft)">${ph.depthChartStability}/10</span></div>
-                ${meterBar(ph.depthChartStability, 10, "#38bdf8", 5)}
+                <div class="flex justify-between mb-1"><span class="text-muted">Depth Stability</span><span style="color:var(--text-soft)">${ph.depthChartStability}/100</span></div>
+                ${meterBar(ph.depthChartStability, 100, "#38bdf8", 5)}
               </div>` : ""}
-            ${ph.momentum ? `<div class="flex justify-between"><span class="text-muted">Momentum</span><span style="color:var(--text-soft);font-weight:600">${ph.momentum}</span></div>` : ""}
-            ${hs ? `<div class="flex justify-between"><span class="text-muted">Hot Seat</span><span>${flames(hs)} <span class="text-muted" style="font-size:.65rem">(${hs}/10)</span></span></div>` : ""}
+            ${mom ? `<div class="flex justify-between"><span class="text-muted">Momentum</span><span style="color:${mom==="rising"?"var(--primary)":mom==="declining"?"var(--danger)":"var(--gold)"};font-weight:700">${mom.charAt(0).toUpperCase()+mom.slice(1)}</span></div>` : ""}
+            ${hs ? `<div class="flex justify-between"><span class="text-muted">Coach Hot Seat</span><span>${flames(hs)} <span class="text-muted" style="font-size:.65rem">(${hs}/10)</span></span></div>` : ""}
           </div>
         </div>`;
     }

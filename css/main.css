@@ -101,7 +101,34 @@ button, select, input { font-family: inherit; }
 .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); animation: pulse 2s infinite; }
 @media (max-width: 600px) {
   .nav-badge { display: none; }
-  .nav-link { padding: 8px 10px; font-size: .8rem; }
+  .nav-links { display: none; }
+  body { padding-bottom: 68px; }
+}
+
+/* ── Mobile Bottom Tab Bar ───────────────────────── */
+.bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(8,13,26,.97);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 6px 0 max(6px, env(safe-area-inset-bottom));
+}
+.bottom-nav-inner {
+  display: flex; justify-content: space-around; align-items: center; max-width: 480px; margin: 0 auto;
+}
+.bottom-nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 12px; border-radius: 10px; cursor: pointer;
+  color: var(--muted); text-decoration: none; transition: color .15s; min-width: 60px;
+}
+.bottom-nav-item.active { color: var(--primary); }
+.bottom-nav-item:hover { color: var(--text); }
+.bottom-nav-icon { font-size: 1.2rem; line-height: 1; }
+.bottom-nav-label { font-size: .58rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+@media (max-width: 600px) {
+  .bottom-nav { display: block; }
 }
 
 /* ── Cards ─────────────────────────────────────────── */

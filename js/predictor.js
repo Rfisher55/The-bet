@@ -350,16 +350,16 @@ function calcSituationalAdjustment(game, isHomeTeam, team, opponent) {
  * All adjustments are negative (weather suppresses scoring).
  */
 function calcWeatherImpact(game, home, away) {
-  const wx = game.weatherForecast || {};
+  const wx = game.weather || {};
 
   // Dome game — no weather impact
-  if (wx.domeGame || safeGet(home, "weatherProfile.isDome", false)) {
+  if (wx.indoors || safeGet(home, "weatherProfile.isDome", false)) {
     return { homeAdj: 0, awayAdj: 0, totalAdj: 0, note: "Dome game — weather not a factor." };
   }
 
-  const temp       = wx.temp        ?? 65;    // °F
-  const wind       = wx.wind        ?? 5;     // mph
-  const precip     = wx.precipitation ?? 0;  // 0-1 scale or inches
+  const temp       = wx.tempF        ?? 65;    // °F
+  const wind       = wx.windMph      ?? 5;     // mph
+  const precip     = wx.precipitation ?? 0;   // 0-1 scale or inches
   const condition  = (wx.condition  || "clear").toLowerCase();
   const humidity   = wx.humidity    ?? 50;    // percent
 
@@ -779,7 +779,7 @@ function calcProgramMomentumAdj(team) {
 function buildXFactors(game, home, away, pred) {
   const xFactors = [];
   const gameSit  = game.situational || {};
-  const wx       = game.weatherForecast || {};
+  const wx       = game.weather || {};
 
   // ── Pre-defined x-factors from data ───────────
   if (Array.isArray(game.xFactors)) {
@@ -851,11 +851,11 @@ function buildXFactors(game, home, away, pred) {
   }
 
   // ── Weather X-Factor ──────────────────────────
-  if (!wx.domeGame && (wx.wind >= 20 || wx.temp < 35 || ["rain","snow","blizzard","storm"].some(c => (wx.condition || "").includes(c)))) {
-    const wxSeverity = wx.wind >= 30 ? 8 : wx.temp < 20 ? 8 : wx.wind >= 20 ? 6 : 5;
+  if (!wx.indoors && (wx.windMph >= 20 || wx.tempF < 35 || ["rain","snow","blizzard","storm"].some(c => (wx.condition || "").includes(c)))) {
+    const wxSeverity = wx.windMph >= 30 ? 8 : wx.tempF < 20 ? 8 : wx.windMph >= 20 ? 6 : 5;
     xFactors.push({
       title:           "Weather Wildcard",
-      description:     pred?.weatherImpact?.note || `${wx.condition || "Adverse"} conditions forecast (${wx.temp || "N/A"}°F, ${wx.wind || "N/A"} mph winds) — could negate traditional offensive advantages.`,
+      description:     pred?.weatherImpact?.note || `${wx.condition || "Adverse"} conditions forecast (${wx.tempF || "N/A"}°F, ${wx.windMph || "N/A"} mph winds) — could negate traditional offensive advantages.`,
       severity:        wxSeverity,
       impactTeam:      "both",
       impactDirection: "suppressor",
@@ -975,7 +975,7 @@ function buildXFactors(game, home, away, pred) {
  * Returns enriched player object with game-specific notes, ratings, and flags.
  */
 function getPlayerGameIntel(player, isHome, game) {
-  const wx        = game.weatherForecast || {};
+  const wx        = game.weather || {};
   const gameSit   = game.situational || {};
   const pm        = player.performanceMetrics || {};
   const pf        = player.personalFlags || {};
@@ -1010,9 +1010,9 @@ function getPlayerGameIntel(player, isHome, game) {
   }
 
   // ── Weather Impact on Player ──────────────────
-  if (!wx.domeGame) {
-    const temp = wx.temp ?? 65;
-    const wind = wx.wind ?? 5;
+  if (!wx.indoors) {
+    const temp = wx.tempF ?? 65;
+    const wind = wx.windMph ?? 5;
     const condition = (wx.condition || "clear").toLowerCase();
 
     if (player.position === "QB" || player.position === "WR") {
@@ -1141,7 +1141,7 @@ function getPlayerGameIntel(player, isHome, game) {
     gameFlags: flags,
     gameContext: {
       isHome,
-      weatherImpact: (!wx.domeGame && (wx.temp < 40 || wx.wind >= 20)) ? "significant" : "minimal",
+      weatherImpact: (!wx.indoors && (wx.tempF < 40 || wx.windMph >= 20)) ? "significant" : "minimal",
       primeTime:     gameSit.primeTimeGame || false,
       rivalry:       gameSit.rivalryGame || false,
     },
@@ -1490,7 +1490,7 @@ function predictGame(game) {
 
     // Data richness
     if (game.lineMovement) score += 0.5;
-    if (game.weatherForecast) score += 0.5;
+    if (game.weather) score += 0.5;
     if (home.coachingProfile && away.coachingProfile) score += 0.5;
     if (home.programHealth && away.programHealth) score += 0.5;
     if (home.situational && away.situational) score += 0.5;
