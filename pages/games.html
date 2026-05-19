@@ -44,6 +44,51 @@
 
     /* ── Result count ── */
     .result-bar { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:12px; }
+
+    /* ── Score prediction line ── */
+    .score-pred { font-size:.62rem;color:var(--muted);text-align:center;margin-top:5px;font-weight:600;letter-spacing:.3px; }
+    .score-pred span { color:var(--text); }
+
+    /* ── Model grade badge ── */
+    .grade-badge { display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;font-size:.6rem;font-weight:900;letter-spacing:.3px;flex-shrink:0; }
+    .grade-aplus  { background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.4);color:#10b981; }
+    .grade-a      { background:rgba(20,184,166,.15);border:1px solid rgba(20,184,166,.4);color:#14b8a6; }
+    .grade-bplus  { background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.4);color:#8b5cf6; }
+    .grade-b      { background:rgba(139,92,246,.10);border:1px solid rgba(139,92,246,.3);color:#a78bfa; }
+    .grade-c      { background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:var(--gold); }
+
+    /* ── Sharp chip ── */
+    .sharp-chip { display:inline-flex;align-items:center;gap:3px;font-size:.52rem;font-weight:900;letter-spacing:1px;padding:2px 6px;border-radius:6px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.4);color:var(--accent);text-transform:uppercase; }
+
+    /* ── Filter count badge ── */
+    .filter-count { display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:8px;font-size:.55rem;font-weight:900;background:var(--primary);color:#fff;margin-left:4px;vertical-align:middle; }
+
+    /* ── Result count prominent ── */
+    .result-count-text { font-size:.8rem;font-weight:700;color:var(--text); }
+    .result-count-sub  { font-size:.65rem;color:var(--muted);margin-left:4px; }
+
+    /* ── Signal dots (7-signal bar) ── */
+    .signal-dots { display:flex;gap:4px;align-items:center;margin-top:8px; }
+    .signal-dot { width:10px;height:10px;border-radius:50%;transition:all .2s; }
+    .signal-dot.filled { background:var(--primary);box-shadow:0 0 4px rgba(16,185,129,.5); }
+    .signal-dot.empty  { background:var(--border); }
+    .signal-dot.high   { background:#34d399; }
+    .signal-dot.accent { background:var(--accent); }
+    .signal-dot.gold   { background:var(--gold); }
+    .signal-dot.danger { background:var(--danger); }
+
+    /* ── Best pick view-button ── */
+    .bp-btn { display:block;text-align:center;font-size:.85rem;padding:12px 20px;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;text-decoration:none;letter-spacing:.3px;transition:opacity .15s; }
+    .bp-btn:hover { opacity:.88; }
+    @media (max-width:640px) { .bp-btn { width:100%; } }
+
+    /* ── Empty state ── */
+    .empty-state { grid-column:1/-1;padding:48px 24px;text-align:center; }
+    .empty-state-icon { font-size:2.2rem;margin-bottom:10px; }
+    .empty-state-title { font-size:1rem;font-weight:800;color:var(--text);margin-bottom:6px; }
+    .empty-state-filters { display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:10px 0; }
+    .empty-state-filter { font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--muted); }
+    .empty-state-clear { margin-top:12px;padding:10px 24px;border-radius:10px;background:var(--primary);color:#fff;font-size:.8rem;font-weight:800;border:none;cursor:pointer;letter-spacing:.3px; }
   </style>
 </head>
 <body>
@@ -313,6 +358,32 @@ function renderBestPick(weekNum) {
     : "";
   const confLbl = { elite:"ELITE PICK", high:"HIGH CONFIDENCE", medium:"MODERATE", low:"LOW CONF" }[pred.confidence]||"";
   const confCls = { elite:"badge-elite", high:"badge-high", medium:"badge-medium", low:"badge-low" }[pred.confidence]||"badge-low";
+  // Predicted score for best pick
+  const bpHomeScore = Math.round(pred.homeExpected || pred.compositeScore?.home || 0);
+  const bpAwayScore = Math.round(pred.awayExpected || pred.compositeScore?.away || 0);
+  const bpScoreLine = (bpHomeScore && bpAwayScore)
+    ? `<div style="font-size:.72rem;color:var(--muted);margin-top:2px">Predicted: <strong style="color:var(--text)">${away.abbreviation} ${bpAwayScore}–${bpHomeScore} ${home.abbreviation}</strong></div>`
+    : "";
+
+  // 7-signal dots — reflect model breakdown signals
+  const signalValues = [
+    { label:"Base",    val: Math.abs(pred.predictedSpread||0), max:15 },
+    { label:"Player",  val: Math.abs((pred.playerImpactAdj?.home||0)-(pred.playerImpactAdj?.away||0))+2.5, max:5 },
+    { label:"Situational", val: Math.abs((pred.situationalAdj?.home||0)-(pred.situationalAdj?.away||0))+2, max:4 },
+    { label:"Weather", val: Math.abs(pred.weatherImpact?.totalAdj||0) > 0.5 ? 3 : 5, max:5 },
+    { label:"Coaching", val: (pred.coachingEdge?.pts||0)+1, max:4 },
+    { label:"Momentum", val: Math.abs((pred.programMomentumAdj?.home||0)-(pred.programMomentumAdj?.away||0))+1, max:2 },
+    { label:"Sharp",   val: pred.sharpMoneySignal?.strength||3, max:10 },
+  ];
+  const signalDotsHtml = `<div class="signal-dots">
+    ${signalValues.map((s,i) => {
+      const filled = s.val / s.max >= 0.5;
+      const cls = filled ? (i===0?"filled":i===6?(pred.sharpAlert?"accent":"filled"):i%2===0?"high":"filled") : "empty";
+      return `<div class="signal-dot ${cls}" title="${s.label}: ${s.val.toFixed(1)}/${s.max}"></div>`;
+    }).join("")}
+    <span style="font-size:.58rem;color:var(--muted);margin-left:2px">7-signal model</span>
+  </div>`;
+
   const bpCard = document.getElementById("best-pick-card");
   bpCard.style.display = "";
   bpCard.innerHTML = `
@@ -324,10 +395,11 @@ function renderBestPick(weekNum) {
       <div>
         <div style="font-size:.95rem;font-weight:800;color:var(--text)">${away.name} @ ${home.name}</div>
         <div style="font-size:.7rem;color:var(--muted)">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>
+        ${bpScoreLine}
       </div>
       <span class="badge ${confCls}" style="margin-left:auto">${confLbl}</span>
     </div>
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
       <div style="padding:8px 14px;border-radius:10px;background:var(--primary);color:#fff">
         <div style="font-size:.55rem;font-weight:800;letter-spacing:1px;opacity:.8">PICK</div>
         <div style="font-size:1rem;font-weight:900">${pickTeamName.split(" ").pop()} ${pickLine}</div>
@@ -340,9 +412,12 @@ function renderBestPick(weekNum) {
         <div style="font-size:.55rem;font-weight:800;letter-spacing:1px;color:var(--muted)">MODEL EDGE</div>
         <div style="font-size:1rem;font-weight:900;color:var(--primary)">+${sp.edge} pts</div>
       </div>` : ""}
-      <a href="game.html?id=${game.id}" style="margin-left:auto;font-size:.8rem;padding:10px 16px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700;text-decoration:none;white-space:nowrap">Full Analysis →</a>
     </div>
+    ${signalDotsHtml}
     ${wxBadge(game.weather) !== `<span class="wx-badge wx-ok">☀️ ${(game.weather||{}).tempF||65}°F</span>` ? `<div style="margin-top:8px">${wxBadge(game.weather)}</div>` : ""}
+    <div style="margin-top:12px">
+      <a href="game.html?id=${game.id}" class="bp-btn">View Full Analysis →</a>
+    </div>
   `;
 }
 
@@ -367,6 +442,23 @@ function renderGameCard(game, pred) {
   const wxBadgeHtml = (wx && (wx.indoors || wx.tempF < 40 || wx.tempF > 90 || wx.windMph > 17 || (wx.condition||"").toLowerCase().includes("rain") || (wx.condition||"").toLowerCase().includes("snow")))
     ? wxBadge(wx) : "";
 
+  // Score prediction line
+  let scorePredHtml = "";
+  try {
+    const homeScore = Math.round(pred.homeExpected || pred.compositeScore?.home || 0);
+    const awayScore = Math.round(pred.awayExpected || pred.compositeScore?.away || 0);
+    if (homeScore && awayScore) {
+      scorePredHtml = `<div class="score-pred">Predicted: <span>${away.abbreviation} ${awayScore}–${homeScore} ${home.abbreviation}</span></div>`;
+    }
+  } catch(e) {}
+
+  // Model grade badge
+  const grade = pred.modelGrade || ({ elite:"A+", high:"A", medium:"B+", low:"B" }[pred.confidence] || "C");
+  const gradeCls = grade === "A+" ? "grade-aplus" : grade === "A" ? "grade-a" : grade === "B+" ? "grade-bplus" : grade === "B" ? "grade-b" : "grade-c";
+
+  // Sharp chip
+  const sharpChip = pred.sharpAlert ? `<span class="sharp-chip">⚡ SHARP</span>` : "";
+
   return `
     <a class="card card-link card-p" href="game.html?id=${game.id}" style="text-decoration:none;display:block">
       <!-- Header row -->
@@ -378,6 +470,7 @@ function renderGameCard(game, pred) {
           <span style="font-size:.6rem;color:var(--border)">·</span>
           <span style="font-size:.62rem;font-weight:700;color:var(--accent)">${game.network}</span>
           ${game.isConferenceGame?'<span class="badge badge-conf" style="font-size:.5rem">CONF</span>':""}
+          ${sharpChip}
           ${wxBadgeHtml}
         </div>
         <span class="badge ${confCls}">${confLbl}</span>
@@ -413,6 +506,7 @@ function renderGameCard(game, pred) {
           <div style="width:${awayPct}%;background:${away.color}"></div>
           <div style="width:${homePct}%;background:${home.color}"></div>
         </div>
+        ${scorePredHtml}
       </div>
 
       <!-- Pick chips -->
@@ -444,9 +538,10 @@ function renderGameCard(game, pred) {
         </div>
       </div>
 
-      <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-        <span style="font-size:.65rem;color:var(--muted)">${game.venue.split(",")[0]}</span>
-        <span style="font-size:.7rem;color:var(--primary);font-weight:700">Analysis →</span>
+      <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:6px">
+        <span style="font-size:.65rem;color:var(--muted);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${game.venue.split(",")[0]}</span>
+        <span class="grade-badge ${gradeCls}" title="Model grade: ${grade}">${grade}</span>
+        <span style="font-size:.7rem;color:var(--primary);font-weight:700;white-space:nowrap">Analysis →</span>
       </div>
     </a>`;
 }
@@ -516,13 +611,45 @@ function render() {
     list.sort((a,b) => a.game.date.localeCompare(b.game.date));
   }
 
-  document.getElementById("result-count").textContent = `${list.length} game${list.length!==1?"s":""} shown`;
+  // Update result count with prominence
+  const resultCountEl = document.getElementById("result-count");
+  resultCountEl.innerHTML = `<span class="result-count-text">${list.length} game${list.length!==1?"s":""}</span><span class="result-count-sub">shown</span>`;
+
+  // Update filter count badges on conf chips
+  (function updateConfBadges() {
+    document.querySelectorAll("#conf-chips .week-tab").forEach(tab => {
+      const confVal = tab.dataset.conf;
+      // Remove existing badge
+      const existing = tab.querySelector(".filter-count");
+      if (existing) existing.remove();
+      if (confVal === CONF_STATE.active && confVal !== "all") {
+        const badge = document.createElement("span");
+        badge.className = "filter-count";
+        badge.textContent = list.length;
+        tab.appendChild(badge);
+      }
+    });
+  })();
 
   if (!list.length) {
-    document.getElementById("game-grid").innerHTML = `<div style="grid-column:1/-1;padding:48px;text-align:center">
-      <div style="font-size:2rem;margin-bottom:8px">🏈</div>
-      <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:4px">No games found</div>
-      <div style="font-size:.8rem;color:var(--muted)">Try adjusting your search or filters</div>
+    // Build active filter descriptions for empty state
+    const activeFilters = [];
+    if (searchTeam) activeFilters.push(`Search: "${searchTeam}"`);
+    if (CONF_STATE.active !== "all") activeFilters.push(`Conf: ${CONF_STATE.active}`);
+    if (qualityFilter !== "all") activeFilters.push(`Quality: ${qualityFilter}`);
+    if (typeFilter !== "all") activeFilters.push(`Type: ${typeFilter}`);
+    if (activeWeek > 0) activeFilters.push(`Week ${activeWeek}`);
+
+    const filtersHtml = activeFilters.length
+      ? `<div class="empty-state-filters">${activeFilters.map(f=>`<span class="empty-state-filter">${f}</span>`).join("")}</div>`
+      : "";
+
+    document.getElementById("game-grid").innerHTML = `<div class="empty-state">
+      <div class="empty-state-icon">🏈</div>
+      <div class="empty-state-title">No games found</div>
+      ${filtersHtml}
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:12px">Try removing some filters to see more games.</div>
+      <button class="empty-state-clear" onclick="clearAllFilters()">Clear all filters</button>
     </div>`;
     return;
   }
@@ -535,13 +662,29 @@ function clearSearch() {
   render();
 }
 
-// Parse URL params — team deep-link, week filter, sort override
+function clearAllFilters() {
+  searchTeam = "";
+  document.getElementById("search").value = "";
+  CONF_STATE.active = "all";
+  qualityFilter = "all";
+  typeFilter = "all";
+  activeWeek = 0;
+  // Reset UI chips
+  document.querySelectorAll("#conf-chips .week-tab").forEach(t => t.classList.toggle("active", t.dataset.conf === "all"));
+  document.querySelectorAll("#conf-chips-quality .chip").forEach(c => c.classList.toggle("active", c.dataset.q === "all"));
+  document.querySelectorAll("#conf-chips-type .chip").forEach(c => c.classList.toggle("active", c.dataset.t === "all"));
+  document.querySelectorAll("#week-strip .week-tab").forEach(t => t.classList.toggle("active", parseInt(t.dataset.week) === 0));
+  render();
+}
+
+// Parse URL params — team deep-link, week filter, sort override, conf shortcut
 (function() {
   const params = new URLSearchParams(window.location.search);
   const teamParam = params.get("team");
   const weekParam = params.get("week");
   const sortParam = params.get("sort");
   const filterParam = params.get("filter");
+  const confParam = params.get("conf");
 
   if (teamParam) {
     searchTeam = teamParam.toLowerCase().trim();
@@ -567,6 +710,15 @@ function clearSearch() {
     sortBy = "confidence";
     document.querySelectorAll("#sort-chips .chip").forEach(c =>
       c.classList.toggle("active", c.dataset.sort === "confidence"));
+  }
+
+  // Conference shortcut: ?conf=SEC auto-selects the matching conf chip
+  if (confParam) {
+    CONF_STATE.active = confParam;
+    // Activate the matching chip if it already exists (chips are built from data)
+    document.querySelectorAll("#conf-chips .week-tab").forEach(t => {
+      t.classList.toggle("active", t.dataset.conf === confParam);
+    });
   }
 })();
 
