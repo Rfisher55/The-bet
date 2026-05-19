@@ -14,7 +14,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "11-1 (2025)",
     rating: 97, offensiveRating: 98, defensiveRating: 95, spRating: 28.4,
     recruitingRank: 1,
-    coachName: "Ryan Day", coachRecord: "71-9",
+    coachName: "Ryan Day", coachRecord: "83-11",
     stats: {
       pointsPerGame: 44.2, pointsAllowedPerGame: 13.1,
       yardsPerGame: 512.3, yardsAllowedPerGame: 278.4,
@@ -96,7 +96,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "12-0 (2025)",
     rating: 98, offensiveRating: 93, defensiveRating: 99, spRating: 30.1,
     recruitingRank: 2,
-    coachName: "Kirby Smart", coachRecord: "98-18",
+    coachName: "Kirby Smart", coachRecord: "108-21",
     stats: {
       pointsPerGame: 42.8, pointsAllowedPerGame: 10.3,
       yardsPerGame: 478.2, yardsAllowedPerGame: 244.1,
@@ -178,7 +178,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "9-3 (2025)",
     rating: 92, offensiveRating: 93, defensiveRating: 90, spRating: 22.8,
     recruitingRank: 3,
-    coachName: "Kalen DeBoer", coachRecord: "24-4",
+    coachName: "Kalen DeBoer", coachRecord: "44-9",
     stats: {
       pointsPerGame: 38.6, pointsAllowedPerGame: 19.2,
       yardsPerGame: 468.7, yardsAllowedPerGame: 312.4,
@@ -260,7 +260,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "12-2 (2025)",
     rating: 91, offensiveRating: 92, defensiveRating: 88, spRating: 21.3,
     recruitingRank: 4,
-    coachName: "Steve Sarkisian", coachRecord: "36-18",
+    coachName: "Steve Sarkisian", coachRecord: "44-21",
     stats: {
       pointsPerGame: 40.1, pointsAllowedPerGame: 21.4,
       yardsPerGame: 489.2, yardsAllowedPerGame: 334.7,
@@ -342,7 +342,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "13-1 (2025)",
     rating: 93, offensiveRating: 90, defensiveRating: 94, spRating: 24.2,
     recruitingRank: 6,
-    coachName: "Marcus Freeman", coachRecord: "36-14",
+    coachName: "Marcus Freeman", coachRecord: "44-16",
     stats: {
       pointsPerGame: 36.4, pointsAllowedPerGame: 15.8,
       yardsPerGame: 441.3, yardsAllowedPerGame: 268.9,
@@ -424,7 +424,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "12-2 (2025)",
     rating: 89, offensiveRating: 86, defensiveRating: 92, spRating: 19.7,
     recruitingRank: 8,
-    coachName: "James Franklin", coachRecord: "98-46",
+    coachName: "James Franklin", coachRecord: "108-50",
     stats: {
       pointsPerGame: 33.2, pointsAllowedPerGame: 17.4,
       yardsPerGame: 408.4, yardsAllowedPerGame: 282.1,
@@ -506,7 +506,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "8-4 (2025)",
     rating: 85, offensiveRating: 83, defensiveRating: 88, spRating: 15.2,
     recruitingRank: 12,
-    coachName: "Sherrone Moore", coachRecord: "14-8",
+    coachName: "Sherrone Moore", coachRecord: "22-11",
     stats: {
       pointsPerGame: 29.8, pointsAllowedPerGame: 20.1,
       yardsPerGame: 378.2, yardsAllowedPerGame: 298.4,
@@ -588,7 +588,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "10-3 (2025)",
     rating: 88, offensiveRating: 86, defensiveRating: 90, spRating: 17.9,
     recruitingRank: 9,
-    coachName: "Dabo Swinney", coachRecord: "174-50",
+    coachName: "Dabo Swinney", coachRecord: "184-53",
     stats: {
       pointsPerGame: 35.7, pointsAllowedPerGame: 18.3,
       yardsPerGame: 432.8, yardsAllowedPerGame: 290.7,
@@ -670,7 +670,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "9-3 (2025)",
     rating: 87, offensiveRating: 91, defensiveRating: 82, spRating: 16.4,
     recruitingRank: 5,
-    coachName: "Brian Kelly", coachRecord: "48-18",
+    coachName: "Brian Kelly", coachRecord: "56-21",
     stats: {
       pointsPerGame: 41.3, pointsAllowedPerGame: 24.7,
       yardsPerGame: 501.2, yardsAllowedPerGame: 358.4,
@@ -752,7 +752,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "13-1 (2025)",
     rating: 94, offensiveRating: 95, defensiveRating: 92, spRating: 25.8,
     recruitingRank: 7,
-    coachName: "Dan Lanning", coachRecord: "42-8",
+    coachName: "Dan Lanning", coachRecord: "46-10",
     stats: {
       pointsPerGame: 43.7, pointsAllowedPerGame: 16.8,
       yardsPerGame: 498.4, yardsAllowedPerGame: 272.3,
@@ -834,7 +834,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "10-3 (2025)",
     rating: 83, offensiveRating: 86, defensiveRating: 79, spRating: 11.9,
     recruitingRank: 11,
-    coachName: "Josh Heupel", coachRecord: "48-22",
+    coachName: "Josh Heupel", coachRecord: "56-26",
     stats: {
       pointsPerGame: 37.4, pointsAllowedPerGame: 26.8,
       yardsPerGame: 488.7, yardsAllowedPerGame: 384.2,
@@ -916,7 +916,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "10-3 (2025)",
     rating: 90, offensiveRating: 92, defensiveRating: 87, spRating: 20.4,
     recruitingRank: 10,
-    coachName: "Mario Cristobal", coachRecord: "26-14",
+    coachName: "Mario Cristobal", coachRecord: "33-19",
     stats: {
       pointsPerGame: 39.8, pointsAllowedPerGame: 19.7,
       yardsPerGame: 472.1, yardsAllowedPerGame: 304.8,
@@ -993,7 +993,7 @@ const TEAMS = {
     conference: "SEC", color: "#0C2340",
     wins: 0, losses: 0, lastSeasonRecord: "9-4 (2025)",
     rating: 74, offensiveRating: 72, defensiveRating: 76, spRating: 8.2,
-    recruitingRank: 18, coachName: "Hugh Freeze", coachRecord: "19-19",
+    recruitingRank: 18, coachName: "Hugh Freeze", coachRecord: "27-22",
     stats: {
       pointsPerGame: 28.4, pointsAllowedPerGame: 24.1,
       yardsPerGame: 398.2, yardsAllowedPerGame: 342.7,
@@ -1028,7 +1028,7 @@ const TEAMS = {
     conference: "SEC", color: "#003087",
     wins: 0, losses: 0, lastSeasonRecord: "7-5 (2025)",
     rating: 70, offensiveRating: 71, defensiveRating: 68, spRating: 5.8,
-    recruitingRank: 14, coachName: "Billy Napier", coachRecord: "19-24",
+    recruitingRank: 14, coachName: "Billy Napier", coachRecord: "24-30",
     stats: {
       pointsPerGame: 26.8, pointsAllowedPerGame: 26.2,
       yardsPerGame: 372.4, yardsAllowedPerGame: 358.1,
@@ -1063,7 +1063,7 @@ const TEAMS = {
     mascot: "Seminoles", conference: "ACC", color: "#782F40",
     wins: 0, losses: 0, lastSeasonRecord: "9-4 (2025)",
     rating: 78, offensiveRating: 76, defensiveRating: 80, spRating: 12.4,
-    recruitingRank: 10, coachName: "Mike Norvell", coachRecord: "38-22",
+    recruitingRank: 10, coachName: "Mike Norvell", coachRecord: "46-27",
     stats: {
       pointsPerGame: 32.6, pointsAllowedPerGame: 20.8,
       yardsPerGame: 418.4, yardsAllowedPerGame: 318.2,
@@ -1098,7 +1098,7 @@ const TEAMS = {
     conference: "Big Ten", color: "#C5050C",
     wins: 0, losses: 0, lastSeasonRecord: "7-5 (2025)",
     rating: 73, offensiveRating: 68, defensiveRating: 79, spRating: 7.6,
-    recruitingRank: 22, coachName: "Luke Fickell", coachRecord: "22-14",
+    recruitingRank: 22, coachName: "Luke Fickell", coachRecord: "31-17",
     stats: {
       pointsPerGame: 27.4, pointsAllowedPerGame: 21.6,
       yardsPerGame: 362.8, yardsAllowedPerGame: 298.4,

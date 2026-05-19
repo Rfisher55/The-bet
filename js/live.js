@@ -32,7 +32,8 @@ const LIVE = (() => {
   let state = { status: "idle", apiKey: null, lastUpdated: null, error: null };
 
   // ── API key management ──────────────────────────────────
-  function getKey() { return localStorage.getItem(KEY_STORE) || null; }
+  // Set window.CFBD_DEFAULT_KEY in a <script> before live.js to embed a key for all visitors
+  function getKey() { return localStorage.getItem(KEY_STORE) || window.CFBD_DEFAULT_KEY || null; }
   function setKey(k) { if (k) localStorage.setItem(KEY_STORE, k.trim()); else localStorage.removeItem(KEY_STORE); }
   function clearKey() { localStorage.removeItem(KEY_STORE); }
 
@@ -308,9 +309,13 @@ const LIVE = (() => {
 
           <div style="margin-bottom:12px">
             <div style="font-size:.7rem;font-weight:700;color:var(--muted-l);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Your CFBD API Key</div>
-            <input id="live-api-key-input" type="password"
-              style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.9rem;outline:none;font-family:monospace"
-              placeholder="Paste your API key here..." />
+            <div style="position:relative">
+              <input id="live-api-key-input" type="text"
+                style="width:100%;padding:10px 42px 10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.82rem;outline:none;font-family:monospace;box-sizing:border-box"
+                placeholder="Paste your API key here..." autocomplete="off" autocorrect="off" spellcheck="false" />
+              <button onclick="(function(){var i=document.getElementById('live-api-key-input');i.type=i.type==='text'?'password':'text';this.textContent=i.type==='text'?'🙈':'👁';}).call(this)"
+                style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:1rem;cursor:pointer;padding:4px;opacity:.6" title="Show/hide key">👁</button>
+            </div>
             <div id="live-key-status" style="font-size:.72rem;margin-top:6px;min-height:18px"></div>
           </div>
 
