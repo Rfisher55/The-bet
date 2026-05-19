@@ -601,15 +601,14 @@
       ' &middot; Updated just now';
   }
 
-  window.addEventListener("liveDataReady", updateBanner);
-
-  // If data was already applied before this script ran, update immediately
-  if (window.__liveStats || (window.GAMES && GAMES.length > 0)) {
-    // Check after a short tick so GAMES/TEAMS are fully populated
-    setTimeout(function() {
-      if (window.GAMES && GAMES.length > 0) updateBanner();
-    }, 100);
-  }
+  window.addEventListener("liveDataReady", function() {
+    updateBanner();
+    rebuildPredictions();
+    renderHeroPick();
+    renderTopPicks();
+    renderPowerRankings();
+    renderFeaturedGames();
+  });
 })();
 
 // ── Render model stats ────────────────────────────────────────────
@@ -634,19 +633,25 @@
   }).join("");
 })();
 
-// ── Generate predictions for all games ───────────────────────────
+// ── Generate predictions + render all live sections ──────────────
 var allPredictions = [];
-try {
-  GAMES.forEach(function(g) {
-    try {
-      var game = resolveGame(g);
-      allPredictions.push({ game: game, prediction: predictGame(game) });
-    } catch(e) { console.error("predictGame failed for", g.id, e); }
-  });
-} catch(e) { console.error("GAMES load failed:", e); }
+
+function rebuildPredictions() {
+  allPredictions = [];
+  try {
+    GAMES.forEach(function(g) {
+      try {
+        var game = resolveGame(g);
+        allPredictions.push({ game: game, prediction: predictGame(game) });
+      } catch(e) { console.error("predictGame failed for", g.id, e); }
+    });
+  } catch(e) { console.error("GAMES load failed:", e); }
+}
+
+rebuildPredictions();
 
 // ── Hero Top Pick of the Week ────────────────────────────────────
-(function() {
+function renderHeroPick() {
   var container = document.getElementById("hero-top-pick");
   var wk1 = allPredictions.filter(function(p) { return p.game.week === 1; });
   if (!wk1.length) {
@@ -732,12 +737,13 @@ try {
         '</div>' : '') +
       '<a class="top-pick-link" href="pages/game.html?id=' + game.id + '">Full Analysis →</a>' +
     '</div>';
-})();
+}
+renderHeroPick();
 
 // ── Model stats already rendered above ───────────────────────────
 
 // ── Top picks grid ───────────────────────────────────────────────
-(function() {
+function renderTopPicks() {
   var picks = allPredictions
     .filter(function(p) { return p.prediction.spreadPick.side !== "no-bet" && p.prediction.spreadPick.confidence >= 65; })
     .slice(0, 3);
@@ -778,10 +784,11 @@ try {
       '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:.7rem;color:var(--primary);font-weight:700;text-align:right">Full Analysis →</div>' +
     '</a>';
   }).join("") || '<p style="color:var(--muted-l);font-size:.9rem">No high-confidence picks found this week.</p>';
-})();
+}
+renderTopPicks();
 
 // ── Power Rankings Preview ────────────────────────────────────────
-(function() {
+function renderPowerRankings() {
   var teams = Object.values(TEAMS);
   var top5  = teams
     .filter(function(t) { return t.rating && t.rating > 0; })
@@ -805,10 +812,11 @@ try {
       '<div class="power-momentum" style="color:' + arrowColor + '">' + arrow + '</div>' +
     '</a>';
   }).join("");
-})();
+}
+renderPowerRankings();
 
 // ── Featured games (elite + high confidence) ─────────────────────
-(function() {
+function renderFeaturedGames() {
   var featured = allPredictions
     .filter(function(p) { return p.prediction.confidence === "elite" || p.prediction.confidence === "high"; })
     .slice(0, 6);
@@ -816,7 +824,8 @@ try {
   document.getElementById("featured-games").innerHTML = featured.map(function(p) {
     return renderGameCard(p.game, p.prediction, "pages/game.html");
   }).join("");
-})();
+}
+renderFeaturedGames();
 
 // ── 7-Signal breakdown (transparency card) ───────────────────────
 (function() {

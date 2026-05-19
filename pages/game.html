@@ -397,23 +397,8 @@ function strengIcon(s) {
 ───────────────────────────────────────────────────── */
 const params  = new URLSearchParams(location.search);
 const gameId  = params.get("id");
-const gameData = GAMES.find(g => g.id === gameId);
 
-if (!gameData) {
-  document.getElementById("content").innerHTML = `
-    <div class="empty-card">
-      <div class="empty-card-icon">🏈</div>
-      <div class="empty-card-title">Game Not Found</div>
-      <div class="empty-card-sub">
-        We couldn't find the game you're looking for. The game ID may be incorrect
-        or this matchup may not exist in our 2026 schedule yet.
-        <br><br>
-        Try browsing all available games on the schedule page to find what you're looking for.
-      </div>
-      <a href="games.html" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:6px;margin-bottom:10px">← Back to Schedule</a>
-      <div style="font-size:.72rem;color:var(--muted);margin-top:8px">ID searched: <code style="color:var(--text-soft)">${gameId || "(none)"}</code></div>
-    </div>`;
-} else {
+function renderGamePage(gData) {
   try {
   const game = resolveGame(gameData);
   const pred = predictGame(game);
@@ -706,7 +691,7 @@ if (!gameData) {
                   </div>
                   <span style="font-size:.72rem;color:var(--muted);flex-shrink:0">▾</span>
                 </div>
-                <div id="pd-${p.id}" class="roster-player-detail">
+                <div id="pd-${p.id}" class="roster-player-detail" style="display:none">
                   ${playerDetail(p, team.color)}
                 </div>
               </div>`;
@@ -2199,6 +2184,42 @@ if (!gameData) {
     console.error("Game render error:", err);
   }
 }
+
+// ── Boot: find game now, or wait for live data ──────────
+(function boot() {
+  const gData = GAMES.find(g => g.id === gameId);
+  if (gData) {
+    renderGamePage(gData);
+    return;
+  }
+  // Game not in static list — show loading state and wait for live data
+  document.getElementById("content").innerHTML = `
+    <div style="padding:48px 24px;text-align:center">
+      <div style="font-size:2rem;margin-bottom:12px">⏳</div>
+      <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:6px">Loading game data…</div>
+      <div style="font-size:.8rem;color:var(--muted)">Fetching live schedule — this takes a few seconds.</div>
+    </div>`;
+
+  window.addEventListener("liveDataReady", function onLiveReady() {
+    window.removeEventListener("liveDataReady", onLiveReady);
+    const found = GAMES.find(g => g.id === gameId);
+    if (found) {
+      renderGamePage(found);
+    } else {
+      document.getElementById("content").innerHTML = `
+        <div class="empty-card">
+          <div class="empty-card-icon">🏈</div>
+          <div class="empty-card-title">Game Not Found</div>
+          <div class="empty-card-sub">
+            We couldn't find this game in the 2026 schedule or the current live data.
+            <br><br>Try browsing all available games on the schedule page.
+          </div>
+          <a href="games.html" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:6px;margin-bottom:10px">← Back to Schedule</a>
+          <div style="font-size:.72rem;color:var(--muted);margin-top:8px">ID: <code style="color:var(--text-soft)">${gameId || "(none)"}</code></div>
+        </div>`;
+    }
+  });
+})();
 </script>
 <script src="../js/config.js"></script>
 <script src="../js/live.js"></script>

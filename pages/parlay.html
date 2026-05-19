@@ -382,6 +382,7 @@ try {
 let activeWeek = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b)[0];
 let edgeFilter = "all";
 let parlayConfFilter = "all";
+let parlayQualityFilter = "all";
 
 const weekLabels = { 1:"Wk 1",2:"Wk 2",3:"Wk 3",4:"Wk 4",5:"Wk 5",6:"Wk 6",7:"Wk 7",8:"Wk 8",9:"Wk 9",10:"Wk 10",11:"Wk 11",12:"Wk 12",13:"Wk 13",14:"Wk 14",15:"Champs",16:"CFP" };
 
@@ -823,6 +824,10 @@ function renderGameList() {
     );
   }
 
+  if (parlayQualityFilter !== "all") {
+    list = list.filter(({ prediction }) => prediction.confidence === parlayQualityFilter);
+  }
+
   if (edgeFilter === "edge") {
     list = list.filter(({ prediction:pred }) => {
       const sp = pred.spreadPick || {};
@@ -963,9 +968,9 @@ document.getElementById("page-stats").addEventListener("click", function(e) {
   const act = cell.dataset.statAction;
   document.querySelectorAll("#page-stats .stat-cell-clickable").forEach(c => c.classList.remove("active"));
   cell.classList.add("active");
-  if (act === "all") { edgeFilter = "all"; parlayConfFilter = "all"; }
-  else if (act === "elite") { parlayConfFilter = "elite"; edgeFilter = "all"; }
-  else if (act === "lines") { edgeFilter = "lines"; parlayConfFilter = "all"; }
+  if (act === "all") { edgeFilter = "all"; parlayConfFilter = "all"; parlayQualityFilter = "all"; }
+  else if (act === "elite") { parlayQualityFilter = "elite"; edgeFilter = "all"; parlayConfFilter = "all"; }
+  else if (act === "lines") { edgeFilter = "lines"; parlayConfFilter = "all"; parlayQualityFilter = "all"; }
   else if (act === "legs") {
     // Scroll to current parlay summary
     document.getElementById("parlay-summary").scrollIntoView({ behavior: "smooth", block: "start" });
