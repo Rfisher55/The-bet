@@ -742,42 +742,28 @@ function calcProgramMomentumAdj(team) {
   const ph = team.programHealth || {};
   let adj = 0;
 
-  // ── NIL Strength ─────────────────────────────
-  // Top NIL programs attract and retain elite talent
-  const nil = ph.nilStrength || 5;
-  adj += (nil - 5) * 0.15; // max ±0.75
-
-  // ── Transfer Portal Rating ────────────────────
-  // Programs winning the portal have depth and competition at every position
-  const portal = ph.transferPortalRating || 5;
+  // Normalize 0-100 scale fields to 0-10 midpoint-5 scale
+  const nil    = (ph.nilStrength    != null ? ph.nilStrength    / 10 : 5);
+  const portal = (ph.transferPortalRating != null ? ph.transferPortalRating / 10 : 5);
+  adj += (nil    - 5) * 0.15;
   adj += (portal - 5) * 0.12;
 
-  // ── Coach Hot Seat ────────────────────────────
-  const hotSeat = ph.coachHotSeat || false;
-  if (hotSeat) {
-    adj -= 0.5; // distraction, players uncertain
-  }
+  // coachHotSeat is 1-10; threshold >= 7 = significant distraction
+  if ((ph.coachHotSeat || 1) >= 7) adj -= 0.5;
 
-  // ── Program Momentum ─────────────────────────
-  const momentum = ph.programMomentum || 5;
-  adj += (momentum - 5) * 0.10;
+  // programMomentum is a string; map to numeric
+  const momentumMap = { rising: 7, stable: 5, declining: 3 };
+  const momentum = momentumMap[ph.programMomentum] ?? 5;
+  adj += (momentum - 5) * 0.20;
 
-  // ── Fan Morale ───────────────────────────────
-  const fanMorale = ph.fanMorale || 5;
-  // Fan morale primarily impacts home performance
+  // Normalize 0-100 scale fields
+  const fanMorale      = (ph.fanMorale       != null ? ph.fanMorale       / 10 : 5);
+  const cohesion       = (ph.lockerRoomCohesion != null ? ph.lockerRoomCohesion / 10 : 7);
+  const depthStability = (ph.depthChartStability != null ? ph.depthChartStability / 10 : 7);
   adj += (fanMorale - 5) * 0.08;
-
-  // ── Locker Room Cohesion ─────────────────────
-  const cohesion = ph.lockerRoomCohesion || 7;
-  adj += (cohesion - 5) * 0.14;
-
-  // ── Depth Chart Stability ─────────────────────
-  const depthStability = ph.depthChartStability || 7;
-  if (depthStability <= 4) {
-    adj -= 0.4; // shuffling roster = execution issues
-  } else if (depthStability >= 8) {
-    adj += 0.2;
-  }
+  adj += (cohesion  - 5) * 0.14;
+  if (depthStability <= 4)      adj -= 0.4;
+  else if (depthStability >= 8) adj += 0.2;
 
   return clamp(adj, -2, 2);
 }
