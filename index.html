@@ -6,6 +6,379 @@
   <title>The Bet — D1 Football Predictor</title>
   <meta name="description" content="AI-powered D1 college football predictions: winner, spread, and over/under using stats, players, coaching & social media signals." />
   <link rel="stylesheet" href="css/main.css" />
+  <style>
+    /* ── Live Data Banner ───────────────────────────────── */
+    .live-banner {
+      background: linear-gradient(90deg, rgba(16,185,129,.06) 0%, rgba(8,13,26,0) 50%, rgba(99,102,241,.05) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 7px 0;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      color: var(--muted);
+      position: relative;
+      overflow: hidden;
+    }
+    .live-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(16,185,129,.04) 50%, transparent 100%);
+      animation: bannerShimmer 4s ease-in-out infinite;
+    }
+    @keyframes bannerShimmer {
+      0%,100% { opacity: 0; }
+      50%      { opacity: 1; }
+    }
+    .live-banner-inner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+    .live-banner-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+    .live-banner-dot.loading {
+      background: var(--gold);
+    }
+    #live-banner-text { color: var(--muted-l); }
+    #live-banner-text.is-live { color: var(--primary); }
+
+    /* ── Hero two-column ────────────────────────────────── */
+    .hero-v2 {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, #080d1a 0%, #0f1e3a 55%, #0a1628 100%);
+      padding: 52px 48px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-v2::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(16,185,129,.13) 0%, transparent 55%),
+        radial-gradient(circle at 85% 15%, rgba(99,102,241,.1) 0%, transparent 45%),
+        radial-gradient(circle at 70% 80%, rgba(16,185,129,.05) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .hero-v2-left { position: relative; }
+    .hero-v2-right { position: relative; }
+    @media (max-width: 900px) {
+      .hero-v2 {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 36px 24px;
+      }
+    }
+    @media (max-width: 600px) {
+      .hero-v2 { padding: 28px 18px; }
+      .hero-title { font-size: 2.2rem; }
+    }
+
+    /* ── Top Pick Card ──────────────────────────────────── */
+    .top-pick-card {
+      background: rgba(8,13,26,.7);
+      border: 1px solid var(--border-l);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+    .top-pick-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--primary), #34d399, var(--accent));
+    }
+    .top-pick-card-label {
+      font-size: .6rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .top-pick-card-pulse {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      animation: pulse 2s infinite;
+    }
+    .top-pick-teams {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .top-pick-teams-name {
+      font-size: .95rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .top-pick-teams-meta {
+      font-size: .65rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .top-pick-score {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .top-pick-score-box {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .top-pick-score-label {
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .top-pick-score-val {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+    .top-pick-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .top-pick-spread {
+      background: rgba(16,185,129,.12);
+      border: 1px solid rgba(16,185,129,.3);
+      border-radius: var(--radius);
+      padding: 8px 12px;
+    }
+    .top-pick-spread-lbl { font-size: .58rem; font-weight: 800; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
+    .top-pick-spread-val { font-size: .95rem; font-weight: 900; color: var(--primary); }
+    .top-pick-link {
+      padding: 9px 14px;
+      border-radius: var(--radius);
+      background: var(--primary);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity .15s;
+    }
+    .top-pick-link:hover { opacity: .85; }
+    .skeleton {
+      background: linear-gradient(90deg, var(--surface) 25%, var(--card) 50%, var(--surface) 75%);
+      background-size: 200% 100%;
+      animation: skeletonPulse 1.5s infinite;
+      border-radius: 6px;
+    }
+    @keyframes skeletonPulse {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── Stat strip enhanced ────────────────────────────── */
+    .stats-strip-wrap {
+      background: linear-gradient(135deg, rgba(16,185,129,.06) 0%, rgba(8,13,26,0) 50%, rgba(99,102,241,.05) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stats-strip-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(16,185,129,.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .stats-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    .stat-cell {
+      background: transparent;
+      border: none;
+      border-radius: calc(var(--radius-lg) - 4px);
+      padding: 18px 16px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-cell:last-child { border-right: none; }
+    @media (max-width: 768px) {
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+      .stat-cell:nth-child(2) { border-right: none; }
+      .stat-cell:nth-child(3) { border-right: 1px solid var(--border); }
+      .stat-cell { border-bottom: 1px solid var(--border); }
+      .stat-cell:nth-child(3), .stat-cell:nth-child(4) { border-bottom: none; }
+    }
+    @media (max-width: 420px) {
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── Conference chips row ───────────────────────────── */
+    .conf-section-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .conf-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: .75rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted-l);
+      transition: all .15s;
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: .3px;
+    }
+    .conf-chip:hover {
+      color: var(--text);
+      border-color: rgba(16,185,129,.5);
+      background: rgba(16,185,129,.07);
+      transform: translateY(-1px);
+    }
+
+    /* ── Power Rankings strip ───────────────────────────── */
+    .power-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 768px) {
+      .power-strip { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .power-strip { grid-template-columns: 1fr 1fr; }
+    }
+    .power-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 12px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: all .2s;
+    }
+    .power-item:hover {
+      border-color: rgba(16,185,129,.35);
+      box-shadow: var(--glow-green);
+      transform: translateY(-2px);
+    }
+    .power-rank-num {
+      font-size: .6rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .power-rank-num.rank-1 { color: #f59e0b; }
+    .power-rank-num.rank-2 { color: #94a3b8; }
+    .power-rank-num.rank-3 { color: #92400e; }
+    .power-team-name {
+      font-size: .75rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .power-sp {
+      font-size: .7rem;
+      color: var(--muted);
+    }
+    .power-sp strong { color: var(--primary); }
+    .power-momentum {
+      font-size: .8rem;
+    }
+
+    /* ── Model transparency card ────────────────────────── */
+    .transparency-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .transparency-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .transparency-sub {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .signal-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .signal-row:last-child { margin-bottom: 0; }
+    .signal-icon { font-size: 1rem; flex-shrink: 0; width: 24px; text-align: center; }
+    .signal-name {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--text);
+      flex: 1;
+    }
+    .signal-weight-track {
+      width: 100px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .signal-weight-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: var(--primary);
+    }
+    .signal-pct {
+      font-size: .72rem;
+      font-weight: 800;
+      color: var(--primary);
+      min-width: 32px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    @media (max-width: 600px) {
+      .signal-weight-track { width: 60px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -30,60 +403,120 @@
   </div>
 </nav>
 
+<!-- ── Live Data Banner ── -->
+<div class="live-banner">
+  <div class="container live-banner-inner">
+    <span class="live-banner-dot loading" id="live-banner-dot"></span>
+    <span id="live-banner-text">Fetching 2026 schedule...</span>
+  </div>
+</div>
+
 <!-- ── Main ── -->
 <main class="container page-content">
 
-  <!-- Hero -->
-  <section class="hero mb-5">
-    <div class="hero-eyebrow">
-      <span class="hero-eyebrow-dot"></span>
-      2026 Season · 7-Signal AI Model · Independent Predictions
+  <!-- Hero v2: two-column -->
+  <section class="hero-v2 mb-5">
+    <!-- Left: headline + CTA -->
+    <div class="hero-v2-left">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        2026 Season &middot; 7-Signal AI Model &middot; Independent Predictions
+      </div>
+      <h1 class="hero-title">
+        WIN THE BET.<br>
+        <span>KNOW THE GAME.</span>
+      </h1>
+      <p class="hero-sub">
+        The most complete D1 college football predictor. Independent AI — no sportsbook influence,
+        no media bias. Seven signals: stats, players, situational, weather, coaching, program momentum,
+        and sharp money.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="pages/games.html?week=1">Week 1 Picks →</a>
+        <a class="btn btn-outline" href="pages/parlay.html">Build Parlay</a>
+        <a class="btn btn-outline" href="pages/teams.html">Power Rankings</a>
+      </div>
     </div>
-    <h1 class="hero-title">
-      WIN THE BET.<br>
-      <span>KNOW THE GAME.</span>
-    </h1>
-    <p class="hero-sub">
-      The most complete D1 college football predictor. Independent AI — no sportsbook influence, no media bias.
-      Seven signals combined: stats, players, situational, weather, coaching, program momentum, and sharp money.
-    </p>
-    <div class="hero-ctas">
-      <a class="btn btn-primary" href="pages/games.html?week=1">Week 1 Picks →</a>
-      <a class="btn btn-outline" href="pages/parlay.html">Build Parlay</a>
+
+    <!-- Right: Top Pick of the Week card -->
+    <div class="hero-v2-right">
+      <div class="top-pick-card" id="hero-top-pick">
+        <!-- Filled by JS; skeleton shown initially -->
+        <div class="top-pick-card-label">
+          <span class="top-pick-card-pulse"></span>
+          Top Pick of the Week
+        </div>
+        <div style="height:22px;margin-bottom:14px" class="skeleton"></div>
+        <div style="height:14px;width:70%;margin-bottom:14px" class="skeleton"></div>
+        <div style="display:flex;gap:8px;margin-bottom:14px">
+          <div style="flex:1;height:60px" class="skeleton"></div>
+          <div style="flex:1;height:60px" class="skeleton"></div>
+        </div>
+        <div style="height:36px" class="skeleton"></div>
+      </div>
     </div>
   </section>
 
-  <!-- Model performance -->
+  <!-- Stats strip (enhanced) -->
   <section class="mb-5">
     <div class="section-label">2025 Model Record (Prediction Basis)</div>
-    <div class="stats-strip" id="model-stats"></div>
+    <div class="stats-strip-wrap">
+      <div class="stats-strip" id="model-stats"></div>
+    </div>
   </section>
-
-  <!-- #1 Pick of the Week — full-width banner -->
-  <section class="mb-5" id="best-pick-section"></section>
 
   <!-- Top picks -->
   <section class="mb-5">
     <div class="flex items-center justify-between mb-4">
       <div class="section-label mb-0">Top Picks — Week 1</div>
-      <a href="pages/games.html?week=1" class="text-sm text-primary" style="text-decoration:underline">Week 1 →</a>
+      <a href="pages/games.html?week=1" class="text-sm text-primary" style="text-decoration:underline">All Week 1 →</a>
     </div>
     <div class="grid-3" id="top-picks"></div>
   </section>
 
-  <!-- 7-signal breakdown -->
+  <!-- Browse by Conference -->
   <section class="mb-5">
-    <div class="section-label">The 7-Signal Model</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px" id="signals-grid"></div>
+    <div class="conf-section-label">Browse by Conference</div>
+    <div class="chip-row">
+      <a class="conf-chip" href="pages/games.html?conf=SEC">SEC</a>
+      <a class="conf-chip" href="pages/games.html?conf=Big+Ten">Big Ten</a>
+      <a class="conf-chip" href="pages/games.html?conf=Big+12">Big 12</a>
+      <a class="conf-chip" href="pages/games.html?conf=ACC">ACC</a>
+      <a class="conf-chip" href="pages/games.html?conf=AAC">AAC</a>
+      <a class="conf-chip" href="pages/games.html?conf=MWC">MWC</a>
+      <a class="conf-chip" href="pages/games.html?conf=Sun+Belt">Sun Belt</a>
+      <a class="conf-chip" href="pages/games.html?conf=MAC">MAC</a>
+    </div>
+  </section>
+
+  <!-- Power Rankings Preview -->
+  <section class="mb-5">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">Top 5 Programs</div>
+      <a href="pages/teams.html" class="text-sm text-primary" style="text-decoration:underline">Full Rankings →</a>
+    </div>
+    <div class="power-strip" id="power-rankings"></div>
   </section>
 
   <!-- Featured games -->
   <section class="mb-5">
     <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">Elite & High Confidence Games</div>
+      <div class="section-label mb-0">Elite &amp; High Confidence Games</div>
       <a href="pages/games.html?sort=confidence" class="text-sm text-primary" style="text-decoration:underline">All picks →</a>
     </div>
     <div class="grid-auto" id="featured-games"></div>
+  </section>
+
+  <!-- Model transparency -->
+  <section class="mb-5">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">How the Model Works</div>
+    </div>
+    <div class="transparency-card">
+      <div class="transparency-title">7-Signal Prediction Engine</div>
+      <div class="transparency-sub">Each signal contributes a weighted adjustment to the final predicted score and spread. Signals are independent — no single factor dominates.</div>
+      <div id="signals-grid"></div>
+    </div>
   </section>
 
   <!-- Disclaimer -->
@@ -104,7 +537,7 @@
 <!-- ── Footer ── -->
 <footer class="footer">
   <div class="container">
-    <p>The Bet · D1 Football Predictor · 2026 Season · <span class="footer-accent">For entertainment purposes</span></p>
+    <p>The Bet &middot; D1 Football Predictor &middot; 2026 Season &middot; <span class="footer-accent">For entertainment purposes</span></p>
     <p style="margin-top:4px;opacity:.5;font-size:.72rem">Predictions use team stats, coaching data, recruiting rankings &amp; social media signals. Always gamble responsibly.</p>
   </div>
 </footer>
@@ -134,249 +567,355 @@
 <script src="js/data.js"></script>
 <script src="js/predictor.js"></script>
 <script>
-// ── Render model stats
+
+// ── Live Data Banner ─────────────────────────────────────────────
 (function() {
-  const stats = [
-    { label: "Straight Up", value: `${MODEL_RECORD.straightUp.wins}-${MODEL_RECORD.straightUp.losses}`, sub: `${(MODEL_RECORD.straightUp.pct * 100).toFixed(1)}%`, color: "var(--primary)" },
-    { label: "Against the Spread", value: `${MODEL_RECORD.atsRecord.wins}-${MODEL_RECORD.atsRecord.losses}`, sub: `${(MODEL_RECORD.atsRecord.pct * 100).toFixed(1)}%`, color: "var(--accent)" },
-    { label: "Over / Under", value: `${MODEL_RECORD.totalRecord.wins}-${MODEL_RECORD.totalRecord.losses}`, sub: `${(MODEL_RECORD.totalRecord.pct * 100).toFixed(1)}%`, color: "var(--gold)" },
-    { label: "Estimated ROI", value: `+${MODEL_RECORD.roi}%`, sub: "flat betting", color: "var(--primary)" },
-  ];
-  document.getElementById("model-stats").innerHTML = stats.map(s => `
-    <div class="stat-cell fade-up">
-      <div class="stat-cell-label">${s.label}</div>
-      <div class="stat-cell-value" style="color:${s.color}">${s.value}</div>
-      <div class="stat-cell-sub">${s.sub}</div>
-    </div>`).join("");
+  const dot  = document.getElementById("live-banner-dot");
+  const text = document.getElementById("live-banner-text");
+
+  function updateBanner() {
+    const stats = window.__liveStats;
+    let gameCount, teamCount;
+    if (stats) {
+      gameCount  = stats.gameCount  || (window.GAMES  ? GAMES.length : 0);
+      teamCount  = stats.teamCount  || (window.TEAMS  ? Object.keys(TEAMS).length : 0);
+    } else {
+      gameCount  = window.GAMES  ? GAMES.length : 0;
+      teamCount  = window.TEAMS  ? Object.keys(TEAMS).length : 0;
+    }
+    dot.classList.remove("loading");
+    text.classList.add("is-live");
+    text.innerHTML =
+      '<strong style="color:var(--primary)">LIVE</strong>' +
+      ' &middot; ' + gameCount + ' games' +
+      ' &middot; ' + teamCount + ' teams' +
+      ' &middot; Updated just now';
+  }
+
+  window.addEventListener("liveDataReady", updateBanner);
+
+  // If data was already applied before this script ran, update immediately
+  if (window.__liveStats || (window.GAMES && GAMES.length > 0)) {
+    // Check after a short tick so GAMES/TEAMS are fully populated
+    setTimeout(function() {
+      if (window.GAMES && GAMES.length > 0) updateBanner();
+    }, 100);
+  }
 })();
 
-// ── Generate predictions for all games
-const allPredictions = [];
+// ── Render model stats ────────────────────────────────────────────
+(function() {
+  const stats = [
+    { label: "Straight Up",        value: MODEL_RECORD.straightUp.wins + "-" + MODEL_RECORD.straightUp.losses,
+      sub: (MODEL_RECORD.straightUp.pct * 100).toFixed(1) + "% ATS SU", color: "var(--primary)" },
+    { label: "Against the Spread", value: MODEL_RECORD.atsRecord.wins + "-" + MODEL_RECORD.atsRecord.losses,
+      sub: (MODEL_RECORD.atsRecord.pct * 100).toFixed(1) + "% ATS win", color: "var(--accent)" },
+    { label: "Over / Under",       value: MODEL_RECORD.totalRecord.wins + "-" + MODEL_RECORD.totalRecord.losses,
+      sub: (MODEL_RECORD.totalRecord.pct * 100).toFixed(1) + "% hit rate", color: "var(--gold)" },
+    { label: "Estimated ROI",      value: "+" + MODEL_RECORD.roi + "%",
+      sub: "flat betting", color: "var(--primary)" },
+  ];
+  document.getElementById("model-stats").innerHTML = stats.map(function(s) {
+    return '<div class="stat-cell fade-up">' +
+      '<div class="stat-cell-label">' + s.label + '</div>' +
+      '<div class="stat-cell-value" style="color:' + s.color + '">' + s.value + '</div>' +
+      '<div class="stat-cell-sub">' + s.sub + '</div>' +
+    '</div>';
+  }).join("");
+})();
+
+// ── Generate predictions for all games ───────────────────────────
+var allPredictions = [];
 try {
-  GAMES.forEach(g => {
+  GAMES.forEach(function(g) {
     try {
-      const game = resolveGame(g);
-      allPredictions.push({ game, prediction: predictGame(game) });
+      var game = resolveGame(g);
+      allPredictions.push({ game: game, prediction: predictGame(game) });
     } catch(e) { console.error("predictGame failed for", g.id, e); }
   });
 } catch(e) { console.error("GAMES load failed:", e); }
 
-// ── #1 Pick of the Week full-width banner
+// ── Hero Top Pick of the Week ────────────────────────────────────
 (function() {
-  const wk1 = allPredictions.filter(p => p.game.week === 1);
-  if (!wk1.length) return;
-  const confW = { elite:4, high:3, medium:2, low:1 };
-  const best = wk1.map(({ game, prediction:pred }) => {
-    const sp = pred.spreadPick;
-    const edge = sp && sp.side !== "no-bet" ? sp.edge : 0;
-    return { game, pred, score: (confW[pred.confidence]||1)*3 + edge };
-  }).sort((a,b) => b.score - a.score)[0];
+  var container = document.getElementById("hero-top-pick");
+  var wk1 = allPredictions.filter(function(p) { return p.game.week === 1; });
+  if (!wk1.length) {
+    // Use all predictions if no week 1 games
+    wk1 = allPredictions;
+  }
+  if (!wk1.length) return; // leave skeleton
+
+  var confW = { elite: 4, high: 3, medium: 2, low: 1 };
+  var best = wk1.map(function(p) {
+    var sp   = p.prediction.spreadPick;
+    var edge = sp && sp.side !== "no-bet" ? (sp.edge || 0) : 0;
+    return { game: p.game, pred: p.prediction, score: (confW[p.prediction.confidence] || 1) * 3 + edge };
+  }).sort(function(a, b) { return b.score - a.score; })[0];
   if (!best) return;
-  const { game, pred } = best;
-  const sp = pred.spreadPick;
-  const home = game.homeTeam, away = game.awayTeam;
-  const pickTeam = sp && sp.side !== "no-bet" ? sp.team : (pred.predictedSpread >= 0 ? home.name : away.name);
-  const pickLine = sp && sp.side !== "no-bet"
-    ? (sp.side === "home" ? fmtSpread(game.bettingLines.spread) : fmtSpread(-game.bettingLines.spread)) : "";
-  const confCls = { elite:"badge-elite", high:"badge-high", medium:"badge-medium", low:"badge-low" }[pred.confidence];
-  const confLbl = { elite:"ELITE PICK", high:"HIGH CONFIDENCE", medium:"MODERATE", low:"LOW CONF" }[pred.confidence];
-  document.getElementById("best-pick-section").innerHTML = `
-    <div style="border:1.5px solid var(--primary);border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(16,185,129,.09) 0%,var(--card) 60%);padding:20px;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--primary),#34d399,var(--primary))"></div>
-      <div style="font-size:.58rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--primary);display:flex;align-items:center;gap:6px;margin-bottom:12px">
-        <span style="width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse 2s infinite;display:inline-block"></span>
-        #1 BEST PICK — WEEK 1
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px">
-        <div class="team-logo" style="background:${away.color};width:36px;height:36px;font-size:.7rem">${away.abbreviation.slice(0,3)}</div>
-        <span style="font-size:.9rem;font-weight:700;color:var(--muted)">@</span>
-        <div class="team-logo" style="background:${home.color};width:36px;height:36px;font-size:.7rem">${home.abbreviation.slice(0,3)}</div>
-        <div>
-          <div style="font-size:1rem;font-weight:900;color:var(--text)">${away.name} @ ${home.name}</div>
-          <div style="font-size:.7rem;color:var(--muted)">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>
-        </div>
-        <span class="badge ${confCls}" style="margin-left:auto">${confLbl}</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-        <div style="padding:10px 18px;border-radius:10px;background:var(--primary);color:#fff;min-width:120px">
-          <div style="font-size:.55rem;font-weight:800;letter-spacing:1px;opacity:.8;text-transform:uppercase">The Pick</div>
-          <div style="font-size:1.1rem;font-weight:900">${pickTeam.split(" ").pop()} ${pickLine}</div>
-        </div>
-        <div style="padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--border)">
-          <div style="font-size:.55rem;font-weight:800;letter-spacing:1px;color:var(--muted);text-transform:uppercase">Win Prob</div>
-          <div style="font-size:1rem;font-weight:900;color:var(--text)">${pred.winProbability}%</div>
-        </div>
-        ${sp && sp.edge > 0 ? `<div style="padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--border)">
-          <div style="font-size:.55rem;font-weight:800;letter-spacing:1px;color:var(--muted);text-transform:uppercase">Model Edge</div>
-          <div style="font-size:1rem;font-weight:900;color:var(--primary)">+${sp.edge} pts</div>
-        </div>` : ""}
-        <a href="pages/game.html?id=${game.id}" style="margin-left:auto;padding:10px 18px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700;font-size:.82rem;text-decoration:none;white-space:nowrap">Full Analysis →</a>
-      </div>
-    </div>`;
+
+  var game = best.game;
+  var pred = best.pred;
+  var sp   = pred.spreadPick;
+  var home = game.homeTeam;
+  var away = game.awayTeam;
+
+  var pickTeam = sp && sp.side !== "no-bet"
+    ? sp.team
+    : (pred.predictedSpread >= 0 ? home.name : away.name);
+  var pickLine = sp && sp.side !== "no-bet" && game.bettingLines
+    ? (sp.side === "home" ? fmtSpread(game.bettingLines.spread) : fmtSpread(-game.bettingLines.spread))
+    : "";
+
+  var confCls = { elite: "badge-elite", high: "badge-high", medium: "badge-medium", low: "badge-low" }[pred.confidence];
+  var confLbl = { elite: "ELITE PICK", high: "HIGH CONFIDENCE", medium: "MODERATE", low: "LOW CONF" }[pred.confidence];
+
+  var awayScore = pred.awayScore !== undefined ? pred.awayScore : (pred.predictedSpread < 0 ? Math.round(pred.homeScore - pred.predictedSpread) : pred.homeScore);
+  var homeScore = pred.homeScore !== undefined ? pred.homeScore : Math.round(pred.predictedSpread >= 0 ? pred.homeScore : pred.homeScore);
+  // Normalize score display
+  if (typeof pred.homeScore === "number" && typeof pred.awayScore === "number") {
+    homeScore = pred.homeScore;
+    awayScore = pred.awayScore;
+  } else if (typeof pred.predictedSpread === "number") {
+    var total = game.bettingLines ? game.bettingLines.total : 55;
+    homeScore = Math.round((total / 2) + pred.predictedSpread / 2);
+    awayScore = Math.round((total / 2) - pred.predictedSpread / 2);
+  }
+
+  container.innerHTML =
+    '<div class="top-pick-card-label">' +
+      '<span class="top-pick-card-pulse"></span>' +
+      'Top Pick of the Week' +
+    '</div>' +
+    '<div class="top-pick-teams">' +
+      '<div class="team-logo team-logo-sm" style="background:' + away.color + '">' + away.abbreviation.slice(0,3) + '</div>' +
+      '<span style="font-size:.75rem;font-weight:700;color:var(--muted)">@</span>' +
+      '<div class="team-logo team-logo-sm" style="background:' + home.color + '">' + home.abbreviation.slice(0,3) + '</div>' +
+      '<div style="min-width:0">' +
+        '<div class="top-pick-teams-name">' + away.name + ' @ ' + home.name + '</div>' +
+        '<div class="top-pick-teams-meta">' + fmtDate(game.date) + ' &middot; ' + game.time + ' &middot; ' + game.network + '</div>' +
+      '</div>' +
+      '<span class="badge ' + confCls + '" style="margin-left:auto;flex-shrink:0">' + confLbl + '</span>' +
+    '</div>' +
+    '<div class="top-pick-score">' +
+      '<div class="top-pick-score-box">' +
+        '<div class="top-pick-score-label">' + away.abbreviation + '</div>' +
+        '<div class="top-pick-score-val" style="color:' + away.color + '">' + awayScore + '</div>' +
+      '</div>' +
+      '<div class="top-pick-score-box">' +
+        '<div class="top-pick-score-label">' + home.abbreviation + '</div>' +
+        '<div class="top-pick-score-val" style="color:' + home.color + '">' + homeScore + '</div>' +
+      '</div>' +
+      '<div class="top-pick-score-box">' +
+        '<div class="top-pick-score-label">Win Prob</div>' +
+        '<div class="top-pick-score-val">' + pred.winProbability + '%</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="top-pick-footer">' +
+      '<div class="top-pick-spread">' +
+        '<div class="top-pick-spread-lbl">ATS Pick</div>' +
+        '<div class="top-pick-spread-val">' + (pickTeam ? pickTeam.split(" ").pop() : "—") + ' ' + pickLine + '</div>' +
+      '</div>' +
+      (sp && sp.edge > 0 ?
+        '<div class="top-pick-spread" style="background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.3)">' +
+          '<div class="top-pick-spread-lbl">Model Edge</div>' +
+          '<div class="top-pick-spread-val" style="color:var(--accent)">+' + sp.edge + ' pts</div>' +
+        '</div>' : '') +
+      '<a class="top-pick-link" href="pages/game.html?id=' + game.id + '">Full Analysis →</a>' +
+    '</div>';
 })();
 
-// ── 7-Signal grid
-(function() {
-  const signals = [
-    { icon:"📊", name:"Stats Engine",        weight:"30%", desc:"Offense/defense matchup, SP+, scoring margins, yards, efficiency" },
-    { icon:"🏃", name:"Player Intelligence", weight:"20%", desc:"Key player ratings, injury status, matchup-specific grades" },
-    { icon:"🎯", name:"Situational",         weight:"15%", desc:"Trap games, travel burden, lookahead spots, rest edges" },
-    { icon:"🌤️", name:"Weather Impact",      weight:"10%", desc:"Temp, wind, precipitation — scoring suppression, run-game shift" },
-    { icon:"🎓", name:"Coaching Edge",       weight:"10%", desc:"ATS record, halftime adjustments, big-game performance" },
-    { icon:"📈", name:"Program Momentum",    weight:"8%",  desc:"NIL strength, transfer portal grade, recruiting trajectory" },
-    { icon:"💰", name:"Sharp Money",         weight:"7%",  desc:"Line movement, reverse action, steam moves vs public %%" },
-  ];
-  document.getElementById("signals-grid").innerHTML = signals.map(s => `
-    <div style="padding:14px 16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--card)">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:1.2rem">${s.icon}</span>
-        <span style="font-size:.78rem;font-weight:800;color:var(--text)">${s.name}</span>
-        <span style="margin-left:auto;font-size:.65rem;padding:2px 6px;border-radius:6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:var(--primary);font-weight:800">${s.weight}</span>
-      </div>
-      <div style="font-size:.68rem;color:var(--muted);line-height:1.5">${s.desc}</div>
-    </div>`).join("");
-})();
+// ── Model stats already rendered above ───────────────────────────
 
-// ── Top picks
+// ── Top picks grid ───────────────────────────────────────────────
 (function() {
-  const picks = allPredictions
-    .filter(p => p.prediction.spreadPick.side !== "no-bet" && p.prediction.spreadPick.confidence >= 65)
+  var picks = allPredictions
+    .filter(function(p) { return p.prediction.spreadPick.side !== "no-bet" && p.prediction.spreadPick.confidence >= 65; })
     .slice(0, 3);
-  const icons = ["1","2","3"];
-  const labels = ["#1 Pick of the Week","#2 Pick of the Week","#3 Pick of the Week"];
-  document.getElementById("top-picks").innerHTML = picks.map((p, i) => {
-    const { game, prediction: pred } = p;
-    const sp = pred.spreadPick;
-    const lineVal = sp.side === "home"
+  var icons  = ["1","2","3"];
+  var labels = ["#1 Pick of the Week","#2 Pick of the Week","#3 Pick of the Week"];
+  document.getElementById("top-picks").innerHTML = picks.map(function(p, i) {
+    var game = p.game;
+    var pred = p.prediction;
+    var sp   = pred.spreadPick;
+    var lineVal = sp.side === "home"
       ? fmtSpread(game.bettingLines.spread)
       : fmtSpread(-game.bettingLines.spread);
-    const chipCls = sp.side === "home" ? "pick-home" : "pick-away";
-    const chipColor = sp.side === "home" ? "var(--accent)" : "var(--gold)";
-    return `
-      <a class="top-pick fade-up delay-${i+1}" href="pages/game.html?id=${game.id}">
-        <div class="pick-rank">
-          <span class="pick-rank-icon">${icons[i]}</span>
-          <span class="pick-rank-label">${labels[i]}</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-          <div class="team-logo team-logo-sm" style="background:${game.awayTeam.color}">${game.awayTeam.abbreviation.slice(0,3)}</div>
-          <span style="font-size:.75rem;color:var(--muted-l)">@</span>
-          <div class="team-logo team-logo-sm" style="background:${game.homeTeam.color}">${game.homeTeam.abbreviation.slice(0,3)}</div>
-          <div style="margin-left:4px">
-            <div style="font-size:.88rem;font-weight:700;color:var(--text)">${game.awayTeam.abbreviation} @ ${game.homeTeam.abbreviation}</div>
-            <div style="font-size:.7rem;color:var(--muted-l)">${fmtDate(game.date)} · ${game.network}</div>
-          </div>
-        </div>
-        <div class="pick-chip ${chipCls} mb-3" style="text-align:left">
-          <div class="pick-chip-label">ATS Pick</div>
-          <div class="pick-chip-val" style="font-size:1rem;color:${chipColor}">${sp.team}</div>
-          <div class="pick-chip-sub">Line: ${lineVal}</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted-l)">
-          <span>Conf: <strong style="color:var(--text)">${sp.confidence}%</strong></span>
-          <span>Edge: <strong style="color:var(--primary)">+${sp.edge} pts</strong></span>
-        </div>
-        <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:.7rem;color:var(--primary);font-weight:700;text-align:right">Full Analysis →</div>
-      </a>`;
+    var chipCls   = sp.side === "home" ? "pick-home" : "pick-away";
+    var chipColor = sp.side === "home" ? "var(--accent)" : "var(--gold)";
+    return '<a class="top-pick fade-up delay-' + (i+1) + '" href="pages/game.html?id=' + game.id + '">' +
+      '<div class="pick-rank">' +
+        '<span class="pick-rank-icon">' + icons[i] + '</span>' +
+        '<span class="pick-rank-label">' + labels[i] + '</span>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">' +
+        '<div class="team-logo team-logo-sm" style="background:' + game.awayTeam.color + '">' + game.awayTeam.abbreviation.slice(0,3) + '</div>' +
+        '<span style="font-size:.75rem;color:var(--muted-l)">@</span>' +
+        '<div class="team-logo team-logo-sm" style="background:' + game.homeTeam.color + '">' + game.homeTeam.abbreviation.slice(0,3) + '</div>' +
+        '<div style="margin-left:4px">' +
+          '<div style="font-size:.88rem;font-weight:700;color:var(--text)">' + game.awayTeam.abbreviation + ' @ ' + game.homeTeam.abbreviation + '</div>' +
+          '<div style="font-size:.7rem;color:var(--muted-l)">' + fmtDate(game.date) + ' &middot; ' + game.network + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="pick-chip ' + chipCls + ' mb-3" style="text-align:left">' +
+        '<div class="pick-chip-label">ATS Pick</div>' +
+        '<div class="pick-chip-val" style="font-size:1rem;color:' + chipColor + '">' + sp.team + '</div>' +
+        '<div class="pick-chip-sub">Line: ' + lineVal + '</div>' +
+      '</div>' +
+      '<div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted-l)">' +
+        '<span>Conf: <strong style="color:var(--text)">' + sp.confidence + '%</strong></span>' +
+        '<span>Edge: <strong style="color:var(--primary)">+' + sp.edge + ' pts</strong></span>' +
+      '</div>' +
+      '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:.7rem;color:var(--primary);font-weight:700;text-align:right">Full Analysis →</div>' +
+    '</a>';
   }).join("") || '<p style="color:var(--muted-l);font-size:.9rem">No high-confidence picks found this week.</p>';
 })();
 
-// ── Featured games (elite + high confidence)
+// ── Power Rankings Preview ────────────────────────────────────────
 (function() {
-  const featured = allPredictions
-    .filter(p => p.prediction.confidence === "elite" || p.prediction.confidence === "high")
-    .slice(0, 6);
+  var teams = Object.values(TEAMS);
+  var top5  = teams
+    .filter(function(t) { return t.rating && t.rating > 0; })
+    .sort(function(a, b) { return (b.rating || 0) - (a.rating || 0); })
+    .slice(0, 5);
 
-  document.getElementById("featured-games").innerHTML = featured.map(({ game, prediction: pred }) => {
-    return renderGameCard(game, pred, "pages/game.html");
+  var rankClasses = ["rank-1","rank-2","rank-3","",""];
+  var rankLabels  = ["#1","#2","#3","#4","#5"];
+  var momentumMap = { rising: "↑", stable: "→", falling: "↓" };
+
+  document.getElementById("power-rankings").innerHTML = top5.map(function(t, i) {
+    var momentum = (t.programHealth && t.programHealth.programMomentum) || "stable";
+    var arrow    = momentumMap[momentum] || "→";
+    var arrowColor = momentum === "rising" ? "var(--primary)" : momentum === "falling" ? "var(--danger)" : "var(--muted)";
+    var sp = typeof t.spRating === "number" ? t.spRating.toFixed(1) : "—";
+    return '<a class="power-item" href="pages/teams.html?team=' + t.id + '">' +
+      '<span class="power-rank-num ' + (rankClasses[i] || "") + '">' + rankLabels[i] + '</span>' +
+      '<div class="team-logo team-logo-sm" style="background:' + (t.color || '#1a1a2e') + '">' + (t.abbreviation || t.name).slice(0,3) + '</div>' +
+      '<div class="power-team-name">' + t.name + '</div>' +
+      '<div class="power-sp">SP+ <strong>' + sp + '</strong></div>' +
+      '<div class="power-momentum" style="color:' + arrowColor + '">' + arrow + '</div>' +
+    '</a>';
   }).join("");
 })();
 
+// ── Featured games (elite + high confidence) ─────────────────────
+(function() {
+  var featured = allPredictions
+    .filter(function(p) { return p.prediction.confidence === "elite" || p.prediction.confidence === "high"; })
+    .slice(0, 6);
+
+  document.getElementById("featured-games").innerHTML = featured.map(function(p) {
+    return renderGameCard(p.game, p.prediction, "pages/game.html");
+  }).join("");
+})();
+
+// ── 7-Signal breakdown (transparency card) ───────────────────────
+(function() {
+  var signals = [
+    { icon:"📊", name:"Stats Engine",        weight:30, desc:"Offense/defense matchup, SP+, scoring margins, yards, efficiency" },
+    { icon:"🏃", name:"Player Intelligence", weight:20, desc:"Key player ratings, injury status, matchup-specific grades" },
+    { icon:"🎯", name:"Situational",         weight:15, desc:"Trap games, travel burden, lookahead spots, rest edges" },
+    { icon:"🌤️", name:"Weather Impact",      weight:10, desc:"Temp, wind, precipitation — scoring suppression, run-game shift" },
+    { icon:"🎓", name:"Coaching Edge",       weight:10, desc:"ATS record, halftime adjustments, big-game performance" },
+    { icon:"📈", name:"Program Momentum",    weight:8,  desc:"NIL strength, transfer portal grade, recruiting trajectory" },
+    { icon:"💰", name:"Sharp Money",         weight:7,  desc:"Line movement, reverse action, steam moves vs public %%" },
+  ];
+  document.getElementById("signals-grid").innerHTML = signals.map(function(s) {
+    return '<div class="signal-row">' +
+      '<span class="signal-icon">' + s.icon + '</span>' +
+      '<span class="signal-name">' + s.name + '</span>' +
+      '<div class="signal-weight-track">' +
+        '<div class="signal-weight-fill" style="width:' + (s.weight / 30 * 100) + '%"></div>' +
+      '</div>' +
+      '<span class="signal-pct">' + s.weight + '%</span>' +
+    '</div>';
+  }).join("");
+})();
+
+// ── renderGameCard (shared) ──────────────────────────────────────
 function renderGameCard(game, pred, baseUrl) {
-  const isHomeFavored = pred.predictedSpread >= 0;
-  const winner = isHomeFavored ? game.homeTeam : game.awayTeam;
-  const loser  = isHomeFavored ? game.awayTeam : game.homeTeam;
-  const confCls = { elite: "badge-elite", high: "badge-high", medium: "badge-medium", low: "badge-low" }[pred.confidence];
-  const confLbl = { elite: "ELITE PICK", high: "HIGH CONF", medium: "MODERATE", low: "LOW CONF" }[pred.confidence];
+  var isHomeFavored = pred.predictedSpread >= 0;
+  var winner = isHomeFavored ? game.homeTeam : game.awayTeam;
+  var confCls = { elite: "badge-elite", high: "badge-high", medium: "badge-medium", low: "badge-low" }[pred.confidence];
+  var confLbl = { elite: "ELITE PICK", high: "HIGH CONF", medium: "MODERATE", low: "LOW CONF" }[pred.confidence];
 
-  const sp = pred.spreadPick;
-  const tp = pred.totalPick;
-  const ats = sp.side === "no-bet" ? `<div class="pick-chip pick-neutral"><div class="pick-chip-label">ATS Pick</div><div class="pick-chip-val">No edge</div></div>`
-    : `<div class="pick-chip ${sp.side === "home" ? "pick-home" : "pick-away"}">
-        <div class="pick-chip-label">ATS Pick</div>
-        <div class="pick-chip-val">${sp.team.split(" ").pop()}</div>
-        ${game.bettingLines ? `<div class="pick-chip-sub">${fmtSpread(sp.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread)}</div>` : ""}
-       </div>`;
+  var sp  = pred.spreadPick;
+  var tp  = pred.totalPick;
+  var ats = sp.side === "no-bet"
+    ? '<div class="pick-chip pick-neutral"><div class="pick-chip-label">ATS Pick</div><div class="pick-chip-val">No edge</div></div>'
+    : '<div class="pick-chip ' + (sp.side === "home" ? "pick-home" : "pick-away") + '">' +
+        '<div class="pick-chip-label">ATS Pick</div>' +
+        '<div class="pick-chip-val">' + sp.team.split(" ").pop() + '</div>' +
+        (game.bettingLines ? '<div class="pick-chip-sub">' + fmtSpread(sp.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) + '</div>' : '') +
+      '</div>';
 
-  const tot = tp.side === "no-bet" ? `<div class="pick-chip pick-neutral"><div class="pick-chip-label">Total</div><div class="pick-chip-val">No edge</div></div>`
-    : `<div class="pick-chip ${tp.side === "over" ? "pick-over" : "pick-under"}">
-        <div class="pick-chip-label">Total</div>
-        <div class="pick-chip-val">${tp.side.toUpperCase()}</div>
-        ${game.bettingLines ? `<div class="pick-chip-sub">${game.bettingLines.total}</div>` : ""}
-       </div>`;
+  var tot = tp.side === "no-bet"
+    ? '<div class="pick-chip pick-neutral"><div class="pick-chip-label">Total</div><div class="pick-chip-val">No edge</div></div>'
+    : '<div class="pick-chip ' + (tp.side === "over" ? "pick-over" : "pick-under") + '">' +
+        '<div class="pick-chip-label">Total</div>' +
+        '<div class="pick-chip-val">' + tp.side.toUpperCase() + '</div>' +
+        (game.bettingLines ? '<div class="pick-chip-sub">' + game.bettingLines.total + '</div>' : '') +
+      '</div>';
 
-  const homePct = isHomeFavored ? pred.winProbability : 100 - pred.winProbability;
-  const awayPct = 100 - homePct;
+  var homePct = isHomeFavored ? pred.winProbability : 100 - pred.winProbability;
+  var awayPct = 100 - homePct;
 
-  return `
-    <a class="card card-link card-p" href="${baseUrl}?id=${game.id}">
-      <div class="game-card-header">
-        <div class="game-card-meta">
-          <span>Wk ${game.week}</span>
-          <span style="color:var(--border)">·</span>
-          <span>${fmtDate(game.date)} · ${game.time}</span>
-          ${game.isConferenceGame ? '<span class="badge badge-conf">CONF</span>' : ""}
-        </div>
-        <span class="badge ${confCls}">${confLbl}</span>
-      </div>
-      <div class="game-card-matchup">
-        <div class="team-chip">
-          <div class="team-logo team-logo-md" style="background:${game.awayTeam.color}">${game.awayTeam.abbreviation.slice(0,3)}</div>
-          <div>
-            <div class="team-name">${game.awayTeam.name}</div>
-            <div class="team-sub">${game.awayTeam.mascot} · ${game.awayTeam.lastSeasonRecord || game.awayTeam.wins+'-'+game.awayTeam.losses+' (\'25)'}</div>
-          </div>
-        </div>
-        <div class="game-card-vs">
-          <div class="game-card-vs-text">VS</div>
-          <div class="game-card-vs-net">${game.network}</div>
-        </div>
-        <div class="team-chip team-chip-r">
-          <div>
-            <div class="team-name text-right">${game.homeTeam.name}</div>
-            <div class="team-sub text-right">${game.homeTeam.mascot} · ${game.homeTeam.lastSeasonRecord || game.homeTeam.wins+'-'+game.homeTeam.losses+' (\'25)'}</div>
-          </div>
-          <div class="team-logo team-logo-md" style="background:${game.homeTeam.color}">${game.homeTeam.abbreviation.slice(0,3)}</div>
-        </div>
-      </div>
-      <div class="pred-row">
-        <div class="pred-dot" style="background:${winner.color}"></div>
-        <div class="pred-winner">${winner.name} wins</div>
-        <div class="pred-prob">${pred.winProbability}% chance</div>
-      </div>
-      <div class="prob-bar">
-        <div class="prob-bar-labels"><span>${game.awayTeam.abbreviation}</span><span>${game.homeTeam.abbreviation}</span></div>
-        <div class="prob-bar-track">
-          <div style="width:${awayPct}%;background:${game.awayTeam.color}"></div>
-          <div style="width:${homePct}%;background:${game.homeTeam.color}"></div>
-        </div>
-      </div>
-      <div class="pick-chips">
-        ${ats}
-        ${tot}
-        <div class="pick-chip pick-neutral">
-          <div class="pick-chip-label">Confidence</div>
-          <div class="pick-chip-val" style="color:${pred.winProbability>=75?"var(--primary)":pred.winProbability>=60?"var(--success)":"var(--gold)"}">${pred.winProbability}%</div>
-          <div style="height:3px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden">
-            <div style="width:${pred.winProbability}%;height:100%;background:var(--primary);border-radius:2px"></div>
-          </div>
-        </div>
-      </div>
-      <div class="game-card-footer">
-        <span>${game.venue}</span>
-        <span class="game-card-footer-link">View analysis →</span>
-      </div>
-    </a>`;
+  return '<a class="card card-link card-p" href="' + baseUrl + '?id=' + game.id + '">' +
+    '<div class="game-card-header">' +
+      '<div class="game-card-meta">' +
+        '<span>Wk ' + game.week + '</span>' +
+        '<span style="color:var(--border)">·</span>' +
+        '<span>' + fmtDate(game.date) + ' · ' + game.time + '</span>' +
+        (game.isConferenceGame ? '<span class="badge badge-conf">CONF</span>' : "") +
+      '</div>' +
+      '<span class="badge ' + confCls + '">' + confLbl + '</span>' +
+    '</div>' +
+    '<div class="game-card-matchup">' +
+      '<div class="team-chip">' +
+        '<div class="team-logo team-logo-md" style="background:' + game.awayTeam.color + '">' + game.awayTeam.abbreviation.slice(0,3) + '</div>' +
+        '<div>' +
+          '<div class="team-name">' + game.awayTeam.name + '</div>' +
+          '<div class="team-sub">' + game.awayTeam.mascot + ' · ' + (game.awayTeam.lastSeasonRecord || (game.awayTeam.wins + '-' + game.awayTeam.losses + " ('25)")) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="game-card-vs">' +
+        '<div class="game-card-vs-text">VS</div>' +
+        '<div class="game-card-vs-net">' + game.network + '</div>' +
+      '</div>' +
+      '<div class="team-chip team-chip-r">' +
+        '<div>' +
+          '<div class="team-name text-right">' + game.homeTeam.name + '</div>' +
+          '<div class="team-sub text-right">' + game.homeTeam.mascot + ' · ' + (game.homeTeam.lastSeasonRecord || (game.homeTeam.wins + '-' + game.homeTeam.losses + " ('25)")) + '</div>' +
+        '</div>' +
+        '<div class="team-logo team-logo-md" style="background:' + game.homeTeam.color + '">' + game.homeTeam.abbreviation.slice(0,3) + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="pred-row">' +
+      '<div class="pred-dot" style="background:' + winner.color + '"></div>' +
+      '<div class="pred-winner">' + winner.name + ' wins</div>' +
+      '<div class="pred-prob">' + pred.winProbability + '% chance</div>' +
+    '</div>' +
+    '<div class="prob-bar">' +
+      '<div class="prob-bar-labels"><span>' + game.awayTeam.abbreviation + '</span><span>' + game.homeTeam.abbreviation + '</span></div>' +
+      '<div class="prob-bar-track">' +
+        '<div style="width:' + awayPct + '%;background:' + game.awayTeam.color + '"></div>' +
+        '<div style="width:' + homePct + '%;background:' + game.homeTeam.color + '"></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="pick-chips">' +
+      ats + tot +
+      '<div class="pick-chip pick-neutral">' +
+        '<div class="pick-chip-label">Confidence</div>' +
+        '<div class="pick-chip-val" style="color:' + (pred.winProbability>=75?"var(--primary)":pred.winProbability>=60?"var(--success)":"var(--gold)") + '">' + pred.winProbability + '%</div>' +
+        '<div style="height:3px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden">' +
+          '<div style="width:' + pred.winProbability + '%;height:100%;background:var(--primary);border-radius:2px"></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="game-card-footer">' +
+      '<span>' + game.venue + '</span>' +
+      '<span class="game-card-footer-link">View analysis →</span>' +
+    '</div>' +
+  '</a>';
 }
 window.renderGameCard = renderGameCard;
 </script>
