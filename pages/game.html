@@ -2073,8 +2073,8 @@ if (!gameData) {
         </div>
         <div class="matchup-vs">
           <div class="matchup-vs-txt">VS</div>
-          <div class="matchup-vs-wk">Week ${game.week}</div>
-          ${game.bettingLines ? `<div class="text-xs text-muted mt-1">${fmtSpread(game.bettingLines.spread)} · O/U ${game.bettingLines.total}</div>` : ""}
+          <div class="matchup-vs-wk" style="white-space:nowrap">Wk ${game.week}</div>
+          ${game.bettingLines ? `<div class="text-xs text-muted mt-1" style="white-space:nowrap">${fmtSpread(game.bettingLines.spread)}</div><div class="text-xs text-muted" style="white-space:nowrap">O/U ${game.bettingLines.total}</div>` : ""}
         </div>
         <div class="team-chip team-chip-r">
           <div style="min-width:0;overflow:hidden">
