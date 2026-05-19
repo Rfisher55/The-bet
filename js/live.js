@@ -9,7 +9,7 @@ const LIVE = (() => {
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
   const SEASON    = 2026;
   const KEY_STORE   = "theBet_cfbdKey";
-  const CACHE_STORE = "theBet_liveCache_v9";   // v9 = situational records, vsRanked, nightGame, closeGame, O/U, standings, coachingProfile
+  const CACHE_STORE = "theBet_liveCache_v10";  // v10 = KEY_PLAYERS all FBS, programHealth w/ fanMorale/cohesion, lat cold weather
   const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
 
   // ── Explicit school-name → internal-ID mapping ──────────────
@@ -72,6 +72,33 @@ const LIVE = (() => {
     "UAB":"uab","Wake Forest":"wake_forest","Western Kentucky":"western_kentucky",
     "Western Michigan":"western_michigan","Wyoming":"wyoming",
     "Navy":"navy","Massachusetts":"umass","UMass":"umass",
+    // Explicit "State" mappings to prevent partial-string confusion (e.g. "Tennessee" ≠ "Tennessee State")
+    "Tennessee State":"tennessee_state","Florida State":"florida_state",
+    "Michigan State":"michigan_state","Ohio State":"ohio_state","Penn State":"penn_state",
+    "Kansas State":"kansas_state","Iowa State":"iowa_state","Oklahoma State":"oklahoma_state",
+    "Arizona State":"arizona_state","Colorado State":"colorado_state",
+    "Mississippi State":"mississippi_state","Utah State":"utah_state",
+    "San Diego State":"san_diego_state","San Jose State":"san_jose_state",
+    "Boise State":"boise_state","Montana State":"montana_state",
+    "Idaho State":"idaho_state","Weber State":"weber_state",
+    "Portland State":"portland_state","Sacramento State":"sacramento_state",
+    "Fresno State":"fresno_state","Kennesaw State":"kennesaw_state",
+    "Murray State":"murray_state","Murray":"murray_state",
+    "Ball State":"ball_state","Kent State":"kent_state",
+    "Georgia State":"georgia_state","Georgia Southern":"georgia_southern",
+    "Louisiana State":"lsu","LSU":"lsu",
+    "North Carolina State":"nc_state","NC State":"nc_state",
+    "Arkansas State":"arkansas_state","Alabama State":"alabama_state",
+    "Texas State":"texas_state","Texas Southern":"texas_southern",
+    "Bowling Green State":"bowling_green","Bowling Green":"bowling_green",
+    "South Carolina State":"south_carolina_state",
+    "Alcorn State":"alcorn_state","Grambling State":"grambling_state",
+    "Prairie View A&M":"prairie_view","Delaware State":"delaware_state",
+    "Indiana State":"indiana_state","Illinois State":"illinois_state",
+    "Western Illinois":"western_illinois","Eastern Illinois":"eastern_illinois",
+    "Northern Iowa":"northern_iowa","Southern Illinois":"southern_illinois",
+    "North Dakota State":"north_dakota_state","South Dakota State":"south_dakota_state",
+    "Jacksonville State":"jacksonville_state",
   };
 
   function schoolToId(school) {
@@ -90,7 +117,7 @@ const LIVE = (() => {
   let _relativeTimeInterval = null;
   let _rateLimitRetryTimer  = null;
 
-  const ENDPOINT_COUNT = 28; // 24 CFBD + 1 ESPN schedule + 1 ESPN news + 1 Reddit + 1 spare
+  const ENDPOINT_COUNT = 32; // 28 CFBD + 1 ESPN schedule + 1 ESPN news + 1 Reddit + 1 spare
 
   function getKey() { return localStorage.getItem(KEY_STORE) || window.CFBD_DEFAULT_KEY || null; }
   function setKey(k) { if (k) localStorage.setItem(KEY_STORE, k.trim()); else localStorage.removeItem(KEY_STORE); }
@@ -403,6 +430,11 @@ const LIVE = (() => {
         ["/rankings?year=2025&seasonType=regular",                           "rankings25"],
         // Conference standings
         ["/standings?year=2025",                                             "standings25"],
+        // Player stats — builds KEY_PLAYERS entries for all 130+ FBS teams
+        ["/stats/player/season?year=2025&classification=fbs&category=passing",   "playersPassing"],
+        ["/stats/player/season?year=2025&classification=fbs&category=rushing",   "playersRushing"],
+        ["/stats/player/season?year=2025&classification=fbs&category=receiving", "playersReceiving"],
+        ["/stats/player/season?year=2025&classification=fbs&category=defensive", "playersDefensive"],
       ];
 
       const cfbdResults = await Promise.allSettled(
@@ -462,8 +494,12 @@ const LIVE = (() => {
         returning:   cfbd.returning,
         draft25:     cfbd.draft25,
         draft26:     cfbd.draft26,
-        rankings25:  cfbd.rankings25,
-        standings25: cfbd.standings25,
+        rankings25:   cfbd.rankings25,
+        standings25:  cfbd.standings25,
+        playersPassing:   cfbd.playersPassing,
+        playersRushing:   cfbd.playersRushing,
+        playersReceiving: cfbd.playersReceiving,
+        playersDefensive: cfbd.playersDefensive,
         espnNews,
         redditPosts,
         fetchedAt:   new Date().toISOString(),
@@ -474,6 +510,8 @@ const LIVE = (() => {
                   `AdvStats:${payload.advStats.length} Records:${payload.records25.length} ` +
                   `Portal:${payload.portal.length} Returning:${payload.returning.length} ` +
                   `Draft:${payload.draft25.length + payload.draft26.length} ` +
+                  `Players: P:${(payload.playersPassing||[]).length} R:${(payload.playersRushing||[]).length} ` +
+                  `Rec:${(payload.playersReceiving||[]).length} D:${(payload.playersDefensive||[]).length} ` +
                   `News:${espnNews.length} Reddit:${redditPosts.length}`);
 
       saveCache(payload);
@@ -828,7 +866,9 @@ const LIVE = (() => {
       const text = (post.title + " " + (post.flair || "")).toLowerCase();
       teamNamesList.forEach(({ name, id }) => {
         if (!name || name.length < 4) return;
-        if (text.includes(name.toLowerCase())) {
+        // Use word-boundary regex to prevent "Tennessee" matching "Tennessee State" posts
+        const escaped = name.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        if (new RegExp("\\b" + escaped + "\\b").test(text)) {
           if (!redditByTeam[id]) redditByTeam[id] = [];
           redditByTeam[id].push(post);
         }
@@ -987,21 +1027,43 @@ const LIVE = (() => {
         const base = existing || { nilStrength: 50, transferPortalRating: 50, coachHotSeat: 3,
                                     programMomentum: "stable", fanMorale: 60,
                                     lockerRoomCohesion: 65, depthChartStability: 65 };
-        // Only overwrite fields not manually set (manualMomentum guard)
+
         if (portalRating !== null) base.transferPortalRating = portalRating;
+
+        // NIL strength: SP+ standing + recruiting prestige + draft pipeline
+        if (!base._manualNil) {
+          const spBoost    = Math.min(30, Math.max(-20, Math.round(spOverall * 1.3)));
+          const recBoost   = recruitRk ? Math.round((130 - Math.min(130, recruitRk)) / 130 * 15) : 0;
+          const draftBoost = draft ? Math.min(25, draft.total * 4 + draft.firstRound * 6) : 0;
+          const newNil     = Math.min(99, Math.max(20, Math.round(50 + spBoost + recBoost + draftBoost * 0.4)));
+          base.nilStrength = existing ? Math.min(99, Math.round((base.nilStrength || 50) * 0.5 + newNil * 0.5)) : newNil;
+        }
+
+        // Fan morale from real 2025 win/loss record
+        if (wl25 && !base._manualMorale) {
+          const gp = wl25.wins + wl25.losses;
+          const winPct = gp > 0 ? wl25.wins / gp : 0.5;
+          base.fanMorale = Math.min(95, Math.max(15, Math.round(30 + winPct * 65)));
+        }
+
+        // Locker room cohesion: portal balance (net stars in vs out) + returning production
+        if (!base._manualCohesion) {
+          const portalBalance  = ins.length - outs.length;
+          const cohPortal      = Math.min(15, Math.max(-20, Math.round(portalBalance * 1.5)));
+          const cohReturn      = retPct != null ? Math.round((retPct - 0.5) * 30) : 0;
+          base.lockerRoomCohesion = Math.min(95, Math.max(15, Math.round(65 + cohPortal + cohReturn)));
+        }
+
+        // Momentum from portal elite adds + returning pct
         if (!base._manualMomentum) {
           if      (eliteIns >= 3 || (retPct != null && retPct > 0.78)) base.programMomentum = "rising";
           else if (retPct != null && retPct < 0.38)                    base.programMomentum = "rebuilding";
           else if (retPct != null && retPct > 0.65)                    base.programMomentum = "stable";
         }
+
         if (retPct != null)
           base.depthChartStability = Math.min(95, Math.max(30, Math.round(45 + retPct * 55)));
-        // Draft picks → NIL appeal (more NFL talent = better NIL program)
-        if (draft && draft.total > 0) {
-          const draftBoost = Math.min(25, draft.total * 4 + draft.firstRound * 6);
-          if (!existing) base.nilStrength = Math.min(97, 50 + draftBoost);
-          else           base.nilStrength = Math.min(97, (base.nilStrength || 50) + Math.round(draftBoost * 0.4));
-        }
+
         return base;
       }
 
@@ -1072,8 +1134,15 @@ const LIVE = (() => {
           ex.coachingProfile.closeGameRecord = `${sit.closeGame.wins}-${sit.closeGame.losses} (games decided by ≤7)`;
         if (sit?.vsRanked.wins + (sit?.vsRanked.losses||0) > 1)
           ex.coachingProfile.bigSpotRecord = `${sit.vsRanked.wins}-${sit.vsRanked.losses} (vs ranked)`;
-        if (realStats._runPct != null && !ex.coachingProfile.tendencies?.runPassRatio)
-          (ex.coachingProfile.tendencies = ex.coachingProfile.tendencies || {}).runPassRatio = realStats._runPct;
+        if (realStats._runPct != null) {
+          const tend = ex.coachingProfile.tendencies || {};
+          if (!tend.runPassRatio)    tend.runPassRatio    = realStats._runPct;
+          if (!tend.offensiveScheme) tend.offensiveScheme = realStats._runPct > 55 ? "run-heavy" : realStats._runPct < 40 ? "pass-heavy" : "balanced";
+          if (!tend.tempoPreference && adv?.offense?.explosiveness != null)
+            tend.tempoPreference = adv.offense.explosiveness > 1.1 ? "uptempo" : adv.offense.explosiveness < 0.9 ? "deliberate" : "moderate";
+          if (!tend.aggressiveness)  tend.aggressiveness  = Math.round(Math.min(10, Math.max(1, 5 + spOverall * 0.15)));
+          ex.coachingProfile.tendencies = tend;
+        }
 
         // Conference standing
         const standing = standingsMap[t.school];
@@ -1120,7 +1189,16 @@ const LIVE = (() => {
         }
         if (sit.closeGame?.wins + (sit.closeGame?.losses||0) > 1) stubCoachingProfile.closeGameRecord = `${sit.closeGame.wins}-${sit.closeGame.losses} (games decided by ≤7)`;
         if (sit.vsRanked?.wins  + (sit.vsRanked?.losses||0)  > 1) stubCoachingProfile.bigSpotRecord   = `${sit.vsRanked.wins}-${sit.vsRanked.losses} (vs ranked)`;
-        if (realStats._runPct != null) stubCoachingProfile.tendencies = { runPassRatio: realStats._runPct };
+        if (realStats._runPct != null) {
+          stubCoachingProfile.tendencies = {
+            runPassRatio:    realStats._runPct,
+            offensiveScheme: realStats._runPct > 55 ? "run-heavy" : realStats._runPct < 40 ? "pass-heavy" : "balanced",
+            aggressiveness:  Math.round(Math.min(10, Math.max(1, 5 + spOverall * 0.15))),
+            ...(adv?.offense?.explosiveness != null ? {
+              tempoPreference: adv.offense.explosiveness > 1.1 ? "uptempo" : adv.offense.explosiveness < 0.9 ? "deliberate" : "moderate",
+            } : {}),
+          };
+        }
 
         TEAMS[id] = {
           id,
@@ -1154,7 +1232,10 @@ const LIVE = (() => {
             pointsFor: standing.points, pointsAgainst: standing.points_against,
           } : null,
           programHealth:   computeProgramHealth(null),
-          weatherProfile:  { isDome, coldWeatherAdvantage: 5 },
+          weatherProfile:  { isDome, coldWeatherAdvantage: (() => {
+            const lat = t.location?.latitude || 38;
+            return lat > 44 ? 9 : lat > 42 ? 7 : lat > 40 ? 5 : lat > 37 ? 3 : 2;
+          })() },
           schedule:        { daysSinceLastGame: 7, isComingOffBigWin: false, isComingOffBigLoss: false,
                              hasLookaheadGame: false, consecutiveRoadGames: 0, travelBurdenRating: 4 },
           coachingProfile: stubCoachingProfile,
@@ -1163,7 +1244,213 @@ const LIVE = (() => {
       }
     });
 
-    // ── 2. Inject all games ──────────────────────────────────
+    // ── 2. Build KEY_PLAYERS for all FBS teams without curated entries ──
+    if (typeof KEY_PLAYERS !== "undefined" && Array.isArray(KEY_PLAYERS)) {
+      // Set of teamIds that already have hand-curated player entries
+      const curatedTeamIds = new Set(KEY_PLAYERS.map(p => p.teamId));
+
+      // Pivot flat player-stat rows → playersByTeam[teamName][playerName][statType]
+      function pivotStatRows(rows, dest) {
+        (rows || []).forEach(row => {
+          if (!row.team || !row.player) return;
+          if (!dest[row.team]) dest[row.team] = {};
+          if (!dest[row.team][row.player]) dest[row.team][row.player] = {};
+          if (row.statType !== undefined) dest[row.team][row.player][row.statType] = row.stat;
+        });
+      }
+      const passingPlayers  = {};
+      const rushingPlayers  = {};
+      const receivingPlayers = {};
+      const defensivePlayers = {};
+      pivotStatRows(data.playersPassing,   passingPlayers);
+      pivotStatRows(data.playersRushing,   rushingPlayers);
+      pivotStatRows(data.playersReceiving, receivingPlayers);
+      pivotStatRows(data.playersDefensive, defensivePlayers);
+
+      // Return top N players from a team's stat map, sorted descending by statKey
+      function topN(teamMap, teamName, statKey, n) {
+        return Object.entries(teamMap[teamName] || {})
+          .filter(([, s]) => (s[statKey] || 0) > 0)
+          .sort((a, b) => (b[1][statKey] || 0) - (a[1][statKey] || 0))
+          .slice(0, n)
+          .map(([name, stats]) => ({ name, stats }));
+      }
+
+      // Derive performance metrics from team's real situational data
+      function deriveMetrics(teamId, position) {
+        const sit = situationalRecords[teamId] || {};
+        const agg = atsMap[teamId] || null;
+        function pct(r) { const t = r.wins + r.losses; return t > 0 ? r.wins / t : 0.5; }
+        const basePct  = agg ? (agg.pct || 0.5) : 0.5;
+        const clutch   = Math.round(60 + pct(sit.closeGame   || { wins: 0, losses: 0 }) * 35);
+        const bigGame  = Math.round(55 + pct(sit.vsRanked    || { wins: 0, losses: 0 }) * 40);
+        const road     = Math.round(58 + pct(sit.road        || { wins: 0, losses: 0 }) * 36);
+        const prime    = Math.round(58 + pct(sit.nightGame   || { wins: 0, losses: 0 }) * 36);
+        const consist  = Math.round(60 + basePct * 35);
+        const pressure = Math.round((clutch + bigGame + road) / 3);
+        // Position-specific explosive-play boost
+        const expBoost = { QB: 4, RB: 7, WR: 13, TE: 2, EDGE: 0, DL: 0, LB: 0, CB: 2, S: 1 };
+        return {
+          clutchRating:        Math.min(95, Math.max(50, clutch)),
+          bigGameRating:       Math.min(95, Math.max(45, bigGame)),
+          coldWeatherRating:   Math.min(90, Math.max(50, 65)),
+          roadGameRating:      Math.min(95, Math.max(48, road)),
+          primeTimeRating:     Math.min(95, Math.max(48, prime)),
+          consistencyRating:   Math.min(95, Math.max(52, consist)),
+          pressureRating:      Math.min(95, Math.max(48, pressure)),
+          explosivePlayRating: Math.min(95, Math.max(50, 66 + (expBoost[position] || 0))),
+        };
+      }
+
+      // Generate a brief scout report from real stats
+      function scoutReport(name, pos, teamName, stats) {
+        const fn = name.split(" ")[0];
+        if (pos === "QB") {
+          const yds = stats.YDS || 0, tds = stats.TD || 0, ints = stats.INT || 0;
+          const att = stats.ATT || 1, comp = stats.COMPLETIONS || 0;
+          const cmpPct = att > 0 ? Math.round(comp / att * 100) : 0;
+          return `${fn} posted ${yds.toLocaleString()} passing yards, ${tds} TDs and ${ints} INTs on ${cmpPct}% completion in 2025. Operating as ${teamName}'s primary signal-caller, his ability to make pre-snap adjustments and extend plays under pressure will be critical to the offense's efficiency.`;
+        }
+        if (pos === "RB") {
+          const yds = stats.YDS || 0, tds = stats.TD || 0, car = stats.CAR || 1;
+          const ypc = (yds / car).toFixed(1);
+          return `${fn} rushed for ${yds.toLocaleString()} yards at ${ypc} YPC with ${tds} TDs in 2025. A physical presence who gives ${teamName} a reliable ground game and consistent short-yardage option.`;
+        }
+        if (pos === "WR") {
+          const yds = stats.YDS || 0, tds = stats.TD || 0, rec = stats.REC || 0;
+          const ypr = rec > 0 ? (yds / rec).toFixed(1) : "0.0";
+          return `${fn} hauled in ${rec} catches for ${yds} yards (${ypr} per target) and ${tds} TDs in 2025. A reliable option who creates separation at the stem of his routes and gives the QB a consistent outlet downfield.`;
+        }
+        if (pos === "EDGE" || pos === "DL") {
+          const sacks = stats.SACKS || 0, tfl = stats.TFL || 0;
+          return `${fn} generated consistent pressure for ${teamName}'s defense in 2025 (${sacks} sacks, ${tfl} TFL). His pass-rush ability disrupts offensive rhythm and forces opposing QBs into uncomfortable, early decisions.`;
+        }
+        return `${fn} is a key defensive contributor for ${teamName}, bringing consistent effort and positional discipline in 2025.`;
+      }
+
+      // Loop every FBS team and inject KEY_PLAYERS for those without curated data
+      (data.fbsTeams || []).forEach(t => {
+        if (!t.school) return;
+        const id = schoolToId(t.school);
+        if (curatedTeamIds.has(id)) return;   // already curated — skip
+
+        const teamId  = id;
+        let pIdx = 0;
+        const mkId = pos => `p_live_${id.slice(0, 6)}_${++pIdx}`;
+
+        // QB — top passer by yards
+        topN(passingPlayers, t.school, "YDS", 1).forEach(({ name, stats }) => {
+          const yds = stats.YDS || 0, tds = stats.TD || 0, ints = stats.INT || 0;
+          const att = stats.ATT || 1, comp = stats.COMPLETIONS || 0;
+          KEY_PLAYERS.push({
+            id: mkId("QB"), name, position: "QB", teamId, year: "", number: "",
+            heightWeight: "", hometown: "",
+            injuryStatus: "healthy", practiceStatus: "full", injuryType: null,
+            injuryHistory: [], injuryProneRating: 3, impact: "high",
+            personalFlags: {
+              distractionLevel: 3,
+              distractionNote: `${name} is ${t.school}'s starting QB heading into 2026, coming off a 2025 season in which he threw for ${yds} yards and ${tds} TDs. Returns as the face of the offense.`,
+              socialMediaPattern: "normal",
+              nflDraftStatus: yds > 2500 ? "projected round 3-5" : "undrafted",
+              agentContact: yds > 3200,
+              nilSatisfaction: "medium",
+              transferPortalRisk: "low",
+            },
+            performanceMetrics: deriveMetrics(teamId, "QB"),
+            stats: {
+              gamesPlayed: 0, passingYards: yds, passingTDs: tds, interceptions: ints,
+              completionPct: att > 0 ? +((comp / att * 100).toFixed(1)) : 0, qbr: 0,
+            },
+            scoutReport: scoutReport(name, "QB", t.school, stats),
+          });
+        });
+
+        // RB — top rusher by yards
+        topN(rushingPlayers, t.school, "YDS", 1).forEach(({ name, stats }) => {
+          const yds = stats.YDS || 0, tds = stats.TD || 0, car = stats.CAR || 1;
+          KEY_PLAYERS.push({
+            id: mkId("RB"), name, position: "RB", teamId, year: "", number: "",
+            heightWeight: "", hometown: "",
+            injuryStatus: "healthy", practiceStatus: "full", injuryType: null,
+            injuryHistory: [], injuryProneRating: 3, impact: yds > 800 ? "high" : "medium",
+            personalFlags: {
+              distractionLevel: 2,
+              distractionNote: `${name} returns as ${t.school}'s lead back after rushing for ${yds} yards and ${tds} TDs in 2025.`,
+              socialMediaPattern: "normal",
+              nflDraftStatus: yds > 1000 ? "projected round 4-6" : "undrafted",
+              agentContact: yds > 1200,
+              nilSatisfaction: "medium",
+              transferPortalRisk: "low",
+            },
+            performanceMetrics: deriveMetrics(teamId, "RB"),
+            stats: {
+              gamesPlayed: 0, rushingYards: yds, rushingTDs: tds,
+              yardsPerCarry: car > 0 ? +(yds / car).toFixed(1) : 0,
+              receivingYards: 0, receivingTDs: 0, receptions: 0,
+            },
+            scoutReport: scoutReport(name, "RB", t.school, stats),
+          });
+        });
+
+        // WR — top 2 receivers by yards
+        topN(receivingPlayers, t.school, "YDS", 2).forEach(({ name, stats }) => {
+          const yds = stats.YDS || 0, tds = stats.TD || 0, rec = stats.REC || 0;
+          KEY_PLAYERS.push({
+            id: mkId("WR"), name, position: "WR", teamId, year: "", number: "",
+            heightWeight: "", hometown: "",
+            injuryStatus: "healthy", practiceStatus: "full", injuryType: null,
+            injuryHistory: [], injuryProneRating: 2, impact: yds > 600 ? "high" : "medium",
+            personalFlags: {
+              distractionLevel: 2,
+              distractionNote: `${name} provides a key receiving option for ${t.school}'s passing game, recording ${rec} catches for ${yds} yards in 2025.`,
+              socialMediaPattern: "normal",
+              nflDraftStatus: yds > 900 ? "projected round 4-7" : "undrafted",
+              agentContact: yds > 1100,
+              nilSatisfaction: "medium",
+              transferPortalRisk: "low",
+            },
+            performanceMetrics: deriveMetrics(teamId, "WR"),
+            stats: {
+              gamesPlayed: 0, receivingYards: yds, receivingTDs: tds, receptions: rec,
+              yardsPerReception: rec > 0 ? +(yds / rec).toFixed(1) : 0,
+            },
+            scoutReport: scoutReport(name, "WR", t.school, stats),
+          });
+        });
+
+        // Defender — top pass rusher by sacks; fall back to TFL if no sacks data
+        const defPlayers = topN(defensivePlayers, t.school, "SACKS", 1);
+        const tflPlayers = defPlayers.length === 0 ? topN(defensivePlayers, t.school, "TFL", 1) : defPlayers;
+        tflPlayers.forEach(({ name, stats }) => {
+          const sacks = stats.SACKS || 0, tfl = stats.TFL || 0;
+          KEY_PLAYERS.push({
+            id: mkId("EDGE"), name, position: "EDGE", teamId, year: "", number: "",
+            heightWeight: "", hometown: "",
+            injuryStatus: "healthy", practiceStatus: "full", injuryType: null,
+            injuryHistory: [], injuryProneRating: 3, impact: sacks > 6 ? "high" : "medium",
+            personalFlags: {
+              distractionLevel: 2,
+              distractionNote: `${name} leads ${t.school}'s pass rush, providing consistent pressure from the edge. Recorded ${sacks} sacks and ${tfl} TFL in 2025.`,
+              socialMediaPattern: "normal",
+              nflDraftStatus: sacks > 8 ? "projected round 3-5" : "undrafted",
+              agentContact: sacks > 10,
+              nilSatisfaction: "medium",
+              transferPortalRisk: "low",
+            },
+            performanceMetrics: deriveMetrics(teamId, "EDGE"),
+            stats: {
+              gamesPlayed: 0, sacks, tacklesForLoss: tfl, qbHurries: 0,
+              forcedFumbles: 0, passDeflections: 0,
+            },
+            scoutReport: scoutReport(name, "EDGE", t.school, stats),
+          });
+        });
+      });
+
+      console.log(`[LIVE] KEY_PLAYERS: ${KEY_PLAYERS.length} total entries (${KEY_PLAYERS.filter(p => !curatedTeamIds.has(p.teamId)).length} live-generated)`);
+    }
+
+    // ── 3. Inject all games ──────────────────────────────────
     if (!window.GAMES) return;
 
     const existingIds     = new Set(GAMES.map(g => g.id));
