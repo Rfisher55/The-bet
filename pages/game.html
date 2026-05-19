@@ -422,24 +422,16 @@ if (!gameData) {
     const pickUnit = gp.thePick && gp.thePick.unit ? gp.thePick.unit : 1;
     const pickReason = gp.thePick && gp.thePick.reasoning ? gp.thePick.reasoning : "";
     const confColor = { HIGH: "var(--primary)", MEDIUM: "var(--gold)", LOW: "var(--muted)" }[pickConf] || "var(--muted)";
-    const sectionIcons = {
-      "OFFENSIVE EDGE": "⚔️",
-      "DEFENSIVE BATTLEGROUND": "🛡️",
-      "KEY X-FACTOR": "⚡",
-      "COACHING EDGE": "🧠",
-      "THE PICK": "🎯",
-    };
     const analysisHTML = (gp.analysis || []).map(a => `
       <div style="margin-bottom:18px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
-          <span style="font-size:1rem">${sectionIcons[a.section] || "📋"}</span>
           <span style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l)">${a.section}</span>
         </div>
         <p style="font-size:.875rem;color:var(--text-soft);line-height:1.75;margin:0">${a.text}</p>
       </div>`).join("");
     return `
       <div class="card card-p mb-5" style="border-color:rgba(16,185,129,.25);background:linear-gradient(135deg,rgba(16,185,129,.04) 0%,var(--card) 60%)">
-        <div class="section-label mb-4">📰 Game Analysis &amp; Preview</div>
+        <div class="section-label mb-4">Game Analysis &amp; Preview</div>
         <h2 style="font-size:1.2rem;font-weight:900;color:var(--text);letter-spacing:.5px;margin-bottom:10px;line-height:1.35">${gp.headline || ""}</h2>
         <p style="font-size:.9rem;color:var(--text-soft);line-height:1.8;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)">${gp.synopsis || ""}</p>
         ${analysisHTML}
@@ -576,7 +568,7 @@ if (!gameData) {
     if (!hp.length && !ap.length) return "";
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">👥 Full Roster Intelligence <span style="font-size:.65rem;color:var(--muted);font-weight:400">· tap any player to expand</span></div>
+        <div class="section-label">Full Roster Intelligence <span style="font-size:.65rem;color:var(--muted);font-weight:400">· tap any player to expand</span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
           <div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
@@ -655,7 +647,7 @@ if (!gameData) {
     ];
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">⚔️ Position Group Matchup Analysis</div>
+        <div class="section-label">Position Group Matchup Analysis</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px">
           ${matchups.map(m => {
             const winner = m.score >= 0 ? home : away;
@@ -699,7 +691,7 @@ if (!gameData) {
 
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">📡 Social Intelligence Hub</div>
+        <div class="section-label">Social Intelligence Hub</div>
 
         <!-- Beat Writer Reports -->
         <div style="margin-bottom:22px">
@@ -870,7 +862,7 @@ if (!gameData) {
           </div>
           ${smSig && smSig.side ? `
             <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)">
-              <div style="font-size:.65rem;font-weight:700;color:var(--primary);margin-bottom:3px">💰 SHARP MONEY INDICATOR</div>
+              <div style="font-size:.65rem;font-weight:700;color:var(--primary);margin-bottom:3px">SHARP MONEY INDICATOR</div>
               <div style="font-size:.8rem;color:var(--text-soft)">Professionals are on <strong style="color:${smSig.side === "home" ? home.color : away.color}">${smSig.side === "home" ? home.name : away.name}</strong>${smSig.note ? " — " + smSig.note : "."}</div>
             </div>` : ""}
         </div>` : ""}
@@ -883,7 +875,7 @@ if (!gameData) {
     if (!xf || !xf.length) return "";
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">⚡ X-Factor Alerts</div>
+        <div class="section-label">X-Factor Alerts</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px">
           ${xf.map(x => `
             <div class="card ${severityClass(x.severity)}" style="padding:14px">
@@ -1033,7 +1025,7 @@ if (!gameData) {
     const lm = game.lineMovement || null;
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">💰 Sharp Money Report</div>
+        <div class="section-label">Sharp Money Report</div>
         ${sm ? `
           <div style="padding:14px;border-radius:var(--radius);background:${sm.side === "home" ? `${home.color}15` : `${away.color}15`};border:1px solid ${sm.side === "home" ? `${home.color}40` : `${away.color}40`};margin-bottom:14px">
             <div class="flex items-center gap-3 mb-2">
@@ -1063,7 +1055,7 @@ if (!gameData) {
             ${lm.open !== undefined && lm.current !== undefined && lm.open !== lm.current ? `
               <div style="height:6px;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--primary));width:${Math.min(100, Math.abs(lm.current - lm.open) * 20)}%;margin-left:${lm.current > lm.open ? "auto" : "0"}"></div>` : ""}
           </div>
-          ${lm.steamMove ? `<div style="margin-top:6px;padding:7px 10px;border-radius:6px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);font-size:.75rem;font-weight:700;color:#f87171">⚡ STEAM MOVE DETECTED — Rapid line shift</div>` : ""}
+          ${lm.steamMove ? `<div style="margin-top:6px;padding:7px 10px;border-radius:6px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);font-size:.75rem;font-weight:700;color:#f87171">STEAM MOVE DETECTED — Rapid line shift</div>` : ""}
           ${lm.history && lm.history.length ? `
             <div style="margin-top:10px">
               ${lm.history.map(h => `<div class="flex justify-between text-xs text-muted mb-1"><span>${h.time || ""}</span><span style="color:var(--text-soft)">${h.line !== undefined ? fmtSpread(h.line) : ""}</span></div>`).join("")}
@@ -1128,7 +1120,7 @@ if (!gameData) {
 
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">🌤️ Weather Intel</div>
+        <div class="section-label">Weather Intel</div>
         ${wx ? `
           <div style="display:grid;grid-template-columns:repeat(${indoors?1:3},1fr);gap:8px;margin-bottom:12px">
             ${indoors ? `
@@ -1205,7 +1197,7 @@ if (!gameData) {
 
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">🎯 Situational Analysis</div>
+        <div class="section-label">Situational Analysis</div>
 
         <!-- Trap game meter -->
         <div style="margin-bottom:14px">
@@ -1403,7 +1395,7 @@ if (!gameData) {
 
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">🎯 Player Intelligence <span style="font-size:.65rem;color:var(--muted);font-weight:400">(2025 stats · 2026 roster)</span></div>
+        <div class="section-label">Player Intelligence <span style="font-size:.65rem;color:var(--muted);font-weight:400">(2025 stats · 2026 roster)</span></div>
         <div class="player-exp-grid">
           ${allPlayers.map(p => playerCard(p)).join("")}
         </div>
@@ -1549,7 +1541,7 @@ if (!gameData) {
           <div style="font-size:.78rem;color:var(--muted);display:grid;gap:5px">
             <div class="flex justify-between"><span>Overall Record</span><span style="color:var(--text)">${team.coachRecord}</span></div>
             <div class="flex justify-between"><span>Recruiting</span><span style="color:var(--primary)">#${team.recruitingRank} nationally</span></div>
-            ${hotSeat >= 4 ? `<div style="margin-top:4px;padding:6px 8px;border-radius:6px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#f87171;font-size:.72rem;font-weight:700">🔥 HOT SEAT — Job security pressure affects game-day decisions</div>` : ""}
+            ${hotSeat >= 4 ? `<div style="margin-top:4px;padding:6px 8px;border-radius:6px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#f87171;font-size:.72rem;font-weight:700">HOT SEAT — Job security pressure affects game-day decisions</div>` : ""}
           </div>
           <details class="coach-details" style="margin-top:6px">
             <summary><span class="coach-chevron">▸</span> Model Record &amp; Tendencies</summary>
@@ -1590,7 +1582,7 @@ if (!gameData) {
 
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">🧠 Coaching Tendencies</div>
+        <div class="section-label">Coaching Tendencies</div>
         ${ce && ce.winner !== "neutral" ? `
           <div style="padding:8px 12px;border-radius:var(--radius);background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);margin-bottom:12px;font-size:.78rem">
             <span class="text-muted">Coaching Edge: </span>
@@ -1667,7 +1659,7 @@ if (!gameData) {
 
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">🏛️ Program Health Dashboard</div>
+        <div class="section-label">Program Health Dashboard</div>
         ${phCard(home, hph)}
         ${phCard(away, aph)}
       </div>`;
@@ -1798,7 +1790,7 @@ if (!gameData) {
 
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">⚡ 7-Signal Model Breakdown</div>
+        <div class="section-label">7-Signal Model Breakdown</div>
         <div style="font-size:.72rem;color:var(--muted-l);margin-bottom:14px;line-height:1.55">
           Each signal is weighted and combined to produce the final spread prediction. Edge shown is points favoring ${home.abbreviation} (positive) or ${away.abbreviation} (negative).
         </div>
@@ -1951,6 +1943,7 @@ if (!gameData) {
   }
 }
 </script>
+<script src="../js/config.js"></script>
 <script src="../js/live.js"></script>
 </body>
 </html>

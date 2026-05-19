@@ -489,7 +489,14 @@ function clearSearch() {
 // Initial render
 renderBestPick(activeWeek > 0 ? activeWeek : 1);
 render();
+
+// Re-render when live data arrives
+window.addEventListener("liveDataReady", function() {
+  renderBestPick(activeWeek > 0 ? activeWeek : 1);
+  render();
+});
 </script>
+<script src="../js/config.js"></script>
 <script src="../js/live.js"></script>
 </body>
 </html>

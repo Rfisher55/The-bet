@@ -242,7 +242,7 @@ try {
   const picks = allPredictions
     .filter(p => p.prediction.spreadPick.side !== "no-bet" && p.prediction.spreadPick.confidence >= 65)
     .slice(0, 3);
-  const icons = ["🏆","🎯","⚡"];
+  const icons = ["1","2","3"];
   const labels = ["#1 Pick of the Week","#2 Pick of the Week","#3 Pick of the Week"];
   document.getElementById("top-picks").innerHTML = picks.map((p, i) => {
     const { game, prediction: pred } = p;
@@ -380,6 +380,7 @@ function renderGameCard(game, pred, baseUrl) {
 }
 window.renderGameCard = renderGameCard;
 </script>
+<script src="js/config.js"></script>
 <script src="js/live.js"></script>
 </body>
 </html>
