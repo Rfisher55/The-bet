@@ -1719,7 +1719,124 @@ const KEY_PLAYERS = [
     personalFlags:{ distractionLevel:2, distractionNote:"Texas native who chose Miami specifically for Mario Cristobal's connections to the NFL TE development pipeline. Professional mindset, always prepared. His pre-practice routine involves 20 minutes of individual route running before any team period.", socialMediaPattern:"quiet", nflDraftStatus:"projected round 2-3", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
     performanceMetrics:{ clutchRating:82, bigGameRating:80, coldWeatherRating:76, roadGameRating:78, primeTimeRating:81, consistencyRating:84, pressureRating:80, explosivePlayRating:78 },
     stats:{ gamesPlayed:12, receivingYards:548, receivingTDs:6, receptions:44, yardsPerReception:12.5 },
-    scoutReport:"Versatile blocker-receiver who gives Williams a reliable checkdown. Penn State's Carter will spy Arroyo on crossing routes — the key test is whether Arroyo can get vertical against Carter's speed. In the red zone, his size creates a matchup problem against any coverage." }
+    scoutReport:"Versatile blocker-receiver who gives Williams a reliable checkdown. Penn State's Carter will spy Arroyo on crossing routes — the key test is whether Arroyo can get vertical against Carter's speed. In the red zone, his size creates a matchup problem against any coverage." },
+
+  /* ── AUBURN ── */
+  { id:"p_aub_01", name:"Hank Brown", position:"QB", teamId:"auburn", year:"JR", number:"16", heightWeight:"6'3\" / 215", hometown:"Nashville, TN",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:3, impact:"high",
+    personalFlags:{ distractionLevel:5, distractionNote:"Transfer from Memphis who won the Auburn QB battle in fall camp. Carries the weight of a high-pressure starting role in the SEC for the first time. Hugh Freeze believes in his arm talent but the interior reads against elite defenses remain untested.", socialMediaPattern:"normal", nflDraftStatus:"undrafted", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"low" },
+    performanceMetrics:{ clutchRating:71, bigGameRating:68, coldWeatherRating:70, roadGameRating:69, primeTimeRating:74, consistencyRating:72, pressureRating:71, explosivePlayRating:76 },
+    stats:{ gamesPlayed:0, passingYards:0, passingTDs:0, interceptions:0, completionPct:0, qbr:0, note:"New starter — limited college sample from Memphis" },
+    scoutReport:"Athletic dual-threat with enough arm talent to surprise defenses early in the season. Against elite SEC competition the reads become his limitation. Freeze's spread concepts should create easy completions if Brown protects the ball." },
+
+  { id:"p_aub_02", name:"Jeremiah Cobb", position:"RB", teamId:"auburn", year:"SR", number:"3", heightWeight:"5'11\" / 216", hometown:"Opelika, AL",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[{type:"ankle",year:2024,gamesAffected:3,chronic:false}], injuryProneRating:3, impact:"high",
+    personalFlags:{ distractionLevel:2, distractionNote:"Local kid who grew up in Auburn's shadow. Fifth-year back who is the heartbeat of Auburn's offense. Fully healthy after ankle procedure. The face of the program's blue-collar identity.", socialMediaPattern:"normal", nflDraftStatus:"projected round 5-6", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:78, bigGameRating:74, coldWeatherRating:74, roadGameRating:72, primeTimeRating:76, consistencyRating:76, pressureRating:80, explosivePlayRating:80 },
+    stats:{ gamesPlayed:9, rushingYards:742, rushingTDs:7, yardsPerCarry:5.1, receivingYards:98, receivingTDs:1, receptions:12 },
+    scoutReport:"Physical SEC back who hits the hole hard and falls forward. The ankle is fully healed per training staff. Auburn's best chance to stay competitive in games against ranked opponents runs directly through Cobb's ability to establish the run." },
+
+  { id:"p_aub_03", name:"DeWayne Carter", position:"EDGE", teamId:"auburn", year:"SR", number:"30", heightWeight:"6'3\" / 248", hometown:"Atlanta, GA",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:2, impact:"high",
+    personalFlags:{ distractionLevel:2, distractionNote:"The engine of Auburn's pass rush. Built his NFL stock in 2025 and returned specifically for a senior bowl showcase. His motivation is entirely self-driven at this point.", socialMediaPattern:"normal", nflDraftStatus:"projected round 3-4", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:80, bigGameRating:78, coldWeatherRating:76, roadGameRating:76, primeTimeRating:80, consistencyRating:78, pressureRating:83, explosivePlayRating:80 },
+    stats:{ gamesPlayed:12, sacks:8.5, tacklesForLoss:14, qbHurries:26, forcedFumbles:2 },
+    scoutReport:"Pure pass rusher with elite first-step quickness. In opponent game-planning sessions, Carter is always Priority #1. His bend around the edge on a well-set tackle is the play Auburn lives and dies by in big games." },
+
+  { id:"p_aub_04", name:"Caleb Downs", position:"S", teamId:"auburn", year:"JR", number:"2", heightWeight:"6'0\" / 195", hometown:"Hoschton, GA",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:1, impact:"high",
+    personalFlags:{ distractionLevel:3, distractionNote:"Former Alabama/Ohio State transfer who has found his home in Auburn. His versatility in the secondary makes him the defense's quarterback — calls out every formation and shifts coverage pre-snap.", socialMediaPattern:"quiet", nflDraftStatus:"projected round 2", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:82, bigGameRating:80, coldWeatherRating:78, roadGameRating:79, primeTimeRating:83, consistencyRating:84, pressureRating:85, explosivePlayRating:78 },
+    stats:{ gamesPlayed:12, tackles:94, interceptions:4, passDeflections:8, forcedFumbles:2, tacklesForLoss:5 },
+    scoutReport:"One of the most instinctive safeties in the SEC. Downs reads routes as quickly as any defender in the conference. His transfer journey gives him a chip and the experience of multiple elite systems. Alabama's OC will test him with motion pre-snap all game." },
+
+  /* ── FLORIDA ── */
+  { id:"p_fla_01", name:"DJ Lagway", position:"QB", teamId:"florida", year:"SO", number:"2", heightWeight:"6'2\" / 225", hometown:"Willis, TX",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[{type:"shoulder",year:2024,gamesAffected:4,chronic:false}], injuryProneRating:4, impact:"high",
+    personalFlags:{ distractionLevel:6, distractionNote:"The most hyped recruit Florida has signed in a decade. After a promising freshman debut ended early with a shoulder injury, he enters 2026 with something to prove. His shoulder is declared fully healthy but the organization has been cautious in fall camp — he hasn't taken full contact reps until this week.", socialMediaPattern:"quiet", nflDraftStatus:"not eligible", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:73, bigGameRating:71, coldWeatherRating:68, roadGameRating:70, primeTimeRating:78, consistencyRating:71, pressureRating:73, explosivePlayRating:82 },
+    stats:{ gamesPlayed:7, passingYards:1298, passingTDs:11, interceptions:5, completionPct:62.3, qbr:81.4, rushingYards:142, rushingTDs:2 },
+    scoutReport:"Physical specimen with a massive arm and natural improvisational ability. The shoulder is the only genuine question mark — he showed everything the recruitment promised before the injury. Against Georgia's elite defense, his decision-making under pressure will be the game-deciding variable." },
+
+  { id:"p_fla_02", name:"Montrell Johnson Jr.", position:"RB", teamId:"florida", year:"SR", number:"4", heightWeight:"5'11\" / 218", hometown:"Zachary, LA",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:2, impact:"high",
+    personalFlags:{ distractionLevel:2, distractionNote:"Transfer from LSU who arrives with SEC experience and a point to prove against his former conference foes. Physical, dependable, and a natural leader in the backfield.", socialMediaPattern:"normal", nflDraftStatus:"projected round 4-5", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:77, bigGameRating:75, coldWeatherRating:74, roadGameRating:73, primeTimeRating:76, consistencyRating:78, pressureRating:80, explosivePlayRating:78 },
+    stats:{ gamesPlayed:11, rushingYards:681, rushingTDs:8, yardsPerCarry:5.4, receivingYards:112, receivingTDs:1, receptions:14 },
+    scoutReport:"Physical north-south runner with SEC experience from LSU. His tenacity in short-yardage situations gives Florida's offense a reliable identity. Against Georgia's front seven he'll need to create yards after initial contact — that's his calling card." },
+
+  { id:"p_fla_03", name:"Aidan Mizell", position:"WR", teamId:"florida", year:"SR", number:"6", heightWeight:"6'1\" / 191", hometown:"Orlando, FL",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:1, impact:"medium",
+    personalFlags:{ distractionLevel:3, distractionNote:"Florida's most reliable receiver who has been consistent but never spectacular. His rapport with Lagway is the strongest on the team. A senior leader who the younger receivers look to.", socialMediaPattern:"normal", nflDraftStatus:"undrafted", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:74, bigGameRating:72, coldWeatherRating:70, roadGameRating:72, primeTimeRating:75, consistencyRating:76, pressureRating:75, explosivePlayRating:78 },
+    stats:{ gamesPlayed:12, receivingYards:612, receivingTDs:5, receptions:48, yardsPerReception:12.75 },
+    scoutReport:"The steady hand in Florida's offense. Not a home-run threat but wins his matchups consistently on comeback routes and crossing patterns. Against Georgia's coverage scheme he'll need to beat zone leverage — his route tree is complete enough to do it." },
+
+  { id:"p_fla_04", name:"Shemar James", position:"LB", teamId:"florida", year:"JR", number:"6", heightWeight:"6'2\" / 230", hometown:"Phenix City, AL",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:1, impact:"high",
+    personalFlags:{ distractionLevel:1, distractionNote:"The best player on Florida's roster, full stop. James is an ascending star with legitimate All-American upside. His instincts against the run and his athleticism in coverage are rare for an SEC linebacker.", socialMediaPattern:"quiet", nflDraftStatus:"projected round 1-2", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:82, bigGameRating:80, coldWeatherRating:78, roadGameRating:79, primeTimeRating:84, consistencyRating:83, pressureRating:85, explosivePlayRating:78 },
+    stats:{ gamesPlayed:12, tackles:108, interceptions:2, passDeflections:7, sacks:4.5, tacklesForLoss:12 },
+    scoutReport:"The most complete linebacker in the SEC not playing for Alabama. His read-and-react speed against the run shuts down the inside zone. In coverage he can match with H-backs and slot receivers — Georgia's offense will try to exploit his alignments with motion, but his processing speed rarely allows it." },
+
+  /* ── FLORIDA STATE ── */
+  { id:"p_fsu_01", name:"Brock Glenn", position:"QB", teamId:"florida_state", year:"SR", number:"11", heightWeight:"6'3\" / 215", hometown:"Memphis, TN",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:2, impact:"high",
+    personalFlags:{ distractionLevel:5, distractionNote:"Transfer from Notre Dame who arrives at FSU as the anchor of Norvell's offensive rebuild. His Notre Dame experience gives him big-game DNA but the new system requires adjustments in fall camp that sources say are ahead of schedule.", socialMediaPattern:"normal", nflDraftStatus:"projected round 3-4", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"low" },
+    performanceMetrics:{ clutchRating:75, bigGameRating:73, coldWeatherRating:72, roadGameRating:73, primeTimeRating:77, consistencyRating:74, pressureRating:76, explosivePlayRating:79 },
+    stats:{ gamesPlayed:8, passingYards:1672, passingTDs:14, interceptions:4, completionPct:66.2, qbr:83.1, rushingYards:98, rushingTDs:1 },
+    scoutReport:"Accurate pocket passer with the experience from Notre Dame's system to handle pressure moments. His understanding of route concept combinations is advanced. In Tallahassee's home atmosphere he'll benefit from crowd energy — road games remain his challenge." },
+
+  { id:"p_fsu_02", name:"Ja'Khi Douglas", position:"WR", teamId:"florida_state", year:"SR", number:"9", heightWeight:"5'10\" / 182", hometown:"Tampa, FL",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:1, impact:"high",
+    personalFlags:{ distractionLevel:3, distractionNote:"The electric slot receiver who makes FSU's offense go. His after-catch ability in open space is elite — opposing defenses know exactly where he'll line up and still can't stop him consistently.", socialMediaPattern:"normal", nflDraftStatus:"projected round 3-4", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:80, bigGameRating:78, coldWeatherRating:70, roadGameRating:76, primeTimeRating:81, consistencyRating:78, pressureRating:79, explosivePlayRating:88 },
+    stats:{ gamesPlayed:12, receivingYards:782, receivingTDs:7, receptions:62, yardsPerReception:12.6, yardsAfterCatch:348 },
+    scoutReport:"Yards-after-catch machine who turns short passes into 20-yard gains. Defenses bracket him and FSU still finds ways to create single coverage. In the Doak Campbell atmosphere he's consistently FSU's best offensive player. Clemson's safety rotation will be tasked with tracking his motion alignments." },
+
+  { id:"p_fsu_03", name:"Keon Coleman", position:"WR", teamId:"florida_state", year:"SO", number:"4", heightWeight:"6'4\" / 213", hometown:"Opelika, AL",
+    injuryStatus:"questionable", practiceStatus:"limited", injuryType:"hamstring (mild)",
+    injuryHistory:[], injuryProneRating:3, impact:"high",
+    personalFlags:{ distractionLevel:5, distractionNote:"Coleman transferred back to FSU after a brief NFL stint. The hamstring is the immediate concern — limited to individual drills this week. His status for the opener is legitimately uncertain and his availability changes FSU's entire offensive ceiling.", socialMediaPattern:"normal", nflDraftStatus:"NFL returnee", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:78, bigGameRating:82, coldWeatherRating:72, roadGameRating:78, primeTimeRating:84, consistencyRating:74, pressureRating:80, explosivePlayRating:90 },
+    stats:{ gamesPlayed:0, receivingYards:0, receivingTDs:0, receptions:0, note:"Returning from NFL — no 2025 college stats" },
+    scoutReport:"When healthy, Coleman is a mismatch nightmare — 6'4\" frame with WR1 route running that no safety can cover. His hamstring status must be monitored to game-day warmup. If he's limited or sits, FSU's red-zone efficiency drops sharply and Alabama's secondary preparation changes entirely." },
+
+  { id:"p_fsu_04", name:"Jared Verse", position:"EDGE", teamId:"florida_state", year:"SO", number:"5", heightWeight:"6'4\" / 258", hometown:"Spring Valley, NY",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:2, impact:"high",
+    personalFlags:{ distractionLevel:3, distractionNote:"Transfer from Albany who developed into an elite power-five pass rusher under Norvell's system. Young but fully SEC-tested. His development track is historically rare — walk-on to projected early NFL pick.", socialMediaPattern:"quiet", nflDraftStatus:"projected round 1-2", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:80, bigGameRating:82, coldWeatherRating:76, roadGameRating:79, primeTimeRating:84, consistencyRating:80, pressureRating:86, explosivePlayRating:82 },
+    stats:{ gamesPlayed:11, sacks:11.0, tacklesForLoss:16, qbHurries:31, forcedFumbles:3 },
+    scoutReport:"The most disruptive pass rusher FSU has had since Brian Burns. His combination of first-step explosiveness and hand combat is already NFL caliber. Against Alabama's experienced offensive line this is the matchup that will determine the game's tone by the second quarter." },
+
+  /* ── WISCONSIN ── */
+  { id:"p_wis_01", name:"Mabrey Mettauer", position:"QB", teamId:"wisconsin", year:"SR", number:"9", heightWeight:"6'3\" / 220", hometown:"Huntington Beach, CA",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:2, impact:"high",
+    personalFlags:{ distractionLevel:3, distractionNote:"Transfer from Cal who won the Wisconsin QB battle under Fickell. Knows the air-raid-lite concepts Fickell has installed. Measured and accurate — not a gunslinger — which fits Wisconsin's identity well.", socialMediaPattern:"normal", nflDraftStatus:"undrafted", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:73, bigGameRating:70, coldWeatherRating:80, roadGameRating:72, primeTimeRating:74, consistencyRating:76, pressureRating:74, explosivePlayRating:71 },
+    stats:{ gamesPlayed:0, passingYards:0, passingTDs:0, interceptions:0, completionPct:0, qbr:0, note:"New starter at Wisconsin — Cal transfer" },
+    scoutReport:"A game-manager QB who fits Wisconsin's identity: hand the ball off, throw open routes, avoid turnovers. He won't beat Notre Dame's defense by himself — but he won't lose the game with bad decisions either. Against Notre Dame's front seven his biggest challenge is handling the crowd noise and pocket disruption." },
+
+  { id:"p_wis_02", name:"Tawee Walker", position:"RB", teamId:"wisconsin", year:"SR", number:"4", heightWeight:"5'9\" / 208", hometown:"Albertville, AL",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:2, impact:"high",
+    personalFlags:{ distractionLevel:2, distractionNote:"Wisconsin's offense runs through Walker. Fickell's system is built around a featured back who can get 20 carries a game, and Walker is exactly that player. Efficient, tough, and reliable in short-yardage.", socialMediaPattern:"normal", nflDraftStatus:"projected round 4-5", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:76, bigGameRating:74, coldWeatherRating:82, roadGameRating:74, primeTimeRating:75, consistencyRating:78, pressureRating:80, explosivePlayRating:76 },
+    stats:{ gamesPlayed:11, rushingYards:1021, rushingTDs:10, yardsPerCarry:5.3, receivingYards:98, receivingTDs:1, receptions:16 },
+    scoutReport:"Wisconsin's 1,000-yard back who embodies the program's physical identity. His patience behind the offensive line lets blocks develop before he hits the hole. Against Notre Dame's front seven this is the matchup that defines Wisconsin's ceiling — if Walker gets 110+ yards, Wisconsin stays competitive." },
+
+  { id:"p_wis_03", name:"Will Pauling", position:"WR", teamId:"wisconsin", year:"JR", number:"2", heightWeight:"6'1\" / 188", hometown:"Roseville, CA",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:1, impact:"medium",
+    personalFlags:{ distractionLevel:2, distractionNote:"Wisconsin's top target who leads the team in both receptions and receiving yards. Mettauer clearly trusts him as the chain-mover. Limited recruiting pedigree but has developed into a reliable possession receiver.", socialMediaPattern:"normal", nflDraftStatus:"undrafted", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"low" },
+    performanceMetrics:{ clutchRating:72, bigGameRating:70, coldWeatherRating:78, roadGameRating:70, primeTimeRating:73, consistencyRating:75, pressureRating:73, explosivePlayRating:72 },
+    stats:{ gamesPlayed:11, receivingYards:584, receivingTDs:4, receptions:52, yardsPerReception:11.2 },
+    scoutReport:"Wisconsin's chain-mover — third-down receiver who creates yards on crossing routes and out-routes against zone. His YAC after the catch is the limiting factor. In South Bend's atmosphere this is a legitimate test of his big-game composure in the biggest road environment of his career." },
+
+  { id:"p_wis_04", name:"T.J. Bollers", position:"EDGE", teamId:"wisconsin", year:"SR", number:"18", heightWeight:"6'4\" / 254", hometown:"Conyers, GA",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:2, impact:"high",
+    personalFlags:{ distractionLevel:2, distractionNote:"Fickell's best edge rusher who returned for a senior year NFL showcase. His versatility — standing up or hand down — creates alignment confusion for offenses. Viewed as a draft darling among NFL scouts tracking Wisconsin.", socialMediaPattern:"quiet", nflDraftStatus:"projected round 2-3", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:80, bigGameRating:78, coldWeatherRating:82, roadGameRating:78, primeTimeRating:80, consistencyRating:80, pressureRating:84, explosivePlayRating:80 },
+    stats:{ gamesPlayed:11, sacks:9.5, tacklesForLoss:14, qbHurries:28, forcedFumbles:3 },
+    scoutReport:"The most NFL-ready player on Wisconsin's defense. His motor and hand technique are already at the next level. Notre Dame's left tackle will be tested from the first snap — if Bollers creates early disruption, Wisconsin's defense can keep the game competitive deep into the second half." }
 ];
 
 const GAMES = [
