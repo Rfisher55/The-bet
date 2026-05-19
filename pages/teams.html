@@ -236,6 +236,7 @@
 </nav>
 
 <script src="../js/data.js"></script>
+<script src="../js/data-fbs-stubs.js"></script>
 <script>
 const POWER4 = ["SEC","Big Ten","Big 12","ACC"];
 function getConferences() {
@@ -579,11 +580,16 @@ function render() {
 
 render();
 
-window.addEventListener("liveDataReady", function() {
+function onLiveData() {
   buildStatsStrip();
   initConfChips();
   render();
-});
+}
+if (window.__liveDataReady) {
+  onLiveData();
+} else {
+  window.addEventListener("liveDataReady", onLiveData);
+}
 </script>
 <script src="../js/config.js"></script>
 <script src="../js/live.js"></script>
