@@ -593,7 +593,7 @@ function renderGamePage(gData) {
     function statusBadge(p) {
       const s = (p.injuryStatus || "healthy").toLowerCase();
       if (s === "healthy") return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">✓ ACTIVE</span>`;
-      const c = s === "out" ? ["rgba(239,68,68,.2)","rgba(239,68,68,.5)","var(--danger)"] : s === "doubtful" ? ["rgba(239,68,68,.1)","rgba(239,68,68,.3)","#f87171"] : ["rgba(245,158,11,.12)","rgba(245,158,11,.4)","var(--gold)"];
+      const c = s === "out" ? ["rgba(239,68,68,.2)","rgba(239,68,68,.5)","var(--danger)"] : s === "doubtful" ? ["rgba(239,68,68,.1)","rgba(239,68,68,.3)","#f87171"] : ["rgba(148,163,184,.12)","rgba(148,163,184,.35)","var(--muted)"];
       const why = whyNotActive(p);
       return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:${c[0]};border:1px solid ${c[1]};color:${c[2]};font-weight:700">${s.toUpperCase()}${why ? " · " + why : ""}</span>`;
     }
@@ -687,14 +687,13 @@ function renderGamePage(gData) {
                       <span style="font-size:.85rem;font-weight:800;color:var(--text)">${p.name}</span>
                       <span style="font-size:.62rem;color:var(--muted)">${p.position} · ${p.year||""}</span>
                       ${statusBadge(p)}
-                      ${p.nflDraftStatus ? `<span style="font-size:.58rem;padding:1px 5px;border-radius:5px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:var(--gold)">🏆 NFL</span>` : ""}
                       ${hasAlert ? `<span title="${alertTip}" style="font-size:.58rem;padding:1px 5px;border-radius:5px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700;cursor:help">⚠ ${alertLabel}</span>` : ""}
                     </div>
                     ${ks ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:1px">${ks}</div>` : ""}
                     ${(p.injuryStatus && p.injuryStatus !== "healthy") ? (() => {
                       const pf = p.personalFlags;
                       const focusNote = pf && pf.distractionLevel >= 5 ? (pf.distractionNote || pf.distractionType || "Focus concern") : "";
-                      const sc2 = (p.injuryStatus||"").toLowerCase()==="out"?"#f87171":(p.injuryStatus||"").toLowerCase()==="doubtful"?"#f87171":"var(--gold)";
+                      const sc2 = (p.injuryStatus||"").toLowerCase()==="out"?"#f87171":(p.injuryStatus||"").toLowerCase()==="doubtful"?"#f87171":"var(--muted)";
                       const reason = [whyNotActive(p), focusNote].filter(Boolean).join(" · ");
                       return reason ? `<div style="font-size:.68rem;color:${sc2};font-weight:600;margin-top:1px">↳ ${reason}</div>` : "";
                     })() : ""}
@@ -915,7 +914,7 @@ function renderGamePage(gData) {
                       <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
                         <span style="font-size:.8rem;font-weight:700;color:var(--text)">${p.name}</span>
                         <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${p.year||""}</span>
-                        ${p.nflDraftStatus ? `<span style="font-size:.58rem;color:var(--gold)">🏆</span>` : ""}
+                        ${p.nflDraftStatus ? `<span style="font-size:.58rem;color:var(--muted)">🏆</span>` : ""}
                       </div>
                       ${s !== "healthy" ? (() => {
                         const why = whyNotActive(p);
