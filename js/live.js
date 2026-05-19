@@ -9,7 +9,7 @@ const LIVE = (() => {
   const SEASON    = 2026;
   const KEY_STORE   = "theBet_cfbdKey";
   const CACHE_STORE = "theBet_liveCache_v3";   // v3 = new cache key, invalidates old
-  const CACHE_TTL   = 6 * 60 * 60 * 1000;     // 6 hours
+  const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
 
   // ── Explicit school-name → internal-ID mapping ──────────────
   // All names must match exactly what CFBD returns in their API
@@ -82,37 +82,99 @@ const LIVE = (() => {
         .trim();
   }
 
-  let state = { status: "idle", apiKey: null, lastUpdated: null, error: null };
+  let state = { status: "idle", apiKey: null, lastUpdated: null, error: null, errorType: null, loadProgress: 0 };
+
+  // Intervals stored so we can clear them if needed
+  let _autoRefreshInterval  = null;
+  let _relativeTimeInterval = null;
+  let _rateLimitRetryTimer  = null;
+
+  const ENDPOINT_COUNT = 9;
 
   function getKey() { return localStorage.getItem(KEY_STORE) || window.CFBD_DEFAULT_KEY || null; }
   function setKey(k) { if (k) localStorage.setItem(KEY_STORE, k.trim()); else localStorage.removeItem(KEY_STORE); }
   function clearKey() { localStorage.removeItem(KEY_STORE); }
 
+  // ── Per-endpoint fetch with one automatic retry after 2 s ───
+  function fetchWithRetry(url, opts) {
+    return fetch(url, opts).catch(() =>
+      new Promise(r => setTimeout(r, 2000)).then(() => fetch(url, opts))
+    );
+  }
+
   // ── API fetch helper ────────────────────────────────────────
   async function api(endpoint, apiKey) {
-    const r = await fetch(`${CFBD}${endpoint}`, {
+    const r = await fetchWithRetry(`${CFBD}${endpoint}`, {
       headers: { "Authorization": `Bearer ${apiKey}`, "Accept": "application/json" }
     });
     if (!r.ok) {
-      if (r.status === 401) throw new Error("Invalid API key — get one free at collegefootballdata.com");
-      if (r.status === 429) throw new Error("Rate limit hit — try again in a few minutes");
-      throw new Error(`CFBD API error ${r.status} on ${endpoint}`);
+      if (r.status === 401) {
+        const err = new Error("Invalid API key — get one free at collegefootballdata.com");
+        err.errorType = "invalid_key";
+        throw err;
+      }
+      if (r.status === 429) {
+        const err = new Error("Rate limited — retrying in 60 seconds");
+        err.errorType = "rate_limit";
+        throw err;
+      }
+      const err = new Error(`CFBD API error ${r.status} on ${endpoint}`);
+      err.errorType = "network";
+      throw err;
     }
     return r.json();
   }
 
   // ── Cache helpers ────────────────────────────────────────────
-  function loadCache() {
+  // loadCache(strict=false) returns null only if no cache exists at all.
+  // When strict=true it also returns null for expired caches.
+  function loadCache(strict = true) {
     try {
       const raw = localStorage.getItem(CACHE_STORE);
       if (!raw) return null;
       const c = JSON.parse(raw);
-      if (Date.now() - c.ts > CACHE_TTL) { localStorage.removeItem(CACHE_STORE); return null; }
+      if (strict && Date.now() - c.ts > CACHE_TTL) {
+        localStorage.removeItem(CACHE_STORE);
+        return null;
+      }
+      // For non-strict loads (stale fallback) attach metadata so callers can warn
+      c.data._stale = strict ? false : (Date.now() - c.ts > CACHE_TTL);
+      c.data._cacheTs = c.ts;
       return c.data;
     } catch { return null; }
   }
   function saveCache(data) {
     try { localStorage.setItem(CACHE_STORE, JSON.stringify({ ts: Date.now(), data })); } catch {}
+  }
+  function cacheAgeMinutes() {
+    try {
+      const raw = localStorage.getItem(CACHE_STORE);
+      if (!raw) return null;
+      const c = JSON.parse(raw);
+      return Math.floor((Date.now() - c.ts) / 60000);
+    } catch { return null; }
+  }
+  function cacheTtlMinutes() {
+    try {
+      const raw = localStorage.getItem(CACHE_STORE);
+      if (!raw) return null;
+      const c = JSON.parse(raw);
+      const remainMs = CACHE_TTL - (Date.now() - c.ts);
+      return Math.max(0, Math.floor(remainMs / 60000));
+    } catch { return null; }
+  }
+
+  // ── Relative-time formatter ──────────────────────────────────
+  function relativeTime(dateOrStr) {
+    if (!dateOrStr) return "just now";
+    const d = typeof dateOrStr === "string" ? new Date(dateOrStr) : dateOrStr;
+    const secs = Math.floor((Date.now() - d.getTime()) / 1000);
+    if (secs < 10)  return "just now";
+    if (secs < 60)  return `${secs}s ago`;
+    const mins = Math.floor(secs / 60);
+    if (mins < 60)  return `${mins}m ago`;
+    const hrs  = Math.floor(mins / 60);
+    return `${hrs}h ago`;
   }
 
   // ── SP+ → derived team stats ─────────────────────────────────
@@ -138,38 +200,52 @@ const LIVE = (() => {
 
   // ── Main fetch ───────────────────────────────────────────────
   async function fetchAll(apiKey, force = false) {
-    state = { ...state, status: "loading", error: null };
+    state = { ...state, status: "loading", error: null, errorType: null, loadProgress: 0 };
     updateBadge();
 
     // Serve from cache if fresh
     if (!force) {
-      const cached = loadCache();
+      const cached = loadCache(true);
       if (cached) {
         applyData(cached);
         state = { ...state, status: "live", lastUpdated: cached.fetchedAt };
+        window.__liveLastUpdated = new Date(cached.fetchedAt);
+        _setLiveStats();
         updateBadge();
+        _startRelativeTimeInterval();
         window.dispatchEvent(new CustomEvent("liveDataReady", { detail: cached }));
+        _startAutoRefresh(apiKey);
         return;
       }
+    }
+
+    // Count resolved endpoints for progress display
+    let resolved = 0;
+    function onEndpointDone() {
+      resolved++;
+      state = { ...state, loadProgress: resolved };
+      updateBadge();
     }
 
     try {
       updateModalStatus();
 
+      const endpointPromises = [
+        api("/teams/fbs",                                          apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/games?year=${SEASON}&seasonType=regular`,            apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/games?year=${SEASON}&seasonType=postseason`,         apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/ratings/sp?year=${SEASON}`,                          apiKey).then(v => { onEndpointDone(); return v; }),
+        api("/ratings/sp?year=2025",                               apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/talent?year=${SEASON}`,                              apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/coaches?year=${SEASON}`,                             apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/recruiting/teams?year=${SEASON}`,                    apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/lines?year=${SEASON}`,                               apiKey).then(v => { onEndpointDone(); return v; }),
+      ];
+
       // All primary data fetched in parallel — failures are caught individually
       const [teamsRes, regularRes, postRes, spRes, sp25Res, talentRes,
              coachesRes, recruitRes, linesRes] =
-        await Promise.allSettled([
-          api("/teams/fbs",                                          apiKey),
-          api(`/games?year=${SEASON}&seasonType=regular`,            apiKey),
-          api(`/games?year=${SEASON}&seasonType=postseason`,         apiKey),
-          api(`/ratings/sp?year=${SEASON}`,                          apiKey),
-          api("/ratings/sp?year=2025",                               apiKey),  // fallback
-          api(`/talent?year=${SEASON}`,                              apiKey),
-          api(`/coaches?year=${SEASON}`,                             apiKey),
-          api(`/recruiting/teams?year=${SEASON}`,                    apiKey),
-          api(`/lines?year=${SEASON}`,                               apiKey),
-        ]);
+        await Promise.allSettled(endpointPromises);
 
       // Merge SP+ 2026 (preferred) with 2025 fallback
       const sp26  = teamsRes.status  === "fulfilled" ? (spRes.value  || []) : [];
@@ -196,15 +272,84 @@ const LIVE = (() => {
       saveCache(payload);
       applyData(payload);
       state = { ...state, status: "live", lastUpdated: payload.fetchedAt, apiKey };
+      window.__liveLastUpdated = new Date(payload.fetchedAt);
+      _setLiveStats();
       updateBadge();
+      updateModalStatus();
+      _startRelativeTimeInterval();
+      _startAutoRefresh(apiKey);
       window.dispatchEvent(new CustomEvent("liveDataReady", { detail: payload }));
 
     } catch (err) {
-      state = { ...state, status: "error", error: err.message };
+      const errType = err.errorType || "network";
+
+      // Rate-limit: wait 60 s then auto-retry
+      if (errType === "rate_limit") {
+        state = { ...state, status: "error", error: "Rate limited — retrying in 60s", errorType: "rate_limit" };
+        updateBadge();
+        updateModalStatus();
+        if (_rateLimitRetryTimer) clearTimeout(_rateLimitRetryTimer);
+        _rateLimitRetryTimer = setTimeout(() => {
+          const key = apiKey || getKey();
+          if (key) fetchAll(key, true);
+        }, 60 * 1000);
+        return;
+      }
+
+      // For any other network failure, try stale cache as graceful fallback
+      if (errType !== "invalid_key") {
+        const stale = loadCache(false);
+        if (stale && stale._stale) {
+          applyData(stale);
+          const cacheDate = stale._cacheTs ? new Date(stale._cacheTs).toLocaleDateString() : "earlier";
+          state = { ...state, status: "stale", lastUpdated: stale.fetchedAt,
+                    error: `Using cached data from ${cacheDate}`, errorType: "stale" };
+          window.__liveLastUpdated = stale._cacheTs ? new Date(stale._cacheTs) : null;
+          _setLiveStats();
+          updateBadge();
+          updateModalStatus();
+          window.dispatchEvent(new CustomEvent("liveDataReady", { detail: stale }));
+          return;
+        }
+      }
+
+      state = { ...state, status: "error", error: err.message, errorType: errType };
       updateBadge();
       updateModalStatus();
       throw err;
     }
+  }
+
+  // ── Set global stats object ──────────────────────────────────
+  function _setLiveStats() {
+    window.__liveStats = {
+      gameCount:   window.GAMES ? GAMES.length : 0,
+      teamCount:   window.TEAMS ? Object.keys(TEAMS).length : 0,
+      lastUpdated: window.__liveLastUpdated || new Date(),
+      apiConnected: state.status === "live",
+    };
+  }
+
+  // ── Auto-refresh every 5 minutes ────────────────────────────
+  function _startAutoRefresh(apiKey) {
+    if (_autoRefreshInterval) return; // already running
+    _autoRefreshInterval = setInterval(() => {
+      const key = apiKey || getKey();
+      if (!key) return;
+      // Signal badge that a refresh is in progress
+      state = { ...state, status: "refreshing" };
+      updateBadge();
+      localStorage.removeItem(CACHE_STORE);
+      fetchAll(key, true).catch(e => console.warn("[LIVE] Auto-refresh failed:", e.message));
+    }, 5 * 60 * 1000);
+  }
+
+  // ── Update relative-time badge text every 30 s ───────────────
+  function _startRelativeTimeInterval() {
+    if (_relativeTimeInterval) return;
+    _relativeTimeInterval = setInterval(() => {
+      if (state.status === "live" || state.status === "stale") updateBadge();
+    }, 30 * 1000);
   }
 
   // ── Apply fetched data to TEAMS + GAMES ─────────────────────
@@ -407,19 +552,37 @@ const LIVE = (() => {
   function updateBadge() {
     const badges = document.querySelectorAll(".live-data-badge");
     const icons  = document.querySelectorAll(".live-data-icon");
-    const { status, lastUpdated, error } = state;
+    const { status, lastUpdated, error, errorType, loadProgress } = state;
 
-    const html = status === "live"
-      ? `<span class="live-badge live-badge-on" title="Connected — Updated: ${lastUpdated ? new Date(lastUpdated).toLocaleTimeString() : "now"}">LIVE</span>`
-      : status === "loading"
-      ? `<span class="live-badge live-badge-loading">Loading...</span>`
-      : status === "error"
-      ? `<span class="live-badge live-badge-err" title="${error || "Error"}">Error</span>`
-      : `<span class="live-badge live-badge-off" title="Connect API key for live data">Static</span>`;
+    let html;
+    if (status === "live") {
+      const rel = relativeTime(window.__liveLastUpdated || lastUpdated);
+      html = `<span class="live-badge live-badge-on" title="Connected — Updated: ${lastUpdated ? new Date(lastUpdated).toLocaleTimeString() : "now"}">LIVE · ${rel}</span>`;
+    } else if (status === "refreshing") {
+      html = `<span class="live-badge live-badge-loading">Refreshing...</span>`;
+    } else if (status === "loading") {
+      const prog = loadProgress > 0 ? ` ${loadProgress}/${ENDPOINT_COUNT}` : "";
+      html = `<span class="live-badge live-badge-loading">Loading${prog}...</span>`;
+    } else if (status === "stale") {
+      const rel = relativeTime(window.__liveLastUpdated);
+      html = `<span class="live-badge live-badge-stale" title="${error || "Stale cache"}">Cached · ${rel}</span>`;
+    } else if (status === "error") {
+      if (errorType === "invalid_key") {
+        html = `<span class="live-badge live-badge-err" title="${error || "Invalid key"}">Invalid Key</span>`;
+      } else if (errorType === "rate_limit") {
+        html = `<span class="live-badge live-badge-err" title="${error || "Rate limited"}">Rate Limited</span>`;
+      } else if (errorType === "no_key") {
+        html = `<span class="live-badge live-badge-off" title="Connect API key for live data">Static</span>`;
+      } else {
+        html = `<span class="live-badge live-badge-err" title="${error || "Network error"}">Offline — Static</span>`;
+      }
+    } else {
+      html = `<span class="live-badge live-badge-off" title="Connect API key for live data">Static</span>`;
+    }
 
     badges.forEach(b => { b.innerHTML = html; });
     icons.forEach(i => {
-      i.title = status === "live"
+      i.title = (status === "live" || status === "stale")
         ? `Live data active — ${GAMES?.length || 0} games, ${Object.keys(TEAMS || {}).length} teams`
         : "Connect CFBD API for live schedules & rosters";
     });
@@ -444,7 +607,7 @@ const LIVE = (() => {
 
           <div style="font-size:.82rem;color:var(--text-soft);line-height:1.6;margin-bottom:16px">
             Connect to get <strong style="color:var(--primary)">all 800+ FBS games</strong>,
-            live betting lines, SP+ ratings, and rosters for every D1 program — refreshed every 6 hours.
+            live betting lines, SP+ ratings, and rosters for every D1 program — refreshed every 30 minutes.
           </div>
 
           <div style="padding:12px 16px;border-radius:10px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);margin-bottom:16px">
@@ -469,7 +632,7 @@ const LIVE = (() => {
             <div id="live-key-status" style="font-size:.72rem;margin-top:6px;min-height:18px"></div>
           </div>
 
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
             <button onclick="LIVE.saveAndFetch()"
               style="flex:1;padding:11px;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;font-size:.9rem;border:none;cursor:pointer">
               Connect &amp; Sync All Data
@@ -480,7 +643,14 @@ const LIVE = (() => {
             </button>
           </div>
 
-          <div style="margin-top:14px;padding:10px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
+          <div style="margin-bottom:12px">
+            <button onclick="window.__refreshLiveData && window.__refreshLiveData()"
+              style="width:100%;padding:9px;border-radius:10px;background:var(--surface);color:var(--text-soft);font-weight:700;font-size:.82rem;border:1px solid var(--border);cursor:pointer">
+              Refresh Now
+            </button>
+          </div>
+
+          <div style="margin-top:4px;padding:10px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
             <div id="live-current-status" style="font-size:.75rem;color:var(--muted-l)">Status: checking...</div>
           </div>
         </div>`;
@@ -497,10 +667,11 @@ const LIVE = (() => {
           .live-modal-close { background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--muted-l);font-size:.9rem;cursor:pointer;padding:4px 10px;transition:all .15s; }
           .live-modal-close:hover { color:var(--text);border-color:var(--border-l); }
           .live-badge { display:inline-flex;align-items:center;gap:4px;font-size:.58rem;font-weight:900;letter-spacing:1px;padding:2px 8px;border-radius:8px;border:1px solid;cursor:pointer;transition:all .15s; }
-          .live-badge-on  { background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.4);color:var(--primary); }
-          .live-badge-off { background:rgba(139,157,187,.1);border-color:rgba(139,157,187,.3);color:var(--muted-l); }
+          .live-badge-on    { background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.4);color:var(--primary); }
+          .live-badge-off   { background:rgba(139,157,187,.1);border-color:rgba(139,157,187,.3);color:var(--muted-l); }
+          .live-badge-stale { background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.35);color:var(--gold); }
           .live-badge-loading { background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:var(--gold); animation:badgePulse 1.2s ease-in-out infinite; }
-          .live-badge-err { background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:var(--danger); }
+          .live-badge-err   { background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:var(--danger); }
           @keyframes badgePulse { 0%,100%{opacity:1} 50%{opacity:.5} }
           #live-api-key-input:focus { border-color:var(--primary); }
         `;
@@ -518,22 +689,40 @@ const LIVE = (() => {
   function updateModalStatus() {
     const el = document.getElementById("live-current-status");
     if (!el) return;
-    const { status, lastUpdated, error } = state;
+    const { status, lastUpdated, error, errorType } = state;
     const key = getKey();
     const gameCount  = window.GAMES  ? GAMES.length : 0;
     const teamCount  = window.TEAMS  ? Object.keys(TEAMS).length : 0;
+    const ttlMins    = cacheTtlMinutes();
+    const ageMins    = cacheAgeMinutes();
+
+    let lines = [];
 
     if (!key) {
-      el.innerHTML = `<span style="color:var(--muted-l)">No API key — using built-in data only</span>`;
+      lines.push(`<span style="color:var(--muted-l)">No API key — using built-in data only</span>`);
     } else if (status === "live") {
-      el.innerHTML = `<span style="color:var(--primary)">Connected · ${gameCount} games · ${teamCount} teams · Updated ${lastUpdated ? new Date(lastUpdated).toLocaleString() : "now"}</span>`;
+      const rel = relativeTime(window.__liveLastUpdated || lastUpdated);
+      lines.push(`<span style="color:var(--primary)">Connected · ${gameCount} games · ${teamCount} teams loaded</span>`);
+      lines.push(`<span style="color:var(--muted-l)">Last updated: ${rel}</span>`);
+      if (ttlMins !== null) lines.push(`<span style="color:var(--muted-l)">Cache expires in: ${ttlMins} min</span>`);
+    } else if (status === "stale") {
+      lines.push(`<span style="color:var(--gold)">${error}</span>`);
+      lines.push(`<span style="color:var(--muted-l)">${gameCount} games · ${teamCount} teams loaded from cache</span>`);
     } else if (status === "error") {
-      el.innerHTML = `<span style="color:var(--danger)">${error}</span>`;
-    } else if (status === "loading") {
-      el.innerHTML = `<span style="color:var(--gold)">Fetching data...</span>`;
+      if (errorType === "invalid_key") {
+        lines.push(`<span style="color:var(--danger)">Invalid API key — get a fresh key at collegefootballdata.com and re-enter it below.</span>`);
+      } else if (errorType === "rate_limit") {
+        lines.push(`<span style="color:var(--danger)">Rate limited — will retry automatically in 60 seconds.</span>`);
+      } else {
+        lines.push(`<span style="color:var(--danger)">${error}</span>`);
+      }
+    } else if (status === "loading" || status === "refreshing") {
+      lines.push(`<span style="color:var(--gold)">Fetching data...</span>`);
     } else {
-      el.innerHTML = `<span style="color:var(--muted-l)">Key saved — click Connect to sync</span>`;
+      lines.push(`<span style="color:var(--muted-l)">Key saved — click Connect to sync</span>`);
     }
+
+    el.innerHTML = lines.join("<br>");
   }
 
   function closeSettings() {
@@ -566,7 +755,12 @@ const LIVE = (() => {
   function forceClear() {
     clearKey();
     localStorage.removeItem(CACHE_STORE);
-    state = { status: "idle", apiKey: null, lastUpdated: null, error: null };
+    if (_autoRefreshInterval)  { clearInterval(_autoRefreshInterval);  _autoRefreshInterval  = null; }
+    if (_relativeTimeInterval) { clearInterval(_relativeTimeInterval); _relativeTimeInterval = null; }
+    if (_rateLimitRetryTimer)  { clearTimeout(_rateLimitRetryTimer);   _rateLimitRetryTimer  = null; }
+    state = { status: "idle", apiKey: null, lastUpdated: null, error: null, errorType: null, loadProgress: 0 };
+    window.__liveLastUpdated = null;
+    window.__liveStats = null;
     updateBadge();
     const input = document.getElementById("live-api-key-input");
     if (input) input.value = "";
@@ -592,6 +786,14 @@ const LIVE = (() => {
     updateBadge();
   }
 
+  // ── Expose public refresh function ───────────────────────────
+  window.__refreshLiveData = () => {
+    const key = getKey();
+    if (!key) return;
+    localStorage.removeItem(CACHE_STORE);
+    fetchAll(key, true).catch(e => console.warn("[LIVE] Manual refresh failed:", e.message));
+  };
+
   // ── Auto-init ────────────────────────────────────────────────
   function init() {
     document.addEventListener("DOMContentLoaded", () => {
@@ -601,11 +803,11 @@ const LIVE = (() => {
         state.apiKey = key;
         fetchAll(key).catch(e => {
           console.warn("[LIVE] Auto-fetch failed:", e.message);
-          state = { ...state, status: "error", error: e.message };
-          updateBadge();
+          // Badge and state already set inside fetchAll's catch block
         });
       } else {
         state.status = "no-key";
+        state.errorType = "no_key";
         updateBadge();
       }
     });
