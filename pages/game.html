@@ -116,6 +116,19 @@
     .text-xxs { font-size: .65rem; }
     .lh-tight { line-height: 1.35; }
     .block { display: block; }
+    /* ── Roster grid ── */
+    .roster-player-row { padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);margin-bottom:6px;cursor:pointer;transition:border-color .15s; }
+    .roster-player-row:hover { border-color:var(--border-l); }
+    .roster-player-detail { display:none;margin-top:10px;border-top:1px solid var(--border);padding-top:10px; }
+    /* ── Matchup grade ── */
+    .matchup-grade-card { padding:14px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--surface); }
+    /* ── Social hub ── */
+    .beat-writer-card { padding:12px;border-radius:var(--radius);border:1px solid var(--border-l);background:var(--surface);position:relative;margin-bottom:10px; }
+    .beat-writer-flag { position:absolute;top:-1px;left:10px;font-size:.58rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;background:var(--card);padding:0 6px;transform:translateY(-50%); }
+    /* ── Line movement ── */
+    .line-step { display:flex;align-items:flex-start;gap:10px;margin-bottom:10px; }
+    .line-step-dot { width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px; }
+    .line-step-line { position:absolute;left:4px;top:12px;bottom:-10px;width:2px;background:var(--border); }
   </style>
 </head>
 <body>
@@ -160,6 +173,11 @@ const qq = (s, ctx) => [...(ctx || document).querySelectorAll(s)];
 function safe(fn, fallback) {
   try { const v = fn(); return v === undefined || v === null ? fallback : v; }
   catch { return fallback; }
+}
+
+function togglePlayer(id) {
+  const el = document.getElementById('pd-' + id);
+  if (el) { const showing = el.style.display !== 'none'; el.style.display = showing ? 'none' : 'block'; }
 }
 
 function gradeClass(g) {
@@ -366,6 +384,417 @@ if (!gameData) {
             <div style="font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:${confColor};border:1px solid ${confColor};border-radius:20px;padding:2px 12px">${pickConf}</div>
             <div style="font-size:.72rem;color:var(--muted)">Units: ${pickUnit}</div>
           </div>
+        </div>` : ""}
+      </div>`;
+  }
+
+  /* 3c — Full Roster Intelligence */
+  function renderFullRoster() {
+    const POS_GROUPS = [
+      { label: "OFFENSE", positions: ["QB","RB","WR","TE","OL","FB","H-B"] },
+      { label: "D-LINE / LINEBACKERS", positions: ["DL","DE","DT","EDGE","LB","OLB","ILB","MLB","NT"] },
+      { label: "SECONDARY", positions: ["CB","S","DB","FS","SS","NB","SAF"] },
+      { label: "SPECIAL TEAMS", positions: ["K","P","LS","RS","KR","PR"] }
+    ];
+    function statusBadge(p) {
+      const s = (p.injuryStatus || "healthy").toLowerCase();
+      if (s === "healthy") return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">✓ ACTIVE</span>`;
+      const c = s === "out" ? ["rgba(239,68,68,.2)","rgba(239,68,68,.5)","var(--danger)"] : s === "doubtful" ? ["rgba(239,68,68,.1)","rgba(239,68,68,.3)","#f87171"] : ["rgba(245,158,11,.12)","rgba(245,158,11,.4)","var(--gold)"];
+      return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:${c[0]};border:1px solid ${c[1]};color:${c[2]};font-weight:700">${s.toUpperCase()}</span>`;
+    }
+    function keyStat(p) {
+      const s = p.stats || {};
+      const pos = p.position;
+      if (pos === "QB") return s.passingYards ? `${s.passingYards} yds · ${s.passingTDs||0} TD · ${s.interceptions||0} INT` : "";
+      if (pos === "RB") return s.rushingYards ? `${s.rushingYards} rush yds · ${s.rushingTDs||0} TD` : "";
+      if (["WR","TE"].includes(pos)) return s.receivingYards ? `${s.receivingYards} rec yds · ${s.receivingTDs||0} TD` : s.receptions ? `${s.receptions} rec` : "";
+      if (["DL","DE","DT","EDGE"].includes(pos)) return s.sacks ? `${s.sacks} sacks` : s.tackles ? `${s.tackles} tkl` : "";
+      if (["LB","OLB","ILB","MLB"].includes(pos)) return s.tackles ? `${s.tackles} tkl · ${s.sacks||0} sacks` : "";
+      if (["CB","S","DB","FS","SS"].includes(pos)) return s.interceptionsDef ? `${s.interceptionsDef} INT · ${s.tackles||0} tkl` : s.tackles ? `${s.tackles} tkl` : "";
+      return "";
+    }
+    function playerDetail(p, teamColor) {
+      const ih = p.injuryHistory || [];
+      const pf = p.personalFlags || null;
+      const pm = p.performanceMetrics || null;
+      const sr = p.scoutReport || null;
+      const nil = p.nilSatisfaction;
+      return `
+        <div>
+          ${p.heightWeight || p.hometown ? `<div style="font-size:.7rem;color:var(--muted-l);margin-bottom:8px">${p.heightWeight||""}${p.hometown?" · 📍 "+p.hometown:""}</div>` : ""}
+          ${p.nflDraftStatus ? `<div style="margin-bottom:8px"><span style="font-size:.65rem;padding:2px 8px;border-radius:10px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--gold)">🏆 ${p.nflDraftStatus}</span></div>` : ""}
+          ${ih.length ? `
+            <div style="margin-bottom:10px;padding:8px 10px;background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.15);border-radius:6px">
+              <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#f87171;margin-bottom:5px">INJURY HISTORY</div>
+              ${ih.map(ev => `<div style="font-size:.72rem;color:var(--text-soft);margin-bottom:3px"><span style="font-weight:700;color:${ev.impact==="high"?"var(--danger)":ev.impact==="medium"?"var(--gold)":"var(--muted)"}">${ev.year||""} ${ev.type||""}</span>${ev.note ? " — "+ev.note : ""}</div>`).join("")}
+            </div>` : ""}
+          ${pm ? `
+            <div style="margin-bottom:10px">
+              <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">PERFORMANCE METRICS</div>
+              ${["clutch","bigGame","coldWeather","road","primetime","consistency","pressureRating"].filter(k=>pm[k]!==undefined).map(k=>radarBar(k.replace(/([A-Z])/g," $1").trim(),pm[k],teamColor)).join("")}
+            </div>` : ""}
+          ${p.stats && Object.keys(p.stats).length ? `
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:10px">
+              ${Object.entries(p.stats).filter(([,v])=>typeof v==="number").map(([k,v])=>`
+                <div style="text-align:center;padding:5px;background:var(--card);border:1px solid var(--border);border-radius:5px">
+                  <div style="font-size:.58rem;color:var(--muted)">${k.replace(/([A-Z])/g," $1").trim()}</div>
+                  <div style="font-size:.82rem;font-weight:700;color:var(--text)">${typeof v==="number"&&v<1&&v>0?(v*100).toFixed(1)+"%":v}</div>
+                </div>`).join("")}
+            </div>` : ""}
+          ${pf ? `
+            <div style="margin-bottom:8px;padding:8px 10px;background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.18);border-radius:6px;position:relative">
+              <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:5px">INSIDER INTEL</div>
+              ${pf.insiderNote ? `<div style="font-size:.76rem;color:var(--text-soft);font-style:italic;line-height:1.55;margin-bottom:5px">"${pf.insiderNote}"</div>` : ""}
+              ${pf.socialChatter ? `<div style="font-size:.7rem;color:var(--muted-l);margin-bottom:5px">🐦 Social: ${pf.socialChatter}</div>` : ""}
+              ${pf.distractionLevel > 0 ? `
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span style="font-size:.65rem;color:var(--muted);flex-shrink:0">Distraction ${pf.distractionLevel}/10</span>
+                  <div style="flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden"><div style="width:${pf.distractionLevel*10}%;height:100%;background:${pf.distractionLevel>=7?"var(--danger)":pf.distractionLevel>=5?"var(--gold)":"var(--primary)"}"></div></div>
+                </div>` : ""}
+            </div>` : ""}
+          ${sr ? `<div style="margin-bottom:8px;padding:8px 10px;border-left:2px solid var(--accent);background:rgba(99,102,241,.05);border-radius:0 6px 6px 0"><div style="font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:4px">SCOUT REPORT</div><div style="font-size:.76rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${typeof sr==="string"?sr:sr.summary||""}"</div></div>` : ""}
+          ${nil !== undefined && nil !== null ? `
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:.65rem;color:var(--muted);flex-shrink:0">NIL Satisfaction</span>
+              <div style="flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden"><div style="width:${nil}%;height:100%;background:${nil>=70?"var(--primary)":nil>=40?"var(--gold)":"var(--danger)"}"></div></div>
+              <span style="font-size:.65rem;font-weight:700;color:${nil>=70?"var(--primary)":nil>=40?"var(--gold)":"var(--danger)"}">${nil}/100</span>
+            </div>` : ""}
+        </div>`;
+    }
+    function teamPanel(team, players) {
+      const grouped = POS_GROUPS.map(g => ({ ...g, pl: players.filter(p => g.positions.includes(p.position)) })).filter(g => g.pl.length > 0);
+      if (!grouped.length) return `<div class="text-xs text-muted p-3">No player data</div>`;
+      return grouped.map(g => `
+        <div style="margin-bottom:14px">
+          <div style="font-size:.58rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:${team.color};border-bottom:1px solid ${team.color}35;padding-bottom:4px;margin-bottom:7px">${g.label}</div>
+          ${g.pl.map(p => {
+            const hasAlert = (p.personalFlags && p.personalFlags.distractionLevel >= 5) || (p.injuryStatus && p.injuryStatus !== "healthy");
+            const ks = keyStat(p);
+            return `
+              <div class="roster-player-row" onclick="togglePlayer('${p.id}')" style="${hasAlert?"border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.04);":""}">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div style="width:26px;height:26px;border-radius:50%;background:${team.color};display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:700;color:#fff;flex-shrink:0">#${p.number||"—"}</div>
+                  <div style="flex:1;min-width:0">
+                    <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+                      <span style="font-size:.85rem;font-weight:800;color:var(--text)">${p.name}</span>
+                      <span style="font-size:.62rem;color:var(--muted)">${p.position} · ${p.year||""}</span>
+                      ${statusBadge(p)}
+                      ${p.nflDraftStatus ? `<span style="font-size:.58rem;padding:1px 5px;border-radius:5px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:var(--gold)">🏆 NFL</span>` : ""}
+                      ${hasAlert ? `<span style="font-size:.58rem;padding:1px 5px;border-radius:5px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700">⚠</span>` : ""}
+                    </div>
+                    ${ks ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:1px">${ks}</div>` : ""}
+                  </div>
+                  <span style="font-size:.72rem;color:var(--muted);flex-shrink:0">▾</span>
+                </div>
+                <div id="pd-${p.id}" class="roster-player-detail">
+                  ${playerDetail(p, team.color)}
+                </div>
+              </div>`;
+          }).join("")}
+        </div>`).join("");
+    }
+    const hp = allPlayers.filter(p => p.teamId === home.id);
+    const ap = allPlayers.filter(p => p.teamId === away.id);
+    if (!hp.length && !ap.length) return "";
+    return `
+      <div class="card card-p mb-5">
+        <div class="section-label">👥 Full Roster Intelligence <span style="font-size:.65rem;color:var(--muted);font-weight:400">· tap any player to expand</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+              <div class="team-logo team-logo-sm" style="background:${away.color}">${away.abbreviation.slice(0,3)}</div>
+              <span style="font-size:.9rem;font-weight:800;color:var(--text)">${away.name}</span>
+              <span style="font-size:.62rem;padding:1px 8px;border-radius:10px;background:${away.color}18;color:${away.color};font-weight:700;margin-left:auto">AWAY</span>
+            </div>
+            ${teamPanel(away, ap)}
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+              <div class="team-logo team-logo-sm" style="background:${home.color}">${home.abbreviation.slice(0,3)}</div>
+              <span style="font-size:.9rem;font-weight:800;color:var(--text)">${home.name}</span>
+              <span style="font-size:.62rem;padding:1px 8px;border-radius:10px;background:${home.color}18;color:${home.color};font-weight:700;margin-left:auto">HOME</span>
+            </div>
+            ${teamPanel(home, hp)}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  /* 3d — Position Group Matchup Analysis */
+  function renderPositionMatchups() {
+    function letter(score) {
+      const a = Math.abs(score);
+      if (a >= 18) return "A+"; if (a >= 12) return "A"; if (a >= 7) return "B+";
+      if (a >= 4) return "B"; if (a >= 2) return "C"; return "D";
+    }
+    function lcolor(score) {
+      const a = Math.abs(score);
+      if (a >= 18) return "var(--primary)"; if (a >= 12) return "#34d399"; if (a >= 7) return "var(--gold)";
+      if (a >= 4) return "#94a3b8"; return "var(--danger)";
+    }
+    const hs = home.stats, as_ = away.stats;
+    const matchups = [
+      {
+        icon: "⚡", label: "OFFENSIVE LINE vs D-LINE",
+        score: (hs.rushingYardsPerGame - as_.yardsAllowedPerGame * 0.4) * 0.35 + (hs.sacks - as_.sacksAllowed) * 1.8,
+        home_lbl: `${home.abbreviation} OL / Run Game`,
+        away_lbl: `${away.abbreviation} Defensive Line`,
+        gen: (w, s) => s > 0 ? `${home.name} wins the trenches — ${hs.rushingYardsPerGame} rush yds/gm vs ${away.name}'s ${(as_.yardsAllowedPerGame * 0.4).toFixed(0)} run yds allowed/gm. Pass protection also holds up.`
+                               : `${away.name} front four controls line of scrimmage — ${as_.sacks} sacks/gm creates havoc for ${home.name}'s run blocking scheme.`
+      },
+      {
+        icon: "🎯", label: "QUARTERBACK BATTLE",
+        score: hs.passingYardsPerGame * 0.3 + (home.offensiveRating - away.defensiveRating) * 0.5,
+        home_lbl: `${home.abbreviation} QB / Passing Game`,
+        away_lbl: `${away.abbreviation} Coverage`,
+        gen: (w, s) => s > 0 ? `${home.name} QB has the edge — ${hs.passingYardsPerGame} pass yds/gm. ${home.coachName}'s system creates rhythm through short-to-intermediate routes.`
+                               : `${away.name} secondary rated stronger — ${as_.passingYardsPerGame} pass yds/gm and their coverage packages limit downfield shots.`
+      },
+      {
+        icon: "🛡️", label: "RUN DEFENSE",
+        score: (as_.rushingYardsPerGame - hs.yardsAllowedPerGame * 0.4) * -0.3 + (home.defensiveRating - away.offensiveRating) * 0.45,
+        home_lbl: `${home.abbreviation} Run Defense`,
+        away_lbl: `${away.abbreviation} Ground Game`,
+        gen: (w, s) => s > 0 ? `${home.name} stuffs the run — holds opponents to ${(hs.yardsAllowedPerGame * 0.4).toFixed(0)} rush yds/gm. Forces ${away.name} into passing downs.`
+                               : `${away.name} run game is too physical — ${as_.rushingYardsPerGame} rush yds/gm will wear down ${home.name}'s defense over 60 minutes.`
+      },
+      {
+        icon: "🔒", label: "SECONDARY vs RECEIVERS",
+        score: (as_.passingYardsPerGame - hs.yardsAllowedPerGame * 0.58) * -0.28 + (home.defensiveRating - away.offensiveRating) * 0.35,
+        home_lbl: `${home.abbreviation} Secondary`,
+        away_lbl: `${away.abbreviation} Receivers / TE`,
+        gen: (w, s) => s > 0 ? `${home.name} secondary holds the edge — limits opponents to ${(hs.yardsAllowedPerGame * 0.58).toFixed(0)} pass yds/gm. Wins man coverage battles.`
+                               : `${away.name} receivers present mismatches — ${as_.passingYardsPerGame} pass yds/gm. Size or speed advantage to win outside.`
+      },
+      {
+        icon: "⭐", label: "OVERALL TALENT EDGE",
+        score: home.rating - away.rating,
+        home_lbl: `${home.abbreviation} Roster Depth`,
+        away_lbl: `${away.abbreviation} Roster Depth`,
+        gen: (w, s) => Math.abs(s) >= 10 ? `${w.name} holds a significant talent advantage — ${Math.abs(s.toFixed(0))}-point composite rating gap. Depth wins in the 4th quarter.`
+                                          : `Essentially even roster talent. Coaching, scheme, and game-plan execution determine the outcome here.`
+      }
+    ];
+    return `
+      <div class="card card-p mb-5">
+        <div class="section-label">⚔️ Position Group Matchup Analysis</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px">
+          ${matchups.map(m => {
+            const winner = m.score >= 0 ? home : away;
+            const wc = m.score >= 0 ? home.color : away.color;
+            const grade = letter(m.score);
+            const gc = lcolor(m.score);
+            return `
+              <div class="matchup-grade-card" style="border-color:${wc}30;background:${wc}06">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+                  <div>
+                    <div style="font-size:1rem;margin-bottom:3px">${m.icon}</div>
+                    <div style="font-size:.62rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l)">${m.label}</div>
+                  </div>
+                  <div style="text-align:center;flex-shrink:0;margin-left:8px">
+                    <div style="font-size:1.6rem;font-weight:900;color:${gc};line-height:1">${grade}</div>
+                    <div style="font-size:.55rem;color:var(--muted)">EDGE</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-bottom:8px">
+                  <div style="width:16px;height:16px;border-radius:50%;background:${wc};display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;color:#fff;flex-shrink:0">${winner.abbreviation.slice(0,2)}</div>
+                  <span style="font-size:.78rem;font-weight:700;color:${wc}">${winner.name} EDGE</span>
+                </div>
+                <div style="font-size:.75rem;color:var(--text-soft);line-height:1.55">${m.gen(winner, m.score)}</div>
+              </div>`;
+          }).join("")}
+        </div>
+      </div>`;
+  }
+
+  /* 3e — Social Intelligence Hub */
+  function renderSocialHub() {
+    const si = game.socialIntel || {};
+    const lm = si.lineMovement || [];
+    const pb = si.publicBetting || {};
+    const bw = si.beatWriter || [];
+    const xf = game.xFactors || [];
+    const smSig = pred.sharpMoneySignal || {};
+    const injuredPl = allPlayers.filter(p => p.injuryStatus && p.injuryStatus !== "healthy");
+    const flaggedPl = allPlayers.filter(p => p.personalFlags && p.personalFlags.distractionLevel >= 5);
+    const practiceNotes = allPlayers.filter(p => p.personalFlags && p.personalFlags.insiderNote);
+
+    return `
+      <div class="card card-p mb-5">
+        <div class="section-label">📡 Social Intelligence Hub</div>
+
+        <!-- Beat Writer Reports -->
+        <div style="margin-bottom:22px">
+          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>BEAT WRITER REPORTS<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+          <div style="display:grid;gap:10px">
+            ${bw.length ? bw.map(r => {
+              const team = r.team === game.homeTeamId ? home : away;
+              const sc = r.sentiment === "positive" ? "var(--primary)" : r.sentiment === "negative" ? "var(--danger)" : "var(--gold)";
+              return `
+                <div class="beat-writer-card">
+                  <div class="beat-writer-flag" style="color:${team.color}">✎ ${team.name.split(" ").pop()}</div>
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap;margin-top:4px">
+                    <span style="font-size:.8rem;font-weight:700;color:var(--text)">${r.reporter}</span>
+                    <span style="font-size:.7rem;color:var(--muted)">· ${r.outlet}</span>
+                    <span style="margin-left:auto;font-size:.65rem;color:var(--muted)">${r.daysAgo}d ago</span>
+                  </div>
+                  <div style="font-size:.82rem;color:var(--text-soft);line-height:1.65">${r.report}</div>
+                  <div style="margin-top:8px;font-size:.65rem;font-weight:700;color:${sc};text-transform:uppercase">${r.sentiment === "positive" ? "↑ POSITIVE" : r.sentiment === "negative" ? "↓ NEGATIVE" : "→ NEUTRAL"} for ${team.name}</div>
+                </div>`;
+            }).join("") : xf.slice(0,3).map(x => {
+              const iH = x.impactTeam === game.homeTeamId || x.impactTeam === "home";
+              const team = iH ? home : away;
+              const sc = x.impactDirection === "positive" ? "var(--primary)" : x.impactDirection === "negative" ? "var(--danger)" : "var(--gold)";
+              return `
+                <div class="beat-writer-card">
+                  <div class="beat-writer-flag" style="color:${team.color}">${catIcon(x.category)} ${(x.category||"").toUpperCase()}</div>
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;margin-top:4px">
+                    <span style="font-size:.8rem;font-weight:700;color:var(--text)">${x.title}</span>
+                    <span style="margin-left:auto;font-size:.62rem;padding:1px 5px;border-radius:4px;background:var(--surface);color:var(--muted)">Severity ${x.severity||"?"}/10</span>
+                  </div>
+                  <div style="font-size:.82rem;color:var(--text-soft);line-height:1.65">${x.description}</div>
+                  <div style="margin-top:8px;font-size:.65rem;font-weight:700;color:${sc};text-transform:uppercase">${x.impactDirection === "positive" ? "↑ POSITIVE" : x.impactDirection === "negative" ? "↓ NEGATIVE" : "→ NEUTRAL"} — ${team.name}</div>
+                </div>`;
+            }).join("")}
+          </div>
+        </div>
+
+        <!-- Social Buzz -->
+        <div style="margin-bottom:22px">
+          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>SOCIAL BUZZ MONITOR<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+            ${[{ t: away, score: buzz.awayTeamBuzz||0, sent: buzz.sentimentAway||"0.50" },{ t: home, score: buzz.homeTeamBuzz||0, sent: buzz.sentimentHome||"0.50" }].map(({ t, score, sent }) => {
+              const sentV = parseFloat(sent);
+              const sentLabel = sentV >= 0.55 ? "Positive" : sentV <= 0.35 ? "Negative" : "Mixed";
+              const sentC = sentV >= 0.55 ? "var(--primary)" : sentV <= 0.35 ? "var(--danger)" : "var(--gold)";
+              return `
+                <div style="padding:12px;border-radius:var(--radius);border:1px solid ${t.color}30;background:${t.color}08;text-align:center">
+                  <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:8px">
+                    <div class="team-logo" style="background:${t.color};width:18px;height:18px;font-size:.5rem">${t.abbreviation.slice(0,2)}</div>
+                    <span style="font-size:.78rem;font-weight:700;color:var(--text)">${t.name}</span>
+                  </div>
+                  <div style="font-size:1.8rem;font-weight:900;color:${t.color};line-height:1">${score}</div>
+                  <div style="font-size:.62rem;color:var(--muted);margin-bottom:8px">/100 Buzz Score</div>
+                  <div style="height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:6px"><div style="width:${score}%;height:100%;background:${t.color}"></div></div>
+                  <div style="font-size:.65rem">Sentiment: <strong style="color:${sentC}">${sentLabel}</strong></div>
+                </div>`;
+            }).join("")}
+          </div>
+          ${(buzz.trendingTopics||[]).length ? `<div style="display:flex;flex-wrap:wrap;gap:6px">${(buzz.trendingTopics||[]).map(t=>`<span style="font-size:.7rem;padding:3px 9px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--muted-l)">${t}</span>`).join("")}</div>` : ""}
+        </div>
+
+        <!-- Injury Report -->
+        <div style="margin-bottom:22px">
+          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>OFFICIAL INJURY REPORT<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+          ${allPlayers.length ? `
+            <div style="display:grid;gap:6px">
+              ${allPlayers.map(p => {
+                const t = p.teamId === home.id ? home : away;
+                const s = (p.injuryStatus || "healthy").toLowerCase();
+                const sc = s === "healthy" ? "var(--primary)" : s === "out" ? "var(--danger)" : s === "doubtful" ? "#f87171" : "var(--gold)";
+                const pc = (p.practiceStatus || "full") === "full" ? "var(--primary)" : (p.practiceStatus || "").includes("limit") ? "var(--gold)" : "var(--danger)";
+                return `
+                  <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid ${s !== "healthy" ? sc+"40" : "var(--border)"}">
+                    <div style="width:22px;height:22px;border-radius:50%;background:${t.color};display:flex;align-items:center;justify-content:center;font-size:.54rem;font-weight:700;color:#fff;flex-shrink:0">${t.abbreviation.slice(0,2)}</div>
+                    <div style="flex:1">
+                      <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+                        <span style="font-size:.8rem;font-weight:700;color:var(--text)">${p.name}</span>
+                        <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${p.year||""}</span>
+                        ${p.nflDraftStatus ? `<span style="font-size:.58rem;color:var(--gold)">🏆</span>` : ""}
+                      </div>
+                      ${p.injuryType && p.injuryType !== "none" && p.injuryType !== null ? `<div style="font-size:.7rem;color:var(--muted-l)">${p.injuryType}</div>` : ""}
+                    </div>
+                    <div style="text-align:right;flex-shrink:0">
+                      <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:${sc}">${s === "healthy" ? "ACTIVE" : s.toUpperCase()}</div>
+                      ${p.practiceStatus ? `<div style="font-size:.6rem;color:${pc};font-weight:600">${p.practiceStatus.toUpperCase()}</div>` : ""}
+                    </div>
+                  </div>`;
+              }).join("")}
+            </div>` : `<div class="text-xs text-muted">No player data available for this matchup</div>`}
+        </div>
+
+        <!-- Player Insider Intel -->
+        ${practiceNotes.length ? `
+        <div style="margin-bottom:22px">
+          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>PLAYER INTELLIGENCE FEEDS<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+          <div style="display:grid;gap:8px">
+            ${practiceNotes.map(p => {
+              const t = p.teamId === home.id ? home : away;
+              const dl = p.personalFlags.distractionLevel || 0;
+              return `
+                <div style="padding:10px 12px;border-left:3px solid ${t.color};background:var(--surface);border-radius:0 8px 8px 0">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">
+                    <span style="font-size:.8rem;font-weight:700;color:var(--text)">${p.name}</span>
+                    <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${t.abbreviation}</span>
+                    ${dl >= 6 ? `<span style="margin-left:auto;font-size:.62rem;padding:1px 5px;border-radius:4px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700">⚠ DISTRACTION ${dl}/10</span>` : ""}
+                  </div>
+                  <div style="font-size:.8rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${p.personalFlags.insiderNote}"</div>
+                  ${p.personalFlags.socialChatter ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:4px">🐦 Twitter: ${p.personalFlags.socialChatter}</div>` : ""}
+                </div>`;
+            }).join("")}
+          </div>
+        </div>` : ""}
+
+        <!-- Line Movement -->
+        ${lm.length ? `
+        <div style="margin-bottom:22px">
+          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>LINE MOVEMENT TRACKER<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+          <div style="position:relative;padding-left:18px">
+            ${lm.map((step, i) => {
+              const isLast = i === lm.length - 1;
+              const spreadDir = i > 0 && step.spread !== lm[i-1].spread;
+              const spreadUp = spreadDir && step.spread < lm[i-1].spread;
+              return `
+                <div class="line-step">
+                  <div style="position:relative">
+                    <div class="line-step-dot" style="background:${isLast ? "var(--primary)" : "var(--border-l)"}"></div>
+                    ${!isLast ? `<div class="line-step-line"></div>` : ""}
+                  </div>
+                  <div style="flex:1;padding-bottom:4px">
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px">
+                      <span style="font-size:.7rem;font-weight:700;color:var(--text)">${step.time}</span>
+                      <span style="font-size:.78rem;font-weight:900;color:${isLast ? "var(--primary)" : "var(--text-soft)"}">${fmtSpread(step.spread)}</span>
+                      <span style="font-size:.72rem;color:var(--muted)">O/U ${step.total}</span>
+                      ${spreadDir ? `<span style="font-size:.65rem;font-weight:700;color:${spreadUp ? "var(--danger)" : "var(--primary)"}">${spreadUp ? "↑ AWAY" : "↓ HOME"} MONEY</span>` : ""}
+                    </div>
+                    <div style="font-size:.75rem;color:var(--muted-l);line-height:1.45">${step.note}</div>
+                  </div>
+                </div>`;
+            }).join("")}
+          </div>
+        </div>` : ""}
+
+        <!-- Public vs Sharp Betting Split -->
+        ${(pb.homePct || smSig.publicBettingPct) ? `
+        <div>
+          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>PUBLIC vs SHARP SPLIT<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="padding:12px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border)">
+              <div style="font-size:.65rem;color:var(--muted);margin-bottom:6px;font-weight:700">SPREAD BETS</div>
+              ${(() => { const hp = pb.homePct || smSig.publicBettingPct || 50; const ap = 100 - hp; return `
+                <div style="display:flex;height:20px;border-radius:5px;overflow:hidden;margin-bottom:6px">
+                  <div style="width:${hp}%;background:${home.color}cc;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:#fff">${hp}%</div>
+                  <div style="flex:1;background:${away.color}cc;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:#fff">${ap}%</div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted)"><span>${home.abbreviation}</span><span>${away.abbreviation}</span>`; })()}
+              </div>
+            </div>
+            <div style="padding:12px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border)">
+              <div style="font-size:.65rem;color:var(--muted);margin-bottom:6px;font-weight:700">TOTAL BETS</div>
+              ${(() => { const op = pb.overPct || 52; const up = 100 - op; return `
+                <div style="display:flex;height:20px;border-radius:5px;overflow:hidden;margin-bottom:6px">
+                  <div style="width:${op}%;background:var(--primary)cc;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:#fff">${op}%</div>
+                  <div style="flex:1;background:var(--danger)cc;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:#fff">${up}%</div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted)"><span>OVER</span><span>UNDER</span>`; })()}
+              </div>
+            </div>
+          </div>
+          ${smSig && smSig.side ? `
+            <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)">
+              <div style="font-size:.65rem;font-weight:700;color:var(--primary);margin-bottom:3px">💰 SHARP MONEY INDICATOR</div>
+              <div style="font-size:.8rem;color:var(--text-soft)">Professionals are on <strong style="color:${smSig.side === "home" ? home.color : away.color}">${smSig.side === "home" ? home.name : away.name}</strong>${smSig.note ? " — " + smSig.note : "."}</div>
+            </div>` : ""}
         </div>` : ""}
       </div>`;
   }
@@ -1257,6 +1686,10 @@ if (!gameData) {
 
     ${renderGamePreview()}
 
+    ${renderFullRoster()}
+
+    ${renderPositionMatchups()}
+
     ${renderXFactors()}
 
     <!-- MAIN DETAIL GRID -->
@@ -1266,7 +1699,6 @@ if (!gameData) {
       <div>
         ${renderModelGrade()}
         ${renderPicks()}
-        ${renderPlayerIntelligence()}
         ${renderFactors()}
         ${renderStats()}
         ${renderVegas()}
@@ -1279,11 +1711,12 @@ if (!gameData) {
         ${renderSituational()}
         ${renderCoaching()}
         ${renderProgramHealth()}
-        ${renderSocial()}
         ${renderBreakdown()}
       </div>
 
     </div><!-- /detail-grid -->
+
+    ${renderSocialHub()}
 
     <!-- DISCLAIMER -->
     <div style="margin-top:24px;padding:16px 20px;border-radius:var(--radius-lg);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.15);display:flex;gap:14px;align-items:flex-start">

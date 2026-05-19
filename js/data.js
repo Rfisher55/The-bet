@@ -1751,6 +1751,18 @@ const GAMES = [
         { section: "THE PICK", text: "LSU -3.5 is the play. Tiger Stadium at night plus a veteran LSU roster versus a Clemson team with real quarterback questions is a perfect storm for the home team. Expect LSU to build a lead by halftime and cover." }
       ],
       thePick: { team: "LSU", line: "-3.5", confidence: "HIGH", unit: 2, reasoning: "Death Valley night game + Clemson QB questions + Kelly home record = LSU cover" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -3.5, total: 56.0, note: "LSU opened as 3.5-point home favorites Sunday night; immediate sharp action on the Tigers" },
+        { time: "Mid-week", spread: -3.5, total: 55.5, note: "Total ticked down half-point — books shading under on high-temperature night game" },
+        { time: "Current (Fri)", spread: -4.0, total: 55.0, note: "Line moved to -4 after Clemson's starting center listed limited on Thursday injury report" }
+      ],
+      publicBetting: { homePct: 58, awayPct: 42, overPct: 54, underPct: 46 },
+      beatWriter: [
+        { reporter: "Pete Thamel", outlet: "ESPN", report: "LSU ran their crowd-noise drill for the third straight day — Brian Kelly clearly wants zero mental errors in the season opener. The Tigers' secondary looks elite and two freshmen WRs are drawing rave reviews from scouts in camp.", team: "lsu", sentiment: "positive", daysAgo: 2 },
+        { reporter: "David Hood", outlet: "TigerNet", report: "Clemson's starting center was limited in Thursday practice with an undisclosed lower-body issue. Dabo held an extended film session specifically on LSU's defensive stunts and twists. QB reps look sharp but the OL depth is a real concern heading into Death Valley.", team: "clemson", sentiment: "negative", daysAgo: 1 }
+      ]
     }
   },
   {
@@ -1778,6 +1790,18 @@ const GAMES = [
         { section: "THE PICK", text: "Notre Dame -7 reflects the talent gap accurately. The Irish win comfortably as the de-facto home team with superior overall talent and a coach who prepares perfectly for these moments. Cover expected by double digits." }
       ],
       thePick: { team: "Notre Dame", line: "-7", confidence: "HIGH", unit: 2, reasoning: "Neutral site becomes home game for Notre Dame fanbase + talent gap + Freeman neutral-site record" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -7.0, total: 49.0, note: "Notre Dame opened as 7-point favorites at Lambeau; respected number from the jump" },
+        { time: "Mid-week", spread: -7.0, total: 48.5, note: "Total eased half-point on Wisconsin defensive film review; no spread movement" },
+        { time: "Current (Fri)", spread: -7.5, total: 48.5, note: "Line crept to -7.5 after sharp ticket count confirms Irish money dominating the window" }
+      ],
+      publicBetting: { homePct: 62, awayPct: 38, overPct: 48, underPct: 52 },
+      beatWriter: [
+        { reporter: "Matt Fortuna", outlet: "The Athletic", report: "Marcus Freeman held a full-pads walkthrough at Lambeau on Friday morning. The Irish travel party was unusually relaxed — players hit the field with genuine excitement. Freeman's logistics team handled every detail and the program looks completely dialed in.", team: "notre_dame", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Jesse Temple", outlet: "The Athletic", report: "Wisconsin's offensive line had its lowest-graded practice of camp on Wednesday. Luke Fickell is leaning on the defense to set the tone but privately the offensive staff is wrestling with scheme adjustments needed to counter Notre Dame's front seven.", team: "wisconsin", sentiment: "negative", daysAgo: 2 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -1808,6 +1832,18 @@ const GAMES = [
         { section: "THE PICK", text: "Texas -3.5 at home is the play. The home-field edge at DKR combined with a motivated Longhorn team that circled this game all offseason gives Texas the slight advantage. Expect a close game that Texas wins by 7." }
       ],
       thePick: { team: "Texas", line: "-3.5", confidence: "HIGH", unit: 2, reasoning: "DKR night game advantage + Texas home fortress record + Ohio State road struggles at 100K venues" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -3.5, total: 58.5, note: "Texas opened as 3.5-point home favorites; sharp books came in quickly under the total" },
+        { time: "Mid-week", spread: -4.0, total: 58.0, note: "Line moved to -4 as local Texas money flooded the market; total edged down" },
+        { time: "Current (Fri)", spread: -3.5, total: 57.5, note: "Line reverse-moved back to -3.5 as Ohio State sharp money arrived Thursday evening" }
+      ],
+      publicBetting: { homePct: 55, awayPct: 45, overPct: 61, underPct: 39 },
+      beatWriter: [
+        { reporter: "Chris Hummer", outlet: "247Sports", report: "Texas held a spirited closed practice Thursday — camp sources say the energy on the defensive side is at a season-high after film review of Ohio State's tendencies. Sarkisian is installing two new red-zone packages specifically for this game.", team: "texas", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Dan Hope", outlet: "Eleven Warriors", report: "Ryan Day confirmed Ohio State's starting QB is fully healthy and running the full playbook after a minor camp shoulder issue. The Buckeyes practiced in heat simulation for three consecutive days to prepare for Austin conditions in September.", team: "ohio_state", sentiment: "positive", daysAgo: 2 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -1838,6 +1874,18 @@ const GAMES = [
         { section: "THE PICK", text: "Alabama -13.5 is real value. At home against an ACC program still in the building phase, Alabama's depth and talent advantage is decisive. Expect Alabama to win by 21+ and cover comfortably." }
       ],
       thePick: { team: "Alabama", line: "-13.5", confidence: "HIGH", unit: 2, reasoning: "Alabama talent depth overwhelming + home fortress + FSU still in rebuild = Tide cover convincingly" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -13.5, total: 57.0, note: "Alabama opened as massive 13.5-point home favorites; books set high expecting square money on Bama" },
+        { time: "Mid-week", spread: -14.0, total: 56.5, note: "Line inflated to -14 on Tide ticket volume; total slid on heat weather forecast" },
+        { time: "Current (Fri)", spread: -13.5, total: 56.5, note: "Sharp fade-the-public money trimmed the line back to -13.5 by Friday afternoon" }
+      ],
+      publicBetting: { homePct: 71, awayPct: 29, overPct: 52, underPct: 48 },
+      beatWriter: [
+        { reporter: "Cecil Hurt", outlet: "Tuscaloosa News", report: "Alabama's depth chart is set and Kalen DeBoer appears fully comfortable calling plays in Bryant-Denny after two full years in Tuscaloosa. Practice tempo was the highest of fall camp this week with pads coming out Thursday.", team: "alabama", sentiment: "positive", daysAgo: 2 },
+        { reporter: "Ira Schoffel", outlet: "Warchant", report: "Florida State's offensive coordinator confirmed the starting QB will play despite a minor knee scope in July. The Seminoles arrived in Tuscaloosa Friday morning and held a walkthrough but sideline sources note the defense looks thin at linebacker depth.", team: "florida_state", sentiment: "negative", daysAgo: 1 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -1868,6 +1916,18 @@ const GAMES = [
         { section: "THE PICK", text: "Tennessee +4.5 is the value side. Heupel's tempo attack, Iamaleava's mobility, and Tennessee's physical defense make this game a coin flip regardless of location. Take the Vols with the points." }
       ],
       thePick: { team: "Tennessee", line: "+4.5", confidence: "HIGH", unit: 2, reasoning: "Heupel tempo impossible to simulate + Iamaleava mobility creates third dimension + underdog value" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -3.0, total: 60.5, note: "Texas opened as 3-point home favorites in this SEC showdown; high total reflects both offenses" },
+        { time: "Mid-week", spread: -3.5, total: 61.0, note: "Texas money pushed spread to -3.5; total climbed as sharp over-bettors targeted both QBs" },
+        { time: "Current (Fri)", spread: -3.5, total: 61.5, note: "Total continued upward — two respected sharps confirmed over plays on Friday" }
+      ],
+      publicBetting: { homePct: 54, awayPct: 46, overPct: 66, underPct: 34 },
+      beatWriter: [
+        { reporter: "Brian Davis", outlet: "Austin American-Statesman", report: "Texas's offense produced its best red-zone efficiency of fall camp in Thursday's inside-run period. The Longhorns appear to have sorted their OL rotation and Sarkisian's tempo package looks ready to deploy against Tennessee's fast defensive substitution scheme.", team: "texas", sentiment: "positive", daysAgo: 1 },
+        { reporter: "John Brice", outlet: "Vol Report", report: "Tennessee's defensive backfield has been the most-discussed unit in Knoxville all week. Josh Heupel held extra film sessions on Texas's slot receiver tendencies and the Vols are expected to play nickel-heavy to counter the Longhorns' speed.", team: "tennessee", sentiment: "neutral", daysAgo: 2 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -1898,6 +1958,18 @@ const GAMES = [
         { section: "THE PICK", text: "Miami -3.5 is solid value. Hurricane momentum, superior recruiting, and home-field advantage make this a comfortable home win. Expect Miami to control the second half." }
       ],
       thePick: { team: "Miami", line: "-3.5", confidence: "HIGH", unit: 2, reasoning: "Miami ascending trajectory + Clemson offensive transition + South Florida home game" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -4.5, total: 55.5, note: "Miami opened as 4.5-point home favorites in this ACC heavyweight matchup" },
+        { time: "Mid-week", spread: -5.0, total: 55.0, note: "Spread moved to -5 as Miami home money dominated; total slid on Clemson defensive film" },
+        { time: "Current (Fri)", spread: -4.5, total: 55.0, note: "Reverse-line movement as sharp Clemson money arrived — worth noting for live betting" }
+      ],
+      publicBetting: { homePct: 60, awayPct: 40, overPct: 51, underPct: 49 },
+      beatWriter: [
+        { reporter: "Shehan Jeyarajah", outlet: "CBS Sports", report: "Miami's pass rush group had its most impressive practice of the year on Thursday. Mario Cristobal is stressing execution fundamentals this week — the Hurricanes have won eight of their last nine home games against ranked opponents.", team: "miami", sentiment: "positive", daysAgo: 1 },
+        { reporter: "David Hood", outlet: "TigerNet", report: "Clemson installed significant new run-game wrinkles this week specifically designed to attack Miami's edge defenders. Dabo Swinney confirmed both starting tackles are healthy after recent camp concerns. The Tigers' bye-week preparation appears focused and disciplined.", team: "clemson", sentiment: "positive", daysAgo: 2 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -1928,6 +2000,18 @@ const GAMES = [
         { section: "THE PICK", text: "Alabama -3.5 at home is the lean. Home field advantage in a rivalry game where both teams are equal in talent gives us the slight edge to the Tide. Expect a close, physical game with Alabama winning by a field goal to a touchdown." }
       ],
       thePick: { team: "Alabama", line: "-3.5", confidence: "HIGH", unit: 2, reasoning: "Bryant-Denny home fortress + Smart 2-4 in Tuscaloosa + night game October advantage" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -3.0, total: 48.5, note: "Alabama opened as 3-point home favorites in what may be the most anticipated regular-season game of 2026" },
+        { time: "Mid-week", spread: -3.5, total: 48.0, note: "Spread pushed to -3.5 on Alabama home money; total dropped as sharp under-bettors targeted the defensive matchup" },
+        { time: "Current (Fri)", spread: -3.5, total: 47.5, note: "Total crept further down — both Vegas and sharp books fading the over in this defensive identity game" }
+      ],
+      publicBetting: { homePct: 52, awayPct: 48, overPct: 44, underPct: 56 },
+      beatWriter: [
+        { reporter: "Cecil Hurt", outlet: "Tuscaloosa News", report: "Alabama's defensive preparation this week has been the most elaborate of the DeBoer era. The Tide held a full-speed, live-tackling session Thursday focused entirely on stopping Georgia's power run game. Camp buzz is that the linebacker rotation has finally found its depth.", team: "alabama", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Seth Emerson", outlet: "The Athletic", report: "Kirby Smart has been characteristically tight-lipped but Georgia's practice tempo this week was notably intense. The Bulldogs' offensive line had its sharpest week of camp and camp sources indicate Carson Beck has been locked in during film sessions.", team: "georgia", sentiment: "positive", daysAgo: 2 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -1958,6 +2042,18 @@ const GAMES = [
         { section: "THE PICK", text: "Tennessee +3.5 is the value play. Neyland home advantage plus James Pearce's edge rush plus the emotional intensity of the Third Saturday make this the right side. Take the Vols and the points." }
       ],
       thePick: { team: "Tennessee", line: "+3.5", confidence: "HIGH", unit: 2, reasoning: "Neyland home advantage worth 4-5 points + Pearce motivated + Alabama road struggles vs elite venues" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -1.5, total: 52.0, note: "Tennessee opened as slight 1.5-point home favorites in The Third Saturday in October" },
+        { time: "Mid-week", spread: -2.0, total: 51.5, note: "Local Knoxville money moved the spread to -2; total edged down on expected cold-weather forecast" },
+        { time: "Current (Fri)", spread: -2.5, total: 51.5, note: "Tennessee spread grew to -2.5 on Friday — public money overwhelmingly on Vols" }
+      ],
+      publicBetting: { homePct: 58, awayPct: 42, overPct: 49, underPct: 51 },
+      beatWriter: [
+        { reporter: "John Brice", outlet: "Vol Report", report: "Neyland Stadium's walkthrough was electric Friday morning — Vol fans have been camped outside the stadium since Thursday evening. Josh Heupel's offense installed new quarterback scramble packages this week specifically to attack Alabama's contain assignments.", team: "tennessee", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Cecil Hurt", outlet: "Tuscaloosa News", report: "Alabama arrived in Knoxville with full health on their two-deep and DeBoer confirmed no injury news Friday. The Tide appeared focused in a brief media availability — notable that the secondary coach held an extra session on Tennessee's deep ball routes Thursday afternoon.", team: "alabama", sentiment: "neutral", daysAgo: 1 }
+      ]
     }
   },
   {
@@ -1985,6 +2081,18 @@ const GAMES = [
         { section: "THE PICK", text: "Michigan -3.5 at home is solid. Home-field edge, Michigan's offensive line dominance in favorable matchups, and Franklin's historically poor record in Ann Arbor give the Wolverines the cover." }
       ],
       thePick: { team: "Michigan", line: "-3.5", confidence: "HIGH", unit: 2, reasoning: "Big House home advantage + Michigan O-line dominant at home + Franklin 2-4 at Michigan Stadium" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -3.0, total: 47.5, note: "Michigan opened as 3-point home favorites in The Big House against Penn State" },
+        { time: "Mid-week", spread: -3.5, total: 47.0, note: "Spread bumped to -3.5 on Michigan home volume; under money drove the total down" },
+        { time: "Current (Fri)", spread: -3.0, total: 47.0, note: "Reverse line movement back to -3 — sharp Penn State money arrived Thursday night" }
+      ],
+      publicBetting: { homePct: 55, awayPct: 45, overPct: 46, underPct: 54 },
+      beatWriter: [
+        { reporter: "Austin Meek", outlet: "The Athletic", report: "Sherrone Moore confirmed Michigan's starting quarterback is fully healthy after early-camp concerns. The Wolverines held an unusually spirited closed practice Thursday — Big House sellout energy is building in Ann Arbor with over 110,000 expected.", team: "michigan", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Josh Moyer", outlet: "Centre Daily Times", report: "James Franklin confirmed Penn State's starting safety will miss this game with an ankle injury — a potential game-changer against Michigan's power run game. The Nittany Lions installed a new defensive front rotation Thursday to compensate.", team: "penn_state", sentiment: "negative", daysAgo: 1 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -2015,6 +2123,18 @@ const GAMES = [
         { section: "THE PICK", text: "Georgia -9 is real value. The talent gap between these programs is substantial, and Florida has not shown the ability to compete with elite Georgia teams. Expect Georgia to win by 17-21 and cover comfortably." }
       ],
       thePick: { team: "Georgia", line: "-9", confidence: "HIGH", unit: 2, reasoning: "Georgia dominates series 5-of-6 + massive talent gap over rebuilding Florida + Smart rivalry preparation" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -3.0, total: 49.5, note: "Georgia opened as 3-point favorites in the World's Largest Outdoor Cocktail Party in Jacksonville" },
+        { time: "Mid-week", spread: -3.5, total: 49.0, note: "Georgia money moved the spread to -3.5; total ticked down on defensive film from both programs" },
+        { time: "Current (Fri)", spread: -3.5, total: 49.0, note: "Line stable heading into game week — even ticket split despite neutral-site designation" }
+      ],
+      publicBetting: { homePct: 53, awayPct: 47, overPct: 50, underPct: 50 },
+      beatWriter: [
+        { reporter: "Seth Emerson", outlet: "The Athletic", report: "Georgia has had an unusual amount of energy in Jacksonville week practices — Kirby Smart credited the senior class for raising the intensity. The Bulldogs' defensive line rotation is at full strength with no injury concerns heading into the World's Largest Outdoor Cocktail Party.", team: "georgia", sentiment: "positive", daysAgo: 2 },
+        { reporter: "Edgar Thompson", outlet: "Gainesville Sun", report: "Billy Napier confirmed Florida's starting quarterback will play despite a mid-week shoulder issue that limited Wednesday practice. The Gators held an extensive film session on Georgia's press-coverage tendencies — their receivers coach noted specific route adjustments for this matchup.", team: "florida", sentiment: "neutral", daysAgo: 1 }
+      ]
     }
   },
   {
@@ -2042,6 +2162,18 @@ const GAMES = [
         { section: "THE PICK", text: "Clemson +3.5 is the value. This game will be decided by one score, and Clemson's defensive elite-ness keeps them in it. Take the Tigers with the points in a game that goes to the fourth quarter." }
       ],
       thePick: { team: "Clemson", line: "+3.5", confidence: "MEDIUM", unit: 1.5, reasoning: "Clemson elite defense + Swinney 14-4 ATS as underdog + one-score game expected" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -2.5, total: 54.0, note: "Florida State opened as 2.5-point home favorites in this rivalry renewal" },
+        { time: "Mid-week", spread: -3.0, total: 53.5, note: "Spread moved to -3 on FSU home advantage money; total slid slightly" },
+        { time: "Current (Fri)", spread: -3.0, total: 54.0, note: "Total reversed upward after both QBs listed full practice Friday — sharp over-money confirmed" }
+      ],
+      publicBetting: { homePct: 56, awayPct: 44, overPct: 55, underPct: 45 },
+      beatWriter: [
+        { reporter: "Ira Schoffel", outlet: "Warchant", report: "Florida State's home atmosphere preparations are at an all-time high — Doak Campbell Stadium is expected to be at full capacity with an early tailgate crowd. The Seminoles defense held its best practice of the season Thursday against a scout team simulating Clemson's RPO package.", team: "florida_state", sentiment: "positive", daysAgo: 1 },
+        { reporter: "David Hood", outlet: "TigerNet", report: "Clemson's quarterback had his sharpest week of practice, completing a reported 14 of 16 in Friday's two-minute drill period. Dabo Swinney indicated the Tigers are treating this as a statement game — the locker room energy reportedly higher than normal heading into Tallahassee.", team: "clemson", sentiment: "positive", daysAgo: 1 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -2072,6 +2204,18 @@ const GAMES = [
         { section: "THE PICK", text: "Ohio State -6 at home is justified. The Buckeyes are superior at every position group, the November cold disadvantages Oregon, and Day does not lose at home to conference opponents. Comfortable win and cover." }
       ],
       thePick: { team: "Ohio State", line: "-6", confidence: "HIGH", unit: 2, reasoning: "Horseshoe home advantage + November cold hurts Oregon + OSU depth dominance" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -7.0, total: 56.5, note: "Ohio State opened as heavy 7-point home favorites in the Horseshoe for a marquee November matchup" },
+        { time: "Mid-week", spread: -7.5, total: 56.0, note: "Spread moved to -7.5 on OSU home money; Oregon injury news leaked Wednesday afternoon" },
+        { time: "Current (Fri)", spread: -7.0, total: 55.5, note: "Line reverse-moved to -7 as sharp Oregon money arrived — sharp books see value with the points" }
+      ],
+      publicBetting: { homePct: 64, awayPct: 36, overPct: 57, underPct: 43 },
+      beatWriter: [
+        { reporter: "Dan Hope", outlet: "Eleven Warriors", report: "Ohio Stadium is expected to be its loudest since the 2024 Michigan game. Ryan Day confirmed a new no-huddle package was installed this week specifically targeting Oregon's defensive substitution tendencies. The Buckeyes' pass rush group looks completely healthy after recent camp concerns.", team: "ohio_state", sentiment: "positive", daysAgo: 1 },
+        { reporter: "James Crepea", outlet: "The Oregonian", report: "Oregon's starting wide receiver was limited Thursday with a lower-leg contusion and is listed questionable for Saturday. Dan Lanning held an extended special teams session Friday morning — the Ducks are treating a potential late-season road trip to Columbus with championship-level preparation.", team: "oregon", sentiment: "negative", daysAgo: 1 }
+      ]
     }
   },
   {
@@ -2099,6 +2243,18 @@ const GAMES = [
         { section: "THE PICK", text: "LSU +1.5 is the pick. The home field advantage in this specific venue on this specific night is worth 3-4 points that the line does not account for. Alabama may win the game, but LSU covers comfortably. Take the Tigers." }
       ],
       thePick: { team: "LSU", line: "+1.5", confidence: "HIGH", unit: 2, reasoning: "Tiger Stadium night game = 3-4 point advantage not priced into 1.5-point line" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -3.5, total: 59.0, note: "LSU opened as 3.5-point home favorites in an anticipated night game showdown in Baton Rouge" },
+        { time: "Mid-week", spread: -4.0, total: 59.5, note: "Spread to -4 on LSU night game money; total rose as sharp over-bettors targeted both high-powered offenses" },
+        { time: "Current (Fri)", spread: -4.0, total: 59.0, note: "Total pulled back slightly after weather forecast showed possible humidity limiting — spread held" }
+      ],
+      publicBetting: { homePct: 57, awayPct: 43, overPct: 59, underPct: 41 },
+      beatWriter: [
+        { reporter: "Pete Thamel", outlet: "ESPN", report: "Death Valley is expected to break the decibel record for a regular-season game Saturday night. Brian Kelly held a rare joint offensive and defensive practice Thursday with full sound pumped at practice — LSU's veterans looked completely unfazed. This locker room is as focused as any Kelly team in Baton Rouge.", team: "lsu", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Cecil Hurt", outlet: "Tuscaloosa News", report: "DeBoer called LSU's stadium 'the most difficult road environment in America' on Wednesday's presser. Alabama confirmed both starting cornerbacks are healthy but travel party sources note the Tide will deploy a new two-high safety shell specifically to limit LSU's deep-shot passing game.", team: "alabama", sentiment: "neutral", daysAgo: 2 }
+      ]
     }
   },
   {
@@ -2126,6 +2282,18 @@ const GAMES = [
         { section: "THE PICK", text: "Notre Dame -7.5 is correct. Talent gap, home fortress advantage, Miami's poor road record at hostile venues, and the cold weather all point to a comfortable Irish win. Expect Notre Dame to win by 10-14." }
       ],
       thePick: { team: "Notre Dame", line: "-7.5", confidence: "HIGH", unit: 2, reasoning: "Notre Dame home fortress + Miami 2-5 ATS at hostile venues + cold weather eliminates Miami vertical game" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -6.5, total: 56.5, note: "Notre Dame opened as 6.5-point home favorites under the Golden Dome lights" },
+        { time: "Mid-week", spread: -7.0, total: 56.0, note: "Notre Dame home money moved the spread to -7; total eased on defensive preparation reports" },
+        { time: "Current (Fri)", spread: -7.0, total: 56.0, note: "Stable line heading into game week — sharp books respect the number as fair" }
+      ],
+      publicBetting: { homePct: 63, awayPct: 37, overPct: 53, underPct: 47 },
+      beatWriter: [
+        { reporter: "Matt Fortuna", outlet: "The Athletic", report: "Notre Dame Stadium's sellout energy this week is the highest since the USC rivalry game last year. Freeman held a Friday walkthrough that sources describe as 'locked in' — the Irish defensive staff has been studying Miami's option-route concepts all week.", team: "notre_dame", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Shehan Jeyarajah", outlet: "CBS Sports", report: "Mario Cristobal confirmed Miami's offensive line rotation is at full health — no injury concerns heading into South Bend. The Hurricanes practiced indoors Thursday due to travel logistics but film study reports suggest their defensive secondary is specifically prepared for Notre Dame's red-zone passing game.", team: "miami", sentiment: "neutral", daysAgo: 2 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -2156,6 +2324,18 @@ const GAMES = [
         { section: "THE PICK", text: "Texas +4 is the clear value pick. The letdown factor alone is worth 3-4 points, Texas is the better rested team, and Sarkisian has had a full week to prepare for a tired LSU defense. Take the Longhorns with the points." }
       ],
       thePick: { team: "Texas", line: "+4", confidence: "HIGH", unit: 2, reasoning: "Classic letdown spot — LSU 4-9 ATS post-Alabama + Texas full week fresh prep + speed mismatch" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -2.5, total: 61.0, note: "LSU opened as slight 2.5-point home favorites in this premier SEC offensive showcase" },
+        { time: "Mid-week", spread: -3.0, total: 61.5, note: "Line moved to -3 as LSU home money arrived; total pushed up on reputation of both offenses" },
+        { time: "Current (Fri)", spread: -3.0, total: 61.0, note: "Total pulled back slightly — sharp under-money noted on Friday after injury report" }
+      ],
+      publicBetting: { homePct: 53, awayPct: 47, overPct: 64, underPct: 36 },
+      beatWriter: [
+        { reporter: "Pete Thamel", outlet: "ESPN", report: "LSU's wide receiver corps looked exceptional in Thursday's practice — Brian Kelly confirmed two freshmen WRs are firmly in the two-deep and delivering on their recruiting profiles. The Tigers' preparation this week has centered on stopping Texas's quick-passing game before the Longhorns get into rhythm.", team: "lsu", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Brian Davis", outlet: "Austin American-Statesman", report: "Texas's offensive coordinator held an extra session Thursday installing new motion concepts specifically for LSU's defensive alignment tendencies. Sarkisian confirmed the team is healthy and the Longhorns are treating the Baton Rouge trip as a legitimate championship audition.", team: "texas", sentiment: "positive", daysAgo: 2 }
+      ]
     }
   },
   {
@@ -2183,6 +2363,18 @@ const GAMES = [
         { section: "THE PICK", text: "Oregon -7 at home is the correct number. The Ducks are the better team at home with superior speed and a home-field advantage worth 3-4 points. Expect Oregon to control the game from the second quarter onward." }
       ],
       thePick: { team: "Oregon", line: "-7", confidence: "HIGH", unit: 2, reasoning: "Autzen home advantage + Oregon receiver speed mismatches + Michigan 4-8 ATS on West Coast road games" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -7.0, total: 52.5, note: "Oregon opened as 7-point home favorites as Michigan arrives with a rebuilding offensive line" },
+        { time: "Mid-week", spread: -7.5, total: 52.0, note: "Spread moved to -7.5 on Oregon home volume; total dropped on Michigan's running game struggles" },
+        { time: "Current (Fri)", spread: -7.0, total: 52.0, note: "Reverse line movement back to -7 — sharp Michigan money worth noting as contrarian signal" }
+      ],
+      publicBetting: { homePct: 67, awayPct: 33, overPct: 48, underPct: 52 },
+      beatWriter: [
+        { reporter: "James Crepea", outlet: "The Oregonian", report: "Autzen Stadium is sold out and the Duck Walk preparation this week has extra electricity after last year's Big Ten title run. Dan Lanning confirmed Oregon's entire starting lineup is healthy and the Ducks are treating this Michigan game as a statement for New York Six consideration.", team: "oregon", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Austin Meek", outlet: "The Athletic", report: "Michigan's offensive staff is installing new run-blocking concepts specifically for Oregon's 3-3-5 defensive alignment — a scheme Michigan has limited experience facing. Sherrone Moore confirmed no injury issues but noted the long road trip to Eugene adds preparation complexity for a Wolverines team fighting for bowl eligibility.", team: "michigan", sentiment: "negative", daysAgo: 2 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -2213,6 +2405,18 @@ const GAMES = [
         { section: "THE PICK", text: "Tennessee -3 at home is the pick. Neyland home advantage, Heupel tempo increasing value on short prep week, and LSU arriving physically spent after Alabama and Texas. Vols cover in a game that stays close through the fourth quarter." }
       ],
       thePick: { team: "Tennessee", line: "-3", confidence: "HIGH", unit: 2, reasoning: "Neyland Thursday advantage + Heupel tempo thrives on short prep weeks + LSU post-Alabama-Texas fatigue" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -3.5, total: 57.5, note: "Tennessee opened as 3.5-point home favorites in a Thursday night SEC showcase at Neyland" },
+        { time: "Mid-week", spread: -4.0, total: 57.0, note: "Local Vol money pushed to -4; total edged down on short-week preparation concerns" },
+        { time: "Current (Fri)", spread: -4.0, total: 57.5, note: "Total reversed upward on Friday — sharp over-money confirmed for primetime Thursday showdown" }
+      ],
+      publicBetting: { homePct: 57, awayPct: 43, overPct: 60, underPct: 40 },
+      beatWriter: [
+        { reporter: "John Brice", outlet: "Vol Report", report: "Neyland under the lights on a Thursday night is the most underrated atmosphere in the SEC. Heupel confirmed this week's short-week preparation is no concern — Tennessee does it every year and the routine is perfected. The defensive staff specifically designed a new 3-down look for LSU's perimeter passing game.", team: "tennessee", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Pete Thamel", outlet: "ESPN", report: "LSU faces a short week after a physical Saturday game and Brian Kelly acknowledged the recovery challenge. The Tigers arrived in Knoxville by charter Friday evening and held a brief walkthrough. Kelly confirmed his starting QB is healthy but declined to detail the overall injury report ahead of the Thursday game.", team: "lsu", sentiment: "negative", daysAgo: 1 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -2243,6 +2447,18 @@ const GAMES = [
         { section: "THE PICK", text: "Ohio State -8.5 at home is fully justified. The talent gap is real, the home advantage is substantial, and Ohio State's motivation to dominate this rivalry is embedded in the program's DNA. Expect a decisive Ohio State win." }
       ],
       thePick: { team: "Ohio State", line: "-8.5", confidence: "HIGH", unit: 2, reasoning: "Buckeyes 18-6 ATS at home vs Michigan + roster depth overwhelming + Day's year-round preparation" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -7.0, total: 55.5, note: "Ohio State opened as 7-point favorites at home in THE GAME — the biggest regular-season matchup in college football" },
+        { time: "Mid-week", spread: -7.5, total: 55.0, note: "Spread moved to -7.5 on OSU home volume; under-money pushed the total down" },
+        { time: "Current (Fri)", spread: -7.0, total: 54.5, note: "Line trimmed back to -7 as sharp Michigan money arrived Friday — double-digit ticket split toward OSU but sharp money on Michigan" }
+      ],
+      publicBetting: { homePct: 68, awayPct: 32, overPct: 52, underPct: 48 },
+      beatWriter: [
+        { reporter: "Dan Hope", outlet: "Eleven Warriors", report: "Ryan Day has been preparing for THE GAME since the first week of September. Ohio Stadium will host the loudest home crowd since 2019 — media access was restricted Thursday as Day implemented final game-plan installations. Sources inside the program say the Buckeyes are operating at the highest focus level of the season.", team: "ohio_state", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Austin Meek", outlet: "The Athletic", report: "Sherrone Moore delivered a fiery team address Thursday night — Michigan's locker room motivation to end Ohio State's home winning streak is at an all-time high under Moore. The Wolverines confirm full health on their defensive two-deep and installed two new wrinkles specifically for Ohio State's interior RPO packages.", team: "michigan", sentiment: "positive", daysAgo: 1 }
+      ]
     }
   },
   {
@@ -2270,6 +2486,18 @@ const GAMES = [
         { section: "THE PICK", text: "Auburn +16 is the only bet. No matter how good Alabama is, 16 points in the Iron Bowl is too many. Auburn will compete emotionally through three quarters and keep this within two scores. Take the points." }
       ],
       thePick: { team: "Auburn", line: "+16", confidence: "MEDIUM", unit: 1.5, reasoning: "Iron Bowl underdog cover history 6-of-9 + 16 points too many in any rivalry game + Freeze motivation" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -10.5, total: 54.5, note: "Alabama opened as double-digit home favorites in the Iron Bowl — Auburn limping in with three losses" },
+        { time: "Mid-week", spread: -11.0, total: 54.0, note: "Spread grew to -11 on Alabama ticket dominance; total ticked down on defensive rivalry expectations" },
+        { time: "Current (Fri)", spread: -10.5, total: 54.0, note: "Reverse line movement to -10.5 — sharp Auburn money noted; Iron Bowl routinely defies the spread" }
+      ],
+      publicBetting: { homePct: 74, awayPct: 26, overPct: 50, underPct: 50 },
+      beatWriter: [
+        { reporter: "Cecil Hurt", outlet: "Tuscaloosa News", report: "Alabama practiced with unusual emotion this week — the rivalry factor is real regardless of records. DeBoer held a Friday walkthrough that sources called 'dialed in' with zero complacency allowed. The Tide's two-deep is at full health heading into the Iron Bowl.", team: "alabama", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Josh Bean", outlet: "AL.com", report: "Hugh Freeze rallied Auburn with an extended team meeting Thursday, reportedly invoking past Iron Bowl upsets including the Kick Six. The Tigers arrive in Tuscaloosa as heavy underdogs but confirmed their starting quarterback is healthy and the team's attitude in practice has been feisty all week.", team: "auburn", sentiment: "positive", daysAgo: 2 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -2300,6 +2528,18 @@ const GAMES = [
         { section: "THE PICK", text: "Georgia -3 is the lean. Smart's coaching edge in championship settings plus Georgia's defensive elite performance in December gives the Bulldogs the slight edge. Expect a close, physical game that Georgia wins by a field goal to a touchdown." }
       ],
       thePick: { team: "Georgia", line: "-3", confidence: "MEDIUM", unit: 1.5, reasoning: "Smart 8-2 in conference championships + Georgia defense peaks in December + indoor venue eliminates weather" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -3.0, total: 48.5, note: "Georgia opened as 3-point favorites in the SEC Championship in Atlanta's indoor dome" },
+        { time: "Mid-week", spread: -3.5, total: 48.0, note: "Spread grew to -3.5 on Georgia ticket volume; total dropped as sharp under-money targeted the defensive showcase" },
+        { time: "Current (Fri)", spread: -3.0, total: 47.5, note: "Reverse line movement back to -3 as Alabama sharp money confirmed Friday; total continued under trend" }
+      ],
+      publicBetting: { homePct: 54, awayPct: 46, overPct: 43, underPct: 57 },
+      beatWriter: [
+        { reporter: "Seth Emerson", outlet: "The Athletic", report: "Georgia arrived in Atlanta Thursday for early preparation — Kirby Smart runs the most meticulous championship-week program in college football. Smart confirmed full health across both lines and indicated the Bulldogs have prepared two new defensive fronts not previously used this season.", team: "georgia", sentiment: "positive", daysAgo: 1 },
+        { reporter: "Cecil Hurt", outlet: "Tuscaloosa News", report: "Alabama is treating this SEC Championship as the first step in a national title run. DeBoer held Alabama's most intense week of practice since early September with full-contact periods Tuesday and Wednesday. The Tide's offensive coordinator confirmed a new play-action package specifically designed to attack Georgia's Cover 2 shell.", team: "alabama", sentiment: "positive", daysAgo: 2 }
+      ]
     }
   },
   /* ═══════════════════════════════════════════════════
@@ -2330,6 +2570,18 @@ const GAMES = [
         { section: "THE PICK", text: "Ohio State -4.5 is the value play. The Buckeyes are the better team with the rematch preparation advantage, the championship game experience, and the roster depth to pull away in the second half." }
       ],
       thePick: { team: "Ohio State", line: "-4.5", confidence: "MEDIUM", unit: 1.5, reasoning: "Day 7-1 ATS in same-season rematches + championship game experience + OSU roster depth" }
+    },
+    socialIntel: {
+      lineMovement: [
+        { time: "Open (Mon)", spread: -4.5, total: 53.5, note: "Ohio State opened as 4.5-point favorites in the Big Ten Championship rematch in Indianapolis" },
+        { time: "Mid-week", spread: -5.0, total: 53.0, note: "Spread moved to -5 on OSU championship experience premium; total dipped on sharp under-bettors" },
+        { time: "Current (Fri)", spread: -4.5, total: 52.5, note: "Reverse line movement to -4.5 as sharp Oregon money arrived — rematch motivation pricing in" }
+      ],
+      publicBetting: { homePct: 61, awayPct: 39, overPct: 50, underPct: 50 },
+      beatWriter: [
+        { reporter: "Dan Hope", outlet: "Eleven Warriors", report: "Ryan Day held Ohio State's most secretive practice week of the season — media access was completely blocked Thursday and Friday. Sources inside the program indicate Day installed an entirely new offensive package never deployed against Oregon in the regular season game. The Buckeyes' focus level is described as 'championship-caliber' all week.", team: "ohio_state", sentiment: "positive", daysAgo: 1 },
+        { reporter: "James Crepea", outlet: "The Oregonian", report: "Dan Lanning delivered an emotional address to the team Wednesday evening specifically addressing the November loss to Ohio State. Oregon practiced with an edge not seen since the regular season game at Columbus — Lanning confirmed the Ducks installed significant new defensive concepts to counter Day's rematch adjustments.", team: "oregon", sentiment: "positive", daysAgo: 2 }
+      ]
     }
   }
 ];
