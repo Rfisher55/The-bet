@@ -9,7 +9,7 @@ const LIVE = (() => {
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
   const SEASON    = 2026;
   const KEY_STORE   = "theBet_cfbdKey";
-  const CACHE_STORE = "theBet_liveCache_v5";   // v5 = ESPN primary schedule integration
+  const CACHE_STORE = "theBet_liveCache_v6";   // v6 = 200-game threshold + 2025 fallback
   const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
 
   // ── Explicit school-name → internal-ID mapping ──────────────
@@ -343,17 +343,17 @@ const LIVE = (() => {
       const espnGames = espnEvents.map(e => mapESPNGame(e)).filter(Boolean);
       console.log(`[LIVE] ESPN: ${espnGames.length} events | CFBD ${SEASON}: ${games2026.length} games`);
 
-      // Prefer ESPN when it has more coverage (likely all season vs. CFBD pre-season gap)
+      // Prefer ESPN when it has full season coverage (200+ = meaningful schedule)
       let gamesFromApi;
-      if (espnGames.length > 0 && espnGames.length >= games2026.length) {
+      if (espnGames.length >= 200) {
         gamesFromApi = espnGames;
         console.log(`[LIVE] Using ESPN as primary schedule (${espnGames.length} games)`);
-      } else if (games2026.length >= 50) {
+      } else if (games2026.length >= 200) {
         gamesFromApi = games2026;
         console.log(`[LIVE] Using CFBD as primary schedule (${games2026.length} games)`);
       } else {
-        // Both ESPN and CFBD 2026 are thin — fall back to 2025 CFBD completed season
-        console.log(`[LIVE] Both sources thin (ESPN: ${espnGames.length}, CFBD: ${games2026.length}) — fetching 2025 season`);
+        // 2026 schedule not fully released — supplement with 2025 completed season data
+        console.log(`[LIVE] 2026 thin (ESPN: ${espnGames.length}, CFBD: ${games2026.length}) — fetching 2025 season`);
         const [reg25, post25] = await Promise.allSettled([
           api("/games?year=2025&seasonType=regular&classification=fbs",    apiKey),
           api("/games?year=2025&seasonType=postseason&classification=fbs", apiKey),
@@ -362,8 +362,9 @@ const LIVE = (() => {
           ...(reg25.status  === "fulfilled" ? (reg25.value  || []) : []),
           ...(post25.status === "fulfilled" ? (post25.value || []) : []),
         ];
-        gamesFromApi = [...games2026, ...games2025];
-        console.log(`[LIVE] 2025 fallback: ${gamesFromApi.length} total games`);
+        // ESPN + CFBD 2026 games first (deduplicate against static), then 2025 season
+        gamesFromApi = [...espnGames, ...games2026, ...games2025];
+        console.log(`[LIVE] Combined: ${gamesFromApi.length} total games`);
       }
 
       const payload = {
