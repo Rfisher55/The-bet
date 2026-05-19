@@ -1,14 +1,15 @@
 /* ═══════════════════════════════════════════════════════════════
-   THE BET — Live Data Layer v3
-   Fetches ALL FBS teams + ALL 2026 games from CFBD API.
+   THE BET — Live Data Layer v4
+   Fetches ALL FBS teams + ALL 2026 games from CFBD + ESPN APIs.
    Key set via window.CFBD_DEFAULT_KEY in config.js (or user-entered).
    ═══════════════════════════════════════════════════════════════ */
 
 const LIVE = (() => {
   const CFBD      = "https://api.collegefootballdata.com";
+  const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
   const SEASON    = 2026;
   const KEY_STORE   = "theBet_cfbdKey";
-  const CACHE_STORE = "theBet_liveCache_v4";   // v4 = bumped to force re-fetch with 2025 fallback
+  const CACHE_STORE = "theBet_liveCache_v5";   // v5 = ESPN primary schedule integration
   const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
 
   // ── Explicit school-name → internal-ID mapping ──────────────
@@ -89,7 +90,7 @@ const LIVE = (() => {
   let _relativeTimeInterval = null;
   let _rateLimitRetryTimer  = null;
 
-  const ENDPOINT_COUNT = 11; // 9 primary + 2 potential 2025 fallback calls
+  const ENDPOINT_COUNT = 12; // 9 CFBD + 1 ESPN + 2 potential 2025 fallback calls
 
   function getKey() { return localStorage.getItem(KEY_STORE) || window.CFBD_DEFAULT_KEY || null; }
   function setKey(k) { if (k) localStorage.setItem(KEY_STORE, k.trim()); else localStorage.removeItem(KEY_STORE); }
@@ -198,6 +199,82 @@ const LIVE = (() => {
     };
   }
 
+  // ── ESPN: fetch all FBS games for a season (no API key required) ──
+  async function fetchESPNSchedule(season) {
+    // Fetch all weeks (0–17 covers regular season + conf championships)
+    // ESPN groups=80 = FBS; seasontype=2 = regular season
+    const weeks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
+    const [regularResults, bowlResult] = await Promise.all([
+      Promise.allSettled(weeks.map(w =>
+        fetch(`${ESPN_BASE}/scoreboard?groups=80&limit=100&seasontype=2&week=${w}&dates=${season}`)
+          .then(r => r.ok ? r.json() : null).catch(() => null)
+      )),
+      // Also grab bowl/postseason games (seasontype=3)
+      fetch(`${ESPN_BASE}/scoreboard?groups=80&limit=200&seasontype=3&dates=${season}`)
+        .then(r => r.ok ? r.json() : null).catch(() => null),
+    ]);
+
+    const events = [];
+    regularResults.forEach(r => {
+      if (r.status === "fulfilled" && r.value?.events) events.push(...r.value.events);
+    });
+    if (bowlResult?.events) events.push(...bowlResult.events);
+
+    // Deduplicate by ESPN event ID
+    const seen = new Set();
+    return events.filter(e => { if (seen.has(e.id)) return false; seen.add(e.id); return true; });
+  }
+
+  // ── ESPN event → CFBD-compatible game object ─────────────────
+  function mapESPNGame(event) {
+    const comp = event.competitions?.[0];
+    if (!comp) return null;
+    const home = comp.competitors?.find(c => c.homeAway === "home");
+    const away = comp.competitors?.find(c => c.homeAway === "away");
+    if (!home?.team || !away?.team) return null;
+
+    const weekNum = event.week?.number || 1;
+    const rawDate = event.date || comp.date || "";
+    const dateStr = rawDate.slice(0, 10);
+
+    let time = "TBD";
+    try {
+      if (rawDate) {
+        time = new Date(rawDate).toLocaleTimeString("en-US", {
+          hour: "numeric", minute: "2-digit", timeZone: "America/New_York",
+        }) + " ET";
+      }
+    } catch {}
+
+    const broadcasts = comp.broadcasts || [];
+    const network = broadcasts[0]?.names?.join("/") || "TBD";
+
+    // Use team location (school name) for ID mapping — strips nickname
+    const homeSchool = home.team.location || home.team.displayName || "";
+    const awaySchool = away.team.location || away.team.displayName || "";
+
+    // Store ESPN colors so applyData can patch the team entry
+    const homeColor = home.team.color ? "#" + home.team.color.replace(/^#/, "") : null;
+    const awayColor = away.team.color ? "#" + away.team.color.replace(/^#/, "") : null;
+
+    return {
+      id:               parseInt(event.id) || 0,
+      home_team:        homeSchool,
+      away_team:        awaySchool,
+      start_date:       dateStr ? dateStr + "T12:00:00.000Z" : null,
+      start_time_tbd:   !rawDate,
+      week:             weekNum,
+      venue:            comp.venue?.fullName || "",
+      neutral_site:     comp.neutralSite || false,
+      conference_game:  comp.conferenceCompetition || false,
+      notes:            network,
+      _espnId:          event.id,
+      _homeColor:       homeColor,
+      _awayColor:       awayColor,
+      _source:          "espn",
+    };
+  }
+
   // ── Main fetch ───────────────────────────────────────────────
   async function fetchAll(apiKey, force = false) {
     state = { ...state, status: "loading", error: null, errorType: null, loadProgress: 0 };
@@ -230,6 +307,9 @@ const LIVE = (() => {
     try {
       updateModalStatus();
 
+      // Launch ESPN fetch immediately — no API key needed, runs in parallel with CFBD
+      const espnPromise = fetchESPNSchedule(SEASON).catch(() => []);
+
       const endpointPromises = [
         api("/teams/fbs",                                                        apiKey).then(v => { onEndpointDone(); return v; }),
         api(`/games?year=${SEASON}&seasonType=regular&classification=fbs`,       apiKey).then(v => { onEndpointDone(); return v; }),
@@ -252,17 +332,28 @@ const LIVE = (() => {
       const sp25  = sp25Res.status   === "fulfilled" ? (sp25Res.value || []) : [];
       const spMerged = sp26.length > 0 ? sp26 : sp25;
 
-      let games2026 = [
+      const games2026 = [
         ...(regularRes.status === "fulfilled" ? (regularRes.value || []) : []),
         ...(postRes.status    === "fulfilled" ? (postRes.value    || []) : []),
       ];
 
-      // If 2026 API returns very few games (schedule not yet in DB),
-      // supplement with 2025 completed season games so the site has full coverage.
-      // These are real historical FBS games, clearly labelled by their dates.
-      let gamesFromApi = games2026;
-      if (games2026.length < 50) {
-        console.log(`[LIVE] Only ${games2026.length} games for ${SEASON} — fetching 2025 season as supplement`);
+      // ESPN results (ran in parallel with CFBD calls above)
+      const espnEvents = await espnPromise;
+      onEndpointDone();
+      const espnGames = espnEvents.map(e => mapESPNGame(e)).filter(Boolean);
+      console.log(`[LIVE] ESPN: ${espnGames.length} events | CFBD ${SEASON}: ${games2026.length} games`);
+
+      // Prefer ESPN when it has more coverage (likely all season vs. CFBD pre-season gap)
+      let gamesFromApi;
+      if (espnGames.length > 0 && espnGames.length >= games2026.length) {
+        gamesFromApi = espnGames;
+        console.log(`[LIVE] Using ESPN as primary schedule (${espnGames.length} games)`);
+      } else if (games2026.length >= 50) {
+        gamesFromApi = games2026;
+        console.log(`[LIVE] Using CFBD as primary schedule (${games2026.length} games)`);
+      } else {
+        // Both ESPN and CFBD 2026 are thin — fall back to 2025 CFBD completed season
+        console.log(`[LIVE] Both sources thin (ESPN: ${espnGames.length}, CFBD: ${games2026.length}) — fetching 2025 season`);
         const [reg25, post25] = await Promise.allSettled([
           api("/games?year=2025&seasonType=regular&classification=fbs",    apiKey),
           api("/games?year=2025&seasonType=postseason&classification=fbs", apiKey),
@@ -271,9 +362,8 @@ const LIVE = (() => {
           ...(reg25.status  === "fulfilled" ? (reg25.value  || []) : []),
           ...(post25.status === "fulfilled" ? (post25.value || []) : []),
         ];
-        // Prefer 2026 games; fill in with 2025 for weeks not yet in 2026 schedule
         gamesFromApi = [...games2026, ...games2025];
-        console.log(`[LIVE] Combined: ${gamesFromApi.length} total games (${games2026.length} from ${SEASON}, ${games2025.length} from 2025)`);
+        console.log(`[LIVE] 2025 fallback: ${gamesFromApi.length} total games`);
       }
 
       const payload = {
@@ -393,8 +483,10 @@ const LIVE = (() => {
     const recruitMap = {};
     (data.recruiting || []).forEach(r => { if (r.team) recruitMap[r.team] = r.rank; });
 
-    // Index betting lines by CFBD game ID
+    // Index betting lines by CFBD game ID (for CFBD-sourced games)
+    // and by week+matchup key (for ESPN-sourced games that lack CFBD IDs)
     const linesMap = {};
+    const linesByMatchup = {};
     (data.lines || []).forEach(g => {
       if (!g.lines?.length) return;
       const best = g.lines.find(l => l.provider === "consensus") ||
@@ -404,12 +496,18 @@ const LIVE = (() => {
       if (!best) return;
       const spread = parseFloat(best.spread);
       if (isNaN(spread)) return;
-      linesMap[g.id] = {
+      const lineEntry = {
         spread,
         total:         parseFloat(best.overUnder)     || 50,
         moneylineHome: best.homeMoneyline ? parseInt(best.homeMoneyline) : undefined,
         moneylineAway: best.awayMoneyline ? parseInt(best.awayMoneyline) : undefined,
       };
+      linesMap[g.id] = lineEntry;
+      // Secondary lookup by matchup for ESPN games
+      if (g.home_team && g.away_team) {
+        const mk = `${g.week}|${schoolToId(g.home_team)}|${schoolToId(g.away_team)}`;
+        linesByMatchup[mk] = lineEntry;
+      }
     });
 
     // ── 1. Inject / update teams ─────────────────────────────
@@ -529,6 +627,7 @@ const LIVE = (() => {
         } catch {}
       }
 
+      const lineKey = `${g.week || 1}|${homeId}|${awayId}`;
       const stub = {
         id:               cfbdId,
         week:             g.week || 1,
@@ -544,7 +643,7 @@ const LIVE = (() => {
         isRivalryGame:    false,
         neutralSite:      g.neutral_site || false,
         weather:          null,
-        bettingLines:     linesMap[g.id] || null,
+        bettingLines:     linesMap[g.id] || linesByMatchup[lineKey] || null,
         xFactors:         [],
         gamePreview:      {
           headline: `${g.away_team} at ${g.home_team}`,
@@ -559,6 +658,10 @@ const LIVE = (() => {
         },
         fromLive: true,
       };
+
+      // Patch ESPN team colors onto newly-created live stubs
+      if (g._homeColor && window.TEAMS && TEAMS[homeId]?.fromLive) TEAMS[homeId].color = g._homeColor;
+      if (g._awayColor && window.TEAMS && TEAMS[awayId]?.fromLive) TEAMS[awayId].color = g._awayColor;
 
       GAMES.push(stub);
       existingIds.add(cfbdId);
