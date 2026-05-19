@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Picks — The Bet D1 Football Predictor</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Stats summary strip ── */
+    .picks-stats { display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:24px; }
+    @media (max-width:900px) { .picks-stats { grid-template-columns:repeat(3,1fr); } }
+    @media (max-width:480px) { .picks-stats { grid-template-columns:repeat(2,1fr); } }
+
+    .picks-stat {
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
+      padding:14px 16px;
+    }
+    .picks-stat-label {
+      font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+      color:var(--muted);margin-bottom:4px;
+    }
+    .picks-stat-value { font-size:1.4rem;font-weight:900;line-height:1.1; }
+    .picks-stat-sub { font-size:.7rem;color:var(--muted);margin-top:3px; }
+
+    /* ── Add pick form card ── */
+    .add-form-card {
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);
+      padding:24px;margin-bottom:24px;
+    }
+    .add-form-title {
+      font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+      color:var(--primary);display:flex;align-items:center;gap:8px;margin-bottom:18px;
+    }
+    .add-form-grid {
+      display:grid;grid-template-columns:1fr 1fr 120px 120px 140px;gap:10px;margin-bottom:10px;
+    }
+    @media (max-width:860px) {
+      .add-form-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:480px) {
+      .add-form-grid { grid-template-columns:1fr; }
+    }
+    .form-group { display:flex;flex-direction:column;gap:5px; }
+    .form-group label { font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted); }
+    .field { width:100%; }
+    textarea.field { resize:vertical;min-height:60px; }
+    .form-footer { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:12px; }
+
+    /* ── Filter chips row ── */
+    .filter-row { display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:20px; }
+    .filter-row-label { font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-right:2px; }
+
+    /* ── Picks ledger ── */
+    .picks-ledger { display:flex;flex-direction:column;gap:10px; }
+
+    .pick-row {
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
+      padding:16px 18px;transition:border-color .15s;
+    }
+    .pick-row.pick-win   { border-left:3px solid var(--primary);background:linear-gradient(90deg,rgba(16,185,129,.05) 0%,var(--card) 40%); }
+    .pick-row.pick-loss  { border-left:3px solid var(--danger);background:linear-gradient(90deg,rgba(248,113,113,.05) 0%,var(--card) 40%); }
+    .pick-row.pick-push  { border-left:3px solid var(--muted);background:linear-gradient(90deg,rgba(139,157,187,.05) 0%,var(--card) 40%); }
+    .pick-row.pick-pending { border-left:3px solid var(--accent);background:linear-gradient(90deg,rgba(129,140,248,.04) 0%,var(--card) 40%); }
+
+    .pick-row-top {
+      display:grid;grid-template-columns:90px 1fr 1fr 80px 80px 90px 130px 120px;
+      gap:10px;align-items:center;
+    }
+    @media (max-width:1100px) {
+      .pick-row-top { grid-template-columns:80px 1fr 1fr 70px 70px 80px 110px; }
+      .pick-col-potwn { display:none; }
+    }
+    @media (max-width:800px) {
+      .pick-row-top { grid-template-columns:1fr; }
+    }
+
+    .pick-col-label {
+      font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+      color:var(--muted);margin-bottom:2px;
+    }
+    .pick-col-value { font-size:.85rem;font-weight:700;color:var(--text); }
+    .pick-col-sub { font-size:.68rem;color:var(--muted);margin-top:1px; }
+
+    /* result badges */
+    .result-badge {
+      display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;
+      font-size:.7rem;font-weight:800;letter-spacing:.5px;border:1px solid;
+    }
+    .result-win     { background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.5);color:var(--primary); }
+    .result-loss    { background:rgba(248,113,113,.12);border-color:rgba(248,113,113,.4);color:var(--danger); }
+    .result-push    { background:rgba(139,157,187,.1);border-color:rgba(139,157,187,.3);color:var(--muted-l); }
+    .result-pending { background:rgba(129,140,248,.1);border-color:rgba(129,140,248,.3);color:var(--accent); }
+
+    /* ── Actions cell ── */
+    .pick-actions { display:flex;align-items:center;gap:6px;flex-wrap:wrap; }
+    .pick-actions select {
+      padding:5px 8px;border-radius:8px;border:1px solid var(--border);
+      background:var(--surface);color:var(--text);font-size:.72rem;cursor:pointer;
+      outline:none;
+    }
+    .pick-actions select:focus { border-color:rgba(16,185,129,.6); }
+    .btn-icon {
+      width:30px;height:30px;border-radius:8px;border:1px solid var(--border);
+      background:var(--surface);color:var(--muted);cursor:pointer;display:flex;
+      align-items:center;justify-content:center;font-size:.85rem;transition:all .15s;
+    }
+    .btn-icon:hover { border-color:var(--danger);color:var(--danger); }
+
+    /* ── Pick notes ── */
+    .pick-notes {
+      margin-top:10px;padding-top:10px;border-top:1px solid var(--border);
+      font-size:.78rem;color:var(--muted-l);font-style:italic;
+    }
+
+    /* ── Table header row ── */
+    .ledger-header {
+      display:grid;grid-template-columns:90px 1fr 1fr 80px 80px 90px 130px 120px;
+      gap:10px;padding:0 18px 8px;
+    }
+    @media (max-width:1100px) {
+      .ledger-header { grid-template-columns:80px 1fr 1fr 70px 70px 80px 110px; }
+      .ledger-header .pick-col-potwn { display:none; }
+    }
+    @media (max-width:800px) { .ledger-header { display:none; } }
+    .ledger-header-cell {
+      font-size:.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+    }
+
+    /* ── Empty state ── */
+    .picks-empty {
+      text-align:center;padding:72px 24px;
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);
+    }
+    .picks-empty-icon { font-size:3.5rem;margin-bottom:16px; }
+    .picks-empty-title { font-size:1.3rem;font-weight:900;color:var(--text);margin-bottom:8px; }
+    .picks-empty-sub { font-size:.9rem;color:var(--muted-l);line-height:1.65;max-width:440px;margin:0 auto 24px; }
+
+    /* ── Mobile stacked cells ── */
+    @media (max-width:800px) {
+      .pick-row-top { display:flex;flex-wrap:wrap;gap:10px; }
+      .pick-col { min-width:calc(50% - 5px); }
+      .pick-col-full { min-width:100%; }
+      .pick-col-actions { min-width:100%; }
+    }
+
+    /* ── Toast notification ── */
+    .toast {
+      position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(12px);
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
+      padding:10px 20px;font-size:.85rem;font-weight:700;color:var(--text);
+      box-shadow:var(--shadow);z-index:1000;opacity:0;transition:opacity .2s,transform .2s;
+      pointer-events:none;white-space:nowrap;
+    }
+    .toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
+
+    /* ── Form section toggle ── */
+    .form-toggle-btn {
+      display:flex;align-items:center;gap:8px;background:none;border:none;
+      color:var(--text);font-size:.85rem;font-weight:700;cursor:pointer;padding:0;
+    }
+    .form-toggle-icon { transition:transform .2s; }
+    .form-toggle-icon.open { transform:rotate(180deg); }
+    .form-collapsible { overflow:hidden;transition:max-height .3s ease;max-height:600px; }
+    .form-collapsible.collapsed { max-height:0; }
+
+    /* ── Odds color ── */
+    .odds-neg { color:var(--danger); }
+    .odds-pos { color:var(--primary); }
+
+    /* ── Potential win color ── */
+    .potwn-val { color:var(--gold);font-weight:800; }
+
+    /* ── Export btn area ── */
+    .ledger-controls {
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:10px;margin-bottom:16px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="../index.html">
+      <div class="nav-logo-icon">TB</div>
+      THE BET
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../index.html">Home</a>
+      <a class="nav-link" href="games.html">Games</a>
+      <a class="nav-link" href="parlay.html">Parlay</a>
+      <a class="nav-link" href="teams.html">Teams</a>
+      <a class="nav-link active" href="picks.html">My Picks</a>
+    </div>
+    <div class="nav-badge"><span class="nav-dot"></span>2026 Live</div>
+  </div>
+</nav>
+
+<main class="container page-content">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <h1 class="page-title">MY PICKS LEDGER</h1>
+    <p class="page-sub">Track every bet — log picks, mark results, and watch your record build over the season. Stored locally on your device.</p>
+  </div>
+
+  <!-- Stats summary strip -->
+  <div class="picks-stats" id="stats-strip"></div>
+
+  <!-- Filter chips -->
+  <div class="filter-row">
+    <span class="filter-row-label">Filter</span>
+    <div class="chip-row" id="filter-chips">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="pending">Pending</button>
+      <button class="chip" data-filter="win">Won</button>
+      <button class="chip" data-filter="loss">Lost</button>
+      <button class="chip" data-filter="push">Push</button>
+      <button class="chip" data-filter="week">This Week</button>
+    </div>
+  </div>
+
+  <!-- Add Pick form -->
+  <div class="add-form-card">
+    <div class="add-form-title">
+      <button class="form-toggle-btn" id="form-toggle-btn" aria-expanded="true">
+        <span>+ Log a New Pick</span>
+        <span class="form-toggle-icon open" id="form-toggle-icon">&#9650;</span>
+      </button>
+    </div>
+    <div class="form-collapsible" id="form-collapsible">
+      <div class="add-form-grid">
+        <div class="form-group" style="grid-column:1/3">
+          <label for="f-game">Game</label>
+          <input id="f-game" class="field" type="text" placeholder="e.g. Ohio State @ Michigan" autocomplete="off" />
+        </div>
+        <div class="form-group" style="grid-column:3/4">
+          <label for="f-pick">My Pick</label>
+          <input id="f-pick" class="field" type="text" placeholder="e.g. Ohio State -7" autocomplete="off" />
+        </div>
+        <div class="form-group">
+          <label for="f-odds">Odds</label>
+          <input id="f-odds" class="field" type="number" value="-110" placeholder="-110" />
+        </div>
+        <div class="form-group">
+          <label for="f-wager">Wager ($)</label>
+          <input id="f-wager" class="field" type="number" value="25" min="1" placeholder="25" />
+        </div>
+        <div class="form-group">
+          <label for="f-date">Game Date</label>
+          <input id="f-date" class="field" type="date" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="f-notes">Notes (optional)</label>
+        <textarea id="f-notes" class="field" placeholder="e.g. Line value, injuries, weather, model confidence..." rows="2"></textarea>
+      </div>
+      <div class="form-footer">
+        <p class="text-xs text-muted">Picks are saved locally to this browser. Clearing site data will erase them.</p>
+        <button class="btn btn-primary" id="log-btn">Log Pick</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ledger controls -->
+  <div class="ledger-controls">
+    <div class="section-label" style="margin:0" id="ledger-count">0 Picks</div>
+    <button class="btn btn-outline" id="export-btn" style="font-size:.8rem;padding:8px 16px">
+      Export Picks
+    </button>
+  </div>
+
+  <!-- Column headers (desktop) -->
+  <div class="ledger-header" id="ledger-header" style="display:none">
+    <div class="ledger-header-cell">Date</div>
+    <div class="ledger-header-cell">Game</div>
+    <div class="ledger-header-cell">Pick</div>
+    <div class="ledger-header-cell">Odds</div>
+    <div class="ledger-header-cell">Wager</div>
+    <div class="ledger-header-cell pick-col-potwn">Pot. Win</div>
+    <div class="ledger-header-cell">Result</div>
+    <div class="ledger-header-cell">Actions</div>
+  </div>
+
+  <!-- Picks ledger -->
+  <div class="picks-ledger" id="picks-ledger"></div>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>The Bet · D1 CFB Predictor · 2026 Season · <span class="footer-accent">For entertainment only</span></p>
+  </div>
+</footer>
+
+<!-- ── Mobile Bottom Tab Bar ── -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a class="bottom-nav-item" href="../index.html">
+      <span class="bottom-nav-icon">&#127968;</span>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a class="bottom-nav-item" href="games.html">
+      <span class="bottom-nav-icon">&#127944;</span>
+      <span class="bottom-nav-label">Games</span>
+    </a>
+    <a class="bottom-nav-item" href="parlay.html">
+      <span class="bottom-nav-icon">&#127919;</span>
+      <span class="bottom-nav-label">Parlay</span>
+    </a>
+    <a class="bottom-nav-item" href="teams.html">
+      <span class="bottom-nav-icon">&#128202;</span>
+      <span class="bottom-nav-label">Teams</span>
+    </a>
+    <a class="bottom-nav-item active" href="picks.html">
+      <span class="bottom-nav-icon">&#128221;</span>
+      <span class="bottom-nav-label">Picks</span>
+    </a>
+  </div>
+</nav>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ────────────────────────────────────────────────
+     Constants
+  ──────────────────────────────────────────────── */
+  var LS_KEY = 'theBet_myPicks';
+
+  /* ────────────────────────────────────────────────
+     Storage helpers
+  ──────────────────────────────────────────────── */
+  function loadPicks() {
+    try {
+      return JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function savePicks(picks) {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(picks));
+    } catch (e) { /* storage full — fail silently */ }
+  }
+
+  /* ────────────────────────────────────────────────
+     Odds / payout helpers
+  ──────────────────────────────────────────────── */
+  function potentialWin(wager, odds) {
+    wager = parseFloat(wager) || 0;
+    odds = parseInt(odds, 10) || -110;
+    if (odds < 0) {
+      return wager / (Math.abs(odds) / 100);
+    }
+    return wager * (odds / 100);
+  }
+
+  function fmtMoney(n) {
+    return '$' + Math.abs(n).toFixed(2);
+  }
+
+  function fmtOdds(odds) {
+    odds = parseInt(odds, 10);
+    return odds > 0 ? '+' + odds : String(odds);
+  }
+
+  function oddsClass(odds) {
+    return parseInt(odds, 10) > 0 ? 'odds-pos' : 'odds-neg';
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    var parts = iso.split('-');
+    if (parts.length < 3) return iso;
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return months[parseInt(parts[1], 10) - 1] + ' ' + parseInt(parts[2], 10);
+  }
+
+  function todayISO() {
+    var d = new Date();
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  }
+
+  function isThisWeek(isoDate) {
+    if (!isoDate) return false;
+    var now = new Date();
+    var pick = new Date(isoDate + 'T12:00:00');
+    var diff = (now - pick) / 86400000;
+    return diff <= 7 && diff >= -7;
+  }
+
+  /* ────────────────────────────────────────────────
+     Stats computation
+  ──────────────────────────────────────────────── */
+  function computeStats(picks) {
+    var wins = 0, losses = 0, pushes = 0, pending = 0;
+    var totalWagered = 0, totalNet = 0;
+    picks.forEach(function (p) {
+      var w = parseFloat(p.wager) || 0;
+      var win = potentialWin(w, p.odds);
+      if (p.result === 'win') {
+        wins++;
+        totalWagered += w;
+        totalNet += win;
+      } else if (p.result === 'loss') {
+        losses++;
+        totalWagered += w;
+        totalNet -= w;
+      } else if (p.result === 'push') {
+        pushes++;
+        totalWagered += w;
+        // push = 0 net
+      } else {
+        pending++;
+      }
+    });
+    var decided = wins + losses + pushes;
+    var winRate = decided > 0 ? Math.round((wins / (wins + losses || 1)) * 100) : null;
+    var roi = totalWagered > 0 ? ((totalNet / totalWagered) * 100) : null;
+    var unitsNet = totalNet / 10;
+    return { wins, losses, pushes, pending, totalWagered, totalNet, winRate, roi, unitsNet, decided };
+  }
+
+  /* ────────────────────────────────────────────────
+     Render stats strip
+  ──────────────────────────────────────────────── */
+  function renderStats(picks) {
+    var s = computeStats(picks);
+    var roiStr = s.roi !== null ? (s.roi >= 0 ? '+' : '') + s.roi.toFixed(1) + '%' : '—';
+    var roiColor = s.roi === null ? 'var(--muted)' : (s.roi >= 0 ? 'var(--primary)' : 'var(--danger)');
+    var netStr = (s.totalNet >= 0 ? '+' : '') + fmtMoney(s.totalNet);
+    var netColor = s.totalNet >= 0 ? 'var(--primary)' : 'var(--danger)';
+    var unitsStr = (s.unitsNet >= 0 ? '+' : '') + s.unitsNet.toFixed(1) + 'u';
+    var unitsColor = s.unitsNet >= 0 ? 'var(--primary)' : 'var(--danger)';
+    var winRateStr = s.winRate !== null ? s.winRate + '%' : '—';
+    var winRateColor = s.winRate === null ? 'var(--muted)' : (s.winRate >= 52 ? 'var(--primary)' : s.winRate >= 45 ? 'var(--gold)' : 'var(--danger)');
+
+    var cells = [
+      {
+        label: 'Record',
+        value: s.wins + '-' + s.losses + (s.pushes ? '-' + s.pushes : ''),
+        sub: s.pending + ' pending',
+        color: 'var(--text)'
+      },
+      {
+        label: 'Win Rate',
+        value: winRateStr,
+        sub: s.decided + ' decided',
+        color: winRateColor
+      },
+      {
+        label: 'ROI',
+        value: roiStr,
+        sub: 'on settled bets',
+        color: roiColor
+      },
+      {
+        label: 'Units',
+        value: unitsStr,
+        sub: '1u = $10',
+        color: unitsColor
+      },
+      {
+        label: 'Total Wagered',
+        value: fmtMoney(s.totalWagered),
+        sub: 'settled only',
+        color: 'var(--text)'
+      },
+      {
+        label: 'Net P&L',
+        value: netStr,
+        sub: 'settled bets',
+        color: netColor
+      }
+    ];
+
+    document.getElementById('stats-strip').innerHTML = cells.map(function (c) {
+      return '<div class="picks-stat">'
+        + '<div class="picks-stat-label">' + c.label + '</div>'
+        + '<div class="picks-stat-value" style="color:' + c.color + '">' + c.value + '</div>'
+        + '<div class="picks-stat-sub">' + c.sub + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  /* ────────────────────────────────────────────────
+     Build one pick row HTML
+  ──────────────────────────────────────────────── */
+  function resultBadge(result) {
+    var map = {
+      win:     '<span class="result-badge result-win">WIN</span>',
+      loss:    '<span class="result-badge result-loss">LOSS</span>',
+      push:    '<span class="result-badge result-push">PUSH</span>',
+      pending: '<span class="result-badge result-pending">PENDING</span>'
+    };
+    return map[result] || map['pending'];
+  }
+
+  function buildPickRow(pick) {
+    var win = potentialWin(pick.wager, pick.odds);
+    var resultCls = pick.result === 'win' ? 'pick-win'
+      : pick.result === 'loss' ? 'pick-loss'
+      : pick.result === 'push' ? 'pick-push'
+      : 'pick-pending';
+
+    var actionsHtml;
+    if (pick.result === 'pending') {
+      actionsHtml = '<div class="pick-actions">'
+        + '<select class="result-select field" data-id="' + escHtml(pick.id) + '" style="width:auto">'
+        + '<option value="">Mark result…</option>'
+        + '<option value="win">Win</option>'
+        + '<option value="loss">Loss</option>'
+        + '<option value="push">Push</option>'
+        + '</select>'
+        + '<button class="btn-icon delete-btn" data-id="' + escHtml(pick.id) + '" title="Delete pick">&#10005;</button>'
+        + '</div>';
+    } else {
+      actionsHtml = '<div class="pick-actions">'
+        + '<button class="btn btn-outline" style="font-size:.7rem;padding:6px 12px" '
+        + '  data-id="' + escHtml(pick.id) + '" data-action="reopen">Reopen</button>'
+        + '<button class="btn-icon delete-btn" data-id="' + escHtml(pick.id) + '" title="Delete pick">&#10005;</button>'
+        + '</div>';
+    }
+
+    var notesHtml = pick.notes
+      ? '<div class="pick-notes">' + escHtml(pick.notes) + '</div>'
+      : '';
+
+    return '<div class="pick-row ' + resultCls + '" data-id="' + escHtml(pick.id) + '">'
+      + '<div class="pick-row-top">'
+      + '<div class="pick-col">'
+        + '<div class="pick-col-label">Date</div>'
+        + '<div class="pick-col-value">' + fmtDate(pick.date) + '</div>'
+        + '<div class="pick-col-sub">' + pick.date + '</div>'
+      + '</div>'
+      + '<div class="pick-col">'
+        + '<div class="pick-col-label">Game</div>'
+        + '<div class="pick-col-value">' + escHtml(pick.game) + '</div>'
+      + '</div>'
+      + '<div class="pick-col">'
+        + '<div class="pick-col-label">My Pick</div>'
+        + '<div class="pick-col-value">' + escHtml(pick.pick) + '</div>'
+      + '</div>'
+      + '<div class="pick-col">'
+        + '<div class="pick-col-label">Odds</div>'
+        + '<div class="pick-col-value ' + oddsClass(pick.odds) + '">' + fmtOdds(pick.odds) + '</div>'
+      + '</div>'
+      + '<div class="pick-col">'
+        + '<div class="pick-col-label">Wager</div>'
+        + '<div class="pick-col-value">' + fmtMoney(pick.wager) + '</div>'
+      + '</div>'
+      + '<div class="pick-col pick-col-potwn">'
+        + '<div class="pick-col-label">Pot. Win</div>'
+        + '<div class="pick-col-value potwn-val">' + fmtMoney(win) + '</div>'
+      + '</div>'
+      + '<div class="pick-col">'
+        + '<div class="pick-col-label">Result</div>'
+        + '<div class="pick-col-value">' + resultBadge(pick.result) + '</div>'
+      + '</div>'
+      + '<div class="pick-col pick-col-actions">'
+        + actionsHtml
+      + '</div>'
+      + '</div>'
+      + notesHtml
+      + '</div>';
+  }
+
+  /* ────────────────────────────────────────────────
+     Empty state
+  ──────────────────────────────────────────────── */
+  function emptyStateHtml(filterLabel) {
+    var isFiltered = filterLabel && filterLabel !== 'all';
+    if (isFiltered) {
+      return '<div class="picks-empty">'
+        + '<div class="picks-empty-icon">&#128269;</div>'
+        + '<div class="picks-empty-title">No ' + filterLabel + ' picks</div>'
+        + '<div class="picks-empty-sub">No picks match this filter. Try "All" to see everything.</div>'
+        + '</div>';
+    }
+    return '<div class="picks-empty">'
+      + '<div class="picks-empty-icon">&#127917;</div>'
+      + '<div class="picks-empty-title">Your picks ledger is empty</div>'
+      + '<div class="picks-empty-sub">'
+        + 'Start logging your bets above. Enter the game, your pick, odds, and wager — then mark each result as the season unfolds. '
+        + 'Your record, ROI, and units won/lost will update automatically.'
+      + '</div>'
+      + '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">'
+        + '<a class="btn btn-primary" href="games.html">Browse Game Picks</a>'
+        + '<a class="btn btn-outline" href="parlay.html">Build a Parlay</a>'
+      + '</div>'
+      + '</div>';
+  }
+
+  /* ────────────────────────────────────────────────
+     Main render
+  ──────────────────────────────────────────────── */
+  var currentFilter = 'all';
+
+  function render() {
+    var allPicks = loadPicks();
+    renderStats(allPicks);
+
+    // Apply filter
+    var filtered;
+    if (currentFilter === 'all') {
+      filtered = allPicks.slice();
+    } else if (currentFilter === 'week') {
+      filtered = allPicks.filter(function (p) { return isThisWeek(p.date); });
+    } else {
+      filtered = allPicks.filter(function (p) { return p.result === currentFilter; });
+    }
+
+    // Sort: pending first, then by date descending
+    filtered.sort(function (a, b) {
+      if (a.result === 'pending' && b.result !== 'pending') return -1;
+      if (a.result !== 'pending' && b.result === 'pending') return 1;
+      return b.addedAt.localeCompare(a.addedAt);
+    });
+
+    var ledger = document.getElementById('picks-ledger');
+    var header = document.getElementById('ledger-header');
+    var countEl = document.getElementById('ledger-count');
+
+    countEl.textContent = filtered.length + ' Pick' + (filtered.length !== 1 ? 's' : '')
+      + (currentFilter !== 'all' ? ' (' + currentFilter + ')' : '');
+
+    if (!filtered.length) {
+      header.style.display = 'none';
+      ledger.innerHTML = emptyStateHtml(currentFilter);
+      return;
+    }
+
+    header.style.display = 'grid';
+    ledger.innerHTML = filtered.map(buildPickRow).join('');
+  }
+
+  /* ────────────────────────────────────────────────
+     HTML escaping
+  ──────────────────────────────────────────────── */
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  /* ────────────────────────────────────────────────
+     Toast
+  ──────────────────────────────────────────────── */
+  var toastTimer;
+  function showToast(msg) {
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2400);
+  }
+
+  /* ────────────────────────────────────────────────
+     Form — add pick
+  ──────────────────────────────────────────────── */
+  // Set default date to today
+  document.getElementById('f-date').value = todayISO();
+
+  document.getElementById('log-btn').addEventListener('click', function () {
+    var game  = document.getElementById('f-game').value.trim();
+    var pick  = document.getElementById('f-pick').value.trim();
+    var odds  = parseInt(document.getElementById('f-odds').value, 10);
+    var wager = parseFloat(document.getElementById('f-wager').value);
+    var date  = document.getElementById('f-date').value;
+    var notes = document.getElementById('f-notes').value.trim();
+
+    if (!game) { showToast('Please enter the game.'); document.getElementById('f-game').focus(); return; }
+    if (!pick) { showToast('Please enter your pick.'); document.getElementById('f-pick').focus(); return; }
+    if (!date) { showToast('Please select a date.'); document.getElementById('f-date').focus(); return; }
+    if (isNaN(wager) || wager <= 0) { showToast('Enter a valid wager amount.'); document.getElementById('f-wager').focus(); return; }
+
+    var newPick = {
+      id:      Date.now().toString(),
+      date:    date,
+      game:    game,
+      pick:    pick,
+      odds:    isNaN(odds) ? -110 : odds,
+      wager:   wager,
+      result:  'pending',
+      notes:   notes,
+      addedAt: new Date().toISOString()
+    };
+
+    var picks = loadPicks();
+    picks.unshift(newPick);
+    savePicks(picks);
+
+    // Reset form (keep odds/wager defaults, reset date to today)
+    document.getElementById('f-game').value  = '';
+    document.getElementById('f-pick').value  = '';
+    document.getElementById('f-notes').value = '';
+    document.getElementById('f-date').value  = todayISO();
+
+    showToast('Pick logged!');
+    render();
+  });
+
+  /* ────────────────────────────────────────────────
+     Ledger interactions (delegation)
+  ──────────────────────────────────────────────── */
+  document.getElementById('picks-ledger').addEventListener('change', function (e) {
+    if (!e.target.classList.contains('result-select')) return;
+    var id = e.target.dataset.id;
+    var newResult = e.target.value;
+    if (!newResult) return;
+
+    var picks = loadPicks();
+    var idx = picks.findIndex(function (p) { return p.id === id; });
+    if (idx === -1) return;
+
+    picks[idx].result = newResult;
+    savePicks(picks);
+    showToast('Result marked: ' + newResult.charAt(0).toUpperCase() + newResult.slice(1));
+    render();
+  });
+
+  document.getElementById('picks-ledger').addEventListener('click', function (e) {
+    // Delete button
+    var delBtn = e.target.closest('.delete-btn');
+    if (delBtn) {
+      if (!confirm('Delete this pick? This cannot be undone.')) return;
+      var id = delBtn.dataset.id;
+      var picks = loadPicks().filter(function (p) { return p.id !== id; });
+      savePicks(picks);
+      showToast('Pick deleted.');
+      render();
+      return;
+    }
+
+    // Reopen button
+    var reopenBtn = e.target.closest('[data-action="reopen"]');
+    if (reopenBtn) {
+      var id = reopenBtn.dataset.id;
+      var picks = loadPicks();
+      var idx = picks.findIndex(function (p) { return p.id === id; });
+      if (idx !== -1) {
+        picks[idx].result = 'pending';
+        savePicks(picks);
+        showToast('Pick reopened.');
+        render();
+      }
+    }
+  });
+
+  /* ────────────────────────────────────────────────
+     Filter chips
+  ──────────────────────────────────────────────── */
+  document.getElementById('filter-chips').addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('#filter-chips .chip').forEach(function (c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    currentFilter = chip.dataset.filter;
+    render();
+  });
+
+  /* ────────────────────────────────────────────────
+     Form collapse toggle
+  ──────────────────────────────────────────────── */
+  var formOpen = true;
+  document.getElementById('form-toggle-btn').addEventListener('click', function () {
+    formOpen = !formOpen;
+    var collapsible = document.getElementById('form-collapsible');
+    var icon = document.getElementById('form-toggle-icon');
+    if (formOpen) {
+      collapsible.classList.remove('collapsed');
+      icon.classList.add('open');
+    } else {
+      collapsible.classList.add('collapsed');
+      icon.classList.remove('open');
+    }
+  });
+
+  /* ────────────────────────────────────────────────
+     Export picks
+  ──────────────────────────────────────────────── */
+  document.getElementById('export-btn').addEventListener('click', function () {
+    var picks = loadPicks();
+    if (!picks.length) { showToast('No picks to export.'); return; }
+
+    var lines = picks.map(function (p) {
+      var win = potentialWin(p.wager, p.odds);
+      var net;
+      if (p.result === 'win') net = '+' + fmtMoney(win);
+      else if (p.result === 'loss') net = '-' + fmtMoney(p.wager);
+      else if (p.result === 'push') net = '$0.00';
+      else net = 'pending';
+
+      return [p.date, p.game, p.pick, fmtOdds(p.odds), fmtMoney(p.wager), p.result.toUpperCase(), net]
+        .join(' | ');
+    });
+
+    var header = 'Date | Game | Pick | Odds | Wager | Result | Net\n'
+      + '─'.repeat(80) + '\n';
+    var text = header + lines.join('\n');
+
+    // Stats footer
+    var s = computeStats(picks);
+    text += '\n' + '─'.repeat(80) + '\n'
+      + 'Record: ' + s.wins + '-' + s.losses + '-' + s.pushes + ' | '
+      + 'Win Rate: ' + (s.winRate !== null ? s.winRate + '%' : '—') + ' | '
+      + 'ROI: ' + (s.roi !== null ? (s.roi >= 0 ? '+' : '') + s.roi.toFixed(1) + '%' : '—') + ' | '
+      + 'Net: ' + (s.totalNet >= 0 ? '+' : '') + fmtMoney(s.totalNet);
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        showToast('Picks copied to clipboard!');
+      }).catch(function () {
+        fallbackCopy(text);
+      });
+    } else {
+      fallbackCopy(text);
+    }
+  });
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast('Picks copied to clipboard!');
+    } catch (e) {
+      showToast('Copy failed — try a modern browser.');
+    }
+    document.body.removeChild(ta);
+  }
+
+  /* ────────────────────────────────────────────────
+     Handle incoming "track this pick" URL params
+     (game.html can link here with ?game=X&pick=Y&odds=Z&wager=W&date=D)
+  ──────────────────────────────────────────────── */
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var gameParam  = params.get('game');
+    var pickParam  = params.get('pick');
+    var oddsParam  = params.get('odds');
+    var wagerParam = params.get('wager');
+    var dateParam  = params.get('date');
+
+    if (gameParam || pickParam) {
+      if (gameParam)  document.getElementById('f-game').value  = gameParam;
+      if (pickParam)  document.getElementById('f-pick').value  = pickParam;
+      if (oddsParam)  document.getElementById('f-odds').value  = oddsParam;
+      if (wagerParam) document.getElementById('f-wager').value = wagerParam;
+      if (dateParam)  document.getElementById('f-date').value  = dateParam;
+
+      // Ensure form is open
+      formOpen = true;
+      document.getElementById('form-collapsible').classList.remove('collapsed');
+      document.getElementById('form-toggle-icon').classList.add('open');
+
+      // Scroll to form
+      setTimeout(function () {
+        document.querySelector('.add-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  })();
+
+  /* ────────────────────────────────────────────────
+     Initial render
+  ──────────────────────────────────────────────── */
+  render();
+
+})();
+</script>
+</body>
+</html>
