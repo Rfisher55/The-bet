@@ -102,23 +102,50 @@
   <div class="stats-strip mb-5" id="page-stats"></div>
 
   <!-- Controls -->
-  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-    <input id="search" class="field" placeholder="🔍 Search team..." style="flex:1;min-width:140px;max-width:220px" />
-    <div class="chip-row" id="conf-chips"></div>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+    <input id="search" class="field" placeholder="🔍 Search team or coach..." style="flex:1;min-width:160px;max-width:260px" />
     <div style="flex:1"></div>
     <div class="view-toggle">
       <button class="view-btn active" data-view="grid">Grid</button>
       <button class="view-btn" data-view="list">List</button>
     </div>
   </div>
-  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-    <span style="font-size:.68rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px">Sort:</span>
-    <div class="chip-row" id="sort-chips">
-      <div class="chip active" data-sort="rating">Overall</div>
-      <div class="chip" data-sort="offense">Offense</div>
-      <div class="chip" data-sort="defense">Defense</div>
-      <div class="chip" data-sort="nil">NIL</div>
-      <div class="chip" data-sort="transfer">Portal</div>
+
+  <!-- Conference filter (scrollable) -->
+  <div style="margin-bottom:10px">
+    <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Conference</div>
+    <div style="display:flex;overflow-x:auto;gap:6px;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none" id="conf-chips"></div>
+  </div>
+
+  <!-- Division + Momentum + Sort row -->
+  <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:16px">
+    <div>
+      <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Division</div>
+      <div class="chip-row" id="div-chips">
+        <div class="chip active" data-div="all">All</div>
+        <div class="chip" data-div="power4">Power 4</div>
+        <div class="chip" data-div="g5">Group of 5</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Momentum</div>
+      <div class="chip-row" id="mom-chips">
+        <div class="chip active" data-mom="all">All</div>
+        <div class="chip" data-mom="rising">Rising</div>
+        <div class="chip" data-mom="stable">Stable</div>
+        <div class="chip" data-mom="declining">Falling</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Sort By</div>
+      <div class="chip-row" id="sort-chips">
+        <div class="chip active" data-sort="rating">Overall</div>
+        <div class="chip" data-sort="offense">Offense</div>
+        <div class="chip" data-sort="defense">Defense</div>
+        <div class="chip" data-sort="nil">NIL</div>
+        <div class="chip" data-sort="transfer">Portal</div>
+        <div class="chip" data-sort="sp">SP+</div>
+      </div>
     </div>
   </div>
 
@@ -170,8 +197,19 @@
 
 <script src="../js/data.js"></script>
 <script>
-const CONFERENCES = ["SEC","Big Ten","ACC","Independent"];
-let filterConf = "all", searchQ = "", sortBy = "rating", viewMode = "grid";
+const POWER4 = ["SEC","Big Ten","Big 12","ACC"];
+function getConferences() {
+  const set = new Set();
+  Object.values(TEAMS).forEach(t => { if (t.conference) set.add(t.conference); });
+  const ORDER = ["SEC","Big Ten","Big 12","ACC","American Athletic","Mountain West","Sun Belt","MAC","Conference USA","FBS Independents","Independent"];
+  return [...set].sort((a,b) => {
+    const ai = ORDER.indexOf(a), bi = ORDER.indexOf(b);
+    if (ai !== -1 && bi !== -1) return ai - bi;
+    if (ai !== -1) return -1; if (bi !== -1) return 1;
+    return a.localeCompare(b);
+  });
+}
+let filterConf = "all", filterDivision = "all", filterMomentum = "all", searchQ = "", sortBy = "rating", viewMode = "grid";
 
 // Stats strip
 (function(){
@@ -187,9 +225,14 @@ let filterConf = "all", searchQ = "", sortBy = "rating", viewMode = "grid";
   ].map(s => `<div class="stat-cell"><div class="stat-cell-val" style="color:${s.color}">${s.value}</div><div class="stat-cell-sub">${s.label}</div></div>`).join("");
 })();
 
-// Conf chips
-document.getElementById("conf-chips").innerHTML = [{ label:"All", val:"all" }, ...CONFERENCES.map(c => ({ label:c, val:c }))]
-  .map(c => `<div class="chip${c.val==="all"?" active":""}" data-conf="${c.val}">${c.label}</div>`).join("");
+// Conf chips — built dynamically from loaded TEAMS
+function initConfChips() {
+  const confs = getConferences();
+  const SHORT = { "American Athletic":"AAC","Mountain West":"MWC","Conference USA":"CUSA","FBS Independents":"Ind.","Independent":"Ind." };
+  document.getElementById("conf-chips").innerHTML = [{ label:"All", val:"all" }, ...confs.map(c => ({ label: SHORT[c]||c, val:c }))]
+    .map(c => `<div class="chip${c.val===filterConf?" active":""}" data-conf="${c.val}">${c.label}</div>`).join("");
+}
+initConfChips();
 document.getElementById("conf-chips").addEventListener("click", e => {
   const chip = e.target.closest(".chip"); if (!chip) return;
   document.querySelectorAll("#conf-chips .chip").forEach(c => c.classList.remove("active"));
@@ -200,6 +243,18 @@ document.getElementById("sort-chips").addEventListener("click", e => {
   const chip = e.target.closest(".chip"); if (!chip) return;
   document.querySelectorAll("#sort-chips .chip").forEach(c => c.classList.remove("active"));
   chip.classList.add("active"); sortBy = chip.dataset.sort; render();
+});
+
+document.getElementById("div-chips").addEventListener("click", e => {
+  const chip = e.target.closest(".chip"); if (!chip) return;
+  document.querySelectorAll("#div-chips .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active"); filterDivision = chip.dataset.div; render();
+});
+
+document.getElementById("mom-chips").addEventListener("click", e => {
+  const chip = e.target.closest(".chip"); if (!chip) return;
+  document.querySelectorAll("#mom-chips .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active"); filterMomentum = chip.dataset.mom; render();
 });
 
 document.getElementById("search").addEventListener("input", e => { searchQ = e.target.value.toLowerCase(); render(); });
@@ -332,12 +387,26 @@ function renderListRow(team, rank) {
 
 function render() {
   let teams = Object.values(TEAMS);
+
   if (filterConf !== "all") teams = teams.filter(t => t.conference === filterConf);
+
+  if (filterDivision === "power4") teams = teams.filter(t => POWER4.includes(t.conference));
+  else if (filterDivision === "g5") teams = teams.filter(t => !POWER4.includes(t.conference));
+
+  if (filterMomentum !== "all") teams = teams.filter(t => {
+    const m = t.programHealth?.programMomentum || "stable";
+    if (filterMomentum === "rising") return m === "rising";
+    if (filterMomentum === "stable") return m === "stable";
+    if (filterMomentum === "declining") return m === "declining" || m === "falling";
+    return true;
+  });
+
   if (searchQ) teams = teams.filter(t =>
     t.name.toLowerCase().includes(searchQ) ||
     t.mascot.toLowerCase().includes(searchQ) ||
     t.abbreviation.toLowerCase().includes(searchQ) ||
-    (t.coachName || "").toLowerCase().includes(searchQ)
+    (t.coachName || "").toLowerCase().includes(searchQ) ||
+    (t.conference || "").toLowerCase().includes(searchQ)
   );
 
   switch(sortBy) {
@@ -345,6 +414,7 @@ function render() {
     case "defense":  teams.sort((a,b) => b.defensiveRating - a.defensiveRating); break;
     case "nil":      teams.sort((a,b) => (b.programHealth?.nilStrength||0) - (a.programHealth?.nilStrength||0)); break;
     case "transfer": teams.sort((a,b) => (b.programHealth?.transferPortalRating||0) - (a.programHealth?.transferPortalRating||0)); break;
+    case "sp":       teams.sort((a,b) => (b.spRating||0) - (a.spRating||0)); break;
     default:         teams.sort((a,b) => b.rating - a.rating);
   }
 
@@ -361,6 +431,11 @@ function render() {
 }
 
 render();
+
+window.addEventListener("liveDataReady", function() {
+  initConfChips();
+  render();
+});
 </script>
 <script src="../js/config.js"></script>
 <script src="../js/live.js"></script>

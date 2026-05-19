@@ -81,20 +81,48 @@
   <!-- Week Tabs -->
   <div class="week-strip" id="week-strip"></div>
 
-  <!-- Search + Filters -->
+  <!-- Search + Sort -->
   <div class="search-row">
-    <input id="search" class="search-input" placeholder="🔍 Search team schedule..." autocomplete="off" />
+    <input id="search" class="search-input" placeholder="🔍 Search team..." autocomplete="off" />
     <div class="chip-row" id="sort-chips">
       <div class="chip active" data-sort="date">Date</div>
       <div class="chip" data-sort="confidence">Top Picks</div>
     </div>
   </div>
+
+  <!-- Conference filter -->
+  <div style="margin-bottom:8px">
+    <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Conference</div>
+    <div class="week-strip" id="conf-chips"></div>
+  </div>
+
+  <!-- Confidence + Game type filters -->
+  <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:12px">
+    <div>
+      <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Pick Quality</div>
+      <div class="chip-row" id="conf-chips-quality">
+        <div class="chip active" data-q="all">All</div>
+        <div class="chip" data-q="elite">Elite</div>
+        <div class="chip" data-q="high">High</div>
+        <div class="chip" data-q="medium">Medium</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Game Type</div>
+      <div class="chip-row" id="conf-chips-type">
+        <div class="chip active" data-t="all">All</div>
+        <div class="chip" data-t="conf">Conf</div>
+        <div class="chip" data-t="nonconf">Non-Conf</div>
+        <div class="chip" data-t="lines">Has Lines</div>
+      </div>
+    </div>
+  </div>
+
   <div id="schedule-header-row"></div>
 
   <!-- Result count -->
   <div class="result-bar">
     <div class="text-xs text-muted" id="result-count"></div>
-    <div class="chip-row" id="conf-chips"></div>
   </div>
 
   <!-- Game grid -->
@@ -132,7 +160,22 @@
 <script src="../js/data.js"></script>
 <script src="../js/predictor.js"></script>
 <script>
-const CONFERENCES = ["SEC", "Big Ten", "ACC", "Independent"];
+// Build conference list dynamically from loaded games (populated after liveDataReady if needed)
+function buildConferences() {
+  const set = new Set();
+  allPredictions.forEach(({ game }) => {
+    if (game.homeTeam && game.homeTeam.conference) set.add(game.homeTeam.conference);
+    if (game.awayTeam && game.awayTeam.conference) set.add(game.awayTeam.conference);
+  });
+  const CONF_ORDER = ["SEC","Big Ten","Big 12","ACC","American Athletic","Mountain West","Sun Belt","MAC","Conference USA","FBS Independents","Independent"];
+  return [...set].sort((a,b) => {
+    const ai = CONF_ORDER.indexOf(a), bi = CONF_ORDER.indexOf(b);
+    if (ai !== -1 && bi !== -1) return ai - bi;
+    if (ai !== -1) return -1;
+    if (bi !== -1) return 1;
+    return a.localeCompare(b);
+  });
+}
 const WEATHER_ICONS = { Clear:"☀️", Cloudy:"☁️", Rain:"🌧️", Snow:"❄️", Wind:"💨", Dome:"🏟️" };
 
 function wxBadge(w) {
@@ -175,20 +218,44 @@ try {
   ].map(s => `<div class="stat-cell"><div class="stat-cell-val" style="color:${s.color}">${s.value}</div><div class="stat-cell-sub">${s.label}</div></div>`).join("");
 })();
 
-// Conference filter chips
+// Conference filter
 const CONF_STATE = { active: "all" };
-(function() {
-  const chips = [{ label:"All", val:"all" }, ...CONFERENCES.map(c => ({ label:c, val:c }))];
-  document.getElementById("conf-chips").innerHTML = chips.map(c => `<div class="chip${c.val==="all"?" active":""}" data-conf="${c.val}">${c.label}</div>`).join("");
+function initConfChips() {
+  const confs = buildConferences();
+  const chips = [{ label:"All", val:"all" }, ...confs.map(c => ({ label: c.replace("American Athletic","AAC").replace("Mountain West","MWC").replace("Conference USA","CUSA").replace("FBS Independents","Ind."), val:c }))];
+  document.getElementById("conf-chips").innerHTML = chips.map(c => `<div class="week-tab${c.val===CONF_STATE.active?" active":""}" data-conf="${c.val}">${c.label}</div>`).join("");
   document.getElementById("conf-chips").addEventListener("click", e => {
-    const chip = e.target.closest(".chip");
-    if (!chip) return;
-    document.querySelectorAll("#conf-chips .chip").forEach(c => c.classList.remove("active"));
-    chip.classList.add("active");
-    CONF_STATE.active = chip.dataset.conf;
+    const tab = e.target.closest(".week-tab");
+    if (!tab) return;
+    document.querySelectorAll("#conf-chips .week-tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    CONF_STATE.active = tab.dataset.conf;
     render();
   });
-})();
+}
+initConfChips();
+
+// Quality filter
+let qualityFilter = "all";
+document.getElementById("conf-chips-quality").addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  document.querySelectorAll("#conf-chips-quality .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active");
+  qualityFilter = chip.dataset.q;
+  render();
+});
+
+// Game type filter
+let typeFilter = "all";
+document.getElementById("conf-chips-type").addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  document.querySelectorAll("#conf-chips-type .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active");
+  typeFilter = chip.dataset.t;
+  render();
+});
 
 // Sort chips
 let sortBy = "date";
@@ -202,24 +269,27 @@ document.getElementById("sort-chips").addEventListener("click", e => {
 });
 
 // Week detection & tabs
-const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
 const weekLabels = { 1:"Wk 1", 2:"Wk 2", 3:"Wk 3", 4:"Wk 4", 5:"Wk 5", 6:"Wk 6", 7:"Wk 7", 8:"Wk 8", 9:"Wk 9", 10:"Wk 10", 11:"Wk 11", 12:"Wk 12", 13:"Wk 13", 14:"Wk 14", 15:"Champs", 16:"CFP" };
-let activeWeek = 0; // 0 = All Weeks (default)
+let activeWeek = 0;
 
-(function() {
+function buildWeekTabs() {
+  const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
   const strip = document.getElementById("week-strip");
-  strip.innerHTML = `<button class="week-tab active" data-week="0">All Games</button>`
-    + allWeeks.map(w => `<button class="week-tab" data-week="${w}">${weekLabels[w]||"Wk "+w}</button>`).join("");
-  strip.addEventListener("click", e => {
-    const tab = e.target.closest(".week-tab");
-    if (!tab) return;
-    activeWeek = parseInt(tab.dataset.week);
-    document.querySelectorAll(".week-tab").forEach(t => t.classList.toggle("active", parseInt(t.dataset.week)===activeWeek));
-    searchTeam = "";
-    document.getElementById("search").value = "";
-    render();
-  });
-})();
+  const prev = activeWeek;
+  strip.innerHTML = `<button class="week-tab${prev===0?" active":""}" data-week="0">All Games</button>`
+    + allWeeks.map(w => `<button class="week-tab${w===prev?" active":""}" data-week="${w}">${weekLabels[w]||"Wk "+w}</button>`).join("");
+}
+
+buildWeekTabs();
+document.getElementById("week-strip").addEventListener("click", e => {
+  const tab = e.target.closest(".week-tab");
+  if (!tab) return;
+  activeWeek = parseInt(tab.dataset.week);
+  document.querySelectorAll("#week-strip .week-tab").forEach(t => t.classList.toggle("active", parseInt(t.dataset.week)===activeWeek));
+  searchTeam = "";
+  document.getElementById("search").value = "";
+  render();
+});
 
 // Best Pick of Week
 function renderBestPick(weekNum) {
@@ -424,6 +494,20 @@ function render() {
     list = list.filter(({ game }) => game.homeTeam.conference === CONF_STATE.active || game.awayTeam.conference === CONF_STATE.active);
   }
 
+  // Quality filter
+  if (qualityFilter !== "all") {
+    list = list.filter(({ prediction }) => prediction.confidence === qualityFilter);
+  }
+
+  // Game type filter
+  if (typeFilter === "conf") {
+    list = list.filter(({ game }) => game.isConferenceGame);
+  } else if (typeFilter === "nonconf") {
+    list = list.filter(({ game }) => !game.isConferenceGame);
+  } else if (typeFilter === "lines") {
+    list = list.filter(({ game }) => game.bettingLines && game.bettingLines.spread != null);
+  }
+
   // Sort
   if (sortBy === "confidence") {
     const o = { elite:4, high:3, medium:2, low:1 };
@@ -468,7 +552,7 @@ function clearSearch() {
     const w = parseInt(weekParam);
     if (!isNaN(w)) {
       activeWeek = w;
-      document.querySelectorAll(".week-tab").forEach(t =>
+      document.querySelectorAll("#week-strip .week-tab").forEach(t =>
         t.classList.toggle("active", parseInt(t.dataset.week) === activeWeek));
     }
   }
@@ -492,6 +576,15 @@ render();
 
 // Re-render when live data arrives
 window.addEventListener("liveDataReady", function() {
+  // Rebuild predictions and reinit conf chips with full team/game set
+  try {
+    allPredictions = GAMES.map(g => {
+      try { const game = resolveGame(g); return { game, prediction: predictGame(game) }; }
+      catch(e) { return null; }
+    }).filter(Boolean);
+  } catch(e) { console.error(e); }
+  initConfChips();
+  buildWeekTabs();
   renderBestPick(activeWeek > 0 ? activeWeek : 1);
   render();
 });

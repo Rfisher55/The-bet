@@ -145,12 +145,21 @@
   <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:8px">SELECT WEEK</div>
   <div class="week-strip" id="week-strip"></div>
 
-  <!-- Model edge filter -->
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-    <div style="font-size:.72rem;color:var(--muted);font-weight:700">Show:</div>
-    <div class="chip-row" id="edge-filter">
-      <div class="chip active" data-edge="all">All Games</div>
-      <div class="chip" data-edge="edge">Model Edges Only</div>
+  <!-- Conference filter (scrollable) -->
+  <div style="margin-bottom:10px">
+    <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Conference</div>
+    <div class="week-strip" id="parlay-conf-chips"></div>
+  </div>
+
+  <!-- Model edge + Lines filters -->
+  <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:16px">
+    <div>
+      <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Show</div>
+      <div class="chip-row" id="edge-filter">
+        <div class="chip active" data-edge="all">All Games</div>
+        <div class="chip" data-edge="edge">Model Edges Only</div>
+        <div class="chip" data-edge="lines">Has Lines</div>
+      </div>
     </div>
   </div>
 
@@ -225,25 +234,56 @@ try {
 } catch(e) { console.error(e); }
 
 // ── Week state ──
-const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
-let activeWeek = allWeeks[0];
+let activeWeek = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b)[0];
 let edgeFilter = "all";
+let parlayConfFilter = "all";
+
+const weekLabels = { 1:"Wk 1",2:"Wk 2",3:"Wk 3",4:"Wk 4",5:"Wk 5",6:"Wk 6",7:"Wk 7",8:"Wk 8",9:"Wk 9",10:"Wk 10",11:"Wk 11",12:"Wk 12",13:"Wk 13",14:"Wk 14",15:"Champs",16:"CFP" };
 
 // ── Week tabs ──
-(function() {
-  const weekLabels = { 1:"Wk 1",2:"Wk 2",3:"Wk 3",4:"Wk 4",5:"Wk 5",6:"Wk 6",7:"Wk 7",9:"Wk 9",10:"Wk 10",11:"Wk 11",13:"Wk 13",15:"Champs" };
+function buildParlayWeekTabs() {
+  const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
   const strip = document.getElementById("week-strip");
   strip.innerHTML = allWeeks.map(w =>
     `<button class="week-tab${w===activeWeek?" active":""}" data-week="${w}">${weekLabels[w]||"Wk "+w}</button>`
   ).join("");
-  strip.addEventListener("click", e => {
-    const tab = e.target.closest(".week-tab");
-    if (!tab) return;
-    activeWeek = parseInt(tab.dataset.week);
-    document.querySelectorAll(".week-tab").forEach(t => t.classList.toggle("active", parseInt(t.dataset.week)===activeWeek));
-    renderGameList();
+}
+buildParlayWeekTabs();
+document.getElementById("week-strip").addEventListener("click", e => {
+  const tab = e.target.closest(".week-tab");
+  if (!tab) return;
+  activeWeek = parseInt(tab.dataset.week);
+  document.querySelectorAll("#week-strip .week-tab").forEach(t => t.classList.toggle("active", parseInt(t.dataset.week)===activeWeek));
+  renderGameList();
+});
+
+// ── Conference filter ──
+const CONF_SHORT = { "American Athletic":"AAC","Mountain West":"MWC","Conference USA":"CUSA","FBS Independents":"Ind.","Independent":"Ind." };
+function initParlayConfChips() {
+  const set = new Set();
+  allPreds.forEach(({ game }) => {
+    if (game.homeTeam?.conference) set.add(game.homeTeam.conference);
+    if (game.awayTeam?.conference) set.add(game.awayTeam.conference);
   });
-})();
+  const CONF_ORDER = ["SEC","Big Ten","Big 12","ACC","American Athletic","Mountain West","Sun Belt","MAC","Conference USA","FBS Independents","Independent"];
+  const confs = [...set].sort((a,b) => {
+    const ai = CONF_ORDER.indexOf(a), bi = CONF_ORDER.indexOf(b);
+    if (ai !== -1 && bi !== -1) return ai - bi;
+    if (ai !== -1) return -1; if (bi !== -1) return 1;
+    return a.localeCompare(b);
+  });
+  document.getElementById("parlay-conf-chips").innerHTML =
+    `<button class="week-tab${parlayConfFilter==="all"?" active":""}" data-conf="all">All</button>` +
+    confs.map(c => `<button class="week-tab${parlayConfFilter===c?" active":""}" data-conf="${c}">${CONF_SHORT[c]||c}</button>`).join("");
+}
+initParlayConfChips();
+document.getElementById("parlay-conf-chips").addEventListener("click", e => {
+  const tab = e.target.closest(".week-tab"); if (!tab) return;
+  document.querySelectorAll("#parlay-conf-chips .week-tab").forEach(t => t.classList.remove("active"));
+  tab.classList.add("active");
+  parlayConfFilter = tab.dataset.conf;
+  renderGameList();
+});
 
 // ── Edge filter ──
 document.getElementById("edge-filter").addEventListener("click", e => {
@@ -488,12 +528,20 @@ function scrollToSummary() {
 function renderGameList() {
   let list = allPreds.filter(p => p.game.week === activeWeek);
 
+  if (parlayConfFilter !== "all") {
+    list = list.filter(({ game }) =>
+      game.homeTeam?.conference === parlayConfFilter || game.awayTeam?.conference === parlayConfFilter
+    );
+  }
+
   if (edgeFilter === "edge") {
     list = list.filter(({ prediction:pred }) => {
       const sp = pred.spreadPick || {};
       const tp = pred.totalPick || {};
       return (sp.side !== "no-bet" && sp.edge >= 1) || (tp.side !== "no-bet" && tp.confidence >= 58);
     });
+  } else if (edgeFilter === "lines") {
+    list = list.filter(({ game }) => game.bettingLines && game.bettingLines.spread != null);
   }
 
   list.sort((a,b) => a.game.date.localeCompare(b.game.date));
@@ -611,6 +659,8 @@ window.addEventListener("liveDataReady", function() {
       catch(e) { console.error(g.id, e); return null; }
     }).filter(Boolean);
   } catch(e) { console.error(e); }
+  buildParlayWeekTabs();
+  initParlayConfChips();
   renderGameList();
   updateSummary();
 });
