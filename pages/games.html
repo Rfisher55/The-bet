@@ -451,18 +451,43 @@ function clearSearch() {
   render();
 }
 
-// Parse URL param for team schedule deep-link (from teams page)
+// Parse URL params — team deep-link, week filter, sort override
 (function() {
   const params = new URLSearchParams(window.location.search);
   const teamParam = params.get("team");
+  const weekParam = params.get("week");
+  const sortParam = params.get("sort");
+  const filterParam = params.get("filter");
+
   if (teamParam) {
     searchTeam = teamParam.toLowerCase().trim();
     document.getElementById("search").value = teamParam;
   }
+
+  if (weekParam) {
+    const w = parseInt(weekParam);
+    if (!isNaN(w)) {
+      activeWeek = w;
+      document.querySelectorAll(".week-tab").forEach(t =>
+        t.classList.toggle("active", parseInt(t.dataset.week) === activeWeek));
+    }
+  }
+
+  if (sortParam && ["date","confidence"].includes(sortParam)) {
+    sortBy = sortParam;
+    document.querySelectorAll("#sort-chips .chip").forEach(c =>
+      c.classList.toggle("active", c.dataset.sort === sortParam));
+  }
+
+  if (filterParam === "elite") {
+    sortBy = "confidence";
+    document.querySelectorAll("#sort-chips .chip").forEach(c =>
+      c.classList.toggle("active", c.dataset.sort === "confidence"));
+  }
 })();
 
 // Initial render
-renderBestPick(1);
+renderBestPick(activeWeek > 0 ? activeWeek : 1);
 render();
 </script>
 <script src="../js/live.js"></script>

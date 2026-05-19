@@ -424,7 +424,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "12-2 (2025)",
     rating: 89, offensiveRating: 86, defensiveRating: 92, spRating: 19.7,
     recruitingRank: 8,
-    coachName: "James Franklin", coachRecord: "108-50",
+    coachName: "Matt Campbell", coachRecord: "107-70",
     stats: {
       pointsPerGame: 33.2, pointsAllowedPerGame: 17.4,
       yardsPerGame: 408.4, yardsAllowedPerGame: 282.1,
@@ -506,7 +506,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "8-4 (2025)",
     rating: 85, offensiveRating: 83, defensiveRating: 88, spRating: 15.2,
     recruitingRank: 12,
-    coachName: "Sherrone Moore", coachRecord: "22-11",
+    coachName: "Kyle Whittingham", coachRecord: "177-88",
     stats: {
       pointsPerGame: 29.8, pointsAllowedPerGame: 20.1,
       yardsPerGame: 378.2, yardsAllowedPerGame: 298.4,
@@ -670,7 +670,7 @@ const TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "9-3 (2025)",
     rating: 87, offensiveRating: 91, defensiveRating: 82, spRating: 16.4,
     recruitingRank: 5,
-    coachName: "Brian Kelly", coachRecord: "56-21",
+    coachName: "Lane Kiffin", coachRecord: "92-43",
     stats: {
       pointsPerGame: 41.3, pointsAllowedPerGame: 24.7,
       yardsPerGame: 501.2, yardsAllowedPerGame: 358.4,
@@ -993,7 +993,7 @@ const TEAMS = {
     conference: "SEC", color: "#0C2340",
     wins: 0, losses: 0, lastSeasonRecord: "9-4 (2025)",
     rating: 74, offensiveRating: 72, defensiveRating: 76, spRating: 8.2,
-    recruitingRank: 18, coachName: "Hugh Freeze", coachRecord: "27-22",
+    recruitingRank: 18, coachName: "Alex Golesh", coachRecord: "17-9",
     stats: {
       pointsPerGame: 28.4, pointsAllowedPerGame: 24.1,
       yardsPerGame: 398.2, yardsAllowedPerGame: 342.7,
@@ -1028,7 +1028,7 @@ const TEAMS = {
     conference: "SEC", color: "#003087",
     wins: 0, losses: 0, lastSeasonRecord: "7-5 (2025)",
     rating: 70, offensiveRating: 71, defensiveRating: 68, spRating: 5.8,
-    recruitingRank: 14, coachName: "Billy Napier", coachRecord: "24-30",
+    recruitingRank: 14, coachName: "Jon Sumrall", coachRecord: "17-9",
     stats: {
       pointsPerGame: 26.8, pointsAllowedPerGame: 26.2,
       yardsPerGame: 372.4, yardsAllowedPerGame: 358.1,
@@ -1379,13 +1379,13 @@ const KEY_PLAYERS = [
     scoutReport:"Interior presence who brings insider knowledge of Michigan's offensive system — a rare intel advantage in a rivalry matchup. His transfer motivation created immediate buy-in with the program. His first-step is his best asset; he disrupts center-guard combinations without requiring help." },
 
   /* ── PENN STATE ── */
-  { id:"p_psu_01", name:"Beau Pribula", position:"QB", teamId:"penn_state", year:"SR", number:"10", heightWeight:"6'2\" / 205", hometown:"York, PA",
+  { id:"p_psu_01", name:"Rocco Becht", position:"QB", teamId:"penn_state", year:"SR", number:"9", heightWeight:"6'3\" / 210", hometown:"Ankeny, IA",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
-    injuryHistory:[], injuryProneRating:1, impact:"high",
-    personalFlags:{ distractionLevel:5, distractionNote:"Nobody in college football has waited longer for their shot. 4 years behind Clifford and Allar. His experience in the system is unparalleled — every route, every coverage, every blitz is committed to muscle memory. But he's never started a meaningful game under pressure.", socialMediaPattern:"normal", nflDraftStatus:"projected round 4-5", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
-    performanceMetrics:{ clutchRating:78, bigGameRating:74, coldWeatherRating:80, roadGameRating:73, primeTimeRating:76, consistencyRating:79, pressureRating:75, explosivePlayRating:74 },
-    stats:{ gamesPlayed:5, passingYards:388, passingTDs:4, interceptions:2, completionPct:64.8, qbr:77.2, rushingYards:112, rushingTDs:1, note:"Backup snaps across 4 seasons" },
-    scoutReport:"The most system-savvy QB in Penn State history — no one knows James Franklin's offense better. His 4-year preparation means he's never had a nervous moment in the building. The question is translating practice mastery to game chaos. Miami's Rueben Bain will be his first true test under elite pass rush pressure." },
+    injuryHistory:[], injuryProneRating:2, impact:"high",
+    personalFlags:{ distractionLevel:4, distractionNote:"Becht followed Matt Campbell from Iowa State to Penn State and is immediately the starter for a program in transition. The pressure of being the first transfer QB in Penn State history, at a new school, in a new conference, under a first-year head coach is real. He has the benefit of Campbell's system, which he ran for two years. Penn State's portal rebuilt roster is talented but untested together.", socialMediaPattern:"normal", nflDraftStatus:"projected round 3-4", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:79, bigGameRating:77, coldWeatherRating:82, roadGameRating:75, primeTimeRating:78, consistencyRating:80, pressureRating:78, explosivePlayRating:78 },
+    stats:{ gamesPlayed:24, passingYards:5412, passingTDs:42, interceptions:12, completionPct:65.8, qbr:84.2, rushingYards:342, rushingTDs:5, note:"2 seasons at Iowa State under Campbell" },
+    scoutReport:"Campbell's QB at Iowa State is now his QB at Penn State. Becht is a proven Big 12 producer who combines accuracy with enough mobility to keep defenses honest. His chemistry with Campbell's offense is built over two seasons. The question is translating Big 12 success to Big Ten competition and a new supporting cast." },
 
   { id:"p_psu_02", name:"Abdul Carter", position:"LB", teamId:"penn_state", year:"SR", number:"11", heightWeight:"6'3\" / 245", hometown:"Coatesville, PA",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
@@ -1526,18 +1526,18 @@ const KEY_PLAYERS = [
     scoutReport:"South Carolina local who's developed the deepest trust with Klubnik of any receiver on the roster. Their late-2025 connection has been the offseason story — Randall became his go-to in clutch situations. Georgia's Malaki Starks will likely shadow him — that's the matchup that determines if Clemson can sustain drives." },
 
   /* ── LSU ── */
-  { id:"p_lsu_01", name:"Garrett Nussmeier", position:"QB", teamId:"lsu", year:"SR", number:"4", heightWeight:"6'3\" / 216", hometown:"The Woodlands, TX",
-    injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
-    injuryHistory:[], injuryProneRating:1, impact:"high",
-    personalFlags:{ distractionLevel:5, distractionType:"social_media", distractionNote:"Playing in Death Valley's shadow of Jayden Daniels and Joe Burrow is a uniquely difficult psychological challenge. His girlfriend — a popular TikTok creator with 2.1M followers — documents his life extensively, which has created a 'celebrity QB' narrative LSU hasn't fully managed. Three of his interceptions last season came in the 4th quarter when the crowd energy deflated — mental fatigue indicator. He's been working with a sports psychologist this offseason, which coaches view as a positive but also flags emotional management needs.", socialMediaPattern:"active", nflDraftStatus:"projected round 2-3", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
-    performanceMetrics:{ clutchRating:78, bigGameRating:76, coldWeatherRating:68, roadGameRating:74, primeTimeRating:80, consistencyRating:73, pressureRating:75, explosivePlayRating:85 },
-    stats:{ gamesPlayed:12, passingYards:3412, passingTDs:29, interceptions:10, completionPct:67.2, qbr:82.4, rushingYards:88, rushingTDs:1 },
-    scoutReport:"Elite arm talent with boom-or-bust consistency. When his rhythm is there, he's top-5 QB in the SEC. When it breaks down, the interceptions come (10 last season). Tennessee's defense creates the most chaos of any opponent — the noise at Tiger Stadium must overcome Tennessee's own crowd noise advantage to help Nussmeier stay in rhythm." },
+  { id:"p_lsu_01", name:"Sam Leavitt", position:"QB", teamId:"lsu", year:"SO", number:"4", heightWeight:"6'2\" / 216", hometown:"Spokane, WA",
+    injuryStatus:"questionable", practiceStatus:"limited", injuryType:"foot (offseason surgery)",
+    injuryHistory:[{type:"foot",year:2025,gamesAffected:6,chronic:false}], injuryProneRating:4, impact:"high",
+    personalFlags:{ distractionLevel:6, distractionNote:"Leavitt is Lane Kiffin's franchise piece at LSU — transferred from Arizona State where he was one of the most exciting QBs in the Pac-12. The foot injury suffered in 2025 is the only cloud. He did not take live contact reps all spring and is expected to be full go in August camp. Kiffin has publicly defended his health but NFL scouts tracking his footwork will be watching the preseason opener closely. The Death Valley debut pressure is immense.", socialMediaPattern:"normal", nflDraftStatus:"not eligible (SO)", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:80, bigGameRating:78, coldWeatherRating:65, roadGameRating:76, primeTimeRating:82, consistencyRating:75, pressureRating:78, explosivePlayRating:88 },
+    stats:{ gamesPlayed:8, passingYards:1892, passingTDs:16, interceptions:5, completionPct:66.4, qbr:85.1, rushingYards:312, rushingTDs:4, note:"Stats from Arizona State 2025 (6 games) + LSU bowl game" },
+    scoutReport:"Kiffin's air-raid QB who lit up the Pac-12 before the foot injury cut his 2025 short. His arm talent and improvisation ability fit perfectly in Kiffin's system. The foot is the one question mark — he is not expected to take live reps until August camp. If healthy, he's an instant-impact starter in the SEC. Clemson's defense will test how well he reads pressure in his first big road environment." },
 
   { id:"p_lsu_02", name:"Harold Perkins", position:"LB", teamId:"lsu", year:"SR", number:"1", heightWeight:"6'2\" / 235", hometown:"Cypress, TX",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
     injuryHistory:[{type:"knee",year:2024,gamesAffected:5,chronic:true}], injuryProneRating:6, impact:"high",
-    personalFlags:{ distractionLevel:4, distractionType:"nfl_draft_temptation", distractionNote:"Was a Freshman All-American as a true freshman but the knee injury is the real story. He's been managing the issue chronically. Multiple NFL personnel have visited Baton Rouge specifically to evaluate his knee. His return to school was driven by medical clearance confidence — but Brian Kelly privately told staff they'll manage his snap count. If the knee isn't responding well, 20-25 snaps max.", socialMediaPattern:"normal", nflDraftStatus:"projected round 1 (top 15 if healthy)", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
+    personalFlags:{ distractionLevel:4, distractionType:"nfl_draft_temptation", distractionNote:"Was a Freshman All-American as a true freshman but the knee injury is the real story. He's been managing the issue chronically. Multiple NFL personnel have visited Baton Rouge specifically to evaluate his knee. Kiffin's staff will manage his snap count carefully — the expectation is 25-30 snaps per game to start the season. If the knee isn't responding well in August camp, his role could be further limited.", socialMediaPattern:"normal", nflDraftStatus:"projected round 1 (top 15 if healthy)", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
     performanceMetrics:{ clutchRating:88, bigGameRating:90, coldWeatherRating:82, roadGameRating:85, primeTimeRating:92, consistencyRating:74, pressureRating:94, explosivePlayRating:89 },
     stats:{ gamesPlayed:7, sacks:6.5, tacklesForLoss:11, qbHurries:24, interceptions:1 },
     scoutReport:"When fully healthy, the most disruptive pass rusher in the SEC. But 'fully healthy' is the question of 2026. Tennessee's Nico Iamaleava throws quickly — Perkins needs to win on first movement, not second. If his knee limits his first step, he becomes a containment player rather than a disruptor. Monitor his warmup." },
@@ -1722,12 +1722,12 @@ const KEY_PLAYERS = [
     scoutReport:"Versatile blocker-receiver who gives Williams a reliable checkdown. Penn State's Carter will spy Arroyo on crossing routes — the key test is whether Arroyo can get vertical against Carter's speed. In the red zone, his size creates a matchup problem against any coverage." },
 
   /* ── AUBURN ── */
-  { id:"p_aub_01", name:"Hank Brown", position:"QB", teamId:"auburn", year:"JR", number:"16", heightWeight:"6'3\" / 215", hometown:"Nashville, TN",
-    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:3, impact:"high",
-    personalFlags:{ distractionLevel:5, distractionNote:"Transfer from Memphis who won the Auburn QB battle in fall camp. Carries the weight of a high-pressure starting role in the SEC for the first time. Hugh Freeze believes in his arm talent but the interior reads against elite defenses remain untested.", socialMediaPattern:"normal", nflDraftStatus:"undrafted", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"low" },
-    performanceMetrics:{ clutchRating:71, bigGameRating:68, coldWeatherRating:70, roadGameRating:69, primeTimeRating:74, consistencyRating:72, pressureRating:71, explosivePlayRating:76 },
-    stats:{ gamesPlayed:0, passingYards:0, passingTDs:0, interceptions:0, completionPct:0, qbr:0, note:"New starter — limited college sample from Memphis" },
-    scoutReport:"Athletic dual-threat with enough arm talent to surprise defenses early in the season. Against elite SEC competition the reads become his limitation. Freeze's spread concepts should create easy completions if Brown protects the ball." },
+  { id:"p_aub_01", name:"Byrum Brown", position:"QB", teamId:"auburn", year:"GR", number:"10", heightWeight:"6'2\" / 205", hometown:"Fort Myers, FL",
+    injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:2, impact:"high",
+    personalFlags:{ distractionLevel:3, distractionNote:"Brown is the most experienced QB on Auburn's roster — he followed Alex Golesh from South Florida, where they had two years working together. His SEC debut will be the primary test. He put up massive numbers at USF in a wide-open offense. The jump to the SEC is real but he has Golesh and OC Joel Gordon's full confidence.", socialMediaPattern:"normal", nflDraftStatus:"projected round 5-6", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
+    performanceMetrics:{ clutchRating:77, bigGameRating:74, coldWeatherRating:71, roadGameRating:73, primeTimeRating:76, consistencyRating:78, pressureRating:75, explosivePlayRating:84 },
+    stats:{ gamesPlayed:13, passingYards:3158, passingTDs:24, interceptions:7, completionPct:67.4, qbr:87.2, rushingYards:1008, rushingTDs:14, note:"2025 stats at South Florida under Golesh" },
+    scoutReport:"Dual-threat nightmare who put up 3,158 passing and 1,008 rushing yards in 2025 at USF. Brown and Golesh have two years of chemistry baked in. The jump from AAC to SEC is significant — but his mobility gives Auburn a dimension Alabama's defense rarely faces. This is the most important individual matchup of the Iron Bowl." },
 
   { id:"p_aub_02", name:"Jeremiah Cobb", position:"RB", teamId:"auburn", year:"SR", number:"3", heightWeight:"5'11\" / 216", hometown:"Opelika, AL",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[{type:"ankle",year:2024,gamesAffected:3,chronic:false}], injuryProneRating:3, impact:"high",

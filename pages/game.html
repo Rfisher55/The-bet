@@ -501,7 +501,15 @@ if (!gameData) {
           ${pm ? `
             <div style="margin-bottom:10px">
               <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">PERFORMANCE METRICS</div>
-              ${["clutch","bigGame","coldWeather","road","primetime","consistency","pressureRating"].filter(k=>pm[k]!==undefined).map(k=>radarBar(k.replace(/([A-Z])/g," $1").trim(),pm[k],teamColor)).join("")}
+              ${[
+                ["Clutch",       pm.clutchRating],
+                ["Big Game",     pm.bigGameRating],
+                ["Cold Wx",      pm.coldWeatherRating],
+                ["Road",         pm.roadGameRating],
+                ["Primetime",    pm.primeTimeRating],
+                ["Consistency",  pm.consistencyRating],
+                ["Pressure",     pm.pressureRating],
+              ].filter(([,v])=>v!==undefined).map(([lbl,v])=>radarBar(lbl,v,teamColor)).join("")}
             </div>` : ""}
           ${p.stats && Object.keys(p.stats).length ? `
             <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-bottom:10px">
@@ -514,11 +522,11 @@ if (!gameData) {
           ${pf ? `
             <div style="margin-bottom:8px;padding:8px 10px;background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.18);border-radius:6px;position:relative">
               <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:5px">INSIDER INTEL</div>
-              ${pf.insiderNote ? `<div style="font-size:.76rem;color:var(--text-soft);font-style:italic;line-height:1.55;margin-bottom:5px">"${pf.insiderNote}"</div>` : ""}
-              ${pf.socialChatter ? `<div style="font-size:.7rem;color:var(--muted-l);margin-bottom:5px">🐦 Social: ${pf.socialChatter}</div>` : ""}
+              ${pf.distractionNote ? `<div style="font-size:.76rem;color:var(--text-soft);font-style:italic;line-height:1.55;margin-bottom:5px">"${pf.distractionNote}"</div>` : ""}
+              ${pf.socialMediaPattern ? `<div style="font-size:.7rem;color:var(--muted-l);margin-bottom:5px">🐦 Social: ${pf.socialMediaPattern}</div>` : ""}
               ${pf.distractionLevel > 0 ? `
                 <div style="display:flex;align-items:center;gap:6px">
-                  <span style="font-size:.65rem;color:var(--muted);flex-shrink:0">Distraction ${pf.distractionLevel}/10</span>
+                  <span style="font-size:.65rem;color:var(--muted);flex-shrink:0">Focus Level ${pf.distractionLevel}/10</span>
                   <div style="flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden"><div style="width:${pf.distractionLevel*10}%;height:100%;background:${pf.distractionLevel>=7?"var(--danger)":pf.distractionLevel>=5?"var(--gold)":"var(--primary)"}"></div></div>
                 </div>` : ""}
             </div>` : ""}
@@ -687,7 +695,7 @@ if (!gameData) {
     const smSig = pred.sharpMoneySignal || {};
     const injuredPl = allPlayers.filter(p => p.injuryStatus && p.injuryStatus !== "healthy");
     const flaggedPl = allPlayers.filter(p => p.personalFlags && p.personalFlags.distractionLevel >= 5);
-    const practiceNotes = allPlayers.filter(p => p.personalFlags && p.personalFlags.insiderNote);
+    const practiceNotes = allPlayers.filter(p => p.personalFlags && p.personalFlags.distractionNote);
 
     return `
       <div class="card card-p mb-5">
@@ -796,10 +804,10 @@ if (!gameData) {
                   <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">
                     <span style="font-size:.8rem;font-weight:700;color:var(--text)">${p.name}</span>
                     <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${t.abbreviation}</span>
-                    ${dl >= 6 ? `<span style="margin-left:auto;font-size:.62rem;padding:1px 5px;border-radius:4px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700">⚠ DISTRACTION ${dl}/10</span>` : ""}
+                    ${dl >= 6 ? `<span style="margin-left:auto;font-size:.62rem;padding:1px 5px;border-radius:4px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700">⚠ FOCUS ${dl}/10</span>` : ""}
                   </div>
-                  <div style="font-size:.8rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${p.personalFlags.insiderNote}"</div>
-                  ${p.personalFlags.socialChatter ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:4px">🐦 Twitter: ${p.personalFlags.socialChatter}</div>` : ""}
+                  <div style="font-size:.8rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${p.personalFlags.distractionNote}"</div>
+                  ${p.personalFlags.socialMediaPattern ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:4px">🐦 Twitter: ${p.personalFlags.socialMediaPattern}</div>` : ""}
                 </div>`;
             }).join("")}
           </div>
@@ -1338,8 +1346,8 @@ if (!gameData) {
                       <div style="width:${distLevel * 10}%;height:100%;border-radius:3px;background:${distColor}"></div>
                     </div>
                   </div>` : ""}
-                ${pf.insiderNote ? `<div class="text-xs" style="color:var(--text-soft);line-height:1.55;font-style:italic">"${pf.insiderNote}"</div>` : ""}
-                ${pf.socialChatter ? `<div class="text-xxs text-muted mt-2">Social chatter: <strong style="color:var(--muted-l)">${pf.socialChatter}</strong></div>` : ""}
+                ${pf.distractionNote ? `<div class="text-xs" style="color:var(--text-soft);line-height:1.55;font-style:italic">"${pf.distractionNote}"</div>` : ""}
+                ${pf.socialMediaPattern ? `<div class="text-xxs text-muted mt-2">Social chatter: <strong style="color:var(--muted-l)">${pf.socialMediaPattern}</strong></div>` : ""}
               </div>
             </div>` : ""}
 
@@ -1347,13 +1355,13 @@ if (!gameData) {
           ${pm ? `
             <div style="margin-bottom:12px">
               <div class="text-xs text-muted mb-2" style="letter-spacing:1px;text-transform:uppercase">Performance Metrics</div>
-              ${pm.clutch     !== undefined ? radarBar("Clutch",      pm.clutch,     "#f59e0b") : ""}
-              ${pm.bigGame    !== undefined ? radarBar("Big Game",    pm.bigGame,    "#f97316") : ""}
-              ${pm.coldWeather!== undefined ? radarBar("Cold Wx",     pm.coldWeather,"#38bdf8") : ""}
-              ${pm.road       !== undefined ? radarBar("Road",        pm.road,       "#a78bfa") : ""}
-              ${pm.primetime  !== undefined ? radarBar("Primetime",   pm.primetime,  "#ec4899") : ""}
-              ${pm.consistency!== undefined ? radarBar("Consistency", pm.consistency,"var(--primary)") : ""}
-              ${pm.pressureRating !== undefined ? radarBar("Pressure",pm.pressureRating, "var(--gold)") : ""}
+              ${pm.clutchRating      !== undefined ? radarBar("Clutch",      pm.clutchRating,      "#f59e0b") : ""}
+              ${pm.bigGameRating     !== undefined ? radarBar("Big Game",    pm.bigGameRating,     "#f97316") : ""}
+              ${pm.coldWeatherRating !== undefined ? radarBar("Cold Wx",     pm.coldWeatherRating, "#38bdf8") : ""}
+              ${pm.roadGameRating    !== undefined ? radarBar("Road",        pm.roadGameRating,    "#a78bfa") : ""}
+              ${pm.primeTimeRating   !== undefined ? radarBar("Primetime",   pm.primeTimeRating,   "#ec4899") : ""}
+              ${pm.consistencyRating !== undefined ? radarBar("Consistency", pm.consistencyRating, "var(--primary)") : ""}
+              ${pm.pressureRating    !== undefined ? radarBar("Pressure",    pm.pressureRating,    "var(--gold)") : ""}
             </div>` : ""}
 
           <!-- Season stats -->
