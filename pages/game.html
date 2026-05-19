@@ -539,6 +539,11 @@ if (!gameData) {
           <div style="font-size:.58rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:${team.color};border-bottom:1px solid ${team.color}35;padding-bottom:4px;margin-bottom:7px">${g.label}</div>
           ${g.pl.map(p => {
             const hasAlert = (p.personalFlags && p.personalFlags.distractionLevel >= 5) || (p.injuryStatus && p.injuryStatus !== "healthy");
+            const alertParts = [];
+            if (p.injuryStatus && p.injuryStatus !== "healthy") alertParts.push("Injury: " + p.injuryStatus + (p.injuryType && p.injuryType !== "none" ? " (" + p.injuryType + ")" : ""));
+            if (p.personalFlags && p.personalFlags.distractionLevel >= 5) alertParts.push("Focus concern: level " + p.personalFlags.distractionLevel + "/10" + (p.personalFlags.distractionNote ? " — " + p.personalFlags.distractionNote : ""));
+            const alertLabel = alertParts.length > 1 ? "ALERTS" : (p.injuryStatus && p.injuryStatus !== "healthy") ? "INJURY" : "FOCUS";
+            const alertTip = alertParts.join(" | ");
             const ks = keyStat(p);
             return `
               <div class="roster-player-row" onclick="togglePlayer('${p.id}')" style="${hasAlert?"border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.04);":""}">
@@ -550,7 +555,7 @@ if (!gameData) {
                       <span style="font-size:.62rem;color:var(--muted)">${p.position} · ${p.year||""}</span>
                       ${statusBadge(p)}
                       ${p.nflDraftStatus ? `<span style="font-size:.58rem;padding:1px 5px;border-radius:5px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:var(--gold)">🏆 NFL</span>` : ""}
-                      ${hasAlert ? `<span style="font-size:.58rem;padding:1px 5px;border-radius:5px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700">⚠</span>` : ""}
+                      ${hasAlert ? `<span title="${alertTip}" style="font-size:.58rem;padding:1px 5px;border-radius:5px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700;cursor:help">⚠ ${alertLabel}</span>` : ""}
                     </div>
                     ${ks ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:1px">${ks}</div>` : ""}
                   </div>
@@ -796,7 +801,7 @@ if (!gameData) {
                   <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">
                     <span style="font-size:.8rem;font-weight:700;color:var(--text)">${p.name}</span>
                     <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${t.abbreviation}</span>
-                    ${dl >= 6 ? `<span style="margin-left:auto;font-size:.62rem;padding:1px 5px;border-radius:4px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700">⚠ FOCUS ${dl}/10</span>` : ""}
+                    ${dl >= 6 ? `<span title="Focus concern — distraction level ${dl}/10. High scores indicate off-field issues that may affect performance." style="margin-left:auto;font-size:.62rem;padding:1px 5px;border-radius:4px;background:rgba(239,68,68,.1);color:#f87171;font-weight:700;cursor:help">⚠ FOCUS RISK ${dl}/10</span>` : ""}
                   </div>
                   <div style="font-size:.8rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${p.personalFlags.distractionNote}"</div>
                   ${p.personalFlags.socialMediaPattern ? `<div style="font-size:.7rem;color:var(--muted-l);margin-top:4px">🐦 Twitter: ${p.personalFlags.socialMediaPattern}</div>` : ""}
@@ -1695,7 +1700,7 @@ if (!gameData) {
           ${(buzz.injuryAlerts || []).map(a => `
             <div class="injury-card">
               <div class="injury-header">
-                <span class="injury-icon">⚠</span>
+                <span class="injury-icon" title="Injury alert — ${a.status}${a.impact ? ', ' + a.impact + ' impact' : ''}">⚠</span>
                 <span class="injury-name">${a.player}</span>
                 <span class="injury-pos">${a.position}</span>
                 <span class="badge badge-${a.impact === "high" ? "danger" : a.impact === "medium" ? "medium" : "low"}" style="margin-left:4px">${a.team}</span>
@@ -1858,10 +1863,10 @@ if (!gameData) {
       </div>
       <div class="matchup-teams">
         <div class="team-chip">
-          <div class="team-logo team-logo-lg" style="background:${away.color}">${away.abbreviation.slice(0, 3)}</div>
-          <div>
-            <div style="font-size:1.1rem;font-weight:800;color:var(--text)">${away.name}</div>
-            <div class="text-xs text-muted">${away.mascot} · ${away.lastSeasonRecord||away.wins+'-'+away.losses+' (\'25)'} · Away</div>
+          <div class="team-logo team-logo-lg" style="background:${away.color};flex-shrink:0">${away.abbreviation.slice(0, 3)}</div>
+          <div style="min-width:0;overflow:hidden">
+            <div style="font-size:clamp(.82rem,3vw,1.1rem);font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${away.name}</div>
+            <div class="text-xs text-muted" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${away.mascot} · Away</div>
             <div class="text-xs text-muted">${away.conference}</div>
           </div>
         </div>
@@ -1871,12 +1876,12 @@ if (!gameData) {
           ${game.bettingLines ? `<div class="text-xs text-muted mt-1">${fmtSpread(game.bettingLines.spread)} · O/U ${game.bettingLines.total}</div>` : ""}
         </div>
         <div class="team-chip team-chip-r">
-          <div>
-            <div style="font-size:1.1rem;font-weight:800;color:var(--text);text-align:right">${home.name}</div>
-            <div class="text-xs text-muted text-right">${home.mascot} · ${home.lastSeasonRecord||home.wins+'-'+home.losses+' (\'25)'} · Home</div>
+          <div style="min-width:0;overflow:hidden">
+            <div style="font-size:clamp(.82rem,3vw,1.1rem);font-weight:800;color:var(--text);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${home.name}</div>
+            <div class="text-xs text-muted text-right" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Home · ${home.mascot}</div>
             <div class="text-xs text-muted text-right">${home.conference}</div>
           </div>
-          <div class="team-logo team-logo-lg" style="background:${home.color}">${home.abbreviation.slice(0, 3)}</div>
+          <div class="team-logo team-logo-lg" style="background:${home.color};flex-shrink:0">${home.abbreviation.slice(0, 3)}</div>
         </div>
       </div>
     </div>

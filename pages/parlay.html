@@ -527,15 +527,15 @@ function renderGameList() {
       <div class="parlay-game-row${hasPick ? " has-pick" : ""}" id="prow-${game.id}">
         <!-- Game header -->
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
-          <div>
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-              <div class="team-logo" style="background:${away.color};width:22px;height:22px;font-size:.5rem">${away.abbreviation.slice(0,3)}</div>
-              <span style="font-size:.82rem;font-weight:800;color:var(--text)">${away.name}</span>
-              <span style="font-size:.7rem;color:var(--muted)">@</span>
-              <div class="team-logo" style="background:${home.color};width:22px;height:22px;font-size:.5rem">${home.abbreviation.slice(0,3)}</div>
-              <span style="font-size:.82rem;font-weight:800;color:var(--text)">${home.name}</span>
+          <div style="min-width:0;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow:hidden">
+              <div class="team-logo" style="background:${away.color};width:22px;height:22px;font-size:.5rem;flex-shrink:0">${away.abbreviation.slice(0,3)}</div>
+              <span style="font-size:.82rem;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:90px">${away.name}</span>
+              <span style="font-size:.7rem;color:var(--muted);flex-shrink:0">@</span>
+              <div class="team-logo" style="background:${home.color};width:22px;height:22px;font-size:.5rem;flex-shrink:0">${home.abbreviation.slice(0,3)}</div>
+              <span style="font-size:.82rem;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:90px">${home.name}</span>
             </div>
-            <div style="font-size:.62rem;color:var(--muted);margin-top:3px">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>
+            <div style="font-size:.62rem;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>
           </div>
           <div style="display:flex;align-items:center;gap:6px">
             ${hasPick ? `<span style="font-size:.6rem;padding:2px 8px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">✓ ADDED</span>` : ""}

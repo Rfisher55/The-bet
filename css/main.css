@@ -143,6 +143,7 @@ button, select, input { font-family: inherit; }
   overflow: hidden;
 }
 .card-p { padding: 20px; }
+@media (max-width: 400px) { .card-p { padding: 14px; } }
 .card-link {
   display: block; cursor: pointer;
   transition: transform .15s, border-color .15s, box-shadow .15s;
@@ -267,7 +268,8 @@ select.field { cursor: pointer; }
 .game-card-vs { text-align: center; }
 .game-card-vs-text { font-size: 1.1rem; font-weight: 900; color: var(--muted-l); letter-spacing: 2px; }
 .game-card-vs-net { font-size: .7rem; color: var(--muted); }
-.team-chip { display: flex; align-items: center; gap: 10px; }
+.team-chip { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.team-chip > div { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
 .team-chip-r { flex-direction: row-reverse; text-align: right; }
 .team-logo {
   flex-shrink: 0; display: flex; align-items: center; justify-content: center;
@@ -383,9 +385,17 @@ select.field { cursor: pointer; }
   margin-bottom: 20px;
 }
 .matchup-teams { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; }
-@media (max-width: 480px) { .matchup-teams { grid-template-columns: 1fr 32px 1fr; gap: 8px; }
-  .matchup-vs-txt { font-size: 1.2rem; letter-spacing: 1px; }
-  .team-logo-lg { width: 44px; height: 44px; font-size: .75rem; }
+.team-chip { min-width: 0; }
+.team-chip > div { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+@media (max-width: 480px) {
+  .matchup-header { padding: 16px; }
+  .matchup-teams { grid-template-columns: 1fr 28px 1fr; gap: 6px; }
+  .matchup-vs-txt { font-size: 1rem; letter-spacing: 0; }
+  .team-logo-lg { width: 40px; height: 40px; font-size: .65rem; }
+}
+@media (max-width: 400px) {
+  .matchup-teams { grid-template-columns: 1fr 24px 1fr; gap: 4px; }
+  .matchup-header { padding: 12px; }
 }
 .matchup-vs { text-align: center; }
 .matchup-vs-txt { font-size: 2rem; font-weight: 900; color: var(--muted-l); letter-spacing: 4px; }
