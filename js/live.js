@@ -8,7 +8,7 @@ const LIVE = (() => {
   const CFBD      = "https://api.collegefootballdata.com";
   const SEASON    = 2026;
   const KEY_STORE   = "theBet_cfbdKey";
-  const CACHE_STORE = "theBet_liveCache_v3";   // v3 = new cache key, invalidates old
+  const CACHE_STORE = "theBet_liveCache_v4";   // v4 = bumped to force re-fetch with 2025 fallback
   const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
 
   // ── Explicit school-name → internal-ID mapping ──────────────
@@ -89,7 +89,7 @@ const LIVE = (() => {
   let _relativeTimeInterval = null;
   let _rateLimitRetryTimer  = null;
 
-  const ENDPOINT_COUNT = 9;
+  const ENDPOINT_COUNT = 11; // 9 primary + 2 potential 2025 fallback calls
 
   function getKey() { return localStorage.getItem(KEY_STORE) || window.CFBD_DEFAULT_KEY || null; }
   function setKey(k) { if (k) localStorage.setItem(KEY_STORE, k.trim()); else localStorage.removeItem(KEY_STORE); }
@@ -231,15 +231,15 @@ const LIVE = (() => {
       updateModalStatus();
 
       const endpointPromises = [
-        api("/teams/fbs",                                          apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/games?year=${SEASON}&seasonType=regular`,            apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/games?year=${SEASON}&seasonType=postseason`,         apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/ratings/sp?year=${SEASON}`,                          apiKey).then(v => { onEndpointDone(); return v; }),
-        api("/ratings/sp?year=2025",                               apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/talent?year=${SEASON}`,                              apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/coaches?year=${SEASON}`,                             apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/recruiting/teams?year=${SEASON}`,                    apiKey).then(v => { onEndpointDone(); return v; }),
-        api(`/lines?year=${SEASON}`,                               apiKey).then(v => { onEndpointDone(); return v; }),
+        api("/teams/fbs",                                                        apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/games?year=${SEASON}&seasonType=regular&classification=fbs`,       apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/games?year=${SEASON}&seasonType=postseason&classification=fbs`,    apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/ratings/sp?year=${SEASON}`,                                        apiKey).then(v => { onEndpointDone(); return v; }),
+        api("/ratings/sp?year=2025",                                             apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/talent?year=${SEASON}`,                                            apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/coaches?year=${SEASON}`,                                           apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/recruiting/teams?year=${SEASON}`,                                  apiKey).then(v => { onEndpointDone(); return v; }),
+        api(`/lines?year=${SEASON}`,                                             apiKey).then(v => { onEndpointDone(); return v; }),
       ];
 
       // All primary data fetched in parallel — failures are caught individually
@@ -248,16 +248,37 @@ const LIVE = (() => {
         await Promise.allSettled(endpointPromises);
 
       // Merge SP+ 2026 (preferred) with 2025 fallback
-      const sp26  = teamsRes.status  === "fulfilled" ? (spRes.value  || []) : [];
+      const sp26  = spRes.status     === "fulfilled" ? (spRes.value   || []) : [];
       const sp25  = sp25Res.status   === "fulfilled" ? (sp25Res.value || []) : [];
       const spMerged = sp26.length > 0 ? sp26 : sp25;
 
+      let games2026 = [
+        ...(regularRes.status === "fulfilled" ? (regularRes.value || []) : []),
+        ...(postRes.status    === "fulfilled" ? (postRes.value    || []) : []),
+      ];
+
+      // If 2026 API returns very few games (schedule not yet in DB),
+      // supplement with 2025 completed season games so the site has full coverage.
+      // These are real historical FBS games, clearly labelled by their dates.
+      let gamesFromApi = games2026;
+      if (games2026.length < 50) {
+        console.log(`[LIVE] Only ${games2026.length} games for ${SEASON} — fetching 2025 season as supplement`);
+        const [reg25, post25] = await Promise.allSettled([
+          api("/games?year=2025&seasonType=regular&classification=fbs",    apiKey),
+          api("/games?year=2025&seasonType=postseason&classification=fbs", apiKey),
+        ]);
+        const games2025 = [
+          ...(reg25.status  === "fulfilled" ? (reg25.value  || []) : []),
+          ...(post25.status === "fulfilled" ? (post25.value || []) : []),
+        ];
+        // Prefer 2026 games; fill in with 2025 for weeks not yet in 2026 schedule
+        gamesFromApi = [...games2026, ...games2025];
+        console.log(`[LIVE] Combined: ${gamesFromApi.length} total games (${games2026.length} from ${SEASON}, ${games2025.length} from 2025)`);
+      }
+
       const payload = {
         fbsTeams:   teamsRes.status   === "fulfilled" ? (teamsRes.value   || []) : [],
-        games:      [
-          ...(regularRes.status === "fulfilled" ? (regularRes.value || []) : []),
-          ...(postRes.status    === "fulfilled" ? (postRes.value    || []) : []),
-        ],
+        games:      gamesFromApi,
         spRatings:  spMerged,
         talent:     talentRes.status  === "fulfilled" ? (talentRes.value  || []) : [],
         coaches:    coachesRes.status === "fulfilled" ? (coachesRes.value || []) : [],

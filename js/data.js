@@ -2732,11 +2732,39 @@ const MODEL_RECORD = {
 };
 
 // ── Helper: resolve teamId references to full team objects
+function _teamFallback(id, name) {
+  return {
+    id: id || "unknown", name: name || id || "Unknown",
+    abbreviation: (name || id || "UNK").toUpperCase().slice(0,4),
+    mascot: "", conference: "FCS", color: "#555566", altColor: "#333344",
+    wins: 0, losses: 0, lastSeasonRecord: "FCS",
+    rating: 52, offensiveRating: 50, defensiveRating: 50,
+    spRating: -10, spRank: 90, recruitingRank: 90,
+    coachName: "Unknown", coachRecord: "0-0",
+    stats: {
+      pointsPerGame: 20, pointsAllowedPerGame: 30,
+      yardsPerGame: 300, yardsAllowedPerGame: 400,
+      passingYardsPerGame: 175, rushingYardsPerGame: 125,
+      turnoversPerGame: 1.8, turnoversForced: 0.9,
+      thirdDownPct: 0.37, redZonePct: 0.68, sacks: 1.4, sacksAllowed: 2.8,
+    },
+    atsRecord: null, situational: {},
+    programHealth: { nilStrength: 25, transferPortalRating: 25, coachHotSeat: 5,
+                     programMomentum: "stable", fanMorale: 50,
+                     lockerRoomCohesion: 55, depthChartStability: 55 },
+    weatherProfile: { isDome: false, coldWeatherAdvantage: 5 },
+    schedule: { daysSinceLastGame: 7, isComingOffBigWin: false,
+                isComingOffBigLoss: false, hasLookaheadGame: false,
+                consecutiveRoadGames: 0, travelBurdenRating: 5 },
+    coachingProfile: {},
+  };
+}
+
 function resolveGame(g) {
   return {
     ...g,
-    homeTeam: TEAMS[g.homeTeamId],
-    awayTeam: TEAMS[g.awayTeamId],
+    homeTeam: TEAMS[g.homeTeamId] || _teamFallback(g.homeTeamId, g.homeTeamName),
+    awayTeam: TEAMS[g.awayTeamId] || _teamFallback(g.awayTeamId, g.awayTeamName),
   };
 }
 
