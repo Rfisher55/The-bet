@@ -1674,19 +1674,114 @@ if (!gameData) {
       </div>`;
   }
 
-  /* 17 — Model Breakdown (RIGHT column) */
+  /* 17 — 7-Signal Model Breakdown (RIGHT column) */
   function renderBreakdown() {
+    const edge = pred.overallEdge || null;
+    const eb = edge ? edge.breakdown : null;
+    const WEIGHTS = { baseModel:30, playerImpact:20, situational:15, weather:10, coachingEdge:10, programMomentum:8, sharpMoney:7 };
+
+    // Build signal rows with actual point contributions
+    const signals = [
+      {
+        key: "baseModel", label: "Stats Engine", icon: "📊", weight: WEIGHTS.baseModel,
+        edge: eb ? eb.baseModelEdge : null,
+        desc: "Offense vs defense matchup, SP+, scoring margins, yards, efficiency metrics",
+        color: "var(--accent)",
+      },
+      {
+        key: "playerImpact", label: "Player Intelligence", icon: "🏃", weight: WEIGHTS.playerImpact,
+        edge: eb ? eb.playerImpactEdge : null,
+        desc: "Key player ratings, injury status, cold-weather ratings, matchup-specific grades",
+        color: "var(--primary)",
+      },
+      {
+        key: "situational", label: "Situational Analysis", icon: "🎯", weight: WEIGHTS.situational,
+        edge: eb ? eb.situationalEdge : null,
+        desc: "Trap game risk, lookahead spots, travel burden, emotional momentum, rest advantage",
+        color: "#34d399",
+      },
+      {
+        key: "weather", label: "Weather Impact", icon: "🌤️", weight: WEIGHTS.weather,
+        edge: eb ? eb.weatherEdge : null,
+        desc: "Temperature, wind, precipitation — suppresses scoring and favors run-first teams",
+        color: "#38bdf8",
+      },
+      {
+        key: "coachingEdge", label: "Coaching Edge", icon: "🎓", weight: WEIGHTS.coachingEdge,
+        edge: eb ? eb.coachingEdgePts : null,
+        desc: "ATS record as favorite/underdog, halftime adjustment rating, big-spot performance",
+        color: "#c084fc",
+      },
+      {
+        key: "programMomentum", label: "Program Momentum", icon: "📈", weight: WEIGHTS.programMomentum,
+        edge: eb ? eb.programMomentumEdge : null,
+        desc: "NIL strength, transfer portal grade, recruiting trajectory, locker room cohesion",
+        color: "var(--gold)",
+      },
+      {
+        key: "sharpMoney", label: "Sharp Money / Lines", icon: "💰", weight: WEIGHTS.sharpMoney,
+        edge: eb ? eb.sharpMoneyEdge : null,
+        desc: "Line movement, reverse line movement, steam moves, sharp action vs public betting",
+        color: "#f472b6",
+      },
+    ];
+
+    const totalWeight = Object.values(WEIGHTS).reduce((a,b)=>a+b,0);
+    const favoredName = (e) => {
+      if (e === null || e === undefined || Math.abs(e) < 0.1) return "EVEN";
+      return e > 0 ? home.abbreviation : away.abbreviation;
+    };
+    const edgeColor = (e) => {
+      if (e === null || e === undefined || Math.abs(e) < 0.1) return "var(--muted)";
+      return e > 0 ? home.color : away.color;
+    };
+
     return `
       <div class="card card-p mb-5">
-        <div class="section-label">Model Breakdown</div>
-        ${bdItems.map(item => `
-          <div class="breakdown-row">
-            <div class="breakdown-label">
-              <span>${item.label}</span>
-              <span style="font-weight:700;color:var(--text)">${item.value}%</span>
-            </div>
-            <div class="breakdown-bar"><div class="breakdown-fill" style="width:${Math.min(100, item.value)}%;background:${item.color}"></div></div>
-          </div>`).join("")}
+        <div class="section-label">⚡ 7-Signal Model Breakdown</div>
+        <div style="font-size:.72rem;color:var(--muted-l);margin-bottom:14px;line-height:1.55">
+          Each signal is weighted and combined to produce the final spread prediction. Edge shown is points favoring ${home.abbreviation} (positive) or ${away.abbreviation} (negative).
+        </div>
+
+        ${signals.map(sig => {
+          const eVal = sig.edge !== null && sig.edge !== undefined ? sig.edge : null;
+          const eAbs = eVal !== null ? Math.abs(eVal) : 0;
+          const barWidth = Math.min(100, eAbs * 12); // scale for visual
+          const wPct = Math.round((sig.weight / totalWeight) * 100);
+          return `
+            <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;gap:6px;flex-wrap:wrap">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span style="font-size:.9rem">${sig.icon}</span>
+                  <span style="font-size:.78rem;font-weight:800;color:var(--text)">${sig.label}</span>
+                  <span style="font-size:.58rem;padding:1px 6px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-weight:700">${sig.weight}%</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px">
+                  ${eVal !== null ? `
+                    <span style="font-size:.7rem;font-weight:900;color:${edgeColor(eVal)}">${favoredName(eVal)}</span>
+                    <span style="font-size:.78rem;font-weight:700;color:${edgeColor(eVal)}">${eAbs < 0.1 ? "—" : (eVal > 0 ? "+" : "") + eVal.toFixed(1) + " pts"}</span>
+                  ` : `<span style="font-size:.7rem;color:var(--muted)">—</span>`}
+                </div>
+              </div>
+              ${eVal !== null && eAbs >= 0.1 ? `
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+                  <div style="flex:1;height:5px;border-radius:3px;background:var(--border);overflow:hidden">
+                    <div style="height:100%;width:${barWidth}%;background:${sig.color};border-radius:3px;transition:width .3s"></div>
+                  </div>
+                </div>` : `<div style="height:5px;border-radius:3px;background:var(--border);margin-bottom:4px"></div>`}
+              <div style="font-size:.65rem;color:var(--muted);line-height:1.45">${sig.desc}</div>
+            </div>`;
+        }).join("")}
+
+        <div style="padding:10px 14px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);margin-top:4px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.7rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;text-transform:uppercase">Combined Model Edge</span>
+            <span style="font-size:1rem;font-weight:900;color:${pred.predictedSpread > 0 ? home.color : away.color}">
+              ${pred.predictedSpread > 0 ? home.abbreviation : away.abbreviation} ${Math.abs(pred.predictedSpread).toFixed(1)} pts
+            </span>
+          </div>
+          <div style="font-size:.65rem;color:var(--muted);margin-top:4px">Predicted total: ${pred.homeExpected !== undefined ? pred.homeExpected.toFixed(0) : "—"}-${pred.awayExpected !== undefined ? pred.awayExpected.toFixed(0) : "—"} · Vegas line: ${game.bettingLines ? fmtSpread(game.bettingLines.spread) : "N/A"}</div>
+        </div>
       </div>`;
   }
 

@@ -450,6 +450,16 @@ function clearSearch() {
   render();
 }
 
+// Parse URL param for team schedule deep-link (from teams page)
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const teamParam = params.get("team");
+  if (teamParam) {
+    searchTeam = teamParam.toLowerCase().trim();
+    document.getElementById("search").value = teamParam;
+  }
+})();
+
 // Initial render
 renderBestPick(activeWeek);
 render();

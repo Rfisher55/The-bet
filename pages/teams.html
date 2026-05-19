@@ -5,6 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Teams — The Bet D1 Football Predictor</title>
   <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    .team-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--card);
+      overflow: hidden;
+      transition: border-color .15s, transform .15s, box-shadow .15s;
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+    }
+    .team-card:hover { transform: translateY(-2px); border-color: rgba(16,185,129,.35); box-shadow: var(--glow-green); }
+    .team-card-header {
+      height: 6px;
+    }
+    .team-card-body { padding: 14px 16px; }
+    .team-card-rank {
+      font-size: .6rem; font-weight: 900; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .rank-num {
+      font-size: 1rem; font-weight: 900; min-width: 24px;
+    }
+    .team-card-id {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .team-card-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px;
+    }
+    .tcs { text-align: center; padding: 6px 4px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); }
+    .tcs-val { font-size: .85rem; font-weight: 900; line-height: 1.2; }
+    .tcs-lbl { font-size: .52rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
+    .program-intel-row {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;
+    }
+    .pi-chip {
+      flex: 1; min-width: 80px; padding: 6px 8px; border-radius: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+    }
+    .pi-chip-val { font-size: .78rem; font-weight: 900; line-height: 1.2; }
+    .pi-chip-lbl { font-size: .52rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); }
+    .momentum-pill {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 2px 8px; border-radius: 10px; font-size: .62rem; font-weight: 700;
+      border: 1px solid;
+    }
+    .mom-rising  { background: rgba(16,185,129,.1);  border-color: rgba(16,185,129,.3);  color: var(--primary); }
+    .mom-stable  { background: rgba(245,158,11,.1);  border-color: rgba(245,158,11,.3);  color: var(--gold); }
+    .mom-declining { background: rgba(239,68,68,.1); border-color: rgba(239,68,68,.3); color: var(--danger); }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    @media (max-width: 480px) { .team-grid { grid-template-columns: 1fr; } }
+    .view-toggle { display: flex; gap: 6px; }
+    .view-btn { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .72rem; font-weight: 700; cursor: pointer; }
+    .view-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+    /* List view */
+    .team-list-row {
+      display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: center;
+      padding: 12px 16px; border-radius: var(--radius-lg); border: 1px solid var(--border);
+      background: var(--card); text-decoration: none; color: var(--text);
+      transition: border-color .15s, transform .15s; margin-bottom: 6px;
+    }
+    .team-list-row:hover { border-color: rgba(16,185,129,.35); transform: translateX(3px); }
+    .tlr-rank { font-size: .85rem; font-weight: 900; color: var(--muted); text-align: center; }
+    .tlr-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    @media (max-width: 480px) { .tlr-right .hide-xs { display: none; } }
+  </style>
 </head>
 <body>
 
@@ -27,43 +94,48 @@
 <main class="container page-content">
 
   <div class="page-header">
-    <h1 class="page-title">TEAM POWER RANKINGS</h1>
-    <p class="page-sub">Composite ratings based on offense, defense, recruiting, coaching, and efficiency metrics.</p>
+    <h1 class="page-title">POWER RANKINGS</h1>
+    <p class="page-sub">AI composite ratings — offense, defense, recruiting talent, NIL strength, transfer portal grade, coaching profile, and program momentum.</p>
   </div>
 
-  <!-- Filters -->
-  <div class="filter-bar mb-5">
-    <input id="search" class="field" placeholder="Search team..." style="width:160px" />
+  <!-- Stats strip -->
+  <div class="stats-strip mb-5" id="page-stats"></div>
+
+  <!-- Controls -->
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+    <input id="search" class="field" placeholder="🔍 Search team..." style="flex:1;min-width:140px;max-width:220px" />
     <div class="chip-row" id="conf-chips"></div>
-    <div class="chip-row ml-auto" id="sort-chips">
+    <div style="flex:1"></div>
+    <div class="view-toggle">
+      <button class="view-btn active" data-view="grid">Grid</button>
+      <button class="view-btn" data-view="list">List</button>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+    <span style="font-size:.68rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px">Sort:</span>
+    <div class="chip-row" id="sort-chips">
       <div class="chip active" data-sort="rating">Overall</div>
       <div class="chip" data-sort="offense">Offense</div>
       <div class="chip" data-sort="defense">Defense</div>
-      <div class="chip" data-sort="record">Record</div>
+      <div class="chip" data-sort="nil">NIL</div>
+      <div class="chip" data-sort="transfer">Portal</div>
     </div>
   </div>
 
-  <!-- Table header -->
-  <div class="team-row" style="cursor:default;background:var(--surface);margin-bottom:4px;opacity:.7;pointer-events:none">
-    <div class="text-xs text-muted fw-bold">#</div>
-    <div class="text-xs text-muted fw-bold" style="grid-column:2/4">Team</div>
-    <div class="text-xs text-muted fw-bold text-center">'25 W-L</div>
-    <div class="text-xs text-muted fw-bold text-center hide-sm">Overall</div>
-    <div class="text-xs text-muted fw-bold text-center hide-md">Offense</div>
-    <div class="text-xs text-muted fw-bold text-center hide-md">Defense</div>
-    <div class="text-xs text-muted fw-bold text-center hide-md">SP+</div>
-    <div></div>
-  </div>
+  <div id="teams-container"></div>
 
-  <div id="teams-list"></div>
-
+  <!-- Legend -->
   <div style="margin-top:32px" class="card card-p">
-    <div class="section-label">Rating System</div>
-    <div class="grid-2" style="gap:12px">
-      <div class="text-xs text-muted"><strong style="color:var(--text)">Overall Rating</strong> — Composite score combining all factors (0–100)</div>
-      <div class="text-xs text-muted"><strong style="color:var(--accent)">Offense Rating</strong> — Scoring, yards, efficiency, pace (0–100)</div>
-      <div class="text-xs text-muted"><strong style="color:var(--gold)">Defense Rating</strong> — Points allowed, turnovers, sacks, rush D (0–100)</div>
-      <div class="text-xs text-muted"><strong style="color:var(--primary)">SP+</strong> — ESPN's college football predictive power metric</div>
+    <div class="section-label">How We Rate Programs</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px">
+      <div class="text-xs text-muted"><strong style="color:var(--text)">Overall</strong> — Composite of all 7 signals (0–100)</div>
+      <div class="text-xs text-muted"><strong style="color:var(--accent)">Offense</strong> — Scoring, yards, efficiency, pace (0–100)</div>
+      <div class="text-xs text-muted"><strong style="color:var(--gold)">Defense</strong> — Points allowed, turnovers, sacks (0–100)</div>
+      <div class="text-xs text-muted"><strong style="color:var(--primary)">SP+</strong> — Predictive power rating (ESPN methodology)</div>
+      <div class="text-xs text-muted"><strong style="color:#c084fc">NIL</strong> — Collective budget, deal quality, player retention (0–100)</div>
+      <div class="text-xs text-muted"><strong style="color:#38bdf8">Portal</strong> — Net transfer rating: wins minus losses this cycle (0–100)</div>
+      <div class="text-xs text-muted"><strong style="color:var(--primary)">Momentum ↑</strong> — Program trending up based on recruiting, results, morale</div>
+      <div class="text-xs text-muted"><strong style="color:var(--danger)">Momentum ↓</strong> — Program trending down — instability, portal losses, or poor results</div>
     </div>
   </div>
 
@@ -98,11 +170,26 @@
 
 <script src="../js/data.js"></script>
 <script>
-const CONFERENCES = ["all","SEC","Big Ten","ACC","Independent"];
-let filterConf = "all", search = "", sortBy = "rating";
+const CONFERENCES = ["SEC","Big Ten","ACC","Independent"];
+let filterConf = "all", searchQ = "", sortBy = "rating", viewMode = "grid";
+
+// Stats strip
+(function(){
+  const teams = Object.values(TEAMS);
+  const rising = teams.filter(t => t.programHealth && t.programHealth.programMomentum === "rising").length;
+  const elite = teams.filter(t => t.rating >= 90).length;
+  const avgNil = Math.round(teams.filter(t => t.programHealth).reduce((a,t) => a + t.programHealth.nilStrength, 0) / teams.filter(t=>t.programHealth).length);
+  document.getElementById("page-stats").innerHTML = [
+    { label: "Teams", value: teams.length, color: "var(--text)" },
+    { label: "Elite (90+)", value: elite, color: "var(--primary)" },
+    { label: "Trending Up", value: rising, color: "#34d399" },
+    { label: "Avg NIL Score", value: avgNil, color: "#c084fc" },
+  ].map(s => `<div class="stat-cell"><div class="stat-cell-val" style="color:${s.color}">${s.value}</div><div class="stat-cell-sub">${s.label}</div></div>`).join("");
+})();
 
 // Conf chips
-document.getElementById("conf-chips").innerHTML = CONFERENCES.map(c => `<div class="chip${c==="all"?" active":""}" data-conf="${c}">${c==="all"?"All":c}</div>`).join("");
+document.getElementById("conf-chips").innerHTML = [{ label:"All", val:"all" }, ...CONFERENCES.map(c => ({ label:c, val:c }))]
+  .map(c => `<div class="chip${c.val==="all"?" active":""}" data-conf="${c.val}">${c.label}</div>`).join("");
 document.getElementById("conf-chips").addEventListener("click", e => {
   const chip = e.target.closest(".chip"); if (!chip) return;
   document.querySelectorAll("#conf-chips .chip").forEach(c => c.classList.remove("active"));
@@ -115,59 +202,162 @@ document.getElementById("sort-chips").addEventListener("click", e => {
   chip.classList.add("active"); sortBy = chip.dataset.sort; render();
 });
 
-document.getElementById("search").addEventListener("input", e => { search = e.target.value.toLowerCase(); render(); });
+document.getElementById("search").addEventListener("input", e => { searchQ = e.target.value.toLowerCase(); render(); });
+
+document.querySelector(".view-toggle").addEventListener("click", e => {
+  const btn = e.target.closest(".view-btn"); if (!btn) return;
+  document.querySelectorAll(".view-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active"); viewMode = btn.dataset.view; render();
+});
+
+function momClass(m) { return m==="rising"?"mom-rising":m==="declining"?"mom-declining":"mom-stable"; }
+function momIcon(m)  { return m==="rising"?"↑":m==="declining"?"↓":"→"; }
+function ratingColor(v) { return v>=92?"var(--primary)":v>=80?"#34d399":v>=68?"var(--gold)":"var(--muted)"; }
+function nilColor(v)    { return v>=85?"#c084fc":v>=70?"#a78bfa":v>=55?"var(--gold)":"var(--muted)"; }
+function portalGrade(v) {
+  if (v>=85) return { grade:"A+", color:"var(--primary)" };
+  if (v>=75) return { grade:"A",  color:"#34d399" };
+  if (v>=65) return { grade:"B+", color:"var(--gold)" };
+  if (v>=55) return { grade:"B",  color:"var(--gold)" };
+  if (v>=45) return { grade:"C",  color:"var(--muted)" };
+  return { grade:"D", color:"var(--danger)" };
+}
+function atsDisplay(t) {
+  const a = t.atsRecord || null;
+  if (!a) return "—";
+  return `${a.wins}-${a.losses} (${Math.round(a.pct*100)}%)`;
+}
+
+function renderCard(team, rank) {
+  const ph = team.programHealth || {};
+  const mom = ph.programMomentum || "stable";
+  const nil = ph.nilStrength || 0;
+  const portal = ph.transferPortalRating || 0;
+  const pg = portalGrade(portal);
+  const ats = atsDisplay(team);
+  const gameCount = window.GAMES ? GAMES.filter(g => g.homeTeamId === team.id || g.awayTeamId === team.id).length : 0;
+
+  return `
+    <a class="team-card" href="games.html?team=${encodeURIComponent(team.name)}">
+      <div class="team-card-header" style="background:${team.color}"></div>
+      <div class="team-card-body">
+        <!-- Rank + momentum -->
+        <div class="team-card-rank">
+          <span class="rank-num" style="color:${rank<=3?"var(--gold)":"var(--muted)"}">#${rank}</span>
+          <span class="momentum-pill ${momClass(mom)}">${momIcon(mom)} ${mom.charAt(0).toUpperCase()+mom.slice(1)}</span>
+          ${ph.coachHotSeat >= 5 ? `<span class="momentum-pill mom-declining">🔥 Hot Seat</span>` : ""}
+        </div>
+        <!-- Identity -->
+        <div class="team-card-id">
+          <div class="team-logo team-logo-md" style="background:${team.color}">${team.abbreviation.slice(0,3)}</div>
+          <div>
+            <div style="font-size:.95rem;font-weight:800;color:var(--text)">${team.name}</div>
+            <div style="font-size:.65rem;color:var(--muted)">${team.mascot} · ${team.conference}</div>
+            <div style="font-size:.62rem;color:var(--muted);margin-top:1px">${team.coachName} · ${team.coachRecord}</div>
+          </div>
+        </div>
+        <!-- Core ratings -->
+        <div class="team-card-stats">
+          <div class="tcs">
+            <div class="tcs-val" style="color:${ratingColor(team.rating)}">${team.rating}</div>
+            <div class="tcs-lbl">Overall</div>
+          </div>
+          <div class="tcs">
+            <div class="tcs-val" style="color:var(--accent)">${team.offensiveRating}</div>
+            <div class="tcs-lbl">Offense</div>
+          </div>
+          <div class="tcs">
+            <div class="tcs-val" style="color:var(--gold)">${team.defensiveRating}</div>
+            <div class="tcs-lbl">Defense</div>
+          </div>
+        </div>
+        <!-- Program intel -->
+        <div class="program-intel-row">
+          <div class="pi-chip">
+            <div class="pi-chip-val" style="color:${nilColor(nil)}">${nil}</div>
+            <div class="pi-chip-lbl">NIL Score</div>
+          </div>
+          <div class="pi-chip">
+            <div class="pi-chip-val" style="color:${pg.color}">${pg.grade}</div>
+            <div class="pi-chip-lbl">Portal</div>
+          </div>
+          <div class="pi-chip">
+            <div class="pi-chip-val" style="color:var(--text);font-size:.72rem">${ats}</div>
+            <div class="pi-chip-lbl">ATS '25</div>
+          </div>
+        </div>
+        <!-- Footer -->
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:.62rem;color:var(--muted)">${team.lastSeasonRecord || (team.wins+"-"+team.losses+" ('25)")}</div>
+          <div style="font-size:.65rem;color:var(--primary);font-weight:700">${gameCount} game${gameCount!==1?"s":""} →</div>
+        </div>
+      </div>
+    </a>`;
+}
+
+function renderListRow(team, rank) {
+  const ph = team.programHealth || {};
+  const mom = ph.programMomentum || "stable";
+  const nil = ph.nilStrength || 0;
+  const portal = ph.transferPortalRating || 0;
+  const pg = portalGrade(portal);
+  return `
+    <a class="team-list-row" href="games.html?team=${encodeURIComponent(team.name)}">
+      <div class="tlr-rank" style="color:${rank<=3?"var(--gold)":"var(--muted)"}">${rank}</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="team-logo" style="background:${team.color};width:28px;height:28px;font-size:.55rem">${team.abbreviation.slice(0,3)}</div>
+        <div>
+          <div style="font-size:.85rem;font-weight:800;color:var(--text)">${team.name}</div>
+          <div style="font-size:.62rem;color:var(--muted)">${team.conference} · ${team.coachName}</div>
+        </div>
+        <span class="momentum-pill ${momClass(mom)}" style="margin-left:4px">${momIcon(mom)} ${mom.charAt(0).toUpperCase()+mom.slice(1)}</span>
+      </div>
+      <div class="tlr-right">
+        <div style="text-align:center" class="hide-xs">
+          <div style="font-size:.82rem;font-weight:900;color:${ratingColor(team.rating)}">${team.rating}</div>
+          <div style="font-size:.52rem;color:var(--muted);font-weight:700;text-transform:uppercase">Overall</div>
+        </div>
+        <div style="text-align:center" class="hide-xs">
+          <div style="font-size:.82rem;font-weight:900;color:${nilColor(nil)}">${nil}</div>
+          <div style="font-size:.52rem;color:var(--muted);font-weight:700;text-transform:uppercase">NIL</div>
+        </div>
+        <div style="text-align:center" class="hide-xs">
+          <div style="font-size:.82rem;font-weight:900;color:${pg.color}">${pg.grade}</div>
+          <div style="font-size:.52rem;color:var(--muted);font-weight:700;text-transform:uppercase">Portal</div>
+        </div>
+        <div style="font-size:.72rem;color:var(--primary);font-weight:700">→</div>
+      </div>
+    </a>`;
+}
 
 function render() {
   let teams = Object.values(TEAMS);
   if (filterConf !== "all") teams = teams.filter(t => t.conference === filterConf);
-  if (search) teams = teams.filter(t => t.name.toLowerCase().includes(search) || t.mascot.toLowerCase().includes(search) || t.abbreviation.toLowerCase().includes(search));
+  if (searchQ) teams = teams.filter(t =>
+    t.name.toLowerCase().includes(searchQ) ||
+    t.mascot.toLowerCase().includes(searchQ) ||
+    t.abbreviation.toLowerCase().includes(searchQ) ||
+    (t.coachName || "").toLowerCase().includes(searchQ)
+  );
 
   switch(sortBy) {
-    case "offense": teams.sort((a,b) => b.offensiveRating - a.offensiveRating); break;
-    case "defense": teams.sort((a,b) => b.defensiveRating - a.defensiveRating); break;
-    case "record":  teams.sort((a,b) => b.wins/(b.wins+b.losses) - a.wins/(a.wins+a.losses)); break;
-    default:        teams.sort((a,b) => b.rating - a.rating);
+    case "offense":  teams.sort((a,b) => b.offensiveRating - a.offensiveRating); break;
+    case "defense":  teams.sort((a,b) => b.defensiveRating - a.defensiveRating); break;
+    case "nil":      teams.sort((a,b) => (b.programHealth?.nilStrength||0) - (a.programHealth?.nilStrength||0)); break;
+    case "transfer": teams.sort((a,b) => (b.programHealth?.transferPortalRating||0) - (a.programHealth?.transferPortalRating||0)); break;
+    default:         teams.sort((a,b) => b.rating - a.rating);
   }
 
-  if (teams.length === 0) {
-    document.getElementById("teams-list").innerHTML = `<div class="empty"><div class="empty-icon">🏈</div><div class="empty-title">No teams found</div><div class="empty-sub">Try a different search</div></div>`;
+  if (!teams.length) {
+    document.getElementById("teams-container").innerHTML = `<div style="padding:60px;text-align:center"><div style="font-size:2rem">🏈</div><div style="color:var(--muted);margin-top:8px">No teams found</div></div>`;
     return;
   }
 
-  const rankColor = i => i===0?"#f59e0b":i===1?"#94a3b8":i===2?"#92400e":"var(--muted)";
-  const ratingColor = v => v>=95?"var(--primary)":v>=85?"#34d399":v>=75?"var(--gold)":"var(--muted)";
-
-  document.getElementById("teams-list").innerHTML = teams.map((team, i) => {
-    const winPct = team.wins / (team.wins + team.losses);
-    return `
-      <a class="team-row" href="games.html?team=${encodeURIComponent(team.name)}">
-        <div class="team-rank ${i<3?`rank-${i+1}`:""}">${i+1}</div>
-        <div style="grid-column:2/4;display:flex;align-items:center;gap:12px">
-          <div class="team-logo team-logo-md" style="background:${team.color}">${team.abbreviation.slice(0,3)}</div>
-          <div><div class="team-name">${team.name}</div><div class="team-sub">${team.conference}</div></div>
-        </div>
-        <div class="text-center">
-          <div style="font-size:.75rem;font-weight:700;color:var(--primary)">2026</div>
-          <div style="font-size:.8rem;color:var(--muted)">${team.lastSeasonRecord || team.wins+'-'+team.losses+' (\'25)'}</div>
-        </div>
-        <div class="rating-cell hide-sm">
-          <div class="rating-bar-wrap"><div class="rating-bar" style="width:${team.rating}%;background:${ratingColor(team.rating)}"></div></div>
-          <div class="rating-val">${team.rating}</div>
-        </div>
-        <div class="rating-cell hide-md">
-          <div class="rating-bar-wrap"><div class="rating-bar" style="width:${team.offensiveRating}%;background:var(--accent)"></div></div>
-          <div class="rating-val">${team.offensiveRating}</div>
-        </div>
-        <div class="rating-cell hide-md">
-          <div class="rating-bar-wrap"><div class="rating-bar" style="width:${team.defensiveRating}%;background:var(--gold)"></div></div>
-          <div class="rating-val">${team.defensiveRating}</div>
-        </div>
-        <div class="text-center hide-md">
-          <span style="font-weight:700;color:${ratingColor(team.rating*0.9)}">+${team.spRating.toFixed(1)}</span>
-        </div>
-        <div class="text-right text-muted" style="transition:color .15s">→</div>
-      </a>`;
-  }).join("");
+  if (viewMode === "grid") {
+    document.getElementById("teams-container").innerHTML = `<div class="team-grid">${teams.map((t,i) => renderCard(t, i+1)).join("")}</div>`;
+  } else {
+    document.getElementById("teams-container").innerHTML = teams.map((t,i) => renderListRow(t, i+1)).join("");
+  }
 }
 
 render();
