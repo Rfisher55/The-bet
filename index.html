@@ -142,8 +142,15 @@
 })();
 
 // ── Generate predictions for all games
-const allPredictions = GAMES.map(g => ({ game: resolveGame(g), prediction: null }));
-allPredictions.forEach(p => { p.prediction = predictGame(p.game); });
+const allPredictions = [];
+try {
+  GAMES.forEach(g => {
+    try {
+      const game = resolveGame(g);
+      allPredictions.push({ game, prediction: predictGame(game) });
+    } catch(e) { console.error("predictGame failed for", g.id, e); }
+  });
+} catch(e) { console.error("GAMES load failed:", e); }
 
 // ── Top picks
 (function() {

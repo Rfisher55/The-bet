@@ -67,7 +67,21 @@ const CONFERENCES = ["all", "SEC", "Big Ten", "ACC", "Independent"];
 let filterConf = "all", filterWeek = "all", search = "", sortBy = "date";
 
 // Build all predictions
-const allPredictions = GAMES.map(g => ({ game: resolveGame(g), prediction: predictGame(resolveGame(g)) }));
+let allPredictions = [];
+try {
+  allPredictions = GAMES.map(g => {
+    try {
+      const game = resolveGame(g);
+      return { game, prediction: predictGame(game) };
+    } catch(e) {
+      console.error("predictGame failed for", g.id, e);
+      return null;
+    }
+  }).filter(Boolean);
+} catch(e) {
+  console.error("Failed to build predictions:", e);
+  document.getElementById("game-grid").innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="empty-icon">⚠️</div><div class="empty-title">Error loading games</div><div class="empty-sub" style="font-family:monospace;color:var(--danger)">${e.message}</div></div>`;
+}
 
 // Page stats
 (function() {

@@ -265,6 +265,7 @@ if (!gameData) {
       <a href="games.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">← Back to Games</a>
     </div>`;
 } else {
+  try {
   const game = resolveGame(gameData);
   const pred = predictGame(game);
   const { homeTeam: home, awayTeam: away } = game;
@@ -1684,39 +1685,39 @@ if (!gameData) {
       </div>
     </div>
 
-    ${renderGamePreview()}
+    ${safe(renderGamePreview, "")}
 
-    ${renderFullRoster()}
+    ${safe(renderFullRoster, "")}
 
-    ${renderPositionMatchups()}
+    ${safe(renderPositionMatchups, "")}
 
-    ${renderXFactors()}
+    ${safe(renderXFactors, "")}
 
     <!-- MAIN DETAIL GRID -->
     <div class="detail-grid">
 
       <!-- ─── LEFT COLUMN ─── -->
       <div>
-        ${renderModelGrade()}
-        ${renderPicks()}
-        ${renderFactors()}
-        ${renderStats()}
-        ${renderVegas()}
+        ${safe(renderModelGrade, "")}
+        ${safe(renderPicks, "")}
+        ${safe(renderFactors, "")}
+        ${safe(renderStats, "")}
+        ${safe(renderVegas, "")}
       </div>
 
       <!-- ─── RIGHT COLUMN ─── -->
       <div>
-        ${renderSharpMoney()}
-        ${renderWeather()}
-        ${renderSituational()}
-        ${renderCoaching()}
-        ${renderProgramHealth()}
-        ${renderBreakdown()}
+        ${safe(renderSharpMoney, "")}
+        ${safe(renderWeather, "")}
+        ${safe(renderSituational, "")}
+        ${safe(renderCoaching, "")}
+        ${safe(renderProgramHealth, "")}
+        ${safe(renderBreakdown, "")}
       </div>
 
     </div><!-- /detail-grid -->
 
-    ${renderSocialHub()}
+    ${safe(renderSocialHub, "")}
 
     <!-- DISCLAIMER -->
     <div style="margin-top:24px;padding:16px 20px;border-radius:var(--radius-lg);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.15);display:flex;gap:14px;align-items:flex-start">
@@ -1734,6 +1735,16 @@ if (!gameData) {
   `;
 
   document.title = `${away.name} @ ${home.name} — The Bet`;
+  } catch(err) {
+    document.getElementById("content").innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">⚠️</div>
+        <div class="empty-title">Error loading game</div>
+        <div class="empty-sub" style="font-family:monospace;font-size:.75rem;color:var(--danger);max-width:90%;word-break:break-all;margin-top:8px">${err && err.message ? err.message : String(err)}</div>
+        <a href="games.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">← Back to Games</a>
+      </div>`;
+    console.error("Game render error:", err);
+  }
 }
 </script>
 </body>
