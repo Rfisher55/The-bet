@@ -462,14 +462,6 @@
     </div>
   </section>
 
-  <!-- Stats strip (enhanced) -->
-  <section class="mb-5">
-    <div class="section-label">2025 Model Record (Prediction Basis)</div>
-    <div class="stats-strip-wrap">
-      <div class="stats-strip" id="model-stats"></div>
-    </div>
-  </section>
-
   <!-- Top picks -->
   <section class="mb-5">
     <div class="flex items-center justify-between mb-4">
@@ -609,28 +601,6 @@
     renderPowerRankings();
     renderFeaturedGames();
   });
-})();
-
-// ── Render model stats ────────────────────────────────────────────
-(function() {
-  const stats = [
-    { label: "Straight Up",        value: MODEL_RECORD.straightUp.wins + "-" + MODEL_RECORD.straightUp.losses,
-      sub: (MODEL_RECORD.straightUp.pct * 100).toFixed(1) + "% ATS SU", color: "var(--primary)" },
-    { label: "Against the Spread", value: MODEL_RECORD.atsRecord.wins + "-" + MODEL_RECORD.atsRecord.losses,
-      sub: (MODEL_RECORD.atsRecord.pct * 100).toFixed(1) + "% ATS win", color: "var(--accent)" },
-    { label: "Over / Under",       value: MODEL_RECORD.totalRecord.wins + "-" + MODEL_RECORD.totalRecord.losses,
-      sub: (MODEL_RECORD.totalRecord.pct * 100).toFixed(1) + "% hit rate", color: "var(--gold)" },
-    { label: "Estimated ROI",      value: "+" + MODEL_RECORD.roi + "%",
-      sub: "flat betting", color: "var(--primary)" },
-  ];
-  const statActions = ["pages/games.html", "pages/games.html?filter=ats", "pages/games.html?filter=totals", "pages/games.html?sort=confidence"];
-  document.getElementById("model-stats").innerHTML = stats.map(function(s, i) {
-    return '<a class="stat-cell stat-cell-clickable fade-up" href="' + statActions[i] + '" style="text-decoration:none;display:block" title="View in Games">' +
-      '<div class="stat-cell-label">' + s.label + '</div>' +
-      '<div class="stat-cell-value" style="color:' + s.color + '">' + s.value + '</div>' +
-      '<div class="stat-cell-sub">' + s.sub + '</div>' +
-    '</a>';
-  }).join("");
 })();
 
 // ── Generate predictions + render all live sections ──────────────

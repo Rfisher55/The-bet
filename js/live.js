@@ -290,6 +290,7 @@ const LIVE = (() => {
         _setLiveStats();
         updateBadge();
         _startRelativeTimeInterval();
+        window.__liveDataReady = true;
         window.dispatchEvent(new CustomEvent("liveDataReady", { detail: cached }));
         _startAutoRefresh(apiKey);
         return;
@@ -390,6 +391,7 @@ const LIVE = (() => {
       updateModalStatus();
       _startRelativeTimeInterval();
       _startAutoRefresh(apiKey);
+      window.__liveDataReady = true;
       window.dispatchEvent(new CustomEvent("liveDataReady", { detail: payload }));
 
     } catch (err) {
@@ -420,6 +422,7 @@ const LIVE = (() => {
           _setLiveStats();
           updateBadge();
           updateModalStatus();
+          window.__liveDataReady = true;
           window.dispatchEvent(new CustomEvent("liveDataReady", { detail: stale }));
           return;
         }
