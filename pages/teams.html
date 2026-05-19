@@ -60,6 +60,31 @@
     .view-toggle { display: flex; gap: 6px; }
     .view-btn { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .72rem; font-weight: 700; cursor: pointer; }
     .view-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+    /* Momentum badge — prominent pill */
+    .mom-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 20px; font-size: .65rem; font-weight: 900;
+      letter-spacing: .5px; text-transform: uppercase; border: 1.5px solid;
+    }
+    .mom-badge.mom-rising   { background: rgba(16,185,129,.15);  border-color: rgba(16,185,129,.4);  color: var(--primary); }
+    .mom-badge.mom-stable   { background: rgba(245,158,11,.15);  border-color: rgba(245,158,11,.4);  color: var(--gold); }
+    .mom-badge.mom-declining{ background: rgba(239,68,68,.15);   border-color: rgba(239,68,68,.4);   color: var(--danger); }
+    /* Compare chip */
+    .compare-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 9px; border-radius: 20px; font-size: .62rem; font-weight: 700;
+      background: var(--surface); border: 1px solid var(--border); color: var(--muted);
+      text-decoration: none; transition: border-color .15s, color .15s; cursor: pointer;
+    }
+    .compare-chip:hover { border-color: rgba(16,185,129,.5); color: var(--primary); }
+    /* Next game line */
+    .next-game-line {
+      font-size: .62rem; color: var(--primary); font-weight: 700; margin-top: 2px;
+    }
+    /* Projected record line */
+    .projected-record {
+      font-size: .62rem; color: var(--accent); font-weight: 700; margin-top: 2px;
+    }
     /* List view */
     .team-list-row {
       display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: center;
@@ -71,6 +96,16 @@
     .tlr-rank { font-size: .85rem; font-weight: 900; color: var(--muted); text-align: center; }
     .tlr-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     @media (max-width: 480px) { .tlr-right .hide-xs { display: none; } }
+    /* List view rating bar */
+    .rating-bar-wrap { width: 80px; }
+    .rating-bar-track { height: 5px; border-radius: 3px; background: var(--surface); border: 1px solid var(--border); overflow: hidden; margin-top: 3px; }
+    .rating-bar-fill  { height: 100%; border-radius: 3px; }
+    /* Mini off/def bars */
+    .mini-bars { display: flex; gap: 4px; align-items: flex-end; }
+    .mini-bar-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .mini-bar-track { width: 18px; height: 30px; border-radius: 3px; background: var(--surface); border: 1px solid var(--border); overflow: hidden; display: flex; align-items: flex-end; }
+    .mini-bar-fill { width: 100%; border-radius: 2px; }
+    .mini-bar-lbl { font-size: .45rem; font-weight: 800; text-transform: uppercase; color: var(--muted); letter-spacing: .3px; }
   </style>
 </head>
 <body>
@@ -212,18 +247,24 @@ function getConferences() {
 let filterConf = "all", filterDivision = "all", filterMomentum = "all", searchQ = "", sortBy = "rating", viewMode = "grid";
 
 // Stats strip
-(function(){
+function buildStatsStrip() {
   const teams = Object.values(TEAMS);
   const rising = teams.filter(t => t.programHealth && t.programHealth.programMomentum === "rising").length;
   const elite = teams.filter(t => t.rating >= 90).length;
-  const avgNil = Math.round(teams.filter(t => t.programHealth).reduce((a,t) => a + t.programHealth.nilStrength, 0) / teams.filter(t=>t.programHealth).length);
+  const nilTeams = teams.filter(t => t.programHealth);
+  const avgNil = nilTeams.length ? Math.round(nilTeams.reduce((a,t) => a + t.programHealth.nilStrength, 0) / nilTeams.length) : 0;
+  const p4 = teams.filter(t => POWER4.includes(t.conference)).length;
+  const g5 = teams.filter(t => !POWER4.includes(t.conference)).length;
   document.getElementById("page-stats").innerHTML = [
     { label: "Teams", value: teams.length, color: "var(--text)" },
     { label: "Elite (90+)", value: elite, color: "var(--primary)" },
     { label: "Trending Up", value: rising, color: "#34d399" },
     { label: "Avg NIL Score", value: avgNil, color: "#c084fc" },
+    { label: "Power 4", value: p4, color: "var(--gold)" },
+    { label: "Group of 5", value: g5, color: "var(--accent)" },
   ].map(s => `<div class="stat-cell"><div class="stat-cell-val" style="color:${s.color}">${s.value}</div><div class="stat-cell-sub">${s.label}</div></div>`).join("");
-})();
+}
+buildStatsStrip();
 
 // Conf chips — built dynamically from loaded TEAMS
 function initConfChips() {
@@ -266,7 +307,8 @@ document.querySelector(".view-toggle").addEventListener("click", e => {
 });
 
 function momClass(m) { return m==="rising"?"mom-rising":m==="declining"?"mom-declining":"mom-stable"; }
-function momIcon(m)  { return m==="rising"?"↑":m==="declining"?"↓":"→"; }
+function momLabel(m)  { return m==="rising"?"RISING":m==="declining"?"FALLING":"STABLE"; }
+function momIcon(m)   { return m==="rising"?"↑":m==="declining"?"↓":"→"; }
 function ratingColor(v) { return v>=92?"var(--primary)":v>=80?"#34d399":v>=68?"var(--gold)":"var(--muted)"; }
 function nilColor(v)    { return v>=85?"#c084fc":v>=70?"#a78bfa":v>=55?"var(--gold)":"var(--muted)"; }
 function portalGrade(v) {
@@ -283,6 +325,44 @@ function atsDisplay(t) {
   return `${a.wins}-${a.losses} (${Math.round(a.pct*100)}%)`;
 }
 
+function getNextGame(team) {
+  if (!window.GAMES) return null;
+  const today = new Date().toISOString().slice(0,10);
+  return GAMES
+    .filter(g => (g.homeTeamId === team.id || g.awayTeamId === team.id) && g.date >= today)
+    .sort((a,b) => a.date.localeCompare(b.date))[0] || null;
+}
+
+function nextGameLabel(team) {
+  const g = getNextGame(team);
+  if (!g) return "Season complete";
+  const isHome = g.homeTeamId === team.id;
+  const oppId = isHome ? g.awayTeamId : g.homeTeamId;
+  const opp = window.TEAMS && TEAMS[oppId];
+  const oppAbbr = opp ? opp.abbreviation : oppId.toUpperCase().slice(0,4);
+  return `${isHome?"vs":"@"} ${oppAbbr} &middot; Wk ${g.week}`;
+}
+
+function projectedRecord(team) {
+  if (!window.GAMES) return null;
+  const teamGames = GAMES.filter(g => g.homeTeamId === team.id || g.awayTeamId === team.id);
+  if (!teamGames.length) return null;
+  let projWins = 0;
+  teamGames.forEach(g => {
+    const oppId = g.homeTeamId === team.id ? g.awayTeamId : g.homeTeamId;
+    const opp = window.TEAMS && TEAMS[oppId];
+    const oppRating = opp ? opp.rating : 70;
+    const diff = team.rating - oppRating;
+    // Logistic win probability: 50% at diff=0, ~85% at diff=15, ~15% at diff=-15
+    const prob = 1 / (1 + Math.exp(-diff / 10));
+    projWins += prob;
+  });
+  const total = teamGames.length;
+  const wins = Math.round(projWins);
+  const losses = total - wins;
+  return `${wins}-${losses}`;
+}
+
 function renderCard(team, rank) {
   const ph = team.programHealth || {};
   const mom = ph.programMomentum || "stable";
@@ -291,22 +371,25 @@ function renderCard(team, rank) {
   const pg = portalGrade(portal);
   const ats = atsDisplay(team);
   const gameCount = window.GAMES ? GAMES.filter(g => g.homeTeamId === team.id || g.awayTeamId === team.id).length : 0;
+  const nextGame = nextGameLabel(team);
+  const proj = projectedRecord(team);
 
   return `
     <a class="team-card" href="games.html?team=${encodeURIComponent(team.name)}">
       <div class="team-card-header" style="background:${team.color}"></div>
       <div class="team-card-body">
-        <!-- Rank + momentum -->
+        <!-- Rank + momentum badge -->
         <div class="team-card-rank">
           <span class="rank-num" style="color:${rank<=3?"var(--gold)":"var(--muted)"}">#${rank}</span>
-          <span class="momentum-pill ${momClass(mom)}">${momIcon(mom)} ${mom.charAt(0).toUpperCase()+mom.slice(1)}</span>
+          <span class="mom-badge ${momClass(mom)}">${momIcon(mom)} ${momLabel(mom)}</span>
           ${ph.coachHotSeat >= 5 ? `<span class="momentum-pill mom-declining">🔥 Hot Seat</span>` : ""}
         </div>
         <!-- Identity -->
         <div class="team-card-id">
           <div class="team-logo team-logo-md" style="background:${team.color}">${team.abbreviation.slice(0,3)}</div>
-          <div>
+          <div style="flex:1;min-width:0">
             <div style="font-size:.95rem;font-weight:800;color:var(--text)">${team.name}</div>
+            <div class="next-game-line">${nextGame}</div>
             <div style="font-size:.65rem;color:var(--muted)">${team.mascot} · ${team.conference}</div>
             <div style="font-size:.62rem;color:var(--muted);margin-top:1px">${team.coachName} · ${team.coachRecord}</div>
           </div>
@@ -342,9 +425,15 @@ function renderCard(team, rank) {
           </div>
         </div>
         <!-- Footer -->
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="font-size:.62rem;color:var(--muted)">${team.lastSeasonRecord || (team.wins+"-"+team.losses+" ('25)")}</div>
-          <div style="font-size:.65rem;color:var(--primary);font-weight:700">${gameCount} game${gameCount!==1?"s":""} →</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+          <div>
+            <div style="font-size:.62rem;color:var(--muted)">${team.lastSeasonRecord || (team.wins+"-"+team.losses+" ('25)")}</div>
+            ${proj ? `<div class="projected-record">Projected: ${proj}</div>` : ""}
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <a class="compare-chip" href="compare.html?a=${encodeURIComponent(team.id)}" onclick="event.stopPropagation()">⇄ Compare</a>
+            <div style="font-size:.65rem;color:var(--primary);font-weight:700">${gameCount} game${gameCount!==1?"s":""} →</div>
+          </div>
         </div>
       </div>
     </a>`;
@@ -356,16 +445,39 @@ function renderListRow(team, rank) {
   const nil = ph.nilStrength || 0;
   const portal = ph.transferPortalRating || 0;
   const pg = portalGrade(portal);
+  const proj = projectedRecord(team);
+  const record = team.lastSeasonRecord || (team.wins+"-"+team.losses);
+  const offPct = Math.min(100, team.offensiveRating || 0);
+  const defPct = Math.min(100, team.defensiveRating || 0);
+  const ratingPct = Math.min(100, team.rating || 0);
+
   return `
     <a class="team-list-row" href="games.html?team=${encodeURIComponent(team.name)}">
       <div class="tlr-rank" style="color:${rank<=3?"var(--gold)":"var(--muted)"}">${rank}</div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="team-logo" style="background:${team.color};width:28px;height:28px;font-size:.55rem">${team.abbreviation.slice(0,3)}</div>
-        <div>
-          <div style="font-size:.85rem;font-weight:800;color:var(--text)">${team.name}</div>
-          <div style="font-size:.62rem;color:var(--muted)">${team.conference} · ${team.coachName}</div>
+      <div style="display:flex;align-items:center;gap:10px;min-width:0">
+        <div class="team-logo" style="background:${team.color};width:28px;height:28px;font-size:.55rem;flex-shrink:0">${team.abbreviation.slice(0,3)}</div>
+        <div style="min-width:0;flex:1">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${team.name}</div>
+            <span class="mom-badge ${momClass(mom)}">${momIcon(mom)} ${momLabel(mom)}</span>
+          </div>
+          <div style="font-size:.62rem;color:var(--muted)">${team.conference} · ${team.coachName} · ${record}</div>
+          <!-- Overall rating bar -->
+          <div class="rating-bar-wrap" style="width:100%;max-width:120px">
+            <div class="rating-bar-track"><div class="rating-bar-fill" style="width:${ratingPct}%;background:${ratingColor(team.rating)}"></div></div>
+          </div>
         </div>
-        <span class="momentum-pill ${momClass(mom)}" style="margin-left:4px">${momIcon(mom)} ${mom.charAt(0).toUpperCase()+mom.slice(1)}</span>
+        <!-- Off/Def mini bars -->
+        <div class="mini-bars hide-xs">
+          <div class="mini-bar-col">
+            <div class="mini-bar-track"><div class="mini-bar-fill" style="height:${offPct}%;background:var(--accent)"></div></div>
+            <div class="mini-bar-lbl">OFF</div>
+          </div>
+          <div class="mini-bar-col">
+            <div class="mini-bar-track"><div class="mini-bar-fill" style="height:${defPct}%;background:var(--gold)"></div></div>
+            <div class="mini-bar-lbl">DEF</div>
+          </div>
+        </div>
       </div>
       <div class="tlr-right">
         <div style="text-align:center" class="hide-xs">
@@ -380,6 +492,8 @@ function renderListRow(team, rank) {
           <div style="font-size:.82rem;font-weight:900;color:${pg.color}">${pg.grade}</div>
           <div style="font-size:.52rem;color:var(--muted);font-weight:700;text-transform:uppercase">Portal</div>
         </div>
+        ${proj ? `<div style="text-align:center" class="hide-xs"><div style="font-size:.72rem;font-weight:900;color:var(--accent)">${proj}</div><div style="font-size:.52rem;color:var(--muted);font-weight:700;text-transform:uppercase">Proj</div></div>` : ""}
+        <a class="compare-chip" href="compare.html?a=${encodeURIComponent(team.id)}" onclick="event.stopPropagation()">⇄</a>
         <div style="font-size:.72rem;color:var(--primary);font-weight:700">→</div>
       </div>
     </a>`;
@@ -414,7 +528,7 @@ function render() {
     case "defense":  teams.sort((a,b) => b.defensiveRating - a.defensiveRating); break;
     case "nil":      teams.sort((a,b) => (b.programHealth?.nilStrength||0) - (a.programHealth?.nilStrength||0)); break;
     case "transfer": teams.sort((a,b) => (b.programHealth?.transferPortalRating||0) - (a.programHealth?.transferPortalRating||0)); break;
-    case "sp":       teams.sort((a,b) => (b.spRating||0) - (a.spRating||0)); break;
+    case "sp":       teams.sort((a,b) => (b.spRating||b.rating*0.5||0) - (a.spRating||a.rating*0.5||0)); break;
     default:         teams.sort((a,b) => b.rating - a.rating);
   }
 
@@ -433,6 +547,7 @@ function render() {
 render();
 
 window.addEventListener("liveDataReady", function() {
+  buildStatsStrip();
   initConfChips();
   render();
 });
