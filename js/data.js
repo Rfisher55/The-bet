@@ -424,7 +424,7 @@ var TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "11-3 (2025)",
     rating: 87, offensiveRating: 84, defensiveRating: 90, spRating: 18.4,
     recruitingRank: 10,
-    coachName: "James Franklin", coachRecord: "121-59",
+    coachName: "Matt Campbell", coachRecord: "0-0",
     stats: {
       pointsPerGame: 33.2, pointsAllowedPerGame: 17.4,
       yardsPerGame: 408.4, yardsAllowedPerGame: 282.1,
@@ -506,7 +506,7 @@ var TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "8-4 (2025)",
     rating: 82, offensiveRating: 80, defensiveRating: 84, spRating: 13.8,
     recruitingRank: 11,
-    coachName: "Sherrone Moore", coachRecord: "8-5",
+    coachName: "Kyle Whittingham", coachRecord: "143-73",
     stats: {
       pointsPerGame: 29.8, pointsAllowedPerGame: 20.1,
       yardsPerGame: 378.2, yardsAllowedPerGame: 298.4,
@@ -1064,7 +1064,7 @@ var TEAMS = {
     conference: "SEC", color: "#003087",
     wins: 0, losses: 0, lastSeasonRecord: "7-5 (2025)",
     rating: 72, offensiveRating: 73, defensiveRating: 70, spRating: 6.4,
-    recruitingRank: 13, coachName: "Curt Cignetti", coachRecord: "11-2",
+    recruitingRank: 13, coachName: "Jon Sumrall", coachRecord: "27-13",
     stats: {
       pointsPerGame: 26.8, pointsAllowedPerGame: 26.2,
       yardsPerGame: 372.4, yardsAllowedPerGame: 358.1,
