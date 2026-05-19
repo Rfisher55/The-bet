@@ -580,10 +580,11 @@ function render() {
     } else {
       // Fuzzy typed search — use word-boundary check to avoid prefix collisions
       list = list.filter(({ game }) => {
+        const ht = game.homeTeam || {}, at = game.awayTeam || {};
         const fields = [
-          game.homeTeam.name, game.awayTeam.name,
-          game.homeTeam.abbreviation, game.awayTeam.abbreviation,
-          game.homeTeam.mascot, game.awayTeam.mascot,
+          ht.name, at.name,
+          ht.abbreviation, at.abbreviation,
+          ht.mascot, at.mascot,
         ].map(s => s ? s.toLowerCase() : "");
         // Exact word starts-with: match only if team name begins at a word boundary
         const esc = searchTeam.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -621,7 +622,9 @@ function render() {
 
   // Conference filter
   if (CONF_STATE.active !== "all") {
-    list = list.filter(({ game }) => game.homeTeam.conference === CONF_STATE.active || game.awayTeam.conference === CONF_STATE.active);
+    list = list.filter(({ game }) =>
+      (game.homeTeam && game.homeTeam.conference === CONF_STATE.active) ||
+      (game.awayTeam && game.awayTeam.conference === CONF_STATE.active));
   }
 
   // Quality filter

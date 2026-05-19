@@ -399,8 +399,6 @@
 <script src="../js/data.js"></script>
 <script src="../js/data-fbs-stubs.js"></script>
 <script src="../js/predictor.js"></script>
-<script src="../js/config.js"></script>
-<script src="../js/live.js"></script>
 <script>
 /* ═══════════════════════════════════════════════════
    COMPARE PAGE — main logic
@@ -893,15 +891,25 @@ populateSelects();
 readURLParams();
 onSelectChange();
 
-// Re-init if live data updates TEAMS
-window.addEventListener('liveDataReady', function () {
+function initCompare() {
   const aVal = document.getElementById('select-a').value;
   const bVal = document.getElementById('select-b').value;
   populateSelects();
   if (aVal) document.getElementById('select-a').value = aVal;
   if (bVal) document.getElementById('select-b').value = bVal;
   onSelectChange();
-});
+}
+
+if (window.__liveDataReady) {
+  initCompare();
+} else {
+  window.addEventListener('liveDataReady', function onLD() {
+    window.removeEventListener('liveDataReady', onLD);
+    initCompare();
+  });
+}
 </script>
+<script src="../js/config.js"></script>
+<script src="../js/live.js"></script>
 </body>
 </html>

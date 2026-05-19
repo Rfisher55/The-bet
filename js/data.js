@@ -424,7 +424,7 @@ var TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "11-3 (2025)",
     rating: 87, offensiveRating: 84, defensiveRating: 90, spRating: 18.4,
     recruitingRank: 10,
-    coachName: "Matt Campbell", coachRecord: "69-35",
+    coachName: "James Franklin", coachRecord: "121-59",
     stats: {
       pointsPerGame: 33.2, pointsAllowedPerGame: 17.4,
       yardsPerGame: 408.4, yardsAllowedPerGame: 282.1,
@@ -506,7 +506,7 @@ var TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "8-4 (2025)",
     rating: 82, offensiveRating: 80, defensiveRating: 84, spRating: 13.8,
     recruitingRank: 11,
-    coachName: "Kyle Whittingham", coachRecord: "165-80",
+    coachName: "Sherrone Moore", coachRecord: "8-5",
     stats: {
       pointsPerGame: 29.8, pointsAllowedPerGame: 20.1,
       yardsPerGame: 378.2, yardsAllowedPerGame: 298.4,
@@ -670,7 +670,7 @@ var TEAMS = {
     wins: 0, losses: 0, lastSeasonRecord: "9-4 (2025)",
     rating: 85, offensiveRating: 88, defensiveRating: 80, spRating: 15.2,
     recruitingRank: 6,
-    coachName: "Lane Kiffin", coachRecord: "97-47",
+    coachName: "Brian Kelly", coachRecord: "141-51",
     stats: {
       pointsPerGame: 41.3, pointsAllowedPerGame: 24.7,
       yardsPerGame: 501.2, yardsAllowedPerGame: 358.4,
@@ -951,7 +951,7 @@ var TEAMS = {
       depthChartStability: 74,
     },
     weatherProfile: {
-      isDome: true,
+      isDome: false,
       coldWeatherAdvantage: 1,
       coldWeatherRecord: "3-13 ATS below 40F",
       rainRecord: "12-6 ATS in rain",
@@ -990,7 +990,7 @@ var TEAMS = {
 
   auburn: {
     id: "auburn", name: "Auburn", abbreviation: "AUB", mascot: "Tigers",
-    conference: "SEC", color: "#0C2340",
+    conference: "SEC", color: "#F26522",
     wins: 0, losses: 0, lastSeasonRecord: "8-5 (2025)",
     rating: 73, offensiveRating: 71, defensiveRating: 75, spRating: 7.4,
     recruitingRank: 16, coachName: "Alex Golesh", coachRecord: "17-9",
@@ -1416,7 +1416,7 @@ const KEY_PLAYERS = [
     stats:{ gamesPlayed:13, tackles:28, sacks:2.5, tacklesForLoss:6, pressures:18 },
     scoutReport:"Interior presence who has absorbed Tim Keenan's mentorship and is ready to step into the starting role. His motor and relentlessness in camp have impressed coaches. Michigan's interior OL will be his first major test — if he can command a double team, it frees Campbell to attack the perimeter." },
 
-  { id:"p_ala_06", name:"Dezz Ricks", position:"CB", teamId:"alabama", year:"JR", number:"2", heightWeight:"6'0\" / 190", hometown:"Warren, OH",
+  { id:"p_ala_06", name:"Dezz Ricks", position:"CB", teamId:"alabama", year:"JR", number:"14", heightWeight:"6'0\" / 190", hometown:"Warren, OH",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
     injuryHistory:[], injuryProneRating:1, impact:"high",
     personalFlags:{ distractionLevel:3, distractionNote:"Transferred from LSU after feeling underutilized. Knows LSU's system inside out — could be a massive advantage in the rivalry game. Nick Saban protege coaching tree knowledge transfer.", socialMediaPattern:"normal", nflDraftStatus:"projected round 2-3", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
@@ -1588,7 +1588,7 @@ const KEY_PLAYERS = [
     stats:{ gamesPlayed:13, rushingYards:1014, rushingTDs:11, yardsPerCarry:5.6, receivingYards:178, receivingTDs:1, receptions:20 },
     scoutReport:"Michigan's most important player given Underwood's inexperience. His 6'2\", 228-pound frame makes him a physical anomaly at RB. Alabama's front 7 — especially Campbell — will be fired up. Mullings' ability to handle blitz pickups directly determines how long Underwood can stay in the pocket." },
 
-  { id:"p_mich_03", name:"Jyaire Hill", position:"CB", teamId:"michigan", year:"JR", number:"2", heightWeight:"5'11\" / 185", hometown:"Findlay, OH",
+  { id:"p_mich_03", name:"Jyaire Hill", position:"CB", teamId:"michigan", year:"JR", number:"14", heightWeight:"5'11\" / 185", hometown:"Findlay, OH",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
     injuryHistory:[], injuryProneRating:2, impact:"medium",
     personalFlags:{ distractionLevel:5, distractionNote:"Has played in Will Johnson's shadow for 2 years. The weight of replacing a first-round pick at Michigan is enormous. His fall camp has been inconsistent — big plays mixed with coverage busts. Mental composure under pressure is the question.", socialMediaPattern:"normal", nflDraftStatus:"projected round 3-4", agentContact:false, nilSatisfaction:"medium", transferPortalRisk:"none" },
@@ -1661,7 +1661,7 @@ const KEY_PLAYERS = [
     stats:{ gamesPlayed:12, tackles:124, sacks:7.5, tacklesForLoss:19, interceptions:3, passDeflections:8, forcedFumbles:2 },
     scoutReport:"The most complete linebacker in college football. Excels in coverage — rare for a true run defender — making him impossible to scheme around. Georgia will try to attack him with Delp on crossing routes. Carter's 3 INTs last season show his coverage ability. Gunner Stockton must account for Carter on every play." },
 
-  { id:"p_clem_06", name:"Adam Randall", position:"WR", teamId:"clemson", year:"JR", number:"11", heightWeight:"6'2\" / 198", hometown:"Irmo, SC",
+  { id:"p_clem_06", name:"Adam Randall", position:"WR", teamId:"clemson", year:"JR", number:"7", heightWeight:"6'2\" / 198", hometown:"Irmo, SC",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
     injuryHistory:[], injuryProneRating:1, impact:"medium",
     personalFlags:{ distractionLevel:3, distractionNote:"South Carolina native at Clemson — his family missed several games last year driving back and forth. His connection with Klubnik developed late in 2025 and carries into 2026 as the primary target.", socialMediaPattern:"normal", nflDraftStatus:"projected round 3-4", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
@@ -1686,7 +1686,7 @@ const KEY_PLAYERS = [
     stats:{ gamesPlayed:7, sacks:6.5, tacklesForLoss:11, qbHurries:24, interceptions:1 },
     scoutReport:"When fully healthy, the most disruptive pass rusher in the SEC. But 'fully healthy' is the question of 2026. Tennessee's Nico Iamaleava throws quickly — Perkins needs to win on first movement, not second. If his knee limits his first step, he becomes a containment player rather than a disruptor. Monitor his warmup." },
 
-  { id:"p_lsu_03", name:"Aaron Anderson", position:"WR", teamId:"lsu", year:"JR", number:"1", heightWeight:"5'10\" / 175", hometown:"New Orleans, LA",
+  { id:"p_lsu_03", name:"Aaron Anderson", position:"WR", teamId:"lsu", year:"JR", number:"10", heightWeight:"5'10\" / 175", hometown:"New Orleans, LA",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
     injuryHistory:[], injuryProneRating:3, impact:"high",
     personalFlags:{ distractionLevel:3, distractionNote:"Anderson is a burner who has played behind more physical receivers for two years. As the featured WR in 2026, his frame (175 lbs) raises durability questions over a 12-game season. He's added 8 lbs of muscle since January — coaches say it shows.", socialMediaPattern:"normal", nflDraftStatus:"projected round 3-4", agentContact:false, nilSatisfaction:"high", transferPortalRisk:"none" },
@@ -1735,7 +1735,7 @@ const KEY_PLAYERS = [
     stats:{ gamesPlayed:13, rushingYards:1198, rushingTDs:13, yardsPerCarry:5.9, receivingYards:278, receivingTDs:2, receptions:34 },
     scoutReport:"Oregon's most complete offensive player. Excels in Dan Lanning's zone-run scheme with exceptional vision in the second level. Notre Dame's front 7 will crowd the box with Cross — James's ability to break tackles in the open field determines if Oregon can control the clock and protect Gabriel." },
 
-  { id:"p_ore_03", name:"Tez Johnson", position:"WR", teamId:"oregon", year:"SR", number:"1", heightWeight:"5'10\" / 185", hometown:"Las Vegas, NV",
+  { id:"p_ore_03", name:"Tez Johnson", position:"WR", teamId:"oregon", year:"SR", number:"9", heightWeight:"5'10\" / 185", hometown:"Las Vegas, NV",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null,
     injuryHistory:[{type:"hamstring",year:2023,gamesAffected:2,chronic:false}], injuryProneRating:3, impact:"high",
     personalFlags:{ distractionLevel:3, distractionType:"nfl_draft_temptation", distractionNote:"Agent meetings confirmed. Returned for his senior year as 'unfinished business' — Oregon has never won a national title. His decision to return made him the unanimous team captain vote. The pressure of leading an unbeaten Oregon squad is something he seems to thrive on based on camp reports.", socialMediaPattern:"active", nflDraftStatus:"projected round 3-4", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
@@ -1916,7 +1916,7 @@ const KEY_PLAYERS = [
     stats:{ gamesPlayed:12, receivingYards:612, receivingTDs:5, receptions:48, yardsPerReception:12.75 },
     scoutReport:"The steady hand in Florida's offense. Not a home-run threat but wins his matchups consistently on comeback routes and crossing patterns. Against Georgia's coverage scheme he'll need to beat zone leverage — his route tree is complete enough to do it." },
 
-  { id:"p_fla_04", name:"Shemar James", position:"LB", teamId:"florida", year:"JR", number:"6", heightWeight:"6'2\" / 230", hometown:"Phenix City, AL",
+  { id:"p_fla_04", name:"Shemar James", position:"LB", teamId:"florida", year:"JR", number:"19", heightWeight:"6'2\" / 230", hometown:"Phenix City, AL",
     injuryStatus:"healthy", practiceStatus:"full", injuryType:null, injuryHistory:[], injuryProneRating:1, impact:"high",
     personalFlags:{ distractionLevel:1, distractionNote:"The best player on Florida's roster, full stop. James is an ascending star with legitimate All-American upside. His instincts against the run and his athleticism in coverage are rare for an SEC linebacker.", socialMediaPattern:"quiet", nflDraftStatus:"projected round 1-2", agentContact:true, nilSatisfaction:"high", transferPortalRisk:"none" },
     performanceMetrics:{ clutchRating:82, bigGameRating:80, coldWeatherRating:78, roadGameRating:79, primeTimeRating:84, consistencyRating:83, pressureRating:85, explosivePlayRating:78 },
@@ -2915,6 +2915,12 @@ function resolveGame(g) {
 // ── Helper: format spread for display (+3.5, -7, PK)
 function fmtSpread(n) {
   if (n === 0) return "PK";
+  return (n > 0 ? "+" : "") + n;
+}
+
+// ── Helper: format moneyline for display (+150, -110)
+function fmtML(n) {
+  if (!n && n !== 0) return "—";
   return (n > 0 ? "+" : "") + n;
 }
 

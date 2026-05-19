@@ -12,7 +12,7 @@
     ["arkansas",          "Arkansas",          "ARK",  "SEC",                 "#9D2235","Razorbacks",       75,"Sam Pittman"],
     ["kentucky",          "Kentucky",          "UK",   "SEC",                 "#0033A0","Wildcats",         72,"Mark Stoops"],
     ["mississippi_state", "Mississippi State", "MSST", "SEC",                 "#5D1E37","Bulldogs",         68,"Jeff Lebby"],
-    ["missouri",          "Missouri",          "MIZ",  "SEC",                 "#F1B82D","Tigers",           71,"Eli Drinkwitz"],
+    ["missouri",          "Missouri",          "MIZ",  "SEC",                 "#F1B82D","Tigers",           71,"Barry Odom"],
     ["ole_miss",          "Ole Miss",          "MISS", "SEC",                 "#CE1126","Rebels",           79,"Lane Kiffin"],
     ["oklahoma",          "Oklahoma",          "OU",   "SEC",                 "#841617","Sooners",          78,"Brent Venables"],
     ["south_carolina",    "South Carolina",    "SC",   "SEC",                 "#73000A","Gamecocks",        70,"Shane Beamer"],

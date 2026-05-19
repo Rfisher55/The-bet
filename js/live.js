@@ -954,7 +954,7 @@ const LIVE = (() => {
       const realOffRating = ppaToOffRating(offPPA);
       const realDefRating = ppaToDefRating(defPPA);
       const sp_off_rating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
-      const sp_def_rating = Math.min(99, Math.max(35, Math.round(70 - spOverall * 0.9)));
+      const sp_def_rating = Math.min(99, Math.max(35, Math.round(70 + spOverall * 0.9)));
 
       // Transfer portal balance
       const ins  = portalIn[t.school]  || [];

@@ -138,9 +138,9 @@ function calcPlayerImpactAdjustment(team, isHome) {
     const distLevel = safeGet(player, "personalFlags.distractionLevel", 0);
     if (distLevel >= 8) {
       // Severe distraction (contract holdout, family issues, public controversy)
-      distractionPenalty = -0.5 * impactWeight * ((distLevel - 7) * 1.5);
+      distractionPenalty = -0.5 * ((distLevel - 7) * 1.5);
     } else if (distLevel >= 5) {
-      distractionPenalty = -0.25 * impactWeight * (distLevel - 4);
+      distractionPenalty = -0.25 * (distLevel - 4);
     }
 
     // QB with distraction reduces team score additionally
@@ -152,26 +152,25 @@ function calcPlayerImpactAdjustment(team, isHome) {
     const nflStatus = safeGet(player, "personalFlags.nflDraftStatus", "");
     let draftAdj = 0;
     if (nflStatus === "top5pick" && status === "healthy") {
-      // Elite talent, but potential self-preservation mode for non-rivalry games
-      draftAdj = 0.3 * impactWeight; // still performing but slightly conservative
+      draftAdj = 0.3; // still performing but slightly conservative
     } else if (nflStatus === "fringe") {
-      draftAdj = 0.2 * impactWeight; // extra motivated to prove worth
+      draftAdj = 0.2; // extra motivated to prove worth
     }
 
     // ── NIL Satisfaction ─────────────────────────
     const nilSatisfaction = safeGet(player, "personalFlags.nilSatisfaction", 5);
     let nilAdj = 0;
     if (nilSatisfaction <= 3) {
-      nilAdj = -0.3 * impactWeight; // unhappy player, checked out
+      nilAdj = -0.3; // unhappy player, checked out
     } else if (nilSatisfaction >= 8) {
-      nilAdj = 0.15 * impactWeight; // happy, motivated
+      nilAdj = 0.15; // happy, motivated
     }
 
     // ── Transfer portal risk (current mood) ──────
     const portalRisk = safeGet(player, "personalFlags.transferPortalRisk", 0);
     let portalAdj = 0;
     if (portalRisk >= 7) {
-      portalAdj = -0.4 * impactWeight; // one foot out the door
+      portalAdj = -0.4; // one foot out the door
     }
 
     // ── Performance metrics context ───────────────
@@ -180,9 +179,10 @@ function calcPlayerImpactAdjustment(team, isHome) {
       const pm = player.performanceMetrics;
       const clutch = (pm.clutchRating || 5) - 5;
       const consistency = (pm.consistencyRating || 5) - 5;
-      perfBonus = (clutch * 0.08 + consistency * 0.05) * impactWeight;
+      perfBonus = (clutch * 0.08 + consistency * 0.05);
     }
 
+    // Apply impact weight once at the final sum (not per-item to avoid squared scaling)
     const playerAdj = (injuryPenalty + distractionPenalty + draftAdj + nilAdj + portalAdj + perfBonus) * impactWeight;
     totalAdj += playerAdj;
   }
