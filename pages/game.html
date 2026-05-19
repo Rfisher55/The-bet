@@ -74,6 +74,82 @@
     .flex.justify-between > *:last-child { text-align: right; flex-shrink: 0; padding-left: 8px; }
     /* ── Hot seat flames ── */
     .flames { color: #ef4444; letter-spacing: -2px; font-size: .95rem; }
+    /* ── Key Insight Box ── */
+    .key-insight-box {
+      border-radius: var(--radius-lg); padding: 18px 20px; margin-bottom: 20px;
+      border-left: 4px solid var(--primary);
+      background: linear-gradient(135deg, rgba(16,185,129,.07) 0%, var(--card) 100%);
+      border-top: 1px solid rgba(16,185,129,.2);
+      border-right: 1px solid rgba(16,185,129,.1);
+      border-bottom: 1px solid rgba(16,185,129,.1);
+      position: relative;
+    }
+    .key-insight-badge {
+      font-size: .6rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--primary); background: var(--card); padding: 0 8px;
+      position: absolute; top: -1px; left: 14px; transform: translateY(-50%);
+      border: 1px solid rgba(16,185,129,.3); border-radius: 10px;
+    }
+    .key-insight-pick {
+      font-size: 1.25rem; font-weight: 900; color: var(--text); line-height: 1.2;
+    }
+    .key-insight-conf-elite  { color: var(--primary); }
+    .key-insight-conf-high   { color: #34d399; }
+    .key-insight-conf-medium { color: var(--gold); }
+    .key-insight-conf-low    { color: var(--muted-l); }
+    /* ── Win Gauge (SVG circle) ── */
+    .win-gauge-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 16px 0 10px;
+    }
+    .win-gauge-svg { overflow: visible; }
+    .win-gauge-bg  { fill: none; }
+    .win-gauge-arc { fill: none; stroke-linecap: round; }
+    .win-gauge-center { text-anchor: middle; dominant-baseline: central; }
+    /* ── Share button ── */
+    .share-pick-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .72rem; font-weight: 700; padding: 6px 14px;
+      border-radius: 20px; border: 1px solid var(--border-l);
+      background: var(--surface); color: var(--muted-l); cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .share-pick-btn:hover { background: var(--card); color: var(--text); border-color: var(--primary); }
+    .share-pick-btn.copied { background: rgba(16,185,129,.12); color: var(--primary); border-color: var(--primary); }
+    /* ── 7-signal icon circles ── */
+    .sig-icon-circle {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .88rem; background: var(--surface); border: 1px solid var(--border);
+    }
+    .sig-fill-circle {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; border: 2px solid;
+    }
+    /* ── Section nav (sticky right TOC) ── */
+    .section-toc {
+      position: fixed; right: 16px; top: 50%; transform: translateY(-50%);
+      z-index: 900; display: flex; flex-direction: column; gap: 4px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 8px 6px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.4);
+    }
+    .section-toc-item {
+      font-size: .6rem; font-weight: 700; letter-spacing: .5px;
+      color: var(--muted); cursor: pointer; padding: 4px 8px;
+      border-radius: 6px; white-space: nowrap; text-align: center;
+      transition: background .15s, color .15s;
+    }
+    .section-toc-item:hover { background: var(--surface); color: var(--primary); }
+    @media (max-width: 1100px) { .section-toc { display: none; } }
+    /* ── Improved empty state ── */
+    .empty-card {
+      max-width: 480px; margin: 60px auto; padding: 40px 32px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); text-align: center;
+    }
+    .empty-card-icon { font-size: 3rem; margin-bottom: 16px; }
+    .empty-card-title { font-size: 1.4rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+    .empty-card-sub   { font-size: .875rem; color: var(--muted-l); line-height: 1.65; margin-bottom: 20px; }
     /* ── Momentum arrow ── */
     .mom-up    { color: var(--primary); font-size: 1.4rem; font-weight: 900; }
     .mom-stable{ color: var(--gold);    font-size: 1.4rem; font-weight: 900; }
@@ -327,11 +403,17 @@ const gameData = GAMES.find(g => g.id === gameId);
 
 if (!gameData) {
   document.getElementById("content").innerHTML = `
-    <div class="empty">
-      <div class="empty-icon">❌</div>
-      <div class="empty-title">Game not found</div>
-      <div class="empty-sub">The game you're looking for doesn't exist.</div>
-      <a href="games.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">← Back to Games</a>
+    <div class="empty-card">
+      <div class="empty-card-icon">🏈</div>
+      <div class="empty-card-title">Game Not Found</div>
+      <div class="empty-card-sub">
+        We couldn't find the game you're looking for. The game ID may be incorrect
+        or this matchup may not exist in our 2026 schedule yet.
+        <br><br>
+        Try browsing all available games on the schedule page to find what you're looking for.
+      </div>
+      <a href="games.html" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:6px;margin-bottom:10px">← Back to Schedule</a>
+      <div style="font-size:.72rem;color:var(--muted);margin-top:8px">ID searched: <code style="color:var(--text-soft)">${gameId || "(none)"}</code></div>
     </div>`;
 } else {
   try {
@@ -410,6 +492,51 @@ if (!gameData) {
           <div style="font-size:.83rem;color:var(--text-soft);line-height:1.5">${a.msg}</div>
         </div>
       </div>`).join("");
+  }
+
+  /* 3a — Key Insight TL;DR Box */
+  function renderKeyInsight() {
+    const gp = game.gamePreview;
+    const pickTeam = gp && gp.thePick && gp.thePick.team ? gp.thePick.team : winner.name;
+    const pickLine = gp && gp.thePick && gp.thePick.line ? " " + gp.thePick.line : (pred.predictedSpread ? " " + fmtSpread(-pred.predictedSpread) : "");
+    const pickConf = gp && gp.thePick && gp.thePick.confidence ? gp.thePick.confidence : (pred.confidence || "medium").toUpperCase();
+    const confClass = { "ELITE": "key-insight-conf-elite", "HIGH": "key-insight-conf-high", "MEDIUM": "key-insight-conf-medium", "LOW": "key-insight-conf-low" }[pickConf] || "key-insight-conf-medium";
+    const confLabel = { "ELITE": "Elite Confidence", "HIGH": "High Confidence", "MEDIUM": "Moderate Confidence", "LOW": "Low Confidence" }[pickConf] || "Moderate Confidence";
+
+    // top xfactor
+    const xf = safe(() => pred.xFactors, null) || safe(() => game.xFactors, null) || [];
+    const topXf = xf.length ? xf.reduce((a, b) => ((b.severity || "").toLowerCase() === "critical" ? b : (a.severity || "").toLowerCase() !== "critical" && (b.severity || "").toLowerCase() === "high" ? b : a), xf[0]) : null;
+
+    // border color — winner's team color
+    const borderColor = isHomeFavored ? home.color : away.color;
+
+    return `
+      <div class="key-insight-box" style="border-left-color:${borderColor};background:linear-gradient(135deg,${borderColor}08 0%,var(--card) 70%)">
+        <div class="key-insight-badge">TL;DR — Model Snapshot</div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:6px">
+          <div style="flex:1;min-width:200px">
+            <div style="font-size:.6rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:5px">TOP PICK</div>
+            <div class="key-insight-pick">${pickTeam}${pickLine}</div>
+            <div style="font-size:.78rem;color:var(--muted-l);margin-top:4px">
+              Win Probability: <strong style="color:${borderColor}">${isHomeFavored ? homePct : awayPct}%</strong>
+              · Projected ${Math.round(homeScore)}&ndash;${Math.round(awayScore)}
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:10px 14px;border-radius:var(--radius);background:${borderColor}12;border:1px solid ${borderColor}30">
+            <div style="font-size:.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l)">Confidence</div>
+            <div class="${confClass}" style="font-size:1rem;font-weight:900">${pickConf}</div>
+            <div style="font-size:.62rem;color:var(--muted)">${confLabel}</div>
+          </div>
+        </div>
+        ${topXf ? `
+        <div style="margin-top:12px;padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid ${borderColor}20;display:flex;align-items:flex-start;gap:8px">
+          <span style="font-size:1rem;flex-shrink:0">${catIcon(topXf.category)}</span>
+          <div>
+            <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${severityColor(topXf.severity)};margin-bottom:2px">#1 X-Factor · ${(topXf.severity||"").toUpperCase()}</div>
+            <div style="font-size:.78rem;color:var(--text-soft);line-height:1.5"><strong style="color:var(--text)">${topXf.title}</strong> — ${topXf.description}</div>
+          </div>
+        </div>` : ""}
+      </div>`;
   }
 
   /* 3b — Game Preview / Written Analysis */
@@ -572,7 +699,7 @@ if (!gameData) {
     const ap = allPlayers.filter(p => p.teamId === away.id);
     if (!hp.length && !ap.length) return "";
     return `
-      <div class="card card-p mb-5">
+      <div class="card card-p mb-5" id="section-roster">
         <div class="section-label">Full Roster Intelligence <span style="font-size:.65rem;color:var(--muted);font-weight:400">· tap any player to expand</span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
           <div>
@@ -695,7 +822,7 @@ if (!gameData) {
     const practiceNotes = allPlayers.filter(p => p.personalFlags && p.personalFlags.distractionNote);
 
     return `
-      <div class="card card-p mb-5">
+      <div class="card card-p mb-5" id="section-social">
         <div class="section-label">Social Intelligence Hub</div>
 
         <!-- Beat Writer Reports -->
@@ -879,7 +1006,7 @@ if (!gameData) {
     const xf = safe(() => pred.xFactors, null) || safe(() => game.xFactors, null);
     if (!xf || !xf.length) return "";
     return `
-      <div class="card card-p mb-5">
+      <div class="card card-p mb-5" id="section-xfactors">
         <div class="section-label">X-Factor Alerts</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px">
           ${xf.map(x => `
@@ -954,6 +1081,51 @@ if (!gameData) {
       </div>`;
   }
 
+  /* 5b — Win Probability Circular Gauge */
+  function renderWinGauge() {
+    const r = 52; // radius
+    const cx = 64; const cy = 64;
+    const circ = 2 * Math.PI * r;
+    const homeDash = (homePct / 100) * circ;
+    const awayDash = circ - homeDash;
+
+    // Arc starts from top (−90°): rotate by −90deg
+    const homeOffset = 0;
+    const awayOffset = -homeDash;
+
+    const winnerName = isHomeFavored ? home.name : away.name;
+    const winnerPctDisp = isHomeFavored ? homePct : awayPct;
+    const winnerColor = isHomeFavored ? home.color : away.color;
+    const loserColor  = isHomeFavored ? away.color : home.color;
+
+    return `
+      <div class="win-gauge-wrap">
+        <div style="font-size:.6rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:4px">Win Probability</div>
+        <svg class="win-gauge-svg" width="128" height="128" viewBox="0 0 128 128">
+          <!-- Background ring -->
+          <circle class="win-gauge-bg" cx="${cx}" cy="${cy}" r="${r}"
+            stroke="${loserColor}" stroke-width="12" opacity="0.25"/>
+          <!-- Full away arc (behind) -->
+          <circle class="win-gauge-arc" cx="${cx}" cy="${cy}" r="${r}"
+            stroke="${loserColor}" stroke-width="10"
+            stroke-dasharray="${circ}" stroke-dashoffset="0"
+            transform="rotate(-90 ${cx} ${cy})" opacity="0.5"/>
+          <!-- Home arc on top -->
+          <circle class="win-gauge-arc" cx="${cx}" cy="${cy}" r="${r}"
+            stroke="${winnerColor}" stroke-width="10"
+            stroke-dasharray="${homeDash} ${awayDash}"
+            transform="rotate(-90 ${cx} ${cy})"/>
+          <!-- Center text -->
+          <text x="${cx}" y="${cy - 6}" class="win-gauge-center"
+            font-size="20" font-weight="900" fill="${winnerColor}">${winnerPctDisp}%</text>
+          <text x="${cx}" y="${cy + 13}" class="win-gauge-center"
+            font-size="7.5" font-weight="700" fill="var(--muted-l)" letter-spacing="0.5">WIN PROB</text>
+        </svg>
+        <div style="font-size:.78rem;font-weight:800;color:${winnerColor}">${winnerName}</div>
+        <div style="font-size:.62rem;color:var(--muted)">${home.abbreviation} ${homePct}% · ${away.abbreviation} ${awayPct}%</div>
+      </div>`;
+  }
+
   /* 6 — Picks + Predicted Score */
   function renderPicks() {
     const homePia  = safe(() => pred.playerImpactAdj.home, 0);
@@ -973,9 +1145,30 @@ if (!gameData) {
       { label: "Program Momentum",  h: homeProg,a: awayProg },
     ].filter(r => r.h !== 0 || r.a !== 0);
 
+    const sharePick = () => {
+      const gp = game.gamePreview;
+      const pickTeam = gp && gp.thePick && gp.thePick.team ? gp.thePick.team : winner.name;
+      const pickLine = gp && gp.thePick && gp.thePick.line ? " " + gp.thePick.line : (pred.predictedSpread ? " " + fmtSpread(-pred.predictedSpread) : "");
+      const pickConf = gp && gp.thePick && gp.thePick.confidence ? gp.thePick.confidence : (pred.confidence || "medium").toUpperCase();
+      const text = "The Bet: " + pickTeam + pickLine + " — " + pickConf + " confidence. Analysis: " + window.location.href;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById("share-pick-btn");
+        if (btn) {
+          btn.textContent = "Copied!";
+          btn.classList.add("copied");
+          setTimeout(() => { btn.innerHTML = "📤 Share Pick"; btn.classList.remove("copied"); }, 2000);
+        }
+      }).catch(() => {});
+    };
+    window.__sharePick = sharePick;
+
     return `
-      <div class="card card-p mb-5">
-        <div class="section-label">Picks &amp; Predicted Score</div>
+      <div class="card card-p mb-5" id="section-picks">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+          <div class="section-label" style="margin-bottom:0">Picks &amp; Predicted Score</div>
+          <button id="share-pick-btn" class="share-pick-btn" onclick="window.__sharePick()">&#128228; Share Pick</button>
+        </div>
+        ${safe(renderWinGauge, "")}
         <div class="grid-3 mb-4">
           <!-- ATS -->
           <div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${pred.spreadPick && pred.spreadPick.side !== "no-bet" ? pred.spreadPick.side === "home" ? "rgba(99,102,241,.5)" : "rgba(245,158,11,.5)" : "var(--border)"};background:${pred.spreadPick && pred.spreadPick.side !== "no-bet" ? pred.spreadPick.side === "home" ? "rgba(99,102,241,.1)" : "rgba(245,158,11,.1)" : "var(--surface)"}">
@@ -1029,7 +1222,7 @@ if (!gameData) {
     const sm = pred.sharpMoneySignal || null;
     const lm = game.lineMovement || null;
     return `
-      <div class="card card-p mb-5">
+      <div class="card card-p mb-5" id="section-sharp">
         <div class="section-label">Sharp Money Report</div>
         ${sm ? `
           <div style="padding:14px;border-radius:var(--radius);background:${sm.side === "home" ? `${home.color}15` : `${away.color}15`};border:1px solid ${sm.side === "home" ? `${home.color}40` : `${away.color}40`};margin-bottom:14px">
@@ -1124,7 +1317,7 @@ if (!gameData) {
     const wxImpactColor = wi && Math.abs(wi.totalAdj||0) >= 3 ? "var(--danger)" : wi && Math.abs(wi.totalAdj||0) >= 1 ? "var(--gold)" : "var(--primary)";
 
     return `
-      <div class="card card-p mb-5">
+      <div class="card card-p mb-5" id="section-weather">
         <div class="section-label">Weather Intel</div>
         ${wx ? `
           <div style="display:grid;grid-template-columns:repeat(${indoors?1:3},1fr);gap:8px;margin-bottom:12px">
@@ -1201,7 +1394,7 @@ if (!gameData) {
     const trap  = safe(() => sitG && sitG.trapGameRating, null) || (pred.trapGameAlert ? 7 : 3);
 
     return `
-      <div class="card card-p mb-5">
+      <div class="card card-p mb-5" id="section-situational">
         <div class="section-label">Situational Analysis</div>
 
         <!-- Trap game meter -->
@@ -1586,7 +1779,7 @@ if (!gameData) {
     }
 
     return `
-      <div class="card card-p mb-5">
+      <div class="card card-p mb-5" id="section-coaching">
         <div class="section-label">Coaching Tendencies</div>
         ${ce && ce.winner !== "neutral" ? `
           <div style="padding:8px 12px;border-radius:var(--radius);background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);margin-bottom:12px;font-size:.78rem">
@@ -1663,7 +1856,7 @@ if (!gameData) {
     }
 
     return `
-      <div class="card card-p mb-5">
+      <div class="card card-p mb-5" id="section-program">
         <div class="section-label">Program Health Dashboard</div>
         ${phCard(home, hph)}
         ${phCard(away, aph)}
@@ -1738,45 +1931,46 @@ if (!gameData) {
     const WEIGHTS = { baseModel:30, playerImpact:20, situational:15, weather:10, coachingEdge:10, programMomentum:8, sharpMoney:7 };
 
     // Build signal rows with actual point contributions
+    const SIG_ICONS = { baseModel: "⚡", playerImpact: "🏃", situational: "📍", weather: "🌤", coachingEdge: "🧠", programMomentum: "📈", sharpMoney: "💵" };
     const signals = [
       {
-        key: "baseModel", label: "Stats Engine", icon: "📊", weight: WEIGHTS.baseModel,
+        key: "baseModel", label: "Stats Engine", icon: SIG_ICONS.baseModel, weight: WEIGHTS.baseModel,
         edge: eb ? eb.baseModelEdge : null,
         desc: "Offense vs defense matchup, SP+, scoring margins, yards, efficiency metrics",
         color: "var(--accent)",
       },
       {
-        key: "playerImpact", label: "Player Intelligence", icon: "🏃", weight: WEIGHTS.playerImpact,
+        key: "playerImpact", label: "Player Intelligence", icon: SIG_ICONS.playerImpact, weight: WEIGHTS.playerImpact,
         edge: eb ? eb.playerImpactEdge : null,
         desc: "Key player ratings, injury status, cold-weather ratings, matchup-specific grades",
         color: "var(--primary)",
       },
       {
-        key: "situational", label: "Situational Analysis", icon: "🎯", weight: WEIGHTS.situational,
+        key: "situational", label: "Situational Analysis", icon: SIG_ICONS.situational, weight: WEIGHTS.situational,
         edge: eb ? eb.situationalEdge : null,
         desc: "Trap game risk, lookahead spots, travel burden, emotional momentum, rest advantage",
         color: "#34d399",
       },
       {
-        key: "weather", label: "Weather Impact", icon: "🌤️", weight: WEIGHTS.weather,
+        key: "weather", label: "Weather Impact", icon: SIG_ICONS.weather, weight: WEIGHTS.weather,
         edge: eb ? eb.weatherEdge : null,
         desc: "Temperature, wind, precipitation — suppresses scoring and favors run-first teams",
         color: "#38bdf8",
       },
       {
-        key: "coachingEdge", label: "Coaching Edge", icon: "🎓", weight: WEIGHTS.coachingEdge,
+        key: "coachingEdge", label: "Coaching Edge", icon: SIG_ICONS.coachingEdge, weight: WEIGHTS.coachingEdge,
         edge: eb ? eb.coachingEdgePts : null,
         desc: "ATS record as favorite/underdog, halftime adjustment rating, big-spot performance",
         color: "#c084fc",
       },
       {
-        key: "programMomentum", label: "Program Momentum", icon: "📈", weight: WEIGHTS.programMomentum,
+        key: "programMomentum", label: "Program Momentum", icon: SIG_ICONS.programMomentum, weight: WEIGHTS.programMomentum,
         edge: eb ? eb.programMomentumEdge : null,
         desc: "NIL strength, transfer portal grade, recruiting trajectory, locker room cohesion",
         color: "var(--gold)",
       },
       {
-        key: "sharpMoney", label: "Sharp Money / Lines", icon: "💰", weight: WEIGHTS.sharpMoney,
+        key: "sharpMoney", label: "Sharp Money / Lines", icon: SIG_ICONS.sharpMoney, weight: WEIGHTS.sharpMoney,
         edge: eb ? eb.sharpMoneyEdge : null,
         desc: "Line movement, reverse line movement, steam moves, sharp action vs public betting",
         color: "#f472b6",
@@ -1794,7 +1988,7 @@ if (!gameData) {
     };
 
     return `
-      <div class="card card-p mb-5">
+      <div class="card card-p mb-5" id="section-signals">
         <div class="section-label">7-Signal Model Breakdown</div>
         <div style="font-size:.72rem;color:var(--muted-l);margin-bottom:14px;line-height:1.55">
           Each signal is weighted and combined to produce the final spread prediction. Edge shown is points favoring ${home.abbreviation} (positive) or ${away.abbreviation} (negative).
@@ -1805,13 +1999,22 @@ if (!gameData) {
           const eAbs = eVal !== null ? Math.abs(eVal) : 0;
           const barWidth = Math.min(100, eAbs * 12); // scale for visual
           const wPct = Math.round((sig.weight / totalWeight) * 100);
+          // Fill ratio for the circle: based on weight allocation
+          const fillRatio = Math.min(1, sig.weight / 30);
           return `
             <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border)">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;gap:6px;flex-wrap:wrap">
-                <div style="display:flex;align-items:center;gap:6px">
-                  <span style="font-size:.9rem">${sig.icon}</span>
-                  <span style="font-size:.78rem;font-weight:800;color:var(--text)">${sig.label}</span>
-                  <span style="font-size:.58rem;padding:1px 6px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-weight:700">${sig.weight}%</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:6px;flex-wrap:wrap">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <!-- Signal icon circle -->
+                  <div class="sig-icon-circle" style="background:${sig.color}18;border-color:${sig.color}40">
+                    <span style="font-size:.88rem">${sig.icon}</span>
+                  </div>
+                  <!-- Fill circle indicating weight -->
+                  <div class="sig-fill-circle" style="background:${sig.color};border-color:${sig.color};opacity:${0.4 + fillRatio * 0.6}"></div>
+                  <div>
+                    <span style="font-size:.78rem;font-weight:800;color:var(--text)">${sig.label}</span>
+                    <span style="font-size:.58rem;padding:1px 6px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-weight:700;margin-left:4px">${sig.weight}%</span>
+                  </div>
                 </div>
                 <div style="display:flex;align-items:center;gap:6px">
                   ${eVal !== null ? `
@@ -1821,12 +2024,12 @@ if (!gameData) {
                 </div>
               </div>
               ${eVal !== null && eAbs >= 0.1 ? `
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-                  <div style="flex:1;height:5px;border-radius:3px;background:var(--border);overflow:hidden">
-                    <div style="height:100%;width:${barWidth}%;background:${sig.color};border-radius:3px;transition:width .3s"></div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;padding-left:52px">
+                  <div style="flex:1;height:6px;border-radius:3px;background:var(--border);overflow:hidden">
+                    <div style="height:100%;width:${barWidth}%;background:${sig.color};border-radius:3px;transition:width .5s ease;box-shadow:0 0 6px ${sig.color}55"></div>
                   </div>
-                </div>` : `<div style="height:5px;border-radius:3px;background:var(--border);margin-bottom:4px"></div>`}
-              <div style="font-size:.65rem;color:var(--muted);line-height:1.45">${sig.desc}</div>
+                </div>` : `<div style="height:6px;border-radius:3px;background:var(--border);margin-bottom:4px;margin-left:52px"></div>`}
+              <div style="font-size:.65rem;color:var(--muted);line-height:1.45;padding-left:52px">${sig.desc}</div>
             </div>`;
         }).join("")}
 
@@ -1886,6 +2089,8 @@ if (!gameData) {
       </div>
     </div>
 
+    ${safe(renderKeyInsight, "")}
+
     ${safe(renderGamePreview, "")}
 
     ${safe(renderFullRoster, "")}
@@ -1936,6 +2141,28 @@ if (!gameData) {
   `;
 
   document.title = `${away.name} @ ${home.name} — The Bet`;
+
+  /* ── Section TOC (sticky right nav, desktop only) ── */
+  const tocSections = [
+    { id: "section-picks",      label: "Picks" },
+    { id: "section-roster",     label: "Roster" },
+    { id: "section-xfactors",   label: "X-Factors" },
+    { id: "section-sharp",      label: "Sharp $" },
+    { id: "section-weather",    label: "Weather" },
+    { id: "section-situational",label: "Situational" },
+    { id: "section-coaching",   label: "Coaching" },
+    { id: "section-program",    label: "Prog. Health" },
+    { id: "section-signals",    label: "7-Signals" },
+    { id: "section-social",     label: "Social" },
+  ];
+  const tocEl = document.createElement("nav");
+  tocEl.className = "section-toc";
+  tocEl.setAttribute("aria-label", "Page sections");
+  tocEl.innerHTML = tocSections.map(s => `
+    <div class="section-toc-item" onclick="(function(){var el=document.getElementById('${s.id}');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});})()">
+      ${s.label}
+    </div>`).join("");
+  document.body.appendChild(tocEl);
   } catch(err) {
     document.getElementById("content").innerHTML = `
       <div class="empty">
