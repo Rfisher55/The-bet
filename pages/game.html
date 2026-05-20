@@ -915,32 +915,34 @@ function renderGamePage(gData) {
           ${(buzz.trendingTopics||[]).length ? `<div style="display:flex;flex-wrap:wrap;gap:6px">${(buzz.trendingTopics||[]).map(t=>`<span style="font-size:.7rem;padding:3px 9px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--muted-l)">${t}</span>`).join("")}</div>` : ""}
         </div>
 
-        <!-- Injury Report -->
+        <!-- Key Player Status Report -->
         <div style="margin-bottom:22px">
-          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>OFFICIAL INJURY REPORT<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>KEY PLAYER STATUS<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
           ${(function() {
-            const injPl = allPlayers.filter(p => p.injuryStatus && p.injuryStatus !== "healthy");
-            if (!injPl.length) return '<div class="text-xs text-muted">No injuries reported for this matchup</div>';
-            return '<div style="display:grid;gap:6px">' + injPl.map(p => {
+            const keyPl = selectKeyPlayers(allPlayers, 10);
+            if (!keyPl.length) return '<div class="text-xs text-muted">No player data for this matchup</div>';
+            return '<div style="display:grid;gap:6px">' + keyPl.map(p => {
               const t = p.teamId === home.id ? home : away;
               const s = (p.injuryStatus || "healthy").toLowerCase();
-              const sc = s === "out" ? "var(--danger)" : s === "doubtful" ? "#f87171" : "var(--gold)";
+              const isHealthy = s === "healthy";
+              const sc = isHealthy ? "var(--primary)" : s === "out" ? "var(--danger)" : s === "doubtful" ? "#f87171" : "var(--gold)";
+              const borderC = isHealthy ? "var(--border)" : sc + "40";
               const pc = (p.practiceStatus || "full") === "full" ? "var(--primary)" : (p.practiceStatus || "").includes("limit") ? "var(--gold)" : "var(--danger)";
               const why = whyNotActive(p);
               return `
-                <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid ${sc}40">
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid ${borderC}">
                   <div style="width:22px;height:22px;border-radius:50%;background:${t.color};display:flex;align-items:center;justify-content:center;font-size:.54rem;font-weight:700;color:${textForBg(t.color)};flex-shrink:0">${t.abbreviation.slice(0,2)}</div>
                   <div style="flex:1">
                     <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
                       <span style="font-size:.8rem;font-weight:700;color:var(--text)">${p.name}</span>
                       <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${p.year||""}</span>
-                      ${p.nflDraftStatus ? '<span style="font-size:.58rem;color:var(--muted)">🏆</span>' : ""}
+                      ${p.nflDraftStatus ? '<span style="font-size:.58rem;color:var(--gold)">🏆</span>' : ""}
                     </div>
-                    ${why ? '<div style="font-size:.7rem;color:'+sc+';font-weight:600;margin-top:1px">'+why+'</div>' : ""}
+                    ${!isHealthy && why ? '<div style="font-size:.7rem;color:'+sc+';font-weight:600;margin-top:1px">'+why+'</div>' : ""}
                   </div>
                   <div style="text-align:right;flex-shrink:0">
-                    <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:${sc}">${s.toUpperCase()}</div>
-                    ${p.practiceStatus ? '<div style="font-size:.6rem;color:'+pc+';font-weight:600">'+p.practiceStatus.toUpperCase()+'</div>' : ""}
+                    <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:${sc}">${isHealthy ? "ACTIVE" : s.toUpperCase()}</div>
+                    ${p.practiceStatus && !isHealthy ? '<div style="font-size:.6rem;color:'+pc+';font-weight:600">'+p.practiceStatus.toUpperCase()+'</div>' : ""}
                   </div>
                 </div>`;
             }).join("") + '</div>';
