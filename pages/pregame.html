@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pre-Game Report — The Bet</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Filter strip ── */
+    .pg-filter-strip { display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px; }
+    .pg-chip { padding:7px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.72rem;font-weight:800;cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:.5px;text-transform:uppercase; }
+    .pg-chip.active { background:var(--primary);border-color:var(--primary);color:#fff; }
+    .pg-chip:hover:not(.active) { border-color:var(--border-l);color:var(--text); }
+
+    /* ── Alert ribbon ── */
+    .pg-alert-ribbon { border-radius:var(--radius-lg);padding:12px 16px;margin-bottom:16px;border:1px solid;display:flex;align-items:flex-start;gap:12px;font-size:.78rem; }
+    .pg-alert-line-move { border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.07); }
+    .pg-alert-injury    { border-color:rgba(239,68,68,.45);background:rgba(239,68,68,.07); }
+    .pg-alert-sharp     { border-color:rgba(139,92,246,.45);background:rgba(139,92,246,.07); }
+
+    /* ── Game card ── */
+    .pg-card { border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card);overflow:hidden;margin-bottom:14px;transition:border-color .15s; }
+    .pg-card:hover { border-color:var(--border-l); }
+
+    /* ── Card header: teams + win prob ── */
+    .pg-card-header { padding:16px 18px 12px;position:relative; }
+    .pg-teams-row { display:flex;align-items:center;gap:10px;margin-bottom:10px; }
+    .pg-team-logo { width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:900;color:#fff;flex-shrink:0;letter-spacing:.3px; }
+    .pg-team-name { font-size:.9rem;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px; }
+    .pg-team-sub  { font-size:.6rem;color:var(--muted);font-weight:600;margin-top:1px; }
+    .pg-vs        { font-size:.65rem;font-weight:900;color:var(--muted);letter-spacing:1px;flex:1;text-align:center;flex-shrink:0; }
+
+    /* ── Win probability bar ── */
+    .pg-prob-track { height:6px;border-radius:3px;overflow:hidden;background:var(--border);margin-bottom:4px; }
+    .pg-prob-fill { height:100%;border-radius:3px;transition:width .5s ease; }
+    .pg-prob-labels { display:flex;justify-content:space-between;font-size:.58rem;font-weight:700; }
+
+    /* ── Card meta row: time, venue, network ── */
+    .pg-meta { display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 18px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface); }
+    .pg-meta-item { font-size:.62rem;color:var(--muted-l);font-weight:600;display:flex;align-items:center;gap:4px; }
+    .pg-meta-item strong { color:var(--text-soft); }
+    .pg-countdown { font-size:.62rem;font-weight:900;padding:2px 8px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);white-space:nowrap; }
+
+    /* ── Signal grid ── */
+    .pg-signals { display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--border); }
+    .pg-signal-cell { padding:10px 12px;border-right:1px solid var(--border);font-size:.68rem; }
+    .pg-signal-cell:last-child { border-right:none; }
+    .pg-signal-label { color:var(--muted);font-weight:700;font-size:.55rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px; }
+    .pg-signal-val   { font-weight:800;color:var(--text);font-size:.82rem; }
+    .pg-signal-sub   { font-size:.57rem;color:var(--muted);margin-top:2px; }
+    .pg-signal-moved { color:var(--primary) !important; }
+    .pg-signal-moved-bad { color:var(--danger) !important; }
+
+    /* ── Injuries row ── */
+    .pg-injuries { padding:10px 18px;border-top:1px solid var(--border);display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start; }
+    .pg-inj-label { font-size:.55rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding-top:3px;flex-shrink:0; }
+    .pg-inj-tag { font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:6px;white-space:nowrap; }
+    .pg-inj-out { background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:var(--danger); }
+    .pg-inj-q   { background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.4);color:var(--gold); }
+
+    /* ── Bottom action row ── */
+    .pg-card-footer { padding:12px 18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap; }
+    .pg-pick-chip { font-size:.62rem;font-weight:900;padding:4px 10px;border-radius:8px;border:1px solid;white-space:nowrap; }
+    .pg-pick-elite { background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.4);color:var(--primary); }
+    .pg-pick-high  { background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.4);color:var(--accent); }
+    .pg-pick-med   { background:rgba(245,158,11,.10);border-color:rgba(245,158,11,.4);color:var(--gold); }
+    .pg-pick-low   { background:rgba(139,152,165,.10);border-color:rgba(139,152,165,.3);color:var(--muted-l); }
+    .pg-dive-btn { font-size:.72rem;font-weight:800;padding:7px 14px;border-radius:8px;background:var(--primary);color:#fff;text-decoration:none;white-space:nowrap;transition:opacity .15s; }
+    .pg-dive-btn:hover { opacity:.85; }
+
+    /* ── Weather badge ── */
+    .wx-badge { display:inline-flex;align-items:center;gap:3px;font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:8px;border:1px solid;vertical-align:middle; }
+    .wx-hot  { background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3);color:#f87171; }
+    .wx-cold { background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.3);color:#60a5fa; }
+    .wx-wind { background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3);color:var(--gold); }
+    .wx-rain { background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.3);color:#818cf8; }
+    .wx-ok   { background:rgba(16,185,129,.06);border-color:rgba(16,185,129,.2);color:var(--primary); }
+
+    /* ── Live score overlay ── */
+    .pg-live-score { font-size:.72rem;font-weight:900;padding:3px 8px;border-radius:6px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:var(--danger);animation:pulse 2s infinite; }
+
+    /* ── Empty state ── */
+    .pg-empty { padding:60px 24px;text-align:center; }
+    .pg-empty-icon { font-size:2.5rem;margin-bottom:10px; }
+    .pg-empty-title { font-size:1rem;font-weight:800;color:var(--text);margin-bottom:6px; }
+    .pg-empty-sub { font-size:.8rem;color:var(--muted); }
+
+    /* ── Stats strip ── */
+    .pg-stats-strip { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px; }
+    @media (max-width:480px) { .pg-stats-strip { grid-template-columns:repeat(2,1fr); } }
+    .pg-stat-card { padding:10px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);text-align:center; }
+    .pg-stat-val { font-size:1.3rem;font-weight:900;color:var(--primary); }
+    .pg-stat-lbl { font-size:.58rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:2px; }
+
+    @media (max-width:480px) {
+      .pg-signals { grid-template-columns:repeat(2,1fr); }
+      .pg-signal-cell:nth-child(2) { border-right:none; }
+      .pg-signal-cell:nth-child(3) { border-top:1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="../index.html">
+      <div class="nav-logo-icon">TB</div>
+      THE BET
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../index.html">Home</a>
+      <a class="nav-link" href="games.html">Games</a>
+      <a class="nav-link active" href="pregame.html">Pre-Game</a>
+      <a class="nav-link" href="parlay.html">Parlay</a>
+      <a class="nav-link" href="teams.html">Teams</a>
+      <a class="nav-link" href="picks.html">My Picks</a>
+    </div>
+    <div class="nav-badge"><span class="nav-dot"></span>2026 Live</div>
+  </div>
+</nav>
+
+<main class="container page-content">
+
+  <div class="page-header">
+    <h1 class="page-title">PRE-GAME REPORT</h1>
+    <p class="page-sub">Live lines, sharp signals, injuries, weather &amp; AI picks for every upcoming game — updated in real time.</p>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="pg-stats-strip" id="pg-stats"></div>
+
+  <!-- Alert ribbon (line moves / injuries) -->
+  <div id="pg-alerts"></div>
+
+  <!-- Filter bar -->
+  <div class="pg-filter-strip" id="pg-filters">
+    <div class="pg-chip active" data-f="upcoming">Upcoming</div>
+    <div class="pg-chip" data-f="today">Today</div>
+    <div class="pg-chip" data-f="weekend">This Weekend</div>
+    <div class="pg-chip" data-f="top25">Top 25</div>
+    <div class="pg-chip" data-f="lines">Has Lines</div>
+    <div class="pg-chip" data-f="sharp">Sharp Action</div>
+    <div class="pg-chip" data-f="injuries">Injury Alert</div>
+  </div>
+
+  <!-- Sort row -->
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+    <span style="font-size:.6rem;font-weight:900;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Sort</span>
+    <div class="chip-row" id="pg-sort">
+      <div class="chip active" data-s="date">Kickoff</div>
+      <div class="chip" data-s="confidence">Top Picks</div>
+      <div class="chip" data-s="edge">Biggest Edge</div>
+    </div>
+  </div>
+
+  <!-- Game cards -->
+  <div id="pg-cards"></div>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>The Bet · D1 CFB Predictor · 2026 Season · <span class="footer-accent">For entertainment only</span></p>
+  </div>
+</footer>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a class="bottom-nav-item" href="../index.html">
+      <span class="bottom-nav-icon">🏠</span>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a class="bottom-nav-item" href="games.html">
+      <span class="bottom-nav-icon">🏈</span>
+      <span class="bottom-nav-label">Games</span>
+    </a>
+    <a class="bottom-nav-item active" href="pregame.html">
+      <span class="bottom-nav-icon">📋</span>
+      <span class="bottom-nav-label">Pre-Game</span>
+    </a>
+    <a class="bottom-nav-item" href="parlay.html">
+      <span class="bottom-nav-icon">🎯</span>
+      <span class="bottom-nav-label">Parlay</span>
+    </a>
+    <a class="bottom-nav-item" href="picks.html">
+      <span class="bottom-nav-icon">⭐</span>
+      <span class="bottom-nav-label">Picks</span>
+    </a>
+  </div>
+</nav>
+
+<script src="../js/data.js"></script>
+<script src="../js/data-fbs-stubs.js"></script>
+<script src="../js/players-extended.js"></script>
+<script src="../js/predictor.js"></script>
+<script>
+// ── Utility ──────────────────────────────────────────────────────
+function wxBadge(w) {
+  if (!w || w.indoors) return `<span class="wx-badge wx-ok">🏟️ Dome</span>`;
+  const t = w.tempF || 65, wind = w.windMph || 0, cond = (w.condition || "").toLowerCase();
+  if (cond.includes("snow")) return `<span class="wx-badge wx-cold">❄️ Snow ${t}°</span>`;
+  if (cond.includes("rain")) return `<span class="wx-badge wx-rain">🌧️ Rain ${t}°</span>`;
+  if (wind >= 18) return `<span class="wx-badge wx-wind">💨 ${wind}mph</span>`;
+  if (t >= 88)   return `<span class="wx-badge wx-hot">🌡️ ${t}°F</span>`;
+  if (t <= 38)   return `<span class="wx-badge wx-cold">🥶 ${t}°F</span>`;
+  return `<span class="wx-badge wx-ok">☀️ ${t}°F</span>`;
+}
+
+function fmtCountdown(dateStr) {
+  if (!dateStr) return "";
+  const diff = new Date(dateStr).getTime() - Date.now();
+  if (diff < 0) return "";
+  const h = Math.floor(diff / 3600000);
+  if (h < 1) return `<span class="pg-countdown">SOON</span>`;
+  if (h < 24) return `<span class="pg-countdown">${h}h to kickoff</span>`;
+  const d = Math.floor(h / 24);
+  return `<span class="pg-countdown">${d}d ${h % 24}h</span>`;
+}
+
+function lineMoveBadge(open, current) {
+  if (open == null || current == null) return "";
+  const diff = current - open;
+  if (Math.abs(diff) < 0.5) return "";
+  const dir = diff < 0 ? "↓" : "↑";
+  const cls = diff < 0 ? "pg-signal-moved" : "pg-signal-moved-bad";
+  return `<span class="${cls}">${dir}${Math.abs(diff).toFixed(1)}</span>`;
+}
+
+function publicSplitBar(pct) {
+  if (pct == null) return "";
+  const home = Math.round(pct);
+  const away = 100 - home;
+  return `
+    <div style="height:4px;border-radius:2px;overflow:hidden;display:flex;gap:1px;margin-top:3px">
+      <div style="width:${away}%;background:var(--danger);border-radius:2px 0 0 2px"></div>
+      <div style="width:${home}%;background:var(--primary);border-radius:0 2px 2px 0"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:.52rem;color:var(--muted);margin-top:2px">
+      <span>${away}% away</span><span>${home}% home</span>
+    </div>`;
+}
+
+// ── Injury tags for a team ──────────────────────────────────────
+function injuryTags(players, teamId, max) {
+  const MAX = max || 4;
+  if (!players || !players.length) return "";
+  const inj = players.filter(p => p.teamId === teamId && p.injuryStatus &&
+    p.injuryStatus !== "healthy" && p.injuryStatus !== "active");
+  if (!inj.length) return "";
+  return inj.slice(0, MAX).map(p => {
+    const s = (p.injuryStatus || "").toLowerCase();
+    const cls = s === "out" || s === "ir" ? "pg-inj-out" : "pg-inj-q";
+    const lbl = s === "out" || s === "ir" ? "OUT" : "Q";
+    return `<span class="pg-inj-tag ${cls}">${p.name || p.position} · ${lbl}</span>`;
+  }).join("");
+}
+
+// ── Build all predictions ────────────────────────────────────────
+let allPreds = [];
+function rebuildPreds() {
+  try {
+    allPreds = GAMES
+      .filter(g => g.date >= "2026-01-01")
+      .map(g => {
+        try {
+          const game = resolveGame(g);
+          return { game, pred: predictGame(game) };
+        } catch { return null; }
+      }).filter(Boolean);
+  } catch(e) { console.error("[PREGAME]", e); }
+}
+rebuildPreds();
+
+// ── Filter state ─────────────────────────────────────────────────
+let activeFilter = "upcoming";
+let sortBy = "date";
+const today = new Date();
+today.setHours(0,0,0,0);
+const todayStr = today.toISOString().slice(0,10);
+const weekendEnd = new Date(today);
+weekendEnd.setDate(today.getDate() + ((6 - today.getDay() + 7) % 7) + 1); // next Sunday
+const weekendStr = weekendEnd.toISOString().slice(0,10);
+
+// ── Filter + sort logic ──────────────────────────────────────────
+function getFiltered() {
+  const now = new Date();
+  return allPreds.filter(({ game, pred }) => {
+    const gDate = game.date || "";
+    // Always exclude past games (more than 4h old)
+    if (gDate && new Date(gDate).getTime() < now.getTime() - 4 * 3600000) return false;
+    if (activeFilter === "upcoming") return true;
+    if (activeFilter === "today")   return gDate === todayStr;
+    if (activeFilter === "weekend") return gDate >= todayStr && gDate <= weekendStr;
+    if (activeFilter === "top25")   return (game.homeTeam?.apRank || game.awayTeam?.apRank);
+    if (activeFilter === "lines")   return !!game.bettingLines;
+    if (activeFilter === "sharp")   return !!pred.sharpAlert || !!game.bettingLines?.sharpSide;
+    if (activeFilter === "injuries")return !!pred.injuryAlert;
+    return true;
+  }).sort((a, b) => {
+    if (sortBy === "confidence") {
+      const w = { elite:4, high:3, medium:2, low:1 };
+      return (w[b.pred.confidence]||0) - (w[a.pred.confidence]||0);
+    }
+    if (sortBy === "edge") {
+      const ae = a.pred.spreadPick?.edge || 0;
+      const be = b.pred.spreadPick?.edge || 0;
+      return be - ae;
+    }
+    // date
+    return (a.game.date || "").localeCompare(b.game.date || "");
+  });
+}
+
+// ── Render stats strip ───────────────────────────────────────────
+function renderStats(preds) {
+  const today = preds.filter(p => p.game.date === todayStr).length;
+  const withLines = preds.filter(p => p.game.bettingLines).length;
+  const elite = preds.filter(p => p.pred.confidence === "elite").length;
+  const sharp = preds.filter(p => p.pred.sharpAlert || p.game.bettingLines?.sharpSide).length;
+  document.getElementById("pg-stats").innerHTML = [
+    { val: preds.length, lbl: "Upcoming" },
+    { val: today || "—", lbl: "Today" },
+    { val: elite, lbl: "Elite Picks" },
+    { val: withLines, lbl: "Has Lines" },
+  ].map(s => `
+    <div class="pg-stat-card">
+      <div class="pg-stat-val">${s.val}</div>
+      <div class="pg-stat-lbl">${s.lbl}</div>
+    </div>`).join("");
+}
+
+// ── Alert ribbon ─────────────────────────────────────────────────
+function renderAlerts(preds) {
+  const alerts = [];
+
+  // Big line movements
+  const bigMoves = preds.filter(p => {
+    const bl = p.game.bettingLines;
+    if (!bl || bl.openSpread == null || bl.spread == null) return false;
+    return Math.abs(bl.spread - bl.openSpread) >= 2;
+  }).slice(0, 3);
+  if (bigMoves.length) {
+    const names = bigMoves.map(p => {
+      const bl = p.game.bettingLines;
+      const dir = bl.spread < bl.openSpread ? "home covered" : "away covered";
+      return `${p.game.homeTeam?.abbreviation} vs ${p.game.awayTeam?.abbreviation} (${fmtSpread(bl.openSpread)} → ${fmtSpread(bl.spread)}, ${dir})`;
+    }).join(" · ");
+    alerts.push({ cls: "pg-alert-line-move", icon: "📈", label: "LINE MOVEMENT", msg: names });
+  }
+
+  // Major injuries
+  const injGames = preds.filter(p => p.pred.injuryAlert).slice(0, 3);
+  if (injGames.length) {
+    const names = injGames.map(p => `${p.game.homeTeam?.abbreviation} vs ${p.game.awayTeam?.abbreviation}`).join(" · ");
+    alerts.push({ cls: "pg-alert-injury", icon: "🩹", label: "INJURY ALERT", msg: `Key players questionable/out in: ${names}` });
+  }
+
+  // Sharp action
+  const sharpGames = preds.filter(p => p.pred.sharpAlert).slice(0, 3);
+  if (sharpGames.length) {
+    const names = sharpGames.map(p => `${p.game.homeTeam?.abbreviation} vs ${p.game.awayTeam?.abbreviation}`).join(" · ");
+    alerts.push({ cls: "pg-alert-sharp", icon: "💰", label: "SHARP MONEY", msg: `Smart money detected on: ${names}` });
+  }
+
+  document.getElementById("pg-alerts").innerHTML = alerts.map(a => `
+    <div class="pg-alert-ribbon ${a.cls}">
+      <span style="font-size:1rem;flex-shrink:0">${a.icon}</span>
+      <div>
+        <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:inherit;margin-bottom:3px">${a.label}</div>
+        <div style="color:var(--text-soft)">${a.msg}</div>
+      </div>
+    </div>`).join("");
+}
+
+// ── Render a single game card ────────────────────────────────────
+function renderCard({ game, pred }) {
+  const home = game.homeTeam, away = game.awayTeam;
+  if (!home || !away) return "";
+
+  const homeWinPct = pred.homeWinPct != null ? pred.homeWinPct : 50;
+  const awayWinPct = 100 - homeWinPct;
+
+  const bl = game.bettingLines;
+  const spread   = bl ? fmtSpread(bl.spread) : "—";
+  const total    = bl ? `O/U ${bl.total}` : "—";
+  const openSprd = bl?.openSpread != null ? fmtSpread(bl.openSpread) : null;
+  const moveBadge = bl ? lineMoveBadge(bl.openSpread, bl.spread) : "";
+
+  const sharpSide = bl?.sharpSide || (pred.sharpAlert ? "home" : null);
+  const sharpLabel = sharpSide ? (sharpSide === "home" ? `▶ ${home.abbreviation}` : `▶ ${away.abbreviation}`) : "—";
+
+  const pubPct = bl?.homePublicPct != null ? bl.homePublicPct : (bl?.publicBettingHome || null);
+
+  const wx = game.weather ? wxBadge(game.weather) : "";
+  const countdown = fmtCountdown(game.date);
+  const gameId = game.id;
+
+  const confW = { elite: "pg-pick-elite", high: "pg-pick-high", medium: "pg-pick-med", low: "pg-pick-low" };
+  const confLbl = { elite: "ELITE PICK", high: "HIGH CONF", medium: "MEDIUM", low: "LOW CONF" };
+  const pickCls = confW[pred.confidence] || "pg-pick-low";
+  const pickTxt = confLbl[pred.confidence] || "LOW CONF";
+
+  const sp = pred.spreadPick;
+  const atsPick = sp && sp.side !== "no-bet"
+    ? `${sp.side === "home" ? home.abbreviation : away.abbreviation} ${sp.side === "home" ? spread : fmtSpread(-bl?.spread)}`
+    : (pred.predictedSpread ? `${pred.predictedSpread > 0 ? away.abbreviation : home.abbreviation} ML` : "No ATS Edge");
+
+  // Live score if in progress
+  const liveScores = window.__espnLiveScores || [];
+  const liveGame = liveScores.find(s =>
+    s.status === "STATUS_IN_PROGRESS" &&
+    (s.homeTeam?.toLowerCase().includes((home.name||"").split(" ").pop().toLowerCase()) ||
+     s.awayTeam?.toLowerCase().includes((away.name||"").split(" ").pop().toLowerCase()))
+  );
+  const liveHtml = liveGame
+    ? `<span class="pg-live-score">LIVE ${liveGame.awayScore}–${liveGame.homeScore} Q${liveGame.period} ${liveGame.clock}</span>`
+    : countdown;
+
+  // Injuries
+  const allPlayers = window.KEY_PLAYERS || [];
+  const homeInj = injuryTags(allPlayers, home.id, 3);
+  const awayInj = injuryTags(allPlayers, away.id, 3);
+  const injHtml = (homeInj || awayInj)
+    ? `<div class="pg-injuries">
+        <span class="pg-inj-label">Injuries</span>
+        ${awayInj}${homeInj}
+       </div>` : "";
+
+  // Line movement cell detail
+  const lineDetail = openSprd && moveBadge
+    ? `<div class="pg-signal-sub">${openSprd} open ${moveBadge}</div>`
+    : `<div class="pg-signal-sub">${openSprd ? `Open: ${openSprd}` : "No history"}</div>`;
+
+  return `
+    <div class="pg-card" data-game-id="${gameId}">
+
+      <!-- Header: teams + win prob bar -->
+      <div class="pg-card-header" style="background:linear-gradient(135deg,${away.color}10 0%,var(--card) 45%,${home.color}10 100%)">
+        <div class="pg-teams-row">
+          <div>
+            <div class="pg-team-logo" style="background:${away.color}">${away.abbreviation.slice(0,3)}</div>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div class="pg-team-name">${away.apRank ? `#${away.apRank} ` : ""}${away.name}</div>
+            <div class="pg-team-sub">${away.record || ""}${away.conference ? " · " + away.conference : ""} · Away</div>
+          </div>
+          <div class="pg-vs">VS</div>
+          <div style="text-align:right;flex:1;min-width:0">
+            <div class="pg-team-name" style="text-align:right">${home.apRank ? `#${home.apRank} ` : ""}${home.name}</div>
+            <div class="pg-team-sub" style="text-align:right">${home.record || ""}${home.conference ? " · " + home.conference : ""} · Home</div>
+          </div>
+          <div>
+            <div class="pg-team-logo" style="background:${home.color}">${home.abbreviation.slice(0,3)}</div>
+          </div>
+        </div>
+
+        <!-- Win probability bar -->
+        <div>
+          <div class="pg-prob-track">
+            <div style="display:flex;height:100%">
+              <div class="pg-prob-fill" style="width:${awayWinPct}%;background:${away.color};border-radius:3px 0 0 3px"></div>
+              <div class="pg-prob-fill" style="width:${homeWinPct}%;background:${home.color};border-radius:0 3px 3px 0"></div>
+            </div>
+          </div>
+          <div class="pg-prob-labels" style="margin-top:3px">
+            <span style="color:${away.color};font-weight:800">${awayWinPct.toFixed(0)}%</span>
+            <span style="font-size:.55rem;color:var(--muted)">WIN PROBABILITY</span>
+            <span style="color:${home.color};font-weight:800">${homeWinPct.toFixed(0)}%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meta: time, venue, network, countdown -->
+      <div class="pg-meta">
+        ${game.date ? `<div class="pg-meta-item">📅 <strong>${fmtDate(game.date)}</strong></div>` : ""}
+        ${game.time ? `<div class="pg-meta-item">🕐 <strong>${game.time} ET</strong></div>` : ""}
+        ${game.venue ? `<div class="pg-meta-item">📍 <strong>${game.venue}</strong></div>` : ""}
+        ${game.network ? `<div class="pg-meta-item">📺 <strong>${game.network}</strong></div>` : ""}
+        ${wx}
+        ${liveHtml}
+      </div>
+
+      <!-- Signals: spread, total, sharp, public, line move -->
+      <div class="pg-signals">
+        <div class="pg-signal-cell">
+          <div class="pg-signal-label">Spread</div>
+          <div class="pg-signal-val">${spread}</div>
+          ${lineDetail}
+        </div>
+        <div class="pg-signal-cell">
+          <div class="pg-signal-label">Total</div>
+          <div class="pg-signal-val">${total}</div>
+          <div class="pg-signal-sub">${pred.homeExpected != null ? `Model: ${pred.homeExpected.toFixed(0)}-${pred.awayExpected.toFixed(0)}` : "No model pred"}</div>
+        </div>
+        <div class="pg-signal-cell">
+          <div class="pg-signal-label">Sharp $</div>
+          <div class="pg-signal-val" style="color:${sharpSide ? "var(--primary)" : "var(--muted)"}">${sharpLabel}</div>
+          <div class="pg-signal-sub">${pred.sharpAlert ? "Confirmed" : bl?.pinnacleSpread != null ? "Pinnacle tracked" : "No signal"}</div>
+        </div>
+      </div>
+
+      ${pubPct != null ? `
+      <div style="padding:8px 18px;border-top:1px solid var(--border)">
+        <div style="font-size:.55rem;font-weight:900;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Public Betting Split</div>
+        ${publicSplitBar(pubPct)}
+      </div>` : ""}
+
+      <!-- Injuries -->
+      ${injHtml}
+
+      <!-- Footer: ATS pick + confidence + deep dive -->
+      <div class="pg-card-footer">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="pg-pick-chip ${pickCls}">${pickTxt}</span>
+          <span style="font-size:.75rem;font-weight:800;color:var(--text)">${atsPick}</span>
+          ${pred.spreadPick?.edge ? `<span style="font-size:.62rem;color:var(--muted)">Edge: ${pred.spreadPick.edge.toFixed(1)}</span>` : ""}
+        </div>
+        <a class="pg-dive-btn" href="game.html?id=${gameId}">Full Analysis →</a>
+      </div>
+
+    </div>`;
+}
+
+// ── Main render ──────────────────────────────────────────────────
+function render() {
+  const preds = getFiltered();
+  renderStats(getFiltered.bind(null)());   // stats always from full "upcoming" set
+  renderAlerts(preds);
+
+  if (!preds.length) {
+    document.getElementById("pg-cards").innerHTML = `
+      <div class="pg-empty">
+        <div class="pg-empty-icon">🏈</div>
+        <div class="pg-empty-title">No games match this filter</div>
+        <div class="pg-empty-sub">Try "Upcoming" to see all scheduled games</div>
+      </div>`;
+    return;
+  }
+  document.getElementById("pg-cards").innerHTML = preds.map(renderCard).join("");
+}
+
+// Stats always off all upcoming
+function renderStats(preds) {
+  const upcoming = allPreds.filter(({ game }) => {
+    const gDate = game.date || "";
+    return !gDate || new Date(gDate).getTime() >= Date.now() - 4 * 3600000;
+  });
+  const todayCount  = upcoming.filter(p => p.game.date === todayStr).length;
+  const withLines   = upcoming.filter(p => p.game.bettingLines).length;
+  const eliteCount  = upcoming.filter(p => p.pred.confidence === "elite").length;
+  document.getElementById("pg-stats").innerHTML = [
+    { val: upcoming.length, lbl: "Upcoming" },
+    { val: todayCount || "—", lbl: "Today" },
+    { val: eliteCount, lbl: "Elite Picks" },
+    { val: withLines, lbl: "Has Lines" },
+  ].map(s => `
+    <div class="pg-stat-card">
+      <div class="pg-stat-val">${s.val}</div>
+      <div class="pg-stat-lbl">${s.lbl}</div>
+    </div>`).join("");
+}
+
+render();
+
+// ── Filter chips ─────────────────────────────────────────────────
+document.getElementById("pg-filters").addEventListener("click", e => {
+  const chip = e.target.closest(".pg-chip");
+  if (!chip) return;
+  document.querySelectorAll(".pg-chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active");
+  activeFilter = chip.dataset.f;
+  render();
+});
+
+// ── Sort chips ───────────────────────────────────────────────────
+document.getElementById("pg-sort").addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  document.querySelectorAll("#pg-sort .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active");
+  sortBy = chip.dataset.s;
+  render();
+});
+
+// ── Live data refresh ────────────────────────────────────────────
+window.addEventListener("liveDataReady", () => {
+  rebuildPreds();
+  render();
+});
+
+window.addEventListener("liveScoreUpdate", () => {
+  // Re-render cards only (scores changed, not predictions)
+  render();
+});
+
+window.addEventListener("liveOddsUpdate", () => {
+  // Merge updated lines into GAMES then re-render
+  const lines = window.__liveOddsLines || {};
+  GAMES.forEach(g => {
+    const home = (g.homeTeam || "").toLowerCase();
+    const away = (g.awayTeam || "").toLowerCase();
+    const key = Object.keys(lines).find(k => {
+      const parts = k.toLowerCase().split("|");
+      return parts.some(p => home.includes(p) || p.includes(home)) &&
+             parts.some(p => away.includes(p) || p.includes(away));
+    });
+    if (!key) return;
+    if (!g.bettingLines) g.bettingLines = {};
+    const l = lines[key];
+    if (l.homeSpread != null) g.bettingLines.spread = l.homeSpread;
+    if (l.total != null)      g.bettingLines.total  = l.total;
+  });
+  rebuildPreds();
+  render();
+});
+</script>
+
+<script src="../js/config.js"></script>
+<script src="../js/live.js"></script>
+</body>
+</html>

@@ -228,6 +228,7 @@
     <div class="nav-links">
       <a class="nav-link" href="../index.html">Home</a>
       <a class="nav-link active" href="games.html">Games</a>
+      <a class="nav-link" href="pregame.html">Pre-Game</a>
       <a class="nav-link" href="parlay.html">Parlay</a>
       <a class="nav-link" href="teams.html">Teams</a>
     </div>
@@ -529,6 +530,131 @@ function renderGamePage(gData) {
             <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${severityColor(topXf.severity)};margin-bottom:2px">#1 X-Factor · ${(topXf.severity||"").toUpperCase()}</div>
             <div style="font-size:.78rem;color:var(--text-soft);line-height:1.5"><strong style="color:var(--text)">${topXf.title}</strong> — ${topXf.description}</div>
           </div>
+        </div>` : ""}
+      </div>`;
+  }
+
+  /* 3aa — Pre-Game Report Card */
+  function renderPreGameReport() {
+    const bl = game.bettingLines;
+    const wx = game.weather;
+    const si = game.socialIntel || {};
+
+    // Line movement
+    const openSprd = bl?.openSpread != null ? fmtSpread(bl.openSpread) : null;
+    const curSprd  = bl?.spread     != null ? fmtSpread(bl.spread)     : null;
+    let lineMoveTxt = "";
+    if (openSprd && curSprd && bl.openSpread !== bl.spread) {
+      const diff = bl.spread - bl.openSpread;
+      const dir  = diff < 0 ? "home covered ↓" : "away covered ↑";
+      lineMoveTxt = `<span style="color:var(--primary);font-weight:800">${Math.abs(diff).toFixed(1)} pts ${dir}</span>`;
+    }
+
+    // Win probability
+    const homeW = pred.homeWinPct != null ? pred.homeWinPct : 50;
+    const awayW = 100 - homeW;
+
+    // Kickoff countdown
+    const diffMs = game.date ? new Date(game.date).getTime() - Date.now() : -1;
+    let kickoffTxt = "";
+    if (diffMs > 0) {
+      const h = Math.floor(diffMs / 3600000);
+      kickoffTxt = h < 24 ? `${h}h to kickoff` : `${Math.floor(h/24)}d ${h%24}h`;
+    }
+
+    // Public betting
+    const pubHome = bl?.homePublicPct ?? bl?.publicBettingHome;
+    const pubAway = pubHome != null ? 100 - pubHome : null;
+
+    // Sharp
+    const sharpSide = bl?.sharpSide || (pred.sharpAlert ? "home" : null);
+    const sharpTeam = sharpSide === "home" ? home.abbreviation : sharpSide === "away" ? away.abbreviation : null;
+
+    // Weather summary
+    let wxTxt = "Dome / N/A";
+    if (wx) {
+      if (wx.indoors) wxTxt = "Indoor stadium";
+      else {
+        const parts = [];
+        if (wx.tempF != null) parts.push(`${wx.tempF}°F`);
+        if (wx.windMph != null && wx.windMph > 5) parts.push(`${wx.windMph}mph wind`);
+        if (wx.condition) parts.push(wx.condition);
+        wxTxt = parts.join(", ") || "Clear";
+      }
+    }
+
+    // Injury summary
+    const injuredPlayers = allPlayers.filter(p =>
+      (p.teamId === home.id || p.teamId === away.id) &&
+      p.injuryStatus && p.injuryStatus !== "healthy" && p.injuryStatus !== "active"
+    );
+    const injHtml = injuredPlayers.slice(0, 6).map(p => {
+      const t = p.teamId === home.id ? home : away;
+      const s = (p.injuryStatus || "").toLowerCase();
+      const cls = s === "out" || s === "ir" ? "color:var(--danger)" : "color:var(--gold)";
+      const lbl = s === "out" || s === "ir" ? "OUT" : "Q";
+      return `<span style="font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(139,152,165,.08);border:1px solid var(--border);margin:2px">${p.name || p.position} (${t.abbreviation}) · <span style="${cls}">${lbl}</span></span>`;
+    }).join("");
+
+    return `
+      <div style="border:1px solid rgba(16,185,129,.25);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:20px;background:rgba(16,185,129,.04)">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--primary);animation:pulse 2s infinite;display:inline-block"></span>
+            <span style="font-size:.62rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary)">Pre-Game Report</span>
+          </div>
+          ${kickoffTxt ? `<span style="font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary)">${kickoffTxt}</span>` : ""}
+        </div>
+
+        <!-- Win probability bar -->
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;font-size:.6rem;font-weight:700;margin-bottom:4px">
+            <span style="color:${away.color}">${away.abbreviation} ${awayW.toFixed(0)}%</span>
+            <span style="color:var(--muted);letter-spacing:.5px">WIN PROBABILITY</span>
+            <span style="color:${home.color}">${homeW.toFixed(0)}% ${home.abbreviation}</span>
+          </div>
+          <div style="height:8px;border-radius:4px;overflow:hidden;display:flex">
+            <div style="width:${awayW}%;background:${away.color};border-radius:4px 0 0 4px"></div>
+            <div style="width:${homeW}%;background:${home.color};border-radius:0 4px 4px 0"></div>
+          </div>
+        </div>
+
+        <!-- Signal grid -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:12px">
+          <div style="padding:10px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface)">
+            <div style="font-size:.52rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Spread</div>
+            <div style="font-size:.92rem;font-weight:900;color:var(--text)">${curSprd || "TBD"}</div>
+            ${openSprd ? `<div style="font-size:.58rem;color:var(--muted);margin-top:2px">Open: ${openSprd} ${lineMoveTxt}</div>` : ""}
+          </div>
+          <div style="padding:10px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface)">
+            <div style="font-size:.52rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Total</div>
+            <div style="font-size:.92rem;font-weight:900;color:var(--text)">${bl?.total != null ? `O/U ${bl.total}` : "TBD"}</div>
+            ${pred.homeExpected != null ? `<div style="font-size:.58rem;color:var(--muted);margin-top:2px">Model: ${pred.homeExpected.toFixed(0)}-${pred.awayExpected.toFixed(0)}</div>` : ""}
+          </div>
+          <div style="padding:10px 12px;border-radius:var(--radius);border:1px solid ${sharpTeam ? "rgba(16,185,129,.3)" : "var(--border)"};background:${sharpTeam ? "rgba(16,185,129,.06)" : "var(--surface)"}">
+            <div style="font-size:.52rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Sharp $</div>
+            <div style="font-size:.92rem;font-weight:900;color:${sharpTeam ? "var(--primary)" : "var(--muted)"}">${sharpTeam ? "▶ " + sharpTeam : "No signal"}</div>
+            ${bl?.pinnacleSpread != null ? `<div style="font-size:.58rem;color:var(--muted);margin-top:2px">Pinnacle: ${fmtSpread(bl.pinnacleSpread)}</div>` : ""}
+          </div>
+          <div style="padding:10px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface)">
+            <div style="font-size:.52rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Weather</div>
+            <div style="font-size:.78rem;font-weight:800;color:var(--text-soft)">${wxTxt}</div>
+          </div>
+          ${pubHome != null ? `
+          <div style="padding:10px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface)">
+            <div style="font-size:.52rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Public Bets</div>
+            <div style="font-size:.78rem;font-weight:800;color:var(--text)">${Math.round(pubAway)}% ${away.abbreviation} · ${Math.round(pubHome)}% ${home.abbreviation}</div>
+            <div style="height:4px;border-radius:2px;overflow:hidden;display:flex;margin-top:4px">
+              <div style="width:${pubAway}%;background:var(--danger);border-radius:2px 0 0 2px"></div>
+              <div style="width:${pubHome}%;background:var(--primary);border-radius:0 2px 2px 0"></div>
+            </div>
+          </div>` : ""}
+        </div>
+
+        ${injHtml ? `
+        <div>
+          <div style="font-size:.52rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Injury Report</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px">${injHtml}</div>
         </div>` : ""}
       </div>`;
   }
@@ -2175,6 +2301,8 @@ function renderGamePage(gData) {
         </div>
       </div>
     </div>
+
+    ${safe(renderPreGameReport, "")}
 
     ${safe(renderKeyInsight, "")}
 
