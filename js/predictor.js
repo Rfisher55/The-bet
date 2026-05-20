@@ -22,6 +22,40 @@ function safeGet(obj, path, fallback = 0) {
   return path.split(".").reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), obj) ?? fallback;
 }
 
+/* ─── COLOR CONTRAST UTILITIES ────────────────────── */
+function _colorLum(hex) {
+  if (!hex || typeof hex !== 'string') return 0;
+  const c = hex.replace('#','').trim();
+  if (c.length === 3) { // expand shorthand
+    const r = parseInt(c[0]+c[0],16)/255, g = parseInt(c[1]+c[1],16)/255, b = parseInt(c[2]+c[2],16)/255;
+    const lin = x => x <= 0.03928 ? x/12.92 : Math.pow((x+0.055)/1.055, 2.4);
+    return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+  }
+  if (c.length < 6) return 0;
+  const r = parseInt(c.substr(0,2),16)/255, g = parseInt(c.substr(2,2),16)/255, b = parseInt(c.substr(4,2),16)/255;
+  const lin = x => x <= 0.03928 ? x/12.92 : Math.pow((x+0.055)/1.055, 2.4);
+  return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+}
+// Returns dark or light text color for best readability against the given background.
+function textForBg(hex) {
+  return _colorLum(hex) > 0.18 ? '#111827' : '#ffffff';
+}
+// Ensures a team color is bright enough to be readable as TEXT on the app's dark backgrounds.
+// Mixes very dark colors with white so they're always visible.
+function readableOnDark(hex) {
+  if (!hex || typeof hex !== 'string' || !hex.startsWith('#')) return '#94a3b8';
+  const lum = _colorLum(hex);
+  if (lum >= 0.07) return hex; // already bright enough
+  const c = hex.replace('#','');
+  if (c.length < 6) return hex;
+  const r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
+  const t = lum < 0.02 ? 0.65 : 0.45; // darken colors need more mixing
+  const rr = Math.round(r + (255-r)*t).toString(16).padStart(2,'0');
+  const gg = Math.round(g + (255-g)*t).toString(16).padStart(2,'0');
+  const bb = Math.round(b + (255-b)*t).toString(16).padStart(2,'0');
+  return `#${rr}${gg}${bb}`;
+}
+
 /* ═══════════════════════════════════════════════════
    CORE BASE MODEL FUNCTIONS (upgraded)
    ═══════════════════════════════════════════════════ */

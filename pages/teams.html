@@ -420,7 +420,7 @@ function renderCard(team, rank) {
         </div>
         <!-- Identity -->
         <div class="team-card-id">
-          <div class="team-logo team-logo-md" style="background:${team.color}">${team.abbreviation.slice(0,3)}</div>
+          <div class="team-logo team-logo-md" style="background:${team.color};color:${textForBg(team.color)}">${team.abbreviation.slice(0,3)}</div>
           <div style="flex:1;min-width:0">
             <div style="font-size:.95rem;font-weight:800;color:var(--text)">${team.name}</div>
             <div class="next-game-line">${nextGame}</div>
@@ -489,7 +489,7 @@ function renderListRow(team, rank) {
     <a class="team-list-row" href="games.html?teamId=${encodeURIComponent(team.id)}">
       <div class="tlr-rank" style="color:${rank<=3?"var(--gold)":"var(--muted)"}">${rank}</div>
       <div style="display:flex;align-items:center;gap:10px;min-width:0">
-        <div class="team-logo" style="background:${team.color};width:28px;height:28px;font-size:.55rem;flex-shrink:0">${team.abbreviation.slice(0,3)}</div>
+        <div class="team-logo" style="background:${team.color};width:28px;height:28px;font-size:.55rem;flex-shrink:0;color:${textForBg(team.color)}">${team.abbreviation.slice(0,3)}</div>
         <div style="min-width:0;flex:1">
           <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
             <div style="font-size:.85rem;font-weight:800;color:var(--text)">${team.name}</div>

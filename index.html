@@ -674,9 +674,9 @@ function renderHeroPick() {
       'Top Pick of the Week' +
     '</div>' +
     '<div class="top-pick-teams">' +
-      '<div class="team-logo team-logo-sm" style="background:' + away.color + '">' + away.abbreviation.slice(0,3) + '</div>' +
+      '<div class="team-logo team-logo-sm" style="background:' + away.color + ';color:' + textForBg(away.color) + '">' + away.abbreviation.slice(0,3) + '</div>' +
       '<span style="font-size:.75rem;font-weight:700;color:var(--muted)">@</span>' +
-      '<div class="team-logo team-logo-sm" style="background:' + home.color + '">' + home.abbreviation.slice(0,3) + '</div>' +
+      '<div class="team-logo team-logo-sm" style="background:' + home.color + ';color:' + textForBg(home.color) + '">' + home.abbreviation.slice(0,3) + '</div>' +
       '<div style="min-width:0">' +
         '<div class="top-pick-teams-name">' + away.name + ' @ ' + home.name + '</div>' +
         '<div class="top-pick-teams-meta">' + fmtDate(game.date) + ' &middot; ' + game.time + ' &middot; ' + game.network + '</div>' +
@@ -686,11 +686,11 @@ function renderHeroPick() {
     '<div class="top-pick-score">' +
       '<div class="top-pick-score-box">' +
         '<div class="top-pick-score-label">' + away.abbreviation + '</div>' +
-        '<div class="top-pick-score-val" style="color:' + away.color + '">' + awayScore + '</div>' +
+        '<div class="top-pick-score-val" style="color:' + readableOnDark(away.color) + '">' + awayScore + '</div>' +
       '</div>' +
       '<div class="top-pick-score-box">' +
         '<div class="top-pick-score-label">' + home.abbreviation + '</div>' +
-        '<div class="top-pick-score-val" style="color:' + home.color + '">' + homeScore + '</div>' +
+        '<div class="top-pick-score-val" style="color:' + readableOnDark(home.color) + '">' + homeScore + '</div>' +
       '</div>' +
       '<div class="top-pick-score-box">' +
         '<div class="top-pick-score-label">Win Prob</div>' +
@@ -736,9 +736,9 @@ function renderTopPicks() {
         '<span class="pick-rank-label">' + labels[i] + '</span>' +
       '</div>' +
       '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">' +
-        '<div class="team-logo team-logo-sm" style="background:' + game.awayTeam.color + '">' + game.awayTeam.abbreviation.slice(0,3) + '</div>' +
+        '<div class="team-logo team-logo-sm" style="background:' + game.awayTeam.color + ';color:' + textForBg(game.awayTeam.color) + '">' + game.awayTeam.abbreviation.slice(0,3) + '</div>' +
         '<span style="font-size:.75rem;color:var(--muted-l)">@</span>' +
-        '<div class="team-logo team-logo-sm" style="background:' + game.homeTeam.color + '">' + game.homeTeam.abbreviation.slice(0,3) + '</div>' +
+        '<div class="team-logo team-logo-sm" style="background:' + game.homeTeam.color + ';color:' + textForBg(game.homeTeam.color) + '">' + game.homeTeam.abbreviation.slice(0,3) + '</div>' +
         '<div style="margin-left:4px">' +
           '<div style="font-size:.88rem;font-weight:700;color:var(--text)">' + game.awayTeam.abbreviation + ' @ ' + game.homeTeam.abbreviation + '</div>' +
           '<div style="font-size:.7rem;color:var(--muted-l)">' + fmtDate(game.date) + ' &middot; ' + game.network + '</div>' +
@@ -778,7 +778,7 @@ function renderPowerRankings() {
     var sp = typeof t.spRating === "number" ? t.spRating.toFixed(1) : "—";
     return '<a class="power-item" href="pages/teams.html?team=' + t.id + '">' +
       '<span class="power-rank-num ' + (rankClasses[i] || "") + '">' + rankLabels[i] + '</span>' +
-      '<div class="team-logo team-logo-sm" style="background:' + (t.color || '#1a1a2e') + '">' + (t.abbreviation || t.name).slice(0,3) + '</div>' +
+      '<div class="team-logo team-logo-sm" style="background:' + (t.color || '#1a1a2e') + ';color:' + textForBg(t.color || '#1a1a2e') + '">' + (t.abbreviation || t.name).slice(0,3) + '</div>' +
       '<div class="power-team-name">' + t.name + '</div>' +
       '<div class="power-sp">SP+ <strong>' + sp + '</strong></div>' +
       '<div class="power-momentum" style="color:' + arrowColor + '">' + arrow + '</div>' +
@@ -862,7 +862,7 @@ function renderGameCard(game, pred, baseUrl) {
     '</div>' +
     '<div class="game-card-matchup">' +
       '<div class="team-chip">' +
-        '<div class="team-logo team-logo-md" style="background:' + game.awayTeam.color + '">' + game.awayTeam.abbreviation.slice(0,3) + '</div>' +
+        '<div class="team-logo team-logo-md" style="background:' + game.awayTeam.color + ';color:' + textForBg(game.awayTeam.color) + '">' + game.awayTeam.abbreviation.slice(0,3) + '</div>' +
         '<div>' +
           '<div class="team-name">' + game.awayTeam.name + '</div>' +
           '<div class="team-sub">' + game.awayTeam.mascot + ' · ' + (game.awayTeam.lastSeasonRecord || (game.awayTeam.wins + '-' + game.awayTeam.losses + " ('25)")) + '</div>' +
@@ -877,7 +877,7 @@ function renderGameCard(game, pred, baseUrl) {
           '<div class="team-name text-right">' + game.homeTeam.name + '</div>' +
           '<div class="team-sub text-right">' + game.homeTeam.mascot + ' · ' + (game.homeTeam.lastSeasonRecord || (game.homeTeam.wins + '-' + game.homeTeam.losses + " ('25)")) + '</div>' +
         '</div>' +
-        '<div class="team-logo team-logo-md" style="background:' + game.homeTeam.color + '">' + game.homeTeam.abbreviation.slice(0,3) + '</div>' +
+        '<div class="team-logo team-logo-md" style="background:' + game.homeTeam.color + ';color:' + textForBg(game.homeTeam.color) + '">' + game.homeTeam.abbreviation.slice(0,3) + '</div>' +
       '</div>' +
     '</div>' +
     '<div class="pred-row">' +

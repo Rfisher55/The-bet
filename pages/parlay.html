@@ -874,10 +874,10 @@ function renderGameList() {
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
           <div style="min-width:0;overflow:hidden">
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow:hidden">
-              <div class="team-logo" style="background:${away.color};width:22px;height:22px;font-size:.5rem;flex-shrink:0">${away.abbreviation.slice(0,3)}</div>
+              <div class="team-logo" style="background:${away.color};width:22px;height:22px;font-size:.5rem;flex-shrink:0;color:${textForBg(away.color)}">${away.abbreviation.slice(0,3)}</div>
               <span style="font-size:.82rem;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:90px">${away.name}</span>
               <span style="font-size:.7rem;color:var(--muted);flex-shrink:0">@</span>
-              <div class="team-logo" style="background:${home.color};width:22px;height:22px;font-size:.5rem;flex-shrink:0">${home.abbreviation.slice(0,3)}</div>
+              <div class="team-logo" style="background:${home.color};width:22px;height:22px;font-size:.5rem;flex-shrink:0;color:${textForBg(home.color)}">${home.abbreviation.slice(0,3)}</div>
               <span style="font-size:.82rem;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:90px">${home.name}</span>
             </div>
             <div style="font-size:.62rem;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>

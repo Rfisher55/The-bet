@@ -537,7 +537,7 @@ function buildHeader(a, b) {
     <div class="compare-header">
       <!-- Team A -->
       <div class="compare-team-side">
-        <div class="compare-logo" style="background:${a.color}">${a.abbreviation.slice(0, 4)}</div>
+        <div class="compare-logo" style="background:${a.color};color:${textForBg(a.color)}">${a.abbreviation.slice(0, 4)}</div>
         <div class="compare-team-info">
           <div class="compare-team-name">${a.name}</div>
           <div class="compare-team-sub">${a.mascot} · ${a.conference}</div>
@@ -552,7 +552,7 @@ function buildHeader(a, b) {
       </div>
       <!-- Team B -->
       <div class="compare-team-side right">
-        <div class="compare-logo" style="background:${b.color || '#334155'}">${b.abbreviation.slice(0, 4)}</div>
+        <div class="compare-logo" style="background:${b.color || '#334155'};color:${textForBg(b.color || '#334155')}">${b.abbreviation.slice(0, 4)}</div>
         <div class="compare-team-info">
           <div class="compare-team-name">${b.name}</div>
           <div class="compare-team-sub">${b.mascot} · ${b.conference}</div>
@@ -598,11 +598,11 @@ function buildWinProb(a, b, pred) {
         <div class="win-prob-teams">
           <div>
             <div class="win-prob-team-name">${a.name}</div>
-            <div class="win-prob-pct" style="color:${a.color}">${aWinPct}%</div>
+            <div class="win-prob-pct" style="color:${readableOnDark(a.color)}">${aWinPct}%</div>
           </div>
           <div style="text-align:right">
             <div class="win-prob-team-name">${b.name}</div>
-            <div class="win-prob-pct" style="color:${b.color || '#334155'};text-align:right">${bWinPct}%</div>
+            <div class="win-prob-pct" style="color:${readableOnDark(b.color || '#334155')};text-align:right">${bWinPct}%</div>
           </div>
         </div>
         <div class="win-prob-bar-track">
@@ -613,11 +613,11 @@ function buildWinProb(a, b, pred) {
       <!-- Predicted scores & picks -->
       <div class="win-prob-picks">
         <div class="pred-pick-cell">
-          <div class="pred-pick-val" style="color:${a.color}">${aScore}</div>
+          <div class="pred-pick-val" style="color:${readableOnDark(a.color)}">${aScore}</div>
           <div class="pred-pick-lbl">${a.abbreviation} Score</div>
         </div>
         <div class="pred-pick-cell">
-          <div class="pred-pick-val" style="color:${b.color || '#94a3b8'}">${bScore}</div>
+          <div class="pred-pick-val" style="color:${readableOnDark(b.color || '#94a3b8')}">${bScore}</div>
           <div class="pred-pick-lbl">${b.abbreviation} Score</div>
         </div>
         <div class="pred-pick-cell">
@@ -650,8 +650,8 @@ function buildStatTable(a, b) {
     const bWins = higherIsBetter ? numB > numA : numB < numA;
     const tied  = numA === numB;
 
-    const aStyle = !tied && aWins ? `color:${a.color};font-weight:900` : 'color:var(--text)';
-    const bStyle = !tied && bWins ? `color:${b.color || '#94a3b8'};font-weight:900` : 'color:var(--text)';
+    const aStyle = !tied && aWins ? `color:${readableOnDark(a.color)};font-weight:900` : 'color:var(--text)';
+    const bStyle = !tied && bWins ? `color:${readableOnDark(b.color || '#94a3b8')};font-weight:900` : 'color:var(--text)';
     const dispA = isNaN(numA) ? '—' : format(numA);
     const dispB = isNaN(numB) ? '—' : format(numB);
 
@@ -669,9 +669,9 @@ function buildStatTable(a, b) {
 
   const header = `
     <div class="stat-table-header">
-      <div class="stat-table-hdr-name" style="color:${a.color}">${a.name}</div>
+      <div class="stat-table-hdr-name" style="color:${readableOnDark(a.color)}">${a.name}</div>
       <div class="stat-table-hdr-center">STAT</div>
-      <div class="stat-table-hdr-name right" style="color:${b.color || '#94a3b8'}">${b.name}</div>
+      <div class="stat-table-hdr-name right" style="color:${readableOnDark(b.color || '#94a3b8')}">${b.name}</div>
     </div>`;
 
   return `
@@ -723,7 +723,7 @@ function buildCoaching(a, b) {
 
     return `
       <div class="coaching-card">
-        <div class="coaching-card-team" style="color:${team.color}">${team.name}</div>
+        <div class="coaching-card-team" style="color:${readableOnDark(team.color)}">${team.name}</div>
         <div class="coach-name">${team.coachName || '—'}</div>
         <div class="coach-record">${team.coachRecord || '—'}</div>
         ${cp.atsRecord ? `
@@ -802,7 +802,7 @@ function buildProgramHealth(a, b) {
 
     return `
       <div class="health-col">
-        <div class="health-col-title" style="color:${team.color}">
+        <div class="health-col-title" style="color:${readableOnDark(team.color)}">
           ${team.name}
           <span style="font-size:.6rem;font-weight:700;color:${momColor};margin-left:8px">${momLabel}</span>
         </div>
@@ -866,7 +866,7 @@ function buildAdvantages(a, b) {
       const dispMargin = margin < 1 ? margin.toFixed(1) : Math.round(margin);
       return `
         <div class="adv-chip" style="border-color:${color}40;background:${color}0a">
-          <div class="adv-chip-winner" style="color:${color}">ADV: ${winner.name}</div>
+          <div class="adv-chip-winner" style="color:${readableOnDark(color)}">ADV: ${winner.name}</div>
           <div class="adv-chip-stat">${c.label}</div>
           <div class="adv-chip-detail">Edge: +${dispMargin}${c.unit}</div>
         </div>`;

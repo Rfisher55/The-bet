@@ -244,20 +244,19 @@ select.field { cursor: pointer; }
 }
 /* 3. badge-elite: green gradient background */
 .badge-elite {
-  background: linear-gradient(135deg, rgba(16,185,129,.22), rgba(5,150,105,.18));
-  border-color: rgba(16,185,129,.55); color: var(--primary);
+  background: linear-gradient(135deg, rgba(16,185,129,.30), rgba(5,150,105,.25));
+  border-color: rgba(16,185,129,.7); color: #6ee7b7;
 }
-/* 3. badge-high: teal border style */
 .badge-high {
-  background: rgba(52,211,153,.12); border-color: rgba(52,211,153,.6);
-  color: #34d399; border-width: 1.5px;
+  background: rgba(52,211,153,.20); border-color: rgba(52,211,153,.7);
+  color: #6ee7b7; border-width: 1.5px;
 }
-.badge-medium { background: rgba(245,158,11,.15); border-color: rgba(245,158,11,.5); color: var(--gold); }
-.badge-low    { background: rgba(100,116,139,.15); border-color: rgba(100,116,139,.5); color: var(--muted-l); }
+.badge-medium { background: rgba(245,158,11,.22); border-color: rgba(245,158,11,.65); color: #fcd34d; }
+.badge-low    { background: rgba(100,116,139,.22); border-color: rgba(100,116,139,.6); color: #cbd5e1; }
 /* 3. badge-conf: accent/purple colors with distinct styling */
 .badge-conf {
-  background: linear-gradient(135deg, rgba(99,102,241,.18), rgba(129,140,248,.12));
-  border-color: rgba(129,140,248,.55); color: #a5b4fc;
+  background: linear-gradient(135deg, rgba(99,102,241,.35), rgba(129,140,248,.25));
+  border-color: rgba(129,140,248,.7); color: #e0e7ff;
 }
 .badge-ok     { background: rgba(16,185,129,.15); border-color: rgba(16,185,129,.4); color: var(--primary-l); }
 .badge-warn   { background: rgba(245,158,11,.15); border-color: rgba(245,158,11,.4); color: var(--gold); }
@@ -329,7 +328,7 @@ select.field { cursor: pointer; }
 .team-chip-r { flex-direction: row-reverse; text-align: right; }
 .team-logo {
   flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: .75rem; color: #fff;
+  font-weight: 800; font-size: .75rem; color: #fff; /* overridden inline by textForBg() */
   border-radius: 10px;
 }
 .team-logo-sm { width: 36px; height: 36px; border-radius: 8px; font-size: .7rem; }
@@ -357,10 +356,10 @@ select.field { cursor: pointer; }
 .pick-chip-label { color: var(--muted); margin-bottom: 4px; font-size: .65rem; text-transform: uppercase; letter-spacing: .5px; }
 .pick-chip-val { font-weight: 800; font-size: .85rem; }
 .pick-chip-sub { font-size: .65rem; color: var(--muted); margin-top: 2px; }
-.pick-home { border-color: rgba(99,102,241,.4); background: rgba(99,102,241,.08); }
-.pick-home .pick-chip-val { color: var(--accent); }
-.pick-away { border-color: rgba(245,158,11,.4); background: rgba(245,158,11,.08); }
-.pick-away .pick-chip-val { color: var(--gold); }
+.pick-home { border-color: rgba(99,102,241,.6); background: rgba(99,102,241,.15); }
+.pick-home .pick-chip-val { color: #c7d2fe; }
+.pick-away { border-color: rgba(245,158,11,.6); background: rgba(245,158,11,.15); }
+.pick-away .pick-chip-val { color: #fde68a; }
 .pick-over { border-color: rgba(16,185,129,.4); background: rgba(16,185,129,.08); }
 .pick-over .pick-chip-val { color: var(--primary); }
 .pick-under { border-color: rgba(239,68,68,.4); background: rgba(239,68,68,.08); }
