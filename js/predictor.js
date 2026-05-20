@@ -40,20 +40,39 @@ function _colorLum(hex) {
 function textForBg(hex) {
   return _colorLum(hex) > 0.18 ? '#111827' : '#ffffff';
 }
-// Ensures a team color is bright enough to be readable as TEXT on the app's dark backgrounds.
-// Mixes very dark colors with white so they're always visible.
+// Ensures a team color is readable as TEXT on the app's dark card backgrounds (#131f35).
+// Preserves the team's hue — only bumps HSL lightness to a minimum of 70%.
+// Dark navy stays blue, crimson stays red, dark green stays green — just brighter.
 function readableOnDark(hex) {
   if (!hex || typeof hex !== 'string' || !hex.startsWith('#')) return '#94a3b8';
-  const lum = _colorLum(hex);
-  if (lum >= 0.07) return hex; // already bright enough
-  const c = hex.replace('#','');
-  if (c.length < 6) return hex;
-  const r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
-  const t = lum < 0.02 ? 0.65 : 0.45; // darken colors need more mixing
-  const rr = Math.round(r + (255-r)*t).toString(16).padStart(2,'0');
-  const gg = Math.round(g + (255-g)*t).toString(16).padStart(2,'0');
-  const bb = Math.round(b + (255-b)*t).toString(16).padStart(2,'0');
-  return `#${rr}${gg}${bb}`;
+  let c = hex.replace('#','').trim();
+  if (c.length === 3) c = c[0]+c[0]+c[1]+c[1]+c[2]+c[2];
+  if (c.length < 6) return '#94a3b8';
+
+  // RGB → HSL
+  const ri = parseInt(c.substr(0,2),16)/255;
+  const gi = parseInt(c.substr(2,2),16)/255;
+  const bi = parseInt(c.substr(4,2),16)/255;
+  const max = Math.max(ri,gi,bi), min = Math.min(ri,gi,bi), d = max-min;
+  let h=0, s=0, l=(max+min)/2;
+  if (d) {
+    s = l>0.5 ? d/(2-max-min) : d/(max+min);
+    if (max===ri) h=((gi-bi)/d+(gi<bi?6:0))/6;
+    else if (max===gi) h=((bi-ri)/d+2)/6;
+    else h=((ri-gi)/d+4)/6;
+  }
+
+  const MIN_L = 0.70; // guarantees readability on dark backgrounds while keeping team hue
+  if (l >= MIN_L) return hex; // already bright enough — return original unchanged
+
+  // Bump lightness only, keep hue + saturation intact
+  l = MIN_L;
+  function hsl2rgb(p,q,t){if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<.5)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p;}
+  const q2=l+s-l*s, p2=2*l-q2;
+  const nr=Math.round(hsl2rgb(p2,q2,h+1/3)*255);
+  const ng=Math.round(hsl2rgb(p2,q2,h)*255);
+  const nb=Math.round(hsl2rgb(p2,q2,h-1/3)*255);
+  return '#'+[nr,ng,nb].map(v=>Math.max(0,Math.min(255,v)).toString(16).padStart(2,'0')).join('');
 }
 
 /* ═══════════════════════════════════════════════════
