@@ -196,6 +196,9 @@ const LIVE = (() => {
   let _autoRefreshInterval  = null;
   let _relativeTimeInterval = null;
   let _rateLimitRetryTimer  = null;
+  let _pregenRefreshInterval = null;
+  let _liveScoreInterval     = null;
+  let _oddsPollingInterval   = null;
 
   const ENDPOINT_COUNT = 32; // 28 CFBD + 1 ESPN schedule + 1 ESPN news + 1 Reddit + 1 spare
 
@@ -806,12 +809,16 @@ const LIVE = (() => {
     _autoRefreshInterval = setInterval(() => {
       const key = apiKey || getKey();
       if (!key) return;
-      // Signal badge that a refresh is in progress
       state = { ...state, status: "refreshing" };
       updateBadge();
       localStorage.removeItem(CACHE_STORE);
       fetchAll(key, true).catch(e => console.warn("[LIVE] Auto-refresh failed:", e.message));
     }, 5 * 60 * 1000);
+
+    // Real-time supplements — run regardless of API key
+    _startPregenRefresh();    // pick up GitHub Actions commits automatically
+    _startLiveScorePolling(); // 60-second ESPN score updates when games are live
+    _startOddsPolling();      // live line movements if ODDS API key is saved
   }
 
   // ── Update relative-time badge text every 30 s ───────────────
@@ -820,6 +827,144 @@ const LIVE = (() => {
     _relativeTimeInterval = setInterval(() => {
       if (state.status === "live" || state.status === "stale") updateBadge();
     }, 30 * 1000);
+  }
+
+  // ── Re-fetch data/games-2026.json every 10 min (picks up GitHub Actions commits) ──
+  function _startPregenRefresh() {
+    if (_pregenRefreshInterval) return;
+    _pregenRefreshInterval = setInterval(() => {
+      const base = window.location.pathname.includes("/pages/") ? "../" : "./";
+      fetch(base + "data/games-2026.json", { cache: "no-cache" })
+        .then(r => r.ok ? r.json() : null)
+        .then(d => {
+          if (!d || !Array.isArray(d.games) || d.games.length < 50) return;
+          if (d.generated === "2026-01-01T00:00:00.000Z") return;
+          const ageH = (Date.now() - new Date(d.generated).getTime()) / 3600000;
+          if (ageH > 12) return;
+          if (!window.GAMES) return;
+          // Skip if we already have this version
+          if (window.__pregenGeneratedAt && d.generated <= window.__pregenGeneratedAt) return;
+          window.__pregenGeneratedAt = d.generated;
+
+          const idxById  = new Map(GAMES.map((g, i) => [g.id, i]));
+          const idxByKey = new Map(GAMES.map((g, i) => [g.week + "|" + g.homeTeamId + "|" + g.awayTeamId, i]));
+          let updated = 0, added = 0;
+          d.games.forEach(g => {
+            if (idxById.has(g.id)) {
+              const i = idxById.get(g.id);
+              if (g.bettingLines && JSON.stringify(g.bettingLines) !== JSON.stringify(GAMES[i].bettingLines)) {
+                GAMES[i].bettingLines = g.bettingLines; updated++;
+              }
+              if (g.homeScore != null) { GAMES[i].homeScore = g.homeScore; GAMES[i].awayScore = g.awayScore; updated++; }
+              return;
+            }
+            const mk = g.week + "|" + g.homeTeamId + "|" + g.awayTeamId;
+            if (idxByKey.has(mk)) {
+              const i = idxByKey.get(mk);
+              if (g.bettingLines && !GAMES[i].bettingLines) { GAMES[i].bettingLines = g.bettingLines; updated++; }
+              return;
+            }
+            GAMES.push(g); added++;
+          });
+          if (d.apRanks && window.TEAMS) {
+            Object.keys(d.apRanks).forEach(id => { if (TEAMS[id]) TEAMS[id].apRank = d.apRanks[id]; });
+          }
+          if (updated > 0 || added > 0) {
+            console.log(`[PREGEN REFRESH] +${added} games, ${updated} updated — from Actions commit ${new Date(d.generated).toLocaleTimeString()}`);
+            window.dispatchEvent(new CustomEvent("liveDataReady", { detail: { _fromPregen: true, fetchedAt: d.generated } }));
+          }
+        })
+        .catch(() => {});
+    }, 10 * 60 * 1000); // every 10 minutes
+  }
+
+  // ── Poll ESPN live scores every 60 s when games are in progress ──
+  function _startLiveScorePolling() {
+    if (_liveScoreInterval) return;
+    let consecutiveEmpty = 0;
+
+    async function pollOnce() {
+      try {
+        const r = await fetch(`${ESPN_BASE}/scoreboard?groups=80&limit=50`, { cache: "no-cache" });
+        if (!r.ok) return;
+        const d = await r.json();
+        const scores = (d.events || []).map(e => {
+          const comps = e.competitions?.[0];
+          const home  = comps?.competitors?.find(c => c.homeAway === "home");
+          const away  = comps?.competitors?.find(c => c.homeAway === "away");
+          return {
+            id:        e.id,
+            status:    e.status?.type?.name || "pre",
+            clock:     e.status?.displayClock || "",
+            period:    e.status?.period || 0,
+            homeTeam:  home?.team?.location || "",
+            homeScore: home?.score || "0",
+            awayTeam:  away?.team?.location || "",
+            awayScore: away?.score || "0",
+          };
+        });
+        const live = scores.filter(s => s.status === "STATUS_IN_PROGRESS");
+        if (!live.length) {
+          consecutiveEmpty++;
+          // After 10 consecutive empty polls (~10 min), stop polling to save quota
+          if (consecutiveEmpty >= 10) {
+            clearInterval(_liveScoreInterval);
+            _liveScoreInterval = null;
+            console.log("[LIVE SCORES] No active games — paused polling");
+          }
+          return;
+        }
+        consecutiveEmpty = 0;
+        window.__espnLiveScores = scores;
+        window.dispatchEvent(new CustomEvent("liveScoreUpdate", { detail: { scores, liveCount: live.length } }));
+        console.log(`[LIVE SCORES] ${live.length} game(s) in progress`);
+      } catch {}
+    }
+
+    _liveScoreInterval = setInterval(pollOnce, 60 * 1000);
+    pollOnce(); // check immediately
+  }
+
+  // ── Poll The Odds API for live line movements (requires user key in localStorage) ──
+  function _startOddsPolling() {
+    const ODDS_KEY_STORE = "theBet_oddsApiKey";
+    const oddsKey = localStorage.getItem(ODDS_KEY_STORE);
+    if (!oddsKey || _oddsPollingInterval) return;
+
+    async function pollOdds() {
+      try {
+        const url = `https://api.the-odds-api.com/v4/sports/americanfootball_ncaaf/odds/?apiKey=${oddsKey}&regions=us&markets=spreads,totals&oddsFormat=american`;
+        const r = await fetch(url, { cache: "no-cache" });
+        if (r.status === 401 || r.status === 403) {
+          clearInterval(_oddsPollingInterval); _oddsPollingInterval = null; return;
+        }
+        if (!r.ok) return;
+        const events = await r.json();
+        if (!Array.isArray(events)) return;
+
+        const linesMap = {};
+        events.forEach(ev => {
+          const books = ev.bookmakers || [];
+          const primary = books.find(b => b.key === "draftkings") || books.find(b => b.key === "fanduel") || books[0];
+          if (!primary) return;
+          const spreads = primary.markets?.find(m => m.key === "spreads")?.outcomes || [];
+          const totals  = primary.markets?.find(m => m.key === "totals")?.outcomes  || [];
+          const homeSpread = spreads.find(o => o.name === ev.home_team)?.point;
+          const total      = totals.find(o => o.name === "Over")?.point;
+          const mk = [ev.home_team, ev.away_team].sort().join("|");
+          linesMap[mk] = { homeSpread, total, homeTeam: ev.home_team, awayTeam: ev.away_team };
+        });
+
+        if (Object.keys(linesMap).length) {
+          window.__liveOddsLines = linesMap;
+          window.dispatchEvent(new CustomEvent("liveOddsUpdate", { detail: { linesMap, count: Object.keys(linesMap).length } }));
+          console.log(`[ODDS API] ${Object.keys(linesMap).length} live lines updated`);
+        }
+      } catch {}
+    }
+
+    _oddsPollingInterval = setInterval(pollOdds, 5 * 60 * 1000);
+    pollOdds();
   }
 
   // ── Rating helpers using real data ──────────────────────────
@@ -2099,9 +2244,12 @@ const LIVE = (() => {
   function forceClear() {
     clearKey();
     localStorage.removeItem(CACHE_STORE);
-    if (_autoRefreshInterval)  { clearInterval(_autoRefreshInterval);  _autoRefreshInterval  = null; }
-    if (_relativeTimeInterval) { clearInterval(_relativeTimeInterval); _relativeTimeInterval = null; }
-    if (_rateLimitRetryTimer)  { clearTimeout(_rateLimitRetryTimer);   _rateLimitRetryTimer  = null; }
+    if (_autoRefreshInterval)   { clearInterval(_autoRefreshInterval);   _autoRefreshInterval   = null; }
+    if (_relativeTimeInterval)  { clearInterval(_relativeTimeInterval);  _relativeTimeInterval  = null; }
+    if (_rateLimitRetryTimer)   { clearTimeout(_rateLimitRetryTimer);    _rateLimitRetryTimer   = null; }
+    if (_pregenRefreshInterval) { clearInterval(_pregenRefreshInterval); _pregenRefreshInterval = null; }
+    if (_liveScoreInterval)     { clearInterval(_liveScoreInterval);     _liveScoreInterval     = null; }
+    if (_oddsPollingInterval)   { clearInterval(_oddsPollingInterval);   _oddsPollingInterval   = null; }
     state = { status: "idle", apiKey: null, lastUpdated: null, error: null, errorType: null, loadProgress: 0 };
     window.__liveLastUpdated = null;
     window.__liveStats = null;
@@ -2147,12 +2295,18 @@ const LIVE = (() => {
         state.apiKey = key;
         fetchAll(key).catch(e => {
           console.warn("[LIVE] Auto-fetch failed:", e.message);
-          // Badge and state already set inside fetchAll's catch block
         });
       } else {
         state.status = "no-key";
         state.errorType = "no_key";
         updateBadge();
+        // Even without a CFBD key, start real-time supplements once pregen data is loaded
+        window.addEventListener("liveDataReady", function _onFirstReady() {
+          window.removeEventListener("liveDataReady", _onFirstReady);
+          _startPregenRefresh();
+          _startLiveScorePolling();
+          _startOddsPolling();
+        }, { once: true });
       }
     });
   }
