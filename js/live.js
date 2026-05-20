@@ -2,7 +2,85 @@
    THE BET — Live Data Layer v5
    Sources: CFBD API, ESPN public API, Reddit r/CFB (public JSON)
    Key set via window.CFBD_DEFAULT_KEY in config.js (or user-entered).
+   Pre-generated data: data/games-2026.json (refreshed by GitHub Actions)
    ═══════════════════════════════════════════════════════════════ */
+
+/* ── Pre-gen quickstart: load GitHub-Actions-generated game file ─────────────
+   Runs immediately on page load, before the CFBD API fetch.
+   Merges all ~800+ real FBS games into window.GAMES and fires liveDataReady
+   so pages render instantly instead of waiting 5-10 s for API responses.
+   The CFBD/ESPN API fetch still runs in the background for live scores/odds. */
+(function _pregenQuickstart() {
+  const base = window.location.pathname.includes("/pages/") ? "../" : "./";
+  const url  = base + "data/games-2026.json";
+
+  fetch(url, { cache: "no-cache" })
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !Array.isArray(d.games) || d.games.length < 50) return;
+
+      // Ignore the stub file (generated before GitHub Actions ran)
+      if (d.generated === "2026-01-01T00:00:00.000Z") return;
+
+      // Ignore if stale > 12 hours
+      const ageH = (Date.now() - new Date(d.generated).getTime()) / 3600000;
+      if (ageH > 12) {
+        console.log("[PREGEN] File is " + ageH.toFixed(1) + "h old — will rely on API");
+        return;
+      }
+
+      if (!window.GAMES) return;
+
+      // Merge: don't overwrite curated games already in GAMES
+      var existingIds  = new Set(GAMES.map(function(g) { return g.id; }));
+      var existingKeys = new Set(GAMES.map(function(g) {
+        return g.week + "|" + g.homeTeamId + "|" + g.awayTeamId;
+      }));
+
+      var added = 0;
+      d.games.forEach(function(g) {
+        if (existingIds.has(g.id)) return;
+        var mk = g.week + "|" + g.homeTeamId + "|" + g.awayTeamId;
+        if (existingKeys.has(mk)) {
+          // Update betting lines on the curated version if it doesn't have them
+          var existing = GAMES.find(function(x) {
+            return x.week === g.week && x.homeTeamId === g.homeTeamId && x.awayTeamId === g.awayTeamId;
+          });
+          if (existing && !existing.bettingLines && g.bettingLines) {
+            existing.bettingLines = g.bettingLines;
+          }
+          return;
+        }
+        GAMES.push(g);
+        existingIds.add(g.id);
+        existingKeys.add(mk);
+        added++;
+      });
+
+      // Inject AP rankings into TEAMS
+      if (d.apRanks && window.TEAMS) {
+        Object.keys(d.apRanks).forEach(function(id) {
+          if (TEAMS[id]) TEAMS[id].apRank = d.apRanks[id];
+        });
+      }
+
+      if (added === 0 && !window.__liveDataReady) {
+        // Lines may have been updated on curated games only — still trigger render
+      }
+
+      console.log("[PREGEN] " + added + " games loaded instantly (" + d.totalGames + " in file, updated " + new Date(d.generated).toLocaleTimeString() + ")");
+
+      // Fire liveDataReady so all pages render immediately with real data
+      if (!window.__liveDataReady) {
+        window.__liveDataReady = true;
+        window.__pregenLoaded  = true;
+        window.dispatchEvent(new CustomEvent("liveDataReady", { detail: { _fromPregen: true, fetchedAt: d.generated } }));
+      }
+    })
+    .catch(function() {
+      // File doesn't exist yet (first deploy) — fall through to API fetch
+    });
+}());
 
 const LIVE = (() => {
   const CFBD      = "https://api.collegefootballdata.com";

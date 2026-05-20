@@ -1,0 +1,55 @@
+name: Refresh CFB Data
+
+# When it runs:
+#   - Every 6 hours on weekdays (Mon–Fri)
+#   - Every 30 minutes on Saturdays 9 AM–midnight ET (game day)
+#   - Every 2 hours on Sundays (cleanup / final scores)
+#   - Manual trigger via GitHub UI or API
+on:
+  schedule:
+    - cron: "0 */6 * * 1-5"        # weekdays: every 6 h
+    - cron: "*/30 14-4 * * 6"      # Saturday: every 30 min (UTC 14:00 = 10 AM ET)
+    - cron: "0 */2 * * 0"          # Sunday: every 2 h
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Force full refresh even if data is fresh"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write   # needed to commit data/ back to main
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch live CFB data
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+        run: node scripts/fetch-live-data.mjs
+
+      - name: Commit updated data if changed
+        run: |
+          git config user.name  "CFB Data Bot"
+          git config user.email "bot@thebetcfb.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "No data changes — skipping commit"
+          else
+            GAME_COUNT=$(node -e "const d=require('./data/games-2026.json');console.log(d.games.length)" 2>/dev/null || echo "?")
+            LINES_COUNT=$(node -e "const d=require('./data/games-2026.json');console.log(d.games.filter(g=>g.bettingLines).length)" 2>/dev/null || echo "?")
+            git commit -m "data: refresh $(date -u '+%Y-%m-%d %H:%M UTC') — ${GAME_COUNT} games, ${LINES_COUNT} with lines"
+            git push
+          fi

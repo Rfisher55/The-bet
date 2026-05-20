@@ -772,9 +772,19 @@ function clearAllFilters() {
   }
 })();
 
-// Initial render
-renderBestPick(activeWeek > 0 ? activeWeek : 1);
-render();
+// Initial render — if we only have the tiny static set, show a loading state
+// and wait for pre-gen or live data to arrive (whichever is first)
+if (GAMES.length > 30) {
+  renderBestPick(activeWeek > 0 ? activeWeek : 1);
+  render();
+} else {
+  document.getElementById("game-list").innerHTML =
+    '<div style="padding:60px 20px;text-align:center">' +
+      '<div style="font-size:1.8rem;margin-bottom:12px">🏈</div>' +
+      '<div style="font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:6px">Loading 2026 Schedule…</div>' +
+      '<div style="font-size:.75rem;color:var(--muted-l)">Fetching all FBS games from ESPN & CFBD — usually under 3 seconds.</div>' +
+    '</div>';
+}
 
 // Re-render when live data arrives
 window.addEventListener("liveDataReady", function() {
