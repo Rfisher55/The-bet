@@ -949,15 +949,22 @@ function renderGameList() {
   }).join("");
 }
 
+let parlayLiveLoaded = false;
+
 // Stats strip
 function buildStatsStrip() {
-  const elite = allPreds.filter(p => p.prediction.confidence === "elite").length;
+  const elite   = allPreds.filter(p => p.prediction.confidence === "elite").length;
   const hasLines = allPreds.filter(p => p.game.bettingLines && p.game.bettingLines.spread != null).length;
-  const legs = Object.keys(picks).length;
-  const cells = [
+  const legs    = Object.keys(picks).length;
+  const cells = parlayLiveLoaded ? [
     { label: "Available",  value: allPreds.length, color: "var(--text)",    action: "all" },
     { label: "Elite Picks",value: elite,            color: "var(--primary)", action: "elite" },
     { label: "Has Lines",  value: hasLines,         color: "#34d399",        action: "lines" },
+    { label: "Your Legs",  value: legs,             color: "var(--accent)",  action: "legs" },
+  ] : [
+    { label: "Available",  value: "···", color: "var(--muted)", action: "all" },
+    { label: "Elite Picks",value: "···", color: "var(--muted)", action: "elite" },
+    { label: "Has Lines",  value: "···", color: "var(--muted)", action: "lines" },
     { label: "Your Legs",  value: legs,             color: "var(--accent)",  action: "legs" },
   ];
   document.getElementById("page-stats").innerHTML = cells.map(s =>
@@ -993,6 +1000,7 @@ updateSummary();
 // Re-render when live data arrives
 window.addEventListener("liveDataReady", function() {
   rebuildPreds();
+  parlayLiveLoaded = true;
   buildStatsStrip();
   buildParlayWeekTabs();
   initParlayConfChips();

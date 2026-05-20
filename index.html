@@ -583,7 +583,7 @@
       gameCount  = stats.gameCount  || (window.GAMES  ? GAMES.length : 0);
       teamCount  = stats.teamCount  || (window.TEAMS  ? Object.keys(TEAMS).length : 0);
     } else {
-      gameCount  = window.GAMES  ? GAMES.length : 0;
+      gameCount  = window.GAMES  ? GAMES.filter(function(g){return !g.date||g.date>='2026-01-01';}).length : 0;
       teamCount  = window.TEAMS  ? Object.keys(TEAMS).length : 0;
     }
     dot.classList.remove("loading");

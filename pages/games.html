@@ -255,18 +255,27 @@ function rebuildPredictions() {
   }
 }
 
-rebuildPredictions(); // initial build (22 static games)
+rebuildPredictions(); // initial build (static games only)
 
-// Stats bar — build HTML only (listener wired once below)
+// Track whether real data has arrived — suppresses the static-game counts
+let liveDataLoaded = false;
+
+// Stats bar
 function buildStatsStrip() {
   const elite = allPredictions.filter(p => p.prediction.confidence === "elite").length;
   const high  = allPredictions.filter(p => p.prediction.confidence === "high").length;
   const ats   = allPredictions.filter(p => p.prediction.spreadPick && p.prediction.spreadPick.side !== "no-bet").length;
-  const cells = [
+  // Show real numbers only after live data arrives; show "·" loading dots before
+  const cells = liveDataLoaded ? [
     { label: "Games",      value: allPredictions.length, color: "var(--text)",    action: "all" },
     { label: "Elite Picks",value: elite,                 color: "var(--primary)", action: "elite" },
     { label: "High Conf",  value: high,                  color: "#34d399",        action: "high" },
     { label: "ATS Edges",  value: ats,                   color: "var(--accent)",  action: "ats" },
+  ] : [
+    { label: "Games",      value: "···", color: "var(--muted)", action: "all" },
+    { label: "Elite Picks",value: "···", color: "var(--muted)", action: "elite" },
+    { label: "High Conf",  value: "···", color: "var(--muted)", action: "high" },
+    { label: "ATS Edges",  value: "···", color: "var(--muted)", action: "ats" },
   ];
   document.getElementById("page-stats").innerHTML = cells.map(s =>
     `<div class="stat-cell stat-cell-clickable" data-stat-action="${s.action}" title="Click to filter">
@@ -784,6 +793,7 @@ render();
 // Re-render when live data arrives (fires once from pre-gen file, then again from API)
 window.addEventListener("liveDataReady", function() {
   rebuildPredictions();
+  liveDataLoaded = true;
   buildStatsStrip();
   initConfChips();
   buildWeekTabs();
