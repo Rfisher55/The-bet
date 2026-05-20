@@ -238,19 +238,24 @@ function wxBadge(w) {
   return `<span class="wx-badge wx-ok">☀️ ${tmp}°F</span>`;
 }
 
-// Build predictions with error isolation
+// Build predictions with error isolation — only include 2026 season games
 let allPredictions = [];
-try {
-  allPredictions = GAMES.map(g => {
-    try {
-      const game = resolveGame(g);
-      return { game, prediction: predictGame(game) };
-    } catch(e) { console.error("predictGame failed:", g.id, e); return null; }
-  }).filter(Boolean);
-} catch(e) {
-  console.error("GAMES load failed:", e);
-  document.getElementById("game-grid").innerHTML = `<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--danger)">${e.message}</div>`;
+function rebuildPredictions() {
+  try {
+    allPredictions = GAMES
+      .filter(g => !g.date || g.date >= "2026-01-01")   // exclude any 2025 fallback data
+      .map(g => {
+        try {
+          const game = resolveGame(g);
+          return { game, prediction: predictGame(game) };
+        } catch(e) { console.error("predictGame failed:", g.id, e); return null; }
+      }).filter(Boolean);
+  } catch(e) {
+    console.error("GAMES load failed:", e);
+  }
 }
+
+rebuildPredictions(); // initial build (22 static games)
 
 // Stats bar — build HTML only (listener wired once below)
 function buildStatsStrip() {
@@ -772,28 +777,13 @@ function clearAllFilters() {
   }
 })();
 
-// Initial render — if we only have the tiny static set, show a loading state
-// and wait for pre-gen or live data to arrive (whichever is first)
-if (GAMES.length > 30) {
-  renderBestPick(activeWeek > 0 ? activeWeek : 1);
-  render();
-} else {
-  document.getElementById("game-list").innerHTML =
-    '<div style="padding:60px 20px;text-align:center">' +
-      '<div style="font-size:1.8rem;margin-bottom:12px">🏈</div>' +
-      '<div style="font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:6px">Loading 2026 Schedule…</div>' +
-      '<div style="font-size:.75rem;color:var(--muted-l)">Fetching all FBS games from ESPN & CFBD — usually under 3 seconds.</div>' +
-    '</div>';
-}
+// Initial render — always show immediately, live data will update when it arrives
+renderBestPick(activeWeek > 0 ? activeWeek : 1);
+render();
 
-// Re-render when live data arrives
+// Re-render when live data arrives (fires once from pre-gen file, then again from API)
 window.addEventListener("liveDataReady", function() {
-  try {
-    allPredictions = GAMES.map(g => {
-      try { const game = resolveGame(g); return { game, prediction: predictGame(game) }; }
-      catch(e) { return null; }
-    }).filter(Boolean);
-  } catch(e) { console.error(e); }
+  rebuildPredictions();
   buildStatsStrip();
   initConfChips();
   buildWeekTabs();

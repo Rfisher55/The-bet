@@ -371,14 +371,19 @@ const picks = {};
 // ── Wager state ──
 let wager = 25;
 
-// ── Build predictions ──
+// ── Build predictions (2026 season only) ──
 let allPreds = [];
-try {
-  allPreds = GAMES.map(g => {
-    try { const game = resolveGame(g); return { game, prediction: predictGame(game) }; }
-    catch(e) { console.error(g.id, e); return null; }
-  }).filter(Boolean);
-} catch(e) { console.error(e); }
+function rebuildPreds() {
+  try {
+    allPreds = GAMES
+      .filter(g => !g.date || g.date >= "2026-01-01")
+      .map(g => {
+        try { const game = resolveGame(g); return { game, prediction: predictGame(game) }; }
+        catch(e) { console.error(g.id, e); return null; }
+      }).filter(Boolean);
+  } catch(e) { console.error(e); }
+}
+rebuildPreds();
 
 // ── Week state ──
 let activeWeek = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b)[0];
@@ -987,12 +992,7 @@ updateSummary();
 
 // Re-render when live data arrives
 window.addEventListener("liveDataReady", function() {
-  try {
-    allPreds = GAMES.map(g => {
-      try { const game = resolveGame(g); return { game, prediction: predictGame(game) }; }
-      catch(e) { console.error(g.id, e); return null; }
-    }).filter(Boolean);
-  } catch(e) { console.error(e); }
+  rebuildPreds();
   buildStatsStrip();
   buildParlayWeekTabs();
   initParlayConfChips();

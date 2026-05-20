@@ -611,12 +611,13 @@ var allPredictions = [];
 function rebuildPredictions() {
   allPredictions = [];
   try {
-    GAMES.forEach(function(g) {
-      try {
-        var game = resolveGame(g);
-        allPredictions.push({ game: game, prediction: predictGame(game) });
-      } catch(e) { console.error("predictGame failed for", g.id, e); }
-    });
+    GAMES.filter(function(g) { return !g.date || g.date >= "2026-01-01"; })
+      .forEach(function(g) {
+        try {
+          var game = resolveGame(g);
+          allPredictions.push({ game: game, prediction: predictGame(game) });
+        } catch(e) { console.error("predictGame failed for", g.id, e); }
+      });
   } catch(e) { console.error("GAMES load failed:", e); }
 }
 
