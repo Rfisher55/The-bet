@@ -571,7 +571,24 @@ function renderGamePage(gData) {
       </div>`;
   }
 
-  /* 3c — Full Roster Intelligence */
+  /* 3c — Key Players */
+  function selectKeyPlayers(players, max) {
+    const MAX = max || 6;
+    const posPriority = {
+      QB:0, RB:1, WR:2, TE:3, EDGE:4, DE:4, DL:5, DT:5,
+      LB:6, OLB:6, ILB:6, MLB:6, CB:7, S:8, DB:8, FS:8, SS:8, NB:8,
+      K:9, P:10, OL:11, NT:12, FB:13, LS:14, RS:15
+    };
+    return [...players].sort((a, b) => {
+      const ai = (a.injuryStatus && a.injuryStatus !== "healthy") ? 0 : 1;
+      const bi = (b.injuryStatus && b.injuryStatus !== "healthy") ? 0 : 1;
+      if (ai !== bi) return ai - bi;
+      const ap2 = posPriority[a.position] !== undefined ? posPriority[a.position] : 99;
+      const bp2 = posPriority[b.position] !== undefined ? posPriority[b.position] : 99;
+      return ap2 - bp2;
+    }).slice(0, MAX);
+  }
+
   function renderFullRoster() {
     const POS_GROUPS = [
       { label: "OFFENSE", positions: ["QB","RB","WR","TE","OL","FB","H-B"] },
@@ -708,12 +725,12 @@ function renderGamePage(gData) {
           }).join("")}
         </div>`).join("");
     }
-    const hp = allPlayers.filter(p => p.teamId === home.id);
-    const ap = allPlayers.filter(p => p.teamId === away.id);
+    const hp = selectKeyPlayers(allPlayers.filter(p => p.teamId === home.id));
+    const ap = selectKeyPlayers(allPlayers.filter(p => p.teamId === away.id));
     if (!hp.length && !ap.length) return "";
     return `
       <div class="card card-p mb-5" id="section-roster">
-        <div class="section-label">Full Roster Intelligence <span style="font-size:.65rem;color:var(--muted);font-weight:400">· tap any player to expand</span></div>
+        <div class="section-label">Key Players <span style="font-size:.65rem;color:var(--muted);font-weight:400">· top 6 per team · tap to expand</span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
           <div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
@@ -901,37 +918,33 @@ function renderGamePage(gData) {
         <!-- Injury Report -->
         <div style="margin-bottom:22px">
           <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>OFFICIAL INJURY REPORT<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
-          ${allPlayers.length ? `
-            <div style="display:grid;gap:6px">
-              ${allPlayers.map(p => {
-                const t = p.teamId === home.id ? home : away;
-                const s = (p.injuryStatus || "healthy").toLowerCase();
-                const sc = s === "healthy" ? "var(--primary)" : s === "out" ? "var(--danger)" : s === "doubtful" ? "#f87171" : "var(--gold)";
-                const pc = (p.practiceStatus || "full") === "full" ? "var(--primary)" : (p.practiceStatus || "").includes("limit") ? "var(--gold)" : "var(--danger)";
-                return `
-                  <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid ${s !== "healthy" ? sc+"40" : "var(--border)"}">
-                    <div style="width:22px;height:22px;border-radius:50%;background:${t.color};display:flex;align-items:center;justify-content:center;font-size:.54rem;font-weight:700;color:${textForBg(t.color)};flex-shrink:0">${t.abbreviation.slice(0,2)}</div>
-                    <div style="flex:1">
-                      <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
-                        <span style="font-size:.8rem;font-weight:700;color:var(--text)">${p.name}</span>
-                        <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${p.year||""}</span>
-                        ${p.nflDraftStatus ? `<span style="font-size:.58rem;color:var(--muted)">🏆</span>` : ""}
-                      </div>
-                      ${s !== "healthy" ? (() => {
-                        const why = whyNotActive(p);
-                        const pf = p.personalFlags;
-                        const focusShort = pf && pf.distractionLevel >= 5 ? (pf.distractionType ? pf.distractionType.replace(/_/g," ") : "focus concern") : "";
-                        const fullReason = [why, focusShort].filter(Boolean).join(" · ");
-                        return fullReason ? `<div style="font-size:.7rem;color:${sc};font-weight:600;margin-top:1px">${fullReason}</div>` : "";
-                      })() : ""}
+          ${(function() {
+            const injPl = allPlayers.filter(p => p.injuryStatus && p.injuryStatus !== "healthy");
+            if (!injPl.length) return '<div class="text-xs text-muted">No injuries reported for this matchup</div>';
+            return '<div style="display:grid;gap:6px">' + injPl.map(p => {
+              const t = p.teamId === home.id ? home : away;
+              const s = (p.injuryStatus || "healthy").toLowerCase();
+              const sc = s === "out" ? "var(--danger)" : s === "doubtful" ? "#f87171" : "var(--gold)";
+              const pc = (p.practiceStatus || "full") === "full" ? "var(--primary)" : (p.practiceStatus || "").includes("limit") ? "var(--gold)" : "var(--danger)";
+              const why = whyNotActive(p);
+              return `
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid ${sc}40">
+                  <div style="width:22px;height:22px;border-radius:50%;background:${t.color};display:flex;align-items:center;justify-content:center;font-size:.54rem;font-weight:700;color:${textForBg(t.color)};flex-shrink:0">${t.abbreviation.slice(0,2)}</div>
+                  <div style="flex:1">
+                    <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+                      <span style="font-size:.8rem;font-weight:700;color:var(--text)">${p.name}</span>
+                      <span style="font-size:.65rem;color:var(--muted)">${p.position} · ${p.year||""}</span>
+                      ${p.nflDraftStatus ? '<span style="font-size:.58rem;color:var(--muted)">🏆</span>' : ""}
                     </div>
-                    <div style="text-align:right;flex-shrink:0">
-                      <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:${sc}">${s === "healthy" ? "ACTIVE" : s.toUpperCase()}</div>
-                      ${p.practiceStatus ? `<div style="font-size:.6rem;color:${pc};font-weight:600">${p.practiceStatus.toUpperCase()}</div>` : ""}
-                    </div>
-                  </div>`;
-              }).join("")}
-            </div>` : `<div class="text-xs text-muted">No player data available for this matchup</div>`}
+                    ${why ? '<div style="font-size:.7rem;color:'+sc+';font-weight:600;margin-top:1px">'+why+'</div>' : ""}
+                  </div>
+                  <div style="text-align:right;flex-shrink:0">
+                    <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:${sc}">${s.toUpperCase()}</div>
+                    ${p.practiceStatus ? '<div style="font-size:.6rem;color:'+pc+';font-weight:600">'+p.practiceStatus.toUpperCase()+'</div>' : ""}
+                  </div>
+                </div>`;
+            }).join("") + '</div>';
+          })()}
         </div>
 
         <!-- Player Insider Intel -->
