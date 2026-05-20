@@ -37,7 +37,10 @@ jobs:
 
       - name: Fetch live CFB data
         env:
-          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+          CFBD_API_KEY:  ${{ secrets.CFBD_API_KEY }}
+          # Optional — add these in GitHub repo Settings → Secrets → Actions for extra data:
+          ODDS_API_KEY:  ${{ secrets.ODDS_API_KEY }}   # free at the-odds-api.com (500 req/mo, 20+ US books)
+          ODDSPAPI_KEY:  ${{ secrets.ODDSPAPI_KEY }}   # free at oddspapi.io (250 req/mo, includes Pinnacle)
         run: node scripts/fetch-live-data.mjs
 
       - name: Commit updated data if changed
@@ -50,6 +53,7 @@ jobs:
           else
             GAME_COUNT=$(node -e "const d=require('./data/games-2026.json');console.log(d.games.length)" 2>/dev/null || echo "?")
             LINES_COUNT=$(node -e "const d=require('./data/games-2026.json');console.log(d.games.filter(g=>g.bettingLines).length)" 2>/dev/null || echo "?")
-            git commit -m "data: refresh $(date -u '+%Y-%m-%d %H:%M UTC') — ${GAME_COUNT} games, ${LINES_COUNT} with lines"
+            SOURCES=$(node -e "const d=require('./data/metadata.json');console.log((d.dataSourcesActive||[]).length+' sources')" 2>/dev/null || echo "")
+            git commit -m "data: refresh $(date -u '+%Y-%m-%d %H:%M UTC') — ${GAME_COUNT} games, ${LINES_COUNT} with lines, ${SOURCES}"
             git push
           fi
