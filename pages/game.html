@@ -572,6 +572,19 @@ function renderGamePage(gData) {
   }
 
   /* 3c — Key Players */
+  function whyNotActive(p) {
+    const parts = [];
+    const inj = (p.injuryType || "").trim();
+    if (inj && inj !== "none" && inj !== "null") parts.push(inj);
+    if (p.practiceStatus && !/^full$/i.test(p.practiceStatus)) parts.push(p.practiceStatus);
+    if (!parts.length && p.injuryHistory && p.injuryHistory.length) {
+      const recent = p.injuryHistory[p.injuryHistory.length - 1];
+      if (recent.type) parts.push(recent.type);
+      if (recent.note && parts.length < 2) parts.push(recent.note.slice(0, 40));
+    }
+    return parts.join(" · ");
+  }
+
   function selectKeyPlayers(players, max) {
     const MAX = max || 6;
     const posPriority = {
@@ -596,18 +609,6 @@ function renderGamePage(gData) {
       { label: "SECONDARY", positions: ["CB","S","DB","FS","SS","NB","SAF"] },
       { label: "SPECIAL TEAMS", positions: ["K","P","LS","RS","KR","PR"] }
     ];
-    function whyNotActive(p) {
-      const parts = [];
-      const inj = (p.injuryType || "").trim();
-      if (inj && inj !== "none" && inj !== "null") parts.push(inj);
-      if (p.practiceStatus && !/^full$/i.test(p.practiceStatus)) parts.push(p.practiceStatus);
-      if (!parts.length && p.injuryHistory && p.injuryHistory.length) {
-        const recent = p.injuryHistory[p.injuryHistory.length - 1];
-        if (recent.type) parts.push(recent.type);
-        if (recent.note && parts.length < 2) parts.push(recent.note.slice(0, 40));
-      }
-      return parts.join(" · ");
-    }
     function statusBadge(p) {
       const s = (p.injuryStatus || "healthy").toLowerCase();
       if (s === "healthy") return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">✓ ACTIVE</span>`;
