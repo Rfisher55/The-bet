@@ -159,6 +159,36 @@
       .parlay-odds-big { font-size:1.3rem; }
       .win-prob-pct { font-size:1.5rem; }
     }
+
+    /* ── Game analysis modal ── */
+    .ga-overlay {
+      position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);
+      display:flex;align-items:flex-end;justify-content:center;
+      opacity:0;pointer-events:none;transition:opacity .25s;
+    }
+    .ga-overlay.open { opacity:1;pointer-events:all; }
+    .ga-sheet {
+      width:100%;max-width:680px;max-height:90vh;background:var(--card);
+      border-radius:22px 22px 0 0;border-top:1px solid var(--border-l);
+      overflow-y:auto;padding:0 0 40px;
+      transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+      -webkit-overflow-scrolling:touch;
+    }
+    @media (min-width:680px) {
+      .ga-overlay { align-items:center; }
+      .ga-sheet { border-radius:18px;max-height:85vh;margin:16px; }
+    }
+    .ga-overlay.open .ga-sheet { transform:translateY(0); }
+    .ga-handle { width:40px;height:4px;background:var(--border-l);border-radius:2px;margin:12px auto 0; }
+    .ga-header { padding:16px 20px 12px;position:sticky;top:0;background:var(--card);z-index:1;border-bottom:1px solid var(--border); }
+    .ga-close { position:absolute;top:14px;right:16px;width:30px;height:30px;border-radius:50%;background:var(--surface);border:1px solid var(--border);color:var(--muted-l);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700; }
+    .ga-close:hover { color:var(--text);border-color:var(--border-l); }
+    .ga-body { padding:16px 20px; }
+    .ga-section { margin-bottom:18px;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--border); }
+    .ga-section-title { font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px; }
+    .ga-prob-bar { height:12px;border-radius:6px;overflow:hidden;display:flex;margin-top:6px; }
+    .ga-score-grid { display:grid;grid-template-columns:1fr auto 1fr;gap:8px;text-align:center;margin-bottom:12px; }
+    .ga-score-box { padding:12px 8px;border-radius:12px; }
   </style>
 </head>
 <body>
@@ -351,6 +381,18 @@
   </div>
 </div>
 
+<!-- ── Game analysis modal ── -->
+<div class="ga-overlay" id="ga-overlay" onclick="closeGameModal(event)">
+  <div class="ga-sheet" id="ga-sheet">
+    <div class="ga-handle"></div>
+    <div class="ga-header" id="ga-header">
+      <button class="ga-close" onclick="closeGameModal()">✕</button>
+      <div id="ga-header-content"></div>
+    </div>
+    <div class="ga-body" id="ga-body"></div>
+  </div>
+</div>
+
 <footer class="footer" style="margin-bottom:0">
   <div class="container">
     <p>The Bet · D1 CFB Predictor · 2026 Season · <span class="footer-accent">For entertainment only</span></p>
@@ -388,8 +430,12 @@
 <script src="../js/predictor.js"></script>
 <script>
 // ── Parlay state ──
-// picks = { [gameId]: { side: "home"|"away"|"over"|"under"|"home-ml"|"away-ml", odds, teamName, label, confidence } }
+// picks keyed by "gameId|side" so multiple bets per game are allowed
 const picks = {};
+function pickKey(gameId, side) { return `${gameId}|${side}`; }
+function gameIdFromKey(k) { return k.slice(0, k.lastIndexOf("|")); }
+function sideFromKey(k)   { return k.slice(k.lastIndexOf("|") + 1); }
+function picksForGame(gameId) { return Object.entries(picks).filter(([k]) => gameIdFromKey(k) === gameId); }
 
 // ── Wager state ──
 let wager = 25;
@@ -578,7 +624,7 @@ function modelProb(gameId, side) {
 function combinedModelProb() {
   const entries = Object.entries(picks);
   if (!entries.length) return 0;
-  return entries.reduce((acc, [gameId, pick]) => acc * modelProb(gameId, pick.side), 1);
+  return entries.reduce((acc, [key]) => acc * modelProb(gameIdFromKey(key), sideFromKey(key)), 1);
 }
 
 // ── Wager calculator ──
@@ -673,13 +719,14 @@ function updateSummary() {
   if (winProbSection) winProbSection.style.display = "";
 
   // Leg pills
-  legsDisplay.innerHTML = entries.map(([gid, pick]) => {
+  legsDisplay.innerHTML = entries.map(([key, pick]) => {
+    const gid = gameIdFromKey(key);
     const p = allPreds.find(p => p.game.id === gid);
     const sideColor = pick.side === "home" || pick.side === "home-ml" || pick.side === "over" ? "var(--primary)" : "var(--accent)";
     return `<span class="leg-pill">
       <span style="color:${sideColor};font-weight:800">${pick.label}</span>
       <span style="font-size:.65rem;color:var(--muted)">${pick.odds > 0 ? "+" : ""}${pick.odds}</span>
-      <span class="leg-pill-remove" onclick="removePick('${gid}')">×</span>
+      <span class="leg-pill-remove" onclick="removePick('${key}')">×</span>
     </span>`;
   }).join("");
 
@@ -763,16 +810,16 @@ function updateSummary() {
 // ── Select/deselect a pick ──
 function selectPick(gameId, side, odds, label, confidence) {
   const btn = event && event.target ? event.target.closest(".pick-btn") : null;
-  if (picks[gameId] && picks[gameId].side === side) {
-    removePick(gameId);
+  const key = pickKey(gameId, side);
+  if (picks[key]) {
+    removePick(key);
     return;
   }
-  picks[gameId] = { side, odds, label, confidence: confidence || "—" };
+  picks[key] = { gameId, side, odds, label, confidence: confidence || "—" };
 
   // Button pop animation + toast
   if (btn) {
     btn.classList.remove("pick-added");
-    // force reflow to restart animation
     void btn.offsetWidth;
     btn.classList.add("pick-added");
     setTimeout(() => btn.classList.remove("pick-added"), 400);
@@ -783,8 +830,8 @@ function selectPick(gameId, side, odds, label, confidence) {
   updateSummary();
 }
 
-function removePick(gameId) {
-  delete picks[gameId];
+function removePick(key) {
+  delete picks[key];
   renderGameList();
   updateSummary();
 }
@@ -838,12 +885,15 @@ function autoBuild() {
   candidates.forEach(({ game, prediction:pred }) => {
     const sp = pred.spreadPick;
     const home = game.homeTeam, away = game.awayTeam;
+    const bl = game.bettingLines || {};
+    const hso = bl.homeSpreadOdds || -110;
+    const aso = bl.awaySpreadOdds || -110;
     if (sp.side === "home") {
-      const label = `${home.name.split(" ").pop()} ${fmtSpread(game.bettingLines?.spread||0)}`;
-      picks[game.id] = { side:"home", odds:-110, label, confidence: pred.confidence || "—" };
+      const label = `${home.name.split(" ").pop()} ${fmtSpread(bl.spread||0)}`;
+      picks[pickKey(game.id, "home")] = { gameId: game.id, side:"home", odds: hso, label, confidence: pred.confidence || "—" };
     } else if (sp.side === "away") {
-      const label = `${away.name.split(" ").pop()} ${fmtSpread(-(game.bettingLines?.spread||0))}`;
-      picks[game.id] = { side:"away", odds:-110, label, confidence: pred.confidence || "—" };
+      const label = `${away.name.split(" ").pop()} ${fmtSpread(-(bl.spread||0))}`;
+      picks[pickKey(game.id, "away")] = { gameId: game.id, side:"away", odds: aso, label, confidence: pred.confidence || "—" };
     }
   });
 
@@ -852,15 +902,17 @@ function autoBuild() {
     const needed = targetLegs - Object.keys(picks).length;
     const totals = poolPreds
       .filter(({ game, prediction:pred }) =>
-        !picks[game.id] && pred.totalPick && pred.totalPick.side !== "no-bet" && pred.totalPick.confidence >= 55
+        !picks[pickKey(game.id,"over")] && !picks[pickKey(game.id,"under")] &&
+        pred.totalPick && pred.totalPick.side !== "no-bet" && pred.totalPick.confidence >= 55
       )
       .sort((a,b) => (b.prediction.totalPick.confidence||0) - (a.prediction.totalPick.confidence||0))
       .slice(0, needed);
     totals.forEach(({ game, prediction:pred }) => {
       const tp = pred.totalPick;
       const bl = game.bettingLines || {};
+      const odds = tp.side === "over" ? (bl.overOdds || -110) : (bl.underOdds || -110);
       const label = `${game.homeTeam.abbreviation}/${game.awayTeam.abbreviation} ${tp.side.toUpperCase()}${bl.total ? " " + bl.total : ""}`;
-      picks[game.id] = { side: tp.side, odds:-110, label, confidence: pred.confidence || "—" };
+      picks[pickKey(game.id, tp.side)] = { gameId: game.id, side: tp.side, odds, label, confidence: pred.confidence || "—" };
     });
   }
 
@@ -868,7 +920,10 @@ function autoBuild() {
   if (Object.keys(picks).length < targetLegs) {
     const needed = targetLegs - Object.keys(picks).length;
     const winProb = poolPreds
-      .filter(({ game, prediction:pred }) => !picks[game.id] && pred.winProbability >= 60)
+      .filter(({ game, prediction:pred }) =>
+        !picks[pickKey(game.id,"home-ml")] && !picks[pickKey(game.id,"away-ml")] &&
+        pred.winProbability >= 60
+      )
       .sort((a,b) => b.prediction.winProbability - a.prediction.winProbability)
       .slice(0, needed);
     winProb.forEach(({ game, prediction:pred }) => {
@@ -877,14 +932,15 @@ function autoBuild() {
       const favTeam = favored === "home" ? home : away;
       const label = `${favTeam.name.split(" ").pop()} ML`;
       const mlOdds = favored === "home" ? (game.bettingLines?.moneylineHome || -110) : (game.bettingLines?.moneylineAway || -110);
-      picks[game.id] = { side: favored + "-ml", odds: mlOdds, label, confidence: pred.confidence || "—" };
+      const side = favored + "-ml";
+      picks[pickKey(game.id, side)] = { gameId: game.id, side, odds: mlOdds, label, confidence: pred.confidence || "—" };
     });
   }
 
   // Switch the game-list week view to show the first auto-built week
   const firstPick = Object.keys(picks)[0];
   if (firstPick) {
-    const firstGame = allPreds.find(p => p.game.id === firstPick);
+    const firstGame = allPreds.find(p => p.game.id === gameIdFromKey(firstPick));
     if (firstGame && !autoBuildWeekSet.has("all")) {
       activeWeek = firstGame.game.week;
       document.querySelectorAll("#week-strip .week-tab").forEach(t =>
@@ -909,8 +965,8 @@ function copyParlay(btn) {
   const payoutAmt = wagerAmt * parlay.decimal;
   const profitAmt = payoutAmt - wagerAmt;
 
-  const legsText = entries.map(([gid, pick], i) => {
-    const p = allPreds.find(p => p.game.id === gid);
+  const legsText = entries.map(([key, pick], i) => {
+    const p = allPreds.find(p => p.game.id === gameIdFromKey(key));
     const date = p ? fmtDate(p.game.date) : "";
     const conf = pick.confidence ? ` [${pick.confidence} confidence]` : "";
     return `  ${i+1}. ${date}: ${pick.label} (${pick.odds > 0 ? "+" : ""}${pick.odds})${conf}`;
@@ -976,8 +1032,8 @@ function renderGameList() {
     const bl = game.bettingLines || {};
     const sp = pred.spreadPick || {};
     const tp = pred.totalPick || {};
-    const pick = picks[game.id];
-    const hasPick = !!pick;
+    const gamePicks = picksForGame(game.id);
+    const hasPick = gamePicks.length > 0;
     const confCls = { elite:"badge-elite", high:"badge-high", medium:"badge-medium", low:"badge-low" }[pred.confidence]||"badge-low";
     const predConf = pred.confidence || "low";
 
@@ -988,8 +1044,7 @@ function renderGameList() {
     }
 
     function btnCls(side) {
-      if (!hasPick || pick.side !== side) return "pick-btn";
-      return `pick-btn selected-${side}`;
+      return picks[pickKey(game.id, side)] ? `pick-btn selected-${side}` : "pick-btn";
     }
 
     const hso = bl.homeSpreadOdds || -110;
@@ -1012,7 +1067,7 @@ function renderGameList() {
             <div style="font-size:.62rem;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>
           </div>
           <div style="display:flex;align-items:center;gap:6px">
-            ${hasPick ? `<span style="font-size:.6rem;padding:2px 8px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">&#10003; ADDED</span>` : ""}
+            ${hasPick ? `<span style="font-size:.6rem;padding:2px 8px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">&#10003; ${gamePicks.length > 1 ? gamePicks.length + " PICKS" : "ADDED"}</span>` : ""}
             <span class="badge ${confCls}">${pred.confidence.toUpperCase()}</span>
           </div>
         </div>
@@ -1067,7 +1122,7 @@ function renderGameList() {
 
         <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px">
           <div style="font-size:.65rem;color:var(--muted)">Model: <strong style="color:var(--text)">${pred.predictedSpread>=0?home.name:away.name}</strong> wins · ${pred.winProbability}% prob · Spread ${fmtSpread(-pred.predictedSpread)}</div>
-          <a href="game.html?id=${game.id}" style="font-size:.65rem;color:var(--primary);font-weight:700;text-decoration:none">Full Analysis &#8594;</a>
+          <button onclick="openGameModal('${game.id}')" style="font-size:.65rem;color:var(--primary);font-weight:700;background:none;border:none;cursor:pointer;padding:0;text-decoration:none">Full Analysis &#8594;</button>
         </div>
       </div>`;
   }).join("");
@@ -1115,6 +1170,203 @@ document.getElementById("page-stats").addEventListener("click", function(e) {
     return;
   }
   renderGameList();
+});
+
+// ── Game analysis modal ──
+function openGameModal(gameId) {
+  const entry = allPreds.find(p => p.game.id === gameId);
+  if (!entry) return;
+  const { game, prediction: pred } = entry;
+  const home = game.homeTeam, away = game.awayTeam;
+  const bl   = game.bettingLines || {};
+  const sp   = pred.spreadPick   || {};
+  const tp   = pred.totalPick    || {};
+  const gamePicks = picksForGame(gameId);
+
+  // Win percentages
+  const homeWinPct = pred.predictedWinner === home.name
+    ? pred.winProbability
+    : 100 - pred.winProbability;
+  const awayWinPct = 100 - homeWinPct;
+
+  // Predicted scores
+  const homeScore = Math.round(pred.homeExpected || pred.compositeScore?.home || 0);
+  const awayScore = Math.round(pred.awayExpected || pred.compositeScore?.away || 0);
+
+  // Model grade
+  const grade = pred.modelGrade || (pred.confidence === "elite" ? "A+" : pred.confidence === "high" ? "A" : pred.confidence === "medium" ? "B" : "C");
+  const gradeColor = { "A+":"var(--primary)", A:"#34d399", B:"var(--accent)", C:"var(--gold)", D:"var(--danger)" }[grade] || "var(--muted)";
+
+  // Per-game odds
+  const hso = bl.homeSpreadOdds || -110;
+  const aso = bl.awaySpreadOdds || -110;
+  const oo  = bl.overOdds       || -110;
+  const uo  = bl.underOdds      || -110;
+  const predConf = pred.confidence || "low";
+
+  function mbtnCls(side) {
+    return picks[pickKey(gameId, side)] ? `pick-btn selected-${side}` : "pick-btn";
+  }
+
+  // Header
+  document.getElementById("ga-header-content").innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-right:36px">
+      <div class="team-logo" style="background:${away.color};width:28px;height:28px;font-size:.58rem;color:${textForBg(away.color)}">${away.abbreviation.slice(0,3)}</div>
+      <span style="font-size:.9rem;font-weight:800;color:var(--text)">${away.name}</span>
+      <span style="font-size:.75rem;color:var(--muted)">@</span>
+      <div class="team-logo" style="background:${home.color};width:28px;height:28px;font-size:.58rem;color:${textForBg(home.color)}">${home.abbreviation.slice(0,3)}</div>
+      <span style="font-size:.9rem;font-weight:800;color:var(--text)">${home.name}</span>
+    </div>
+    <div style="font-size:.65rem;color:var(--muted);margin-top:4px">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>`;
+
+  // Body
+  document.getElementById("ga-body").innerHTML = `
+
+    <!-- Predicted score + win prob -->
+    <div class="ga-section">
+      <div class="ga-section-title">Model Prediction</div>
+      <div class="ga-score-grid">
+        <div class="ga-score-box" style="background:${away.color}18;border:1px solid ${away.color}40">
+          <div style="font-size:.6rem;color:var(--muted);margin-bottom:4px">${away.abbreviation}</div>
+          <div style="font-size:2rem;font-weight:900;color:${textForBg(away.color)==='#fff'?away.color:'var(--text)'}">${awayScore || "—"}</div>
+          <div style="font-size:.58rem;color:var(--muted);margin-top:2px">${awayWinPct}% win</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Final</div>
+          <div style="font-size:.78rem;font-weight:900;color:var(--text)">PROJ.</div>
+          <div class="badge" style="background:${gradeColor}20;border:1px solid ${gradeColor}60;color:${gradeColor};font-size:.65rem">${grade}</div>
+        </div>
+        <div class="ga-score-box" style="background:${home.color}18;border:1px solid ${home.color}40">
+          <div style="font-size:.6rem;color:var(--muted);margin-bottom:4px">${home.abbreviation}</div>
+          <div style="font-size:2rem;font-weight:900;color:${textForBg(home.color)==='#fff'?home.color:'var(--text)'}">${homeScore || "—"}</div>
+          <div style="font-size:.58rem;color:var(--muted);margin-top:2px">${homeWinPct}% win</div>
+        </div>
+      </div>
+      <div style="font-size:.6rem;color:var(--muted);margin-bottom:4px;display:flex;justify-content:space-between">
+        <span>${away.name} (${awayWinPct}%)</span>
+        <span>${home.name} (${homeWinPct}%)</span>
+      </div>
+      <div class="ga-prob-bar">
+        <div style="width:${awayWinPct}%;background:${away.color}"></div>
+        <div style="width:${homeWinPct}%;background:${home.color}"></div>
+      </div>
+    </div>
+
+    <!-- Spread + total signals -->
+    <div class="ga-section">
+      <div class="ga-section-title">Model Signals</div>
+      ${bl.spread != null ? `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+        <div>
+          <div style="font-size:.6rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Vegas Spread</div>
+          <div style="font-size:.9rem;font-weight:800;color:var(--text)">${home.abbreviation} ${fmtSpread(bl.spread)}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.6rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Model Spread</div>
+          <div style="font-size:.9rem;font-weight:800;color:${sp.side !== "no-bet" && sp.edge >= 1.5 ? "var(--primary)" : "var(--text)"}">${home.abbreviation} ${fmtSpread(pred.predictedSpread)}</div>
+        </div>
+      </div>` : ""}
+      ${sp.side && sp.side !== "no-bet" ? `<div style="margin-top:8px;padding:8px 12px;border-radius:10px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2)">
+        <div style="font-size:.6rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:3px">Spread Pick</div>
+        <div style="font-size:.82rem;font-weight:800;color:var(--text)">${sp.side === "home" ? home.name : away.name} ${sp.side === "home" ? fmtSpread(bl.spread) : fmtSpread(-bl.spread)} ${sp.edge >= 1 ? `<span style="color:var(--primary);font-size:.72rem">+${sp.edge} pt edge</span>` : ""}</div>
+      </div>` : ""}
+      ${tp.side && tp.side !== "no-bet" && bl.total ? `<div style="margin-top:8px;padding:8px 12px;border-radius:10px;background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.2)">
+        <div style="font-size:.6rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:3px">Total Pick</div>
+        <div style="font-size:.82rem;font-weight:800;color:var(--text)">${tp.side.toUpperCase()} ${bl.total} ${tp.confidence >= 60 ? `<span style="color:var(--accent);font-size:.72rem">${tp.confidence}% conf</span>` : ""}</div>
+      </div>` : ""}
+      ${pred.winProbability ? `<div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+        <div style="flex:1;min-width:100px;padding:8px;border-radius:8px;background:var(--card);border:1px solid var(--border);text-align:center">
+          <div style="font-size:.55rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Win Prob</div>
+          <div style="font-size:1.1rem;font-weight:900;color:var(--text)">${pred.winProbability}%</div>
+          <div style="font-size:.6rem;color:var(--muted)">${pred.predictedWinner?.split(" ").pop()}</div>
+        </div>
+        ${pred.predictedTotal ? `<div style="flex:1;min-width:100px;padding:8px;border-radius:8px;background:var(--card);border:1px solid var(--border);text-align:center">
+          <div style="font-size:.55rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Model Total</div>
+          <div style="font-size:1.1rem;font-weight:900;color:var(--text)">${pred.predictedTotal.toFixed(1)}</div>
+          <div style="font-size:.6rem;color:var(--muted)">${bl.total ? `O/U ${bl.total}` : ""}</div>
+        </div>` : ""}
+        <div style="flex:1;min-width:100px;padding:8px;border-radius:8px;background:var(--card);border:1px solid var(--border);text-align:center">
+          <div style="font-size:.55rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Confidence</div>
+          <div style="font-size:1.1rem;font-weight:900;color:${gradeColor}">${(pred.confidence||"").toUpperCase()}</div>
+        </div>
+      </div>` : ""}
+    </div>
+
+    <!-- Pick from modal -->
+    <div class="ga-section">
+      <div class="ga-section-title">Add to Parlay</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div style="flex:1;min-width:120px">
+          <div style="font-size:.55rem;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Spread (ATS)</div>
+          <div style="display:flex;gap:6px">
+            <button class="${mbtnCls("home")}" style="flex:1" onclick="selectPick('${game.id}','home',${hso},'${home.name.split(" ").pop().replace(/'/g,"\\'")} ${fmtSpread(bl.spread||0)}','${predConf}');updateModalPickIndicator('${game.id}')">
+              ${home.abbreviation} ${fmtSpread(bl.spread||0)}<div style="font-size:.58rem;opacity:.7">${fmtOdds(hso)}</div>
+            </button>
+            <button class="${mbtnCls("away")}" style="flex:1" onclick="selectPick('${game.id}','away',${aso},'${away.name.split(" ").pop().replace(/'/g,"\\'")} ${fmtSpread(-(bl.spread||0))}','${predConf}');updateModalPickIndicator('${game.id}')">
+              ${away.abbreviation} ${fmtSpread(-(bl.spread||0))}<div style="font-size:.58rem;opacity:.7">${fmtOdds(aso)}</div>
+            </button>
+          </div>
+        </div>
+        ${bl.total ? `<div style="flex:1;min-width:120px">
+          <div style="font-size:.55rem;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Total ${bl.total}</div>
+          <div style="display:flex;gap:6px">
+            <button class="${mbtnCls("over")}" style="flex:1" onclick="selectPick('${game.id}','over',${oo},'${home.abbreviation}/${away.abbreviation} OVER ${bl.total}','${predConf}');updateModalPickIndicator('${game.id}')">
+              OVER<div style="font-size:.58rem;opacity:.7">${fmtOdds(oo)}</div>
+            </button>
+            <button class="${mbtnCls("under")}" style="flex:1" onclick="selectPick('${game.id}','under',${uo},'${home.abbreviation}/${away.abbreviation} UNDER ${bl.total}','${predConf}');updateModalPickIndicator('${game.id}')">
+              UNDER<div style="font-size:.58rem;opacity:.7">${fmtOdds(uo)}</div>
+            </button>
+          </div>
+        </div>` : ""}
+        ${bl.moneylineHome && bl.moneylineAway ? `<div style="flex:1;min-width:120px">
+          <div style="font-size:.55rem;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Moneyline</div>
+          <div style="display:flex;gap:6px">
+            <button class="${mbtnCls("home-ml")}" style="flex:1" onclick="selectPick('${game.id}','home-ml',${bl.moneylineHome},'${home.abbreviation} ML ${fmtML(bl.moneylineHome)}','${predConf}');updateModalPickIndicator('${game.id}')">
+              ${home.abbreviation}<div style="font-size:.7rem;font-weight:900">${fmtML(bl.moneylineHome)}</div>
+            </button>
+            <button class="${mbtnCls("away-ml")}" style="flex:1" onclick="selectPick('${game.id}','away-ml',${bl.moneylineAway},'${away.abbreviation} ML ${fmtML(bl.moneylineAway)}','${predConf}');updateModalPickIndicator('${game.id}')">
+              ${away.abbreviation}<div style="font-size:.7rem;font-weight:900">${fmtML(bl.moneylineAway)}</div>
+            </button>
+          </div>
+        </div>` : ""}
+      </div>
+      <div id="ga-pick-indicator" style="margin-top:10px">${gamePicks.length ? `<div style="padding:6px 12px;border-radius:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);font-size:.7rem;font-weight:700;color:var(--primary)">✓ ${gamePicks.map(([,p])=>p.label).join(" · ")} added</div>` : ""}</div>`
+    </div>
+
+    ${game.venue ? `<div style="font-size:.65rem;color:var(--muted);text-align:center;padding:0 0 4px">📍 ${game.venue}</div>` : ""}
+  `;
+
+  document.getElementById("ga-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  // Store current gameId so pick indicator can update
+  document.getElementById("ga-overlay").dataset.gameId = gameId;
+}
+
+function updateModalPickIndicator(gameId) {
+  const ind = document.getElementById("ga-pick-indicator");
+  if (!ind) return;
+  const gps = picksForGame(gameId);
+  ind.innerHTML = gps.length
+    ? `<div style="padding:6px 12px;border-radius:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);font-size:.7rem;font-weight:700;color:var(--primary)">✓ ${gps.map(([,p])=>p.label).join(" · ")} added</div>`
+    : "";
+  // Refresh button states in modal
+  document.querySelectorAll("#ga-body .pick-btn").forEach(btn => {
+    const onclick = btn.getAttribute("onclick") || "";
+    const sideMatch = onclick.match(/'(home|away|over|under|home-ml|away-ml)'/);
+    if (!sideMatch) return;
+    const side = sideMatch[1];
+    btn.className = picks[pickKey(gameId, side)] ? `pick-btn selected-${side}` : "pick-btn";
+  });
+}
+
+function closeGameModal(e) {
+  if (e && e.target !== document.getElementById("ga-overlay")) return;
+  document.getElementById("ga-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// Close on Escape key
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeGameModal();
 });
 
 // Initial render
