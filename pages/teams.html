@@ -580,18 +580,20 @@ function render() {
   }
 
   if (viewMode === "grid") {
-    document.getElementById("teams-container").innerHTML = `<div class="team-grid">${teams.map((t,i) => renderCard(t, i+1)).join("")}</div>`;
+    const cards = teams.map((t,i) => { try { return renderCard(t, i+1); } catch(e) { console.warn("renderCard failed for", t.id, e); return ""; } });
+    document.getElementById("teams-container").innerHTML = `<div class="team-grid">${cards.join("")}</div>`;
   } else {
-    document.getElementById("teams-container").innerHTML = teams.map((t,i) => renderListRow(t, i+1)).join("");
+    const rows = teams.map((t,i) => { try { return renderListRow(t, i+1); } catch(e) { console.warn("renderListRow failed for", t.id, e); return ""; } });
+    document.getElementById("teams-container").innerHTML = rows.join("");
   }
 }
 
-render();
+try { render(); } catch(e) { console.error("[Teams] render() failed:", e); document.getElementById("teams-container").innerHTML = '<div style="padding:40px;text-align:center;color:var(--danger)">Error loading teams — check console for details.</div>'; }
 
 function onLiveData() {
-  buildStatsStrip();
-  initConfChips();
-  render();
+  try { buildStatsStrip(); } catch(e) { console.warn("[Teams] buildStatsStrip failed:", e); }
+  try { initConfChips(); } catch(e) { console.warn("[Teams] initConfChips failed:", e); }
+  try { render(); } catch(e) { console.error("[Teams] render() failed on live update:", e); }
 }
 if (window.__liveDataReady) {
   onLiveData();

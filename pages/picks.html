@@ -1057,14 +1057,6 @@
       html += '<div class="chip' + (gpWeek === w ? ' active' : '') + ' gp-wc" data-w="' + w + '">Week ' + w + '</div>';
     });
     document.getElementById('gp-weeks').innerHTML = html;
-    document.getElementById('gp-weeks').addEventListener('click', function (e) {
-      var chip = e.target.closest('.gp-wc');
-      if (!chip) return;
-      var raw = chip.dataset.w;
-      gpWeek = raw === 'all' ? 'all' : parseInt(raw, 10);
-      renderGPWeeks();
-      renderGPGames();
-    });
   }
 
   function fmtSpreadGP(n) {
@@ -1196,7 +1188,17 @@
     setTimeout(function () { document.getElementById('f-pick').focus(); }, 350);
   }
 
-  // Search input wired up
+  // Week chips — single delegated listener on the container
+  document.getElementById('gp-weeks').addEventListener('click', function (e) {
+    var chip = e.target.closest('.gp-wc');
+    if (!chip) return;
+    var raw = chip.dataset.w;
+    gpWeek = raw === 'all' ? 'all' : parseInt(raw, 10);
+    renderGPWeeks();
+    renderGPGames();
+  });
+
+  // Search input
   document.getElementById('gp-search').addEventListener('input', function () {
     renderGPGames();
   });
@@ -1304,6 +1306,13 @@
       });
     });
   });
+
+  // Expose picker + grade functions globally (needed by inline onclick handlers)
+  window.openGamePicker    = openGamePicker;
+  window.closeGamePicker   = closeGamePicker;
+  window.gpBgClick         = gpBgClick;
+  window.clearGameSelection = clearGameSelection;
+  window.selectGamePick    = selectGamePick;
 
   /* ────────────────────────────────────────────────
      Initial render
