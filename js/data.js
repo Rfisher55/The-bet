@@ -13,6 +13,7 @@ var TEAMS = {
     color: "#BB0000",
     wins: 0, losses: 0, lastSeasonRecord: "14-2 (2025 CFP Champions)",
     rating: 95, offensiveRating: 96, defensiveRating: 93, spRating: 27.8,
+    apRank: 1,
     recruitingRank: 2,
     coachName: "Ryan Day", coachRecord: "86-13",
     stats: {
@@ -95,6 +96,7 @@ var TEAMS = {
     color: "#BA0C2F",
     wins: 0, losses: 0, lastSeasonRecord: "9-4 (2025)",
     rating: 90, offensiveRating: 87, defensiveRating: 93, spRating: 22.4,
+    apRank: 4,
     recruitingRank: 1,
     coachName: "Kirby Smart", coachRecord: "112-25",
     stats: {
@@ -177,6 +179,7 @@ var TEAMS = {
     color: "#9E1B32",
     wins: 0, losses: 0, lastSeasonRecord: "9-4 (2025)",
     rating: 82, offensiveRating: 81, defensiveRating: 83, spRating: 14.6,
+    apRank: 10,
     recruitingRank: 4,
     coachName: "Kalen DeBoer", coachRecord: "52-13",
     stats: {
@@ -259,6 +262,7 @@ var TEAMS = {
     color: "#BF5700",
     wins: 0, losses: 0, lastSeasonRecord: "11-3 (2025)",
     rating: 90, offensiveRating: 91, defensiveRating: 87, spRating: 22.1,
+    apRank: 5,
     recruitingRank: 3,
     coachName: "Steve Sarkisian", coachRecord: "50-24",
     stats: {
@@ -341,6 +345,7 @@ var TEAMS = {
     color: "#0C2340",
     wins: 0, losses: 0, lastSeasonRecord: "13-2 (2025 CFP Runner-Up)",
     rating: 91, offensiveRating: 88, defensiveRating: 93, spRating: 23.6,
+    apRank: 2,
     recruitingRank: 7,
     coachName: "Marcus Freeman", coachRecord: "47-18",
     stats: {
@@ -423,6 +428,7 @@ var TEAMS = {
     color: "#041E42",
     wins: 0, losses: 0, lastSeasonRecord: "11-3 (2025)",
     rating: 87, offensiveRating: 84, defensiveRating: 90, spRating: 18.4,
+    apRank: 7,
     recruitingRank: 10,
     coachName: "Matt Campbell", coachRecord: "0-0",
     stats: {
@@ -505,6 +511,7 @@ var TEAMS = {
     color: "#00274C",
     wins: 0, losses: 0, lastSeasonRecord: "8-4 (2025)",
     rating: 82, offensiveRating: 80, defensiveRating: 84, spRating: 13.8,
+    apRank: 16,
     recruitingRank: 11,
     coachName: "Kyle Whittingham", coachRecord: "143-73",
     stats: {
@@ -587,6 +594,7 @@ var TEAMS = {
     color: "#F56600",
     wins: 0, losses: 0, lastSeasonRecord: "10-3 (2025)",
     rating: 88, offensiveRating: 86, defensiveRating: 90, spRating: 17.9,
+    apRank: 6,
     recruitingRank: 9,
     coachName: "Dabo Swinney", coachRecord: "184-53",
     stats: {
@@ -669,6 +677,7 @@ var TEAMS = {
     color: "#461D7C",
     wins: 0, losses: 0, lastSeasonRecord: "9-4 (2025)",
     rating: 85, offensiveRating: 88, defensiveRating: 80, spRating: 15.2,
+    apRank: 9,
     recruitingRank: 6,
     coachName: "Lane Kiffin", coachRecord: "108-46",
     stats: {
@@ -751,6 +760,7 @@ var TEAMS = {
     color: "#154733",
     wins: 0, losses: 0, lastSeasonRecord: "12-2 (2025)",
     rating: 92, offensiveRating: 93, defensiveRating: 90, spRating: 24.6,
+    apRank: 3,
     recruitingRank: 8,
     coachName: "Dan Lanning", coachRecord: "49-12",
     stats: {
@@ -833,6 +843,7 @@ var TEAMS = {
     color: "#FF8200",
     wins: 0, losses: 0, lastSeasonRecord: "10-3 (2025)",
     rating: 84, offensiveRating: 87, defensiveRating: 80, spRating: 12.8,
+    apRank: 11,
     recruitingRank: 12,
     coachName: "Josh Heupel", coachRecord: "60-29",
     stats: {
@@ -915,6 +926,7 @@ var TEAMS = {
     color: "#005030",
     wins: 0, losses: 0, lastSeasonRecord: "9-4 (2025)",
     rating: 78, offensiveRating: 80, defensiveRating: 75, spRating: 12.6,
+    apRank: 20,
     recruitingRank: 15,
     coachName: "Mario Cristobal", coachRecord: "36-22",
     stats: {
@@ -1135,6 +1147,7 @@ var TEAMS = {
     mascot: "Seminoles", conference: "ACC", color: "#782F40",
     wins: 0, losses: 0, lastSeasonRecord: "9-4 (2025)",
     rating: 79, offensiveRating: 78, defensiveRating: 80, spRating: 11.8,
+    apRank: 22,
     recruitingRank: 14, coachName: "Mike Norvell", coachRecord: "50-31",
     stats: {
       pointsPerGame: 32.6, pointsAllowedPerGame: 20.8,

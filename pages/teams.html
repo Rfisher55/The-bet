@@ -20,7 +20,7 @@
     .team-card-header {
       height: 6px;
     }
-    .team-card-body { padding: 14px 16px; }
+    .team-card-body { padding: 14px 16px; min-height: 180px; }
     .team-card-rank {
       font-size: .6rem; font-weight: 900; letter-spacing: 2px;
       text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
@@ -420,6 +420,7 @@ function renderCard(team, rank) {
         <!-- Rank + momentum badge -->
         <div class="team-card-rank">
           <span class="rank-num" style="color:${rank<=3?"var(--gold)":"var(--muted)"}">#${rank}</span>
+          ${team.apRank ? `<span style="font-size:.58rem;font-weight:900;letter-spacing:.5px;padding:2px 7px;border-radius:4px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);color:var(--gold)">AP #${team.apRank}</span>` : ""}
           <span class="mom-badge ${momClass(mom)}">${momIcon(mom)} ${momLabel(mom)}</span>
           ${ph.coachHotSeat >= 5 ? `<span class="momentum-pill mom-declining">🔥 Hot Seat</span>` : ""}
         </div>

@@ -198,4 +198,20 @@
       fromStub: true,
     };
   });
+
+  // 2026 Preseason AP Poll rankings for stub teams
+  // Curated teams get their apRank directly in data.js
+  const STUB_AP_RANKS = {
+    indiana:       8,
+    iowa_state:   12,
+    ole_miss:     13,
+    smu:          14,
+    arizona_state:15,
+    byu:          18,
+    missouri:     21,
+    kansas_state: 24,
+  };
+  Object.keys(STUB_AP_RANKS).forEach(id => {
+    if (TEAMS[id]) TEAMS[id].apRank = STUB_AP_RANKS[id];
+  });
 })();
