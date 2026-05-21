@@ -152,6 +152,7 @@
       <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Game Type</div>
       <div class="chip-row" id="conf-chips-type">
         <div class="chip active" data-t="all">All</div>
+        <div class="chip" data-t="top25">Top 25</div>
         <div class="chip" data-t="conf">Conf</div>
         <div class="chip" data-t="nonconf">Non-Conf</div>
         <div class="chip" data-t="lines">Has Lines</div>
@@ -703,7 +704,12 @@ function render() {
   }
 
   // Game type filter
-  if (typeFilter === "conf") {
+  if (typeFilter === "top25") {
+    list = list.filter(({ game }) =>
+      (game.homeTeam && game.homeTeam.apRank && game.homeTeam.apRank <= 25) ||
+      (game.awayTeam && game.awayTeam.apRank && game.awayTeam.apRank <= 25)
+    );
+  } else if (typeFilter === "conf") {
     list = list.filter(({ game }) => game.isConferenceGame);
   } else if (typeFilter === "nonconf") {
     list = list.filter(({ game }) => !game.isConferenceGame);

@@ -191,8 +191,31 @@
   <!-- Stats strip -->
   <div class="stats-strip mb-5" id="page-stats"></div>
 
-  <!-- Auto Build hero button -->
-  <button class="auto-build-btn mb-5" onclick="autoBuild()">⚡ Auto-Build Best Parlay</button>
+  <!-- Auto Build panel -->
+  <div class="card card-p mb-5" id="auto-build-panel">
+    <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px">AUTO-BUILD SETTINGS</div>
+
+    <!-- Legs count -->
+    <div style="margin-bottom:10px">
+      <div style="font-size:.6rem;font-weight:800;color:var(--muted);margin-bottom:6px;letter-spacing:1px">LEGS</div>
+      <div class="chip-row" id="auto-legs-chips">
+        <div class="chip active" data-legs="3">3 legs</div>
+        <div class="chip" data-legs="4">4 legs</div>
+        <div class="chip" data-legs="5">5 legs</div>
+        <div class="chip" data-legs="6">6 legs</div>
+        <div class="chip" data-legs="7">7 legs</div>
+        <div class="chip" data-legs="8">8 legs</div>
+      </div>
+    </div>
+
+    <!-- Week selection (multi-select) -->
+    <div style="margin-bottom:12px">
+      <div style="font-size:.6rem;font-weight:800;color:var(--muted);margin-bottom:6px;letter-spacing:1px">WEEKS <span style="font-size:.55rem;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0">(tap to toggle — multiple OK)</span></div>
+      <div class="week-strip" id="auto-weeks-strip"></div>
+    </div>
+
+    <button class="auto-build-btn" onclick="autoBuild()">⚡ Auto-Build Best Parlay</button>
+  </div>
 
   <!-- Current Parlay Card -->
   <div class="card card-p mb-5" id="parlay-summary">
@@ -393,6 +416,10 @@ let parlayQualityFilter = "all";
 
 const weekLabels = { 1:"Wk 1",2:"Wk 2",3:"Wk 3",4:"Wk 4",5:"Wk 5",6:"Wk 6",7:"Wk 7",8:"Wk 8",9:"Wk 9",10:"Wk 10",11:"Wk 11",12:"Wk 12",13:"Wk 13",14:"Wk 14",15:"Champs",16:"CFP" };
 
+// ── Auto-build settings ──
+let autoBuildLegs = 3;
+let autoBuildWeekSet = new Set(); // empty = use activeWeek
+
 // ── Parlay name (localStorage) ──
 function loadParlayName() {
   const saved = localStorage.getItem("theBet_parlayName");
@@ -421,6 +448,49 @@ function buildParlayWeekTabs() {
 }
 buildParlayWeekTabs();
 loadParlayName();
+
+// ── Auto-build legs chips ──
+document.getElementById("auto-legs-chips").addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  document.querySelectorAll("#auto-legs-chips .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active");
+  autoBuildLegs = parseInt(chip.dataset.legs);
+});
+
+// ── Auto-build weeks strip ──
+function buildAutoBuildWeeksStrip() {
+  const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
+  const strip = document.getElementById("auto-weeks-strip");
+  if (!strip) return;
+  strip.innerHTML =
+    `<button class="week-tab${autoBuildWeekSet.size===0?" active":""}" data-abweek="current">Current Week</button>` +
+    `<button class="week-tab${autoBuildWeekSet.has("all")?" active":""}" data-abweek="all">All Weeks</button>` +
+    allWeeks.map(w => `<button class="week-tab${autoBuildWeekSet.has(w)?" active":""}" data-abweek="${w}">${weekLabels[w]||"Wk "+w}</button>`).join("");
+}
+buildAutoBuildWeeksStrip();
+
+document.getElementById("auto-weeks-strip").addEventListener("click", e => {
+  const tab = e.target.closest(".week-tab");
+  if (!tab) return;
+  const val = tab.dataset.abweek;
+  if (val === "current") {
+    autoBuildWeekSet.clear();
+  } else if (val === "all") {
+    autoBuildWeekSet.clear();
+    autoBuildWeekSet.add("all");
+  } else {
+    const w = parseInt(val);
+    autoBuildWeekSet.delete("all");
+    if (autoBuildWeekSet.has(w)) {
+      autoBuildWeekSet.delete(w);
+    } else {
+      autoBuildWeekSet.add(w);
+    }
+  }
+  buildAutoBuildWeeksStrip();
+});
+
 document.getElementById("week-strip").addEventListener("click", e => {
   const tab = e.target.closest(".week-tab");
   if (!tab) return;
@@ -727,12 +797,23 @@ function clearParlay() {
 function autoBuild() {
   clearParlay();
 
-  // Show brief status message
   const analysisEl = document.getElementById("parlay-analysis");
   if (analysisEl) analysisEl.textContent = "Auto-building...";
 
-  const confWeight = { elite:4, high:3, medium:2, low:1 };
-  const candidates = allPreds
+  // Determine which weeks to pull from
+  const weekPool = autoBuildWeekSet.has("all")
+    ? null  // null = all weeks
+    : autoBuildWeekSet.size > 0
+      ? [...autoBuildWeekSet]
+      : [activeWeek];
+
+  const poolPreds = weekPool
+    ? allPreds.filter(p => weekPool.includes(p.game.week))
+    : allPreds;
+
+  const targetLegs = autoBuildLegs || 3;
+
+  const candidates = poolPreds
     .filter(({ prediction:pred }) => {
       const sp = pred.spreadPick || {};
       return sp.side !== "no-bet" && sp.edge >= 1;
@@ -742,11 +823,12 @@ function autoBuild() {
       const bEdge = (b.prediction.spreadPick||{}).edge || 0;
       return bEdge - aEdge;
     })
-    .slice(0, 3);
+    .slice(0, targetLegs);
 
   if (!candidates.length) {
     if (analysisEl) analysisEl.textContent = "";
-    alert("No strong model edges found across all games. Try adding picks manually from the list below.");
+    const weekDesc = weekPool ? `week(s) ${weekPool.join(", ")}` : "all weeks";
+    alert(`No strong model edges found for ${weekDesc}. Try selecting different weeks or adding picks manually.`);
     return;
   }
 
@@ -754,24 +836,58 @@ function autoBuild() {
     const sp = pred.spreadPick;
     const home = game.homeTeam, away = game.awayTeam;
     if (sp.side === "home") {
-      const label = `${home.name.split(" ").pop()} ${fmtSpread(game.bettingLines.spread)}`;
+      const label = `${home.name.split(" ").pop()} ${fmtSpread(game.bettingLines?.spread||0)}`;
       picks[game.id] = { side:"home", odds:-110, label, confidence: pred.confidence || "—" };
     } else if (sp.side === "away") {
-      const label = `${away.name.split(" ").pop()} ${fmtSpread(-game.bettingLines.spread)}`;
+      const label = `${away.name.split(" ").pop()} ${fmtSpread(-(game.bettingLines?.spread||0))}`;
       picks[game.id] = { side:"away", odds:-110, label, confidence: pred.confidence || "—" };
     }
   });
 
-  // If we got fewer than 3 legs, add a total pick too
-  if (Object.keys(picks).length < 3) {
-    const totals = allPreds.filter(({ game, prediction:pred }) =>
-      !picks[game.id] && pred.totalPick && pred.totalPick.side !== "no-bet" && pred.totalPick.confidence >= 60
-    ).sort((a,b) => (b.prediction.totalPick.confidence||0) - (a.prediction.totalPick.confidence||0)).slice(0, 1);
+  // Fill remaining legs with best total picks if we're short
+  if (Object.keys(picks).length < targetLegs) {
+    const needed = targetLegs - Object.keys(picks).length;
+    const totals = poolPreds
+      .filter(({ game, prediction:pred }) =>
+        !picks[game.id] && pred.totalPick && pred.totalPick.side !== "no-bet" && pred.totalPick.confidence >= 55
+      )
+      .sort((a,b) => (b.prediction.totalPick.confidence||0) - (a.prediction.totalPick.confidence||0))
+      .slice(0, needed);
     totals.forEach(({ game, prediction:pred }) => {
       const tp = pred.totalPick;
-      const label = `${game.homeTeam.abbreviation}/${game.awayTeam.abbreviation} ${tp.side.toUpperCase()} ${game.bettingLines.total}`;
+      const bl = game.bettingLines || {};
+      const label = `${game.homeTeam.abbreviation}/${game.awayTeam.abbreviation} ${tp.side.toUpperCase()}${bl.total ? " " + bl.total : ""}`;
       picks[game.id] = { side: tp.side, odds:-110, label, confidence: pred.confidence || "—" };
     });
+  }
+
+  // Fill remaining legs with highest win-probability picks if still short
+  if (Object.keys(picks).length < targetLegs) {
+    const needed = targetLegs - Object.keys(picks).length;
+    const winProb = poolPreds
+      .filter(({ game, prediction:pred }) => !picks[game.id] && pred.winProbability >= 60)
+      .sort((a,b) => b.prediction.winProbability - a.prediction.winProbability)
+      .slice(0, needed);
+    winProb.forEach(({ game, prediction:pred }) => {
+      const home = game.homeTeam, away = game.awayTeam;
+      const favored = pred.predictedSpread >= 0 ? "home" : "away";
+      const favTeam = favored === "home" ? home : away;
+      const label = `${favTeam.name.split(" ").pop()} ML`;
+      const mlOdds = favored === "home" ? (game.bettingLines?.moneylineHome || -110) : (game.bettingLines?.moneylineAway || -110);
+      picks[game.id] = { side: favored + "-ml", odds: mlOdds, label, confidence: pred.confidence || "—" };
+    });
+  }
+
+  // Switch the game-list week view to show the first auto-built week
+  const firstPick = Object.keys(picks)[0];
+  if (firstPick) {
+    const firstGame = allPreds.find(p => p.game.id === firstPick);
+    if (firstGame && !autoBuildWeekSet.has("all")) {
+      activeWeek = firstGame.game.week;
+      document.querySelectorAll("#week-strip .week-tab").forEach(t =>
+        t.classList.toggle("active", parseInt(t.dataset.week) === activeWeek)
+      );
+    }
   }
 
   renderGameList();
@@ -1003,6 +1119,7 @@ window.addEventListener("liveDataReady", function() {
   parlayLiveLoaded = true;
   buildStatsStrip();
   buildParlayWeekTabs();
+  buildAutoBuildWeeksStrip();
   initParlayConfChips();
   renderGameList();
   updateSummary();
