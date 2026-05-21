@@ -18,19 +18,20 @@
     .parlay-stat-val { font-size:1.1rem;font-weight:900;line-height:1.1; }
     .parlay-stat-label { font-size:.55rem;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px; }
 
-    /* ── Pick buttons ── */
+    /* ── Pick buttons (modal) ── */
     .pick-btn {
       padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);
       color:var(--muted-l);font-size:.75rem;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;
       min-width:70px;
     }
     .pick-btn:hover { border-color:var(--border-l);color:var(--text); }
-    .pick-btn.selected-home { background:rgba(16,185,129,.15);border-color:var(--primary);color:var(--primary); }
-    .pick-btn.selected-away { background:rgba(99,102,241,.12);border-color:var(--accent);color:var(--accent); }
-    .pick-btn.selected-over { background:rgba(16,185,129,.12);border-color:var(--primary);color:var(--primary); }
+    .pick-btn.selected-home,.pick-btn.selected-home-ml,.pick-btn.selected-over {
+      background:rgba(16,185,129,.15);border-color:var(--primary);color:var(--primary);
+    }
+    .pick-btn.selected-away,.pick-btn.selected-away-ml {
+      background:rgba(99,102,241,.12);border-color:var(--accent);color:var(--accent);
+    }
     .pick-btn.selected-under { background:rgba(239,68,68,.1);border-color:var(--danger);color:var(--danger); }
-    .pick-btn.selected-home-ml { background:rgba(16,185,129,.15);border-color:var(--primary);color:var(--primary); }
-    .pick-btn.selected-away-ml { background:rgba(99,102,241,.12);border-color:var(--accent);color:var(--accent); }
 
     /* ── Pick button "added" animation ── */
     @keyframes pick-pop {
@@ -38,8 +39,49 @@
       40%  { transform:scale(1.13); }
       100% { transform:scale(1); }
     }
-    .pick-btn.pick-added {
+    .pick-btn.pick-added, .pg-btn.pick-added {
       animation:pick-pop .28s ease-out forwards;
+    }
+
+    /* ── Sportsbook-style betting grid ── */
+    .pg-grid {
+      display:grid;
+      grid-template-columns:64px 1fr 1fr 1fr;
+      gap:3px;
+      margin:8px 0 2px;
+    }
+    .pg-col-lbl {
+      font-size:.48rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;
+      color:var(--muted);text-align:center;padding:0 0 4px;line-height:1;
+    }
+    .pg-team {
+      display:flex;align-items:center;gap:5px;padding:0 4px 0 0;
+      min-height:50px;border-bottom:1px solid var(--border);
+    }
+    .pg-team:last-of-type { border-bottom:none; }
+    .pg-team-name {
+      font-size:.7rem;font-weight:800;color:var(--text);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42px;
+    }
+    .pg-btn {
+      background:var(--surface);border:1.5px solid var(--border);border-radius:8px;
+      padding:6px 3px;cursor:pointer;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;gap:2px;
+      min-height:50px;transition:border-color .12s,background .12s;width:100%;
+    }
+    .pg-btn:hover:not(:disabled) { border-color:var(--primary);background:rgba(16,185,129,.04); }
+    .pg-btn:active:not(:disabled) { transform:scale(.97); }
+    .pg-btn:disabled { opacity:.3;cursor:default; }
+    .pg-btn-line { font-size:.78rem;font-weight:900;color:var(--text);line-height:1.15; }
+    .pg-btn-odds { font-size:.6rem;font-weight:700;color:var(--muted);line-height:1; }
+    /* Selected states */
+    .pg-btn.sel {
+      background:rgba(16,185,129,.13);border-color:var(--primary);
+    }
+    .pg-btn.sel .pg-btn-line, .pg-btn.sel .pg-btn-odds { color:var(--primary); }
+    @media (max-width:400px) {
+      .pg-grid { grid-template-columns:52px 1fr 1fr 1fr; }
+      .pg-btn-line { font-size:.7rem; }
     }
 
     /* ── Game row ── */
@@ -809,7 +851,7 @@ function updateSummary() {
 
 // ── Select/deselect a pick ──
 function selectPick(gameId, side, odds, label, confidence) {
-  const btn = event && event.target ? event.target.closest(".pick-btn") : null;
+  const btn = event && event.target ? event.target.closest(".pick-btn, .pg-btn") : null;
   const key = pickKey(gameId, side);
   if (picks[key]) {
     removePick(key);
@@ -1031,99 +1073,112 @@ function renderGameList() {
     const home = game.homeTeam, away = game.awayTeam;
     const bl = game.bettingLines || {};
     const sp = pred.spreadPick || {};
-    const tp = pred.totalPick || {};
     const gamePicks = picksForGame(game.id);
     const hasPick = gamePicks.length > 0;
     const confCls = { elite:"badge-elite", high:"badge-high", medium:"badge-medium", low:"badge-low" }[pred.confidence]||"badge-low";
     const predConf = pred.confidence || "low";
 
-    // Determine recommended pick
-    let recText = "";
-    if (sp.side !== "no-bet" && sp.edge >= 1.5) {
-      recText = sp.side === "home" ? `MODEL: ${home.name.split(" ").pop()} ${fmtSpread(bl.spread)}` : `MODEL: ${away.name.split(" ").pop()} ${fmtSpread(-bl.spread)}`;
-    }
-
-    function btnCls(side) {
-      return picks[pickKey(game.id, side)] ? `pick-btn selected-${side}` : "pick-btn";
-    }
-
     const hso = bl.homeSpreadOdds || -110;
     const aso = bl.awaySpreadOdds || -110;
     const oo  = bl.overOdds       || -110;
     const uo  = bl.underOdds      || -110;
+    const hSpread = fmtSpread(bl.spread || 0);
+    const aSpread = fmtSpread(-(bl.spread || 0));
+
+    // Sportsbook-style selected state
+    function sel(side) { return picks[pickKey(game.id, side)] ? " sel" : ""; }
+
+    // Model rec banner (pre-computed to avoid nested template)
+    const recBanner = (sp.side !== "no-bet" && sp.edge >= 1.5)
+      ? '<div style="font-size:.63rem;color:var(--primary);font-weight:700;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:6px;padding:4px 10px;margin-bottom:6px">&#11088; MODEL: '
+        + (sp.side === "home" ? home.name.split(" ").pop() + " " + hSpread : away.name.split(" ").pop() + " " + aSpread)
+        + '</div>'
+      : "";
+
+    // Pick badge (pre-computed)
+    const pickBadge = hasPick
+      ? '<span style="font-size:.58rem;padding:2px 8px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">&#10003; '
+        + (gamePicks.length > 1 ? gamePicks.length + " PICKS" : "ADDED") + '</span>'
+      : "";
+
+    // Model note (pre-computed)
+    const favTeam = pred.predictedSpread >= 0 ? home.name : away.name;
+    const modelNote = "Model: " + favTeam + " " + fmtSpread(-pred.predictedSpread) + " · " + pred.winProbability + "% win prob";
 
     return `
       <div class="parlay-game-row${hasPick ? " has-pick" : ""}" id="prow-${game.id}">
-        <!-- Game header -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
-          <div style="min-width:0;overflow:hidden">
-            <div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow:hidden">
-              <div class="team-logo" style="background:${away.color};width:22px;height:22px;font-size:.5rem;flex-shrink:0;color:${textForBg(away.color)}">${away.abbreviation.slice(0,3)}</div>
-              <span style="font-size:.82rem;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:90px">${away.name}</span>
-              <span style="font-size:.7rem;color:var(--muted);flex-shrink:0">@</span>
-              <div class="team-logo" style="background:${home.color};width:22px;height:22px;font-size:.5rem;flex-shrink:0;color:${textForBg(home.color)}">${home.abbreviation.slice(0,3)}</div>
-              <span style="font-size:.82rem;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:90px">${home.name}</span>
+
+        <!-- Header: matchup + badges -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;gap:6px">
+          <div style="min-width:0;flex:1">
+            <div style="font-size:.78rem;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+              ${away.name} <span style="font-weight:400;color:var(--muted)">@</span> ${home.name}
             </div>
-            <div style="font-size:.62rem;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>
+            <div style="font-size:.6rem;color:var(--muted);margin-top:1px">${fmtDate(game.date)} · ${game.time} · ${game.network}</div>
           </div>
-          <div style="display:flex;align-items:center;gap:6px">
-            ${hasPick ? '<span style="font-size:.6rem;padding:2px 8px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">&#10003; ' + (gamePicks.length > 1 ? gamePicks.length + " PICKS" : "ADDED") + '</span>' : ""}
+          <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+            ${pickBadge}
             <span class="badge ${confCls}">${pred.confidence.toUpperCase()}</span>
           </div>
         </div>
 
-        ${recText ? `<div style="font-size:.68rem;color:var(--primary);font-weight:700;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:6px;padding:5px 10px;margin-bottom:8px">&#11088; ${recText}</div>` : ""}
+        ${recBanner}
 
-        <!-- Pick buttons -->
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <!-- ATS picks -->
-          <div style="flex:1;min-width:130px">
-            <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;text-transform:uppercase">Spread (ATS)</div>
-            <div style="display:flex;gap:5px">
-              <button class="${btnCls("home")}" style="flex:1" onclick="selectPick('${game.id}','home',${hso},'${home.name.split(" ").pop().replace(/'/g,"\\'")} ${fmtSpread(bl.spread||0)}','${predConf}')">
-                ${home.abbreviation} ${fmtSpread(bl.spread||0)}
-                <div style="font-size:.6rem;color:inherit;opacity:.7">${fmtOdds(hso)}</div>
-              </button>
-              <button class="${btnCls("away")}" style="flex:1" onclick="selectPick('${game.id}','away',${aso},'${away.name.split(" ").pop().replace(/'/g,"\\'")} ${fmtSpread(-(bl.spread||0))}','${predConf}')">
-                ${away.abbreviation} ${fmtSpread(-(bl.spread||0))}
-                <div style="font-size:.6rem;color:inherit;opacity:.7">${fmtOdds(aso)}</div>
-              </button>
-            </div>
+        <!-- Sportsbook betting grid -->
+        <div class="pg-grid">
+          <!-- Column headers -->
+          <div class="pg-col-lbl"></div>
+          <div class="pg-col-lbl">SPREAD</div>
+          <div class="pg-col-lbl">TOTAL</div>
+          <div class="pg-col-lbl">MONEYLINE</div>
+
+          <!-- Away row -->
+          <div class="pg-team">
+            <div class="team-logo" style="background:${away.color};width:20px;height:20px;font-size:.46rem;flex-shrink:0;color:${textForBg(away.color)}">${away.abbreviation.slice(0,3)}</div>
+            <span class="pg-team-name">${away.abbreviation}</span>
           </div>
-          <!-- Total picks -->
-          ${bl.total ? `<div style="flex:1;min-width:130px">
-            <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;text-transform:uppercase">Total ${bl.total}</div>
-            <div style="display:flex;gap:5px">
-              <button class="${btnCls("over")}" style="flex:1" onclick="selectPick('${game.id}','over',${oo},'${home.abbreviation}/${away.abbreviation} OVER ${bl.total}','${predConf}')">
-                OVER
-                <div style="font-size:.6rem;opacity:.7">${fmtOdds(oo)}</div>
-              </button>
-              <button class="${btnCls("under")}" style="flex:1" onclick="selectPick('${game.id}','under',${uo},'${home.abbreviation}/${away.abbreviation} UNDER ${bl.total}','${predConf}')">
-                UNDER
-                <div style="font-size:.6rem;opacity:.7">${fmtOdds(uo)}</div>
-              </button>
-            </div>
-          </div>` : ""}
-          <!-- ML picks -->
-          ${bl.moneylineHome && bl.moneylineAway ? `<div style="flex:1;min-width:130px">
-            <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;text-transform:uppercase">Moneyline</div>
-            <div style="display:flex;gap:5px">
-              <button class="${btnCls("home-ml")}" style="flex:1" onclick="selectPick('${game.id}','home-ml',${bl.moneylineHome},'${home.abbreviation} ML ${fmtML(bl.moneylineHome)}','${predConf}')">
-                ${home.abbreviation}<br>
-                <span style="font-size:.72rem;font-weight:900">${fmtML(bl.moneylineHome)}</span>
-              </button>
-              <button class="${btnCls("away-ml")}" style="flex:1" onclick="selectPick('${game.id}','away-ml',${bl.moneylineAway},'${away.abbreviation} ML ${fmtML(bl.moneylineAway)}','${predConf}')">
-                ${away.abbreviation}<br>
-                <span style="font-size:.72rem;font-weight:900">${fmtML(bl.moneylineAway)}</span>
-              </button>
-            </div>
-          </div>` : ""}
+          <button class="pg-btn${sel("away")}"
+            onclick="selectPick('${game.id}','away',${aso},'${away.name.split(" ").pop().replace(/'/g,"\\'")} ${aSpread}','${predConf}')">
+            <div class="pg-btn-line">${aSpread}</div>
+            <div class="pg-btn-odds">${fmtOdds(aso)}</div>
+          </button>
+          <button class="pg-btn${sel("over")}"${bl.total ? "" : " disabled"}
+            onclick="selectPick('${game.id}','over',${oo},'${away.abbreviation}/${home.abbreviation} OVER ${bl.total || ""}','${predConf}')">
+            <div class="pg-btn-line">${bl.total ? "O " + bl.total : "—"}</div>
+            <div class="pg-btn-odds">${bl.total ? fmtOdds(oo) : ""}</div>
+          </button>
+          <button class="pg-btn${sel("away-ml")}"${bl.moneylineAway ? "" : " disabled"}
+            onclick="selectPick('${game.id}','away-ml',${bl.moneylineAway || 0},'${away.abbreviation} ML','${predConf}')">
+            <div class="pg-btn-line">${bl.moneylineAway ? fmtML(bl.moneylineAway) : "—"}</div>
+          </button>
+
+          <!-- Home row -->
+          <div class="pg-team">
+            <div class="team-logo" style="background:${home.color};width:20px;height:20px;font-size:.46rem;flex-shrink:0;color:${textForBg(home.color)}">${home.abbreviation.slice(0,3)}</div>
+            <span class="pg-team-name">${home.abbreviation}</span>
+          </div>
+          <button class="pg-btn${sel("home")}"
+            onclick="selectPick('${game.id}','home',${hso},'${home.name.split(" ").pop().replace(/'/g,"\\'")} ${hSpread}','${predConf}')">
+            <div class="pg-btn-line">${hSpread}</div>
+            <div class="pg-btn-odds">${fmtOdds(hso)}</div>
+          </button>
+          <button class="pg-btn${sel("under")}"${bl.total ? "" : " disabled"}
+            onclick="selectPick('${game.id}','under',${uo},'${away.abbreviation}/${home.abbreviation} UNDER ${bl.total || ""}','${predConf}')">
+            <div class="pg-btn-line">${bl.total ? "U " + bl.total : "—"}</div>
+            <div class="pg-btn-odds">${bl.total ? fmtOdds(uo) : ""}</div>
+          </button>
+          <button class="pg-btn${sel("home-ml")}"${bl.moneylineHome ? "" : " disabled"}
+            onclick="selectPick('${game.id}','home-ml',${bl.moneylineHome || 0},'${home.abbreviation} ML','${predConf}')">
+            <div class="pg-btn-line">${bl.moneylineHome ? fmtML(bl.moneylineHome) : "—"}</div>
+          </button>
         </div>
 
-        <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px">
-          <div style="font-size:.65rem;color:var(--muted)">Model: <strong style="color:var(--text)">${pred.predictedSpread>=0?home.name:away.name}</strong> wins · ${pred.winProbability}% prob · Spread ${fmtSpread(-pred.predictedSpread)}</div>
-          <button onclick="openGameModal('${game.id}')" style="font-size:.65rem;color:var(--primary);font-weight:700;background:none;border:none;cursor:pointer;padding:0;text-decoration:none">Full Analysis &#8594;</button>
+        <!-- Footer: model note + analysis link -->
+        <div style="margin-top:6px;display:flex;align-items:center;justify-content:space-between;gap:4px">
+          <div style="font-size:.6rem;color:var(--muted)">${modelNote}</div>
+          <button onclick="openGameModal('${game.id}')" style="font-size:.62rem;color:var(--primary);font-weight:700;background:none;border:none;cursor:pointer;padding:0;white-space:nowrap">Analysis &#8594;</button>
         </div>
+
       </div>`;
   }).join("");
 }
