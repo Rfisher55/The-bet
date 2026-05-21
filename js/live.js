@@ -417,6 +417,47 @@ const LIVE = (() => {
   }
 
   // ── ESPN: fetch scoreboard with live game status ─────────────
+  // ── ESPN AP/CFP Rankings (public, no key) ────────────────────
+  async function fetchESPNRankings() {
+    try {
+      const r = await fetch(`${ESPN_BASE}/rankings`, { cache: "no-cache" });
+      if (!r.ok) return {};
+      const d = await r.json();
+      const polls = d.rankings || [];
+      const apPoll = polls.find(p => p.name?.includes("AP") || p.shortName?.includes("AP")) || polls[0];
+      if (!apPoll?.ranks) return {};
+      const rankMap = {};
+      apPoll.ranks.forEach(entry => {
+        const teamName = entry.team?.displayName || entry.team?.name || "";
+        const teamId   = entry.team?.slug?.replace(/-/g,"_") || "";
+        const rank     = entry.current;
+        if (teamName) rankMap[teamName] = rank;
+        if (teamId)   rankMap[teamId]   = rank;
+      });
+      return rankMap;
+    } catch { return {}; }
+  }
+
+  // ── ESPN all-team season records (current season) ────────────
+  async function fetchESPNAllTeamRecords() {
+    try {
+      const r = await fetch(`${ESPN_BASE}/teams?groups=80&limit=500`, { cache: "no-cache" });
+      if (!r.ok) return {};
+      const d = await r.json();
+      const map = {};
+      (d.sports?.[0]?.leagues?.[0]?.teams || d.teams || []).forEach(entry => {
+        const t = entry.team || entry;
+        const id = (t.slug||"").replace(/-/g,"_") || t.abbreviation?.toLowerCase();
+        const rec = t.record?.items?.[0];
+        if (!id || !rec) return;
+        const wins   = parseInt(rec.stats?.find(s=>s.name==="wins")?.value ?? 0);
+        const losses = parseInt(rec.stats?.find(s=>s.name==="losses")?.value ?? 0);
+        if (wins + losses > 0) map[id] = `${wins}-${losses}`;
+      });
+      return map;
+    } catch { return {}; }
+  }
+
   async function fetchESPNLiveScores() {
     try {
       const r = await fetch(`${ESPN_BASE}/scoreboard?groups=80&limit=50`);
@@ -599,9 +640,11 @@ const LIVE = (() => {
       updateModalStatus();
 
       // Launch all no-key sources immediately in parallel with CFBD
-      const espnPromise      = fetchESPNSchedule(SEASON).catch(() => []);
-      const espnNewsPromise  = fetchESPNNews().catch(() => []);
-      const redditPromise    = fetchRedditCFB().catch(() => []);
+      const espnPromise          = fetchESPNSchedule(SEASON).catch(() => []);
+      const espnNewsPromise      = fetchESPNNews().catch(() => []);
+      const espnRankingsPromise  = fetchESPNRankings().catch(() => ({}));
+      const espnAllTeamsPromise  = fetchESPNAllTeamRecords().catch(() => ({}));
+      const redditPromise        = fetchRedditCFB().catch(() => []);
       // ESPN team-specific sources (rosters, injuries, team news, stats, live scores)
       const espnRostersPromise   = fetchESPNRosters().catch(() => ({}));
       const espnInjuriesPromise  = fetchESPNInjuries().catch(() => ({}));
@@ -670,17 +713,35 @@ const LIVE = (() => {
 
       // ESPN schedule + news + Reddit + rosters/injuries/team data (all ran in parallel)
       const espnEvents     = await espnPromise;
-      const espnNews       = await espnNewsPromise;
-      const redditPosts    = await redditPromise;
-      const espnRosters    = await espnRostersPromise;
-      const espnInjuries   = await espnInjuriesPromise;
-      const espnTeamNews   = await espnTeamNewsPromise;
-      const espnTeamStats  = await espnTeamStatsPromise;
-      const espnLiveScores = await espnLivePromise;
+      const espnNews        = await espnNewsPromise;
+      const espnRankings    = await espnRankingsPromise;
+      const espnAllRecords  = await espnAllTeamsPromise;
+      const redditPosts     = await redditPromise;
+      const espnRosters     = await espnRostersPromise;
+      const espnInjuries    = await espnInjuriesPromise;
+      const espnTeamNews    = await espnTeamNewsPromise;
+      const espnTeamStats   = await espnTeamStatsPromise;
+      const espnLiveScores  = await espnLivePromise;
       onEndpointDone();
+
+      // Apply ESPN rankings to all TEAMS immediately (no CFBD key needed)
+      if (Object.keys(espnRankings).length && window.TEAMS) {
+        Object.values(TEAMS).forEach(t => {
+          const rank = espnRankings[t.name] || espnRankings[t.id] || espnRankings[t.abbreviation];
+          if (rank) t.apRank = rank;
+        });
+      }
+      // Apply current season records to all TEAMS immediately
+      if (Object.keys(espnAllRecords).length && window.TEAMS) {
+        Object.values(TEAMS).forEach(t => {
+          const rec = espnAllRecords[t.id] || espnAllRecords[(t.abbreviation||"").toLowerCase()];
+          if (rec) t.currentRecord = rec;
+        });
+      }
+
       const espnGames = espnEvents.map(e => mapESPNGame(e)).filter(Boolean);
       const rosterCount = Object.values(espnRosters).reduce((s,r)=>s+r.length,0);
-      console.log(`[LIVE] ESPN: ${espnGames.length} games | CFBD 2026: ${games2026.length} | Reddit: ${redditPosts.length} posts | Rosters: ${rosterCount} players across ${Object.keys(espnRosters).length} teams`);
+      console.log(`[LIVE] ESPN: ${espnGames.length} games | CFBD 2026: ${games2026.length} | Reddit: ${redditPosts.length} posts | Rosters: ${rosterCount} players | AP Rankings: ${Object.keys(espnRankings).length} teams`);
 
       // Choose primary schedule source: ESPN if full, CFBD if full, else merge with 2025 data
       let gamesFromApi;

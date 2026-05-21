@@ -97,7 +97,6 @@
     <div class="nav-links">
       <a class="nav-link" href="../index.html">Home</a>
       <a class="nav-link active" href="games.html">Games</a>
-      <a class="nav-link" href="pregame.html">Pre-Game</a>
       <a class="nav-link" href="parlay.html">Parlay</a>
       <a class="nav-link" href="teams.html">Teams</a>
       <a class="nav-link" href="picks.html">My Picks</a>
@@ -574,7 +573,62 @@ function renderGameCard(game, pred) {
         </div>
       </div>
 
-      <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:6px">
+      <!-- ── Live Intel Row ── -->
+      ${(function(){
+        const bl = game.bettingLines;
+        const chips = [];
+
+        // Live score
+        const liveScores = window.__espnLiveScores || [];
+        const liveGame = liveScores.find(s =>
+          s.status === "STATUS_IN_PROGRESS" &&
+          ((s.homeTeam||"").toLowerCase().includes((home.name||"").split(" ").pop().toLowerCase()) ||
+           (s.awayTeam||"").toLowerCase().includes((away.name||"").split(" ").pop().toLowerCase()))
+        );
+        if (liveGame) {
+          chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 8px;border-radius:6px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:var(--danger);animation:pulse 2s infinite">LIVE ${liveGame.awayScore}–${liveGame.homeScore} Q${liveGame.period}</span>`);
+        }
+
+        // Line movement
+        if (bl && bl.openSpread != null && bl.spread != null && Math.abs(bl.spread - bl.openSpread) >= 0.5) {
+          const diff = bl.spread - bl.openSpread;
+          const dir = diff < 0 ? "▼" : "▲";
+          const teamDir = diff < 0 ? home.abbreviation : away.abbreviation;
+          chips.push(`<span style="font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--primary)" title="Line moved from ${fmtSpread(bl.openSpread)} to ${fmtSpread(bl.spread)}">${dir} ${Math.abs(diff).toFixed(1)} ${teamDir}</span>`);
+        }
+
+        // Sharp signal
+        if (pred.sharpAlert || bl?.sharpSide) {
+          const side = bl?.sharpSide || (pred.sharpAlert ? (pred.predictedSpread >= 0 ? "home" : "away") : null);
+          const sharpTeam = side === "home" ? home.abbreviation : away.abbreviation;
+          chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.4);color:var(--accent)">⚡ SHARP: ${sharpTeam}</span>`);
+        }
+
+        // Injury alert
+        if (pred.injuryAlert) {
+          const inj = (window.KEY_PLAYERS||[]).filter(p =>
+            (p.teamId===home.id||p.teamId===away.id) &&
+            p.injuryStatus && p.injuryStatus!=="healthy" && p.injuryStatus!=="active"
+          );
+          const outCount = inj.filter(p => (p.injuryStatus||"").toLowerCase()==="out").length;
+          const qCount   = inj.filter(p => (p.injuryStatus||"").toLowerCase()==="questionable").length;
+          const txt = [outCount && `${outCount} OUT`, qCount && `${qCount} Q`].filter(Boolean).join(" · ");
+          chips.push(`<span style="font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);color:var(--danger)" title="Injury report">🩹 ${txt||"Injuries"}</span>`);
+        }
+
+        // Public betting
+        const pub = bl?.homePublicPct ?? bl?.publicBettingHome;
+        if (pub != null) {
+          const favTeam = pub > 50 ? home.abbreviation : away.abbreviation;
+          const pct = pub > 50 ? Math.round(pub) : Math.round(100 - pub);
+          chips.push(`<span style="font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--muted-l)" title="Public betting">${pct}% on ${favTeam}</span>`);
+        }
+
+        if (!chips.length) return "";
+        return `<div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap">${chips.join("")}</div>`;
+      })()}
+
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:6px">
         <span style="font-size:.65rem;color:var(--muted);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${game.venue.split(",")[0]}</span>
         <span class="grade-badge ${gradeCls}" title="Model grade: ${grade}">${grade}</span>
         <span style="font-size:.7rem;color:var(--primary);font-weight:700;white-space:nowrap">Analysis →</span>
