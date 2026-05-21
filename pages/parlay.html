@@ -857,6 +857,10 @@ function selectPick(gameId, side, odds, label, confidence) {
     removePick(key);
     return;
   }
+  // Remove the opposing side of the same bet type (can't pick both spreads, both O/U, both ML)
+  const oppSide = { home:"away", away:"home", over:"under", under:"over", "home-ml":"away-ml", "away-ml":"home-ml" }[side];
+  if (oppSide) delete picks[pickKey(gameId, oppSide)];
+
   picks[key] = { gameId, side, odds, label, confidence: confidence || "—" };
 
   // Button pop animation + toast
