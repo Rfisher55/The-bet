@@ -377,7 +377,13 @@ function renderCard({ game, pred }) {
   const home = game.homeTeam, away = game.awayTeam;
   if (!home || !away) return "";
 
-  const homeWinPct = pred.homeWinPct != null ? pred.homeWinPct : 50;
+  // homeWinPct from predictor (winProbability is always the winner's %, predictedWinner tells us who)
+  let homeWinPct = 50;
+  if (pred.winProbability != null) {
+    homeWinPct = pred.predictedWinner === home.name ? pred.winProbability : 100 - pred.winProbability;
+  } else if (pred.predictedSpread != null) {
+    homeWinPct = Math.round(Math.min(85, Math.max(15, 50 + pred.predictedSpread * 2.5)));
+  }
   const awayWinPct = 100 - homeWinPct;
 
   const bl = game.bettingLines;
