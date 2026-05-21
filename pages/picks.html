@@ -213,8 +213,9 @@
     .gp-close:hover { border-color:var(--danger);color:var(--danger); }
     .gp-search-wrap { padding:10px 16px;flex-shrink:0;border-bottom:1px solid var(--border); }
     .gp-search { width:100%;box-sizing:border-box; }
-    .gp-weeks-wrap { padding:10px 16px 8px;flex-shrink:0;overflow-x:auto;display:flex;gap:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none; }
+    .gp-weeks-wrap { padding:10px 16px 8px;flex-shrink:0;overflow-x:auto;display:flex;gap:6px;align-items:center;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid var(--border); }
     .gp-weeks-wrap::-webkit-scrollbar { display:none; }
+    .gp-wc { white-space:nowrap;flex-shrink:0;font-size:.78rem;padding:6px 14px; }
     .gp-list { flex:1;overflow-y:auto;padding:0 16px 40px;-webkit-overflow-scrolling:touch; }
     .gp-game { padding:12px 0;border-bottom:1px solid var(--border); }
     .gp-game:last-child { border-bottom:none; }
@@ -254,6 +255,7 @@
       <a class="nav-link" href="parlay.html">Parlay</a>
       <a class="nav-link" href="teams.html">Teams</a>
       <a class="nav-link active" href="picks.html">My Picks</a>
+      <a class="nav-link" href="learn.html">Learn</a>
     </div>
     <div class="nav-badge"><span class="nav-dot"></span>2026 Live</div>
   </div>
@@ -398,6 +400,10 @@
     <a class="bottom-nav-item active" href="picks.html">
       <span class="bottom-nav-icon">&#128221;</span>
       <span class="bottom-nav-label">Picks</span>
+    </a>
+    <a class="bottom-nav-item" href="learn.html">
+      <span class="bottom-nav-icon">📚</span>
+      <span class="bottom-nav-label">Learn</span>
     </a>
   </div>
 </nav>
@@ -1010,7 +1016,10 @@
   ──────────────────────────────────────────────── */
   var gpWeek = 'all';
 
+  var gpIsOpen = false;
+
   function openGamePicker() {
+    gpIsOpen = true;
     renderGPWeeks();
     renderGPGames();
     document.getElementById('gp-overlay').classList.add('open');
@@ -1019,6 +1028,7 @@
   }
 
   function closeGamePicker() {
+    gpIsOpen = false;
     document.getElementById('gp-overlay').classList.remove('open');
     document.body.style.overflow = '';
   }
@@ -1087,18 +1097,24 @@
       return true;
     });
 
+    var gameCount = games.length;
+    var countNote = gameCount < 100
+      ? '<div style="padding:8px 0 0;font-size:.6rem;color:var(--muted);text-align:center">Showing ' + gameCount + ' games — more load after live data fetches</div>'
+      : '<div style="padding:8px 0 0;font-size:.6rem;color:var(--muted);text-align:center">' + gameCount + ' games available</div>';
+
     if (!filtered.length) {
-      document.getElementById('gp-list').innerHTML = '<div style="padding:32px;text-align:center;color:var(--muted)">No games found. Try a different week or team name.</div>';
+      document.getElementById('gp-list').innerHTML = countNote + '<div style="padding:32px;text-align:center;color:var(--muted)">No games found. Try a different week or team name.</div>';
       return;
     }
 
-    var html = '';
+    var html = countNote;
     filtered.forEach(function (g) {
       var ht = teams[g.homeTeamId] || { name: g.homeTeamId, abbreviation: (g.homeTeamId || '').toUpperCase().slice(0, 4) };
       var at = teams[g.awayTeamId] || { name: g.awayTeamId, abbreviation: (g.awayTeamId || '').toUpperCase().slice(0, 4) };
       var bl = g.bettingLines || {};
-      var hSpread = fmtSpreadGP(bl.spread || 0);
-      var aSpread = fmtSpreadGP(-(bl.spread || 0));
+      var hasLines = bl.spread != null;
+      var hSpread = hasLines ? fmtSpreadGP(bl.spread) : 'PK';
+      var aSpread = hasLines ? fmtSpreadGP(-bl.spread) : 'PK';
       var hso = bl.homeSpreadOdds || -110;
       var aso = bl.awaySpreadOdds || -110;
       var oo  = bl.overOdds       || -110;
@@ -1107,37 +1123,58 @@
 
       html += '<div class="gp-game">';
       html += '<div class="gp-game-title">' + escHtml(at.name) + ' <span style="color:var(--muted);font-weight:400">@</span> ' + escHtml(ht.name) + '</div>';
-      html += '<div class="gp-game-meta">' + dateStr + ' · Week ' + g.week + ' · ' + escHtml(g.network || '') + '</div>';
-      html += '<div class="gp-bets">';
+      html += '<div class="gp-game-meta">' + dateStr + ' · Week ' + g.week + (g.network ? ' · ' + escHtml(g.network) : '') + '</div>';
 
-      // Spread column
-      html += '<div class="gp-bet-col"><div class="gp-bet-hdr">SPREAD</div>';
-      html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'away\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + (bl.spread || 0) + ',\'spread\',' + aso + ')">';
-      html += '<div class="gp-btn-line">' + escHtml(at.abbreviation) + ' ' + aSpread + '</div>';
-      html += '<div class="gp-btn-odds">' + fmtOddsGP(aso) + '</div></button>';
-      html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'home\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + (bl.spread || 0) + ',\'spread\',' + hso + ')">';
-      html += '<div class="gp-btn-line">' + escHtml(ht.abbreviation) + ' ' + hSpread + '</div>';
-      html += '<div class="gp-btn-odds">' + fmtOddsGP(hso) + '</div></button>';
-      html += '</div>';
+      if (hasLines) {
+        html += '<div class="gp-bets">';
 
-      // Total column
-      if (bl.total) {
-        html += '<div class="gp-bet-col"><div class="gp-bet-hdr">TOTAL ' + bl.total + '</div>';
-        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'over\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + bl.total + ',\'total\',' + oo + ')">';
-        html += '<div class="gp-btn-line">OVER</div><div class="gp-btn-odds">' + fmtOddsGP(oo) + '</div></button>';
-        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'under\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + bl.total + ',\'total\',' + uo + ')">';
-        html += '<div class="gp-btn-line">UNDER</div><div class="gp-btn-odds">' + fmtOddsGP(uo) + '</div></button>';
+        // Spread column
+        html += '<div class="gp-bet-col"><div class="gp-bet-hdr">SPREAD</div>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'away\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + bl.spread + ',\'spread\',' + aso + ')">';
+        html += '<div class="gp-btn-line">' + escHtml(at.abbreviation) + ' ' + aSpread + '</div>';
+        html += '<div class="gp-btn-odds">' + fmtOddsGP(aso) + '</div></button>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'home\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + bl.spread + ',\'spread\',' + hso + ')">';
+        html += '<div class="gp-btn-line">' + escHtml(ht.abbreviation) + ' ' + hSpread + '</div>';
+        html += '<div class="gp-btn-odds">' + fmtOddsGP(hso) + '</div></button>';
         html += '</div>';
-      }
 
-      // Moneyline column
-      if (bl.moneylineHome && bl.moneylineAway) {
+        // Total column
+        if (bl.total) {
+          html += '<div class="gp-bet-col"><div class="gp-bet-hdr">TOTAL ' + bl.total + '</div>';
+          html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'over\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + bl.total + ',\'total\',' + oo + ')">';
+          html += '<div class="gp-btn-line">OVER</div><div class="gp-btn-odds">' + fmtOddsGP(oo) + '</div></button>';
+          html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'under\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + bl.total + ',\'total\',' + uo + ')">';
+          html += '<div class="gp-btn-line">UNDER</div><div class="gp-btn-odds">' + fmtOddsGP(uo) + '</div></button>';
+          html += '</div>';
+        }
+
+        // Moneyline column
+        if (bl.moneylineHome && bl.moneylineAway) {
+          html += '<div class="gp-bet-col"><div class="gp-bet-hdr">MONEYLINE</div>';
+          html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'away-ml\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'moneyline\',' + bl.moneylineAway + ')">';
+          html += '<div class="gp-btn-line">' + escHtml(at.abbreviation) + ' ML</div><div class="gp-btn-odds">' + fmtOddsGP(bl.moneylineAway) + '</div></button>';
+          html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'home-ml\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'moneyline\',' + bl.moneylineHome + ')">';
+          html += '<div class="gp-btn-line">' + escHtml(ht.abbreviation) + ' ML</div><div class="gp-btn-odds">' + fmtOddsGP(bl.moneylineHome) + '</div></button>';
+          html += '</div>';
+        }
+
+        html += '</div>'; // gp-bets
+      } else {
+        // No lines yet — show log buttons for spread/ml without odds
+        html += '<div class="gp-bets">';
+        html += '<div class="gp-bet-col"><div class="gp-bet-hdr">SPREAD</div>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'away\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'spread\',0)">';
+        html += '<div class="gp-btn-line">' + escHtml(at.abbreviation) + ' ATS</div><div class="gp-btn-odds" style="color:var(--muted-l)">No line yet</div></button>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'home\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'spread\',0)">';
+        html += '<div class="gp-btn-line">' + escHtml(ht.abbreviation) + ' ATS</div><div class="gp-btn-odds" style="color:var(--muted-l)">No line yet</div></button>';
+        html += '</div>';
         html += '<div class="gp-bet-col"><div class="gp-bet-hdr">MONEYLINE</div>';
-        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'away-ml\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'moneyline\',' + bl.moneylineAway + ')">';
-        html += '<div class="gp-btn-line">' + escHtml(at.abbreviation) + ' ML</div><div class="gp-btn-odds">' + fmtOddsGP(bl.moneylineAway) + '</div></button>';
-        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'home-ml\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'moneyline\',' + bl.moneylineHome + ')">';
-        html += '<div class="gp-btn-line">' + escHtml(ht.abbreviation) + ' ML</div><div class="gp-btn-odds">' + fmtOddsGP(bl.moneylineHome) + '</div></button>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'away-ml\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'moneyline\',0)">';
+        html += '<div class="gp-btn-line">' + escHtml(at.abbreviation) + ' ML</div><div class="gp-btn-odds" style="color:var(--muted-l)">No line yet</div></button>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'home-ml\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'moneyline\',0)">';
+        html += '<div class="gp-btn-line">' + escHtml(ht.abbreviation) + ' ML</div><div class="gp-btn-odds" style="color:var(--muted-l)">No line yet</div></button>';
         html += '</div>';
+        html += '</div>'; // gp-bets
       }
 
       html += '</div></div>'; // gp-bets, gp-game
@@ -1313,6 +1350,14 @@
   window.gpBgClick         = gpBgClick;
   window.clearGameSelection = clearGameSelection;
   window.selectGamePick    = selectGamePick;
+
+  // When live.js fetches 800+ games, refresh the picker if it's open
+  window.addEventListener('liveDataReady', function () {
+    if (gpIsOpen) {
+      renderGPWeeks();
+      renderGPGames();
+    }
+  });
 
   /* ────────────────────────────────────────────────
      Initial render

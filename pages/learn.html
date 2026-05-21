@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Betting Guide — The Bet D1 Football Predictor</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Page header ── */
+    .learn-header { margin-bottom: 28px; }
+    .learn-title {
+      font-size: 2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
+      background: linear-gradient(135deg, var(--primary), var(--primary-l));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 8px; line-height: 1.1;
+    }
+    .learn-subtitle {
+      font-size: .9rem; color: var(--muted); max-width: 700px; line-height: 1.6;
+    }
+
+    /* ── Tab strip ── */
+    .tab-strip {
+      display: flex; gap: 8px; margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 10px 20px; border-radius: 20px;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--muted-l); font-size: .82rem; font-weight: 700;
+      cursor: pointer; transition: all .15s; white-space: nowrap;
+      letter-spacing: .5px; font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tab-btn:hover:not(.active) { border-color: var(--border-l); color: var(--text); }
+    .tab-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+    /* ── Tab panels ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: .6rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-label::after {
+      content: ""; flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* ── Glossary cards ── */
+    .glossary-list { display: flex; flex-direction: column; gap: 10px; }
+    .glossary-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px;
+      transition: border-color .15s;
+    }
+    .glossary-card:hover { border-color: var(--border-l); }
+    .glossary-term {
+      font-size: .95rem; font-weight: 800; color: var(--primary);
+      margin-bottom: 5px; letter-spacing: .3px;
+    }
+    .glossary-def {
+      font-size: .875rem; color: var(--text); line-height: 1.55; margin-bottom: 8px;
+    }
+    .glossary-example {
+      font-size: .8rem; color: var(--muted); line-height: 1.5;
+      border-left: 2px solid var(--border); padding-left: 10px;
+      font-style: italic;
+    }
+    .glossary-example strong { color: var(--muted-l); font-style: normal; }
+
+    /* ── Model signal cards ── */
+    .signal-list { display: flex; flex-direction: column; gap: 12px; }
+    .signal-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .weight-badge {
+      flex-shrink: 0; padding: 4px 10px; border-radius: 20px;
+      font-size: .68rem; font-weight: 900; letter-spacing: .5px;
+      background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.35);
+      color: var(--primary); white-space: nowrap; margin-top: 2px;
+    }
+    .signal-body { flex: 1; }
+    .signal-name {
+      font-size: .95rem; font-weight: 800; color: var(--text); margin-bottom: 5px;
+    }
+    .signal-desc {
+      font-size: .85rem; color: var(--muted); line-height: 1.55;
+    }
+
+    /* ── Confidence table ── */
+    .confidence-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px;
+    }
+    @media (max-width: 560px) { .confidence-grid { grid-template-columns: 1fr; } }
+    .confidence-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px;
+    }
+    .confidence-grade {
+      font-size: 1.1rem; font-weight: 900; margin-bottom: 4px;
+    }
+    .confidence-label {
+      font-size: .75rem; font-weight: 700; color: var(--muted); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    .confidence-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── Data sources two-col ── */
+    .data-cols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;
+    }
+    @media (max-width: 640px) { .data-cols { grid-template-columns: 1fr; } }
+    .data-col { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+    .data-col-title {
+      font-size: .65rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 14px; display: flex; align-items: center; gap: 7px;
+    }
+    .data-col-title.do { color: var(--primary); }
+    .data-col-title.dont { color: var(--danger); }
+    .data-item {
+      display: flex; gap: 9px; align-items: flex-start; margin-bottom: 12px;
+    }
+    .data-item:last-child { margin-bottom: 0; }
+    .data-icon { flex-shrink: 0; font-size: 1rem; line-height: 1.4; }
+    .data-item-body { flex: 1; }
+    .data-item-name { font-size: .85rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .data-item-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── Callout boxes ── */
+    .callout {
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;
+      font-size: .875rem; line-height: 1.6;
+    }
+    .callout-warn {
+      background: rgba(245,158,11,.07); border: 1px solid rgba(245,158,11,.3);
+      border-left: 3px solid var(--gold);
+      color: var(--text-soft);
+    }
+    .callout-info {
+      background: rgba(99,102,241,.07); border: 1px solid rgba(99,102,241,.3);
+      border-left: 3px solid var(--accent);
+      color: var(--text-soft);
+    }
+    .callout-label {
+      font-size: .6rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .callout-warn .callout-label { color: var(--gold); }
+    .callout-info .callout-label { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<!-- ── Top Nav ─────────────────────────────────────── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="../index.html">
+      <div class="nav-logo-icon">TB</div>
+      THE BET
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../index.html">Home</a>
+      <a class="nav-link" href="games.html">Games</a>
+      <a class="nav-link" href="parlay.html">Parlay</a>
+      <a class="nav-link" href="teams.html">Teams</a>
+      <a class="nav-link" href="picks.html">My Picks</a>
+      <a class="nav-link active" href="learn.html">Learn</a>
+    </div>
+    <div class="nav-badge"><span class="nav-dot"></span>2026 Season</div>
+  </div>
+</nav>
+
+<!-- ── Main Content ───────────────────────────────── -->
+<main class="container page-content">
+
+  <!-- Page header -->
+  <div class="learn-header">
+    <h1 class="learn-title">Betting Guide</h1>
+    <p class="learn-subtitle">Everything you need to understand sports betting — how odds work, what the model uses, and what we honestly can and can't track.</p>
+  </div>
+
+  <!-- Tab strip -->
+  <div class="tab-strip" role="tablist">
+    <button class="tab-btn active" role="tab" data-tab="betting101" aria-selected="true">Betting 101</button>
+    <button class="tab-btn" role="tab" data-tab="model" aria-selected="false">How The Model Works</button>
+    <button class="tab-btn" role="tab" data-tab="data" aria-selected="false">Data Sources &amp; Honesty</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       TAB 1: BETTING 101
+       ══════════════════════════════════════════════ -->
+  <div class="tab-panel active" id="tab-betting101" role="tabpanel">
+    <div class="section-label">Core Concepts &amp; Glossary</div>
+
+    <div class="glossary-list">
+
+      <div class="glossary-card">
+        <div class="glossary-term">Point Spread</div>
+        <div class="glossary-def">The handicap given to the favorite to level the playing field. The favorite must win by more than the spread; the underdog can lose by less than the spread and still cover.</div>
+        <div class="glossary-example"><strong>Example:</strong> Alabama -7.5 means Alabama must win by 8 or more for a spread bet on them to win. If you bet the underdog (+7.5), they can lose by up to 7 points and you still win your bet.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Moneyline (ML)</div>
+        <div class="glossary-def">Bet on who wins straight up — no spread involved. The odds reflect implied probability. Favorites are negative (you risk more to win less); underdogs are positive (risk less to win more).</div>
+        <div class="glossary-example"><strong>Example:</strong> -200 means bet $200 to win $100. +175 means bet $100 to win $175.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Over/Under (Total)</div>
+        <div class="glossary-def">A bet on the combined score of both teams in a game. The sportsbook sets a total; you bet whether the actual combined score goes over or under that number.</div>
+        <div class="glossary-example"><strong>Example:</strong> If the total is 52.5 and you bet OVER, both teams must score 53 or more combined points for you to win.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Parlay</div>
+        <div class="glossary-def">Combining 2 or more bets into a single wager. All individual "legs" must win for the parlay to pay out. Higher risk — but the reward multiplies with each added leg.</div>
+        <div class="glossary-example"><strong>Example:</strong> A 4-team parlay where 3 teams win and 1 loses is a losing bet. Missing even one leg kills the whole parlay.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Juice / Vig</div>
+        <div class="glossary-def">The sportsbook's commission on every bet. It's built into the odds so books profit regardless of outcome. Standard juice is -110 on both sides of a spread bet.</div>
+        <div class="glossary-example"><strong>Example:</strong> At -110, bet $110 to win $100. The extra $10 is the vig — that's how the house stays profitable long-term.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">ATS (Against The Spread)</div>
+        <div class="glossary-def">A measure of how often a team covers the point spread, as opposed to simply winning or losing the game outright. A team's ATS record can differ significantly from their win/loss record.</div>
+        <div class="glossary-example"><strong>Example:</strong> A team can win the game 28-20 but lose ATS if they were favored by 10 — they only won by 8, so they didn't cover.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Push</div>
+        <div class="glossary-def">When the final margin exactly equals the spread. Neither side wins nor loses — your original bet is refunded in full. This is why lines often use half-points (e.g., -7.5) to eliminate pushes.</div>
+        <div class="glossary-example"><strong>Example:</strong> If the spread is -7 and the favorite wins by exactly 7, the bet pushes and everyone gets their money back.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Line Movement</div>
+        <div class="glossary-def">When the point spread or total changes from when it was first posted to when the game kicks off. Lines move in response to betting volume, sharp money, and new information like injuries.</div>
+        <div class="glossary-example"><strong>Example:</strong> A line opening at -3 and moving to -6 means heavy action came in on the favorite. If it moves against public betting percentages, that's a sharp signal.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Sharp Money</div>
+        <div class="glossary-def">Bets placed by professional bettors or betting syndicates who have enough volume and accuracy to force sportsbooks to adjust their lines. Sharp money is considered the most reliable signal in betting markets.</div>
+        <div class="glossary-example"><strong>Example:</strong> 80% of public bets are on Team A, but the line moves toward Team B — that reverse line movement indicates sharp money is on Team B.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Public Money</div>
+        <div class="glossary-def">Where the majority of casual bettors are placing their money. Sportsbooks track public betting percentages. The public tends to overvalue favorites, home teams, and brand-name programs.</div>
+        <div class="glossary-example"><strong>Example:</strong> If 75% of bets are on a big-name favorite, the book may shade the line to attract action on the other side and balance their risk.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Opening Line / Closing Line</div>
+        <div class="glossary-def">The opening line is the spread or total when first posted, often days before the game. The closing line is the final spread at kickoff. Closing lines incorporate all available information and are considered the most accurate.</div>
+        <div class="glossary-example"><strong>Example:</strong> Getting -3 on a team that closes at -6 means you "beat the closing line" — a sign of good timing or information.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Cover</div>
+        <div class="glossary-def">When a team beats the point spread. If a team is favored by 7 and wins by 10, they covered. If an underdog is +10 and loses by 6, they covered.</div>
+        <div class="glossary-example"><strong>Example:</strong> "Alabama covered" means they won by more than the spread required — bettors who backed Alabama against the spread won their bet.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Dog</div>
+        <div class="glossary-def">Short for underdog. The team expected to lose, indicated by a + spread and + moneyline. Betting the dog pays out more because they're less likely to win or cover.</div>
+        <div class="glossary-example"><strong>Example:</strong> Team B at +7.5 spread and +220 moneyline is the dog. A $100 moneyline bet pays $220 profit if they pull the upset.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Chalk</div>
+        <div class="glossary-def">The favorite. Betting chalk means betting the expected winner. Chalk has a - spread and - moneyline. "Parlaying chalk" means stacking multiple heavy favorites together.</div>
+        <div class="glossary-example"><strong>Example:</strong> Georgia at -14 and -650 moneyline is chalk. You'd need to bet $650 to win $100 on the moneyline.</div>
+      </div>
+
+      <div class="glossary-card">
+        <div class="glossary-term">Steam</div>
+        <div class="glossary-def">A sudden, coordinated rush of sharp money on one side that causes rapid line movement across multiple sportsbooks simultaneously. Steam moves are usually orchestrated by professional betting groups.</div>
+        <div class="glossary-example"><strong>Example:</strong> A line drops from -6.5 to -4.5 within minutes at books across the country — that's a steam move, and it's a significant sharp signal to track.</div>
+      </div>
+
+    </div><!-- /.glossary-list -->
+  </div><!-- /#tab-betting101 -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 2: HOW THE MODEL WORKS
+       ══════════════════════════════════════════════ -->
+  <div class="tab-panel" id="tab-model" role="tabpanel">
+    <div class="section-label">7 Signals — Weighted Prediction Engine</div>
+
+    <div class="signal-list">
+
+      <div class="signal-card">
+        <div class="weight-badge">30%</div>
+        <div class="signal-body">
+          <div class="signal-name">Base Model</div>
+          <div class="signal-desc">SP+ ratings from ESPN / collegefootballdata.com — a predictive efficiency metric that adjusts for strength of schedule, tempo, and garbage time. It measures how efficiently a team scores and prevents scoring on a per-play basis. Higher SP+ = better team. This is the single most reliable predictor of game outcomes and forms the backbone of every projection.</div>
+        </div>
+      </div>
+
+      <div class="signal-card">
+        <div class="weight-badge">20%</div>
+        <div class="signal-body">
+          <div class="signal-name">Player Impact</div>
+          <div class="signal-desc">Key player grades for stars who can meaningfully shift a game's outcome, injury status pulled from ESPN, and starter vs. backup situations at quarterback and other skill positions. A backup QB can swing a projection by multiple points. Injury reports are the most time-sensitive signal in the model.</div>
+        </div>
+      </div>
+
+      <div class="signal-card">
+        <div class="weight-badge">15%</div>
+        <div class="signal-body">
+          <div class="signal-name">Situational</div>
+          <div class="signal-desc">Historical ATS records in specific game situations: coming off a blowout loss, facing ranked opponents, night games, playing far from home, rivalry matchups, bowl games, and conference championship contexts. Teams behave differently in different situations — this signal captures those tendencies.</div>
+        </div>
+      </div>
+
+      <div class="signal-card">
+        <div class="weight-badge">10%</div>
+        <div class="signal-body">
+          <div class="signal-name">Weather</div>
+          <div class="signal-desc">Wind speed, temperature, and precipitation at game time. High wind (15+ mph) suppresses passing offenses and benefits run-heavy teams — it also strongly favors the under. Cold weather disproportionately affects teams that train and play in warm climates. Rain reduces ball security and field goal percentage.</div>
+        </div>
+      </div>
+
+      <div class="signal-card">
+        <div class="weight-badge">10%</div>
+        <div class="signal-body">
+          <div class="signal-name">Coaching Edge</div>
+          <div class="signal-desc">A coach's career ATS record split by role (favorite vs. underdog), late-game decision-making tendencies, timeout management track record, and historical performance in big spots. Some coaches consistently beat the spread as underdogs; others lose ATS as heavy favorites. This captures that edge.</div>
+        </div>
+      </div>
+
+      <div class="signal-card">
+        <div class="weight-badge">8%</div>
+        <div class="signal-body">
+          <div class="signal-name">Program Momentum</div>
+          <div class="signal-desc">Transfer portal wins and losses (did the team add talent or lose key contributors?), recruiting class trajectory, locker room stability signals, and fan morale indicators. A program that lost 4 starters to the portal and had coaching staff turnover is not the same team as last year's SP+ suggests.</div>
+        </div>
+      </div>
+
+      <div class="signal-card">
+        <div class="weight-badge">7%</div>
+        <div class="signal-body">
+          <div class="signal-name">Sharp Money</div>
+          <div class="signal-desc">Line movement from open to current spread, detection of reverse line movement (line moving against public betting percentages), and steam signals. When sharps disagree with the public and the line moves their way, it's a meaningful signal — though it's weighted lowest because by the time data is available, some edge has already been priced in.</div>
+        </div>
+      </div>
+
+    </div><!-- /.signal-list -->
+
+    <!-- Confidence levels -->
+    <div style="margin-top: 32px;">
+      <div class="section-label">Confidence Levels Explained</div>
+      <div class="confidence-grid">
+        <div class="confidence-card" style="border-color: rgba(16,185,129,.4);">
+          <div class="confidence-grade" style="color: var(--primary);">A+ — Elite</div>
+          <div class="confidence-label">Highest Confidence</div>
+          <div class="confidence-desc">High agreement across all 7 signals. SP+, situational history, sharp money, and weather all point the same direction. These are the model's strongest picks — treat with the most weight.</div>
+        </div>
+        <div class="confidence-card" style="border-color: rgba(20,184,166,.35);">
+          <div class="confidence-grade" style="color: #14b8a6;">A — High</div>
+          <div class="confidence-label">Strong Confidence</div>
+          <div class="confidence-desc">Strong agreement across most signals with minor conflicts in 1-2 areas. A solid pick with a clear directional edge. Good candidates for single-game bets.</div>
+        </div>
+        <div class="confidence-card" style="border-color: rgba(139,92,246,.35);">
+          <div class="confidence-grade" style="color: #8b5cf6;">B+ — Medium</div>
+          <div class="confidence-label">Mixed Signals</div>
+          <div class="confidence-desc">Some signals point one way, others are conflicting. The model has a lean but lacks conviction. Use as a supporting pick in a parlay or pass if you need clarity.</div>
+        </div>
+        <div class="confidence-card" style="border-color: rgba(245,158,11,.3);">
+          <div class="confidence-grade" style="color: var(--gold);">B / C — Low</div>
+          <div class="confidence-label">Noisy — Proceed Carefully</div>
+          <div class="confidence-desc">Signals are noisy or contradictory. The model doesn't have enough agreement to produce a strong lean. Recommended to do additional research before betting.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /#tab-model -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 3: DATA SOURCES & HONESTY
+       ══════════════════════════════════════════════ -->
+  <div class="tab-panel" id="tab-data" role="tabpanel">
+    <div class="section-label">What We Track — And What We Don't</div>
+
+    <div class="data-cols">
+      <!-- DO column -->
+      <div class="data-col">
+        <div class="data-col-title do">&#10003; What We DO Pull</div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--primary);">✓</div>
+          <div class="data-item-body">
+            <div class="data-item-name">CFBD API (collegefootballdata.com)</div>
+            <div class="data-item-desc">Game schedules, historical scores, SP+ ratings, recruiting rankings, portal transfer activity, coaching records, and ATS history going back multiple seasons.</div>
+          </div>
+        </div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--primary);">✓</div>
+          <div class="data-item-body">
+            <div class="data-item-name">ESPN API</div>
+            <div class="data-item-desc">Live game scores, team rosters, official injury reports, team news, AP Poll rankings, and full game schedules with venue and broadcast info.</div>
+          </div>
+        </div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--primary);">✓</div>
+          <div class="data-item-body">
+            <div class="data-item-name">Reddit r/CFB Public Feed</div>
+            <div class="data-item-desc">Public JSON feed for fan sentiment and news aggregation. Limited to Reddit's public API — no scraping, no private data, no authenticated endpoints.</div>
+          </div>
+        </div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--primary);">✓</div>
+          <div class="data-item-body">
+            <div class="data-item-name">Hand-Curated Team Data</div>
+            <div class="data-item-desc">16 top programs with detailed coaching profiles, situational ATS records, program health signals, and depth chart notes — built and maintained manually.</div>
+          </div>
+        </div>
+      </div><!-- /.data-col.do -->
+
+      <!-- DON'T column -->
+      <div class="data-col">
+        <div class="data-col-title dont">✕ What We DON'T Do</div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--danger);">✕</div>
+          <div class="data-item-body">
+            <div class="data-item-name">No Twitter / X Scraping</div>
+            <div class="data-item-desc">We cannot monitor real-time tweets, player posts, or coaching announcements. Breaking news that first surfaces on Twitter is not captured by this model.</div>
+          </div>
+        </div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--danger);">✕</div>
+          <div class="data-item-body">
+            <div class="data-item-name">No Instagram / TikTok Monitoring</div>
+            <div class="data-item-desc">Social media behavior — a QB seen out late the night before a game, a player posting from an unexpected city — is not tracked or factored into the model.</div>
+          </div>
+        </div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--danger);">✕</div>
+          <div class="data-item-body">
+            <div class="data-item-name">No News Website Scraping</div>
+            <div class="data-item-desc">Beat reporter articles, injury updates from local papers, and press conference transcripts are not automatically parsed. If it hasn't hit ESPN or CFBD structured data, we don't have it.</div>
+          </div>
+        </div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--danger);">✕</div>
+          <div class="data-item-body">
+            <div class="data-item-name">No Insider Information</div>
+            <div class="data-item-desc">Locker room sources, anonymous tips, team facilities access — none of this. Everything in the model is sourced from public structured data.</div>
+          </div>
+        </div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--danger);">✕</div>
+          <div class="data-item-body">
+            <div class="data-item-name">No 24/7 Real-Time Updates</div>
+            <div class="data-item-desc">Data refreshes every 30 minutes when a CFBD API key is configured. Without an API key, data is static. This is not a live feed.</div>
+          </div>
+        </div>
+
+        <div class="data-item">
+          <div class="data-icon" style="color: var(--danger);">✕</div>
+          <div class="data-item-body">
+            <div class="data-item-name">No Behavioral Signals</div>
+            <div class="data-item-desc">A coach's personal scandal, a player's off-field issues, team chemistry problems — these only enter the model if they surface in CFBD or ESPN structured data. Human drama that hasn't been officially reported is invisible to us.</div>
+          </div>
+        </div>
+      </div><!-- /.data-col.dont -->
+    </div><!-- /.data-cols -->
+
+    <!-- What this means callout -->
+    <div class="callout callout-warn">
+      <div class="callout-label">What This Means For You</div>
+      The model is a strong starting point built on publicly available structured data. It will miss things that only insiders know or that haven't hit structured data sources yet. Always cross-reference with beat reporters, team beat writers, and recent news before placing a bet. For the best edges, combine this model's signals with your own research on the human factors we can't automate.
+    </div>
+
+    <!-- 2026 season note -->
+    <div class="callout callout-info">
+      <div class="callout-label">A Note on the 2026 Season</div>
+      The 2026 season is in the future relative to most structured databases. Schedule data, betting lines, and team ratings are projections based on 2025 SP+ and recruiting data. Lines will update as the season starts and real games are played — early-season projections carry more uncertainty than mid-season picks backed by actual game results.
+    </div>
+
+  </div><!-- /#tab-data -->
+
+</main><!-- /.container.page-content -->
+
+<!-- ── Bottom Nav ──────────────────────────────────── -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a class="bottom-nav-item" href="../index.html"><span class="bottom-nav-icon">🏠</span><span class="bottom-nav-label">Home</span></a>
+    <a class="bottom-nav-item" href="games.html"><span class="bottom-nav-icon">🏈</span><span class="bottom-nav-label">Games</span></a>
+    <a class="bottom-nav-item" href="parlay.html"><span class="bottom-nav-icon">🎯</span><span class="bottom-nav-label">Parlay</span></a>
+    <a class="bottom-nav-item" href="teams.html"><span class="bottom-nav-icon">📊</span><span class="bottom-nav-label">Teams</span></a>
+    <a class="bottom-nav-item" href="picks.html"><span class="bottom-nav-icon">📋</span><span class="bottom-nav-label">Picks</span></a>
+    <a class="bottom-nav-item active" href="learn.html"><span class="bottom-nav-icon">📚</span><span class="bottom-nav-label">Learn</span></a>
+  </div>
+</nav>
+
+<!-- ── Tab switching JS ────────────────────────────── -->
+<script>
+  (function () {
+    var tabs = document.querySelectorAll('.tab-btn');
+    var panels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-tab');
+
+        // Deactivate all tabs and panels
+        tabs.forEach(function (t) {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        panels.forEach(function (p) { p.classList.remove('active'); });
+
+        // Activate selected
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        var panel = document.getElementById('tab-' + target);
+        if (panel) panel.classList.add('active');
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
