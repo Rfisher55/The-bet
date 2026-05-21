@@ -1337,11 +1337,17 @@ const LIVE = (() => {
       if (!best) return;
       const spread = parseFloat(best.spread);
       if (isNaN(spread)) return;
+      const mlHome = best.homeMoneyline ? parseInt(best.homeMoneyline) : undefined;
+      const mlAway = best.awayMoneyline ? parseInt(best.awayMoneyline) : undefined;
       const lineEntry = {
         spread,
-        total:         parseFloat(best.overUnder)     || 50,
-        moneylineHome: best.homeMoneyline ? parseInt(best.homeMoneyline) : undefined,
-        moneylineAway: best.awayMoneyline ? parseInt(best.awayMoneyline) : undefined,
+        total:            parseFloat(best.overUnder) || 50,
+        moneylineHome:    mlHome,
+        moneylineAway:    mlAway,
+        homeSpreadOdds:   best.homeSpreadOdds  ? parseInt(best.homeSpreadOdds)  : -110,
+        awaySpreadOdds:   best.awaySpreadOdds  ? parseInt(best.awaySpreadOdds)  : -110,
+        overOdds:         best.overOdds        ? parseInt(best.overOdds)        : -110,
+        underOdds:        best.underOdds       ? parseInt(best.underOdds)       : -110,
       };
       linesMap[g.id] = lineEntry;
       if (g.home_team && g.away_team) {

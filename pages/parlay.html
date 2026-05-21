@@ -537,6 +537,9 @@ document.getElementById("edge-filter").addEventListener("click", e => {
   renderGameList();
 });
 
+// ── Format American odds for display ──
+function fmtOdds(o) { return o > 0 ? "+" + o : "" + o; }
+
 // ── Odds math ──
 function americanToDecimal(odds) {
   return odds > 0 ? (odds / 100) + 1 : (100 / Math.abs(odds)) + 1;
@@ -989,6 +992,11 @@ function renderGameList() {
       return `pick-btn selected-${side}`;
     }
 
+    const hso = bl.homeSpreadOdds || -110;
+    const aso = bl.awaySpreadOdds || -110;
+    const oo  = bl.overOdds       || -110;
+    const uo  = bl.underOdds      || -110;
+
     return `
       <div class="parlay-game-row${hasPick ? " has-pick" : ""}" id="prow-${game.id}">
         <!-- Game header -->
@@ -1015,15 +1023,15 @@ function renderGameList() {
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           <!-- ATS picks -->
           <div style="flex:1;min-width:130px">
-            <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;text-transform:uppercase">Spread</div>
+            <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;text-transform:uppercase">Spread (ATS)</div>
             <div style="display:flex;gap:5px">
-              <button class="${btnCls("home")}" style="flex:1" onclick="selectPick('${game.id}','home',-110,'${home.name.split(" ").pop()} ${fmtSpread(bl.spread||0)}','${predConf}')">
+              <button class="${btnCls("home")}" style="flex:1" onclick="selectPick('${game.id}','home',${hso},'${home.name.split(" ").pop().replace(/'/g,"\\'")} ${fmtSpread(bl.spread||0)}','${predConf}')">
                 ${home.abbreviation} ${fmtSpread(bl.spread||0)}
-                <div style="font-size:.6rem;color:inherit;opacity:.7">-110</div>
+                <div style="font-size:.6rem;color:inherit;opacity:.7">${fmtOdds(hso)}</div>
               </button>
-              <button class="${btnCls("away")}" style="flex:1" onclick="selectPick('${game.id}','away',-110,'${away.name.split(" ").pop()} ${fmtSpread(-(bl.spread||0))}','${predConf}')">
+              <button class="${btnCls("away")}" style="flex:1" onclick="selectPick('${game.id}','away',${aso},'${away.name.split(" ").pop().replace(/'/g,"\\'")} ${fmtSpread(-(bl.spread||0))}','${predConf}')">
                 ${away.abbreviation} ${fmtSpread(-(bl.spread||0))}
-                <div style="font-size:.6rem;color:inherit;opacity:.7">-110</div>
+                <div style="font-size:.6rem;color:inherit;opacity:.7">${fmtOdds(aso)}</div>
               </button>
             </div>
           </div>
@@ -1031,13 +1039,13 @@ function renderGameList() {
           ${bl.total ? `<div style="flex:1;min-width:130px">
             <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;text-transform:uppercase">Total ${bl.total}</div>
             <div style="display:flex;gap:5px">
-              <button class="${btnCls("over")}" style="flex:1" onclick="selectPick('${game.id}','over',-110,'${home.abbreviation}/${away.abbreviation} OVER ${bl.total}','${predConf}')">
+              <button class="${btnCls("over")}" style="flex:1" onclick="selectPick('${game.id}','over',${oo},'${home.abbreviation}/${away.abbreviation} OVER ${bl.total}','${predConf}')">
                 OVER
-                <div style="font-size:.6rem;opacity:.7">-110</div>
+                <div style="font-size:.6rem;opacity:.7">${fmtOdds(oo)}</div>
               </button>
-              <button class="${btnCls("under")}" style="flex:1" onclick="selectPick('${game.id}','under',-110,'${home.abbreviation}/${away.abbreviation} UNDER ${bl.total}','${predConf}')">
+              <button class="${btnCls("under")}" style="flex:1" onclick="selectPick('${game.id}','under',${uo},'${home.abbreviation}/${away.abbreviation} UNDER ${bl.total}','${predConf}')">
                 UNDER
-                <div style="font-size:.6rem;opacity:.7">-110</div>
+                <div style="font-size:.6rem;opacity:.7">${fmtOdds(uo)}</div>
               </button>
             </div>
           </div>` : ""}
