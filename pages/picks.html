@@ -175,6 +175,68 @@
       display:flex;align-items:center;justify-content:space-between;
       flex-wrap:wrap;gap:10px;margin-bottom:16px;
     }
+
+    /* ── Game picker selector (in form) ── */
+    .gp-selector {
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);
+      background:var(--surface);cursor:pointer;transition:border-color .15s;min-height:42px;
+    }
+    .gp-selector:hover { border-color:var(--primary); }
+    .gp-selector-text { font-size:.85rem;font-weight:600;color:var(--muted);flex:1; }
+    .gp-selector.has-game .gp-selector-text { color:var(--text);font-weight:800; }
+    .gp-clear-btn { font-size:.7rem;color:var(--muted);background:none;border:none;cursor:pointer;padding:0;flex-shrink:0; }
+    .gp-clear-btn:hover { color:var(--danger); }
+
+    /* ── Game picker modal ── */
+    .gp-overlay {
+      position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);
+      display:flex;align-items:flex-end;justify-content:center;
+      opacity:0;pointer-events:none;transition:opacity .25s;
+    }
+    .gp-overlay.open { opacity:1;pointer-events:all; }
+    .gp-sheet {
+      width:100%;max-width:720px;height:88vh;background:var(--card);
+      border-radius:22px 22px 0 0;border-top:1px solid var(--border-l);
+      overflow:hidden;display:flex;flex-direction:column;
+      transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+    }
+    .gp-overlay.open .gp-sheet { transform:translateY(0); }
+    @media (min-width:720px) {
+      .gp-overlay { align-items:center; }
+      .gp-sheet { border-radius:18px;margin:16px;height:auto;max-height:90vh; }
+    }
+    .gp-handle { width:40px;height:4px;background:var(--border-l);border-radius:2px;margin:12px auto 4px;flex-shrink:0; }
+    .gp-header { padding:8px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0; }
+    .gp-modal-title { font-size:1rem;font-weight:900;color:var(--text); }
+    .gp-close { width:30px;height:30px;border-radius:50%;background:var(--surface);border:1px solid var(--border);color:var(--muted-l);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center; }
+    .gp-close:hover { border-color:var(--danger);color:var(--danger); }
+    .gp-search-wrap { padding:10px 16px;flex-shrink:0;border-bottom:1px solid var(--border); }
+    .gp-search { width:100%;box-sizing:border-box; }
+    .gp-weeks-wrap { padding:10px 16px 8px;flex-shrink:0;overflow-x:auto;display:flex;gap:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none; }
+    .gp-weeks-wrap::-webkit-scrollbar { display:none; }
+    .gp-list { flex:1;overflow-y:auto;padding:0 16px 40px;-webkit-overflow-scrolling:touch; }
+    .gp-game { padding:12px 0;border-bottom:1px solid var(--border); }
+    .gp-game:last-child { border-bottom:none; }
+    .gp-game-title { font-size:.82rem;font-weight:800;color:var(--text); }
+    .gp-game-meta { font-size:.6rem;color:var(--muted);margin-top:2px; }
+    .gp-bets { display:flex;gap:6px;flex-wrap:wrap;margin-top:8px; }
+    .gp-bet-col { flex:1;min-width:90px;max-width:160px; }
+    .gp-bet-hdr { font-size:.47rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;text-align:center; }
+    .gp-btn {
+      width:100%;padding:7px 4px;border:1.5px solid var(--border);border-radius:8px;
+      background:var(--surface);cursor:pointer;text-align:center;display:block;
+      margin-bottom:4px;transition:border-color .12s,background .12s;
+    }
+    .gp-btn:last-child { margin-bottom:0; }
+    .gp-btn:hover { border-color:var(--primary);background:rgba(16,185,129,.07); }
+    .gp-btn:active { transform:scale(.97); }
+    .gp-btn-line { font-size:.74rem;font-weight:900;color:var(--text);line-height:1.2; }
+    .gp-btn-odds { font-size:.58rem;font-weight:700;color:var(--muted);line-height:1.2; }
+
+    /* ── Auto-grade indicators ── */
+    .ag-badge { font-size:.55rem;padding:2px 7px;border-radius:10px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:var(--accent);font-weight:700; }
+    .score-result { font-size:.7rem;color:var(--muted);margin-top:4px; }
   </style>
 </head>
 <body>
@@ -230,14 +292,29 @@
       </button>
     </div>
     <div class="form-collapsible" id="form-collapsible">
+      <!-- Game selector -->
+      <div class="form-group" style="margin-bottom:12px">
+        <label>Game</label>
+        <div class="gp-selector" id="gp-selector" onclick="openGamePicker()">
+          <span class="gp-selector-text" id="gp-selected-text">Tap to find a game...</span>
+          <button class="gp-clear-btn" id="gp-clear-btn" style="display:none" onclick="clearGameSelection(event)" title="Clear selection">&#10005;</button>
+          <span style="font-size:.85rem;color:var(--muted)">&#128269;</span>
+        </div>
+        <!-- Hidden fields filled by picker -->
+        <input type="hidden" id="f-game" />
+        <input type="hidden" id="f-gameId" />
+        <input type="hidden" id="f-pickSide" />
+        <input type="hidden" id="f-pickLine" />
+        <input type="hidden" id="f-pickType" />
+        <input type="hidden" id="f-gameWeek" />
+        <input type="hidden" id="f-homeTeam" />
+        <input type="hidden" id="f-awayTeam" />
+      </div>
+
       <div class="add-form-grid">
         <div class="form-group" style="grid-column:1/3">
-          <label for="f-game">Game</label>
-          <input id="f-game" class="field" type="text" placeholder="e.g. Ohio State @ Michigan" autocomplete="off" />
-        </div>
-        <div class="form-group" style="grid-column:3/4">
           <label for="f-pick">My Pick</label>
-          <input id="f-pick" class="field" type="text" placeholder="e.g. Ohio State -7" autocomplete="off" />
+          <input id="f-pick" class="field" type="text" placeholder="e.g. LSU -3.5 (auto-filled)" autocomplete="off" />
         </div>
         <div class="form-group">
           <label for="f-odds">Odds</label>
@@ -266,9 +343,14 @@
   <!-- Ledger controls -->
   <div class="ledger-controls">
     <div class="section-label" style="margin:0" id="ledger-count">0 Picks</div>
-    <button class="btn btn-outline" id="export-btn" style="font-size:.8rem;padding:8px 16px">
-      Export Picks
-    </button>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="btn btn-outline" id="auto-grade-btn" style="font-size:.8rem;padding:8px 16px" title="Fetch final scores from CFBD and auto-grade pending picks">
+        &#128200; Auto-Grade
+      </button>
+      <button class="btn btn-outline" id="export-btn" style="font-size:.8rem;padding:8px 16px">
+        Export Picks
+      </button>
+    </div>
   </div>
 
   <!-- Column headers (desktop) -->
@@ -323,6 +405,25 @@
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<!-- Game Picker Modal -->
+<div class="gp-overlay" id="gp-overlay" onclick="gpBgClick(event)">
+  <div class="gp-sheet">
+    <div class="gp-handle"></div>
+    <div class="gp-header">
+      <span class="gp-modal-title">Find a Game</span>
+      <button class="gp-close" onclick="closeGamePicker()">&#10005;</button>
+    </div>
+    <div class="gp-search-wrap">
+      <input class="gp-search field" id="gp-search" type="text" placeholder="&#128269; Search teams..." autocomplete="off" />
+    </div>
+    <div class="gp-weeks-wrap" id="gp-weeks"></div>
+    <div class="gp-list" id="gp-list"></div>
+  </div>
+</div>
+
+<script src="../js/data.js"></script>
+<script src="../js/data-fbs-stubs.js"></script>
+<script src="../js/config.js"></script>
 <script>
 (function () {
   'use strict';
@@ -535,6 +636,21 @@
       ? '<div class="pick-notes">' + escHtml(pick.notes) + '</div>'
       : '';
 
+    // Score display (shown once auto-graded)
+    var scoreHtml = '';
+    if (pick.homeScore != null && pick.awayScore != null && pick.awayTeam && pick.homeTeam) {
+      var awayLast = pick.awayTeam.split(' ').pop();
+      var homeLast = pick.homeTeam.split(' ').pop();
+      scoreHtml = '<div class="score-result">'
+        + 'Final: ' + escHtml(awayLast) + ' ' + pick.awayScore + ' – ' + escHtml(homeLast) + ' ' + pick.homeScore
+        + '</div>';
+    }
+
+    // Auto-grade badge for pending picks that can be auto-graded
+    var agBadge = (pick.result === 'pending' && pick.gameId && pick.pickType)
+      ? ' <span class="ag-badge">auto-gradeable</span>'
+      : '';
+
     return '<div class="pick-row ' + resultCls + '" data-id="' + escHtml(pick.id) + '">'
       + '<div class="pick-row-top">'
       + '<div class="pick-col">'
@@ -545,10 +661,11 @@
       + '<div class="pick-col">'
         + '<div class="pick-col-label">Game</div>'
         + '<div class="pick-col-value">' + escHtml(pick.game) + '</div>'
+        + scoreHtml
       + '</div>'
       + '<div class="pick-col">'
         + '<div class="pick-col-label">My Pick</div>'
-        + '<div class="pick-col-value">' + escHtml(pick.pick) + '</div>'
+        + '<div class="pick-col-value">' + escHtml(pick.pick) + agBadge + '</div>'
       + '</div>'
       + '<div class="pick-col">'
         + '<div class="pick-col-label">Odds</div>'
@@ -681,29 +798,37 @@
     var date  = document.getElementById('f-date').value;
     var notes = document.getElementById('f-notes').value.trim();
 
-    if (!game) { showToast('Please enter the game.'); document.getElementById('f-game').focus(); return; }
+    if (!game) { showToast('Select a game first.'); openGamePicker(); return; }
     if (!pick) { showToast('Please enter your pick.'); document.getElementById('f-pick').focus(); return; }
     if (!date) { showToast('Please select a date.'); document.getElementById('f-date').focus(); return; }
     if (isNaN(wager) || wager <= 0) { showToast('Enter a valid wager amount.'); document.getElementById('f-wager').focus(); return; }
 
     var newPick = {
-      id:      Date.now().toString(),
-      date:    date,
-      game:    game,
-      pick:    pick,
-      odds:    isNaN(odds) ? -110 : odds,
-      wager:   wager,
-      result:  'pending',
-      notes:   notes,
-      addedAt: new Date().toISOString()
+      id:        Date.now().toString(),
+      date:      date,
+      game:      game,
+      pick:      pick,
+      odds:      isNaN(odds) ? -110 : odds,
+      wager:     wager,
+      result:    'pending',
+      notes:     notes,
+      addedAt:   new Date().toISOString(),
+      // Auto-grade metadata (set when game is selected via picker)
+      gameId:    document.getElementById('f-gameId').value    || null,
+      pickSide:  document.getElementById('f-pickSide').value  || null,
+      pickLine:  document.getElementById('f-pickLine').value  ? parseFloat(document.getElementById('f-pickLine').value) : null,
+      pickType:  document.getElementById('f-pickType').value  || null,
+      gameWeek:  document.getElementById('f-gameWeek').value  ? parseInt(document.getElementById('f-gameWeek').value, 10) : null,
+      homeTeam:  document.getElementById('f-homeTeam').value  || null,
+      awayTeam:  document.getElementById('f-awayTeam').value  || null,
     };
 
     var picks = loadPicks();
     picks.unshift(newPick);
     savePicks(picks);
 
-    // Reset form (keep odds/wager defaults, reset date to today)
-    document.getElementById('f-game').value  = '';
+    // Reset form
+    clearGameSelection();
     document.getElementById('f-pick').value  = '';
     document.getElementById('f-notes').value = '';
     document.getElementById('f-date').value  = todayISO();
@@ -859,23 +984,326 @@
     var dateParam  = params.get('date');
 
     if (gameParam || pickParam) {
-      if (gameParam)  document.getElementById('f-game').value  = gameParam;
+      if (gameParam) {
+        document.getElementById('f-game').value = gameParam;
+        var sel = document.getElementById('gp-selector');
+        var txt = document.getElementById('gp-selected-text');
+        if (sel && txt) { txt.textContent = gameParam; sel.classList.add('has-game'); }
+      }
       if (pickParam)  document.getElementById('f-pick').value  = pickParam;
       if (oddsParam)  document.getElementById('f-odds').value  = oddsParam;
       if (wagerParam) document.getElementById('f-wager').value = wagerParam;
       if (dateParam)  document.getElementById('f-date').value  = dateParam;
 
-      // Ensure form is open
       formOpen = true;
       document.getElementById('form-collapsible').classList.remove('collapsed');
       document.getElementById('form-toggle-icon').classList.add('open');
 
-      // Scroll to form
       setTimeout(function () {
         document.querySelector('.add-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 200);
     }
   })();
+
+  /* ────────────────────────────────────────────────
+     Game Picker
+  ──────────────────────────────────────────────── */
+  var gpWeek = 'all';
+
+  function openGamePicker() {
+    renderGPWeeks();
+    renderGPGames();
+    document.getElementById('gp-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () { document.getElementById('gp-search').focus(); }, 300);
+  }
+
+  function closeGamePicker() {
+    document.getElementById('gp-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function gpBgClick(e) {
+    if (e.target === document.getElementById('gp-overlay')) closeGamePicker();
+  }
+
+  function clearGameSelection(e) {
+    if (e) { e.stopPropagation(); }
+    document.getElementById('f-game').value     = '';
+    document.getElementById('f-gameId').value   = '';
+    document.getElementById('f-pickSide').value = '';
+    document.getElementById('f-pickLine').value = '';
+    document.getElementById('f-pickType').value = '';
+    document.getElementById('f-gameWeek').value = '';
+    document.getElementById('f-homeTeam').value = '';
+    document.getElementById('f-awayTeam').value = '';
+    document.getElementById('f-pick').value     = '';
+    document.getElementById('f-odds').value     = '-110';
+    var sel = document.getElementById('gp-selector');
+    var txt = document.getElementById('gp-selected-text');
+    var clr = document.getElementById('gp-clear-btn');
+    txt.textContent = 'Tap to find a game...';
+    sel.classList.remove('has-game');
+    clr.style.display = 'none';
+  }
+
+  function renderGPWeeks() {
+    var games = window.GAMES || [];
+    var weeks = [];
+    games.forEach(function (g) { if (weeks.indexOf(g.week) === -1) weeks.push(g.week); });
+    weeks.sort(function (a, b) { return a - b; });
+    var html = '<div class="chip' + (gpWeek === 'all' ? ' active' : '') + ' gp-wc" data-w="all">All Weeks</div>';
+    weeks.forEach(function (w) {
+      html += '<div class="chip' + (gpWeek === w ? ' active' : '') + ' gp-wc" data-w="' + w + '">Week ' + w + '</div>';
+    });
+    document.getElementById('gp-weeks').innerHTML = html;
+    document.getElementById('gp-weeks').addEventListener('click', function (e) {
+      var chip = e.target.closest('.gp-wc');
+      if (!chip) return;
+      var raw = chip.dataset.w;
+      gpWeek = raw === 'all' ? 'all' : parseInt(raw, 10);
+      renderGPWeeks();
+      renderGPGames();
+    });
+  }
+
+  function fmtSpreadGP(n) {
+    if (n == null || isNaN(n)) return 'PK';
+    var v = parseFloat(n);
+    return v > 0 ? '+' + v : String(v);
+  }
+
+  function fmtOddsGP(n) {
+    var v = parseInt(n, 10);
+    return v > 0 ? '+' + v : String(v);
+  }
+
+  function escQ(s) { return String(s).replace(/'/g, "\\'"); }
+
+  function renderGPGames() {
+    var games = window.GAMES || [];
+    var teams = window.TEAMS || {};
+    var q = (document.getElementById('gp-search').value || '').toLowerCase().trim();
+
+    var filtered = games.filter(function (g) {
+      if (gpWeek !== 'all' && g.week !== gpWeek) return false;
+      if (q) {
+        var hn = ((teams[g.homeTeamId] || {}).name || g.homeTeamId).toLowerCase();
+        var an = ((teams[g.awayTeamId] || {}).name || g.awayTeamId).toLowerCase();
+        if (!hn.includes(q) && !an.includes(q)) return false;
+      }
+      return true;
+    });
+
+    if (!filtered.length) {
+      document.getElementById('gp-list').innerHTML = '<div style="padding:32px;text-align:center;color:var(--muted)">No games found. Try a different week or team name.</div>';
+      return;
+    }
+
+    var html = '';
+    filtered.forEach(function (g) {
+      var ht = teams[g.homeTeamId] || { name: g.homeTeamId, abbreviation: (g.homeTeamId || '').toUpperCase().slice(0, 4) };
+      var at = teams[g.awayTeamId] || { name: g.awayTeamId, abbreviation: (g.awayTeamId || '').toUpperCase().slice(0, 4) };
+      var bl = g.bettingLines || {};
+      var hSpread = fmtSpreadGP(bl.spread || 0);
+      var aSpread = fmtSpreadGP(-(bl.spread || 0));
+      var hso = bl.homeSpreadOdds || -110;
+      var aso = bl.awaySpreadOdds || -110;
+      var oo  = bl.overOdds       || -110;
+      var uo  = bl.underOdds      || -110;
+      var dateStr = fmtDate(g.date);
+
+      html += '<div class="gp-game">';
+      html += '<div class="gp-game-title">' + escHtml(at.name) + ' <span style="color:var(--muted);font-weight:400">@</span> ' + escHtml(ht.name) + '</div>';
+      html += '<div class="gp-game-meta">' + dateStr + ' · Week ' + g.week + ' · ' + escHtml(g.network || '') + '</div>';
+      html += '<div class="gp-bets">';
+
+      // Spread column
+      html += '<div class="gp-bet-col"><div class="gp-bet-hdr">SPREAD</div>';
+      html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'away\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + (bl.spread || 0) + ',\'spread\',' + aso + ')">';
+      html += '<div class="gp-btn-line">' + escHtml(at.abbreviation) + ' ' + aSpread + '</div>';
+      html += '<div class="gp-btn-odds">' + fmtOddsGP(aso) + '</div></button>';
+      html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'home\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + (bl.spread || 0) + ',\'spread\',' + hso + ')">';
+      html += '<div class="gp-btn-line">' + escHtml(ht.abbreviation) + ' ' + hSpread + '</div>';
+      html += '<div class="gp-btn-odds">' + fmtOddsGP(hso) + '</div></button>';
+      html += '</div>';
+
+      // Total column
+      if (bl.total) {
+        html += '<div class="gp-bet-col"><div class="gp-bet-hdr">TOTAL ' + bl.total + '</div>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'over\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + bl.total + ',\'total\',' + oo + ')">';
+        html += '<div class="gp-btn-line">OVER</div><div class="gp-btn-odds">' + fmtOddsGP(oo) + '</div></button>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'under\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',' + bl.total + ',\'total\',' + uo + ')">';
+        html += '<div class="gp-btn-line">UNDER</div><div class="gp-btn-odds">' + fmtOddsGP(uo) + '</div></button>';
+        html += '</div>';
+      }
+
+      // Moneyline column
+      if (bl.moneylineHome && bl.moneylineAway) {
+        html += '<div class="gp-bet-col"><div class="gp-bet-hdr">MONEYLINE</div>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'away-ml\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'moneyline\',' + bl.moneylineAway + ')">';
+        html += '<div class="gp-btn-line">' + escHtml(at.abbreviation) + ' ML</div><div class="gp-btn-odds">' + fmtOddsGP(bl.moneylineAway) + '</div></button>';
+        html += '<button class="gp-btn" onclick="selectGamePick(\'' + escQ(g.id) + '\',\'home-ml\',\'' + escQ(at.name) + '\',\'' + escQ(ht.name) + '\',' + g.week + ',0,\'moneyline\',' + bl.moneylineHome + ')">';
+        html += '<div class="gp-btn-line">' + escHtml(ht.abbreviation) + ' ML</div><div class="gp-btn-odds">' + fmtOddsGP(bl.moneylineHome) + '</div></button>';
+        html += '</div>';
+      }
+
+      html += '</div></div>'; // gp-bets, gp-game
+    });
+    document.getElementById('gp-list').innerHTML = html;
+  }
+
+  function selectGamePick(gameId, side, awayName, homeName, week, line, type, odds) {
+    var games = window.GAMES || [];
+    var game  = games.find(function (g) { return g.id === gameId; }) || {};
+
+    // Build display labels
+    var gameLabel = awayName + ' @ ' + homeName;
+    var pickLabel;
+    if (type === 'spread') {
+      var spreadVal = side === 'home' ? (game.bettingLines || {}).spread || 0 : -(game.bettingLines || {}).spread || 0;
+      var teamLast  = (side === 'home' ? homeName : awayName).split(' ').pop();
+      pickLabel = teamLast + ' ' + fmtSpreadGP(spreadVal);
+    } else if (type === 'total') {
+      pickLabel = (side === 'over' ? 'OVER' : 'UNDER') + ' ' + line;
+    } else {
+      var mlTeamLast = (side === 'home-ml' ? homeName : awayName).split(' ').pop();
+      pickLabel = mlTeamLast + ' ML';
+    }
+
+    // Fill visible fields
+    var txt = document.getElementById('gp-selected-text');
+    var sel = document.getElementById('gp-selector');
+    var clr = document.getElementById('gp-clear-btn');
+    txt.textContent = gameLabel;
+    sel.classList.add('has-game');
+    clr.style.display = '';
+    document.getElementById('f-pick').value  = pickLabel;
+    document.getElementById('f-odds').value  = odds;
+    if (game.date) document.getElementById('f-date').value = game.date;
+
+    // Fill hidden metadata fields
+    document.getElementById('f-game').value     = gameLabel;
+    document.getElementById('f-gameId').value   = gameId;
+    document.getElementById('f-pickSide').value = side;
+    document.getElementById('f-pickLine').value = type === 'moneyline' ? '' : line;
+    document.getElementById('f-pickType').value = type;
+    document.getElementById('f-gameWeek').value = week;
+    document.getElementById('f-homeTeam').value = homeName;
+    document.getElementById('f-awayTeam').value = awayName;
+
+    closeGamePicker();
+    setTimeout(function () { document.getElementById('f-pick').focus(); }, 350);
+  }
+
+  // Search input wired up
+  document.getElementById('gp-search').addEventListener('input', function () {
+    renderGPGames();
+  });
+
+  /* ────────────────────────────────────────────────
+     Auto-Grade
+  ──────────────────────────────────────────────── */
+  function normalizeTeamName(name) {
+    return (name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  function gradeResult(pick, homeScore, awayScore) {
+    var type = pick.pickType;
+    var side = pick.pickSide;
+    var line = parseFloat(pick.pickLine);
+
+    if (type === 'moneyline') {
+      if (homeScore === awayScore) return 'push';
+      var homeWon = homeScore > awayScore;
+      return (side === 'home-ml') ? (homeWon ? 'win' : 'loss') : (homeWon ? 'loss' : 'win');
+    }
+    if (type === 'spread') {
+      // line = home spread (negative = home favored). Home covers if (homeScore - awayScore) + line > 0
+      var coverMargin = (homeScore - awayScore) + line;
+      if (coverMargin === 0) return 'push';
+      if (side === 'home') return coverMargin > 0 ? 'win' : 'loss';
+      if (side === 'away') return coverMargin < 0 ? 'win' : 'loss';
+    }
+    if (type === 'total') {
+      var combined = homeScore + awayScore;
+      if (combined === line) return 'push';
+      if (side === 'over')  return combined > line ? 'win' : 'loss';
+      if (side === 'under') return combined < line ? 'win' : 'loss';
+    }
+    return null;
+  }
+
+  document.getElementById('auto-grade-btn').addEventListener('click', function () {
+    var allPicks = loadPicks();
+    var pending = allPicks.filter(function (p) {
+      return p.result === 'pending' && p.gameId && p.homeTeam && p.awayTeam && p.gameWeek && p.pickType && p.pickSide;
+    });
+
+    if (!pending.length) {
+      showToast('No auto-gradeable picks — log picks using the game finder.');
+      return;
+    }
+
+    var apiKey = window.CFBD_DEFAULT_KEY;
+    if (!apiKey) { showToast('API key not configured.'); return; }
+
+    var btn = document.getElementById('auto-grade-btn');
+    btn.textContent = 'Checking...';
+    btn.disabled = true;
+
+    // Unique weeks to fetch
+    var weeks = [];
+    pending.forEach(function (p) { if (weeks.indexOf(p.gameWeek) === -1) weeks.push(p.gameWeek); });
+
+    var graded = 0;
+    var done   = 0;
+
+    function finish() {
+      btn.textContent = '📈 Auto-Grade';
+      btn.disabled = false;
+      if (graded > 0) {
+        savePicks(allPicks);
+        showToast(graded + ' pick' + (graded !== 1 ? 's' : '') + ' auto-graded!');
+        render();
+      } else {
+        showToast('No completed games found yet for your pending picks.');
+      }
+    }
+
+    weeks.forEach(function (week) {
+      fetch('https://api.collegefootballdata.com/games?year=2026&week=' + week + '&seasonType=regular', {
+        headers: { 'Authorization': 'Bearer ' + apiKey }
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (cfbdGames) {
+        pending.filter(function (p) { return p.gameWeek === week; }).forEach(function (pick) {
+          var match = cfbdGames.find(function (cg) {
+            return cg.home_points != null
+              && cg.away_points != null
+              && normalizeTeamName(cg.home_team) === normalizeTeamName(pick.homeTeam)
+              && normalizeTeamName(cg.away_team) === normalizeTeamName(pick.awayTeam);
+          });
+          if (!match) return;
+          var result = gradeResult(pick, match.home_points, match.away_points);
+          if (!result) return;
+          var idx = allPicks.findIndex(function (p) { return p.id === pick.id; });
+          if (idx !== -1) {
+            allPicks[idx].result    = result;
+            allPicks[idx].homeScore = match.home_points;
+            allPicks[idx].awayScore = match.away_points;
+            graded++;
+          }
+        });
+        done++;
+        if (done === weeks.length) finish();
+      })
+      .catch(function () {
+        done++;
+        if (done === weeks.length) finish();
+      });
+    });
+  });
 
   /* ────────────────────────────────────────────────
      Initial render
