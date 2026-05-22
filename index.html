@@ -1018,25 +1018,10 @@ window.renderGameCard = renderGameCard;
     });
   }
 
-  function normalizeTweets(tweets) {
-    return (tweets || []).map(function(t) {
-      return {
-        headline: t.text ? t.text.slice(0, 160) : "",
-        desc:     "",
-        url:      t.author ? "https://x.com/" + t.author.username : "#",
-        date:     t.created_at || "",
-        source:   t.author ? ("@" + t.author.username + " · X") : "X / Twitter",
-        _sort:    new Date(t.created_at || 0).getTime(),
-      };
-    });
-  }
-
   var cachedESPN = [];
-  var cachedTwitter = [];
 
   function mergeAndRender() {
-    var all = cachedESPN.concat(cachedTwitter);
-    all.sort(function(a, b) { return b._sort - a._sort; });
+    var all = cachedESPN.slice().sort(function(a, b) { return b._sort - a._sort; });
     renderItems(all);
   }
 
@@ -1053,53 +1038,19 @@ window.renderGameCard = renderGameCard;
       });
   }
 
-  // Fetch Twitter via Worker proxy (only if TWITTER_PROXY_URL is set)
-  function fetchTwitter() {
-    var proxyUrl = window.TWITTER_PROXY_URL;
-    if (!proxyUrl) return;
-    var endpoints = ["cfb_news", "cfb_injuries", "cfb_portal", "cfb_coaching"];
-    Promise.allSettled(
-      endpoints.map(function(ep) {
-        return fetch(proxyUrl + "?endpoint=" + ep, { cache: "no-cache" })
-          .then(function(r) { return r.ok ? r.json() : null; })
-          .catch(function() { return null; });
-      })
-    ).then(function(results) {
-      var tweets = [];
-      results.forEach(function(r) {
-        if (r.status === "fulfilled" && r.value && r.value.tweets) {
-          tweets = tweets.concat(r.value.tweets);
-        }
-      });
-      // Dedupe
-      var seen = {};
-      tweets = tweets.filter(function(t) {
-        if (seen[t.id]) return false;
-        seen[t.id] = true;
-        return true;
-      });
-      cachedTwitter = normalizeTweets(tweets);
-      mergeAndRender();
-    });
-  }
-
   // Initial load
   fetchESPN();
-  fetchTwitter();
 
   // Refresh every 5 minutes
-  setInterval(function() { fetchESPN(); fetchTwitter(); }, 5 * 60 * 1000);
+  setInterval(fetchESPN, 5 * 60 * 1000);
 
   // Also populate when live.js fires liveDataReady (may carry cached ESPN news)
   window.addEventListener("liveDataReady", function(e) {
     var detail = e.detail || {};
     if (detail.espnNews && detail.espnNews.length) {
       cachedESPN = normalizeESPN(detail.espnNews);
+      mergeAndRender();
     }
-    if (detail.twitterTweets && detail.twitterTweets.length) {
-      cachedTwitter = normalizeTweets(detail.twitterTweets);
-    }
-    mergeAndRender();
   });
 })();
 </script>
