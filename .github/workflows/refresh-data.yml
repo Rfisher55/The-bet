@@ -8,8 +8,10 @@ name: Refresh CFB Data
 on:
   schedule:
     - cron: "0 */6 * * 1-5"        # weekdays: every 6 h
-    - cron: "*/10 14-4 * * 6"      # Saturday: every 10 min (UTC 14:00–04:00 = game day)
-    - cron: "*/30 14-4 * * 0"      # Sunday: every 30 min during game window
+    - cron: "*/10 14-23 * * 6"     # Saturday evening UTC (10am–7pm ET)
+    - cron: "*/10 0-4 * * 0"      # Saturday night UTC (7pm–midnight ET, carries into Sun)
+    - cron: "*/30 14-23 * * 0"    # Sunday evening UTC (10am–7pm ET)
+    - cron: "*/30 0-4 * * 1"      # Sunday night UTC (7pm–midnight ET, carries into Mon)
     - cron: "0 */2 * * 0"          # Sunday: every 2 h outside game window
   workflow_dispatch:
     inputs:
