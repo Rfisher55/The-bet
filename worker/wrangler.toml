@@ -1,0 +1,10 @@
+name = "the-bet-proxy"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+# Cloudflare Workers free tier — no cost
+# Set secrets via: wrangler secret put TWITTER_BEARER_TOKEN
+# Or in the Cloudflare dashboard: Workers → the-bet-proxy → Settings → Variables
+
+[env.production]
+name = "the-bet-proxy"

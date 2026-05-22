@@ -962,10 +962,10 @@ window.renderGameCard = renderGameCard;
   var feed = document.getElementById("news-feed");
   var lastUpdated = document.getElementById("news-last-updated");
 
-  function tagForArticle(title, desc) {
-    var t = (title + " " + (desc || "")).toLowerCase();
-    if (t.indexOf("injur") !== -1 || t.indexOf("out ") !== -1 || t.indexOf("questionable") !== -1 || t.indexOf("doubtful") !== -1) return "injury";
-    if (t.indexOf("transfer") !== -1 || t.indexOf("portal") !== -1 || t.indexOf("nil ") !== -1) return "transfer";
+  function tagFor(text) {
+    var t = (text || "").toLowerCase();
+    if (/injur|out |questionable|doubtful|day.to.day|concussion|knee|ankle|suspended/.test(t)) return "injury";
+    if (/transfer|portal|nil deal|decommit|flips|commits/.test(t)) return "transfer";
     return "cfb";
   }
 
@@ -981,67 +981,126 @@ window.renderGameCard = renderGameCard;
     } catch(e) { return ""; }
   }
 
-  function renderNews(articles) {
-    if (!articles || !articles.length) {
+  function renderItems(items) {
+    if (!items || !items.length) {
       feed.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:.85rem">No news available — check back during the season.</div>';
       return;
     }
-    feed.innerHTML = articles.slice(0, 8).map(function(a) {
-      var tag = tagForArticle(a.headline || a.title || "", a.description || "");
+    feed.innerHTML = items.slice(0, 10).map(function(item) {
+      var tag = tagFor(item.headline + " " + (item.desc || ""));
       var tagCls = "news-tag-" + tag;
       var tagLabel = tag === "injury" ? "INJURY" : tag === "transfer" ? "TRANSFER/NIL" : "CFB";
       var dotCls = "news-dot" + (tag !== "cfb" ? " " + tag : "");
-      var link = (a.links && a.links.web && a.links.web.href) ? a.links.web.href : "#";
-      var headline = a.headline || a.title || "No title";
-      var desc = a.description || "";
-      var timeAgo = relativeTime(a.published || a.lastModified || "");
-      return '<a class="news-item" href="' + link + '" target="_blank" rel="noopener">' +
+      var source = item.source || "ESPN CFB";
+      return '<a class="news-item" href="' + (item.url || "#") + '" target="_blank" rel="noopener">' +
         '<div class="' + dotCls + '"></div>' +
         '<div class="news-body">' +
-          '<div class="news-headline">' +
-            '<span class="news-tag ' + tagCls + '">' + tagLabel + '</span>' +
-            headline +
-          '</div>' +
-          (desc ? '<div class="news-meta" style="margin-top:4px;font-size:.75rem;color:var(--muted-l)">' + desc.slice(0, 120) + (desc.length > 120 ? "…" : "") + '</div>' : '') +
-          '<div class="news-meta" style="margin-top:4px">' + timeAgo + ' · ESPN CFB</div>' +
+          '<div class="news-headline"><span class="news-tag ' + tagCls + '">' + tagLabel + '</span>' + item.headline + '</div>' +
+          (item.desc ? '<div class="news-meta" style="margin-top:4px;font-size:.75rem;color:var(--muted-l)">' + item.desc.slice(0, 140) + (item.desc.length > 140 ? "…" : "") + '</div>' : '') +
+          '<div class="news-meta" style="margin-top:4px">' + relativeTime(item.date) + ' · ' + source + '</div>' +
         '</div>' +
       '</a>';
     }).join("");
     lastUpdated.textContent = "Updated " + relativeTime(new Date().toISOString());
   }
 
-  function fetchNews() {
-    var url = "https://site.api.espn.com/apis/site/v2/sports/football/college-football/news?limit=10";
-    fetch(url)
+  // Normalize ESPN articles + Twitter tweets into unified item shape
+  function normalizeESPN(articles) {
+    return (articles || []).map(function(a) {
+      return {
+        headline: a.headline || "",
+        desc:     a.description || "",
+        url:      (a.links && a.links.web && a.links.web.href) || "#",
+        date:     a.published || "",
+        source:   "ESPN CFB",
+        _sort:    new Date(a.published || 0).getTime(),
+      };
+    });
+  }
+
+  function normalizeTweets(tweets) {
+    return (tweets || []).map(function(t) {
+      return {
+        headline: t.text ? t.text.slice(0, 160) : "",
+        desc:     "",
+        url:      t.author ? "https://x.com/" + t.author.username : "#",
+        date:     t.created_at || "",
+        source:   t.author ? ("@" + t.author.username + " · X") : "X / Twitter",
+        _sort:    new Date(t.created_at || 0).getTime(),
+      };
+    });
+  }
+
+  var cachedESPN = [];
+  var cachedTwitter = [];
+
+  function mergeAndRender() {
+    var all = cachedESPN.concat(cachedTwitter);
+    all.sort(function(a, b) { return b._sort - a._sort; });
+    renderItems(all);
+  }
+
+  // Fetch ESPN news
+  function fetchESPN() {
+    fetch("https://site.api.espn.com/apis/site/v2/sports/football/college-football/news?limit=10")
       .then(function(r) { return r.json(); })
-      .then(function(data) {
-        var articles = data.articles || [];
-        renderNews(articles);
-        // Re-fetch every 5 minutes
-        setTimeout(fetchNews, 5 * 60 * 1000);
+      .then(function(d) {
+        cachedESPN = normalizeESPN(d.articles || []);
+        mergeAndRender();
       })
       .catch(function() {
-        // Fallback: show ESPN injury reports via scoreboard
-        fetch("https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard")
-          .then(function(r) { return r.json(); })
-          .then(function(d) {
-            var articles = (d.events || []).slice(0, 6).map(function(ev) {
-              return {
-                headline: ev.name,
-                description: ev.status && ev.status.type ? ev.status.type.description : "",
-                published: ev.date,
-                links: { web: { href: "#" } }
-              };
-            });
-            renderNews(articles);
-          })
-          .catch(function() {
-            feed.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:.85rem">Intel feed unavailable — ESPN API offline.</div>';
-          });
+        // ESPN offline — keep whatever we had
       });
   }
 
-  fetchNews();
+  // Fetch Twitter via Worker proxy (only if TWITTER_PROXY_URL is set)
+  function fetchTwitter() {
+    var proxyUrl = window.TWITTER_PROXY_URL;
+    if (!proxyUrl) return;
+    var endpoints = ["cfb_news", "cfb_injuries", "cfb_portal", "cfb_coaching"];
+    Promise.allSettled(
+      endpoints.map(function(ep) {
+        return fetch(proxyUrl + "?endpoint=" + ep, { cache: "no-cache" })
+          .then(function(r) { return r.ok ? r.json() : null; })
+          .catch(function() { return null; });
+      })
+    ).then(function(results) {
+      var tweets = [];
+      results.forEach(function(r) {
+        if (r.status === "fulfilled" && r.value && r.value.tweets) {
+          tweets = tweets.concat(r.value.tweets);
+        }
+      });
+      // Dedupe
+      var seen = {};
+      tweets = tweets.filter(function(t) {
+        if (seen[t.id]) return false;
+        seen[t.id] = true;
+        return true;
+      });
+      cachedTwitter = normalizeTweets(tweets);
+      mergeAndRender();
+    });
+  }
+
+  // Initial load
+  fetchESPN();
+  fetchTwitter();
+
+  // Refresh every 5 minutes
+  setInterval(function() { fetchESPN(); fetchTwitter(); }, 5 * 60 * 1000);
+
+  // Also populate when live.js fires liveDataReady (may carry cached ESPN news)
+  window.addEventListener("liveDataReady", function(e) {
+    var detail = e.detail || {};
+    if (detail.espnNews && detail.espnNews.length) {
+      cachedESPN = normalizeESPN(detail.espnNews);
+    }
+    if (detail.twitterTweets && detail.twitterTweets.length) {
+      cachedTwitter = normalizeTweets(detail.twitterTweets);
+    }
+    mergeAndRender();
+  });
 })();
 </script>
 <script src="js/config.js"></script>
