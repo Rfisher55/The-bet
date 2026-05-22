@@ -610,16 +610,32 @@ function renderGameCard(game, pred) {
           chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.4);color:var(--accent)">⚡ SHARP: ${sharpTeam}</span>`);
         }
 
-        // Injury alert
-        if (pred.injuryAlert) {
-          const inj = (window.KEY_PLAYERS||[]).filter(p =>
-            (p.teamId===home.id||p.teamId===away.id) &&
-            p.injuryStatus && p.injuryStatus!=="healthy" && p.injuryStatus!=="active"
-          );
-          const outCount = inj.filter(p => (p.injuryStatus||"").toLowerCase()==="out").length;
-          const qCount   = inj.filter(p => (p.injuryStatus||"").toLowerCase()==="questionable").length;
-          const txt = [outCount && `${outCount} OUT`, qCount && `${qCount} Q`].filter(Boolean).join(" · ");
-          chips.push(`<span style="font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);color:var(--danger)" title="Injury report">🩹 ${txt||"Injuries"}</span>`);
+        // Injury alert — use TEAM_INTEL (ESPN live) if available, else KEY_PLAYERS
+        const ti = window.TEAM_INTEL || {};
+        const homeIntel = ti[home.id] || {};
+        const awayIntel = ti[away.id] || {};
+        const totalOut = (homeIntel.outCount || 0) + (awayIntel.outCount || 0);
+        const totalQ   = (homeIntel.qCount   || 0) + (awayIntel.qCount   || 0);
+        if (totalOut || totalQ || pred.injuryAlert) {
+          let injParts = [];
+          if (homeIntel.outCount) injParts.push(`${home.abbreviation}: ${homeIntel.outCount} OUT`);
+          if (awayIntel.outCount) injParts.push(`${away.abbreviation}: ${awayIntel.outCount} OUT`);
+          if (!injParts.length) {
+            const kp = (window.KEY_PLAYERS||[]).filter(p =>
+              (p.teamId===home.id||p.teamId===away.id) &&
+              /out|questionable/i.test(p.injuryStatus||""));
+            const out = kp.filter(p=>/out/i.test(p.injuryStatus||"")).length;
+            if (out) injParts.push(`${out} OUT`);
+            else injParts.push("Injuries");
+          }
+          if (totalQ) injParts.push(`${totalQ} Q`);
+          chips.push(`<span style="font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);color:var(--danger)" title="Injury report">🩹 ${injParts.join(" · ")}</span>`);
+        }
+        // Insider alert — Twitter intel on either team
+        const insiderTweets = [...(homeIntel.insiderAlerts||[]), ...(awayIntel.insiderAlerts||[])];
+        if (insiderTweets.length) {
+          const snippet = insiderTweets[0].text.slice(0, 60) + (insiderTweets[0].text.length > 60 ? "…" : "");
+          chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.5);color:#f87171" title="${snippet.replace(/"/g,"'")}">🚨 INSIDER</span>`);
         }
 
         // Public betting
@@ -866,6 +882,9 @@ window.addEventListener("liveDataReady", function() {
   renderBestPick(activeWeek > 0 ? activeWeek : 1);
   render();
 });
+
+// Re-render cards when Twitter/ESPN injury intel arrives
+window.addEventListener("teamIntelReady", function() { if (liveDataLoaded) render(); });
 </script>
 <script src="../js/config.js"></script>
 <script src="../js/live.js"></script>

@@ -415,6 +415,13 @@
     .news-tag-insider  { background: rgba(239,68,68,.18);  border: 1px solid rgba(239,68,68,.5);  color: #f87171; font-weight: 700; letter-spacing: .04em; }
     .news-tag-twitter  { background: rgba(29,161,242,.12); border: 1px solid rgba(29,161,242,.3); color: #38bdf8; }
     .news-tag-cfb      { background: rgba(16,185,129,.1);  border: 1px solid rgba(16,185,129,.25); color: var(--primary); }
+    .alert-banner { border-radius: 10px; overflow: hidden; border: 1px solid rgba(239,68,68,.4); background: rgba(239,68,68,.06); }
+    .alert-banner-header { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: rgba(239,68,68,.12); font-size: .65rem; font-weight: 900; letter-spacing: .08em; color: #f87171; }
+    .alert-banner-item { padding: 10px 14px; border-top: 1px solid rgba(239,68,68,.15); font-size: .8rem; color: var(--text); display: flex; gap: 10px; align-items: flex-start; }
+    .alert-banner-item:first-of-type { border-top: none; }
+    .alert-team-chip { font-size: .55rem; font-weight: 900; padding: 2px 7px; border-radius: 4px; background: rgba(239,68,68,.15); border: 1px solid rgba(239,68,68,.4); color: #f87171; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+    .alert-tweet-text { flex: 1; line-height: 1.45; }
+    .alert-tweet-meta { font-size: .65rem; color: var(--muted); margin-top: 3px; }
     .news-dot.coaching { background: #a78bfa; }
     .news-dot.insider  { background: #f87171; }
     .news-dot.twitter  { background: #38bdf8; }
@@ -552,6 +559,9 @@
       <div id="signals-grid"></div>
     </div>
   </section>
+
+  <!-- Insider Alerts Banner -->
+  <div id="insider-alerts-banner" style="display:none;margin-bottom:16px"></div>
 
   <!-- Breaking News & Intel Feed -->
   <section class="mb-5">
@@ -1110,6 +1120,45 @@ window.renderGameCard = renderGameCard;
     }
     mergeAndRender();
   });
+})();
+
+// ── Insider Alerts Banner ─────────────────────────────────────────
+(function() {
+  function relTime(d) {
+    try {
+      var m = Math.floor((Date.now() - new Date(d)) / 60000);
+      if (m < 2)  return "just now";
+      if (m < 60) return m + "m ago";
+      return Math.floor(m / 60) + "h ago";
+    } catch(e) { return ""; }
+  }
+
+  function renderAlerts() {
+    var alerts = window.INSIDER_ALERTS || [];
+    var banner = document.getElementById("insider-alerts-banner");
+    if (!banner) return;
+    if (!alerts.length) { banner.style.display = "none"; return; }
+    var top = alerts.slice(0, 3);
+    banner.style.display = "block";
+    banner.innerHTML =
+      '<div class="alert-banner">' +
+        '<div class="alert-banner-header">🚨 INSIDER ALERTS · Live from Twitter/X</div>' +
+        top.map(function(a) {
+          var tw = a.tweet;
+          var author = tw.author ? "@" + tw.author.username : "Twitter/X";
+          var ago = tw.created_at ? relTime(tw.created_at) : "";
+          return '<div class="alert-banner-item">' +
+            '<span class="alert-team-chip">' + a.teamName.split(" ").pop().toUpperCase() + '</span>' +
+            '<div class="alert-tweet-text">' +
+              (tw.text || "").slice(0, 180) + (tw.text && tw.text.length > 180 ? "…" : "") +
+              '<div class="alert-tweet-meta">' + author + (ago ? " · " + ago : "") + '</div>' +
+            '</div>' +
+          '</div>';
+        }).join("") +
+      '</div>';
+  }
+
+  window.addEventListener("teamIntelReady", renderAlerts);
 })();
 </script>
 <script src="js/config.js"></script>

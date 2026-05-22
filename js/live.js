@@ -830,6 +830,7 @@ const LIVE = (() => {
 
       saveCache(payload);
       applyData(payload);
+      buildTeamIntel(payload);
       state = { ...state, status: "live", lastUpdated: payload.fetchedAt, apiKey };
       window.__liveLastUpdated = new Date(payload.fetchedAt);
       _setLiveStats();
@@ -1073,6 +1074,54 @@ const LIVE = (() => {
   }
 
   // ── Apply fetched data to TEAMS + GAMES ─────────────────────
+  function buildTeamIntel(data) {
+    const intel = {};
+    const teams = window.TEAMS ? Object.values(window.TEAMS) : [];
+
+    // Index ESPN injuries by team
+    Object.entries(data.espnInjuries || {}).forEach(([teamId, players]) => {
+      if (!intel[teamId]) intel[teamId] = { injuries: [], tweets: [], insiderAlerts: [] };
+      intel[teamId].injuries = players;
+      intel[teamId].outCount = players.filter(p => /\bout\b/i.test(p.status || "")).length;
+      intel[teamId].qCount   = players.filter(p => /questionable|doubtful/i.test(p.status || "")).length;
+    });
+
+    // Match tweets to teams by name / abbreviation / mascot
+    (data.twitterTweets || []).forEach(tweet => {
+      const text = (tweet.text || "").toLowerCase();
+      const isInsider = /arrest|suspend|dismiss|violation|fight|bar|party|dui|incident|spotted|altercation/i.test(tweet.text || "");
+      teams.forEach(team => {
+        const tName   = (team.name        || "").toLowerCase();
+        const tAbbr   = (team.abbreviation|| "").toLowerCase();
+        const tMascot = (team.mascot       || "").toLowerCase();
+        if (
+          (tName.length   >= 4 && text.includes(tName))   ||
+          (tAbbr.length   >= 3 && text.includes(tAbbr))   ||
+          (tMascot.length >= 5 && text.includes(tMascot))
+        ) {
+          if (!intel[team.id]) intel[team.id] = { injuries: [], tweets: [], insiderAlerts: [] };
+          intel[team.id].tweets.push(tweet);
+          if (isInsider) intel[team.id].insiderAlerts.push(tweet);
+        }
+      });
+    });
+
+    window.TEAM_INTEL = intel;
+
+    // Flat sorted list of all insider alerts for home page banner
+    const allAlerts = [];
+    Object.entries(intel).forEach(([teamId, d]) => {
+      const team = window.TEAMS && window.TEAMS[teamId];
+      (d.insiderAlerts || []).forEach(tw => {
+        allAlerts.push({ teamId, teamName: team ? team.name : teamId, tweet: tw });
+      });
+    });
+    allAlerts.sort((a, b) => new Date(b.tweet.created_at) - new Date(a.tweet.created_at));
+    window.INSIDER_ALERTS = allAlerts;
+
+    window.dispatchEvent(new CustomEvent("teamIntelReady", { detail: intel }));
+  }
+
   function applyData(data) {
 
     // ── Build all lookup maps ────────────────────────────────

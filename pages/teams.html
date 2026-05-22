@@ -427,6 +427,16 @@ function renderCard(team, rank) {
           ${team.apRank ? `<span style="font-size:.58rem;font-weight:900;letter-spacing:.5px;padding:2px 7px;border-radius:4px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);color:var(--gold)">AP #${team.apRank}</span>` : ""}
           <span class="mom-badge ${momClass(mom)}">${momIcon(mom)} ${momLabel(mom)}</span>
           ${ph.coachHotSeat >= 5 ? `<span class="momentum-pill mom-declining">🔥 Hot Seat</span>` : ""}
+          ${(function(){
+            const ti = window.TEAM_INTEL && window.TEAM_INTEL[team.id];
+            if (!ti) return "";
+            const chips = [];
+            if (ti.insiderAlerts && ti.insiderAlerts.length)
+              chips.push(`<span style="font-size:.5rem;font-weight:900;padding:1px 6px;border-radius:4px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.5);color:#f87171">🚨 INSIDER</span>`);
+            if (ti.outCount > 0)
+              chips.push(`<span style="font-size:.5rem;font-weight:800;padding:1px 6px;border-radius:4px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);color:var(--danger)">🩹 ${ti.outCount} OUT</span>`);
+            return chips.join("");
+          })()}
         </div>
         <div class="team-card-id">
           <div class="team-logo team-logo-md" style="background:${team.color};color:${textForBg(team.color)}">${team.abbreviation.slice(0,3)}</div>
@@ -606,6 +616,9 @@ if (window.__liveDataReady) {
 } else {
   window.addEventListener("liveDataReady", onLiveData);
 }
+window.addEventListener("teamIntelReady", function() {
+  try { render(); } catch(e) {}
+});
 </script>
 <script src="../js/config.js"></script>
 <script src="../js/live.js"></script>

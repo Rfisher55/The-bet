@@ -1104,6 +1104,17 @@ function renderGameList() {
         + '</div>'
       : "";
 
+    // Intel banner — injury/insider flags for this matchup
+    const ti = window.TEAM_INTEL || {};
+    const hTI = ti[home.id] || {}, aTI = ti[away.id] || {};
+    const intelChips = [];
+    if ((hTI.insiderAlerts||[]).length || (aTI.insiderAlerts||[]).length)
+      intelChips.push('<span style="font-size:.58rem;font-weight:900;padding:2px 7px;border-radius:5px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:#f87171">🚨 INSIDER INTEL</span>');
+    if (hTI.outCount) intelChips.push(`<span style="font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:5px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--danger)">🩹 ${home.name.split(" ").pop()}: ${hTI.outCount} OUT</span>`);
+    if (aTI.outCount) intelChips.push(`<span style="font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:5px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--danger)">🩹 ${away.name.split(" ").pop()}: ${aTI.outCount} OUT</span>`);
+    const intelBanner = intelChips.length
+      ? `<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px">${intelChips.join("")}</div>` : "";
+
     // Pick badge (pre-computed)
     const pickBadge = hasPick
       ? '<span style="font-size:.58rem;padding:2px 8px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">&#10003; '
@@ -1131,7 +1142,7 @@ function renderGameList() {
           </div>
         </div>
 
-        ${recBanner}
+        ${recBanner}${intelBanner}
 
         <!-- Sportsbook betting grid -->
         <div class="pg-grid">
