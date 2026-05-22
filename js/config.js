@@ -4,4 +4,4 @@ window.CFBD_DEFAULT_KEY = "PYpnlfCwGnHmml4BtUbvE0q+oafSE2BuqAREeEXnY+NUalkbuV6hY
 
 // Cloudflare Worker URL — Twitter/X insider intel proxy
 // Format: "https://the-bet-proxy.YOUR-USERNAME.workers.dev"
-window.TWITTER_PROXY_URL = "";
+window.TWITTER_PROXY_URL = "https://the-bet-proxy.robertcfisher3.workers.dev";
