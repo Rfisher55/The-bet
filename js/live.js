@@ -502,6 +502,30 @@ const LIVE = (() => {
     return events.filter(e => { if (seen.has(e.id)) return false; seen.add(e.id); return true; });
   }
 
+  // ── Twitter/X insider intel via Cloudflare Worker proxy ─────
+  async function fetchTwitterIntel() {
+    const proxyUrl = window.TWITTER_PROXY_URL;
+    if (!proxyUrl) return [];
+    try {
+      const endpoints = ["cfb_news", "cfb_injuries", "cfb_portal", "cfb_coaching", "cfb_insider"];
+      const results = await Promise.allSettled(
+        endpoints.map(ep =>
+          fetch(`${proxyUrl}?endpoint=${ep}`, { cache: "no-cache" })
+            .then(r => r.ok ? r.json() : null)
+            .catch(() => null)
+        )
+      );
+      const tweets = [];
+      results.forEach(r => {
+        if (r.status === "fulfilled" && r.value?.tweets) tweets.push(...r.value.tweets);
+      });
+      const seen = new Set();
+      return tweets
+        .filter(t => { if (seen.has(t.id)) return false; seen.add(t.id); return true; })
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    } catch { return []; }
+  }
+
   // ── ESPN News: returns recent CFB articles ───────────────────
   async function fetchESPNNews() {
     try {
@@ -645,6 +669,7 @@ const LIVE = (() => {
       const espnRankingsPromise  = fetchESPNRankings().catch(() => ({}));
       const espnAllTeamsPromise  = fetchESPNAllTeamRecords().catch(() => ({}));
       const redditPromise        = fetchRedditCFB().catch(() => []);
+      const twitterPromise       = fetchTwitterIntel().catch(() => []);
       // ESPN team-specific sources (rosters, injuries, team news, stats, live scores)
       const espnRostersPromise   = fetchESPNRosters().catch(() => ({}));
       const espnInjuriesPromise  = fetchESPNInjuries().catch(() => ({}));
@@ -722,6 +747,7 @@ const LIVE = (() => {
       const espnTeamNews    = await espnTeamNewsPromise;
       const espnTeamStats   = await espnTeamStatsPromise;
       const espnLiveScores  = await espnLivePromise;
+      const twitterTweets   = await twitterPromise;
       onEndpointDone();
 
       // Apply ESPN rankings to all TEAMS immediately (no CFBD key needed)
@@ -789,6 +815,7 @@ const LIVE = (() => {
         espnTeamStats,
         espnLiveScores,
         redditPosts,
+        twitterTweets,
         fetchedAt:   new Date().toISOString(),
       };
 

@@ -409,9 +409,15 @@
       display: inline-block; font-size: .58rem; font-weight: 900; letter-spacing: .5px;
       text-transform: uppercase; padding: 1px 6px; border-radius: 4px; margin-right: 5px;
     }
-    .news-tag-injury { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3); color: var(--danger); }
+    .news-tag-injury   { background: rgba(239,68,68,.12);  border: 1px solid rgba(239,68,68,.3);  color: var(--danger); }
     .news-tag-transfer { background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3); color: var(--gold); }
-    .news-tag-cfb { background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25); color: var(--primary); }
+    .news-tag-coaching { background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.3); color: #a78bfa; }
+    .news-tag-insider  { background: rgba(239,68,68,.18);  border: 1px solid rgba(239,68,68,.5);  color: #f87171; font-weight: 700; letter-spacing: .04em; }
+    .news-tag-twitter  { background: rgba(29,161,242,.12); border: 1px solid rgba(29,161,242,.3); color: #38bdf8; }
+    .news-tag-cfb      { background: rgba(16,185,129,.1);  border: 1px solid rgba(16,185,129,.25); color: var(--primary); }
+    .news-dot.coaching { background: #a78bfa; }
+    .news-dot.insider  { background: #f87171; }
+    .news-dot.twitter  { background: #38bdf8; }
   </style>
 </head>
 <body>
@@ -962,10 +968,13 @@ window.renderGameCard = renderGameCard;
   var feed = document.getElementById("news-feed");
   var lastUpdated = document.getElementById("news-last-updated");
 
-  function tagFor(text) {
-    var t = (text || "").toLowerCase();
+  function tagFor(item) {
+    if (item.tag === "insider") return "insider";
+    var t = ((item.headline || "") + " " + (item.desc || "")).toLowerCase();
     if (/injur|out |questionable|doubtful|day.to.day|concussion|knee|ankle|suspended/.test(t)) return "injury";
     if (/transfer|portal|nil deal|decommit|flips|commits/.test(t)) return "transfer";
+    if (/fired|hired|hot seat|buyout|resigns|resign/.test(t)) return "coaching";
+    if (item.source && item.source.startsWith("@")) return "twitter";
     return "cfb";
   }
 
@@ -986,10 +995,11 @@ window.renderGameCard = renderGameCard;
       feed.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:.85rem">No news available — check back during the season.</div>';
       return;
     }
-    feed.innerHTML = items.slice(0, 10).map(function(item) {
-      var tag = tagFor(item.headline + " " + (item.desc || ""));
+    feed.innerHTML = items.map(function(item) {
+      var tag = tagFor(item);
       var tagCls = "news-tag-" + tag;
-      var tagLabel = tag === "injury" ? "INJURY" : tag === "transfer" ? "TRANSFER/NIL" : "CFB";
+      var LABELS = { injury:"INJURY", transfer:"TRANSFER/NIL", coaching:"COACHING", insider:"INSIDER", twitter:"X/TWITTER", cfb:"CFB" };
+      var tagLabel = LABELS[tag] || "CFB";
       var dotCls = "news-dot" + (tag !== "cfb" ? " " + tag : "");
       var source = item.source || "ESPN CFB";
       return '<a class="news-item" href="' + (item.url || "#") + '" target="_blank" rel="noopener">' +
@@ -1018,39 +1028,87 @@ window.renderGameCard = renderGameCard;
     });
   }
 
-  var cachedESPN = [];
+  function normalizeTweets(tweets) {
+    return (tweets || []).map(function(t) {
+      var isInsider = t.text && /(spotted|arrested|suspended|dismissed|violation|fight|bar|party|incident)/i.test(t.text);
+      return {
+        headline: t.text ? t.text.slice(0, 200) : "",
+        desc:     "",
+        url:      t.author ? "https://x.com/" + t.author.username : "#",
+        date:     t.created_at || "",
+        source:   t.author ? ("@" + t.author.username) : "X / Twitter",
+        tag:      isInsider ? "insider" : "twitter",
+        _sort:    new Date(t.created_at || 0).getTime(),
+      };
+    });
+  }
+
+  var cachedESPN    = [];
+  var cachedTwitter = [];
 
   function mergeAndRender() {
-    var all = cachedESPN.slice().sort(function(a, b) { return b._sort - a._sort; });
-    renderItems(all);
+    var all = cachedESPN.concat(cachedTwitter);
+    all.sort(function(a, b) { return b._sort - a._sort; });
+    renderItems(all.slice(0, 20));
   }
 
   // Fetch ESPN news
   function fetchESPN() {
-    fetch("https://site.api.espn.com/apis/site/v2/sports/football/college-football/news?limit=10")
+    fetch("https://site.api.espn.com/apis/site/v2/sports/football/college-football/news?limit=15")
       .then(function(r) { return r.json(); })
       .then(function(d) {
         cachedESPN = normalizeESPN(d.articles || []);
         mergeAndRender();
       })
-      .catch(function() {
-        // ESPN offline — keep whatever we had
+      .catch(function() {});
+  }
+
+  // Fetch Twitter/X via Worker proxy
+  function fetchTwitter() {
+    var proxyUrl = window.TWITTER_PROXY_URL;
+    if (!proxyUrl) return;
+    var endpoints = ["cfb_insider", "cfb_news", "cfb_injuries", "cfb_portal", "cfb_coaching"];
+    Promise.allSettled(
+      endpoints.map(function(ep) {
+        return fetch(proxyUrl + "?endpoint=" + ep, { cache: "no-cache" })
+          .then(function(r) { return r.ok ? r.json() : null; })
+          .catch(function() { return null; });
+      })
+    ).then(function(results) {
+      var tweets = [];
+      results.forEach(function(r) {
+        if (r.status === "fulfilled" && r.value && r.value.tweets) {
+          tweets = tweets.concat(r.value.tweets);
+        }
       });
+      var seen = {};
+      tweets = tweets.filter(function(t) {
+        if (seen[t.id]) return false;
+        seen[t.id] = true;
+        return true;
+      });
+      cachedTwitter = normalizeTweets(tweets);
+      mergeAndRender();
+    });
   }
 
   // Initial load
   fetchESPN();
+  fetchTwitter();
 
-  // Refresh every 5 minutes
-  setInterval(fetchESPN, 5 * 60 * 1000);
+  // Refresh every 3 minutes
+  setInterval(function() { fetchESPN(); fetchTwitter(); }, 3 * 60 * 1000);
 
-  // Also populate when live.js fires liveDataReady (may carry cached ESPN news)
+  // Also populate when live.js fires liveDataReady
   window.addEventListener("liveDataReady", function(e) {
     var detail = e.detail || {};
     if (detail.espnNews && detail.espnNews.length) {
       cachedESPN = normalizeESPN(detail.espnNews);
-      mergeAndRender();
     }
+    if (detail.twitterTweets && detail.twitterTweets.length) {
+      cachedTwitter = normalizeTweets(detail.twitterTweets);
+    }
+    mergeAndRender();
   });
 })();
 </script>
