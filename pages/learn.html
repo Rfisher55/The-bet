@@ -385,113 +385,81 @@
   </div><!-- /#tab-model -->
 
   <!-- ══════════════════════════════════════════════
-       TAB 3: DATA SOURCES & HONESTY
+       TAB 3: DATA SOURCES
        ══════════════════════════════════════════════ -->
   <div class="tab-panel" id="tab-data" role="tabpanel">
-    <div class="section-label">What We Track — And What We Don't</div>
+    <div class="section-label">Intelligence Sources — Everything We Pull</div>
 
-    <div class="data-cols">
-      <!-- DO column -->
-      <div class="data-col">
-        <div class="data-col-title do">&#10003; What We DO Pull</div>
+    <div class="signal-list">
 
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--primary);">✓</div>
-          <div class="data-item-body">
-            <div class="data-item-name">CFBD API (collegefootballdata.com)</div>
-            <div class="data-item-desc">Game schedules, historical scores, SP+ ratings, recruiting rankings, portal transfer activity, coaching records, and ATS history going back multiple seasons.</div>
-          </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.35);color:var(--accent)">ESPN</div>
+        <div class="signal-body">
+          <div class="signal-name">ESPN Breaking News &amp; Intel Feed</div>
+          <div class="signal-desc">Live CFB news headlines, injury reports, team updates, and AP Poll rankings pulled directly from ESPN's public API. The feed refreshes automatically every 5 minutes and is displayed on the home page in real time. Covers all 130+ FBS programs including depth chart changes, player status updates, and coaching news as ESPN publishes it.</div>
         </div>
+      </div>
 
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--primary);">✓</div>
-          <div class="data-item-body">
-            <div class="data-item-name">ESPN API</div>
-            <div class="data-item-desc">Live game scores, team rosters, official injury reports, team news, AP Poll rankings, and full game schedules with venue and broadcast info.</div>
-          </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.35);color:var(--accent)">ESPN</div>
+        <div class="signal-body">
+          <div class="signal-name">ESPN Official Injury Reports</div>
+          <div class="signal-desc">Per-player injury status (active, questionable, out, IR) fetched from ESPN's injury endpoints for all 16 curated programs. Feeds directly into the prediction engine — a starting QB listed as questionable or out can shift the model's spread projection by 3–7 points depending on backup quality.</div>
         </div>
+      </div>
 
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--primary);">✓</div>
-          <div class="data-item-body">
-            <div class="data-item-name">Reddit r/CFB Public Feed</div>
-            <div class="data-item-desc">Public JSON feed for fan sentiment and news aggregation. Limited to Reddit's public API — no scraping, no private data, no authenticated endpoints.</div>
-          </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.35);color:var(--accent)">ESPN</div>
+        <div class="signal-body">
+          <div class="signal-name">ESPN Rosters &amp; Team Stats</div>
+          <div class="signal-desc">Full current-season rosters (name, number, position, year, height/weight) and team statistics (yards per game, scoring, third-down %, red zone %, sacks, turnovers) for all 16 curated programs. Stats are used to calibrate the matchup model beyond raw SP+ ratings.</div>
         </div>
+      </div>
 
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--primary);">✓</div>
-          <div class="data-item-body">
-            <div class="data-item-name">Hand-Curated Team Data</div>
-            <div class="data-item-desc">16 top programs with detailed coaching profiles, situational ATS records, program health signals, and depth chart notes — built and maintained manually.</div>
-          </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.35);color:var(--primary)">CFBD</div>
+        <div class="signal-body">
+          <div class="signal-name">College Football Data API (collegefootballdata.com)</div>
+          <div class="signal-desc">The backbone of the prediction engine. Pulls: SP+ ratings (2025 &amp; 2026), ELO ratings, advanced PPA stats, full game schedules and historical results, betting lines, ATS records, coaching records, recruiting class rankings (3-year trend), transfer portal in/out per program, returning production percentages, conference standings, weekly AP rankings, and 2-year NFL Draft pipeline data. All FBS programs covered.</div>
         </div>
-      </div><!-- /.data-col.do -->
+      </div>
 
-      <!-- DON'T column -->
-      <div class="data-col">
-        <div class="data-col-title dont">✕ What We DON'T Do</div>
-
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--danger);">✕</div>
-          <div class="data-item-body">
-            <div class="data-item-name">No Twitter / X Scraping</div>
-            <div class="data-item-desc">We cannot monitor real-time tweets, player posts, or coaching announcements. Breaking news that first surfaces on Twitter is not captured by this model.</div>
-          </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.35);color:var(--gold)">REDDIT</div>
+        <div class="signal-body">
+          <div class="signal-name">Reddit r/CFB Public Feed</div>
+          <div class="signal-desc">Live posts from r/CFB (hot + new) scraped via Reddit's public JSON API — no auth required. The system reads post titles, upvote ratios, and flair to detect team-specific news, injury rumors, and fan sentiment signals. Posts are indexed by team mention and weighted by score and recency. High-upvote posts often surface breaking information before it hits ESPN structured data.</div>
         </div>
+      </div>
 
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--danger);">✕</div>
-          <div class="data-item-body">
-            <div class="data-item-name">No Instagram / TikTok Monitoring</div>
-            <div class="data-item-desc">Social media behavior — a QB seen out late the night before a game, a player posting from an unexpected city — is not tracked or factored into the model.</div>
-          </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.35);color:var(--primary)">ODDS</div>
+        <div class="signal-body">
+          <div class="signal-name">Live Betting Lines &amp; Sharp Money Signals</div>
+          <div class="signal-desc">Betting lines from CFBD (consensus + provider-specific). When an Odds API key is configured, the system polls live spread and total line movements every 5 minutes from DraftKings and FanDuel. Line movement direction relative to public betting percentages is a core sharp-money signal — reverse line movement (public on one side, line moving the other) is the strongest indicator of professional money.</div>
         </div>
+      </div>
 
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--danger);">✕</div>
-          <div class="data-item-body">
-            <div class="data-item-name">No News Website Scraping</div>
-            <div class="data-item-desc">Beat reporter articles, injury updates from local papers, and press conference transcripts are not automatically parsed. If it hasn't hit ESPN or CFBD structured data, we don't have it.</div>
-          </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.35);color:var(--primary)">MANUAL</div>
+        <div class="signal-body">
+          <div class="signal-name">Hand-Curated Program Intelligence</div>
+          <div class="signal-desc">16 top programs carry full hand-built profiles: coaching staff tendencies and ATS splits by role (favorite vs. underdog), NIL collective strength ratings, portal grade, locker room stability assessments, situational ATS records (night games, after a loss, vs. ranked opponents, on the road), weather impact profiles, and depth chart stability scores. These factors are invisible to raw stat models but measurably affect outcomes.</div>
         </div>
+      </div>
 
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--danger);">✕</div>
-          <div class="data-item-body">
-            <div class="data-item-name">No Insider Information</div>
-            <div class="data-item-desc">Locker room sources, anonymous tips, team facilities access — none of this. Everything in the model is sourced from public structured data.</div>
-          </div>
-        </div>
+    </div>
 
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--danger);">✕</div>
-          <div class="data-item-body">
-            <div class="data-item-name">No 24/7 Real-Time Updates</div>
-            <div class="data-item-desc">Data refreshes every 30 minutes when a CFBD API key is configured. Without an API key, data is static. This is not a live feed.</div>
-          </div>
-        </div>
-
-        <div class="data-item">
-          <div class="data-icon" style="color: var(--danger);">✕</div>
-          <div class="data-item-body">
-            <div class="data-item-name">No Behavioral Signals</div>
-            <div class="data-item-desc">A coach's personal scandal, a player's off-field issues, team chemistry problems — these only enter the model if they surface in CFBD or ESPN structured data. Human drama that hasn't been officially reported is invisible to us.</div>
-          </div>
-        </div>
-      </div><!-- /.data-col.dont -->
-    </div><!-- /.data-cols -->
-
-    <!-- What this means callout -->
-    <div class="callout callout-warn">
-      <div class="callout-label">What This Means For You</div>
-      The model is a strong starting point built on publicly available structured data. It will miss things that only insiders know or that haven't hit structured data sources yet. Always cross-reference with beat reporters, team beat writers, and recent news before placing a bet. For the best edges, combine this model's signals with your own research on the human factors we can't automate.
+    <!-- Update frequency callout -->
+    <div class="callout callout-info" style="margin-top:24px">
+      <div class="callout-label">Update Frequency</div>
+      With a CFBD API key configured: all data refreshes every 5 minutes. ESPN news and live scores update continuously. Reddit posts are polled in real time. Without a CFBD API key, the ESPN and Reddit feeds still run on their own refresh cycles, and pre-generated game data loads instantly from the static data file.
     </div>
 
     <!-- 2026 season note -->
-    <div class="callout callout-info">
-      <div class="callout-label">A Note on the 2026 Season</div>
-      The 2026 season is in the future relative to most structured databases. Schedule data, betting lines, and team ratings are projections based on 2025 SP+ and recruiting data. Lines will update as the season starts and real games are played — early-season projections carry more uncertainty than mid-season picks backed by actual game results.
+    <div class="callout callout-warn">
+      <div class="callout-label">2026 Season Note</div>
+      Pre-season projections use 2025 SP+ and recruiting data. As real 2026 games are played, the model recalibrates automatically using actual results, updated ELO ratings, and fresh betting lines. Early-season picks carry more uncertainty than Week 8+ picks backed by a full game sample.
     </div>
 
   </div><!-- /#tab-data -->

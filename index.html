@@ -382,37 +382,36 @@
     @media (max-width: 600px) {
       .signal-weight-track { width: 60px; }
     }
-    /* ── Model Limitations grid ─────────────────────────── */
-    .limits-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-    @media (max-width: 768px) { .limits-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 480px) { .limits-grid { grid-template-columns: 1fr; } }
-    .limit-card {
+    /* ── Breaking News feed ─────────────────────────────── */
+    .news-feed { display: flex; flex-direction: column; gap: 8px; }
+    .news-item {
       background: var(--card);
-      border: 1px solid rgba(239,68,68,.2);
-      border-left: 3px solid var(--danger);
+      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 14px 16px;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
+      display: flex; gap: 12px; align-items: flex-start;
+      transition: border-color .15s;
+      text-decoration: none; color: var(--text);
+      cursor: pointer;
     }
-    .limit-icon {
-      flex-shrink: 0;
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      background: rgba(239,68,68,.12);
-      border: 1px solid rgba(239,68,68,.3);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .6rem; font-weight: 900;
-      color: var(--danger); margin-top: 1px;
+    .news-item:hover { border-color: rgba(16,185,129,.35); }
+    .news-dot {
+      flex-shrink: 0; margin-top: 5px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--primary);
     }
-    .limit-body { flex: 1; }
-    .limit-title { font-size: .78rem; font-weight: 800; color: var(--text); margin-bottom: 3px; }
-    .limit-desc { font-size: .72rem; color: var(--muted); line-height: 1.45; }
+    .news-dot.injury { background: var(--danger); }
+    .news-dot.transfer { background: var(--gold); }
+    .news-body { flex: 1; min-width: 0; }
+    .news-headline { font-size: .85rem; font-weight: 700; color: var(--text); margin-bottom: 3px; line-height: 1.35; }
+    .news-meta { font-size: .7rem; color: var(--muted); }
+    .news-tag {
+      display: inline-block; font-size: .58rem; font-weight: 900; letter-spacing: .5px;
+      text-transform: uppercase; padding: 1px 6px; border-radius: 4px; margin-right: 5px;
+    }
+    .news-tag-injury { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3); color: var(--danger); }
+    .news-tag-transfer { background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3); color: var(--gold); }
+    .news-tag-cfb { background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25); color: var(--primary); }
   </style>
 </head>
 <body>
@@ -548,55 +547,14 @@
     </div>
   </section>
 
-  <!-- Model Limitations -->
+  <!-- Breaking News & Intel Feed -->
   <section class="mb-5">
     <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">Model Limitations — What We Can't Track</div>
-      <a href="pages/learn.html#data" class="text-sm text-primary" style="text-decoration:underline">Full Details →</a>
+      <div class="section-label mb-0">Breaking News &amp; Intel</div>
+      <span id="news-last-updated" class="text-sm text-muted"></span>
     </div>
-    <div class="limits-grid">
-      <div class="limit-card">
-        <div class="limit-icon">✕</div>
-        <div class="limit-body">
-          <div class="limit-title">No Twitter / X Scraping</div>
-          <div class="limit-desc">We cannot monitor real-time tweets, player posts, or coaching announcements. Breaking news that first surfaces on Twitter is not captured by this model.</div>
-        </div>
-      </div>
-      <div class="limit-card">
-        <div class="limit-icon">✕</div>
-        <div class="limit-body">
-          <div class="limit-title">No Instagram / TikTok Monitoring</div>
-          <div class="limit-desc">Social media behavior — a QB seen out late, a player posting from an unexpected city — is not tracked or factored into the model.</div>
-        </div>
-      </div>
-      <div class="limit-card">
-        <div class="limit-icon">✕</div>
-        <div class="limit-body">
-          <div class="limit-title">No News Website Scraping</div>
-          <div class="limit-desc">Beat reporter articles, injury updates from local papers, and press conference transcripts are not automatically parsed. If it hasn't hit ESPN or CFBD structured data, we don't have it.</div>
-        </div>
-      </div>
-      <div class="limit-card">
-        <div class="limit-icon">✕</div>
-        <div class="limit-body">
-          <div class="limit-title">No Insider Information</div>
-          <div class="limit-desc">Locker room sources, anonymous tips, team facilities access — none of this. Everything in the model is sourced from public structured data.</div>
-        </div>
-      </div>
-      <div class="limit-card">
-        <div class="limit-icon">✕</div>
-        <div class="limit-body">
-          <div class="limit-title">No 24/7 Real-Time Updates</div>
-          <div class="limit-desc">Data refreshes every 30 minutes when a CFBD API key is configured. Without an API key, data is static. This is not a live feed.</div>
-        </div>
-      </div>
-      <div class="limit-card">
-        <div class="limit-icon">✕</div>
-        <div class="limit-body">
-          <div class="limit-title">No Behavioral Signals</div>
-          <div class="limit-desc">A coach's personal scandal, a player's off-field issues, team chemistry problems — these only enter the model if they surface in CFBD or ESPN structured data. Human drama that hasn't been officially reported is invisible to us.</div>
-        </div>
-      </div>
+    <div class="news-feed" id="news-feed">
+      <div style="padding:20px;text-align:center;color:var(--muted);font-size:.85rem">Loading latest CFB intel...</div>
     </div>
   </section>
 
@@ -998,6 +956,93 @@ function renderGameCard(game, pred, baseUrl) {
   '</a>';
 }
 window.renderGameCard = renderGameCard;
+
+// ── Breaking News & Intel Feed ────────────────────────────────────
+(function fetchNewsIntel() {
+  var feed = document.getElementById("news-feed");
+  var lastUpdated = document.getElementById("news-last-updated");
+
+  function tagForArticle(title, desc) {
+    var t = (title + " " + (desc || "")).toLowerCase();
+    if (t.indexOf("injur") !== -1 || t.indexOf("out ") !== -1 || t.indexOf("questionable") !== -1 || t.indexOf("doubtful") !== -1) return "injury";
+    if (t.indexOf("transfer") !== -1 || t.indexOf("portal") !== -1 || t.indexOf("nil ") !== -1) return "transfer";
+    return "cfb";
+  }
+
+  function relativeTime(dateStr) {
+    try {
+      var diff = Date.now() - new Date(dateStr).getTime();
+      var m = Math.floor(diff / 60000);
+      if (m < 2) return "just now";
+      if (m < 60) return m + "m ago";
+      var h = Math.floor(m / 60);
+      if (h < 24) return h + "h ago";
+      return Math.floor(h / 24) + "d ago";
+    } catch(e) { return ""; }
+  }
+
+  function renderNews(articles) {
+    if (!articles || !articles.length) {
+      feed.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:.85rem">No news available — check back during the season.</div>';
+      return;
+    }
+    feed.innerHTML = articles.slice(0, 8).map(function(a) {
+      var tag = tagForArticle(a.headline || a.title || "", a.description || "");
+      var tagCls = "news-tag-" + tag;
+      var tagLabel = tag === "injury" ? "INJURY" : tag === "transfer" ? "TRANSFER/NIL" : "CFB";
+      var dotCls = "news-dot" + (tag !== "cfb" ? " " + tag : "");
+      var link = (a.links && a.links.web && a.links.web.href) ? a.links.web.href : "#";
+      var headline = a.headline || a.title || "No title";
+      var desc = a.description || "";
+      var timeAgo = relativeTime(a.published || a.lastModified || "");
+      return '<a class="news-item" href="' + link + '" target="_blank" rel="noopener">' +
+        '<div class="' + dotCls + '"></div>' +
+        '<div class="news-body">' +
+          '<div class="news-headline">' +
+            '<span class="news-tag ' + tagCls + '">' + tagLabel + '</span>' +
+            headline +
+          '</div>' +
+          (desc ? '<div class="news-meta" style="margin-top:4px;font-size:.75rem;color:var(--muted-l)">' + desc.slice(0, 120) + (desc.length > 120 ? "…" : "") + '</div>' : '') +
+          '<div class="news-meta" style="margin-top:4px">' + timeAgo + ' · ESPN CFB</div>' +
+        '</div>' +
+      '</a>';
+    }).join("");
+    lastUpdated.textContent = "Updated " + relativeTime(new Date().toISOString());
+  }
+
+  function fetchNews() {
+    var url = "https://site.api.espn.com/apis/site/v2/sports/football/college-football/news?limit=10";
+    fetch(url)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var articles = data.articles || [];
+        renderNews(articles);
+        // Re-fetch every 5 minutes
+        setTimeout(fetchNews, 5 * 60 * 1000);
+      })
+      .catch(function() {
+        // Fallback: show ESPN injury reports via scoreboard
+        fetch("https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard")
+          .then(function(r) { return r.json(); })
+          .then(function(d) {
+            var articles = (d.events || []).slice(0, 6).map(function(ev) {
+              return {
+                headline: ev.name,
+                description: ev.status && ev.status.type ? ev.status.type.description : "",
+                published: ev.date,
+                links: { web: { href: "#" } }
+              };
+            });
+            renderNews(articles);
+          })
+          .catch(function() {
+            feed.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:.85rem">Intel feed unavailable — ESPN API offline.</div>';
+          });
+      });
+  }
+
+  fetchNews();
+})();
 </script>
 <script src="js/config.js"></script>
 <script src="js/live.js"></script>
