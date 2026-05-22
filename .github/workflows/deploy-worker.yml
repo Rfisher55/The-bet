@@ -26,8 +26,8 @@ jobs:
           RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" \
             -X PUT "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/workers/scripts/${SCRIPT_NAME}" \
             -H "Authorization: Bearer ${CF_TOKEN}" \
-            -F 'metadata={"main_module":"worker.js","compatibility_date":"2024-01-01"};type=application/json' \
-            -F "worker.js=@worker/index.js;type=application/javascript+module")
+            -H "Content-Type: application/javascript" \
+            --data-binary @worker/index.js)
 
           HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS:" | cut -d: -f2)
           BODY=$(echo "$RESPONSE" | grep -v "HTTP_STATUS:")
