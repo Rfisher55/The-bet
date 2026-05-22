@@ -1473,6 +1473,34 @@ function predictGame(game) {
     }
   }
 
+  /* ── Step 8: Live Intel Adjustment (real-time ESPN injuries + Twitter insider) ── */
+  function calcLiveIntelAdj(team) {
+    const ti = window.TEAM_INTEL && window.TEAM_INTEL[team.id];
+    if (!ti) return { pts: 0, hasAlert: false };
+
+    let pts = 0;
+
+    // Starters confirmed OUT — diminishing scale (each additional hurts less)
+    const out = ti.outCount || 0;
+    if (out >= 1) pts -= 1.8;   // 1 starter out:  -1.8
+    if (out >= 2) pts -= 1.5;   // 2 starters out: -3.3
+    if (out >= 3) pts -= 1.2;   // 3 starters out: -4.5
+    if (out >= 4) pts -= 0.8;   // 4+ out:         -5.3
+
+    // Questionable — may or may not play, partial discount
+    pts -= (ti.qCount || 0) * 0.5;
+
+    // Insider alerts: suspension, arrest, distraction — team loses focus/starters
+    const alerts = (ti.insiderAlerts || []).length;
+    pts -= alerts * 2.5;
+
+    return { pts: Math.max(pts, -8), hasAlert: alerts > 0 };  // cap at -8 pts
+  }
+
+  const homeIntel = calcLiveIntelAdj(home);
+  const awayIntel = calcLiveIntelAdj(away);
+  const intelAlert = homeIntel.hasAlert || awayIntel.hasAlert;
+
   /* ── Composite Score Assembly ────────────────────
      Each adjustment is applied to the base score with its appropriate weight factor.
      Base model already accounts for 30% of confidence; the adjustments are additive
@@ -1485,7 +1513,8 @@ function predictGame(game) {
     + weatherImpact.homeAdj
     + homeCoachAdj    * (WEIGHTS.coachingEdge   / WEIGHTS.baseModel * 1.0)
     + homeMomentumAdj * (WEIGHTS.programMomentum/ WEIGHTS.baseModel * 0.9)
-    + homeSharpAdj    * (WEIGHTS.sharpMoney     / WEIGHTS.baseModel * 1.0);
+    + homeSharpAdj    * (WEIGHTS.sharpMoney     / WEIGHTS.baseModel * 1.0)
+    + homeIntel.pts;   // live ESPN injuries + Twitter insider intel
 
   const awayComposite =
     awayBaseExp
@@ -1494,7 +1523,8 @@ function predictGame(game) {
     + weatherImpact.awayAdj
     + awayCoachAdj    * (WEIGHTS.coachingEdge   / WEIGHTS.baseModel * 1.0)
     + awayMomentumAdj * (WEIGHTS.programMomentum/ WEIGHTS.baseModel * 0.9)
-    + awaySharpAdj    * (WEIGHTS.sharpMoney     / WEIGHTS.baseModel * 1.0);
+    + awaySharpAdj    * (WEIGHTS.sharpMoney     / WEIGHTS.baseModel * 1.0)
+    + awayIntel.pts;   // live ESPN injuries + Twitter insider intel
 
   const homeFinal = clamp(homeComposite, 7, 70);
   const awayFinal = clamp(awayComposite, 7, 70);
@@ -1505,11 +1535,14 @@ function predictGame(game) {
 
   /* ── Alert Flags ──────────────────────────────── */
   const trapGameAlert = (game.situational?.trapGameRisk || 0) >= 7;
-  const injuryAlert   = KEY_PLAYERS.some(p =>
-    (p.teamId === home.id || p.teamId === away.id) &&
-    p.impact === "high" &&
-    ["questionable","doubtful","out"].includes((p.injuryStatus || "").toLowerCase())
-  );
+  const injuryAlert   =
+    intelAlert ||  // insider/suspension flag from Twitter
+    ((window.TEAM_INTEL && ((window.TEAM_INTEL[home.id]?.outCount || 0) + (window.TEAM_INTEL[away.id]?.outCount || 0))) >= 1) ||
+    KEY_PLAYERS.some(p =>
+      (p.teamId === home.id || p.teamId === away.id) &&
+      p.impact === "high" &&
+      ["questionable","doubtful","out"].includes((p.injuryStatus || "").toLowerCase())
+    );
   const sharpAlert = sharpMoneySignal.strength >= 7 && sharpMoneySignal.side !== "neutral";
 
   /* ── Win Probability ──────────────────────────── */
@@ -1551,6 +1584,7 @@ function predictGame(game) {
     // Deductions
     if (injuryAlert)   score -= 1.5;
     if (trapGameAlert) score -= 1.0;
+    if (intelAlert)    score -= 1.5;  // insider alert (suspension/arrest) tanks confidence
     if (sharpAlert && sharpMoneySignal.side !== (predSpread > 0 ? "home" : "away")) score -= 1.5;
     if (Math.abs(weatherImpact.totalAdj) > 4) score -= 0.5;
 
@@ -1628,6 +1662,7 @@ function predictGame(game) {
       coachingEdgePts:    parseFloat(coachingEdge.rawEdge.toFixed(2)),
       programMomentumEdge:parseFloat((homeMomentumAdj - awayMomentumAdj).toFixed(2)),
       sharpMoneyEdge:     parseFloat((homeSharpAdj - awaySharpAdj).toFixed(2)),
+      liveIntelEdge:      parseFloat((homeIntel.pts - awayIntel.pts).toFixed(2)),
     },
   };
 
@@ -1742,10 +1777,17 @@ function predictGame(game) {
 
     overallEdge,
 
+    liveIntelAdj: {
+      home: parseFloat(homeIntel.pts.toFixed(2)),
+      away: parseFloat(awayIntel.pts.toFixed(2)),
+      hasAlert: intelAlert,
+    },
+
     // Alert flags
     trapGameAlert,
     injuryAlert,
     sharpAlert,
+    intelAlert,
 
     // Factors & social
     factors,
