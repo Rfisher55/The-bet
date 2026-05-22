@@ -382,6 +382,37 @@
     @media (max-width: 600px) {
       .signal-weight-track { width: 60px; }
     }
+    /* ── Model Limitations grid ─────────────────────────── */
+    .limits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 768px) { .limits-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .limits-grid { grid-template-columns: 1fr; } }
+    .limit-card {
+      background: var(--card);
+      border: 1px solid rgba(239,68,68,.2);
+      border-left: 3px solid var(--danger);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .limit-icon {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(239,68,68,.12);
+      border: 1px solid rgba(239,68,68,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; font-weight: 900;
+      color: var(--danger); margin-top: 1px;
+    }
+    .limit-body { flex: 1; }
+    .limit-title { font-size: .78rem; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+    .limit-desc { font-size: .72rem; color: var(--muted); line-height: 1.45; }
   </style>
 </head>
 <body>
@@ -514,6 +545,58 @@
       <div class="transparency-title">7-Signal Prediction Engine</div>
       <div class="transparency-sub">Each signal contributes a weighted adjustment to the final predicted score and spread. Signals are independent — no single factor dominates.</div>
       <div id="signals-grid"></div>
+    </div>
+  </section>
+
+  <!-- Model Limitations -->
+  <section class="mb-5">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">Model Limitations — What We Can't Track</div>
+      <a href="pages/learn.html#data" class="text-sm text-primary" style="text-decoration:underline">Full Details →</a>
+    </div>
+    <div class="limits-grid">
+      <div class="limit-card">
+        <div class="limit-icon">✕</div>
+        <div class="limit-body">
+          <div class="limit-title">No Twitter / X Scraping</div>
+          <div class="limit-desc">We cannot monitor real-time tweets, player posts, or coaching announcements. Breaking news that first surfaces on Twitter is not captured by this model.</div>
+        </div>
+      </div>
+      <div class="limit-card">
+        <div class="limit-icon">✕</div>
+        <div class="limit-body">
+          <div class="limit-title">No Instagram / TikTok Monitoring</div>
+          <div class="limit-desc">Social media behavior — a QB seen out late, a player posting from an unexpected city — is not tracked or factored into the model.</div>
+        </div>
+      </div>
+      <div class="limit-card">
+        <div class="limit-icon">✕</div>
+        <div class="limit-body">
+          <div class="limit-title">No News Website Scraping</div>
+          <div class="limit-desc">Beat reporter articles, injury updates from local papers, and press conference transcripts are not automatically parsed. If it hasn't hit ESPN or CFBD structured data, we don't have it.</div>
+        </div>
+      </div>
+      <div class="limit-card">
+        <div class="limit-icon">✕</div>
+        <div class="limit-body">
+          <div class="limit-title">No Insider Information</div>
+          <div class="limit-desc">Locker room sources, anonymous tips, team facilities access — none of this. Everything in the model is sourced from public structured data.</div>
+        </div>
+      </div>
+      <div class="limit-card">
+        <div class="limit-icon">✕</div>
+        <div class="limit-body">
+          <div class="limit-title">No 24/7 Real-Time Updates</div>
+          <div class="limit-desc">Data refreshes every 30 minutes when a CFBD API key is configured. Without an API key, data is static. This is not a live feed.</div>
+        </div>
+      </div>
+      <div class="limit-card">
+        <div class="limit-icon">✕</div>
+        <div class="limit-body">
+          <div class="limit-title">No Behavioral Signals</div>
+          <div class="limit-desc">A coach's personal scandal, a player's off-field issues, team chemistry problems — these only enter the model if they surface in CFBD or ESPN structured data. Human drama that hasn't been officially reported is invisible to us.</div>
+        </div>
+      </div>
     </div>
   </section>
 
