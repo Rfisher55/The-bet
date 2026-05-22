@@ -1,7 +1,7 @@
 /**
  * The Bet — Twitter/X Proxy Worker
- * Deployed on Cloudflare Workers (free tier)
- * Holds the Twitter Bearer Token server-side so it's never exposed to browsers.
+ * Cloudflare Workers (free tier)
+ * Twitter Bearer Token stays server-side, never exposed to browsers.
  */
 
 const TWITTER_API = "https://api.twitter.com/2";
