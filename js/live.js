@@ -222,7 +222,7 @@ const LIVE = (() => {
     "Kansas State":"kansas_state","Iowa State":"iowa_state","Oklahoma State":"oklahoma_state",
     "Arizona State":"arizona_state","Colorado State":"colorado_state",
     "Mississippi State":"mississippi_state","Utah State":"utah_state",
-    "San Diego State":"san_diego_state","San Jose State":"san_jose_state",
+    "San Diego State":"san_diego_state","San Jose State":"san_jose_state","San José State":"san_jose_state",
     "Boise State":"boise_state","Montana State":"montana_state",
     "Idaho State":"idaho_state","Weber State":"weber_state",
     "Portland State":"portland_state","Sacramento State":"sacramento_state",
@@ -247,8 +247,10 @@ const LIVE = (() => {
 
   function schoolToId(school) {
     if (!school) return "unknown";
-    return SCHOOL_TO_ID[school] ||
-      school.toLowerCase()
+    // Normalize Unicode: é→e, ñ→n, etc. before lookup and slug generation
+    const norm = school.normalize("NFD").replace(/[̀-ͯ]/g, "");
+    return SCHOOL_TO_ID[norm] || SCHOOL_TO_ID[school] ||
+      norm.toLowerCase()
         .replace(/[^a-z0-9\s]/g, "")
         .replace(/\s+/g, "_")
         .trim();
@@ -669,8 +671,11 @@ const LIVE = (() => {
     const network = broadcasts[0]?.names?.join("/") || "TBD";
 
     // Use team location (school name) for ID mapping — strips nickname
-    const homeSchool = home.team.location || home.team.displayName || "";
-    const awaySchool = away.team.location || away.team.displayName || "";
+    // Normalize accented chars (e.g. "San José State" → "San Jose State") so names
+    // match CFBD which uses unaccented ASCII throughout.
+    const _norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "");
+    const homeSchool = _norm(home.team.location || home.team.displayName || "");
+    const awaySchool = _norm(away.team.location || away.team.displayName || "");
 
     // Store ESPN colors so applyData can patch the team entry
     const homeColor = home.team.color ? "#" + home.team.color.replace(/^#/, "") : null;
