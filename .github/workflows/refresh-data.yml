@@ -23,9 +23,10 @@ on:
 permissions:
   contents: write   # needed to commit data/ back to main
 
-# Prevent concurrent runs from colliding on git push
+# Prevent concurrent runs on the same branch from colliding on git push.
+# Branch-scoped so a manual dev-branch run doesn't cancel a scheduled main run.
 concurrency:
-  group: refresh-cfb-data
+  group: refresh-cfb-data-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -68,7 +69,12 @@ jobs:
             LINES_COUNT=$(node -e "const d=require('./data/games-2026.json');console.log(d.games.filter(g=>g.bettingLines).length)" 2>/dev/null || echo "?")
             SOURCES=$(node -e "const d=require('./data/metadata.json');console.log((d.dataSourcesActive||[]).length+' sources')" 2>/dev/null || echo "")
             git commit -m "data: refresh $(date -u '+%Y-%m-%d %H:%M UTC') — ${GAME_COUNT} games, ${LINES_COUNT} with lines, ${SOURCES}"
-            # Pull+rebase first in case another run pushed while we were fetching
-            git pull --rebase origin main 2>/dev/null || true
-            git push origin HEAD:main
+            CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            if [ "$CURRENT_BRANCH" = "main" ]; then
+              # Pull+rebase in case another run pushed while we were fetching, then push
+              git pull --rebase origin main 2>/dev/null || true
+              git push origin HEAD:main
+            else
+              echo "Running on '$CURRENT_BRANCH' — data committed locally but push skipped (only main pushes to origin)"
+            fi
           fi
