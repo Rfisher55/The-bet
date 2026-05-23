@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Record — The Bet</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Stats strip ── */
+    .rec-stats { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; margin-bottom:24px; }
+    .rec-stat  { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+    .rec-stat-val { font-size:1.6rem; font-weight:900; line-height:1; margin-bottom:4px; }
+    .rec-stat-lbl { font-size:.6rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+
+    /* ── Calibration table ── */
+    .cal-table { width:100%; border-collapse:collapse; font-size:.8rem; margin-bottom:24px; }
+    .cal-table th { font-size:.6rem; font-weight:900; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); padding:8px 12px; border-bottom:1px solid var(--border); text-align:left; }
+    .cal-table td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.04); vertical-align:middle; }
+    .cal-table tr:last-child td { border-bottom:none; }
+    .cal-bar-wrap { width:100px; }
+    .cal-bar-track { height:6px; border-radius:3px; background:var(--border); overflow:hidden; }
+    .cal-bar-fill  { height:100%; border-radius:3px; transition:width .4s; }
+    .cal-expected  { font-size:.65rem; color:var(--muted); margin-top:2px; }
+    .cal-delta     { font-size:.72rem; font-weight:800; }
+    .delta-pos { color:var(--primary); }
+    .delta-neg { color:var(--danger); }
+    .delta-neu { color:var(--muted); }
+
+    /* ── Kelly guide ── */
+    .kelly-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; margin-bottom:24px; }
+    .kelly-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px; }
+    .kelly-tier { font-size:.58rem; font-weight:900; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
+    .kelly-units{ font-size:1.1rem; font-weight:900; margin-bottom:4px; }
+    .kelly-desc { font-size:.7rem; color:var(--muted); line-height:1.4; }
+
+    /* ── Pick history ── */
+    .pick-row { display:grid; grid-template-columns:auto 1fr auto auto auto; gap:8px 12px; align-items:center; padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--surface); margin-bottom:6px; }
+    @media(max-width:600px) { .pick-row { grid-template-columns:auto 1fr auto; } .pick-hide { display:none; } }
+    .pick-result { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:900; flex-shrink:0; }
+    .res-W  { background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.4); color:var(--primary); }
+    .res-L  { background:rgba(239,68,68,.12);  border:1px solid rgba(239,68,68,.4);  color:var(--danger); }
+    .res-P  { background:rgba(245,158,11,.1);  border:1px solid rgba(245,158,11,.3); color:var(--gold); }
+    .res-null { background:var(--border); border:1px solid var(--border); color:var(--muted); }
+    .pick-game  { font-size:.8rem; font-weight:700; color:var(--text); }
+    .pick-meta  { font-size:.62rem; color:var(--muted); margin-top:2px; }
+    .pick-badge { font-size:.58rem; font-weight:900; padding:2px 7px; border-radius:5px; border:1px solid; white-space:nowrap; }
+    .pick-clv   { font-size:.7rem; font-weight:800; }
+    .clv-pos { color:var(--primary); }
+    .clv-neg { color:var(--danger); }
+
+    .conf-elite  { background:rgba(16,185,129,.12); border-color:rgba(16,185,129,.4); color:var(--primary); }
+    .conf-high   { background:rgba(139,92,246,.12); border-color:rgba(139,92,246,.4); color:#a78bfa; }
+    .conf-medium { background:rgba(245,158,11,.1);  border-color:rgba(245,158,11,.3); color:var(--gold); }
+    .conf-low    { background:rgba(255,255,255,.05);border-color:var(--border);       color:var(--muted); }
+
+    .filter-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+    .rec-chip { padding:6px 14px; border-radius:20px; font-size:.72rem; font-weight:700; border:1px solid var(--border); background:var(--surface); color:var(--muted-l); cursor:pointer; transition:all .15s; white-space:nowrap; }
+    .rec-chip.active { background:var(--primary); border-color:var(--primary); color:#fff; }
+
+    .trust-banner { border:1px solid rgba(16,185,129,.3); border-radius:12px; padding:16px 20px; background:rgba(16,185,129,.04); margin-bottom:24px; }
+    .trust-banner h3 { font-size:.85rem; font-weight:900; color:var(--primary); margin-bottom:8px; }
+    .trust-banner p  { font-size:.76rem; color:var(--text-soft); line-height:1.55; margin:0; }
+
+    .empty-rec { text-align:center; padding:48px 24px; color:var(--muted); }
+
+    .clv-note { font-size:.7rem; color:var(--muted); margin-bottom:12px; font-style:italic; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="../index.html">
+      <div class="nav-logo-icon">TB</div>
+      <span class="nav-logo-text">The Bet</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../index.html">Home</a>
+      <a class="nav-link" href="games.html">Games</a>
+      <a class="nav-link" href="parlay.html">Parlay</a>
+      <a class="nav-link" href="teams.html">Teams</a>
+      <a class="nav-link" href="intel.html">Intel</a>
+      <a class="nav-link active" href="record.html">Record</a>
+      <a class="nav-link" href="picks.html">My Picks</a>
+      <a class="nav-link" href="learn.html">Learn</a>
+    </div>
+    <div class="nav-badge"><span class="nav-dot"></span><span id="live-badge-text">Live</span></div>
+  </div>
+</nav>
+
+<div class="container" style="padding-top:28px;padding-bottom:60px">
+
+  <div style="margin-bottom:20px">
+    <h1 style="font-size:1.6rem;font-weight:900;color:var(--text);margin:0 0 4px">Track Record</h1>
+    <div style="font-size:.78rem;color:var(--muted)">Every pick published with timestamp before kickoff — auto-graded when final scores come in.</div>
+  </div>
+
+  <!-- Trust banner -->
+  <div class="trust-banner">
+    <h3>Why you can trust these numbers</h3>
+    <p>
+      Every pick is auto-published with a UTC timestamp the moment the model generates it — before the game is played.
+      Results are graded automatically from official ESPN scores. No picks are added retroactively.
+      You can verify the <code>publishedAt</code> timestamp vs <code>gameDate</code> on every row.
+      Closing Line Value (CLV) tracks whether we beat Vegas before lines closed — the true measure of edge.
+    </p>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="rec-stats" id="rec-stats">
+    <div class="rec-stat"><div class="rec-stat-val" style="color:var(--text)" id="s-record">—</div><div class="rec-stat-lbl">ATS Record</div></div>
+    <div class="rec-stat"><div class="rec-stat-val" style="color:var(--primary)" id="s-winrate">—</div><div class="rec-stat-lbl">Win Rate</div></div>
+    <div class="rec-stat"><div class="rec-stat-val" style="color:var(--gold)" id="s-roi">—</div><div class="rec-stat-lbl">ROI</div></div>
+    <div class="rec-stat"><div class="rec-stat-val" style="color:var(--accent)" id="s-units">—</div><div class="rec-stat-lbl">Net Units</div></div>
+    <div class="rec-stat"><div class="rec-stat-val" style="color:#38bdf8" id="s-clv">—</div><div class="rec-stat-lbl">Avg CLV</div></div>
+    <div class="rec-stat"><div class="rec-stat-val" style="color:var(--muted)" id="s-pending">—</div><div class="rec-stat-lbl">Pending</div></div>
+  </div>
+
+  <!-- Calibration table -->
+  <div class="section-label mb-3">Calibration — Does Confidence Match Reality?</div>
+  <div class="clv-note">A well-calibrated model wins at the rate it predicts. Elite picks should win ~72%, High ~62%, etc.</div>
+  <table class="cal-table" id="cal-table">
+    <thead>
+      <tr>
+        <th>Confidence Tier</th>
+        <th>Expected Win%</th>
+        <th>Actual Win%</th>
+        <th>Bar</th>
+        <th>Delta</th>
+        <th>Record</th>
+      </tr>
+    </thead>
+    <tbody id="cal-tbody"></tbody>
+  </table>
+
+  <!-- Kelly guide -->
+  <div class="section-label mb-3">Kelly Unit Sizing Guide</div>
+  <div class="kelly-grid">
+    <div class="kelly-card">
+      <div class="kelly-tier" style="color:var(--primary)">Elite picks</div>
+      <div class="kelly-units" style="color:var(--primary)">3–5% bankroll</div>
+      <div class="kelly-desc">Highest edge, biggest model conviction. Maximum recommended unit size.</div>
+    </div>
+    <div class="kelly-card">
+      <div class="kelly-tier" style="color:#a78bfa">High picks</div>
+      <div class="kelly-units" style="color:#a78bfa">2–3% bankroll</div>
+      <div class="kelly-desc">Strong signal, solid edge. Standard unit size for most plays.</div>
+    </div>
+    <div class="kelly-card">
+      <div class="kelly-tier" style="color:var(--gold)">Medium picks</div>
+      <div class="kelly-units" style="color:var(--gold)">1–2% bankroll</div>
+      <div class="kelly-desc">Marginal edge. Play at half-unit or use as parlay leg only.</div>
+    </div>
+    <div class="kelly-card">
+      <div class="kelly-tier" style="color:var(--muted)">Low picks</div>
+      <div class="kelly-units" style="color:var(--muted)">Pass or 0.5%</div>
+      <div class="kelly-desc">Minimal edge detected. Consider skipping or using as a tail only.</div>
+    </div>
+  </div>
+
+  <!-- Pick history -->
+  <div class="flex items-center justify-between mb-3" style="flex-wrap:wrap;gap:8px">
+    <div class="section-label mb-0">Published Pick History</div>
+    <button class="rec-chip" onclick="clearAll()" style="border-color:rgba(239,68,68,.3);color:var(--danger)">Clear All</button>
+  </div>
+
+  <div class="filter-row">
+    <button class="rec-chip active" data-f="all"     onclick="setFilter('all',this)">All</button>
+    <button class="rec-chip"        data-f="W"       onclick="setFilter('W',this)">Wins</button>
+    <button class="rec-chip"        data-f="L"       onclick="setFilter('L',this)">Losses</button>
+    <button class="rec-chip"        data-f="pending" onclick="setFilter('pending',this)">Pending</button>
+    <button class="rec-chip"        data-f="spread"  onclick="setFilter('spread',this)">Spreads</button>
+    <button class="rec-chip"        data-f="total"   onclick="setFilter('total',this)">Totals</button>
+    <button class="rec-chip"        data-f="elite"   onclick="setFilter('elite',this)">Elite Only</button>
+  </div>
+
+  <div id="pick-list"></div>
+
+</div>
+
+<script>
+var allPicks = [];
+var activeFilter = 'all';
+
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.rec-chip[data-f]').forEach(function(c){c.classList.remove('active');});
+  btn.classList.add('active');
+  renderList();
+}
+
+function fmtDate(d) {
+  if (!d) return '';
+  try { return new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+  catch(e) { return d.slice(0,10); }
+}
+
+function fmtSpread(n) {
+  if (n == null) return '—';
+  return n > 0 ? '+' + n.toFixed(1) : n.toFixed(1);
+}
+
+function hoursAhead(publishedAt, gameDate) {
+  try {
+    var pub  = new Date(publishedAt).getTime();
+    var game = new Date(gameDate + 'T20:00:00Z').getTime();
+    var h = Math.round((game - pub) / 3600000);
+    return h > 0 ? h + 'h before kickoff' : 'day of game';
+  } catch(e) { return ''; }
+}
+
+function updateStats(stats) {
+  document.getElementById('s-record').textContent =
+    stats.wins + '-' + stats.losses + (stats.pushes ? '-' + stats.pushes : '');
+  document.getElementById('s-winrate').textContent = stats.winRate ? stats.winRate + '%' : '—';
+  document.getElementById('s-roi').textContent     = stats.roi     ? stats.roi + '%'     : '—';
+  document.getElementById('s-units').textContent   = stats.netUnits >= 0 ? '+' + stats.netUnits : stats.netUnits;
+  document.getElementById('s-clv').textContent     = stats.avgClv  ? '+' + stats.avgClv : '—';
+  document.getElementById('s-pending').textContent = stats.pending;
+}
+
+function updateCalibration(tiers) {
+  var tbody = document.getElementById('cal-tbody');
+  tbody.innerHTML = Object.entries(tiers).map(function(entry) {
+    var key = entry[0], t = entry[1];
+    var total = t.w + t.l;
+    var actual = total ? Math.round(t.w / total * 100) : null;
+    var delta = actual != null ? actual - t.expected : null;
+    var pct = actual || 0;
+    var barColor = delta == null ? 'var(--muted)' : delta >= 0 ? 'var(--primary)' : 'var(--danger)';
+    var deltaStr = delta == null ? '—' : (delta >= 0 ? '+' : '') + delta + '%';
+    var deltaCls = delta == null ? 'delta-neu' : delta >= 0 ? 'delta-pos' : 'delta-neg';
+    return '<tr>' +
+      '<td><span style="font-weight:800;color:var(--text)">' + t.label + '</span></td>' +
+      '<td style="color:var(--muted)">' + t.expected + '%</td>' +
+      '<td style="font-weight:800;color:' + barColor + '">' + (actual != null ? actual + '%' : total ? '—' : 'No data yet') + '</td>' +
+      '<td><div class="cal-bar-wrap"><div class="cal-bar-track"><div class="cal-bar-fill" style="width:' + Math.min(pct,100) + '%;background:' + barColor + '"></div></div></div></td>' +
+      '<td><span class="cal-delta ' + deltaCls + '">' + deltaStr + '</span></td>' +
+      '<td style="color:var(--muted);font-size:.7rem">' + (total ? t.w + '-' + t.l : '—') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+function renderList() {
+  var list = allPicks.slice();
+  if (activeFilter === 'W')       list = list.filter(function(p){return p.result==='W';});
+  else if (activeFilter === 'L')  list = list.filter(function(p){return p.result==='L';});
+  else if (activeFilter === 'pending') list = list.filter(function(p){return p.result===null;});
+  else if (activeFilter === 'spread')  list = list.filter(function(p){return p.betType==='spread';});
+  else if (activeFilter === 'total')   list = list.filter(function(p){return p.betType==='total';});
+  else if (activeFilter === 'elite')   list = list.filter(function(p){return p.confidence==='elite';});
+
+  list.sort(function(a,b){ return b.publishedAt.localeCompare(a.publishedAt); });
+
+  var el = document.getElementById('pick-list');
+  if (!list.length) {
+    el.innerHTML = '<div class="empty-rec">' +
+      '<div style="font-size:2rem;margin-bottom:10px">📋</div>' +
+      '<div style="font-weight:700;color:var(--text-soft);margin-bottom:6px">No picks yet</div>' +
+      '<div style="font-size:.78rem">Picks are auto-published as games load. Come back once the 2026 season starts.</div>' +
+    '</div>';
+    return;
+  }
+
+  el.innerHTML = list.map(function(p) {
+    var res = p.result || 'null';
+    var resCls = 'res-' + res;
+    var resLabel = p.result || '···';
+    var confCls = 'conf-' + p.confidence;
+    var side = p.betType === 'spread'
+      ? (p.side === 'home' ? p.homeTeam.split(' ').pop() : p.awayTeam.split(' ').pop()) + ' ' + fmtSpread(p.side==='home' ? -(p.vegasLine||0) : (p.vegasLine||0))
+      : p.team + ' ' + (p.vegasLine != null ? p.vegasLine : '');
+    var lineInfo = p.betType === 'spread'
+      ? 'Model: ' + fmtSpread(-p.modelSpread) + ' · Edge: +' + (p.edge||0).toFixed(1)
+      : 'Model total: ' + (p.modelTotal||'—');
+    var clvHtml = p.clv != null
+      ? '<span class="pick-clv ' + (p.clv >= 0 ? 'clv-pos' : 'clv-neg') + '">CLV ' + (p.clv>=0?'+':'') + p.clv.toFixed(2) + '</span>'
+      : '<span style="font-size:.65rem;color:var(--muted)">CLV pending</span>';
+    var hoursNote = hoursAhead(p.publishedAt, p.gameDate);
+    var scoreNote = p.homeScore != null
+      ? '(' + p.homeTeam.split(' ').pop() + ' ' + p.homeScore + '-' + p.awayScore + ' ' + p.awayTeam.split(' ').pop() + ')'
+      : '';
+
+    return '<div class="pick-row">' +
+      '<div class="pick-result ' + resCls + '">' + resLabel + '</div>' +
+      '<div>' +
+        '<div class="pick-game">' + p.awayTeam.split(' ').pop() + ' @ ' + p.homeTeam.split(' ').pop() + '</div>' +
+        '<div class="pick-meta">' + fmtDate(p.gameDate) + ' · Published ' + hoursNote + ' · ' + lineInfo + ' ' + scoreNote + '</div>' +
+      '</div>' +
+      '<span class="pick-badge ' + confCls + ' pick-hide">' + p.confidence.toUpperCase() + '</span>' +
+      '<div class="pick-hide">' + clvHtml + '</div>' +
+      '<div style="text-align:right">' +
+        '<div style="font-size:.78rem;font-weight:800;color:var(--text)">' + side + '</div>' +
+        '<div style="font-size:.62rem;color:var(--muted);margin-top:2px">' +
+          (p.kellyPct ? p.kellyPct + '% kelly' : '') +
+          (p.winProb  ? ' · ' + Math.round(p.winProb) + '% prob' : '') +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function refresh(picks) {
+  allPicks = picks || (window.AutoPicks ? window.AutoPicks.getPublished() : []);
+  var stats = window.AutoPicks ? window.AutoPicks.computeStats(allPicks) : { wins:0,losses:0,pushes:0,pending:0,winRate:null,roi:null,netUnits:0,avgClv:null,tiers:{elite:{label:'Elite',expected:72,w:0,l:0},high:{label:'High',expected:62,w:0,l:0},medium:{label:'Medium',expected:56,w:0,l:0},low:{label:'Low',expected:52,w:0,l:0}} };
+  updateStats(stats);
+  updateCalibration(stats.tiers);
+  renderList();
+}
+
+function clearAll() {
+  if (!confirm('Clear all published picks? This cannot be undone.')) return;
+  if (window.AutoPicks) window.AutoPicks.savePublished([]);
+  refresh([]);
+}
+
+window.onAutoPicksReady = function(picks) { refresh(picks); };
+
+refresh();
+</script>
+<script src="../js/data.js"></script>
+<script src="../js/data-fbs-stubs.js"></script>
+<script src="../js/players-extended.js"></script>
+<script src="../js/predictor.js"></script>
+<script src="../js/autopicks.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/live.js"></script>
+</body>
+</html>

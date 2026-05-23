@@ -443,6 +443,7 @@
       <a class="nav-link" href="pages/parlay.html">Parlay</a>
       <a class="nav-link" href="pages/teams.html">Teams</a>
       <a class="nav-link" href="pages/intel.html">Intel</a>
+      <a class="nav-link" href="pages/record.html">Record</a>
       <a class="nav-link" href="pages/picks.html">My Picks</a>
       <a class="nav-link" href="pages/learn.html">Learn</a>
     </div>
@@ -763,8 +764,8 @@ function renderHeroPick() {
     '</div>' +
     '<div class="top-pick-footer">' +
       '<div class="top-pick-spread">' +
-        '<div class="top-pick-spread-lbl">ATS Pick</div>' +
-        '<div class="top-pick-spread-val">' + (pickTeam ? pickTeam.split(" ").pop() : "—") + ' ' + pickLine + '</div>' +
+        '<div class="top-pick-spread-lbl">Spread Pick</div>' +
+        '<div class="top-pick-spread-val">Will cover spread</div>' +
       '</div>' +
       (sp && sp.edge > 0 ?
         '<div class="top-pick-spread" style="background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.3)">' +
@@ -809,8 +810,8 @@ function renderTopPicks() {
         '</div>' +
       '</div>' +
       '<div class="pick-chip ' + chipCls + ' mb-3" style="text-align:left">' +
-        '<div class="pick-chip-label">ATS Pick</div>' +
-        '<div class="pick-chip-val" style="font-size:1rem;color:' + chipColor + '">' + sp.team + '</div>' +
+        '<div class="pick-chip-label">Spread Pick</div>' +
+        '<div class="pick-chip-val" style="font-size:1rem;color:' + chipColor + '">Will cover spread</div>' +
         '<div class="pick-chip-sub">Line: ' + lineVal + '</div>' +
       '</div>' +
       '<div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted-l)">' +
@@ -896,11 +897,11 @@ function renderGameCard(game, pred, baseUrl) {
   var sp  = pred.spreadPick;
   var tp  = pred.totalPick;
   var ats = sp.side === "no-bet"
-    ? '<div class="pick-chip pick-neutral"><div class="pick-chip-label">ATS Pick</div><div class="pick-chip-val">No edge</div></div>'
+    ? '<div class="pick-chip pick-neutral"><div class="pick-chip-label">Spread Pick</div><div class="pick-chip-val">No edge</div></div>'
     : '<div class="pick-chip ' + (sp.side === "home" ? "pick-home" : "pick-away") + '">' +
-        '<div class="pick-chip-label">ATS Pick</div>' +
-        '<div class="pick-chip-val">' + sp.team.split(" ").pop() + '</div>' +
-        (game.bettingLines ? '<div class="pick-chip-sub">' + fmtSpread(sp.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) + '</div>' : '') +
+        '<div class="pick-chip-label">Spread Pick</div>' +
+        '<div class="pick-chip-val">Will cover spread</div>' +
+        (game.bettingLines ? '<div class="pick-chip-sub">' + (sp.side === "home" ? game.homeTeam.name : game.awayTeam.name).split(" ").pop() + ' · ' + fmtSpread(sp.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) + '</div>' : '') +
       '</div>';
 
   var tot = tp.side === "no-bet"
@@ -1163,6 +1164,7 @@ window.renderGameCard = renderGameCard;
 })();
 </script>
 <script src="js/config.js"></script>
+<script src="js/autopicks.js"></script>
 <script src="js/live.js"></script>
 </body>
 </html>

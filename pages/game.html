@@ -231,6 +231,7 @@
       <a class="nav-link" href="parlay.html">Parlay</a>
       <a class="nav-link" href="teams.html">Teams</a>
       <a class="nav-link" href="intel.html">Intel</a>
+      <a class="nav-link" href="record.html">Record</a>
       <a class="nav-link" href="picks.html">My Picks</a>
       <a class="nav-link" href="learn.html">Learn</a>
     </div>
@@ -521,7 +522,8 @@ function renderGamePage(gData) {
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:6px">
           <div style="flex:1;min-width:200px">
             <div style="font-size:.6rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:5px">TOP PICK</div>
-            <div class="key-insight-pick">${pickTeam}${pickLine}</div>
+            <div class="key-insight-pick">Will cover spread</div>
+            <div style="font-size:.68rem;color:var(--muted-l);margin-top:2px">${pickTeam}${pickLine ? ' · ' + pickLine : ''}</div>
             <div style="font-size:.78rem;color:var(--muted-l);margin-top:4px">
               Win Probability: <strong style="color:${borderColor}">${isHomeFavored ? homePct : awayPct}%</strong>
               · Projected ${Math.round(homeScore)}&ndash;${Math.round(awayScore)}
@@ -701,7 +703,8 @@ function renderGamePage(gData) {
         <div style="margin-top:20px;padding:16px 20px;border-radius:var(--radius-lg);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px">
           <div>
             <div style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">The Bet Model Pick</div>
-            <div style="font-size:1.3rem;font-weight:900;color:var(--primary)">${pickTeam} ${pickLine}</div>
+            <div style="font-size:1.3rem;font-weight:900;color:var(--primary)">Will cover spread</div>
+            <div style="font-size:.78rem;color:var(--muted-l);margin-top:2px">${pickTeam}${pickLine ? ' · ' + pickLine : ''}</div>
             <div style="font-size:.78rem;color:var(--muted-l);margin-top:4px;line-height:1.5">${pickReason}</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0">
@@ -1330,7 +1333,7 @@ function renderGamePage(gData) {
       const pickTeam = gp && gp.thePick && gp.thePick.team ? gp.thePick.team : winner.name;
       const pickLine = gp && gp.thePick && gp.thePick.line ? " " + gp.thePick.line : (pred.predictedSpread ? " " + fmtSpread(-pred.predictedSpread) : "");
       const pickConf = gp && gp.thePick && gp.thePick.confidence ? gp.thePick.confidence : (pred.confidence || "medium").toUpperCase();
-      const text = "The Bet: " + pickTeam + pickLine + " — " + pickConf + " confidence. Analysis: " + window.location.href;
+      const text = "The Bet: " + pickTeam + " will cover spread" + (pickLine ? " (" + pickLine.trim() + ")" : "") + " — " + pickConf + " confidence. Analysis: " + window.location.href;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById("share-pick-btn");
         if (btn) {
@@ -1352,10 +1355,10 @@ function renderGamePage(gData) {
         <div class="grid-3 mb-4">
           <!-- ATS -->
           <div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${pred.spreadPick && pred.spreadPick.side !== "no-bet" ? pred.spreadPick.side === "home" ? "rgba(99,102,241,.5)" : "rgba(245,158,11,.5)" : "var(--border)"};background:${pred.spreadPick && pred.spreadPick.side !== "no-bet" ? pred.spreadPick.side === "home" ? "rgba(99,102,241,.1)" : "rgba(245,158,11,.1)" : "var(--surface)"}">
-            <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">ATS Pick</div>
+            <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">Spread Pick</div>
             ${pred.spreadPick && pred.spreadPick.side !== "no-bet"
-              ? `<div style="font-size:.95rem;font-weight:800;color:${pred.spreadPick.side === "home" ? "var(--accent)" : "var(--gold)"}">${pred.spreadPick.team}</div>
-                 ${game.bettingLines ? `<div class="text-xs text-muted mt-1">${fmtSpread(pred.spreadPick.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread)}</div>` : ""}
+              ? `<div style="font-size:.95rem;font-weight:800;color:${pred.spreadPick.side === "home" ? "var(--accent)" : "var(--gold)"}">Will cover spread</div>
+                 <div class="text-xs text-muted mt-1">${pred.spreadPick.team.split(' ').pop()} · ${game.bettingLines ? fmtSpread(pred.spreadPick.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) : ""}</div>
                  <div class="text-xs text-muted mt-1">Edge +${pred.spreadPick.edge} pts</div>`
               : `<div style="font-size:.95rem;font-weight:700;color:var(--muted)">No Bet</div><div class="text-xs text-muted mt-1">No significant edge</div>`}
           </div>

@@ -1226,9 +1226,8 @@
     var gameLabel = awayName + ' @ ' + homeName;
     var pickLabel;
     if (type === 'spread') {
-      var spreadVal = side === 'home' ? (game.bettingLines || {}).spread || 0 : -(game.bettingLines || {}).spread || 0;
       var teamLast  = (side === 'home' ? homeName : awayName).split(' ').pop();
-      pickLabel = teamLast + ' ' + fmtSpreadGP(spreadVal);
+      pickLabel = teamLast + ' — Will cover spread';
     } else if (type === 'total') {
       pickLabel = (side === 'over' ? 'OVER' : 'UNDER') + ' ' + line;
     } else {

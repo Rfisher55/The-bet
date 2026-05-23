@@ -247,6 +247,7 @@
       <a class="nav-link active" href="parlay.html">Parlay</a>
       <a class="nav-link" href="teams.html">Teams</a>
       <a class="nav-link" href="intel.html">Intel</a>
+      <a class="nav-link" href="record.html">Record</a>
       <a class="nav-link" href="picks.html">My Picks</a>
       <a class="nav-link" href="learn.html">Learn</a>
     </div>
@@ -1285,7 +1286,8 @@ function openGameModal(gameId) {
     var spEdge = sp.edge >= 1 ? ' <span style="color:var(--primary);font-size:.72rem">+' + sp.edge + ' pt edge</span>' : '';
     spreadPickHtml = '<div style="margin-top:8px;padding:8px 12px;border-radius:10px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2)">'
       + '<div style="font-size:.6rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:3px">Spread Pick</div>'
-      + '<div style="font-size:.82rem;font-weight:800;color:var(--text)">' + spTeam + ' ' + spLine + spEdge + '</div></div>';
+      + '<div style="font-size:.82rem;font-weight:800;color:var(--text)">Will cover spread' + spEdge + '</div>'
+      + '<div style="font-size:.68rem;color:var(--muted)">' + spTeam.split(' ').pop() + ' · ' + spLine + '</div></div>';
   }
   var totalPickHtml = '';
   if (tp.side && tp.side !== 'no-bet' && bl.total) {
