@@ -899,6 +899,13 @@ async function main() {
   console.log(`  Weather fetched for ${weatherCount} outdoor games`);
 
   // ── Write output files ───────────────────────────────────────────────
+  // Skip writing if no games fetched — avoids a timestamp-only commit that
+  // conflicts with concurrent workflow runs when the CFBD API is unavailable.
+  if (games.length === 0) {
+    console.log("\n⚠️  No game data fetched (API may be unavailable) — skipping file write to avoid empty commit.");
+    return;
+  }
+
   console.log("\nPhase 5: Writing output files...");
   const metadata = {
     generated:      new Date().toISOString(),

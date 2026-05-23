@@ -23,6 +23,11 @@ on:
 permissions:
   contents: write   # needed to commit data/ back to main
 
+# Prevent concurrent runs from colliding on git push
+concurrency:
+  group: refresh-cfb-data
+  cancel-in-progress: true
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -63,5 +68,7 @@ jobs:
             LINES_COUNT=$(node -e "const d=require('./data/games-2026.json');console.log(d.games.filter(g=>g.bettingLines).length)" 2>/dev/null || echo "?")
             SOURCES=$(node -e "const d=require('./data/metadata.json');console.log((d.dataSourcesActive||[]).length+' sources')" 2>/dev/null || echo "")
             git commit -m "data: refresh $(date -u '+%Y-%m-%d %H:%M UTC') — ${GAME_COUNT} games, ${LINES_COUNT} with lines, ${SOURCES}"
-            git push
+            # Pull+rebase first in case another run pushed while we were fetching
+            git pull --rebase origin main 2>/dev/null || true
+            git push origin HEAD:main
           fi

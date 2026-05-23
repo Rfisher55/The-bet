@@ -838,6 +838,12 @@ async function main() {
   }
 
   // Phase 5: write output
+  // Skip writing if no players fetched to avoid a timestamp-only commit when the API is down.
+  if (players.length === 0) {
+    console.log("\n⚠️  No player data fetched (API may be unavailable) — skipping file write.");
+    return;
+  }
+
   console.log(`\nPhase 4: Writing output...`);
   const output = {
     generated:    new Date().toISOString(),
