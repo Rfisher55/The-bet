@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insider Intel — The Bet</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    .intel-header { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+    .intel-pulse { width:8px; height:8px; border-radius:50%; background:var(--danger); animation:pulse 2s infinite; flex-shrink:0; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .filter-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+    .intel-chip  { padding:6px 14px; border-radius:20px; font-size:.72rem; font-weight:700; border:1px solid var(--border); background:var(--surface); color:var(--muted-l); cursor:pointer; transition:all .15s; }
+    .intel-chip.active { background:var(--danger); border-color:var(--danger); color:#fff; }
+    .intel-chip.active.injury  { background:#dc2626; border-color:#dc2626; }
+    .intel-chip.active.twitter { background:#0ea5e9; border-color:#0ea5e9; }
+    .intel-chip.active.espn    { background:var(--primary); border-color:var(--primary); }
+    .intel-chip.active.coaching{ background:#7c3aed; border-color:#7c3aed; }
+
+    .intel-grid { display:flex; flex-direction:column; gap:10px; }
+
+    .intel-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color .15s; }
+    .intel-card:hover { border-color:rgba(255,255,255,.18); }
+    .intel-card.type-insider { border-left:3px solid #f87171; }
+    .intel-card.type-injury  { border-left:3px solid var(--danger); }
+    .intel-card.type-twitter { border-left:3px solid #38bdf8; }
+    .intel-card.type-espn    { border-left:3px solid var(--primary); }
+    .intel-card.type-coaching{ border-left:3px solid #a78bfa; }
+    .intel-card.type-portal  { border-left:3px solid var(--gold); }
+
+    .intel-card-inner { padding:14px 16px; }
+    .intel-card-header { display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; }
+    .intel-type-badge { font-size:.52rem; font-weight:900; padding:2px 8px; border-radius:4px; letter-spacing:.06em; white-space:nowrap; flex-shrink:0; margin-top:2px; }
+    .badge-insider  { background:rgba(239,68,68,.18); border:1px solid rgba(239,68,68,.5); color:#f87171; }
+    .badge-injury   { background:rgba(239,68,68,.1);  border:1px solid rgba(239,68,68,.3); color:var(--danger); }
+    .badge-twitter  { background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.3);color:#38bdf8; }
+    .badge-espn     { background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.3);color:var(--primary); }
+    .badge-coaching { background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);color:#a78bfa; }
+    .badge-portal   { background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3); color:var(--gold); }
+
+    .intel-headline { font-size:.88rem; font-weight:700; color:var(--text); line-height:1.4; flex:1; }
+    .intel-body     { font-size:.78rem; color:var(--text-soft); line-height:1.5; margin-bottom:8px; }
+    .intel-meta     { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .intel-meta-item{ font-size:.65rem; color:var(--muted); }
+    .intel-team-pill{ font-size:.6rem; font-weight:800; padding:2px 8px; border-radius:10px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:var(--text-soft); }
+    .intel-impact   { font-size:.62rem; font-weight:700; padding:2px 8px; border-radius:6px; }
+    .impact-high    { background:rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.3); color:var(--danger); }
+    .impact-med     { background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.3); color:var(--gold); }
+    .impact-low     { background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2); color:var(--primary); }
+
+    .injury-table { width:100%; border-collapse:collapse; margin-top:10px; }
+    .injury-table th { font-size:.6rem; font-weight:800; letter-spacing:.05em; color:var(--muted); padding:4px 8px; text-align:left; border-bottom:1px solid var(--border); }
+    .injury-table td { font-size:.75rem; color:var(--text-soft); padding:6px 8px; border-bottom:1px solid rgba(255,255,255,.04); }
+    .injury-table tr:last-child td { border-bottom:none; }
+    .status-out  { color:var(--danger); font-weight:800; }
+    .status-q    { color:var(--gold); font-weight:700; }
+    .status-d    { color:#f97316; font-weight:700; }
+
+    .empty-intel { text-align:center; padding:60px 20px; color:var(--muted); }
+    .empty-intel-icon { font-size:2.5rem; margin-bottom:12px; }
+    .refresh-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 18px; border-radius:8px; background:var(--surface); border:1px solid var(--border); color:var(--text-soft); font-size:.75rem; font-weight:700; cursor:pointer; transition:all .15s; }
+    .refresh-btn:hover { border-color:var(--primary); color:var(--primary); }
+
+    .stats-strip { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px; }
+    .stat-chip { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px 14px; display:flex; flex-direction:column; gap:2px; }
+    .stat-val  { font-size:1.1rem; font-weight:900; color:var(--text); }
+    .stat-lbl  { font-size:.6rem; font-weight:700; letter-spacing:.05em; color:var(--muted); text-transform:uppercase; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="../index.html">
+      <div class="nav-logo-icon">TB</div>
+      <span class="nav-logo-text">The Bet</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="../index.html">Home</a>
+      <a class="nav-link" href="games.html">Games</a>
+      <a class="nav-link" href="parlay.html">Parlay</a>
+      <a class="nav-link" href="teams.html">Teams</a>
+      <a class="nav-link active" href="intel.html">Intel</a>
+      <a class="nav-link" href="picks.html">My Picks</a>
+      <a class="nav-link" href="learn.html">Learn</a>
+    </div>
+    <div class="nav-badge">
+      <span class="nav-dot"></span>
+      <span id="live-badge-text" class="nav-badge-text">Live</span>
+    </div>
+  </div>
+</nav>
+
+<div class="container" style="padding-top:28px;padding-bottom:60px">
+
+  <!-- Header -->
+  <div style="margin-bottom:20px">
+    <div class="intel-header">
+      <div class="intel-pulse"></div>
+      <h1 style="font-size:1.6rem;font-weight:900;color:var(--text);margin:0">Insider Intel</h1>
+      <button class="refresh-btn" onclick="refreshAll()" id="refresh-btn">↻ Refresh</button>
+    </div>
+    <div style="font-size:.78rem;color:var(--muted);margin-top:4px">
+      Real-time feed: Twitter/X · ESPN Injuries · Transfer Portal · Coaching moves
+      <span id="intel-updated" style="margin-left:8px"></span>
+    </div>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="stats-strip" id="stats-strip">
+    <div class="stat-chip"><div class="stat-val" id="stat-total">—</div><div class="stat-lbl">Total Items</div></div>
+    <div class="stat-chip"><div class="stat-val" style="color:#f87171" id="stat-insider">—</div><div class="stat-lbl">Insider Alerts</div></div>
+    <div class="stat-chip"><div class="stat-val" style="color:var(--danger)" id="stat-injuries">—</div><div class="stat-lbl">Injuries</div></div>
+    <div class="stat-chip"><div class="stat-val" style="color:#38bdf8" id="stat-tweets">—</div><div class="stat-lbl">Tweets</div></div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-row" id="filter-row">
+    <button class="intel-chip active" data-filter="all" onclick="setFilter('all',this)">All</button>
+    <button class="intel-chip injury" data-filter="insider" onclick="setFilter('insider',this)">🚨 Insider</button>
+    <button class="intel-chip injury" data-filter="injury" onclick="setFilter('injury',this)">🩹 Injuries</button>
+    <button class="intel-chip twitter" data-filter="twitter" onclick="setFilter('twitter',this)">𝕏 Twitter</button>
+    <button class="intel-chip espn" data-filter="espn" onclick="setFilter('espn',this)">ESPN</button>
+    <button class="intel-chip coaching" data-filter="coaching" onclick="setFilter('coaching',this)">🏈 Coaching</button>
+    <button class="intel-chip" data-filter="portal" onclick="setFilter('portal',this)">🔄 Portal</button>
+  </div>
+
+  <!-- Intel feed -->
+  <div class="intel-grid" id="intel-grid">
+    <div class="empty-intel">
+      <div class="empty-intel-icon">📡</div>
+      <div style="font-weight:700;color:var(--text-soft);margin-bottom:8px">Loading intel...</div>
+      <div style="font-size:.78rem">Connecting to Twitter/X and ESPN feeds</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var allItems  = [];
+var activeFilter = "all";
+var lastUpdated = null;
+
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll(".intel-chip").forEach(c => c.classList.remove("active"));
+  btn.classList.add("active");
+  renderGrid();
+}
+
+function relTime(d) {
+  try {
+    var m = Math.floor((Date.now() - new Date(d)) / 60000);
+    if (m < 2)  return "just now";
+    if (m < 60) return m + "m ago";
+    var h = Math.floor(m / 60);
+    if (h < 24) return h + "h ago";
+    return Math.floor(h/24) + "d ago";
+  } catch(e) { return ""; }
+}
+
+function impactBadge(pts) {
+  if (!pts || pts >= 0) return "";
+  var abs = Math.abs(pts);
+  if (abs >= 4) return '<span class="intel-impact impact-high">HIGH IMPACT −' + abs.toFixed(1) + ' pts</span>';
+  if (abs >= 2) return '<span class="intel-impact impact-med">MED IMPACT −' + abs.toFixed(1) + ' pts</span>';
+  return '<span class="intel-impact impact-low">LOW IMPACT −' + abs.toFixed(1) + ' pts</span>';
+}
+
+function buildItems() {
+  var items = [];
+
+  // ── Insider alerts from Twitter ──
+  (window.INSIDER_ALERTS || []).forEach(function(a) {
+    items.push({
+      type:    "insider",
+      teamName: a.teamName,
+      headline: (a.tweet.text || "").slice(0, 180),
+      body:    "",
+      source:  a.tweet.author ? "@" + a.tweet.author.username : "Twitter/X",
+      date:    a.tweet.created_at,
+      url:     a.tweet.author ? "https://x.com/" + a.tweet.author.username : "#",
+      impact:  -3,
+      _sort:   new Date(a.tweet.created_at || 0).getTime(),
+    });
+  });
+
+  // ── ESPN injuries from TEAM_INTEL ──
+  if (window.TEAM_INTEL && window.TEAMS) {
+    Object.entries(window.TEAM_INTEL).forEach(function(entry) {
+      var teamId = entry[0], ti = entry[1];
+      if (!ti.injuries || !ti.injuries.length) return;
+      var team = window.TEAMS[teamId];
+      var teamName = team ? team.name : teamId;
+      ti.injuries.forEach(function(inj) {
+        var isOut = /\bout\b/i.test(inj.status || "");
+        var isQ   = /questionable|doubtful/i.test(inj.status || "");
+        items.push({
+          type:     "injury",
+          teamName: teamName,
+          headline: (inj.name || "Player") + " — " + (inj.status || "Injured").toUpperCase(),
+          body:     inj.position ? inj.position + (inj.injury ? " · " + inj.injury : "") : (inj.injury || ""),
+          source:   "ESPN",
+          date:     null,
+          url:      "#",
+          impact:   isOut ? -2 : isQ ? -0.8 : -0.3,
+          _sort:    isOut ? Date.now() + 1000 : Date.now(),
+        });
+      });
+    });
+  }
+
+  // ── Twitter general tweets ──
+  (window.__latestTweets || []).forEach(function(t) {
+    var text = (t.text || "").toLowerCase();
+    var type = "twitter";
+    if (/coach|fired|hired|hot seat|buyout/.test(text))   type = "coaching";
+    if (/portal|transfer|nil|commit|decommit/.test(text)) type = "portal";
+    items.push({
+      type:    type,
+      teamName: "",
+      headline: (t.text || "").slice(0, 180),
+      body:    "",
+      source:  t.author ? "@" + t.author.username : "Twitter/X",
+      date:    t.created_at,
+      url:     t.author ? "https://x.com/" + t.author.username : "#",
+      impact:  0,
+      _sort:   new Date(t.created_at || 0).getTime(),
+    });
+  });
+
+  // ── ESPN news ──
+  (window.__latestESPN || []).forEach(function(a) {
+    var text = ((a.headline || "") + " " + (a.description || "")).toLowerCase();
+    var type = "espn";
+    if (/coach|fired|hired|hot seat/.test(text))     type = "coaching";
+    if (/portal|transfer|nil/.test(text))            type = "portal";
+    items.push({
+      type:    type,
+      teamName: "",
+      headline: a.headline || "",
+      body:    (a.description || "").slice(0, 200),
+      source:  "ESPN CFB",
+      date:    a.published,
+      url:     (a.links && a.links.web && a.links.web.href) || "#",
+      impact:  0,
+      _sort:   new Date(a.published || 0).getTime(),
+    });
+  });
+
+  items.sort(function(a, b) { return b._sort - a._sort; });
+  allItems = items;
+
+  // Update stats
+  document.getElementById("stat-total").textContent   = items.length;
+  document.getElementById("stat-insider").textContent = items.filter(function(i){return i.type==="insider";}).length;
+  document.getElementById("stat-injuries").textContent= items.filter(function(i){return i.type==="injury";}).length;
+  document.getElementById("stat-tweets").textContent  = items.filter(function(i){return i.type==="twitter"||i.type==="coaching"||i.type==="portal";}).length;
+
+  lastUpdated = new Date();
+  var el = document.getElementById("intel-updated");
+  if (el) el.textContent = "· Updated just now";
+}
+
+function typeBadge(type) {
+  var map = {
+    insider:  ["badge-insider",  "🚨 INSIDER"],
+    injury:   ["badge-injury",   "🩹 INJURY"],
+    twitter:  ["badge-twitter",  "𝕏 TWITTER"],
+    espn:     ["badge-espn",     "ESPN"],
+    coaching: ["badge-coaching", "🏈 COACHING"],
+    portal:   ["badge-portal",   "🔄 PORTAL"],
+  };
+  var d = map[type] || ["badge-espn","CFB"];
+  return '<span class="intel-type-badge ' + d[0] + '">' + d[1] + '</span>';
+}
+
+function renderGrid() {
+  var grid = document.getElementById("intel-grid");
+  var list = activeFilter === "all" ? allItems : allItems.filter(function(i) {
+    if (activeFilter === "twitter") return i.type === "twitter" || i.type === "coaching" || i.type === "portal";
+    return i.type === activeFilter;
+  });
+
+  if (!list.length) {
+    grid.innerHTML = '<div class="empty-intel">' +
+      '<div class="empty-intel-icon">📡</div>' +
+      '<div style="font-weight:700;color:var(--text-soft);margin-bottom:8px">No intel yet</div>' +
+      '<div style="font-size:.78rem">Twitter and ESPN feeds are live — check back during the season for real-time alerts</div>' +
+    '</div>';
+    return;
+  }
+
+  grid.innerHTML = list.slice(0, 50).map(function(item) {
+    var ago = item.date ? relTime(item.date) : "";
+    var impact = item.impact < 0 ? impactBadge(item.impact) : "";
+    var teamPill = item.teamName
+      ? '<span class="intel-team-pill">' + item.teamName.split(" ").slice(-1)[0].toUpperCase() + '</span>'
+      : "";
+    var linkAttr = item.url && item.url !== "#" ? ' href="' + item.url + '" target="_blank" rel="noopener"' : "";
+    var tag = linkAttr ? "a" : "div";
+    return '<' + tag + ' class="intel-card type-' + item.type + '"' + linkAttr + ' style="display:block;text-decoration:none">' +
+      '<div class="intel-card-inner">' +
+        '<div class="intel-card-header">' +
+          typeBadge(item.type) +
+          '<div class="intel-headline">' + item.headline + '</div>' +
+        '</div>' +
+        (item.body ? '<div class="intel-body">' + item.body + '</div>' : '') +
+        '<div class="intel-meta">' +
+          teamPill +
+          '<span class="intel-meta-item">' + item.source + '</span>' +
+          (ago ? '<span class="intel-meta-item">· ' + ago + '</span>' : '') +
+          impact +
+        '</div>' +
+      '</div>' +
+    '</' + tag + '>';
+  }).join("");
+}
+
+function refreshAll() {
+  var btn = document.getElementById("refresh-btn");
+  btn.textContent = "↻ Refreshing...";
+  btn.disabled = true;
+  buildItems();
+  renderGrid();
+  setTimeout(function() { btn.textContent = "↻ Refresh"; btn.disabled = false; }, 1000);
+}
+
+// Listen for data from live.js
+window.addEventListener("teamIntelReady", function() {
+  buildItems();
+  renderGrid();
+});
+
+window.addEventListener("liveDataReady", function(e) {
+  var d = e.detail || {};
+  if (d.twitterTweets) window.__latestTweets = d.twitterTweets;
+  if (d.espnNews)      window.__latestESPN   = d.espnNews;
+  buildItems();
+  renderGrid();
+});
+
+// Tick relative timestamps every minute
+setInterval(function() {
+  var el = document.getElementById("intel-updated");
+  if (el && lastUpdated) el.textContent = "· Updated " + relTime(lastUpdated.toISOString());
+}, 60000);
+
+// Initial render
+buildItems();
+renderGrid();
+</script>
+<script src="../js/config.js"></script>
+<script src="../js/live.js"></script>
+</body>
+</html>
