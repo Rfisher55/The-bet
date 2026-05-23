@@ -36,7 +36,7 @@ async function cfbdFetch(endpoint) {
       headers: { Authorization: `Bearer ${CFBD_KEY}` },
     });
     if (!r.ok) { console.warn(`  CFBD ${r.status}: ${endpoint}`); return null; }
-    return r.json();
+    return await r.json();
   } catch (e) { console.warn(`  CFBD fail: ${endpoint} — ${e.message}`); return null; }
 }
 
@@ -44,7 +44,7 @@ async function espnFetch(endpoint) {
   try {
     const r = await fetch(`${ESPN_BASE}${endpoint}`, { headers: { "User-Agent": UA } });
     if (!r.ok) { console.warn(`  ESPN ${r.status}: ${endpoint}`); return null; }
-    return r.json();
+    return await r.json();
   } catch (e) { console.warn(`  ESPN fail: ${endpoint} — ${e.message}`); return null; }
 }
 
