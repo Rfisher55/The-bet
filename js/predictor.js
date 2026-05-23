@@ -240,6 +240,32 @@ function calcPlayerImpactAdjustment(team, isHome) {
     totalAdj += playerAdj;
   }
 
+  // ── OL depth bonus ────────────────────────────────────────
+  // A healthy, experienced OL provides a consistent but modest floor benefit.
+  // No OL entry = no data, skip. Injured OL = slight negative.
+  const olPlayers = teamPlayers.filter(p => p.position === "OL");
+  if (olPlayers.length > 0) {
+    const olHealthy = olPlayers.filter(p => (p.injuryStatus || "healthy") === "healthy");
+    if (olHealthy.length > 0) {
+      totalAdj += 0.3; // healthy anchor OL identified
+    } else {
+      const olOut = olPlayers.filter(p => (p.injuryStatus || "healthy") === "out");
+      if (olOut.length > 0) totalAdj -= 0.4; // key OL missing → pass-pro / run-game degraded
+    }
+  }
+
+  // ── Pass rush / Edge rusher defensive bonus ───────────────
+  // A healthy edge rusher with high impact slightly boosts defensive effectiveness.
+  const edgePlayers = teamPlayers.filter(p => p.position === "EDGE" || p.position === "DE");
+  for (const edge of edgePlayers) {
+    const edgeStatus = (edge.injuryStatus || "healthy").toLowerCase();
+    if (edgeStatus === "healthy" && edge.impact === "high") {
+      totalAdj += 0.25; // elite pass rusher active — forces quick decisions from opponent QB
+    } else if (edgeStatus === "out" && edge.impact === "high") {
+      totalAdj -= 0.3;  // elite pass rusher absent — opponent QB gets extra time
+    }
+  }
+
   return clamp(totalAdj, -5, 5);
 }
 

@@ -46,6 +46,11 @@ jobs:
           ODDSPAPI_KEY:  ${{ secrets.ODDSPAPI_KEY }}   # free at oddspapi.io (250 req/mo, includes Pinnacle)
         run: node scripts/fetch-live-data.mjs
 
+      - name: Fetch player roster data
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+        run: node scripts/fetch-players.mjs
+
       - name: Commit updated data if changed
         run: |
           git config user.name  "CFB Data Bot"

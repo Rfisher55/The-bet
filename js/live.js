@@ -82,6 +82,46 @@
     });
 }());
 
+/* ── Player data loader — merges data/players-2026.json into KEY_PLAYERS ──────
+   Runs at startup in parallel with the main API fetch. Curated entries in
+   KEY_PLAYERS (from data.js) take priority; API-sourced entries fill the gaps.   */
+(function _loadPlayerData() {
+  var base = window.location.pathname.includes("/pages/") ? "../" : "./";
+  var url  = base + "data/players-2026.json";
+
+  fetch(url, { cache: "no-cache" })
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !Array.isArray(d.players) || d.players.length === 0) return;
+      if (typeof KEY_PLAYERS === "undefined" || !Array.isArray(KEY_PLAYERS)) return;
+
+      // Build a set of IDs already in KEY_PLAYERS (curated entries)
+      var existingIds = new Set(KEY_PLAYERS.map(function(p) { return p.id; }));
+      // Also track teamId+position+name combos to avoid loose duplicates
+      var existingKeys = new Set(KEY_PLAYERS.map(function(p) {
+        return p.teamId + "|" + p.position + "|" + (p.name || "").toLowerCase();
+      }));
+
+      var added = 0;
+      d.players.forEach(function(p) {
+        if (!p || !p.id || !p.teamId) return;
+        if (existingIds.has(p.id)) return; // exact id match → curated wins
+        var key = p.teamId + "|" + p.position + "|" + (p.name || "").toLowerCase();
+        if (existingKeys.has(key)) return; // same player under different id → curated wins
+        KEY_PLAYERS.push(p);
+        existingIds.add(p.id);
+        existingKeys.add(key);
+        added++;
+      });
+
+      window.KEY_PLAYERS = KEY_PLAYERS; // ensure global reference is current
+      console.log("[PLAYERS] " + added + " players merged from API file (" + d.totalPlayers + " in file, generated " + new Date(d.generated).toLocaleDateString() + ")");
+    })
+    .catch(function() {
+      // File may not exist yet (first deploy) — safe to ignore
+    });
+}());
+
 const LIVE = (() => {
   const CFBD      = "https://api.collegefootballdata.com";
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
