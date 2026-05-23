@@ -763,19 +763,28 @@ function renderGamePage(gData) {
     function keyStat(p) {
       const s = p.stats || {};
       const pos = p.position;
-      if (pos === "QB") return s.passingYards ? `${s.passingYards} yds · ${s.passingTDs||0} TD · ${s.interceptions||0} INT` : "";
-      if (pos === "RB") return s.rushingYards ? `${s.rushingYards} rush yds · ${s.rushingTDs||0} TD` : "";
-      if (["WR","TE"].includes(pos)) return s.receivingYards ? `${s.receivingYards} rec yds · ${s.receivingTDs||0} TD` : s.receptions ? `${s.receptions} rec` : "";
-      if (["DL","DE","DT","EDGE"].includes(pos)) return s.sacks ? `${s.sacks} sacks` : s.tackles ? `${s.tackles} tkl` : "";
-      if (["LB","OLB","ILB","MLB"].includes(pos)) return s.tackles ? `${s.tackles} tkl · ${s.sacks||0} sacks` : "";
-      if (["CB","S","DB","FS","SS"].includes(pos)) return s.interceptionsDef ? `${s.interceptionsDef} INT · ${s.tackles||0} tkl` : s.tackles ? `${s.tackles} tkl` : "";
+      // Handle both curated format (passingTDs) and extended format (touchdowns)
+      if (pos === "QB") return s.passingYards ? `${s.passingYards.toLocaleString()} yds · ${s.passingTDs||s.touchdowns||0} TD · ${s.interceptions||0} INT${s.completionPct?` · ${s.completionPct}%`:""}` : "";
+      if (pos === "RB") return s.rushingYards ? `${s.rushingYards.toLocaleString()} rush yds · ${s.rushingTDs||s.touchdowns||0} TD${s.yardsPerCarry?` · ${s.yardsPerCarry} YPC`:""}` : "";
+      if (["WR","TE"].includes(pos)) return s.receivingYards ? `${s.receivingYards.toLocaleString()} rec yds · ${s.receivingTDs||s.touchdowns||0} TD${s.receptions?` · ${s.receptions} rec`:""}` : s.receptions ? `${s.receptions} rec` : "";
+      if (["DL","DE","DT","EDGE"].includes(pos)) return s.sacks ? `${s.sacks} sacks · ${s.tacklesForLoss||0} TFL` : s.tackles ? `${s.tackles} tkl` : "";
+      if (["LB","OLB","ILB","MLB"].includes(pos)) return s.tackles ? `${s.tackles} tkl · ${s.sacks||0} sacks · ${s.tacklesForLoss||0} TFL` : "";
+      if (["CB","S","DB","FS","SS"].includes(pos)) return s.interceptions ? `${s.interceptions} INT · ${s.passBreakups||s.interceptionsDef||0} PBU · ${s.tackles||0} tkl` : s.tackles ? `${s.tackles} tkl · ${s.passBreakups||0} PBU` : "";
       return "";
     }
     function playerDetail(p, teamColor) {
       const ih = p.injuryHistory || [];
-      const pf = p.personalFlags || null;
+      // Support both curated format (personalFlags obj) and extended format (root-level distractionLevel)
+      const pf = p.personalFlags || (p.distractionLevel !== undefined ? {
+        distractionLevel: p.distractionLevel,
+        distractionNote: p.notes || null,
+        socialMediaPattern: "normal",
+        nflDraftStatus: p.nflDraftStatus || null,
+      } : null);
+      // Support both curated format (performanceMetrics obj) and extended format (strengths/weaknesses arrays)
       const pm = p.performanceMetrics || null;
-      const sr = p.scoutReport || null;
+      // Support both curated scoutReport and extended notes
+      const sr = p.scoutReport || p.notes || null;
       const nil = p.nilSatisfaction;
       return `
         <div>
@@ -819,6 +828,11 @@ function renderGamePage(gData) {
                 </div>` : ""}
             </div>` : ""}
           ${sr ? `<div style="margin-bottom:8px;padding:8px 10px;border-left:2px solid var(--accent);background:rgba(99,102,241,.05);border-radius:0 6px 6px 0"><div style="font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:4px">SCOUT REPORT</div><div style="font-size:.76rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${typeof sr==="string"?sr:sr.summary||""}"</div></div>` : ""}
+          ${(p.strengths && p.strengths.length) || (p.weaknesses && p.weaknesses.length) ? `
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+              ${p.strengths && p.strengths.length ? `<div style="padding:6px 8px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:6px"><div style="font-size:.55rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">STRENGTHS</div>${p.strengths.map(s=>`<div style="font-size:.7rem;color:var(--text-soft);margin-bottom:2px">+ ${s}</div>`).join("")}</div>` : ""}
+              ${p.weaknesses && p.weaknesses.length ? `<div style="padding:6px 8px;background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.18);border-radius:6px"><div style="font-size:.55rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--danger);margin-bottom:4px">WEAKNESSES</div>${p.weaknesses.map(w=>`<div style="font-size:.7rem;color:var(--text-soft);margin-bottom:2px">− ${w}</div>`).join("")}</div>` : ""}
+            </div>` : ""}
           ${nil !== undefined && nil !== null ? `
             <div style="display:flex;align-items:center;gap:6px">
               <span style="font-size:.65rem;color:var(--muted);flex-shrink:0">NIL Satisfaction</span>
@@ -2396,6 +2410,16 @@ function renderGamePage(gData) {
       ${s.label}
     </div>`).join("");
   document.body.appendChild(tocEl);
+  // Expose roster re-renderer so boot() can refresh the section after live data
+  window._gameRosterRenderer = function() {
+    const liveAllPlayers = (typeof KEY_PLAYERS !== "undefined" ? KEY_PLAYERS : [])
+      .filter(p => p.teamId === home.id || p.teamId === away.id);
+    if (liveAllPlayers.length <= allPlayers.length) return null; // nothing new
+    // Patch allPlayers in-place so renderFullRoster closure picks up new entries
+    liveAllPlayers.forEach(p => { if (!allPlayers.find(x => x.id === p.id)) allPlayers.push(p); });
+    return safe(renderFullRoster, null);
+  };
+
   } catch(err) {
     document.getElementById("content").innerHTML = `
       <div class="empty">
@@ -2451,6 +2475,18 @@ function renderGamePage(gData) {
   window.addEventListener("liveDataReady", function onLiveReady() {
     window.removeEventListener("liveDataReady", onLiveReady);
     if (!tryRender()) showNotFound();
+  });
+
+  // After pregen fires and renders the page quickly, live data may arrive later
+  // with richer KEY_PLAYERS (from CFBD API). Re-render just the player section.
+  window.addEventListener("liveDataReady", function onLivePlayerRefresh(e) {
+    if (!e.detail || e.detail._fromPregen) return; // skip pregen events
+    const rosterEl = document.getElementById("section-roster");
+    if (!rosterEl || !window._gameRosterRenderer) return;
+    try {
+      const fresh = window._gameRosterRenderer();
+      if (fresh) rosterEl.outerHTML = fresh;
+    } catch {}
   });
 })();
 </script>
