@@ -385,44 +385,59 @@ async function main() {
   const startTime = Date.now();
   console.log(`\n[fetch-players] Starting — ${new Date().toUTCString()}\n`);
 
-  // Phase 1: fetch all data in parallel
-  console.log("Phase 1: Fetching rosters, stats, and injuries in parallel...");
+  // Phase 1: fetch FBS + FCS stats and rosters in parallel
+  // FCS teams (e.g. NDSU, Sacramento State) play Power 4 openers and need real data too
+  console.log("Phase 1: Fetching FBS + FCS rosters, stats, and injuries in parallel...");
   const [
     rosterRaw,
+    fcsRosterRaw,
     passingRaw,
     rushingRaw,
     receivingRaw,
     defensiveRaw,
+    passingFcsRaw,
+    rushingFcsRaw,
+    receivingFcsRaw,
+    defensiveFcsRaw,
     espnInjuries,
   ] = await Promise.all([
     cfbdFetch(`/roster?year=${SEASON}`),
+    cfbdFetch(`/roster?year=${SEASON}&classification=fcs`),
     cfbdFetch(`/stats/player/season?year=${SEASON}&classification=fbs&category=passing`),
     cfbdFetch(`/stats/player/season?year=${SEASON}&classification=fbs&category=rushing`),
     cfbdFetch(`/stats/player/season?year=${SEASON}&classification=fbs&category=receiving`),
     cfbdFetch(`/stats/player/season?year=${SEASON}&classification=fbs&category=defensive`),
+    cfbdFetch(`/stats/player/season?year=${SEASON}&classification=fcs&category=passing`),
+    cfbdFetch(`/stats/player/season?year=${SEASON}&classification=fcs&category=rushing`),
+    cfbdFetch(`/stats/player/season?year=${SEASON}&classification=fcs&category=receiving`),
+    cfbdFetch(`/stats/player/season?year=${SEASON}&classification=fcs&category=defensive`),
     fetchESPNInjuries(),
   ]);
 
   // Phase 2: fallback to 2025 when 2026 season data not available yet (pre-season)
   const statYear = 2025;
-  let passingData = passingRaw || [];
-  let rushingData = rushingRaw || [];
-  let receivingData = receivingRaw || [];
-  let defensiveData = defensiveRaw || [];
+  let passingData = [...(passingRaw || []), ...(passingFcsRaw || [])];
+  let rushingData = [...(rushingRaw || []), ...(rushingFcsRaw || [])];
+  let receivingData = [...(receivingRaw || []), ...(receivingFcsRaw || [])];
+  let defensiveData = [...(defensiveRaw || []), ...(defensiveFcsRaw || [])];
 
   if (!passingData.length && !rushingData.length) {
     console.log(`  No ${SEASON} stats found — falling back to ${statYear} season stats...`);
-    const [p, r, rec, d] = await Promise.all([
+    const [fp, fr, frec, fd, fcp, fcr, fcrec, fcd] = await Promise.all([
       cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=passing`),
       cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=rushing`),
       cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=receiving`),
       cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=defensive`),
+      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=passing`),
+      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=rushing`),
+      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=receiving`),
+      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=defensive`),
     ]);
-    passingData   = p   || [];
-    rushingData   = r   || [];
-    receivingData = rec || [];
-    defensiveData = d   || [];
-    console.log(`  Fallback stats: P:${passingData.length} R:${rushingData.length} Rec:${receivingData.length} D:${defensiveData.length}`);
+    passingData   = [...(fp  || []), ...(fcp  || [])];
+    rushingData   = [...(fr  || []), ...(fcr  || [])];
+    receivingData = [...(frec || []), ...(fcrec || [])];
+    defensiveData = [...(fd  || []), ...(fcd  || [])];
+    console.log(`  Fallback stats (FBS+FCS): P:${passingData.length} R:${rushingData.length} Rec:${receivingData.length} D:${defensiveData.length}`);
   }
 
   // Phase 3: build lookups
@@ -432,23 +447,30 @@ async function main() {
   const receivingMap = pivotStats(receivingData);
   const defensiveMap = pivotStats(defensiveData);
 
-  // Roster: use 2026 if available, fall back to 2025 (transfer portal may not be in 2026 yet)
+  // Roster: FBS + FCS combined; fall back to prior year if current year is thin
   let rosterRaw2 = rosterRaw;
   if (!rosterRaw2 || rosterRaw2.length < 100) {
-    console.log(`  Thin/missing ${SEASON} roster (${rosterRaw2?.length || 0} players) — falling back to ${statYear} roster...`);
+    console.log(`  Thin/missing ${SEASON} FBS roster (${rosterRaw2?.length || 0}) — falling back to ${statYear}...`);
     rosterRaw2 = await cfbdFetch(`/roster?year=${statYear}`) || [];
-    console.log(`  Fallback roster: ${rosterRaw2.length} players`);
+    console.log(`  Fallback FBS roster: ${rosterRaw2.length} players`);
+  }
+
+  let fcsRosterRaw2 = fcsRosterRaw;
+  if (!fcsRosterRaw2 || fcsRosterRaw2.length < 50) {
+    console.log(`  Thin/missing ${SEASON} FCS roster (${fcsRosterRaw2?.length || 0}) — falling back to ${statYear}...`);
+    fcsRosterRaw2 = await cfbdFetch(`/roster?year=${statYear}&classification=fcs`) || [];
+    console.log(`  Fallback FCS roster: ${fcsRosterRaw2.length} players`);
   }
 
   const rosterByTeam = {};
-  for (const p of rosterRaw2) {
+  for (const p of [...(rosterRaw2 || []), ...(fcsRosterRaw2 || [])]) {
     const t = p.team || p.school;
     if (!t) continue;
     if (!rosterByTeam[t]) rosterByTeam[t] = [];
     rosterByTeam[t].push(p);
   }
 
-  // Build set of all team names across all stat maps + rosters
+  // Build set of all team names across all stat maps + rosters (FBS + FCS)
   const allTeamNames = new Set([
     ...Object.keys(passingMap),
     ...Object.keys(rushingMap),
@@ -457,7 +479,7 @@ async function main() {
     ...Object.keys(rosterByTeam),
   ]);
 
-  console.log(`  Teams with data: ${allTeamNames.size}`);
+  console.log(`  Teams with data: ${allTeamNames.size} (FBS + FCS)`);
 
   // Phase 4: generate player profiles
   console.log("Phase 3: Building player profiles...");
@@ -619,6 +641,7 @@ async function main() {
   const output = {
     generated:    new Date().toISOString(),
     season:       SEASON,
+    classification: "fbs+fcs",
     totalPlayers: players.length,
     players,
   };
