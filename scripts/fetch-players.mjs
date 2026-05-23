@@ -200,6 +200,196 @@ function topN(teamMap, teamName, statKey, n) {
     .map(([name, stats]) => ({ name, stats }));
 }
 
+// ── Auto-generate readable scout report from stats ───────────────────────────
+function generateScoutReport(name, position, teamName, ps) {
+  const first = name.split(" ")[0];
+  const school = teamName;
+
+  if (position === "QB") {
+    const yds = ps.passingYards || 0, tds = ps.passingTDs || 0;
+    const ints = ps.interceptions || 0, pct = ps.completionPct || 0;
+    const tier = yds > 3500 ? "elite" : yds > 2800 ? "productive" : yds > 1800 ? "capable" : "developing";
+    const accuracy = pct > 67 ? "high completion rate" : pct > 60 ? "solid accuracy" : "developing touch";
+    const decision = ints <= 5 ? "takes care of the football" : ints <= 10 ? "manages risk" : "turnover-prone";
+    return `${first} is ${school}'s starting QB — a ${tier} passer with ${yds.toLocaleString()} yards and ${tds} touchdowns on ${pct}% completions. He ${decision} and shows ${accuracy}. Teams must respect his arm to prevent big plays, but the ${ints > 9 ? "turnover tendency" : "ball security"} is the key variance factor in any matchup.`;
+  }
+
+  if (position === "RB") {
+    const yds = ps.rushingYards || 0, tds = ps.rushingTDs || 0;
+    const car = ps.carries || 1, ypc = ps.yardsPerCarry || 0;
+    const tier = yds > 1200 ? "workhorse" : yds > 800 ? "featured back" : "committee back";
+    const explosiveness = ypc > 6.0 ? "explosive yards-after-contact ability" : ypc > 5.0 ? "solid burst through the hole" : ypc > 4.0 ? "consistent between-the-tackles runner" : "grind-it-out style";
+    return `${first} is ${school}'s ${tier}, carrying ${car} times for ${yds.toLocaleString()} yards (${ypc} YPC) and ${tds} scores. His ${explosiveness} makes him a core part of the run game. Defensive coordinators must account for his ability to break containment on designed runs and draws.`;
+  }
+
+  if (position === "WR") {
+    const yds = ps.receivingYards || 0, tds = ps.receivingTDs || 0;
+    const rec = ps.receptions || 0, ypr = ps.yardsPerReception || 0;
+    const role = yds > 1000 ? "No. 1 receiver" : yds > 600 ? "key target" : "complementary option";
+    const separation = ypr > 16 ? "separation speed and big-play ability" : ypr > 12 ? "reliable hands over the middle" : "short-to-intermediate route running";
+    return `${first} is ${school}'s ${role}, catching ${rec} balls for ${yds.toLocaleString()} yards and ${tds} TDs. His ${ypr} yards per reception reflects ${separation}. Opposing DBs cannot allow him free releases off the line or they risk giving up chunk plays.`;
+  }
+
+  if (position === "TE") {
+    const yds = ps.receivingYards || 0, tds = ps.receivingTDs || 0, rec = ps.receptions || 0;
+    const role = yds > 700 ? "featured tight end" : yds > 400 ? "reliable security blanket" : "run-game-first tight end";
+    return `${first} is ${school}'s ${role} with ${rec} catches for ${yds.toLocaleString()} yards and ${tds} TDs. His ability to stress linebackers in coverage while maintaining run-block utility makes him a consistent chess piece in the passing game.`;
+  }
+
+  if (position === "OL") {
+    const yr = ps.year || "";
+    const exp = yr === "SR" || yr === "5th" ? "veteran presence" : yr === "JR" ? "experienced starter" : "developing lineman";
+    return `${first} is an ${exp} on ${school}'s offensive line. Anchoring the interior or edge of the front five, his role is to control the line of scrimmage and protect the quarterback's pocket. Opposing edge rushers and interior pass rushers dictate how much of this projection materializes on game day.`;
+  }
+
+  if (position === "EDGE" || position === "DE") {
+    const sacks = ps.sacks || 0, tfl = ps.tacklesForLoss || 0;
+    const tier = sacks > 10 ? "elite pass rusher" : sacks > 6 ? "dangerous edge threat" : sacks > 3 ? "active pass rusher" : "developing edge";
+    return `${first} is ${school}'s most dangerous edge rusher — a ${tier} with ${sacks} sacks and ${tfl} TFLs. Offensive lines must account for his first-step quickness and hand technique on every passing down, or the quarterback will feel heat in a clean pocket.`;
+  }
+
+  if (position === "LB") {
+    const tck = ps.tackles || 0, tfl = ps.tacklesForLoss || 0, sacks = ps.sacks || 0;
+    const tier = tck > 90 ? "defensive signal-caller" : tck > 60 ? "every-down linebacker" : "rotational linebacker";
+    return `${first} anchors ${school}'s linebacker corps as a ${tier} with ${tck} tackles and ${tfl} TFLs. His sideline-to-sideline range determines how well the defense can stop the run and cover running backs out of the backfield. Teams that can isolate him in coverage gain a real advantage.`;
+  }
+
+  if (position === "CB") {
+    const pbu = ps.passBreakups || 0, ints = ps.interceptions || 0;
+    const tier = (pbu + ints * 2) > 14 ? "shutdown corner" : (pbu + ints * 2) > 8 ? "quality starter" : "developing corner";
+    return `${first} is ${school}'s ${tier} with ${pbu} pass breakups and ${ints} interceptions. ${ints > 3 ? "His ball-hawking instincts create turnover opportunities that flip field position." : "His coverage consistency reduces big-play exposure on the boundary."} Quarterbacks will test him early to establish whether he can be attacked throughout the game.`;
+  }
+
+  if (position === "S") {
+    const tck = ps.tackles || 0, ints = ps.interceptions || 0;
+    const role = tck > 70 ? "box safety who can stop the run" : ints > 3 ? "center-field ball hawk" : "two-deep safety";
+    return `${first} plays for ${school} as a ${role} with ${tck} tackles and ${ints} INTs. His ability to set the defensive back end against both the run and deep routes is a key factor in how much the defense can disguise its coverages and bring pressure without giving up explosive plays.`;
+  }
+
+  return `${first} is a key contributor for ${school} at ${position}. His performance dictates the effectiveness of his unit on a snap-by-snap basis.`;
+}
+
+// ── Derive performance metrics from season stats ──────────────────────────────
+function generatePerformanceMetrics(position, ps) {
+  // Base: 70. Adjust up/down by stat thresholds. All clamped to [50, 98].
+  const clamp = (v, lo = 50, hi = 98) => Math.min(hi, Math.max(lo, Math.round(v)));
+  const base = 70;
+
+  if (position === "QB") {
+    const yds = ps.passingYards || 0, tds = ps.passingTDs || 0;
+    const ints = ps.interceptions || 0, pct = ps.completionPct || 0;
+    const ydsBonus  = yds > 3500 ? 14 : yds > 2800 ? 9 : yds > 2000 ? 4 : -6;
+    const tdBonus   = tds > 28 ? 10 : tds > 20 ? 5 : tds > 12 ? 0 : -5;
+    const intPenalty = ints > 12 ? -12 : ints > 8 ? -7 : ints > 4 ? -2 : 4;
+    const pctBonus  = pct > 68 ? 8 : pct > 63 ? 4 : pct > 56 ? 0 : -5;
+    const raw = base + ydsBonus + tdBonus + intPenalty + pctBonus;
+    return {
+      clutchRating:       clamp(raw + 2),
+      bigGameRating:      clamp(raw - 2),
+      consistencyRating:  clamp(base + pctBonus + intPenalty + 4),
+      pressureRating:     clamp(raw),
+      explosivePlayRating:clamp(base + ydsBonus + tdBonus),
+      coldWeatherRating:  clamp(raw - 4),
+      roadGameRating:     clamp(raw - 3),
+      primeTimeRating:    clamp(raw - 1),
+    };
+  }
+
+  if (position === "RB") {
+    const yds = ps.rushingYards || 0, ypc = ps.yardsPerCarry || 0;
+    const ydsBonus = yds > 1200 ? 12 : yds > 900 ? 7 : yds > 600 ? 2 : -6;
+    const ypcBonus = ypc > 6.0 ? 10 : ypc > 5.0 ? 5 : ypc > 4.0 ? 0 : -5;
+    const raw = base + ydsBonus + ypcBonus;
+    return {
+      clutchRating:       clamp(raw),
+      bigGameRating:      clamp(raw - 1),
+      consistencyRating:  clamp(base + ydsBonus),
+      pressureRating:     clamp(raw),
+      explosivePlayRating:clamp(base + ypcBonus + 5),
+      coldWeatherRating:  clamp(raw + 2),
+      roadGameRating:     clamp(raw - 2),
+      primeTimeRating:    clamp(raw),
+    };
+  }
+
+  if (position === "WR" || position === "TE") {
+    const yds = ps.receivingYards || 0, ypr = ps.yardsPerReception || 0;
+    const ydsBonus = yds > 1000 ? 12 : yds > 700 ? 7 : yds > 400 ? 2 : -5;
+    const yprBonus = ypr > 16 ? 10 : ypr > 13 ? 5 : ypr > 10 ? 0 : -4;
+    const raw = base + ydsBonus + yprBonus;
+    return {
+      clutchRating:       clamp(raw),
+      bigGameRating:      clamp(raw + 1),
+      consistencyRating:  clamp(base + ydsBonus),
+      pressureRating:     clamp(raw - 2),
+      explosivePlayRating:clamp(base + yprBonus + 6),
+      coldWeatherRating:  clamp(raw - 3),
+      roadGameRating:     clamp(raw - 2),
+      primeTimeRating:    clamp(raw + 2),
+    };
+  }
+
+  if (position === "EDGE" || position === "DE") {
+    const sacks = ps.sacks || 0, tfl = ps.tacklesForLoss || 0;
+    const sackBonus = sacks > 10 ? 14 : sacks > 7 ? 9 : sacks > 4 ? 4 : -4;
+    const tflBonus  = tfl > 14 ? 6 : tfl > 9 ? 3 : tfl > 5 ? 0 : -2;
+    const raw = base + sackBonus + tflBonus;
+    return {
+      clutchRating:       clamp(raw + 2),
+      bigGameRating:      clamp(raw),
+      consistencyRating:  clamp(base + tflBonus + 2),
+      pressureRating:     clamp(raw + 4),
+      explosivePlayRating:clamp(raw),
+      coldWeatherRating:  clamp(raw - 2),
+      roadGameRating:     clamp(raw - 1),
+      primeTimeRating:    clamp(raw + 1),
+    };
+  }
+
+  if (position === "LB") {
+    const tck = ps.tackles || 0, tfl = ps.tacklesForLoss || 0;
+    const tckBonus = tck > 90 ? 12 : tck > 65 ? 7 : tck > 40 ? 2 : -4;
+    const tflBonus = tfl > 12 ? 8 : tfl > 7 ? 4 : 0;
+    const raw = base + tckBonus + tflBonus;
+    return {
+      clutchRating:       clamp(raw),
+      bigGameRating:      clamp(raw - 1),
+      consistencyRating:  clamp(base + tckBonus + 3),
+      pressureRating:     clamp(raw),
+      explosivePlayRating:clamp(base + tflBonus + 2),
+      coldWeatherRating:  clamp(raw + 2),
+      roadGameRating:     clamp(raw - 1),
+      primeTimeRating:    clamp(raw - 2),
+    };
+  }
+
+  if (position === "CB" || position === "S") {
+    const ints = ps.interceptions || 0, pbu = ps.passBreakups || 0;
+    const tck  = ps.tackles || 0;
+    const intBonus = ints > 5 ? 14 : ints > 3 ? 9 : ints > 1 ? 4 : -2;
+    const pbuBonus = pbu > 10 ? 8 : pbu > 6 ? 4 : 0;
+    const tckBonus = tck > 70 ? 6 : tck > 45 ? 3 : 0;
+    const raw = base + intBonus + pbuBonus + tckBonus;
+    return {
+      clutchRating:       clamp(raw + 2),
+      bigGameRating:      clamp(raw),
+      consistencyRating:  clamp(base + pbuBonus + tckBonus + 2),
+      pressureRating:     clamp(raw - 2),
+      explosivePlayRating:clamp(base + intBonus + 4),
+      coldWeatherRating:  clamp(raw - 3),
+      roadGameRating:     clamp(raw - 2),
+      primeTimeRating:    clamp(raw + 1),
+    };
+  }
+
+  // OL + fallback
+  return {
+    clutchRating:72, bigGameRating:70, consistencyRating:74,
+    pressureRating:70, explosivePlayRating:65,
+    coldWeatherRating:72, roadGameRating:70, primeTimeRating:70,
+  };
+}
+
 // ── Build a player profile ────────────────────────────────────────────────────
 
 let _globalIdx = 0;
@@ -335,6 +525,20 @@ function makePlayer(name, position, teamId, stats, rosterEntry, injStatus, overr
     };
   }
 
+  // Generate scout report + performance metrics from the finalized stats
+  player.scoutReport        = generateScoutReport(name, position, overrides.teamName || teamId, player.stats || {});
+  player.performanceMetrics = generatePerformanceMetrics(position, player.stats || {});
+
+  // Personal flags (lightweight — curated profiles have richer versions)
+  player.personalFlags = {
+    distractionLevel,
+    nflDraftStatus,
+    transferPortalRisk: nflDraftStatus === "projected round 1" ? "none" : "low",
+    nilSatisfaction: "unknown",
+    socialMediaPattern: "normal",
+    agentContact: nflDraftStatus.startsWith("projected round 1") || nflDraftStatus.startsWith("projected round 2"),
+  };
+
   return player;
 }
 
@@ -375,7 +579,7 @@ function pickOL(rosterByTeam, teamName, teamId, teamInjuries) {
     { _year: top.year },
     top,
     injStatus,
-    { impact: "medium" }
+    { impact: "medium", teamName }
   );
 }
 
@@ -509,7 +713,7 @@ async function main() {
       const yds = stats.YDS || 0;
       players.push(makePlayer(name, "QB", teamId, stats, rosterEntry(name),
         getInjuryStatus(name, teamInjuries),
-        { impact: yds > 2000 ? "high" : "medium" }
+        { impact: yds > 2000 ? "high" : "medium", teamName }
       ));
     }
 
@@ -519,7 +723,7 @@ async function main() {
       const yds = stats.YDS || 0;
       players.push(makePlayer(name, "RB", teamId, stats, rosterEntry(name),
         getInjuryStatus(name, teamInjuries),
-        { impact: yds > 800 ? "high" : "medium" }
+        { impact: yds > 800 ? "high" : "medium", teamName }
       ));
     }
 
@@ -534,7 +738,7 @@ async function main() {
       const yds = stats.YDS || 0;
       players.push(makePlayer(name, "WR", teamId, stats, re,
         getInjuryStatus(name, teamInjuries),
-        { impact: yds > 600 ? "high" : "medium", depthPosition: wrCount + 1 }
+        { impact: yds > 600 ? "high" : "medium", depthPosition: wrCount + 1, teamName }
       ));
       wrCount++;
     }
@@ -550,7 +754,7 @@ async function main() {
       const yds = stats.YDS || 0;
       players.push(makePlayer(name, "TE", teamId, stats, rosterEntry(name),
         getInjuryStatus(name, teamInjuries),
-        { impact: yds > 500 ? "high" : "medium" }
+        { impact: yds > 500 ? "high" : "medium", teamName }
       ));
     }
 
@@ -565,14 +769,13 @@ async function main() {
       const sacks = stats.SACKS || 0;
       players.push(makePlayer(name, "EDGE", teamId, stats, rosterEntry(name),
         getInjuryStatus(name, teamInjuries),
-        { impact: sacks > 6 ? "high" : "medium" }
+        { impact: sacks > 6 ? "high" : "medium", teamName }
       ));
     }
 
     // ── LB (1): most tackles ────────────────────────────────
     const defByTackles = topN(defensiveMap, teamName, "TACKLES", 3)
       .concat(topN(defensiveMap, teamName, "TOT", 3));
-    // Deduplicate by name and prefer LB-position players
     const seenDef = new Set();
     const lbCandidates = [];
     for (const entry of defByTackles) {
@@ -580,7 +783,6 @@ async function main() {
       seenDef.add(entry.name);
       lbCandidates.push(entry);
     }
-    // Filter to LBs if possible
     const lbOnly = lbCandidates.filter(({ name }) => {
       const re = rosterEntry(name);
       return !re || ["LB","ILB","OLB","MLB"].includes(re.position);
@@ -591,7 +793,7 @@ async function main() {
       const tck = stats.TACKLES || stats.TOT || 0;
       players.push(makePlayer(name, "LB", teamId, stats, rosterEntry(name),
         getInjuryStatus(name, teamInjuries),
-        { impact: tck > 70 ? "high" : "medium" }
+        { impact: tck > 70 ? "high" : "medium", teamName }
       ));
     }
 
@@ -608,7 +810,7 @@ async function main() {
       const { name, stats } = cbCandidates[0];
       players.push(makePlayer(name, "CB", teamId, stats, rosterEntry(name),
         getInjuryStatus(name, teamInjuries),
-        { impact: cbCandidates[0].score > 6 ? "high" : "medium" }
+        { impact: cbCandidates[0].score > 6 ? "high" : "medium", teamName }
       ));
     }
 
@@ -624,14 +826,13 @@ async function main() {
       }))
       .filter(x => x.score > 0)
       .sort((a, b) => b.score - a.score);
-    // Avoid duplicating the CB pick
     const usedCBName = cbCandidates[0]?.name;
     const sFinal = sCandidates.filter(c => c.name !== usedCBName);
     if (sFinal.length) {
       const { name, stats } = sFinal[0];
       players.push(makePlayer(name, "S", teamId, stats, rosterEntry(name),
         getInjuryStatus(name, teamInjuries),
-        { impact: sFinal[0].score > 60 ? "high" : "medium" }
+        { impact: sFinal[0].score > 60 ? "high" : "medium", teamName }
       ));
     }
   }
