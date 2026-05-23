@@ -403,7 +403,7 @@ async function main() {
     fetchESPNInjuries(),
   ]);
 
-  // Phase 2: fallback to 2025 stats if 2026 season hasn't started yet
+  // Phase 2: fallback to 2025 when 2026 season data not available yet (pre-season)
   const statYear = 2025;
   let passingData = passingRaw || [];
   let rushingData = rushingRaw || [];
@@ -432,9 +432,16 @@ async function main() {
   const receivingMap = pivotStats(receivingData);
   const defensiveMap = pivotStats(defensiveData);
 
-  // Roster grouped by team name
+  // Roster: use 2026 if available, fall back to 2025 (transfer portal may not be in 2026 yet)
+  let rosterRaw2 = rosterRaw;
+  if (!rosterRaw2 || rosterRaw2.length < 100) {
+    console.log(`  Thin/missing ${SEASON} roster (${rosterRaw2?.length || 0} players) — falling back to ${statYear} roster...`);
+    rosterRaw2 = await cfbdFetch(`/roster?year=${statYear}`) || [];
+    console.log(`  Fallback roster: ${rosterRaw2.length} players`);
+  }
+
   const rosterByTeam = {};
-  for (const p of rosterRaw || []) {
+  for (const p of rosterRaw2) {
     const t = p.team || p.school;
     if (!t) continue;
     if (!rosterByTeam[t]) rosterByTeam[t] = [];

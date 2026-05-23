@@ -83,8 +83,9 @@
 }());
 
 /* ── Player data loader — merges data/players-2026.json into KEY_PLAYERS ──────
-   Runs at startup in parallel with the main API fetch. Curated entries in
-   KEY_PLAYERS (from data.js) take priority; API-sourced entries fill the gaps.   */
+   Runs at startup. Curated entries keep their rich scout reports/analysis, but
+   their stats + injury status are UPDATED from the API file so numbers are live.
+   Completely new players (non-curated teams) are appended. ─────────────────── */
 (function _loadPlayerData() {
   var base = window.location.pathname.includes("/pages/") ? "../" : "./";
   var url  = base + "data/players-2026.json";
@@ -95,27 +96,50 @@
       if (!d || !Array.isArray(d.players) || d.players.length === 0) return;
       if (typeof KEY_PLAYERS === "undefined" || !Array.isArray(KEY_PLAYERS)) return;
 
-      // Build a set of IDs already in KEY_PLAYERS (curated entries)
-      var existingIds = new Set(KEY_PLAYERS.map(function(p) { return p.id; }));
-      // Also track teamId+position+name combos to avoid loose duplicates
-      var existingKeys = new Set(KEY_PLAYERS.map(function(p) {
-        return p.teamId + "|" + p.position + "|" + (p.name || "").toLowerCase();
-      }));
+      // Build lookup maps so we can find curated players quickly
+      var byId  = {};
+      var byKey = {};
+      KEY_PLAYERS.forEach(function(p) {
+        byId[p.id] = p;
+        var k = p.teamId + "|" + p.position + "|" + (p.name || "").toLowerCase();
+        byKey[k] = p;
+      });
 
-      var added = 0;
+      var added = 0, updated = 0;
       d.players.forEach(function(p) {
         if (!p || !p.id || !p.teamId) return;
-        if (existingIds.has(p.id)) return; // exact id match → curated wins
-        var key = p.teamId + "|" + p.position + "|" + (p.name || "").toLowerCase();
-        if (existingKeys.has(key)) return; // same player under different id → curated wins
+
+        var k = p.teamId + "|" + p.position + "|" + (p.name || "").toLowerCase();
+        var curated = byId[p.id] || byKey[k];
+
+        if (curated) {
+          // Inject live stats onto curated profile — API numbers always win
+          if (p.stats && Object.keys(p.stats).length > 0) {
+            curated.stats = Object.assign({}, curated.stats, p.stats);
+          }
+          // Propagate real injury status when player is actually hurt
+          if (p.injuryStatus && p.injuryStatus !== "healthy") {
+            curated.injuryStatus  = p.injuryStatus;
+            curated.practiceStatus = p.practiceStatus || curated.practiceStatus;
+            curated.injuryType    = p.injuryType    || curated.injuryType;
+          }
+          // Update physical/roster data that can change year-to-year
+          if (p.year)         curated.year         = p.year;
+          if (p.number)       curated.number       = p.number;
+          if (p.heightWeight) curated.heightWeight = p.heightWeight;
+          updated++;
+          return;
+        }
+
+        // Brand-new player (non-curated team) — add to pool
         KEY_PLAYERS.push(p);
-        existingIds.add(p.id);
-        existingKeys.add(key);
+        byId[p.id] = p;
+        byKey[k]   = p;
         added++;
       });
 
-      window.KEY_PLAYERS = KEY_PLAYERS; // ensure global reference is current
-      console.log("[PLAYERS] " + added + " players merged from API file (" + d.totalPlayers + " in file, generated " + new Date(d.generated).toLocaleDateString() + ")");
+      window.KEY_PLAYERS = KEY_PLAYERS;
+      console.log("[PLAYERS] +" + added + " new, " + updated + " stats refreshed from API (" + d.totalPlayers + " in file, generated " + new Date(d.generated).toLocaleDateString() + ")");
     })
     .catch(function() {
       // File may not exist yet (first deploy) — safe to ignore
