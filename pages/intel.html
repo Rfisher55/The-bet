@@ -148,6 +148,18 @@
     <div id="sm-summary-dash"></div>
   </div>
 
+  <!-- Weather Alert Section -->
+  <div style="margin-bottom:24px" id="weather-alert-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">TOTAL IMPACTS</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">🌤️ Weather Impact Alerts</div>
+      </div>
+      <span style="font-size:.62rem;color:var(--muted)">Games affected by weather · bet totals accordingly</span>
+    </div>
+    <div id="weather-alert-dash"></div>
+  </div>
+
   <!-- Injury Impact Report -->
   <div style="margin-bottom:24px" id="injury-impact-section">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
@@ -565,6 +577,86 @@ function buildBeatWriterDash() {
   }).join("");
 }
 
+function buildWeatherAlerts() {
+  var el = document.getElementById("weather-alert-dash");
+  if (!el || !window.GAMES) return;
+
+  var alerts = [];
+  GAMES.forEach(function(g) {
+    var wx = g.weather;
+    if (!wx || wx.indoors) return;
+    var flags = [];
+    var severity = 0;
+
+    if (wx.windMph >= 20) { flags.push("🌬️ " + wx.windMph + " mph winds"); severity = Math.max(severity, wx.windMph >= 25 ? 3 : 2); }
+    else if (wx.windMph >= 15) { flags.push("💨 " + wx.windMph + " mph gusts"); severity = Math.max(severity, 1); }
+
+    if (wx.tempF <= 32) { flags.push("🥶 Freezing (" + wx.tempF + "°F)"); severity = Math.max(severity, 3); }
+    else if (wx.tempF <= 40) { flags.push("❄️ Cold (" + wx.tempF + "°F)"); severity = Math.max(severity, 2); }
+    else if (wx.tempF >= 95) { flags.push("🔥 Extreme heat (" + wx.tempF + "°F)"); severity = Math.max(severity, 2); }
+    else if (wx.tempF >= 88) { flags.push("☀️ Hot (" + wx.tempF + "°F)"); severity = Math.max(severity, 1); }
+
+    if (/rain|thunder|storm/i.test(wx.condition || "")) { flags.push("🌧️ " + wx.condition); severity = Math.max(severity, 2); }
+    else if (/cloud|overcast/i.test(wx.condition || "")) { flags.push("☁️ " + wx.condition); }
+
+    if (!flags.length) return;
+
+    var team = window.TEAMS;
+    var home = team && team[g.homeTeamId];
+    var away = team && team[g.awayTeamId];
+    var hAbbr = home ? home.abbreviation : g.homeTeamId.toUpperCase().slice(0,4);
+    var aAbbr = away ? away.abbreviation : g.awayTeamId.toUpperCase().slice(0,4);
+
+    // Check if weather-sensitive teams involved
+    var homeWx = home && home.weatherProfile;
+    var awayWx = away && away.weatherProfile;
+
+    alerts.push({
+      game: g, flags: flags, severity: severity,
+      hAbbr: hAbbr, aAbbr: aAbbr,
+      homeWxNote: homeWx && homeWx.windRecord ? hAbbr + " wind record: " + homeWx.windRecord : null,
+      awayWxNote: awayWx && awayWx.windRecord ? aAbbr + " wind record: " + awayWx.windRecord : null
+    });
+  });
+
+  if (!alerts.length) {
+    el.innerHTML = '<div style="padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:.78rem;color:var(--primary)">✓ No significant weather concerns this week — all games playable conditions</div>';
+    return;
+  }
+
+  alerts.sort(function(a, b) { return b.severity - a.severity; });
+
+  el.innerHTML = alerts.slice(0, 6).map(function(a) {
+    var g = a.game;
+    var sevColor = a.severity >= 3 ? "var(--danger)" : a.severity >= 2 ? "var(--gold)" : "var(--muted-l)";
+    var sevBg = a.severity >= 3 ? "rgba(239,68,68,.06)" : a.severity >= 2 ? "rgba(245,158,11,.05)" : "rgba(255,255,255,.02)";
+    var sevBorder = a.severity >= 3 ? "rgba(239,68,68,.3)" : a.severity >= 2 ? "rgba(245,158,11,.25)" : "var(--border)";
+
+    var totalLine = g.bettingLines ? " · O/U " + g.bettingLines.total : "";
+    var wxAdvice = a.severity >= 2 ? " — lean UNDER" : a.severity >= 1 && g.weather.windMph >= 15 ? " — monitor total" : "";
+
+    return '<a href="game.html?id=' + g.id + '" style="text-decoration:none;display:block;padding:10px 14px;border-radius:10px;border:1px solid ' + sevBorder + ';background:' + sevBg + ';margin-bottom:7px">'
+      + '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+        + '<div style="flex:1;min-width:0">'
+          + '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap">'
+            + '<span style="font-size:.78rem;font-weight:800;color:var(--text)">' + a.aAbbr + ' @ ' + a.hAbbr + '</span>'
+            + '<span style="font-size:.62rem;color:var(--muted)">Wk ' + (g.week||"?") + ' · ' + (g.time||"") + '</span>'
+            + (a.severity >= 2 ? '<span style="font-size:.55rem;font-weight:900;padding:1px 6px;border-radius:4px;background:' + sevColor + '18;border:1px solid ' + sevColor + '35;color:' + sevColor + '">' + (a.severity >= 3 ? "HIGH IMPACT" : "MODERATE") + '</span>' : '')
+          + '</div>'
+          + '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px">'
+            + a.flags.map(function(f) { return '<span style="font-size:.65rem;color:var(--text-soft)">' + f + '</span>'; }).join('<span style="color:var(--border)"> · </span>')
+          + '</div>'
+          + (a.homeWxNote || a.awayWxNote ? '<div style="font-size:.6rem;color:var(--muted)">' + [a.homeWxNote, a.awayWxNote].filter(Boolean).join(" · ") + '</div>' : '')
+        + '</div>'
+        + '<div style="flex-shrink:0;text-align:right">'
+          + '<div style="font-size:.62rem;color:var(--muted)">' + totalLine.replace(' · ','') + '</div>'
+          + '<div style="font-size:.62rem;font-weight:700;color:' + (a.severity >= 2 ? sevColor : "var(--muted)") + '">' + wxAdvice + '</div>'
+        + '</div>'
+      + '</div>'
+    + '</a>';
+  }).join("");
+}
+
 function buildInjuryImpact() {
   var el = document.getElementById("injury-impact-dash");
   if (!el) return;
@@ -736,6 +828,7 @@ function refreshAll() {
 
 // Listen for data from live.js
 window.addEventListener("teamIntelReady", function() {
+  buildWeatherAlerts();
   buildInjuryImpact();
   buildItems();
   renderGrid();
@@ -745,6 +838,7 @@ window.addEventListener("liveDataReady", function(e) {
   var d = e.detail || {};
   if (d.twitterTweets) window.__latestTweets = d.twitterTweets;
   if (d.espnNews)      window.__latestESPN   = d.espnNews;
+  buildWeatherAlerts();
   buildInjuryImpact();
   buildSharpSummary();
   buildLineMoveDash();
@@ -760,6 +854,7 @@ setInterval(function() {
 }, 60000);
 
 // Initial render
+buildWeatherAlerts();
 buildInjuryImpact();
 buildSharpSummary();
 buildLineMoveDash();
