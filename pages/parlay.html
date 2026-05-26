@@ -427,6 +427,7 @@
       <button onclick="clearParlay()" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer">Clear All</button>
       <button onclick="copyParlay(this)" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer">&#128203; Copy Picks</button>
       <button onclick="openSaveSlotDialog()" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(99,102,241,.4);background:rgba(99,102,241,.08);color:var(--accent);font-size:.78rem;font-weight:700;cursor:pointer">&#128190; Save Parlay</button>
+      <button onclick="logParleyToPicks(this)" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(16,185,129,.4);background:rgba(16,185,129,.08);color:var(--primary);font-size:.78rem;font-weight:700;cursor:pointer">&#9998; Log to Picks</button>
     </div>
   </div>
 
@@ -1532,6 +1533,45 @@ function deleteSavedParlay(idx) {
   saved.splice(idx, 1);
   localStorage.setItem(PARLAY_SAVE_KEY, JSON.stringify(saved));
   renderSavedParlays();
+}
+
+function logParleyToPicks(btn) {
+  const entries = Object.entries(picks);
+  if (!entries.length) { alert("Build a parlay first, then log it to your picks."); return; }
+
+  const legOdds    = entries.map(([,p]) => p.odds);
+  const parlay     = calcParlayOdds(legOdds);
+  const winProb    = combinedModelProb();
+  const name       = (document.getElementById("parlay-name")?.value.trim()) || ("Week " + (activeWeek || 1) + " Parlay");
+  const legLabels  = entries.map(([,p]) => p.label).join(" + ");
+  const today      = new Date();
+  const dateStr    = today.getFullYear() + "-" + String(today.getMonth()+1).padStart(2,"0") + "-" + String(today.getDate()).padStart(2,"0");
+
+  const newEntry = {
+    id:       Date.now().toString(),
+    date:     dateStr,
+    game:     name,
+    pick:     legLabels,
+    odds:     parlay.american,
+    wager:    wager || 25,
+    result:   "pending",
+    notes:    entries.length + "-leg parlay · Model: " + Math.round(winProb * 100) + "% · " + parlay.american,
+    addedAt:  today.toISOString(),
+    pickType: "parlay",
+  };
+
+  try {
+    const existing = JSON.parse(localStorage.getItem("theBet_myPicks") || "[]");
+    existing.unshift(newEntry);
+    localStorage.setItem("theBet_myPicks", JSON.stringify(existing));
+  } catch(e) { alert("Could not save to Picks — storage may be full."); return; }
+
+  // Button confirmation flash
+  const orig = btn.innerHTML;
+  btn.innerHTML = "&#10003; Logged!";
+  btn.style.background = "rgba(16,185,129,.2)";
+  btn.style.borderColor = "var(--primary)";
+  setTimeout(() => { btn.innerHTML = orig; btn.style.background = "rgba(16,185,129,.08)"; btn.style.borderColor = "rgba(16,185,129,.4)"; }, 1800);
 }
 
 let parlayLiveLoaded = false;
