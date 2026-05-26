@@ -2120,6 +2120,37 @@ function renderGamePage(gData) {
               ${lineChanged ? `<span style="font-size:.6rem;color:${lineMoveDiff < 0 ? "var(--primary)" : "var(--danger)"}"> (${lineMoveDiff > 0 ? "+" : ""}${lineMoveDiff.toFixed(1)})</span>` : ""}
             </span>
           </div>
+          ${(() => {
+            // Sparkline SVG of spread history
+            if (lmArray.length < 2) return "";
+            const W = 280, H = 44, PAD = 4;
+            const spreads = lmArray.map(h => h.spread);
+            const minS = Math.min(...spreads) - 0.5;
+            const maxS = Math.max(...spreads) + 0.5;
+            const range = maxS - minS || 1;
+            const pts = spreads.map((s, i) => {
+              const x = PAD + (i / (spreads.length - 1)) * (W - PAD*2);
+              const y = PAD + ((maxS - s) / range) * (H - PAD*2);
+              return x.toFixed(1) + "," + y.toFixed(1);
+            });
+            const polyline = pts.join(" ");
+            const trend = spreads[spreads.length-1] - spreads[0];
+            const trendColor = trend < -0.1 ? "#10b981" : trend > 0.1 ? "#6366f1" : "#555";
+            return `<div style="margin-bottom:10px;padding:8px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--border)">
+              <div style="font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Spread Trend</div>
+              <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="overflow:visible;display:block;width:100%;max-width:${W}px">
+                <polyline points="${polyline}" fill="none" stroke="${trendColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                ${pts.map((pt, i) => {
+                  const [x, y] = pt.split(",");
+                  return `<circle cx="${x}" cy="${y}" r="3" fill="${i === pts.length-1 ? trendColor : "#555"}" opacity="${i === pts.length-1 ? 1 : 0.5}"/>`;
+                }).join("")}
+              </svg>
+              <div style="display:flex;justify-content:space-between;font-size:.58rem;color:var(--muted);margin-top:2px">
+                <span>${lmArray[0].time || "Open"}</span>
+                <span>${lmArray[lmArray.length-1].time || "Current"}</span>
+              </div>
+            </div>`;
+          })()}
           ${lineChanged ? `
           <div class="line-move-track" style="height:6px;background:var(--border);border-radius:3px;position:relative;margin:8px 0">
             <div style="height:6px;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--primary));width:${Math.min(100, Math.abs(lineMoveDiff) * 20)}%;${lineMoveDiff > 0 ? "margin-left:auto" : ""}"></div>
