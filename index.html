@@ -326,6 +326,97 @@
       font-size: .8rem;
     }
 
+    /* ── Value Alerts ───────────────────────────────────── */
+    .value-alert-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--card);
+      text-decoration: none;
+      color: var(--text);
+      transition: all .2s;
+      flex-wrap: wrap;
+    }
+    .value-alert-row:hover {
+      border-color: rgba(16,185,129,.4);
+      background: rgba(16,185,129,.04);
+      transform: translateX(2px);
+    }
+    .value-alert-edge {
+      min-width: 70px;
+      text-align: center;
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      background: rgba(16,185,129,.1);
+      border: 1px solid rgba(16,185,129,.25);
+      flex-shrink: 0;
+    }
+    .value-alert-edge-num { font-size: 1.1rem; font-weight: 900; color: var(--primary); }
+    .value-alert-edge-lbl { font-size: .55rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .sharp-tracker-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--card);
+      text-decoration: none;
+      color: var(--text);
+      transition: all .2s;
+      flex-wrap: wrap;
+    }
+    .sharp-tracker-row:hover {
+      border-color: rgba(245,158,11,.35);
+      background: rgba(245,158,11,.03);
+    }
+    /* ── Bankroll Calc ───────────────────────────────────── */
+    .bankroll-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .bankroll-input-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .bankroll-input {
+      background: var(--surface);
+      border: 1.5px solid var(--border-l);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 10px 14px;
+      width: 160px;
+      transition: border-color .15s;
+    }
+    .bankroll-input:focus { outline: none; border-color: var(--primary); }
+    .bankroll-unit-label { font-size: .75rem; color: var(--muted-l); }
+    .bankroll-unit-val   { font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+    .calc-picks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .calc-pick-card {
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.02);
+    }
+    .calc-pick-team { font-size: .88rem; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+    .calc-pick-game { font-size: .65rem; color: var(--muted); margin-bottom: 8px; }
+    .calc-pick-bet  { font-size: 1.05rem; font-weight: 900; color: var(--primary); }
+    .calc-pick-conf { font-size: .62rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+
     /* ── Model transparency card ────────────────────────── */
     .transparency-card {
       background: var(--card);
@@ -543,6 +634,63 @@
       <a href="pages/games.html?week=1" class="text-sm text-primary" style="text-decoration:underline">All Week 1 →</a>
     </div>
     <div class="grid-3" id="top-picks"></div>
+  </section>
+
+  <!-- Value Alerts -->
+  <section class="mb-5" id="value-alerts-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">🔥 Value Alerts</div>
+      <span class="text-sm text-muted">Model finds biggest edges vs Vegas</span>
+    </div>
+    <div id="value-alerts" style="display:flex;flex-direction:column;gap:8px"></div>
+  </section>
+
+  <!-- Sharp Money Tracker -->
+  <section class="mb-5" id="sharp-tracker-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">💰 Sharp Money Tracker</div>
+      <span class="text-sm text-muted">Professional bettor movement detected</span>
+    </div>
+    <div id="sharp-tracker" style="display:flex;flex-direction:column;gap:8px"></div>
+  </section>
+
+  <!-- Bankroll Calculator -->
+  <section class="mb-5">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">🧮 Bankroll Calculator</div>
+      <span class="text-sm text-muted">How much to bet on each pick</span>
+    </div>
+    <div class="bankroll-card">
+      <div class="bankroll-input-row">
+        <div>
+          <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Your Bankroll</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:1rem;color:var(--muted-l);font-weight:700">$</span>
+            <input type="number" class="bankroll-input" id="bankroll-input" value="1000" min="1" step="100" placeholder="1000" />
+          </div>
+        </div>
+        <div style="padding-left:12px;border-left:1px solid var(--border)">
+          <div class="bankroll-unit-label" style="margin-bottom:3px">1 Unit =</div>
+          <div class="bankroll-unit-val" id="bankroll-unit-display">$10.00</div>
+          <div class="bankroll-unit-label">(1% of bankroll)</div>
+        </div>
+        <div style="padding-left:12px;border-left:1px solid var(--border)">
+          <div style="font-size:.58rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Unit Guide</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-elite" style="color:var(--primary);font-weight:800">$20</span> · ELITE (2u)</div>
+            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-high"  style="color:var(--primary);font-weight:700">$15</span> · HIGH (1.5u)</div>
+            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-med"   style="color:var(--muted-l);font-weight:600">$10</span> · MEDIUM (1u)</div>
+            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-low"   style="color:var(--muted);font-weight:600">$5</span>  · LOW (0.5u)</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:.65rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Suggested Bets — This Week's Picks</div>
+      <div class="calc-picks-grid" id="calc-picks-grid"></div>
+      <div style="margin-top:14px;padding:10px 14px;border-radius:var(--radius);background:rgba(255,255,255,.02);border:1px solid var(--border);font-size:.72rem;color:var(--muted)">
+        <strong style="color:var(--text)">Kelly Criterion tip:</strong> Never bet more than 3–5% of bankroll on any single game. ELITE picks use 2u, HIGH = 1.5u, MEDIUM = 1u, LOW = 0.5u.
+        Unit sizing (1% base) is industry-standard for long-term bankroll preservation.
+      </div>
+    </div>
   </section>
 
   <!-- Browse by Conference -->
@@ -891,6 +1039,10 @@ function renderTopPicks() {
     var badgeBg  = badgeTxt === 'ELITE' ? 'var(--primary)' : badgeTxt === 'HIGH' ? 'rgba(16,185,129,.15)' : 'rgba(245,158,11,.12)';
     var badgeC   = badgeTxt === 'ELITE' ? '#000' : badgeTxt === 'HIGH' ? 'var(--primary)' : 'var(--gold)';
 
+    // Unit sizing
+    var confUnitsMap = { ELITE: 2, HIGH: 1.5, MEDIUM: 1, LOW: 0.5 };
+    var units = (tp && tp.unit) ? tp.unit : (confUnitsMap[badgeTxt] || 1);
+
     // Context: what Vegas says vs what model says
     var contextLine = '';
     if (bl) {
@@ -902,6 +1054,11 @@ function renderTopPicks() {
       contextLine = 'Vegas: ' + favName + ' -' + favLine +
                     ' · Model: ' + modelFavName + ' -' + modelFavLine;
     }
+
+    // Sharp alignment
+    var sm = pred.sharpMoneySignal || {};
+    var sharpAligned = sm.strength >= 6 && sm.side !== "neutral" &&
+      ((sm.side === "home" && pickIsHome) || (sm.side === "away" && !pickIsHome));
 
     return '<a class="top-pick fade-up delay-' + (i+1) + '" href="pages/game.html?id=' + game.id + '">' +
       '<div class="pick-rank">' +
@@ -918,13 +1075,21 @@ function renderTopPicks() {
         '</div>' +
         (badgeTxt ? '<span style="flex-shrink:0;padding:3px 8px;border-radius:6px;font-size:.58rem;font-weight:800;letter-spacing:1px;background:' + badgeBg + ';color:' + badgeC + '">' + badgeTxt + '</span>' : '') +
       '</div>' +
-      '<div style="padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);margin-bottom:8px">' +
-        '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">The Bet Picks</div>' +
-        '<div style="font-size:1.05rem;font-weight:800;color:' + chipColor + '">' + pickTeam + ' covers</div>' +
-        (vegasLine ? '<div style="font-size:.65rem;color:var(--muted-l);margin-top:2px">Line: ' + vegasLine + '</div>' : '') +
+      '<div style="display:flex;gap:8px;margin-bottom:8px">' +
+        '<div style="flex:1;padding:10px 12px;border-radius:var(--radius);background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)">' +
+          '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">✅ THE BET PICKS</div>' +
+          '<div style="font-size:1.05rem;font-weight:800;color:' + chipColor + '">' + pickTeam + ' covers</div>' +
+          (vegasLine ? '<div style="font-size:.65rem;color:var(--muted-l);margin-top:2px">Vegas: ' + vegasLine + '</div>' : '') +
+        '</div>' +
+        '<div style="min-width:64px;padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border);text-align:center;flex-shrink:0">' +
+          '<div style="font-size:.55rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Bet Size</div>' +
+          '<div style="font-size:1.1rem;font-weight:900;color:var(--text)">' + units + 'u</div>' +
+          '<div style="font-size:.58rem;color:var(--muted)">' + (units * 1).toFixed(1) + '% roll</div>' +
+        '</div>' +
       '</div>' +
+      (sharpAligned ? '<div style="font-size:.65rem;font-weight:700;color:var(--primary);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:5px;padding:4px 8px;margin-bottom:6px">💰 Sharps agree — model + sharp money aligned</div>' : '') +
       (contextLine ? '<div style="font-size:.62rem;color:var(--muted);padding:5px 8px;border-radius:5px;background:rgba(255,255,255,.02);border:1px solid var(--border);margin-bottom:8px">' + contextLine + '</div>' : '') +
-      (edgeStr ? '<div style="display:flex;align-items:center;gap:4px;font-size:.72rem">' +
+      (edgeStr ? '<div style="display:flex;align-items:center;gap:4px;font-size:.72rem;margin-bottom:4px">' +
         '<span style="color:var(--muted)">Model Edge:</span>' +
         '<strong style="color:var(--primary)">' + edgeStr + '</strong>' +
       '</div>' : '') +
@@ -952,6 +1117,176 @@ function renderTopPicks() {
   }).join("") || '<p style="color:var(--muted-l);font-size:.9rem">No high-confidence picks found this week.</p>';
 }
 renderTopPicks();
+
+// ── Value Alerts ──────────────────────────────────────────────────
+function renderValueAlerts() {
+  var alerts = allPredictions
+    .filter(function(p) {
+      var sp = p.prediction.spreadPick;
+      return sp && sp.side !== "no-bet" && (sp.edge || 0) >= 3;
+    })
+    .sort(function(a, b) {
+      return (b.prediction.spreadPick.edge || 0) - (a.prediction.spreadPick.edge || 0);
+    })
+    .slice(0, 6);
+
+  if (!alerts.length) return;
+  document.getElementById("value-alerts-section").style.display = "";
+  document.getElementById("value-alerts").innerHTML = alerts.map(function(p) {
+    var game = p.game; var pred = p.prediction;
+    var sp = pred.spreadPick;
+    var bl = game.bettingLines;
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    var pickConf = (tp && tp.confidence) ? tp.confidence.toUpperCase() : "MEDIUM";
+    var vegasLine = bl && bl.spread != null ? (sp.side === "home" ? fmtSpread(bl.spread) : fmtSpread(-bl.spread)) : "";
+    var edge = (sp.edge || 0).toFixed(1);
+    var badgeBg = pickConf === "ELITE" ? "var(--primary)" : pickConf === "HIGH" ? "rgba(16,185,129,.18)" : "rgba(245,158,11,.15)";
+    var badgeC  = pickConf === "ELITE" ? "#000" : pickConf === "HIGH" ? "var(--primary)" : "var(--gold)";
+    var oppTeam = sp.side === "home" ? game.awayTeam.name : game.homeTeam.name;
+    var modelProj = pred.predictedSpread != null ? Math.abs(pred.predictedSpread).toFixed(1) : null;
+    var modelFav  = pred.predictedSpread != null ? (pred.predictedSpread >= 0 ? game.homeTeam.name : game.awayTeam.name) : null;
+    var vegasFavName = bl && bl.spread !== 0 ? (bl.spread < 0 ? game.homeTeam.name : game.awayTeam.name) : null;
+    var isContrarian = modelFav && vegasFavName && modelFav !== vegasFavName;
+    return '<a class="value-alert-row" href="pages/game.html?id=' + game.id + '">' +
+      '<div class="value-alert-edge">' +
+        '<div class="value-alert-edge-num">+' + edge + '</div>' +
+        '<div class="value-alert-edge-lbl">pts edge</div>' +
+      '</div>' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap">' +
+          '<div class="team-logo" style="width:22px;height:22px;font-size:.6rem;background:' + (sp.side==='home'?game.homeTeam.color:game.awayTeam.color) + ';color:' + textForBg(sp.side==='home'?game.homeTeam.color:game.awayTeam.color) + '">' + (sp.side==='home'?game.homeTeam.abbreviation:game.awayTeam.abbreviation).slice(0,3) + '</div>' +
+          '<strong style="font-size:.88rem;color:var(--text)">' + pickTeam + ' covers</strong>' +
+          '<span style="padding:2px 7px;border-radius:5px;font-size:.55rem;font-weight:800;letter-spacing:1px;background:' + badgeBg + ';color:' + badgeC + '">' + pickConf + '</span>' +
+          (isContrarian ? '<span style="font-size:.6rem;font-weight:800;color:#f472b6;background:rgba(244,114,182,.1);padding:2px 6px;border-radius:4px">CONTRARIAN</span>' : '') +
+        '</div>' +
+        '<div style="font-size:.7rem;color:var(--muted)">' +
+          game.awayTeam.abbreviation + ' @ ' + game.homeTeam.abbreviation + ' &nbsp;·&nbsp; ' + fmtDate(game.date) +
+          (vegasLine ? ' &nbsp;·&nbsp; Vegas: ' + vegasLine : '') +
+          (modelProj && modelFav ? ' &nbsp;·&nbsp; Model: <strong style="color:var(--primary)">' + modelFav + ' -' + modelProj + '</strong>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:.72rem;color:var(--primary);font-weight:700;flex-shrink:0">View →</div>' +
+    '</a>';
+  }).join("");
+}
+renderValueAlerts();
+
+// ── Sharp Money Tracker ───────────────────────────────────────────
+function renderSharpTracker() {
+  var sharpGames = allPredictions
+    .filter(function(p) {
+      var sm = p.prediction.sharpMoneySignal;
+      return sm && sm.side !== "neutral" && (sm.strength || 0) >= 7;
+    })
+    .sort(function(a, b) {
+      return (b.prediction.sharpMoneySignal.strength || 0) - (a.prediction.sharpMoneySignal.strength || 0);
+    })
+    .slice(0, 5);
+
+  if (!sharpGames.length) return;
+  document.getElementById("sharp-tracker-section").style.display = "";
+  document.getElementById("sharp-tracker").innerHTML = sharpGames.map(function(p) {
+    var game = p.game; var pred = p.prediction;
+    var sm = pred.sharpMoneySignal;
+    var bl = game.bettingLines;
+    var sharpTeam = sm.side === "home" ? game.homeTeam : game.awayTeam;
+    var pubTeam   = sm.side === "home" ? game.awayTeam : game.homeTeam;
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var ourPick = (tp && tp.team) ? tp.team : (pred.spreadPick ? pred.spreadPick.team : null);
+    var alignsWithUs = ourPick && ourPick.toLowerCase() === sharpTeam.name.toLowerCase();
+    var strength = sm.strength || 0;
+    var strColor = strength >= 9 ? "var(--primary)" : strength >= 7 ? "var(--gold)" : "var(--muted-l)";
+    var pb = game.socialIntel && game.socialIntel.publicBetting;
+    var pubHomeP = pb && pb.homePct != null ? pb.homePct : null;
+    var pubAwayP = pb && pb.awayPct  != null ? pb.awayPct  : null;
+    var sharpPubPct = sm.side === "home" ? pubHomeP : pubAwayP;
+    var isRLM = sharpPubPct != null && sharpPubPct < 45;
+    return '<a class="sharp-tracker-row" href="pages/game.html?id=' + game.id + '">' +
+      '<div style="display:flex;align-items:center;gap:6px;flex-shrink:0;width:38px">' +
+        Array.from({length:Math.min(Math.round(strength/2),5)}, function() {
+          return '<span style="font-size:.8rem">💰</span>';
+        }).join("") +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">' +
+        '<div class="team-logo" style="width:22px;height:22px;font-size:.6rem;background:' + sharpTeam.color + ';color:' + textForBg(sharpTeam.color) + '">' + sharpTeam.abbreviation.slice(0,3) + '</div>' +
+      '</div>' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px">' +
+          '<strong style="font-size:.88rem;color:' + strColor + '">Sharps on ' + sharpTeam.name + '</strong>' +
+          '<span style="font-size:.65rem;font-weight:700;color:' + strColor + ';background:rgba(245,158,11,.1);padding:2px 6px;border-radius:4px">Strength ' + strength + '/10</span>' +
+          (isRLM ? '<span style="font-size:.6rem;font-weight:800;color:#f472b6;background:rgba(244,114,182,.1);padding:2px 6px;border-radius:4px">RLM ↑</span>' : '') +
+          (alignsWithUs ? '<span style="font-size:.6rem;font-weight:700;color:var(--primary)">✓ Aligns with our pick</span>' : '<span style="font-size:.6rem;font-weight:700;color:var(--gold)">⚠ Splits our pick</span>') +
+        '</div>' +
+        '<div style="font-size:.68rem;color:var(--muted)">' +
+          game.awayTeam.abbreviation + ' @ ' + game.homeTeam.abbreviation + ' · ' + fmtDate(game.date) +
+          (sharpPubPct != null ? ' · Public: ' + Math.round(sharpPubPct) + '% on ' + sharpTeam.abbreviation : '') +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:.72rem;color:var(--gold);font-weight:700;flex-shrink:0">View →</div>' +
+    '</a>';
+  }).join("");
+}
+renderSharpTracker();
+
+// ── Bankroll Calculator ───────────────────────────────────────────
+(function() {
+  var confUnits = { ELITE: 2, HIGH: 1.5, MEDIUM: 1, LOW: 0.5 };
+  var confWeights = { ELITE: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+
+  function calcPicks() {
+    return allPredictions
+      .filter(function(p) {
+        var tp = p.game.gamePreview && p.game.gamePreview.thePick;
+        var sp = p.prediction.spreadPick;
+        var hasPickConf = tp && tp.confidence;
+        var hasModelEdge = sp && sp.side !== "no-bet" && (sp.edge || 0) >= 1;
+        return hasPickConf || hasModelEdge;
+      })
+      .map(function(p) {
+        var tp = p.game.gamePreview && p.game.gamePreview.thePick;
+        var sp = p.prediction.spreadPick;
+        var pickConf = (tp && tp.confidence) ? tp.confidence.toUpperCase() : "MEDIUM";
+        var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+        var units = tp && tp.unit ? tp.unit : (confUnits[pickConf] || 1);
+        var bl = p.game.bettingLines;
+        var pickIsHome = pickTeam && (pickTeam.toLowerCase() === (p.game.homeTeam.name || "").toLowerCase() || pickTeam.toLowerCase() === (p.game.homeTeam.abbreviation || "").toLowerCase());
+        var vegasLine = bl && bl.spread != null ? (pickIsHome ? fmtSpread(bl.spread) : fmtSpread(-bl.spread)) : "";
+        var score = (confWeights[pickConf] || 1) * 4 + ((sp && sp.edge) || 0);
+        return { game: p.game, pred: p.prediction, pickTeam: pickTeam, pickConf: pickConf, units: units, vegasLine: vegasLine, score: score };
+      })
+      .sort(function(a, b) { return b.score - a.score; });
+  }
+
+  function fmt$(v) { return v >= 100 ? '$' + v.toFixed(0) : '$' + v.toFixed(2); }
+
+  function update() {
+    var bankroll = parseFloat(document.getElementById("bankroll-input").value) || 1000;
+    var unit = bankroll * 0.01;
+    document.getElementById("bankroll-unit-display").textContent = fmt$(unit);
+    document.getElementById("guide-elite").textContent = fmt$(unit * 2);
+    document.getElementById("guide-high").textContent  = fmt$(unit * 1.5);
+    document.getElementById("guide-med").textContent   = fmt$(unit * 1);
+    document.getElementById("guide-low").textContent   = fmt$(unit * 0.5);
+    var picks = calcPicks();
+    var confColors = { ELITE: "var(--primary)", HIGH: "var(--primary)", MEDIUM: "var(--gold)", LOW: "var(--muted)" };
+    var confBg = { ELITE: "rgba(16,185,129,.12)", HIGH: "rgba(16,185,129,.07)", MEDIUM: "rgba(245,158,11,.06)", LOW: "rgba(255,255,255,.02)" };
+    document.getElementById("calc-picks-grid").innerHTML = picks.map(function(p) {
+      var betAmt = unit * p.units;
+      var c = confColors[p.pickConf] || "var(--muted)";
+      var bg = confBg[p.pickConf] || "rgba(255,255,255,.02)";
+      return '<div class="calc-pick-card" style="background:' + bg + ';border-color:rgba(255,255,255,.07)">' +
+        '<div class="calc-pick-team" style="color:' + c + '">' + p.pickTeam + '</div>' +
+        '<div class="calc-pick-game">' + p.game.awayTeam.abbreviation + ' @ ' + p.game.homeTeam.abbreviation + (p.vegasLine ? ' · ' + p.vegasLine : '') + '</div>' +
+        '<div class="calc-pick-bet">' + fmt$(betAmt) + '</div>' +
+        '<div class="calc-pick-conf">' + p.pickConf + ' · ' + p.units + 'u</div>' +
+      '</div>';
+    }).join("") || '<div style="color:var(--muted-l);font-size:.85rem">No picks found.</div>';
+  }
+
+  document.getElementById("bankroll-input").addEventListener("input", update);
+  update();
+})();
 
 // ── Power Rankings Preview ────────────────────────────────────────
 function renderPowerRankings() {

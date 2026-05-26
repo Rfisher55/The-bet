@@ -1168,11 +1168,29 @@
         var gpSp = gpPred && gpPred.spreadPick;
         var gpModelSide = gpSp && gpSp.side !== 'no-bet' ? gpSp.side : null;
         var gpModelConf = gpPred ? gpPred.confidence : null;
-        var gpEdge = gpSp ? gpSp.edge : 0;
+        var gpEdge = gpSp ? (gpSp.edge || 0) : 0;
+        // Use curated pick (analyst) when available, fall back to model
+        var gpTP = g.gamePreview && g.gamePreview.thePick;
+        var gpCuratedTeam = gpTP && gpTP.team ? gpTP.team.toLowerCase() : null;
+        var gpCuratedConf = gpTP && gpTP.confidence ? gpTP.confidence.toUpperCase() : null;
+        var gpCuratedSide = null;
+        if (gpCuratedTeam) {
+          var htLow = (ht.name || '').toLowerCase();
+          var atLow = (at.name || '').toLowerCase();
+          var htAbbLow = (ht.abbreviation || '').toLowerCase();
+          var atAbbLow = (at.abbreviation || '').toLowerCase();
+          if (gpCuratedTeam === htLow || gpCuratedTeam === htAbbLow) gpCuratedSide = 'home';
+          else if (gpCuratedTeam === atLow || gpCuratedTeam === atAbbLow) gpCuratedSide = 'away';
+        }
+        var officialSide = gpCuratedSide || gpModelSide;
+        var officialConf = gpCuratedConf || (gpModelConf ? gpModelConf.toUpperCase() : null);
         var modelBadge = function(side) {
-          if (gpModelSide !== side) return '';
-          var confColor = gpModelConf === 'elite' ? '#10b981' : gpModelConf === 'high' ? '#34d399' : '#f59e0b';
-          return '<span style="font-size:.48rem;font-weight:900;background:' + confColor + '22;border:1px solid ' + confColor + '55;color:' + confColor + ';padding:1px 4px;border-radius:3px;margin-left:3px;letter-spacing:.3px">MODEL</span>';
+          if (officialSide !== side) return '';
+          var confColor = (officialConf === 'ELITE' || officialConf === 'elite') ? '#10b981'
+            : (officialConf === 'HIGH' || officialConf === 'high') ? '#34d399' : '#f59e0b';
+          var badgeTxt = gpCuratedSide === side ? 'THE BET' : 'MODEL';
+          var edgeTxt = gpEdge >= 1 ? ' +' + gpEdge.toFixed(1) : '';
+          return '<span style="font-size:.48rem;font-weight:900;background:' + confColor + '22;border:1px solid ' + confColor + '55;color:' + confColor + ';padding:1px 5px;border-radius:3px;margin-left:3px;letter-spacing:.3px">' + badgeTxt + edgeTxt + '</span>';
         };
 
         html += '<div class="gp-bets">';
@@ -1287,25 +1305,41 @@
     if (modelHint) {
       var gpPredNow = getGPPred(game);
       var gpSpNow = gpPredNow && gpPredNow.spreadPick;
-      var kellyMap = { elite: '3–5% bankroll (3 units)', high: '2–3% bankroll (2 units)', medium: '1–2% bankroll (1 unit)', low: 'Pass or 0.5 unit' };
-      var confColorMap = { elite: '#10b981', high: '#34d399', medium: '#f59e0b', low: '#94a3b8' };
-      if (gpSpNow && gpSpNow.side !== 'no-bet' && gpPredNow) {
-        var modelSideMatch = (gpSpNow.side === 'home' && side === 'home') || (gpSpNow.side === 'away' && side === 'away');
-        var conf = gpPredNow.confidence;
-        var confColor = confColorMap[conf] || 'var(--muted)';
-        var kelly = kellyMap[conf] || '1 unit';
-        var edgeStr = gpSpNow.edge > 0 ? ' · +' + gpSpNow.edge + ' pt edge' : '';
-        if (modelSideMatch) {
+      var gpTPNow = game.gamePreview && game.gamePreview.thePick;
+      var kellyMap = { ELITE: '2u (2% bankroll)', HIGH: '1.5u (1.5% bankroll)', MEDIUM: '1u (1% bankroll)', LOW: '0.5u — weak edge' };
+      var confColorMap = { ELITE: '#10b981', HIGH: '#34d399', MEDIUM: '#f59e0b', LOW: '#94a3b8' };
+      // Determine official pick side and confidence
+      var officialPickTeam = gpTPNow && gpTPNow.team ? gpTPNow.team.toLowerCase() : null;
+      var officialPickConf = gpTPNow && gpTPNow.confidence ? gpTPNow.confidence.toUpperCase() : (gpPredNow ? (gpPredNow.confidence || 'medium').toUpperCase() : null);
+      var officialPickSide = null;
+      if (officialPickTeam) {
+        if (officialPickTeam === homeName.toLowerCase()) officialPickSide = 'home';
+        else if (officialPickTeam === awayName.toLowerCase()) officialPickSide = 'away';
+      }
+      if (!officialPickSide && gpSpNow && gpSpNow.side !== 'no-bet') {
+        officialPickSide = gpSpNow.side;
+      }
+      var isCurated = !!gpTPNow;
+      var edgeStr2 = (gpSpNow && gpSpNow.edge > 0) ? ' · +' + gpSpNow.edge + ' pt edge' : '';
+      if (officialPickSide) {
+        var pickSideMatch = officialPickSide === side;
+        var conf2 = officialPickConf || 'MEDIUM';
+        var confColor2 = confColorMap[conf2] || 'var(--muted)';
+        var kelly2 = kellyMap[conf2] || '1u';
+        var srcLabel = isCurated ? 'THE BET PICKS' : 'MODEL';
+        if (pickSideMatch) {
           modelHint.style.display = 'flex';
-          modelHint.innerHTML = '<span style="font-size:.6rem;font-weight:900;color:' + confColor + '">MODEL AGREES (' + conf.toUpperCase() + ')' + edgeStr + '</span>' +
-            '<span style="font-size:.6rem;color:var(--muted);margin-left:6px">Suggested unit size: <strong style="color:var(--text)">' + kelly + '</strong></span>';
+          modelHint.style.borderColor = 'rgba(16,185,129,.3)';
+          modelHint.style.background = 'rgba(16,185,129,.05)';
+          modelHint.innerHTML = '<span style="font-size:.6rem;font-weight:900;color:' + confColor2 + '">' + srcLabel + ' AGREES (' + conf2 + ')' + edgeStr2 + '</span>' +
+            '<span style="font-size:.6rem;color:var(--muted);margin-left:6px">Bet size: <strong style="color:var(--text)">' + kelly2 + '</strong></span>';
         } else {
           modelHint.style.display = 'flex';
           modelHint.style.borderColor = 'rgba(245,158,11,.3)';
           modelHint.style.background = 'rgba(245,158,11,.05)';
-          var modelTeam = gpSpNow.side === 'home' ? homeName : awayName;
-          modelHint.innerHTML = '<span style="font-size:.6rem;font-weight:900;color:var(--gold)">MODEL DISAGREES</span>' +
-            '<span style="font-size:.6rem;color:var(--muted);margin-left:6px">Model picks <strong style="color:var(--text)">' + modelTeam + '</strong> (' + conf + edgeStr + ')</span>';
+          var recTeam = officialPickSide === 'home' ? homeName : awayName;
+          modelHint.innerHTML = '<span style="font-size:.6rem;font-weight:900;color:var(--gold)">' + srcLabel + ' PICKS ' + recTeam + '</span>' +
+            '<span style="font-size:.6rem;color:var(--muted);margin-left:6px">Confidence: <strong style="color:var(--text)">' + conf2 + edgeStr2 + '</strong></span>';
         }
       } else {
         modelHint.style.display = 'none';

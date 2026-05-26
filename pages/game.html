@@ -646,7 +646,84 @@ function renderGamePage(gData) {
             <div style="font-size:.85rem;font-weight:800;color:var(--text)">${publicFav} — ${publicPct}%</div>
             <div style="font-size:.65rem;color:var(--muted-l)">of bettors</div>
           </div>` : ""}
+          ${(() => {
+            const sp2 = pred.spreadPick || {};
+            const spEdge = sp2.edge != null ? Number(sp2.edge) : 0;
+            const spSide = sp2.side;
+            if (spSide === "no-bet" || spEdge < 0.5) return "";
+            const edgeColor = spEdge >= 4 ? "var(--primary)" : spEdge >= 2 ? "var(--gold)" : "var(--muted-l)";
+            const edgeLabel = spEdge >= 5 ? "🔥 Huge Edge" : spEdge >= 3 ? "Strong Edge" : "Slight Edge";
+            return `<div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.3)">
+              <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:3px">📐 Model Edge</div>
+              <div style="font-size:.85rem;font-weight:800;color:${edgeColor}">+${spEdge.toFixed(1)} pts</div>
+              <div style="font-size:.65rem;color:var(--muted-l)">${edgeLabel} vs Vegas</div>
+            </div>`;
+          })()}
         </div>
+
+        ${(() => {
+          // Plain-English Recommended Action strip
+          const sp2 = pred.spreadPick || {};
+          const spEdge = sp2.edge != null ? Number(sp2.edge) : 0;
+          const spSide = sp2.side;
+          const sm = pred.sharpMoneySignal || {};
+          const smStr = sm.strength || 0;
+          const smSide = sm.side || "neutral";
+          const hasSharp = smStr >= 6 && smSide !== "neutral";
+          const sharpTeam = smSide === "home" ? home.name : smSide === "away" ? away.name : null;
+          const sharpAligns = sharpTeam && pickTeam && sharpTeam.toLowerCase() === pickTeam.toLowerCase();
+          const isRLM = smStr >= 6 && smSide !== "neutral" && publicFav && (
+            (smSide === "home" && pubHome != null && pubHome < 45) ||
+            (smSide === "away" && pubHome != null && pubHome > 55)
+          );
+          const tpCurated = gp && gp.thePick;
+          const units = tpCurated && tpCurated.unit ? tpCurated.unit : null;
+          const betSize = units ? `${units}u` : (pickConf === "ELITE" ? "2u" : pickConf === "HIGH" ? "1.5u" : "1u");
+          const vegasSpread = bl && bl.spread != null ? bl.spread : null;
+          const modelSpread = (homeScore != null && awayScore != null) ? (awayScore - homeScore) : null;
+
+          let actionLines = [];
+
+          // Primary action
+          if (spSide === "no-bet") {
+            actionLines.push(`<span style="color:var(--gold);font-weight:800">⏸ PASS</span> — Model sees no edge here. Skip or reduce to minimum unit.`);
+          } else {
+            const vegasLineStr = vegasSpread != null ? ` (Vegas: ${fmtSpread(bl.spread)})` : "";
+            actionLines.push(`<span style="color:var(--primary);font-weight:800">✅ BET ${betSize}</span> — <strong style="color:var(--text)">${esc(pickTeam)} covers</strong>${pickLine ? ` ${esc(pickLine)}` : vegasLineStr}. ${spEdge >= 3 ? `Model sees <strong>+${spEdge.toFixed(1)} pts of edge</strong> — well above the threshold.` : `Model edge: +${spEdge.toFixed(1)} pts.`}`);
+          }
+
+          // Sharp alignment note
+          if (hasSharp) {
+            if (sharpAligns) {
+              actionLines.push(`<span style="color:var(--primary)">💰 Sharps agree</span> — Professional money is on <strong>${esc(sharpTeam)}</strong>. Model + sharps aligned = highest-tier signal.`);
+            } else {
+              actionLines.push(`<span style="color:var(--gold)">⚠️ Sharps split</span> — Sharp money favors <strong>${esc(sharpTeam)}</strong>, but our analyst pick is <strong>${esc(pickTeam)}</strong>. Reduce unit size or wait for line to settle.`);
+            }
+          }
+
+          // RLM callout
+          if (isRLM) {
+            actionLines.push(`<span style="color:#f472b6">📡 Reverse Line Movement</span> — Public is heavily on the other side, yet the line moved toward <strong>${esc(sharpTeam)}</strong>. That's a classic sharp-vs-public spot.`);
+          }
+
+          // Model vs Vegas discrepancy callout
+          if (modelSpread != null && vegasSpread != null) {
+            const vegasFavoredHome = vegasSpread < 0;
+            const modelFavoredHome = modelSpread < 0;
+            if (vegasFavoredHome !== modelFavoredHome && Math.abs(spEdge) >= 2) {
+              actionLines.push(`<span style="color:var(--gold)">📊 Model disagrees with Vegas</span> — Vegas has ${vegasFav} as the favorite, but our model projects <strong>${Math.round(homeScore)}–${Math.round(awayScore)}</strong>, flipping the side. This is a high-value contrarian play.`);
+            }
+          }
+
+          if (!actionLines.length) return "";
+          return `
+          <div style="margin-top:10px;padding:10px 14px;border-radius:var(--radius);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.2)">
+            <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:8px">🎯 RECOMMENDED ACTION</div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              ${actionLines.map(l => `<div style="font-size:.78rem;color:var(--text-soft);line-height:1.55">${l}</div>`).join("")}
+            </div>
+          </div>`;
+        })()}
 
         ${(() => {
           // ATS Trend for the picked team in this situational spot
@@ -1634,22 +1711,125 @@ function renderGamePage(gData) {
             </div>`;
           })()}
           <!-- Total -->
-          <div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${pred.totalPick && pred.totalPick.side !== "no-bet" ? pred.totalPick.side === "over" ? "rgba(16,185,129,.5)" : "rgba(239,68,68,.5)" : "var(--border)"};background:${pred.totalPick && pred.totalPick.side !== "no-bet" ? pred.totalPick.side === "over" ? "rgba(16,185,129,.1)" : "rgba(239,68,68,.1)" : "var(--surface)"}">
-            <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">Total Pick</div>
-            ${pred.totalPick && pred.totalPick.side !== "no-bet"
-              ? `<div style="font-size:1.6rem;font-weight:900;color:${pred.totalPick.side === "over" ? "var(--primary)" : "var(--danger)"}">${pred.totalPick.side.toUpperCase()}</div>
-                 ${game.bettingLines ? `<div class="text-xs text-muted">O/U ${game.bettingLines.total}</div>` : ""}
-                 <div class="text-xs text-muted">Model: ${pred.predictedTotal ? pred.predictedTotal.toFixed(1) : "—"}</div>`
-              : `<div style="font-size:.95rem;font-weight:700;color:var(--muted)">No Bet</div><div class="text-xs text-muted mt-1">No significant edge</div>`}
-          </div>
+          ${(() => {
+            const tp2 = pred.totalPick || {};
+            const hasTotalPick = tp2.side && tp2.side !== "no-bet";
+            const isOver = tp2.side === "over";
+            const totalEdge = (tp2.edge || 0).toFixed(1);
+            const border2 = hasTotalPick ? (isOver ? "rgba(16,185,129,.5)" : "rgba(239,68,68,.5)") : "var(--border)";
+            const bg2    = hasTotalPick ? (isOver ? "rgba(16,185,129,.1)" : "rgba(239,68,68,.1)") : "var(--surface)";
+            const c2     = hasTotalPick ? (isOver ? "var(--primary)" : "var(--danger)") : "var(--muted)";
+            // O/U context
+            const vegasTotal  = game.bettingLines && game.bettingLines.total;
+            const modelTotal  = pred.predictedTotal;
+            const totalDiff   = modelTotal && vegasTotal ? (modelTotal - vegasTotal).toFixed(1) : null;
+            // Pace factor
+            const hPPG = home.stats && home.stats.pointsPerGame || 0;
+            const aPPG = away.stats && away.stats.pointsPerGame || 0;
+            const hDef = home.stats && home.stats.pointsAllowedPerGame || 0;
+            const aDef = away.stats && away.stats.pointsAllowedPerGame || 0;
+            const projTotalSimple = ((hPPG + aDef) / 2) + ((aPPG + hDef) / 2);
+            const isHighScoring = (hPPG + aPPG) / 2 >= 30;
+            const bothGoodDef = hDef <= 20 && aDef <= 20;
+            return `<div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${border2};background:${bg2}">
+              <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">Total Pick</div>
+              ${hasTotalPick
+                ? `<div style="font-size:1.6rem;font-weight:900;color:${c2}">${tp2.side.toUpperCase()}</div>
+                   <div class="text-xs mt-1" style="color:var(--muted)">${vegasTotal ? `O/U ${vegasTotal}` : ""}${totalDiff ? ` · Model: ${modelTotal.toFixed(1)}` : ""}</div>
+                   <div class="text-xs mt-1" style="color:${c2};font-weight:700">Edge: +${totalEdge} pts</div>
+                   ${tp2.confidence ? `<div class="text-xs mt-1" style="color:var(--muted)">${tp2.confidence}% conf</div>` : ""}`
+                : `<div style="font-size:.95rem;font-weight:700;color:var(--muted)">No Edge</div>
+                   <div class="text-xs text-muted mt-1">${vegasTotal ? `O/U ${vegasTotal}` : ""}${modelTotal ? ` · Model: ${modelTotal.toFixed(1)}` : ""}</div>
+                   <div class="text-xs text-muted mt-1">&lt; 3 pt edge on total</div>`}
+            </div>`;
+          })()}
           <!-- Score -->
           <div style="border-radius:12px;padding:16px;text-align:center;border:2px solid var(--border);background:var(--surface)">
-            <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">Predicted Score</div>
+            <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">Projected Score</div>
             <div style="font-size:1.3rem;font-weight:900;color:var(--text)">${Math.round(homeScore)}&ndash;${Math.round(awayScore)}</div>
             <div class="text-xs text-muted mt-1">${home.abbreviation} vs ${away.abbreviation}</div>
-            <div class="text-xs text-muted">Total: ${pred.predictedTotal ? pred.predictedTotal.toFixed(1) : "—"}</div>
+            ${pred.predictedTotal ? `<div class="text-xs mt-1" style="color:var(--muted)">Total: <strong style="color:var(--text)">${pred.predictedTotal.toFixed(1)}</strong></div>` : ""}
           </div>
         </div>
+
+        ${(() => {
+          // O/U deep analysis section
+          const vegasTotal = game.bettingLines && game.bettingLines.total;
+          const modelTotal = pred.predictedTotal;
+          if (!vegasTotal && !modelTotal) return "";
+          const tp2 = pred.totalPick || {};
+          const hasTotalPick = tp2.side && tp2.side !== "no-bet";
+          const isOver = tp2.side === "over";
+          // Scoring pace
+          const hPPG = home.stats && home.stats.pointsPerGame || 0;
+          const aPPG = away.stats && away.stats.pointsPerGame || 0;
+          const hDef = home.stats && home.stats.pointsAllowedPerGame || 0;
+          const aDef = away.stats && away.stats.pointsAllowedPerGame || 0;
+          const hYPG = home.stats && home.stats.yardsPerGame || 0;
+          const aYPG = away.stats && away.stats.yardsPerGame || 0;
+          const hYAP = home.stats && home.stats.yardsAllowedPerGame || 0;
+          const aYAP = away.stats && away.stats.yardsAllowedPerGame || 0;
+          // Weather impact on total
+          const wi = pred.weatherImpact || {};
+          const wxAdj = wi.totalAdj || 0;
+          // Key signals
+          const factors2 = [];
+          const avgOff = (hPPG + aPPG) / 2;
+          const avgDef = (hDef + aDef) / 2;
+          if (avgOff >= 32) factors2.push({ icon: "🔥", label: "Both offenses elite scoring", impact: "OVER", note: `Avg ${avgOff.toFixed(0)} pts/g` });
+          else if (avgOff <= 22) factors2.push({ icon: "🛡", label: "Both offenses struggle to score", impact: "UNDER", note: `Avg ${avgOff.toFixed(0)} pts/g` });
+          if (avgDef <= 18) factors2.push({ icon: "🛡", label: "Elite defenses on both sides", impact: "UNDER", note: `Avg ${avgDef.toFixed(0)} pts allowed/g` });
+          else if (avgDef >= 30) factors2.push({ icon: "🔥", label: "Both defenses allow big scores", impact: "OVER", note: `Avg ${avgDef.toFixed(0)} pts allowed/g` });
+          if (Math.abs(wxAdj) >= 2) factors2.push({ icon: "🌧", label: "Weather suppresses scoring", impact: wxAdj < 0 ? "UNDER" : "OVER", note: `${wxAdj} pt adj` });
+          const isPrimetime = /pm|night|evening/i.test(game.time || "");
+          if (isPrimetime && avgOff >= 28) factors2.push({ icon: "🌙", label: "Night game + two high offenses", impact: "OVER", note: "Night games average +3 pts total" });
+          if (home.stats && home.stats.thirdDownPct >= 0.46 && away.stats && away.stats.thirdDownPct >= 0.46) factors2.push({ icon: "✅", label: "Both teams efficient on 3rd down", impact: "OVER", note: "Drives extend → more scoring" });
+          if (home.stats && home.stats.turnoversPerGame + away.stats.turnoversPerGame >= 4) factors2.push({ icon: "💀", label: "Both teams turnover-prone", impact: "UNDER", note: "Turnovers kill drives" });
+          const situational = game.situational || {};
+          if (situational.rivalryGame || game.isRivalryGame) factors2.push({ icon: "⚔️", label: "Rivalry game — defenses elevate", impact: "UNDER", note: "Rivals hold 3–7 pts below avg" });
+          if (!factors2.length && !hasTotalPick) return "";
+          const overCnt  = factors2.filter(f => f.impact === "OVER").length;
+          const underCnt = factors2.filter(f => f.impact === "UNDER").length;
+          const tDiff = modelTotal && vegasTotal ? Math.abs(modelTotal - vegasTotal).toFixed(1) : null;
+          return `
+          <div style="margin-top:14px;padding:14px;border-radius:var(--radius);background:rgba(255,255,255,.02);border:1px solid var(--border)">
+            <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">📊 OVER/UNDER BREAKDOWN</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+              ${vegasTotal ? `<div style="padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border);text-align:center">
+                <div style="font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Vegas Total</div>
+                <div style="font-size:1.1rem;font-weight:900;color:var(--text)">${vegasTotal}</div>
+              </div>` : ""}
+              ${modelTotal ? `<div style="padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border);text-align:center">
+                <div style="font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Model Projects</div>
+                <div style="font-size:1.1rem;font-weight:900;color:var(--primary)">${modelTotal.toFixed(1)}</div>
+              </div>` : ""}
+              ${tDiff ? `<div style="padding:8px 12px;border-radius:var(--radius);background:${hasTotalPick ? (isOver ? "rgba(16,185,129,.08)" : "rgba(239,68,68,.08)") : "rgba(255,255,255,.02)"};border:1px solid ${hasTotalPick ? (isOver ? "rgba(16,185,129,.3)" : "rgba(239,68,68,.3)") : "var(--border)"};text-align:center">
+                <div style="font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Difference</div>
+                <div style="font-size:1.1rem;font-weight:900;color:${hasTotalPick ? (isOver ? "var(--primary)" : "var(--danger)") : "var(--muted)"}">${isOver ? "+" : "-"}${tDiff}</div>
+              </div>` : ""}
+              <div style="padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border);text-align:center">
+                <div style="font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Proj. Score</div>
+                <div style="font-size:.85rem;font-weight:900;color:var(--text)">${Math.round(homeScore)}–${Math.round(awayScore)}</div>
+              </div>
+            </div>
+            ${factors2.length ? `<div style="display:flex;flex-direction:column;gap:6px">
+              ${factors2.map(f => {
+                const fc = f.impact === "OVER" ? "var(--primary)" : "var(--danger)";
+                const fb = f.impact === "OVER" ? "rgba(16,185,129,.06)" : "rgba(239,68,68,.06)";
+                return `<div style="display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;background:${fb}">
+                  <span style="font-size:.85rem;flex-shrink:0">${f.icon}</span>
+                  <span style="flex:1;font-size:.75rem;color:var(--text-soft)">${f.label} <span style="color:var(--muted)">${f.note}</span></span>
+                  <span style="font-size:.62rem;font-weight:800;letter-spacing:1px;color:${fc};background:${fb};border:1px solid ${fc}40;padding:2px 6px;border-radius:4px">${f.impact}</span>
+                </div>`;
+              }).join("")}
+            </div>` : ""}
+            ${hasTotalPick ? `<div style="margin-top:10px;padding:8px 12px;border-radius:var(--radius);background:${isOver ? "rgba(16,185,129,.08)" : "rgba(239,68,68,.08)"};border:1px solid ${isOver ? "rgba(16,185,129,.3)" : "rgba(239,68,68,.3)"};font-size:.73rem;color:var(--text-soft)">
+              <strong style="color:${isOver ? "var(--primary)" : "var(--danger)"}">${isOver ? "▲ OVER" : "▼ UNDER"} ${vegasTotal || ""}:</strong>
+              Model projects ${modelTotal ? modelTotal.toFixed(1) : "—"} — ${(tp2.edge || 0).toFixed(1)} pts ${isOver ? "above" : "below"} Vegas line.
+              ${overCnt > underCnt ? "Multiple factors push toward a higher-scoring game." : underCnt > overCnt ? "Multiple factors favor defensive game." : "Mixed signals — edge is based primarily on scoring pace vs Vegas number."}
+            </div>` : ""}
+          </div>`;
+        })()}
         ${adjRows.length || coachEdge ? `
         <div style="border-top:1px solid var(--border);padding-top:14px">
           <div class="text-xs text-muted mb-3" style="letter-spacing:1px;text-transform:uppercase">Line Shift Breakdown (vs Raw Model)</div>
@@ -1849,6 +2029,20 @@ function renderGamePage(gData) {
               </div>
             </div>
             ${wi.note ? `<div class="text-xs text-muted" style="font-style:italic;border-top:1px solid rgba(239,68,68,.15);padding-top:8px">${wi.note}</div>` : ""}
+            ${(() => {
+              const ta = wi.totalAdj || 0;
+              const ha = wi.homeAdj || 0;
+              const aa = wi.awayAdj || 0;
+              const msgs = [];
+              if (Math.abs(ta) >= 4) msgs.push(`<strong>Total:</strong> Extreme weather is worth ~${Math.abs(ta)} pts — lean heavily ${ta < 0 ? "UNDER" : "OVER"} if you're playing the total.`);
+              else if (Math.abs(ta) >= 2) msgs.push(`<strong>Total:</strong> Weather shaves ~${Math.abs(ta)} pts off scoring — modest ${ta < 0 ? "UNDER" : "OVER"} lean.`);
+              if (Math.abs(ha) >= 2 && ha < aa) msgs.push(`<strong>Spread:</strong> Weather hurts ${home.abbreviation} offense more (${ha} vs ${aa} adj) — slight edge to ${away.abbreviation} covers.`);
+              else if (Math.abs(aa) >= 2 && aa < ha) msgs.push(`<strong>Spread:</strong> Weather hurts ${away.abbreviation} more (${aa} vs ${ha} adj) — slight edge to ${home.abbreviation} covers.`);
+              if (!msgs.length) return "";
+              return `<div style="margin-top:8px;padding:8px 10px;border-radius:6px;background:rgba(239,68,68,.06);font-size:.72rem;color:var(--text-soft);line-height:1.55">
+                🎯 <strong style="color:var(--text)">Betting Implication:</strong> ${msgs.join(" ")}
+              </div>`;
+            })()}
           </div>` : `
           <div style="padding:10px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);border-radius:var(--radius);margin-bottom:10px">
             <div class="text-xs text-muted" style="font-style:italic">Weather conditions are favorable — no significant impact on scoring projections.</div>
