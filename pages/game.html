@@ -2888,6 +2888,16 @@ function renderGamePage(gData) {
       const pickTeam2IsHome = pickTeam2 && (pickTeam2.toLowerCase() === (home.name||"").toLowerCase() || pickTeam2.toLowerCase() === (home.abbreviation||"").toLowerCase());
       const sharpAgrees = sm2.strength >= 6 && sm2.side !== "neutral" &&
         ((sm2.side === "home" && pickTeam2IsHome) || (sm2.side === "away" && !pickTeam2IsHome));
+
+      // EV calculation — model's estimated win probability vs -110 standard odds
+      const spConf2 = sp2.confidence || 0; // 51-95 range (model's cover probability %)
+      const evWinProb = spConf2 > 0 ? spConf2 / 100 : 0.525; // fallback ~52.5%
+      const evWin = evWinProb * (100 / 110);    // win $90.91 per $100 risked at -110
+      const evLoss = (1 - evWinProb) * 1;       // lose $1 per $1 risked
+      const evPct = ((evWin - evLoss) * 100).toFixed(1); // EV% per dollar
+      const evPositive = parseFloat(evPct) > 0;
+      const evColor = evPositive ? "var(--primary)" : "var(--danger)";
+
       if (!hasPick2 && !isNoBet) return "";
       return `
       <div style="margin-bottom:16px;padding:12px 16px;border-radius:var(--radius-lg);background:${isNoBet ? "rgba(255,255,255,.02)" : isElite ? "rgba(16,185,129,.08)" : "rgba(255,255,255,.03)"};border:1px solid ${isNoBet ? "var(--border)" : isElite ? "rgba(16,185,129,.35)" : "rgba(255,255,255,.1)"};display:flex;align-items:center;gap:12px;flex-wrap:wrap">
@@ -2902,6 +2912,7 @@ function renderGamePage(gData) {
           ${pickConf2 ? `<span style="font-size:.6rem;font-weight:900;padding:3px 8px;border-radius:5px;background:${cColor2}20;border:1px solid ${cColor2}40;color:${cColor2}">${pickConf2}</span>` : ""}
           <span style="font-size:.6rem;font-weight:800;color:var(--muted-l)">${tp2Units}u</span>
           ${sp2.edge >= 1 ? `<span style="font-size:.6rem;font-weight:700;color:var(--primary)">+${sp2.edge} pts edge</span>` : ""}
+          ${spConf2 > 0 ? `<span style="font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:4px;background:${evPositive?"rgba(16,185,129,.1)":"rgba(239,68,68,.08)"};color:${evColor};border:1px solid ${evColor}40">EV ${evPct.startsWith("-")?"":"+"}${evPct}%</span>` : ""}
           ${sharpAgrees ? `<span style="font-size:.6rem;font-weight:700;color:var(--primary)">💰 Sharps agree</span>` : ""}
         </div>` : `<div style="flex:1;font-size:.82rem;color:var(--muted)">No edge vs Vegas — skip this game</div>`}
         <a href="#section-picks" style="font-size:.65rem;font-weight:700;color:var(--primary);text-decoration:none;flex-shrink:0;white-space:nowrap">Full Analysis ↓</a>

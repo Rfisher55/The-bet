@@ -658,10 +658,19 @@
   <!-- Value Alerts -->
   <section class="mb-5" id="value-alerts-section" style="display:none">
     <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">🔥 Value Alerts</div>
-      <span class="text-sm text-muted">Model finds biggest edges vs Vegas</span>
+      <div class="section-label mb-0">🔥 Spread Value Alerts</div>
+      <span class="text-sm text-muted">Model finds biggest spread edges vs Vegas</span>
     </div>
     <div id="value-alerts" style="display:flex;flex-direction:column;gap:8px"></div>
+  </section>
+
+  <!-- Totals Value Alerts -->
+  <section class="mb-5" id="totals-alerts-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">📊 Over/Under Value Alerts</div>
+      <span class="text-sm text-muted">Games where model disagrees with Vegas total by 3+ pts</span>
+    </div>
+    <div id="totals-alerts" style="display:flex;flex-direction:column;gap:8px"></div>
   </section>
 
   <!-- Sharp Money Tracker -->
@@ -715,6 +724,7 @@
           </div>
         </div>
       </div>
+      <div id="calc-exposure"></div>
       <div style="font-size:.65rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Suggested Bets — This Week's Picks</div>
       <div class="calc-picks-grid" id="calc-picks-grid"></div>
       <div style="margin-top:14px;padding:10px 14px;border-radius:var(--radius);background:rgba(255,255,255,.02);border:1px solid var(--border);font-size:.72rem;color:var(--muted)">
@@ -1203,6 +1213,81 @@ function renderValueAlerts() {
 }
 renderValueAlerts();
 
+// ── Totals Value Alerts ──────────────────────────────────────────
+function renderTotalsAlerts() {
+  var totalsAlerts = allPredictions
+    .filter(function(p) {
+      var tp = p.prediction.totalPick;
+      var bl = p.game.bettingLines;
+      var predTotal = p.prediction.predictedTotal;
+      if (!tp || tp.side === "no-bet" || !bl || !predTotal) return false;
+      var diff = Math.abs(predTotal - bl.total);
+      return diff >= 3;
+    })
+    .sort(function(a, b) {
+      var da = Math.abs((a.prediction.predictedTotal || 0) - (a.game.bettingLines.total || 0));
+      var db = Math.abs((b.prediction.predictedTotal || 0) - (b.game.bettingLines.total || 0));
+      return db - da;
+    })
+    .slice(0, 5);
+
+  if (!totalsAlerts.length) return;
+  document.getElementById("totals-alerts-section").style.display = "";
+  document.getElementById("totals-alerts").innerHTML = totalsAlerts.map(function(p) {
+    var game = p.game; var pred = p.prediction;
+    var tp = pred.totalPick;
+    var bl = game.bettingLines;
+    var predTotal = pred.predictedTotal;
+    var diff = predTotal - bl.total;
+    var absDiff = Math.abs(diff).toFixed(1);
+    var side = tp.side;
+    var isOver = side === "over";
+    var sideColor = isOver ? "var(--primary)" : "#38bdf8";
+    var sideBg = isOver ? "rgba(16,185,129,.1)" : "rgba(56,189,248,.1)";
+    var sideBorder = isOver ? "rgba(16,185,129,.25)" : "rgba(56,189,248,.25)";
+
+    // Explain WHY the model thinks it's over or under
+    var reasons = [];
+    var wi = pred.weatherImpact;
+    if (wi && wi.totalAdj) {
+      if (wi.totalAdj <= -3) reasons.push("Weather suppresses scoring (-" + Math.abs(wi.totalAdj) + " pts)");
+      else if (wi.totalAdj >= 3) reasons.push("Good weather boosts scoring (+" + wi.totalAdj + " pts)");
+    }
+    var oe = pred.overallEdge && pred.overallEdge.breakdown;
+    if (oe) {
+      if (isOver && oe.baseModelEdge > 2) reasons.push("Both offenses rated highly by SP+");
+      if (!isOver && oe.baseModelEdge < -1) reasons.push("One or both defenses rated superior");
+    }
+    var si = game.socialIntel || {};
+    if (si.beatWriter && si.beatWriter.length) {
+      var bw = si.beatWriter[0];
+      if (bw && bw.insight && bw.insight.toLowerCase().includes("scoring")) {
+        reasons.push("Beat writer: \"" + bw.insight.slice(0, 60) + "...\"");
+      }
+    }
+    if (!reasons.length) reasons.push("Model projection of " + predTotal.toFixed(1) + " vs Vegas " + bl.total);
+
+    return '<a class="value-alert-row" href="pages/game.html?id=' + game.id + '" style="border-color:' + sideBorder + ';background:rgba(255,255,255,.01)">' +
+      '<div style="min-width:70px;text-align:center;padding:8px 10px;border-radius:var(--radius);background:' + sideBg + ';border:1px solid ' + sideBorder + ';flex-shrink:0">' +
+        '<div style="font-size:1.1rem;font-weight:900;color:' + sideColor + '">' + (isOver ? 'OVER' : 'UNDER') + '</div>' +
+        '<div style="font-size:.75rem;font-weight:800;color:' + sideColor + '">' + bl.total + '</div>' +
+        '<div style="font-size:.52rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">+' + absDiff + ' edge</div>' +
+      '</div>' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap">' +
+          '<strong style="font-size:.88rem;color:var(--text)">' + game.awayTeam.abbreviation + ' @ ' + game.homeTeam.abbreviation + '</strong>' +
+          '<span style="font-size:.65rem;color:var(--muted)">· ' + fmtDate(game.date) + '</span>' +
+          '<span style="padding:2px 7px;border-radius:5px;font-size:.55rem;font-weight:800;background:' + sideBg + ';color:' + sideColor + ';border:1px solid ' + sideBorder + '">' +
+            (isOver ? 'OVER' : 'UNDER') + ' ' + bl.total + ' · Model: ' + predTotal.toFixed(1) + '</span>' +
+        '</div>' +
+        '<div style="font-size:.7rem;color:var(--muted)">' + reasons.slice(0, 2).join(' · ') + '</div>' +
+      '</div>' +
+      '<div style="font-size:.72rem;color:' + sideColor + ';font-weight:700;flex-shrink:0">View →</div>' +
+    '</a>';
+  }).join("");
+}
+renderTotalsAlerts();
+
 // ── Sharp Money Tracker ───────────────────────────────────────────
 function renderSharpTracker() {
   var sharpGames = allPredictions
@@ -1413,14 +1498,49 @@ renderDangerZone();
     var picks = calcPicks();
     var confColors = { ELITE: "var(--primary)", HIGH: "var(--primary)", MEDIUM: "var(--gold)", LOW: "var(--muted)" };
     var confBg = { ELITE: "rgba(16,185,129,.12)", HIGH: "rgba(16,185,129,.07)", MEDIUM: "rgba(245,158,11,.06)", LOW: "rgba(255,255,255,.02)" };
+
+    // Compute total exposure
+    var totalRisked = picks.reduce(function(acc, p) { return acc + (unit * p.units); }, 0);
+    var totalRiskedPct = bankroll > 0 ? (totalRisked / bankroll * 100) : 0;
+    var elitePicks = picks.filter(function(p) { return p.pickConf === "ELITE"; });
+    var maxWinAtBreakeven = totalRisked * (100 / 110); // -110 odds win
+    var elExposure = document.getElementById("calc-exposure");
+    if (elExposure) {
+      var safeZone = totalRiskedPct <= 8;
+      elExposure.innerHTML =
+        '<div style="display:flex;gap:12px;flex-wrap:wrap;padding:10px 14px;border-radius:var(--radius);background:' + (safeZone ? 'rgba(16,185,129,.05)' : 'rgba(245,158,11,.06)') + ';border:1px solid ' + (safeZone ? 'rgba(16,185,129,.2)' : 'rgba(245,158,11,.25)') + ';margin-bottom:12px">' +
+          '<div style="min-width:110px">' +
+            '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Total at Risk</div>' +
+            '<div style="font-size:1.1rem;font-weight:900;color:var(--text)">' + fmt$(totalRisked) + '</div>' +
+            '<div style="font-size:.62rem;color:var(--muted)">' + totalRiskedPct.toFixed(1) + '% of bankroll</div>' +
+          '</div>' +
+          '<div style="min-width:110px">' +
+            '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:2px">If All Win</div>' +
+            '<div style="font-size:1.1rem;font-weight:900;color:var(--primary)">+' + fmt$(maxWinAtBreakeven) + '</div>' +
+            '<div style="font-size:.62rem;color:var(--muted)">at standard -110</div>' +
+          '</div>' +
+          '<div style="min-width:110px">' +
+            '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Elite Picks</div>' +
+            '<div style="font-size:1.1rem;font-weight:900;color:var(--primary)">' + elitePicks.length + '</div>' +
+            '<div style="font-size:.62rem;color:var(--muted)">highest confidence</div>' +
+          '</div>' +
+          '<div style="min-width:130px;margin-left:auto">' +
+            '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:' + (safeZone ? 'var(--primary)' : 'var(--gold)') + ';margin-bottom:2px">Exposure Check</div>' +
+            '<div style="font-size:.78rem;font-weight:700;color:' + (safeZone ? 'var(--primary)' : 'var(--gold)') + '">' + (safeZone ? '✓ Safe range' : '⚠ Consider reducing') + '</div>' +
+            '<div style="font-size:.62rem;color:var(--muted)">Ideal: under 8% weekly</div>' +
+          '</div>' +
+        '</div>';
+    }
+
     document.getElementById("calc-picks-grid").innerHTML = picks.map(function(p) {
       var betAmt = unit * p.units;
       var c = confColors[p.pickConf] || "var(--muted)";
       var bg = confBg[p.pickConf] || "rgba(255,255,255,.02)";
+      var winAmt = betAmt * (100 / 110);
       return '<div class="calc-pick-card" style="background:' + bg + ';border-color:rgba(255,255,255,.07)">' +
         '<div class="calc-pick-team" style="color:' + c + '">' + p.pickTeam + '</div>' +
         '<div class="calc-pick-game">' + p.game.awayTeam.abbreviation + ' @ ' + p.game.homeTeam.abbreviation + (p.vegasLine ? ' · ' + p.vegasLine : '') + '</div>' +
-        '<div class="calc-pick-bet">' + fmt$(betAmt) + '</div>' +
+        '<div class="calc-pick-bet">' + fmt$(betAmt) + ' → <span style="color:var(--primary)">+' + fmt$(winAmt) + '</span></div>' +
         '<div class="calc-pick-conf">' + p.pickConf + ' · ' + p.units + 'u</div>' +
       '</div>';
     }).join("") || '<div style="color:var(--muted-l);font-size:.85rem">No picks found.</div>';
