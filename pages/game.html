@@ -750,6 +750,114 @@ function renderGamePage(gData) {
           </div>`;
         })()}
 
+        ${(() => {
+          // ── Pre-Bet Checklist ──────────────────────────────────
+          const sp3 = pred.spreadPick || {};
+          const sm3 = pred.sharpMoneySignal || {};
+          const bl3 = game.bettingLines;
+          const sit3 = game.situational || {};
+          const wp3  = game.weather || {};
+          const lmArr3 = (game.socialIntel && game.socialIntel.lineMovement) || [];
+          const injPlayers = Object.values(TEAMS || {}).reduce((acc, t) => {
+            if ((t.id === game.homeTeamId || t.id === game.awayTeamId) && t.keyInjuries) acc.push(...t.keyInjuries);
+            return acc;
+          }, []);
+
+          // Factor 1: Model Confidence
+          const conf3 = (pickConf || "MEDIUM").toUpperCase();
+          const conf3Status = conf3 === "ELITE" || conf3 === "HIGH" ? "green" : conf3 === "MEDIUM" ? "yellow" : "red";
+          const conf3Text = conf3 === "ELITE" ? "Elite confidence — all signals aligned" : conf3 === "HIGH" ? "High confidence — strong model conviction" : conf3 === "MEDIUM" ? "Moderate confidence — some conflicting signals" : "Low confidence — noisy data, consider passing";
+
+          // Factor 2: Sharp Money
+          const sm3Side = sm3.side || "neutral";
+          const sm3Str  = sm3.strength || 0;
+          const pickIsHome3 = officialPickIsHome;
+          const sharpAligned3 = sm3Str >= 6 && sm3Side !== "neutral" &&
+            ((sm3Side === "home" && pickIsHome3) || (sm3Side === "away" && !pickIsHome3));
+          const sharpOpposed3 = sm3Str >= 6 && sm3Side !== "neutral" && !sharpAligned3;
+          const sm3Status = sharpAligned3 ? "green" : sharpOpposed3 ? "red" : "yellow";
+          const sm3Text = sharpAligned3 ? "Sharp money agrees — professionals backing our pick" : sharpOpposed3 ? "Sharp money disagrees — professionals on the other side" : "Sharp money neutral or unclear — monitor";
+
+          // Factor 3: Line Movement
+          let lm3Status = "yellow", lm3Text = "Line movement data not available";
+          if (lmArr3.length >= 2) {
+            const open3 = lmArr3[0].spread;
+            const cur3  = lmArr3[lmArr3.length-1].spread;
+            const diff3 = cur3 - open3;
+            const favorsMePick = (pickIsHome3 && diff3 < -0.4) || (!pickIsHome3 && diff3 > 0.4);
+            const againstMyPick = (pickIsHome3 && diff3 > 0.4) || (!pickIsHome3 && diff3 < -0.4);
+            if (favorsMePick) { lm3Status = "green"; lm3Text = "Line moved toward our pick (" + fmtSpread(open3) + " → " + fmtSpread(cur3) + ") — market confirming direction"; }
+            else if (againstMyPick) { lm3Status = "red"; lm3Text = "Line moved against our pick (" + fmtSpread(open3) + " → " + fmtSpread(cur3) + ") — consider waiting or passing"; }
+            else { lm3Status = "yellow"; lm3Text = "Line stable since open (" + fmtSpread(open3) + ") — no strong movement signal"; }
+          }
+
+          // Factor 4: Key Number
+          let kn3Status = "green", kn3Text = "Not on a key number — push risk minimized";
+          if (bl3 && bl3.spread != null) {
+            const absSpread = Math.abs(bl3.spread);
+            const keyNums = [3, 7, 10, 14];
+            const onKey = keyNums.includes(absSpread);
+            const nearKey = keyNums.some(k => Math.abs(absSpread - k) <= 0.5) && !onKey;
+            if (onKey) { kn3Status = "red"; kn3Text = "Spread sits on key number (" + bl3.spread + ") — higher push risk, hooks matter here"; }
+            else if (nearKey) { kn3Status = "yellow"; kn3Text = "Spread near key number — half-point hook may be worth extra juice"; }
+            else { kn3Status = "green"; kn3Text = "Spread " + bl3.spread + " — no key number concerns"; }
+          }
+
+          // Factor 5: Injury Risk
+          let inj3Status = "green", inj3Text = "No known critical injuries affecting this game";
+          const keyPlayerData = (typeof KEY_PLAYERS !== "undefined") ? KEY_PLAYERS.filter(p =>
+            (p.teamId === game.homeTeamId || p.teamId === game.awayTeamId) &&
+            ["questionable","doubtful","out"].includes((p.injuryStatus || "").toLowerCase())
+          ) : [];
+          if (keyPlayerData.length) {
+            const critOut = keyPlayerData.filter(p => p.injuryStatus === "out");
+            const questionable = keyPlayerData.filter(p => p.injuryStatus !== "out");
+            if (critOut.length) {
+              inj3Status = "red";
+              inj3Text = critOut.map(p => p.name + " (OUT)").slice(0,2).join(", ") + " — verify pick is still valid";
+            } else {
+              inj3Status = "yellow";
+              inj3Text = questionable.map(p => p.name + " (Q)").slice(0,2).join(", ") + " — monitor final status";
+            }
+          }
+
+          const checks = [
+            { icon: "📊", label: "Confidence", status: conf3Status, text: conf3Text },
+            { icon: "💰", label: "Sharp $",    status: sm3Status,   text: sm3Text },
+            { icon: "📈", label: "Line Move",  status: lm3Status,   text: lm3Text },
+            { icon: "🎯", label: "Key Number", status: kn3Status,   text: kn3Text },
+            { icon: "🩺", label: "Injuries",   status: inj3Status,  text: inj3Text },
+          ];
+
+          const greenCount = checks.filter(c => c.status === "green").length;
+          const redCount   = checks.filter(c => c.status === "red").length;
+          const overallLight = redCount >= 2 ? "🔴" : redCount === 1 ? "🟡" : greenCount >= 4 ? "🟢" : "🟡";
+          const overallMsg = redCount >= 2 ? "Proceed with caution — multiple red flags" : redCount === 1 ? "One concern flagged — review before betting" : greenCount >= 4 ? "All clear — strong setup" : "Mostly positive — minor concerns noted";
+
+          const statusStyle = { green: "var(--primary)", yellow: "var(--gold)", red: "var(--danger)" };
+
+          return `
+          <div style="margin-top:12px;padding:12px 14px;border-radius:var(--radius);background:rgba(255,255,255,.02);border:1px solid var(--border)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+              <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">✓ PRE-BET CHECKLIST</div>
+              <div style="font-size:.72rem;font-weight:700;color:var(--text-soft)">${overallLight} ${overallMsg}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              ${checks.map(c => {
+                const dotColor = statusStyle[c.status] || "var(--muted)";
+                const dotIcon = c.status === "green" ? "✅" : c.status === "yellow" ? "⚠" : "🔴";
+                return `<div style="display:flex;align-items:flex-start;gap:8px">
+                  <span style="flex-shrink:0;font-size:.7rem;margin-top:1px">${dotIcon}</span>
+                  <div style="flex:1;min-width:0">
+                    <span style="font-size:.65rem;font-weight:800;color:${dotColor}">${c.icon} ${c.label}:</span>
+                    <span style="font-size:.68rem;color:var(--muted-l);margin-left:4px">${c.text}</span>
+                  </div>
+                </div>`;
+              }).join('')}
+            </div>
+          </div>`;
+        })()}
+
         ${topXf ? `
         <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid ${borderColor}20;display:flex;align-items:flex-start;gap:8px">
           <span style="font-size:1rem;flex-shrink:0">${catIcon(topXf.category)}</span>
