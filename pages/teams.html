@@ -371,6 +371,28 @@ function atsDisplay(t) {
   return `${a.wins}-${a.losses} (${Math.round(a.pct*100)}%)`;
 }
 
+function bestSpot(team) {
+  const sit = team.situational;
+  if (!sit) return null;
+  const labels = {
+    atsFavorite: "As favorite", atsUnderdog: "As underdog",
+    atsHome: "At home", atsAway: "Away",
+    afterLoss: "After a loss", afterBigWin: "After big win",
+    vsRanked: "vs Ranked", vsUnranked: "vs Unranked",
+    nightGame: "Night games"
+  };
+  let best = null, bestPct = 0.62; // minimum threshold
+  Object.keys(labels).forEach(function(k) {
+    const s = sit[k];
+    if (!s || typeof s !== "object") return;
+    const total = (s.wins||0) + (s.losses||0);
+    if (total < 5) return; // need meaningful sample
+    const pct = s.wins / total;
+    if (pct > bestPct) { bestPct = pct; best = { label: labels[k], pct: pct, wins: s.wins, losses: s.losses }; }
+  });
+  return best;
+}
+
 function getNextGame(team) {
   if (!window.GAMES) return null;
   const today = new Date().toISOString().slice(0,10);
@@ -416,6 +438,7 @@ function renderCard(team, rank) {
   const portal = ph.transferPortalRating || 0;
   const pg = portalGrade(portal);
   const ats = atsDisplay(team);
+  const spot = bestSpot(team);
   const gameCount = window.GAMES ? GAMES.filter(g => g.homeTeamId === team.id || g.awayTeamId === team.id).length : 0;
   const nextGame = nextGameLabel(team);
   const proj = projectedRecord(team);
@@ -480,6 +503,14 @@ function renderCard(team, rank) {
             <div class="pi-chip-lbl">ATS '25</div>
           </div>
         </div>
+        ${spot ? `<div style="margin-bottom:8px;padding:6px 10px;border-radius:8px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);display:flex;align-items:center;gap:6px">
+          <span style="font-size:.6rem">🔥</span>
+          <div style="flex:1;min-width:0">
+            <span style="font-size:.6rem;font-weight:800;color:var(--primary)">Best Spot: </span>
+            <span style="font-size:.6rem;color:var(--text)">${spot.label}</span>
+          </div>
+          <span style="font-size:.62rem;font-weight:900;color:var(--primary)">${spot.wins}-${spot.losses} (${Math.round(spot.pct*100)}%)</span>
+        </div>` : ""}
         <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
           <div>
             <div style="font-size:.62rem;color:var(--muted)">${team.lastSeasonRecord || (team.wins+"-"+team.losses+" ('25)")}</div>

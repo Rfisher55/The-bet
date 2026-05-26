@@ -185,6 +185,7 @@
         <div class="chip" data-t="conf">Conf</div>
         <div class="chip" data-t="nonconf">Non-Conf</div>
         <div class="chip" data-t="lines">Has Lines</div>
+        <div class="chip" data-t="sharp">💰 Sharp</div>
       </div>
     </div>
   </div>
@@ -944,6 +945,11 @@ function render() {
     list = list.filter(({ game }) => !game.isConferenceGame);
   } else if (typeFilter === "lines") {
     list = list.filter(({ game }) => game.bettingLines && game.bettingLines.spread != null);
+  } else if (typeFilter === "sharp") {
+    list = list.filter(({ prediction: pred }) => {
+      const sm = pred.sharpMoneySignal || {};
+      return sm.strength === "strong" || (sm.strength === "moderate" && (pred.spreadPick.edge||0) >= 2);
+    });
   }
 
   // Sort

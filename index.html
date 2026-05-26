@@ -269,6 +269,25 @@
       background: rgba(16,185,129,.07);
       transform: translateY(-1px);
     }
+    .conf-chip-name { font-size: .74rem; font-weight: 800; }
+    .conf-chip-ats  { font-size: .58rem; font-weight: 700; opacity: .75; margin-top: 1px; }
+    .conf-chip-inner { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+    .conf-chip.conf-hot  { border-color: rgba(16,185,129,.35); color: var(--primary); }
+    .conf-chip.conf-cold { border-color: rgba(239,68,68,.25);  color: var(--danger); }
+
+    /* ── Trending Teams ─────────────────────────────────── */
+    .trend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 480px) { .trend-grid { grid-template-columns: 1fr; } }
+    .trend-card { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); display: flex; align-items: center; gap: 12px; }
+    .trend-card.trend-hot  { border-color: rgba(16,185,129,.3); background: rgba(16,185,129,.03); }
+    .trend-card.trend-cold { border-color: rgba(239,68,68,.25); background: rgba(239,68,68,.03); }
+    .trend-logo { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .6rem; font-weight: 900; flex-shrink: 0; }
+    .trend-body { flex: 1; min-width: 0; }
+    .trend-name { font-size: .82rem; font-weight: 800; color: var(--text); }
+    .trend-sub  { font-size: .63rem; color: var(--muted); margin-top: 2px; }
+    .trend-badge { font-size: .58rem; font-weight: 900; padding: 2px 8px; border-radius: 5px; }
+    .trend-badge.hot  { background: rgba(16,185,129,.15); color: var(--primary); border: 1px solid rgba(16,185,129,.35); }
+    .trend-badge.cold { background: rgba(239,68,68,.10);  color: var(--danger);  border: 1px solid rgba(239,68,68,.3); }
 
     /* ── Power Rankings strip ───────────────────────────── */
     .power-strip {
@@ -650,7 +669,10 @@
   <section class="mb-5">
     <div class="flex items-center justify-between mb-4">
       <div class="section-label mb-0">Top Picks — Week 1</div>
-      <a href="pages/games.html?week=1" class="text-sm text-primary" style="text-decoration:underline">All Week 1 →</a>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button id="copy-picks-btn" onclick="copyWeekPicks()" style="padding:5px 12px;border-radius:8px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:var(--accent);font-size:.68rem;font-weight:800;cursor:pointer;transition:all .15s">📋 Copy Picks</button>
+        <a href="pages/games.html?week=1" class="text-sm text-primary" style="text-decoration:underline">All Week 1 →</a>
+      </div>
     </div>
     <div class="grid-3" id="top-picks"></div>
   </section>
@@ -748,8 +770,11 @@
 
   <!-- Browse by Conference -->
   <section class="mb-5">
-    <div class="conf-section-label">Browse by Conference</div>
-    <div class="chip-row">
+    <div class="flex items-center justify-between mb-4" style="margin-bottom:10px">
+      <div class="conf-section-label" style="margin-bottom:0">Browse by Conference</div>
+      <span style="font-size:.62rem;color:var(--muted)">ATS records from team data</span>
+    </div>
+    <div class="chip-row" id="conf-chips-row">
       <a class="conf-chip" href="pages/games.html?conf=SEC">SEC</a>
       <a class="conf-chip" href="pages/games.html?conf=Big+Ten">Big Ten</a>
       <a class="conf-chip" href="pages/games.html?conf=Big+12">Big 12</a>
@@ -759,6 +784,15 @@
       <a class="conf-chip" href="pages/games.html?conf=Sun+Belt">Sun Belt</a>
       <a class="conf-chip" href="pages/games.html?conf=MAC">MAC</a>
     </div>
+  </section>
+
+  <!-- Trending Teams ATS -->
+  <section class="mb-5" id="trending-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">🔥 Trending ATS — Hot &amp; Cold</div>
+      <a href="pages/teams.html" class="text-sm text-muted" style="text-decoration:underline">All teams →</a>
+    </div>
+    <div class="trend-grid" id="trending-grid"></div>
   </section>
 
   <!-- Power Rankings Preview -->
@@ -900,6 +934,8 @@
     renderSharpTracker();
     renderDangerZone();
     renderSystemAlerts();
+    renderConferenceATS();
+    renderTrendingTeams();
   });
 })();
 
@@ -1591,6 +1627,157 @@ function renderSystemAlerts() {
   }).join("");
 }
 renderSystemAlerts();
+
+// ── Copy Week's Picks to Clipboard ───────────────────────────────
+function copyWeekPicks() {
+  var confWeights = { ELITE: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+  var confUnits   = { ELITE: "2u", HIGH: "1.5u", MEDIUM: "1u", LOW: "0.5u" };
+  var lines = ["🏈 The Bet — Week 1 Picks", ""];
+  var scored = allPredictions.map(function(p) {
+    var tp = p.game.gamePreview && p.game.gamePreview.thePick;
+    var curatedConf = tp && tp.confidence ? tp.confidence.toUpperCase() : null;
+    var modelEdge = p.prediction.spreadPick.edge || 0;
+    return { p: p, conf: curatedConf, score: (confWeights[curatedConf]||0)*4 + modelEdge };
+  }).filter(function(x) {
+    return x.conf || (x.p.prediction.spreadPick.side !== "no-bet" && x.score > 2);
+  }).sort(function(a, b) { return b.score - a.score; });
+
+  if (!scored.length) {
+    lines.push("No picks available.");
+  } else {
+    scored.forEach(function(x, i) {
+      var p = x.p;
+      var game = p.game;
+      var pred = p.prediction;
+      var tp = game.gamePreview && game.gamePreview.thePick;
+      var pickTeam = (tp && tp.team) ? tp.team : pred.spreadPick.team;
+      var conf = x.conf || pred.confidence.toUpperCase();
+      var units = confUnits[conf] || "1u";
+      var bl = game.bettingLines;
+      var pickIsHome = pickTeam && (pickTeam.toLowerCase() === (game.homeTeam.name||"").toLowerCase() || pickTeam.toLowerCase() === (game.homeTeam.abbreviation||"").toLowerCase());
+      var line = bl ? " (" + (pickIsHome ? fmtSpread(bl.spread) : fmtSpread(-bl.spread)) + ")" : "";
+      var sp = pred.spreadPick;
+      var edge = sp && sp.edge > 0 ? " [+" + sp.edge + " pt edge]" : "";
+      lines.push((i+1) + ". " + pickTeam + " covers" + line + " · " + conf + " · " + units + edge);
+    });
+  }
+  lines.push("");
+  lines.push("Full analysis: The Bet — D1 Football Predictor");
+  var text = lines.join("\n");
+
+  var btn = document.getElementById("copy-picks-btn");
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      if (btn) { btn.textContent = "✅ Copied!"; setTimeout(function(){ btn.textContent = "📋 Copy Picks"; btn.innerHTML = "📋 Copy Picks"; }, 2000); }
+    });
+  } else {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    if (btn) { btn.textContent = "✅ Copied!"; setTimeout(function(){ btn.textContent = "📋 Copy Picks"; }, 2000); }
+  }
+}
+
+// ── Conference ATS Records ────────────────────────────────────────
+function renderConferenceATS() {
+  if (!window.TEAMS) return;
+  var confOrder = ["SEC","Big Ten","Big 12","ACC","AAC","MWC","Sun Belt","MAC"];
+  var confData = {};
+  Object.values(TEAMS).forEach(function(t) {
+    var c = t.conference;
+    if (!c) return;
+    if (!confData[c]) confData[c] = { wins: 0, losses: 0, pushes: 0 };
+    var ar = t.atsRecord;
+    if (ar && typeof ar === "object") {
+      confData[c].wins   += (ar.wins   || 0);
+      confData[c].losses += (ar.losses || 0);
+      confData[c].pushes += (ar.pushes || 0);
+    }
+  });
+
+  var row = document.getElementById("conf-chips-row");
+  if (!row) return;
+
+  var median = 0.525; // threshold for hot/cold
+  var chips = confOrder.map(function(name) {
+    var cd = confData[name];
+    var atsStr = "", cls = "";
+    if (cd && (cd.wins + cd.losses) > 0) {
+      var pct = cd.wins / (cd.wins + cd.losses);
+      atsStr = cd.wins + "-" + cd.losses + " (" + Math.round(pct * 100) + "%)";
+      if (pct >= 0.545) cls = "conf-hot";
+      else if (pct <= 0.485) cls = "conf-cold";
+    }
+    var href = "pages/games.html?conf=" + encodeURIComponent(name);
+    return '<a class="conf-chip ' + cls + '" href="' + href + '">'
+      + (atsStr
+        ? '<div class="conf-chip-inner"><div class="conf-chip-name">' + name + '</div><div class="conf-chip-ats">' + atsStr + '</div></div>'
+        : name)
+      + '</a>';
+  });
+  row.innerHTML = chips.join("");
+}
+renderConferenceATS();
+
+// ── Trending Teams ATS ────────────────────────────────────────────
+function renderTrendingTeams() {
+  if (!window.TEAMS) return;
+  var teams = Object.values(TEAMS).filter(function(t) {
+    return t.atsRecord && typeof t.atsRecord === "object" && (t.atsRecord.wins + t.atsRecord.losses) >= 5;
+  });
+  if (!teams.length) return;
+
+  // Sort by ATS pct descending for hot, ascending for cold
+  var sorted = teams.slice().sort(function(a, b) {
+    return (b.atsRecord.pct || 0) - (a.atsRecord.pct || 0);
+  });
+  var hot  = sorted.slice(0, 3);
+  var cold = sorted.slice(-3).reverse();
+
+  function textForBg(hex) {
+    if (!hex) return "#fff";
+    var c = hex.replace("#","");
+    if (c.length === 3) c = c[0]+c[0]+c[1]+c[1]+c[2]+c[2];
+    var r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
+    return (r*299 + g*587 + b*114) / 1000 > 128 ? "#000" : "#fff";
+  }
+
+  var cards = [];
+  hot.forEach(function(t) {
+    var ar = t.atsRecord;
+    var pct = Math.round((ar.pct || 0) * 100);
+    cards.push('<div class="trend-card trend-hot">'
+      + '<div class="trend-logo" style="background:' + (t.color||"#333") + ';color:' + textForBg(t.color) + '">' + (t.abbreviation||"").slice(0,3) + '</div>'
+      + '<div class="trend-body">'
+        + '<div class="trend-name">' + t.name + '</div>'
+        + '<div class="trend-sub">' + ar.wins + '-' + ar.losses + ' ATS · ' + t.conference + '</div>'
+      + '</div>'
+      + '<span class="trend-badge hot">' + pct + '% ATS</span>'
+      + '</div>');
+  });
+  cold.forEach(function(t) {
+    var ar = t.atsRecord;
+    var pct = Math.round((ar.pct || 0) * 100);
+    cards.push('<div class="trend-card trend-cold">'
+      + '<div class="trend-logo" style="background:' + (t.color||"#333") + ';color:' + textForBg(t.color) + '">' + (t.abbreviation||"").slice(0,3) + '</div>'
+      + '<div class="trend-body">'
+        + '<div class="trend-name">' + t.name + '</div>'
+        + '<div class="trend-sub">' + ar.wins + '-' + ar.losses + ' ATS · ' + t.conference + '</div>'
+      + '</div>'
+      + '<span class="trend-badge cold">' + pct + '% ATS</span>'
+      + '</div>');
+  });
+
+  var grid = document.getElementById("trending-grid");
+  if (grid) grid.innerHTML = cards.join("");
+  var sec = document.getElementById("trending-section");
+  if (sec && cards.length) sec.style.display = "";
+}
+renderTrendingTeams();
 
 // ── Bankroll Calculator ───────────────────────────────────────────
 (function() {

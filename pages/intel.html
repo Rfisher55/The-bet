@@ -83,6 +83,18 @@
     .bw-pos { border-left:3px solid var(--primary); }
     .bw-neg { border-left:3px solid var(--danger); }
     .bw-neu { border-left:3px solid var(--border-l); }
+
+    /* ── Sharp Money Summary ── */
+    .sm-row { display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;
+      border:1px solid var(--border);background:var(--surface);margin-bottom:7px;flex-wrap:wrap; }
+    .sm-row.sm-aligned  { border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.03); }
+    .sm-row.sm-conflict { border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.02); }
+    .sm-pct-bar { height:6px;border-radius:3px;background:rgba(255,255,255,.06);flex:1;min-width:80px;overflow:hidden;position:relative; }
+    .sm-pct-fill { height:100%;border-radius:3px;background:var(--primary); }
+    .sm-tag { font-size:.52rem;font-weight:900;padding:2px 7px;border-radius:5px;white-space:nowrap; }
+    .sm-align { background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary); }
+    .sm-conflict-tag { background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--gold); }
+    .sm-fade  { background:rgba(239,68,68,.10);border:1px solid rgba(239,68,68,.25);color:var(--danger); }
   </style>
 </head>
 <body>
@@ -122,6 +134,18 @@
       Real-time feed: Twitter/X · ESPN Injuries · Transfer Portal · Coaching moves
       <span id="intel-updated" style="margin-left:8px"></span>
     </div>
+  </div>
+
+  <!-- Sharp Money Summary -->
+  <div style="margin-bottom:24px" id="sm-summary-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">THIS WEEK</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">💰 Sharp vs. Public — All Games</div>
+      </div>
+      <span style="font-size:.62rem;color:var(--muted)">Where sharp money diverges from public</span>
+    </div>
+    <div id="sm-summary-dash"></div>
   </div>
 
   <!-- Line Movement Dashboard -->
@@ -529,6 +553,99 @@ function buildBeatWriterDash() {
   }).join("");
 }
 
+function buildSharpSummary() {
+  var el = document.getElementById("sm-summary-dash");
+  if (!el || !window.GAMES) return;
+
+  var rows = [];
+  GAMES.forEach(function(game) {
+    var g = window.resolveGame ? resolveGame(game) : game;
+    var pred = window.predictGame ? predictGame(g) : null;
+    var si = g.socialIntel || {};
+    var pb = si.publicBetting || {};
+    var lm = si.lineMovement || [];
+    var sm = pred && pred.sharpMoneySignal ? pred.sharpMoneySignal : null;
+
+    var homePct = pb.homePct || 50;
+    var awayPct = pb.awayPct || (100 - homePct);
+
+    // Determine public favorite
+    var pubSide   = homePct > awayPct ? "home" : "away";
+    var pubPct    = Math.max(homePct, awayPct);
+    var pubTeam   = pubSide === "home" ? g.homeTeam : g.awayTeam;
+    var pubLabel  = (pubTeam.abbreviation || pubTeam.name.slice(0,4)).toUpperCase();
+
+    // Line direction: did line move toward or against public favorite?
+    var lineDir = "stable";
+    if (lm.length >= 2) {
+      var diff = lm[lm.length-1].spread - lm[0].spread;
+      // negative diff = home favored more; positive = away favored more
+      if (Math.abs(diff) >= 0.5) {
+        var lineFavoredHome = diff < 0; // line moved toward home
+        lineDir = (lineFavoredHome === (pubSide === "home")) ? "with-public" : "against-public";
+      }
+    }
+
+    // Sharp signal
+    var sharpSide  = sm ? sm.side : null;
+    var sharpLabel = sharpSide ? (sharpSide === "home" ? g.homeTeam.abbreviation : g.awayTeam.abbreviation) : null;
+
+    // Classify the situation
+    var isRLM = lineDir === "against-public" && pubPct >= 57;
+    var isAligned = sharpSide && sm.strength === "strong" && sharpSide !== pubSide;
+    var note = "";
+    var tagCls = "";
+    var tagTxt = "";
+    var rowCls = "";
+
+    if (isRLM) {
+      note = "Public on " + pubLabel + " (" + Math.round(pubPct) + "%) but line moving against them";
+      tagTxt = "RLM"; tagCls = "sm-fade"; rowCls = "sm-conflict";
+    } else if (isAligned && sharpLabel) {
+      note = "Sharp action on " + sharpLabel + " against public flow";
+      tagTxt = "SHARP"; tagCls = "sm-align"; rowCls = "sm-aligned";
+    } else if (sm && sm.strength === "moderate") {
+      note = "Moderate sharp interest — monitor for movement";
+      tagTxt = "WATCH"; tagCls = "sm-conflict-tag"; rowCls = "sm-conflict";
+    } else {
+      return; // skip vanilla games
+    }
+
+    rows.push({
+      game: g, homePct: homePct, awayPct: awayPct, pubLabel: pubLabel, pubPct: pubPct,
+      note: note, tagTxt: tagTxt, tagCls: tagCls, rowCls: rowCls
+    });
+  });
+
+  if (!rows.length) {
+    el.innerHTML = '<div style="padding:16px;text-align:center;font-size:.78rem;color:var(--muted)">No significant sharp/public divergence detected this week.</div>';
+    return;
+  }
+
+  el.innerHTML = rows.slice(0, 8).map(function(r) {
+    var g = r.game;
+    var hAbbr = (g.homeTeam.abbreviation || g.homeTeam.name.slice(0,4)).toUpperCase();
+    var aAbbr = (g.awayTeam.abbreviation || g.awayTeam.name.slice(0,4)).toUpperCase();
+    var homeFill = Math.round(r.homePct);
+    return '<a href="game.html?id=' + g.id + '" class="sm-row ' + r.rowCls + '" style="text-decoration:none;display:flex">'
+      + '<span class="sm-tag ' + r.tagCls + '">' + r.tagTxt + '</span>'
+      + '<div style="flex:1;min-width:0;margin:0 8px">'
+        + '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">'
+          + '<span style="font-size:.78rem;font-weight:800;color:var(--text)">' + aAbbr + ' @ ' + hAbbr + '</span>'
+          + '<span style="font-size:.65rem;color:var(--muted)">Wk ' + (g.week||"?") + '</span>'
+        + '</div>'
+        + '<div style="display:flex;align-items:center;gap:8px">'
+          + '<span style="font-size:.6rem;color:var(--muted);flex-shrink:0">' + aAbbr + ' ' + Math.round(r.awayPct) + '%</span>'
+          + '<div class="sm-pct-bar"><div class="sm-pct-fill" style="width:' + homeFill + '%"></div></div>'
+          + '<span style="font-size:.6rem;color:var(--muted);flex-shrink:0">' + homeFill + '% ' + hAbbr + '</span>'
+        + '</div>'
+        + '<div style="font-size:.7rem;color:var(--text-soft);margin-top:4px">' + r.note + '</div>'
+      + '</div>'
+      + '<span style="font-size:.6rem;color:var(--primary);font-weight:700;flex-shrink:0;align-self:center">Analyze →</span>'
+      + '</a>';
+  }).join("");
+}
+
 function refreshAll() {
   var btn = document.getElementById("refresh-btn");
   btn.textContent = "↻ Refreshing...";
@@ -548,6 +665,7 @@ window.addEventListener("liveDataReady", function(e) {
   var d = e.detail || {};
   if (d.twitterTweets) window.__latestTweets = d.twitterTweets;
   if (d.espnNews)      window.__latestESPN   = d.espnNews;
+  buildSharpSummary();
   buildLineMoveDash();
   buildBeatWriterDash();
   buildItems();
@@ -561,6 +679,7 @@ setInterval(function() {
 }, 60000);
 
 // Initial render
+buildSharpSummary();
 buildLineMoveDash();
 buildBeatWriterDash();
 buildItems();

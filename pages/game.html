@@ -914,6 +914,51 @@ function renderGamePage(gData) {
           </div>`;
         })()}
 
+        ${(() => {
+          // ── Parlay Leg Quality ────────────────────────────────
+          const sp_pl = pred.spreadPick || {};
+          const conf_pl = (pickConf || "MEDIUM").toUpperCase();
+          const edge_pl = sp_pl.edge || 0;
+          const sm_pl = pred.sharpMoneySignal || {};
+          const wp_pl = pred.winProbability || 50;
+
+          // Compute a 0-100 leg score
+          let legScore = 0;
+          const confBonus = { ELITE: 35, HIGH: 25, MEDIUM: 15, LOW: 5 };
+          legScore += (confBonus[conf_pl] || 0);
+          legScore += Math.min(edge_pl * 4, 20);      // up to 20 pts for edge
+          legScore += wp_pl >= 65 ? 20 : wp_pl >= 58 ? 12 : wp_pl >= 52 ? 5 : 0;
+          legScore += sm_pl.strength === "strong" ? 15 : sm_pl.strength === "moderate" ? 8 : 0;
+          legScore = Math.min(legScore, 100);
+
+          let legGrade, legColor, legMsg;
+          if (legScore >= 75) {
+            legGrade = "EXCELLENT LEG"; legColor = "var(--primary)";
+            legMsg = "High-conviction pick with strong edge — ideal anchor for any parlay";
+          } else if (legScore >= 55) {
+            legGrade = "SOLID LEG"; legColor = "#34d399";
+            legMsg = "Good confidence and edge — suitable parlay leg, pairs well with high-conviction picks";
+          } else if (legScore >= 38) {
+            legGrade = "MARGINAL LEG"; legColor = "var(--gold)";
+            legMsg = "Moderate edge — only include if you need legs; add risk to multi-game parlays";
+          } else {
+            legGrade = "AVOID IN PARLAY"; legColor = "var(--danger)";
+            legMsg = "Low conviction — this leg weakens a parlay. Consider betting straight instead";
+          }
+
+          return `
+          <div style="margin-top:10px;padding:10px 14px;border-radius:var(--radius);background:${legColor}0d;border:1px solid ${legColor}30;display:flex;align-items:center;gap:12px">
+            <div style="flex-shrink:0;text-align:center">
+              <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">🎯 PARLAY LEG</div>
+              <div style="font-size:.7rem;font-weight:900;color:${legColor}">${legGrade}</div>
+              <div style="font-size:.6rem;color:var(--muted);margin-top:2px">Score: ${legScore}/100</div>
+            </div>
+            <div style="width:1px;height:36px;background:var(--border);flex-shrink:0"></div>
+            <div style="flex:1;font-size:.72rem;color:var(--text-soft);line-height:1.5">${legMsg}</div>
+            <a href="parlay.html" style="font-size:.62rem;color:var(--accent);font-weight:800;text-decoration:none;flex-shrink:0;white-space:nowrap">Build Parlay →</a>
+          </div>`;
+        })()}
+
         ${topXf ? `
         <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid ${borderColor}20;display:flex;align-items:flex-start;gap:8px">
           <span style="font-size:1rem;flex-shrink:0">${catIcon(topXf.category)}</span>
@@ -3084,6 +3129,40 @@ function renderGamePage(gData) {
     })()}
 
     ${safe(renderPreGameReport, "")}
+
+    ${(() => {
+      // ── Key Numbers Alert ────────────────────────────────────
+      const kn_bl = game.bettingLines;
+      if (!kn_bl || kn_bl.spread == null) return "";
+      const KEY_NUMS = [3, 3.5, 7, 7.5, 10, 10.5, 14];
+      const absSpread = Math.abs(kn_bl.spread);
+      const closest = KEY_NUMS.reduce(function(best, kn) {
+        return Math.abs(kn - absSpread) < Math.abs(best - absSpread) ? kn : best;
+      }, KEY_NUMS[0]);
+      const distFromKey = Math.abs(closest - absSpread);
+      if (distFromKey > 1) return ""; // only show if within 1 pt of a key number
+
+      const isOnKey = distFromKey < 0.1;
+      const keyMsgs = {
+        3:    "3 points is the most significant key number in football — games are decided by a field goal 15% of the time. Shop for -2.5 if you can.",
+        3.5:  "3 is the #1 key number nearby — line at 3.5 means you lose by 3 on a push. Consider if the hook is worth it.",
+        7:    "7 is the #2 key number — TD+PAT games. At exactly 7, consider betting the money line if the pick is a favorite.",
+        7.5:  "7 is one step away — you have the hook. Line at 7.5 means you survive a 7-point loss vs the alternative.",
+        10:   "10-point spreads historically push at a high rate. The range 9.5–10.5 is a key zone.",
+        10.5: "10 is a key number nearby — at 10.5 you have a half-point of protection over the key.",
+        14:   "Two-touchdown spreads historically hit at elevated rates. Shop for the best number in the 13.5–14.5 range.",
+      };
+      const msg = keyMsgs[closest] || ("Spread is near a key number (" + closest + ")");
+      const color = isOnKey ? "var(--gold)" : "var(--muted-l)";
+      return `
+      <div style="margin-bottom:16px;padding:10px 14px;border-radius:var(--radius);background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.2);display:flex;align-items:center;gap:10px">
+        <div style="flex-shrink:0;font-size:1rem">🔢</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px">KEY NUMBER ${isOnKey ? "— RIGHT ON IT" : "— NEARBY (" + distFromKey.toFixed(1) + " PTS AWAY)"}</div>
+          <div style="font-size:.72rem;color:var(--text-soft);line-height:1.5">${msg}</div>
+        </div>
+      </div>`;
+    })()}
 
     ${safe(renderKeyInsight, "")}
 
