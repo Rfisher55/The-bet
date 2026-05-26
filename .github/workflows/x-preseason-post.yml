@@ -1,12 +1,16 @@
 name: X Preseason Post
 
 on:
+  # Auto-schedule: once per day at 10am ET (14:00 UTC), Mon-Sat
+  schedule:
+    - cron: '0 14 * * 1-6'
+
   workflow_dispatch:
     inputs:
       angle:
         description: 'Content angle'
         required: true
-        default: 'intro'
+        default: 'hot-takes'
         type: choice
         options:
           - intro
@@ -28,17 +32,17 @@ on:
         required: false
         default: ''
       count:
-        description: 'Number of tweets to generate (default 1 for single posts, up to 5 for threads)'
+        description: 'Number of tweets (1=single post, 3-5=thread)'
         required: false
         default: '1'
       offset:
-        description: 'Team offset for rotate angle (0=start, 5=next 5, 10=next 10…)'
+        description: 'Team offset for rotate angle (0, 5, 10, 15…)'
         required: false
         default: '0'
       dry_run:
         description: 'Dry run — preview without posting'
         required: false
-        default: true
+        default: false
         type: boolean
 
 jobs:
@@ -58,7 +62,86 @@ jobs:
         run: npm install
         working-directory: scripts
 
-      - name: Generate & post preseason tweet
+      - name: Resolve angle from schedule
+        id: cfg
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "angle=${{ inputs.angle }}"   >> $GITHUB_OUTPUT
+            echo "count=${{ inputs.count }}"   >> $GITHUB_OUTPUT
+            echo "offset=${{ inputs.offset }}" >> $GITHUB_OUTPUT
+            echo "team=${{ inputs.team }}"     >> $GITHUB_OUTPUT
+            echo "conf=${{ inputs.conf }}"     >> $GITHUB_OUTPUT
+            echo "dry=${{ inputs.dry_run }}"   >> $GITHUB_OUTPUT
+          else
+            # Auto-schedule: rotate angles by day of week + week number
+            DOW=$(date +%u)       # 1=Mon … 6=Sat
+            WEEK=$(date +%V)      # ISO week number (1-52)
+            DAY_OF_YEAR=$(date +%j)
+
+            # Conference rotation (10 conferences, rotate by week)
+            CONFS=("SEC" "Big Ten" "Big 12" "ACC" "Mountain West" "Sun Belt" "MAC" "American Athletic" "Conference USA" "FBS Independents")
+            CONF_IDX=$(( (WEEK - 1) % 10 ))
+            CONF="${CONFS[$CONF_IDX]}"
+
+            # Team rotate offset: advances by 5 every day
+            OFFSET=$(( (DAY_OF_YEAR * 5) % 130 ))
+
+            case "$DOW" in
+              1) # Monday — Bold hot takes
+                echo "angle=hot-takes" >> $GITHUB_OUTPUT
+                echo "count=2"         >> $GITHUB_OUTPUT
+                echo "offset=0"        >> $GITHUB_OUTPUT
+                echo "conf="           >> $GITHUB_OUTPUT
+                echo "team="           >> $GITHUB_OUTPUT
+                ;;
+              2) # Tuesday — Conference power rankings
+                echo "angle=conference" >> $GITHUB_OUTPUT
+                echo "count=1"          >> $GITHUB_OUTPUT
+                echo "offset=0"         >> $GITHUB_OUTPUT
+                echo "conf=${CONF}"     >> $GITHUB_OUTPUT
+                echo "team="            >> $GITHUB_OUTPUT
+                ;;
+              3) # Wednesday — Team spotlight rotation (covers all 133 teams)
+                echo "angle=rotate"    >> $GITHUB_OUTPUT
+                echo "count=3"         >> $GITHUB_OUTPUT
+                echo "offset=${OFFSET}" >> $GITHUB_OUTPUT
+                echo "conf="           >> $GITHUB_OUTPUT
+                echo "team="           >> $GITHUB_OUTPUT
+                ;;
+              4) # Thursday — Sleepers (odd weeks) or Fades (even weeks)
+                if [ $(( WEEK % 2 )) -eq 1 ]; then
+                  echo "angle=sleepers" >> $GITHUB_OUTPUT
+                else
+                  echo "angle=fades"    >> $GITHUB_OUTPUT
+                fi
+                echo "count=3"  >> $GITHUB_OUTPUT
+                echo "offset=0" >> $GITHUB_OUTPUT
+                echo "conf="    >> $GITHUB_OUTPUT
+                echo "team="    >> $GITHUB_OUTPUT
+                ;;
+              5) # Friday — ATS value (odd weeks) or Transfer portal (even weeks)
+                if [ $(( WEEK % 2 )) -eq 1 ]; then
+                  echo "angle=ats-value" >> $GITHUB_OUTPUT
+                else
+                  echo "angle=portal"    >> $GITHUB_OUTPUT
+                fi
+                echo "count=3"  >> $GITHUB_OUTPUT
+                echo "offset=0" >> $GITHUB_OUTPUT
+                echo "conf="    >> $GITHUB_OUTPUT
+                echo "team="    >> $GITHUB_OUTPUT
+                ;;
+              6) # Saturday — Program momentum
+                echo "angle=momentum" >> $GITHUB_OUTPUT
+                echo "count=2"        >> $GITHUB_OUTPUT
+                echo "offset=0"       >> $GITHUB_OUTPUT
+                echo "conf="          >> $GITHUB_OUTPUT
+                echo "team="          >> $GITHUB_OUTPUT
+                ;;
+            esac
+            echo "dry=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Post to X
         env:
           X_API_KEY:             ${{ secrets.X_API_KEY }}
           X_API_SECRET:          ${{ secrets.X_API_SECRET }}
@@ -66,18 +149,22 @@ jobs:
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         run: |
           DRY=""
-          [ "${{ inputs.dry_run }}" = "true" ] && DRY="--dry-run"
+          [ "${{ steps.cfg.outputs.dry }}" = "true" ] && DRY="--dry-run"
 
           TEAM_ARG=""
-          [ -n "${{ inputs.team }}" ] && TEAM_ARG="--team \"${{ inputs.team }}\""
+          [ -n "${{ steps.cfg.outputs.team }}" ] && TEAM_ARG="--team \"${{ steps.cfg.outputs.team }}\""
 
           CONF_ARG=""
-          [ -n "${{ inputs.conf }}" ] && CONF_ARG="--conf \"${{ inputs.conf }}\""
+          [ -n "${{ steps.cfg.outputs.conf }}" ] && CONF_ARG="--conf \"${{ steps.cfg.outputs.conf }}\""
+
+          echo "Angle: ${{ steps.cfg.outputs.angle }}"
+          echo "Count: ${{ steps.cfg.outputs.count }}"
+          echo "Offset: ${{ steps.cfg.outputs.offset }}"
 
           node scripts/post-preseason.js \
-            --angle "${{ inputs.angle }}" \
-            --count "${{ inputs.count }}" \
-            --offset "${{ inputs.offset }}" \
+            --angle "${{ steps.cfg.outputs.angle }}" \
+            --count "${{ steps.cfg.outputs.count }}" \
+            --offset "${{ steps.cfg.outputs.offset }}" \
             $TEAM_ARG \
             $CONF_ARG \
             $DRY
