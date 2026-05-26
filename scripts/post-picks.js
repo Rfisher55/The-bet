@@ -104,6 +104,7 @@ function fmtTop5Thread(picks) {
   const badge     = recordBadge();
   const rankEmoji = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];
 
+  const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   const hook = [
     `🏈 THE BET — WEEK ${week} TOP ${picks.length} PICKS`,
     ``,
@@ -111,7 +112,7 @@ function fmtTop5Thread(picks) {
     `Only ${picks.length} made the cut.`,
     badge ? `\n${badge}` : '',
     ``,
-    `Here's where the edge is 👇`,
+    `Here's where the edge is 👇  (${today})`,
     `#CFB #CollegeFootball #TheBet`,
   ].filter(Boolean).join('\n').trim();
 
