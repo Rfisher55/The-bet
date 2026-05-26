@@ -78,3 +78,20 @@ jobs:
               echo "Running on '$CURRENT_BRANCH' — data committed locally but push skipped (only main pushes to origin)"
             fi
           fi
+
+      - name: Check and post breaking alerts
+        env:
+          X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
+        run: node scripts/check-alerts.js
+
+      - name: Rotate refresh token after alerts
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -s /tmp/new_refresh_token ]; then
+            gh secret set X_OAUTH2_REFRESH_TOKEN -R rfisher55/the-bet < /tmp/new_refresh_token
+            echo "✅ Refresh token rotated"
+          fi
