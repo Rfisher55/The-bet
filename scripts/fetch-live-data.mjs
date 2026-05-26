@@ -540,28 +540,99 @@ async function fetchRedditSentiment() {
   return buzz;
 }
 
-// ── Google News RSS — game-specific headlines ────────────────────────────
-async function fetchGameHeadlines(homeTeam, awayTeam, maxItems = 3) {
-  const q = encodeURIComponent(`"${homeTeam}" "${awayTeam}" football`);
-  const xml = await safeFetch(`${GNEWS_BASE}?q=${q}&hl=en-US&gl=US&ceid=US:en`, { text: true });
+// ── Google News RSS — shared parser ─────────────────────────────────────
+const IMPACT_KEYWORDS = {
+  critical: ["arrested","charged","indicted","suspended indefinitely","dismissed from team","expelled","guilty"],
+  negative: ["injured","out for season","torn","surgery","suspended","dismissed","transfer portal","decommits","fired","resigned","investigation","allegations","banned"],
+  positive: ["commits","enrolled","returns","promoted","extension","wins","ranked","signs","award","honor","drafted"],
+};
+function parseNewsXML(xml, maxItems = 5) {
   if (!xml) return [];
   const items = [];
   const itemRx = /<item>([\s\S]*?)<\/item>/g;
   let m;
   while ((m = itemRx.exec(xml)) !== null && items.length < maxItems) {
     const x = m[1];
-    const title  = (x.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)||x.match(/<title>(.*?)<\/title>/))?.[1]?.trim() || "";
-    const source = (x.match(/<source[^>]*><!\[CDATA\[(.*?)\]\]>/)||x.match(/<source[^>]*>(.*?)<\/source>/))?.[1]?.trim() || "News";
-    const pubDate= x.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || "";
+    const title   = (x.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)||x.match(/<title>(.*?)<\/title>/))?.[1]?.trim() || "";
+    const source  = (x.match(/<source[^>]*><!\[CDATA\[(.*?)\]\]>/)||x.match(/<source[^>]*>(.*?)<\/source>/))?.[1]?.trim() || "News";
+    const link    = (x.match(/<link>(.*?)<\/link>/))?.[1]?.trim() || "";
+    const pubDate = x.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || "";
     if (!title || title.length < 10) continue;
-    const lower  = title.toLowerCase();
-    const posW   = ["wins","victory","dominates","unbeaten","covers","strong","lock","extension","returns"];
-    const negW   = ["injury","injured","out","suspended","loss","upset","concern","doubts","misses"];
-    const sentiment = posW.some(w=>lower.includes(w)) ? "positive" : negW.some(w=>lower.includes(w)) ? "negative" : "neutral";
-    const daysAgo = pubDate ? Math.max(0, Math.round((Date.now()-new Date(pubDate).getTime())/86400000)) : 1;
-    items.push({ reporter: source, outlet: "Google News", report: title, sentiment, daysAgo });
+    const lower = title.toLowerCase();
+    const isCritical = IMPACT_KEYWORDS.critical.some(w => lower.includes(w));
+    const isNegative = IMPACT_KEYWORDS.negative.some(w => lower.includes(w));
+    const isPositive = IMPACT_KEYWORDS.positive.some(w => lower.includes(w));
+    const sentiment  = isCritical ? "critical" : isNegative ? "negative" : isPositive ? "positive" : "neutral";
+    const daysAgo    = pubDate ? Math.max(0, Math.round((Date.now() - new Date(pubDate).getTime()) / 86400000)) : 1;
+    items.push({ reporter: source, outlet: source, report: title, link, sentiment, daysAgo, isCritical });
   }
   return items;
+}
+
+// ── Google News RSS — game-specific headlines ────────────────────────────
+async function fetchGameHeadlines(homeTeam, awayTeam, maxItems = 3) {
+  const q = encodeURIComponent(`"${homeTeam}" "${awayTeam}" football`);
+  const xml = await safeFetch(`${GNEWS_BASE}?q=${q}&hl=en-US&gl=US&ceid=US:en`, { text: true });
+  return parseNewsXML(xml, maxItems);
+}
+
+// ── Google News RSS — per-team year-round news ──────────────────────────
+// Covers arrests, injuries, spring practice, transfers, coaching changes.
+// Runs on every workflow execution regardless of whether CFBD has games.
+async function fetchAllTeamNews() {
+  const FBS_TEAMS = [
+    ["alabama","Alabama Crimson Tide"],["georgia","Georgia Bulldogs"],
+    ["ohio_state","Ohio State Buckeyes"],["texas","Texas Longhorns"],
+    ["notre_dame","Notre Dame Fighting Irish"],["penn_state","Penn State Nittany Lions"],
+    ["michigan","Michigan Wolverines"],["clemson","Clemson Tigers"],
+    ["lsu","LSU Tigers"],["oregon","Oregon Ducks"],
+    ["tennessee","Tennessee Volunteers"],["miami","Miami Hurricanes"],
+    ["florida_state","Florida State Seminoles"],["texas_am","Texas A&M Aggies"],
+    ["auburn","Auburn Tigers"],["florida","Florida Gators"],
+    ["usc","USC Trojans"],["ucla","UCLA Bruins"],
+    ["washington","Washington Huskies"],["colorado","Colorado Buffaloes"],
+    ["utah","Utah Utes"],["byu","BYU Cougars"],
+    ["oklahoma_state","Oklahoma State Cowboys"],["kansas_state","Kansas State Wildcats"],
+    ["iowa_state","Iowa State Cyclones"],["tcu","TCU Horned Frogs"],
+    ["baylor","Baylor Bears"],["texas_tech","Texas Tech Red Raiders"],
+    ["iowa","Iowa Hawkeyes"],["wisconsin","Wisconsin Badgers"],
+    ["michigan_state","Michigan State Spartans"],["minnesota","Minnesota Gophers"],
+    ["illinois","Illinois Fighting Illini"],["indiana","Indiana Hoosiers"],
+    ["purdue","Purdue Boilermakers"],["nebraska","Nebraska Cornhuskers"],
+    ["north_carolina","North Carolina Tar Heels"],["nc_state","NC State Wolfpack"],
+    ["pittsburgh","Pittsburgh Panthers"],["virginia_tech","Virginia Tech Hokies"],
+    ["louisville","Louisville Cardinals"],["duke","Duke Blue Devils"],
+    ["wake_forest","Wake Forest Demon Deacons"],["smu","SMU Mustangs"],
+    ["arizona_state","Arizona State Sun Devils"],["arizona","Arizona Wildcats"],
+    ["boise_state","Boise State Broncos"],["fresno_state","Fresno State Bulldogs"],
+    ["san_diego_state","San Diego State Aztecs"],["utah_state","Utah State Aggies"],
+    ["ole_miss","Ole Miss Rebels"],["mississippi_state","Mississippi State Bulldogs"],
+    ["arkansas","Arkansas Razorbacks"],["kentucky","Kentucky Wildcats"],
+    ["south_carolina","South Carolina Gamecocks"],["vanderbilt","Vanderbilt Commodores"],
+    ["missouri","Missouri Tigers"],["west_virginia","West Virginia Mountaineers"],
+    ["tulane","Tulane Green Wave"],["memphis","Memphis Tigers"],
+    ["ucf","UCF Knights"],["cincinnati","Cincinnati Bearcats"],
+    ["houston","Houston Cougars"],["army","Army Black Knights"],
+    ["navy","Navy Midshipmen"],["app_state","Appalachian State Mountaineers"],
+    ["coastal_carolina","Coastal Carolina Chanticleers"],["liberty","Liberty Flames"],
+  ];
+
+  const teamNews = {};
+  // Batch 4 at a time with a 1.5s gap to avoid Google News rate limits
+  const BATCH = 4;
+  for (let i = 0; i < FBS_TEAMS.length; i += BATCH) {
+    await Promise.all(FBS_TEAMS.slice(i, i + BATCH).map(async ([teamId, teamName]) => {
+      // Primary: team-specific search (catches arrests, injuries, spring practice, etc.)
+      const q = encodeURIComponent(`"${teamName}" football`);
+      const xml = await safeFetch(`${GNEWS_BASE}?q=${q}&hl=en-US&gl=US&ceid=US:en`, { text: true });
+      const items = parseNewsXML(xml, 5);
+      if (items.length) teamNews[teamId] = items;
+    }));
+    if (i + BATCH < FBS_TEAMS.length) await new Promise(r => setTimeout(r, 1500));
+  }
+  const count = Object.keys(teamNews).length;
+  console.log(`  Team news: ${count} teams with headlines`);
+  return teamNews;
 }
 
 // ── CFBD: additional data endpoints ─────────────────────────────────────
@@ -669,10 +740,11 @@ async function main() {
   ]);
 
   // ── Phase 3: Social signals (parallel) ───────────────────────────────
-  console.log("Phase 3: Social signals (Reddit + ESPN injuries)...");
-  const [redditBuzz, injuries] = await Promise.all([
+  console.log("Phase 3: Social signals (Reddit + ESPN injuries + team news)...");
+  const [redditBuzz, injuries, teamNews] = await Promise.all([
     fetchRedditSentiment(),
     fetchESPNInjuries(),
+    fetchAllTeamNews(),   // year-round: arrests, spring injuries, transfers, coaching
   ]);
 
   // ── Build betting-lines lookup ────────────────────────────────────────
@@ -906,12 +978,13 @@ async function main() {
   const hasSP      = cfbdExtras.spRatings.length > 0;
   const hasInjury  = Object.values(injuries).flat().length > 0;
 
-  if (hasReddit || hasSP || hasInjury) {
+  const hasNews    = Object.keys(teamNews).length > 0;
+  if (hasReddit || hasSP || hasInjury || hasNews) {
     writeFileSync(join(DATA_DIR,"team-extras.json"),
-      JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz }, null, 2));
+      JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz, teamNews }, null, 2));
     writeFileSync(join(DATA_DIR,"injuries.json"),
       JSON.stringify({ generated: now, injuries }, null, 2));
-    console.log(`  Social/team data written — Reddit: ${Object.keys(redditBuzz).length} teams, SP+: ${cfbdExtras.spRatings.length}, injuries: ${Object.values(injuries).flat().length}`);
+    console.log(`  Social/team data written — Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, SP+: ${cfbdExtras.spRatings.length}, injuries: ${Object.values(injuries).flat().length}`);
   }
 
   // Only write game files when we actually have games — avoids a timestamp-only

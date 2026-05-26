@@ -1010,27 +1010,58 @@ function renderGamePage(gData) {
     const flaggedPl = allPlayers.filter(p => p.personalFlags && p.personalFlags.distractionLevel >= 5);
     const practiceNotes = allPlayers.filter(p => p.personalFlags && p.personalFlags.distractionNote);
 
+    // Pull live team news from team-extras.json (arrests, injuries, spring practice, transfers, Twitter)
+    const teamNewsMap = window.__teamNews || {};
+    const homeNews = (teamNewsMap[home.id] || []).slice(0, 4);
+    const awayNews = (teamNewsMap[away.id] || []).slice(0, 4);
+    const allTeamNews = [
+      ...homeNews.map(n => ({ ...n, team: home })),
+      ...awayNews.map(n => ({ ...n, team: away })),
+    ].sort((a, b) => (b.isCritical ? 1 : 0) - (a.isCritical ? 1 : 0) || a.daysAgo - b.daysAgo);
+
+    // Twitter insider alerts for these two teams
+    const teamIntel = window.TEAM_INTEL || {};
+    const homeTweets = [...((teamIntel[home.id]||{}).insiderAlerts||[]), ...((teamIntel[home.id]||{}).tweets||[]).slice(0,2)].slice(0,3);
+    const awayTweets = [...((teamIntel[away.id]||{}).insiderAlerts||[]), ...((teamIntel[away.id]||{}).tweets||[]).slice(0,2)].slice(0,3);
+    const twitterItems = [
+      ...homeTweets.map(t => ({ reporter:"𝕏 Twitter", outlet:"𝕏", report:t.text||"", link:"", sentiment:/arrest|suspend|dismiss|violation|fight|bar|party|dui|incident/i.test(t.text||"")?"critical":"negative", daysAgo:Math.max(0,Math.round((Date.now()-new Date(t.created_at).getTime())/86400000)), isCritical:/arrest|suspend|dismiss|violation|fight|bar|party|dui|incident/i.test(t.text||""), team:home, source:"twitter" })),
+      ...awayTweets.map(t => ({ reporter:"𝕏 Twitter", outlet:"𝕏", report:t.text||"", link:"", sentiment:/arrest|suspend|dismiss|violation|fight|bar|party|dui|incident/i.test(t.text||"")?"critical":"negative", daysAgo:Math.max(0,Math.round((Date.now()-new Date(t.created_at).getTime())/86400000)), isCritical:/arrest|suspend|dismiss|violation|fight|bar|party|dui|incident/i.test(t.text||""), team:away, source:"twitter" })),
+    ];
+
+    // Merge beat writers + live team news + Twitter into one ranked feed
+    const newsItems = [
+      ...bw.map(r => ({ ...r, team: r.team === game.homeTeamId ? home : away, source: "beatwriter" })),
+      ...allTeamNews.map(n => ({ ...n, source: "live" })),
+      ...twitterItems,
+    ].sort((a,b) => (b.isCritical?1:0)-(a.isCritical?1:0) || (a.daysAgo||0)-(b.daysAgo||0));
+
     return `
       <div class="card card-p mb-5" id="section-social">
         <div class="section-label">Social Intelligence Hub</div>
 
-        <!-- Beat Writer Reports -->
+        <!-- Breaking News + Beat Writer Reports -->
         <div style="margin-bottom:22px">
-          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>BEAT WRITER REPORTS<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
+          <div style="font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px;display:flex;align-items:center;gap:6px"><span style="width:20px;height:1px;background:var(--border);display:inline-block"></span>BREAKING NEWS &amp; BEAT WRITERS<span style="flex:1;height:1px;background:var(--border);display:inline-block"></span></div>
           <div style="display:grid;gap:10px">
-            ${bw.length ? bw.map(r => {
-              const team = r.team === game.homeTeamId ? home : away;
-              const sc = r.sentiment === "positive" ? "var(--primary)" : r.sentiment === "negative" ? "var(--danger)" : "var(--gold)";
+            ${newsItems.length ? newsItems.map(r => {
+              const team = (r.team && typeof r.team === "object") ? r.team : (r.team === game.homeTeamId ? home : away);
+              const sc = r.isCritical ? "var(--danger)" : r.sentiment === "positive" ? "var(--primary)" : r.sentiment === "negative" ? "var(--danger)" : "var(--gold)";
+              const borderStyle = r.isCritical ? "border-left:3px solid var(--danger);background:rgba(220,38,38,.06);" : "";
+              const srcIcon = r.source === "twitter" ? "𝕏" : r.source === "live" ? (r.isCritical ? "🚨" : "📰") : "✎";
+              const flagColor = r.isCritical ? "var(--danger)" : readableOnDark(team.color);
+              const headline = (r.source === "live" || r.source === "twitter") && r.link
+                ? `<a href="${r.link}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${r.report}</a>`
+                : r.report;
               return `
-                <div class="beat-writer-card">
-                  <div class="beat-writer-flag" style="color:${readableOnDark(team.color)}">✎ ${team.name.split(" ").pop()}</div>
+                <div class="beat-writer-card" style="${borderStyle}">
+                  <div class="beat-writer-flag" style="color:${flagColor}">${srcIcon} ${team.name.split(" ").pop()}</div>
                   <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap;margin-top:4px">
                     <span style="font-size:.8rem;font-weight:700;color:var(--text)">${r.reporter}</span>
-                    <span style="font-size:.7rem;color:var(--muted)">· ${r.outlet}</span>
-                    <span style="margin-left:auto;font-size:.65rem;color:var(--muted)">${r.daysAgo}d ago</span>
+                    ${r.outlet && r.outlet !== r.reporter ? `<span style="font-size:.7rem;color:var(--muted)">· ${r.outlet}</span>` : ""}
+                    <span style="margin-left:auto;font-size:.65rem;color:var(--muted)">${r.daysAgo != null ? r.daysAgo + "d ago" : ""}</span>
                   </div>
-                  <div style="font-size:.82rem;color:var(--text-soft);line-height:1.65">${r.report}</div>
-                  <div style="margin-top:8px;font-size:.65rem;font-weight:700;color:${sc};text-transform:uppercase">${r.sentiment === "positive" ? "↑ POSITIVE" : r.sentiment === "negative" ? "↓ NEGATIVE" : "→ NEUTRAL"} for ${team.name}</div>
+                  <div style="font-size:.82rem;color:var(--text-soft);line-height:1.65">${headline}</div>
+                  <div style="margin-top:8px;font-size:.65rem;font-weight:700;color:${sc};text-transform:uppercase">${r.isCritical ? "🚨 CRITICAL ALERT" : r.sentiment === "positive" ? "↑ POSITIVE" : r.sentiment === "negative" ? "↓ NEGATIVE" : "→ NEUTRAL"} — ${team.name}</div>
                 </div>`;
             }).join("") : xf.slice(0,3).map(x => {
               const iH = x.impactTeam === game.homeTeamId || x.impactTeam === "home";

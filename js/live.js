@@ -146,6 +146,25 @@
     });
 }());
 
+/* ── Team extras loader — loads team-extras.json (Reddit buzz, SP+, team news) ──
+   Fetched year-round by the workflow. Exposes window.__teamNews so the
+   Social Intelligence Hub can show breaking news for any team at any time. ── */
+(function _loadTeamExtras() {
+  var base = window.location.pathname.includes("/pages/") ? "../" : "./";
+  fetch(base + "data/team-extras.json", { cache: "no-cache" })
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d) return;
+      if (d.teamNews)   window.__teamNews      = d.teamNews;   // { [teamId]: [{report,sentiment,daysAgo,isCritical},...] }
+      if (d.redditBuzz) window.__teamRedditBuzz = d.redditBuzz; // { [teamId]: {score, sentiment} }
+      if (d.spRatings)  window.__spRatings     = d.spRatings;
+      if (d.injuries)   window.__teamInjuries  = d.injuries;
+      window.dispatchEvent(new CustomEvent("teamExtrasReady", { detail: d }));
+      console.log("[EXTRAS] Team news: " + Object.keys(d.teamNews||{}).length + " teams, SP+: " + (d.spRatings||[]).length + " teams");
+    })
+    .catch(function() {});
+}());
+
 const LIVE = (() => {
   const CFBD      = "https://api.collegefootballdata.com";
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
