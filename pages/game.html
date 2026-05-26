@@ -417,10 +417,9 @@ function catIcon(cat) {
 }
 
 function strengIcon(s) {
-  const lc = (s || "").toLowerCase();
-  if (lc.includes("extreme")) return "🔴";
-  if (lc.includes("strong"))  return "🟠";
-  if (lc.includes("mod"))     return "🟡";
+  if (s >= 9) return "🔴";
+  if (s >= 7) return "🟠";
+  if (s >= 5) return "🟡";
   return "⚪";
 }
 
@@ -2309,7 +2308,7 @@ function renderGamePage(gData) {
           <div>
             <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#f87171;margin-bottom:2px">REVERSE LINE MOVEMENT ALERT</div>
             <div style="font-size:.72rem;color:var(--text-soft);line-height:1.5">
-              Public betting ${pubHome < 50 ? Math.round(100-pubHome) : Math.round(pubHome)}% on ${pubHome < 50 ? home.name : away.name}
+              Public betting ${pubHome >= 50 ? Math.round(pubHome) : Math.round(100-pubHome)}% on ${pubHome >= 50 ? home.name : away.name}
               but line moved ${lineMoveDiff < 0 ? 'toward' : 'away from'} home — sharp money is fading the public.
             </div>
           </div>
@@ -2390,21 +2389,21 @@ function renderGamePage(gData) {
           <div style="font-size:.72rem;color:var(--muted);padding:8px 0">Line data not yet available for this game.</div>`}
 
         <!-- Public % breakdown -->
-        ${lm && (lm.homeTickets !== undefined || lm.homeMoney !== undefined) ? `
+        ${pb && (pb.homeTickets !== undefined || pb.homeMoney !== undefined) ? `
           <hr class="sec-divider" />
           <div class="text-xs text-muted mb-3" style="letter-spacing:1px;text-transform:uppercase">Public Betting %</div>
-          ${lm.homeTickets !== undefined ? `
+          ${pb.homeTickets !== undefined ? `
             <div class="text-xs text-muted mb-1">Ticket Split</div>
             <div style="display:flex;height:16px;border-radius:8px;overflow:hidden;margin-bottom:6px">
-              <div style="width:${lm.homeTickets}%;background:${home.color};display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff">${lm.homeTickets}%</div>
-              <div style="width:${100 - lm.homeTickets}%;background:${away.color};display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff">${100 - lm.homeTickets}%</div>
+              <div style="width:${pb.homeTickets}%;background:${home.color};display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff">${pb.homeTickets}%</div>
+              <div style="width:${100 - pb.homeTickets}%;background:${away.color};display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff">${100 - pb.homeTickets}%</div>
             </div>
             <div class="flex justify-between text-xxs text-muted mb-2"><span>${home.abbreviation}</span><span>${away.abbreviation}</span></div>` : ""}
-          ${lm.homeMoney !== undefined ? `
+          ${pb.homeMoney !== undefined ? `
             <div class="text-xs text-muted mb-1">Money Split</div>
             <div style="display:flex;height:16px;border-radius:8px;overflow:hidden;margin-bottom:6px">
-              <div style="width:${lm.homeMoney}%;background:${home.color}cc;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff">${lm.homeMoney}%</div>
-              <div style="width:${100 - lm.homeMoney}%;background:${away.color}cc;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff">${100 - lm.homeMoney}%</div>
+              <div style="width:${pb.homeMoney}%;background:${home.color}cc;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff">${pb.homeMoney}%</div>
+              <div style="width:${100 - pb.homeMoney}%;background:${away.color}cc;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff">${100 - pb.homeMoney}%</div>
             </div>
             <div class="flex justify-between text-xxs text-muted"><span>${home.abbreviation}</span><span>${away.abbreviation}</span></div>` : ""}` : ""}
 
@@ -2439,9 +2438,9 @@ function renderGamePage(gData) {
     const condEmoji = indoors ? "🏟️"
       : condition && condition.toLowerCase().includes("snow") ? "❄️"
       : condition && condition.toLowerCase().includes("rain") ? "🌧️"
-      : windMph >= 20 ? "💨"
-      : tempF >= 88 ? "🌡️"
-      : tempF <= 38 ? "🥶"
+      : windMph != null && windMph >= 20 ? "💨"
+      : tempF != null && tempF >= 88 ? "🌡️"
+      : tempF != null && tempF <= 38 ? "🥶"
       : "☀️";
 
     const wxImpactColor = wi && Math.abs(wi.totalAdj||0) >= 3 ? "var(--danger)" : wi && Math.abs(wi.totalAdj||0) >= 1 ? "var(--gold)" : "var(--primary)";
@@ -2611,8 +2610,10 @@ function renderGamePage(gData) {
               ${rec !== null ? `<span style="font-size:.72rem;font-weight:800;color:${recColor}">${rec} ATS (${pct}%)</span>` : ""}
               ${pct !== null && pct >= 57 ? `<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);color:var(--primary);font-weight:800">🔥 HOT</span>` : ""}
               ${pct !== null && pct <= 43 ? `<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:var(--danger);font-weight:800">🚫 COLD</span>` : ""}
-              ${streak >= 3 ? `<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.3);color:#fb923c;font-weight:800">🔥 ${streak}-0 streak</span>` : ""}
-              ${sitH && sitH.atsHome && sitH === (team.id === home.id ? sitH : sitA) ? `<span style="font-size:.55rem;color:var(--muted);margin-left:auto">Home: ${sitH.atsHome.wins}-${sitH.atsHome.losses}</span>` : ""}
+              ${streak >= 3 ? `<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.3);color:#fb923c;font-weight:800">🔥 ${streak}-game ATS streak</span>` : ""}
+              ${team.id === home.id
+                ? (sitH && sitH.atsHome ? `<span style="font-size:.55rem;color:var(--muted);margin-left:auto">Home: ${sitH.atsHome.wins}-${sitH.atsHome.losses}</span>` : "")
+                : (sitA && sitA.atsAway ? `<span style="font-size:.55rem;color:var(--muted);margin-left:auto">Road: ${sitA.atsAway.wins}-${sitA.atsAway.losses}</span>` : "")}
             </div>`;
           }
           return `<div class="text-xs text-muted mb-2" style="letter-spacing:1px;text-transform:uppercase;margin-top:10px">ATS Records</div>
@@ -3092,9 +3093,9 @@ function renderGamePage(gData) {
             })()
           : "";
         return `
-          <a href="${a.url || "#"}" target="_blank" rel="noopener" style="display:block;text-decoration:none;padding:8px 10px;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
-            <div style="font-size:.72rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:3px">${a.headline}</div>
-            ${a.description ? `<div style="font-size:.65rem;color:var(--muted);line-height:1.4">${a.description.slice(0, 100)}${a.description.length > 100 ? "…" : ""}</div>` : ""}
+          <a href="${/^https?:\/\//i.test(a.url||'') ? a.url.replace(/"/g,'%22') : '#'}" target="_blank" rel="noopener" style="display:block;text-decoration:none;padding:8px 10px;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+            <div style="font-size:.72rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:3px">${esc(a.headline)}</div>
+            ${a.description ? `<div style="font-size:.65rem;color:var(--muted);line-height:1.4">${esc(a.description.slice(0, 100))}${a.description.length > 100 ? "…" : ""}</div>` : ""}
             <div style="font-size:.6rem;color:var(--muted);margin-top:4px">ESPN${ago ? " · " + ago : ""}</div>
           </a>`;
       }).join("");
@@ -3113,8 +3114,8 @@ function renderGamePage(gData) {
             })()
           : "";
         return `
-          <a href="${p.url}" target="_blank" rel="noopener" style="display:block;text-decoration:none;padding:8px 10px;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
-            <div style="font-size:.7rem;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:3px">${p.title.slice(0, 100)}${p.title.length > 100 ? "…" : ""}</div>
+          <a href="${/^https?:\/\//i.test(p.url||'') ? p.url.replace(/"/g,'%22') : '#'}" target="_blank" rel="noopener" style="display:block;text-decoration:none;padding:8px 10px;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);border-radius:6px">
+            <div style="font-size:.7rem;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:3px">${esc(p.title.slice(0, 100))}${p.title.length > 100 ? "…" : ""}</div>
             <div style="display:flex;gap:8px;align-items:center;font-size:.6rem;color:var(--muted)">
               <span style="color:${sentColor};font-weight:700">▲ ${p.score}</span>
               <span>${p.comments} comments</span>
@@ -3715,6 +3716,18 @@ window.addCurrentPickToParlay = function() {
     return false;
   }
 
+  // Always register player-refresh so richer live KEY_PLAYERS update the
+  // roster section even when static data already rendered the page.
+  window.addEventListener("liveDataReady", function onLivePlayerRefresh(e) {
+    if (!e.detail || e.detail._fromPregen) return; // skip pregen events
+    const rosterEl = document.getElementById("section-roster");
+    if (!rosterEl || !window._gameRosterRenderer) return;
+    try {
+      const fresh = window._gameRosterRenderer();
+      if (fresh) rosterEl.outerHTML = fresh;
+    } catch {}
+  });
+
   // Static data has it — render immediately
   if (tryRender()) return;
 
@@ -3750,18 +3763,6 @@ window.addCurrentPickToParlay = function() {
   window.addEventListener("liveDataReady", function onLiveReady() {
     window.removeEventListener("liveDataReady", onLiveReady);
     if (!tryRender()) showNotFound();
-  });
-
-  // After pregen fires and renders the page quickly, live data may arrive later
-  // with richer KEY_PLAYERS (from CFBD API). Re-render just the player section.
-  window.addEventListener("liveDataReady", function onLivePlayerRefresh(e) {
-    if (!e.detail || e.detail._fromPregen) return; // skip pregen events
-    const rosterEl = document.getElementById("section-roster");
-    if (!rosterEl || !window._gameRosterRenderer) return;
-    try {
-      const fresh = window._gameRosterRenderer();
-      if (fresh) rosterEl.outerHTML = fresh;
-    } catch {}
   });
 })();
 </script>
