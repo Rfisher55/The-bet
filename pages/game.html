@@ -1050,6 +1050,10 @@ function renderGamePage(gData) {
             + "<div style=\"font-size:.72rem;color:var(--text-soft);line-height:1.5\">" + edgeNoteEV + "</div>"
             + "</div>";
         })()}
+      </div>
+      <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <button id="quick-add-btn" onclick="addCurrentPickToTracker()" style="padding:7px 16px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-size:.72rem;font-weight:800;cursor:pointer;transition:all .15s">📋 Track This Pick</button>
+        <a href="picks.html" style="font-size:.68rem;color:var(--muted);font-weight:700;text-decoration:underline">My Picks →</a>
       </div>`;
   }
 
@@ -3436,6 +3440,18 @@ function renderGamePage(gData) {
 
   document.title = `${away.name} @ ${home.name} — The Bet`;
 
+  window._gamePick = {
+    gameId: game.id,
+    homeTeam: home.name,
+    awayTeam: away.name,
+    pickTeam: officialPickTeam,
+    pickConf: (game.gamePreview && game.gamePreview.thePick && game.gamePreview.thePick.confidence) || (pred && pred.confidence) || "medium",
+    pickLine: (game.gamePreview && game.gamePreview.thePick && game.gamePreview.thePick.line) || (game.bettingLines && game.bettingLines.spread != null ? fmtSpread(game.bettingLines.spread) : ""),
+    pickSide: officialPickIsHome ? "home" : "away",
+    gameWeek: game.week || null,
+    gameDate: game.date || null,
+  };
+
   /* ── Section TOC (sticky right nav, desktop only) ── */
   const tocSections = [
     { id: "section-picks",      label: "Picks" },
@@ -3479,6 +3495,48 @@ function renderGamePage(gData) {
     console.error("Game render error:", err);
   }
 }
+
+// ── Quick Pick Tracker ──────────────────────────────────
+window.addCurrentPickToTracker = function() {
+  var dp = window._gamePick;
+  if (!dp || !dp.pickTeam) return;
+  var LS_KEY = 'theBet_myPicks';
+  var btn = document.getElementById("quick-add-btn");
+  var picks = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+  if (picks.some(function(p) { return p.gameId === dp.gameId; })) {
+    if (btn) { btn.textContent = "✓ Already Tracked"; btn.style.opacity = ".6"; }
+    return;
+  }
+  picks.unshift({
+    id: Date.now().toString(),
+    date: dp.gameDate || new Date().toISOString().slice(0,10),
+    game: dp.awayTeam + " @ " + dp.homeTeam,
+    pick: dp.pickTeam + " covers" + (dp.pickLine ? " " + dp.pickLine : ""),
+    odds: -110,
+    wager: 100,
+    result: "pending",
+    notes: "Added from game page · " + (dp.pickConf || "").toUpperCase() + " confidence",
+    addedAt: new Date().toISOString(),
+    gameId: dp.gameId,
+    pickSide: dp.pickSide,
+    pickLine: parseFloat(dp.pickLine) || null,
+    pickType: "spread",
+    gameWeek: dp.gameWeek || null,
+    homeTeam: dp.homeTeam,
+    awayTeam: dp.awayTeam,
+  });
+  localStorage.setItem(LS_KEY, JSON.stringify(picks));
+  if (btn) {
+    btn.textContent = "✅ Added to My Picks!";
+    btn.style.background = "rgba(16,185,129,.25)";
+    btn.style.borderColor = "var(--primary)";
+    setTimeout(function() {
+      btn.textContent = "📋 Track This Pick";
+      btn.style.background = "rgba(16,185,129,.12)";
+      btn.style.borderColor = "rgba(16,185,129,.3)";
+    }, 2500);
+  }
+};
 
 // ── Boot: find game now, or wait for live data ──────────
 (function boot() {
