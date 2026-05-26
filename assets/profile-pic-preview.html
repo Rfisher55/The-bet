@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Bet — Profile Pic</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 24px;
+    }
+    .preview {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(16,185,129,0.3);
+    }
+    .preview img { width: 100%; height: 100%; }
+    p {
+      color: #6b7280;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hint {
+      color: #10b981;
+      font-weight: 700;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview">
+    <img src="profile-pic.svg" alt="The Bet profile pic"/>
+  </div>
+  <p class="hint">Screenshot this on your iPhone</p>
+  <p>Then crop to just the circle in Photos app<br>before uploading to X</p>
+</body>
+</html>
