@@ -1239,8 +1239,8 @@ function buildActionPlan(a, b, effPred, gameCtx) {
   if (kelly <= 0) cautionBullets.push('Negative Kelly — model does not recommend betting at current price');
   if (effPred.trapGameAlert) cautionBullets.push('Trap game risk — look-ahead or letdown spot detected');
   if (gameCtx && gameCtx.weather && !gameCtx.weather.indoors) {
-    if (gameCtx.weather.windMph >= 20) cautionBullets.push('High winds (' + gameCtx.weather.windMph + ' mph) — passing game may struggle');
-    if (gameCtx.weather.tempF <= 32) cautionBullets.push('Freezing conditions — favor rush-heavy teams and UNDERs');
+    if (gameCtx.weather.windMph != null && gameCtx.weather.windMph >= 20) cautionBullets.push('High winds (' + gameCtx.weather.windMph + ' mph) — passing game may struggle');
+    if (gameCtx.weather.tempF != null && gameCtx.weather.tempF <= 32) cautionBullets.push('Freezing conditions — favor rush-heavy teams and UNDERs');
   }
 
   var spreadLabel = bl.spread != null

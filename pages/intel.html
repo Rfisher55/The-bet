@@ -648,13 +648,13 @@ function buildWeatherAlerts() {
     var flags = [];
     var severity = 0;
 
-    if (wx.windMph >= 20) { flags.push("🌬️ " + wx.windMph + " mph winds"); severity = Math.max(severity, wx.windMph >= 25 ? 3 : 2); }
-    else if (wx.windMph >= 15) { flags.push("💨 " + wx.windMph + " mph gusts"); severity = Math.max(severity, 1); }
+    if (wx.windMph != null && wx.windMph >= 20) { flags.push("🌬️ " + wx.windMph + " mph winds"); severity = Math.max(severity, wx.windMph >= 25 ? 3 : 2); }
+    else if (wx.windMph != null && wx.windMph >= 15) { flags.push("💨 " + wx.windMph + " mph gusts"); severity = Math.max(severity, 1); }
 
-    if (wx.tempF <= 32) { flags.push("🥶 Freezing (" + wx.tempF + "°F)"); severity = Math.max(severity, 3); }
-    else if (wx.tempF <= 40) { flags.push("❄️ Cold (" + wx.tempF + "°F)"); severity = Math.max(severity, 2); }
-    else if (wx.tempF >= 95) { flags.push("🔥 Extreme heat (" + wx.tempF + "°F)"); severity = Math.max(severity, 2); }
-    else if (wx.tempF >= 88) { flags.push("☀️ Hot (" + wx.tempF + "°F)"); severity = Math.max(severity, 1); }
+    if (wx.tempF != null && wx.tempF <= 32) { flags.push("🥶 Freezing (" + wx.tempF + "°F)"); severity = Math.max(severity, 3); }
+    else if (wx.tempF != null && wx.tempF <= 40) { flags.push("❄️ Cold (" + wx.tempF + "°F)"); severity = Math.max(severity, 2); }
+    else if (wx.tempF != null && wx.tempF >= 95) { flags.push("🔥 Extreme heat (" + wx.tempF + "°F)"); severity = Math.max(severity, 2); }
+    else if (wx.tempF != null && wx.tempF >= 88) { flags.push("☀️ Hot (" + wx.tempF + "°F)"); severity = Math.max(severity, 1); }
 
     if (/rain|thunder|storm/i.test(wx.condition || "")) { flags.push("🌧️ " + wx.condition); severity = Math.max(severity, 2); }
     else if (/cloud|overcast/i.test(wx.condition || "")) { flags.push("☁️ " + wx.condition); }

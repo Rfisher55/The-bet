@@ -1062,7 +1062,7 @@ function render() {
     list = list.filter(({ game }) => {
       const wx = game.weather;
       if (!wx || wx.indoors) return false;
-      return (wx.windMph >= 15) || (wx.tempF <= 40) || /rain|thunder|storm|snow/i.test(wx.condition || "");
+      return (wx.windMph != null && wx.windMph >= 15) || (wx.tempF != null && wx.tempF <= 40) || /rain|thunder|storm|snow/i.test(wx.condition || "");
     });
   } else if (typeFilter === "triplelock") {
     // Triple Lock: high/elite conf + sharp money aligned + public ≤42% on our pick
