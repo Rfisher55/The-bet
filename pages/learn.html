@@ -1177,6 +1177,41 @@
       </div>
     </div>
 
+    <!-- Bankroll Growth Planner -->
+    <div class="section-label" style="margin-top:28px">&#128200; Bankroll Growth Planner</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Given your starting bankroll, win rate, and bet volume, how much should your bankroll grow over a season? See how edge compounds into real money with consistent unit betting.</p>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:28px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Starting Bankroll ($)</label>
+          <input type="number" id="bgp-bank" value="1000" min="100" step="100"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            oninput="calcBankrollGrowth()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Win Rate (%)</label>
+          <input type="number" id="bgp-wr" value="55" min="40" max="80" step="0.5"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            oninput="calcBankrollGrowth()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Bets / Week</label>
+          <input type="number" id="bgp-vol" value="5" min="1" max="30"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            oninput="calcBankrollGrowth()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Unit Size (%)</label>
+          <input type="number" id="bgp-unit" value="1" min="0.25" max="5" step="0.25"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            oninput="calcBankrollGrowth()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+      </div>
+      <div id="bgp-result" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+        <div style="font-size:.78rem;color:var(--muted)">Enter values to project bankroll growth</div>
+      </div>
+    </div>
+
   </div><!-- /#tab-tools -->
 
 </main><!-- /.container.page-content -->
@@ -1761,6 +1796,85 @@ function calcRoundRobin() {
     + '<div style="font-size:.68rem;color:var(--muted);margin-top:8px;line-height:1.5">Assumes all legs at -110 odds. Round robins protect against 1-2 losses while still paying multi-leg parlay odds on your hits.</div>';
 }
 calcRoundRobin();
+
+// Bankroll Growth Planner
+function calcBankrollGrowth() {
+  var bank0  = parseFloat(document.getElementById('bgp-bank').value) || 1000;
+  var wr     = parseFloat(document.getElementById('bgp-wr').value) / 100 || 0.55;
+  var vol    = parseInt(document.getElementById('bgp-vol').value, 10) || 5;
+  var unitPct = parseFloat(document.getElementById('bgp-unit').value) / 100 || 0.01;
+  var el     = document.getElementById('bgp-result');
+  if (!el) return;
+
+  // Standard -110 odds → decimal 1.909, loss = 1 unit
+  var decOdds = 100 / 110 + 1; // ~1.909
+  var loseRate = 1 - wr;
+
+  // Expected ROI per bet (at -110)
+  var evPerBet = wr * (decOdds - 1) - loseRate * 1; // in units (unit = 1)
+  var roiPerBet = evPerBet * unitPct; // as fraction of bankroll per bet
+
+  // Simulate season (14 weeks CFB season)
+  var weeks = 14;
+  var checkpoints = [1, 4, 8, 14];
+  var bank = bank0;
+  var weeklyData = [];
+  for (var w = 1; w <= weeks; w++) {
+    var bets = vol;
+    var expectedWins = bets * wr;
+    var expectedLosses = bets * loseRate;
+    var unit = bank * unitPct;
+    var netChange = (expectedWins * unit * (decOdds - 1)) - (expectedLosses * unit);
+    bank += netChange;
+    weeklyData.push({ week: w, bank: bank });
+  }
+
+  var endBank = weeklyData[weeks - 1].bank;
+  var totalGrowth = ((endBank - bank0) / bank0 * 100).toFixed(1);
+  var totalProfit = (endBank - bank0).toFixed(2);
+  var isPos = endBank >= bank0;
+  var growthColor = isPos ? 'var(--primary)' : 'var(--danger)';
+
+  // Break-even analysis
+  var beWr = (100 / (100 + 100 * (decOdds - 1))) * 100;
+  var edgePct = ((wr - beWr / 100) * 100).toFixed(1);
+
+  // Milestone weeks
+  var mileRows = checkpoints.map(function(wk) {
+    var d = weeklyData[wk - 1];
+    if (!d) return '';
+    var g = ((d.bank - bank0) / bank0 * 100).toFixed(1);
+    var c = d.bank >= bank0 ? 'var(--primary)' : 'var(--danger)';
+    return '<div style="text-align:center;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+      + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px">Wk ' + wk + '</div>'
+      + '<div style="font-size:.88rem;font-weight:900;color:' + c + '">$' + Math.round(d.bank).toLocaleString() + '</div>'
+      + '<div style="font-size:.52rem;color:' + c + ';font-weight:700">' + (parseFloat(g) >= 0 ? '+' : '') + g + '%</div>'
+    + '</div>';
+  }).join('');
+
+  var unitDollar = (bank0 * unitPct).toFixed(2);
+  var riskPerWeek = (bank0 * unitPct * vol).toFixed(2);
+
+  el.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">'
+    + '<div style="text-align:center;padding:10px 14px;border-radius:10px;background:' + (isPos ? 'rgba(16,185,129,.1)' : 'rgba(239,68,68,.08)') + ';border:1px solid ' + (isPos ? 'rgba(16,185,129,.3)' : 'rgba(239,68,68,.25)') + '">'
+      + '<div style="font-size:1.3rem;font-weight:900;color:' + growthColor + '">' + (isPos ? '+' : '') + totalGrowth + '%</div>'
+      + '<div style="font-size:.55rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px">14-Week Growth</div>'
+    + '</div>'
+    + '<div style="text-align:center;padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--border)">'
+      + '<div style="font-size:1.3rem;font-weight:900;color:' + growthColor + '">' + (isPos ? '+$' : '-$') + Math.abs(parseFloat(totalProfit)).toFixed(0) + '</div>'
+      + '<div style="font-size:.55rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px">Net Profit</div>'
+    + '</div>'
+    + '<div style="text-align:center;padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--border)">'
+      + '<div style="font-size:1.3rem;font-weight:900;color:' + (parseFloat(edgePct) > 0 ? 'var(--primary)' : 'var(--danger)') + '">' + (parseFloat(edgePct) > 0 ? '+' : '') + edgePct + '%</div>'
+      + '<div style="font-size:.55rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px">Edge Over Book</div>'
+    + '</div>'
+    + '</div>'
+    + '<div style="font-size:.62rem;color:var(--muted);margin-bottom:10px">1 unit = <strong style="color:var(--text)">$' + unitDollar + '</strong> &nbsp;·&nbsp; Weekly risk at ' + vol + ' bets: <strong style="color:var(--text)">$' + riskPerWeek + '</strong> &nbsp;·&nbsp; Break-even win rate: <strong style="color:var(--text)">' + beWr.toFixed(1) + '%</strong> (at -110)</div>'
+    + '<div style="font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Season Milestones</div>'
+    + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">' + mileRows + '</div>'
+    + '<div style="font-size:.68rem;color:var(--muted);line-height:1.5">Assumes proportional unit sizing (unit scales with bankroll as it grows/shrinks). Actual results vary; this is a mathematical expectation, not a guarantee. All bets at -110 standard vig.</div>';
+}
+calcBankrollGrowth();
 </script>
 
 <!-- ── Tab switching JS ────────────────────────────── -->

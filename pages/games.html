@@ -191,6 +191,8 @@
         <div class="chip" data-t="weather">🌬️ Weather</div>
         <div class="chip" data-t="triplelock">🔒 Triple Lock</div>
         <div class="chip" data-t="streak">🔥 ATS Streak</div>
+        <div class="chip" data-t="homedog">🐶 Home Dog</div>
+        <div class="chip" data-t="bigspread">🏔️ Big Spread</div>
       </div>
     </div>
   </div>
@@ -1065,6 +1067,18 @@ function render() {
       const awayTeam = window.TEAMS && TEAMS[game.awayTeamId];
       return (homeTeam && (homeTeam.atsCurrentStreak || 0) >= 3) ||
              (awayTeam && (awayTeam.atsCurrentStreak || 0) >= 3);
+    });
+  } else if (typeFilter === "homedog") {
+    // Home Dog: home team is getting points (spread > 3.5 means home is a real dog)
+    list = list.filter(({ game }) => {
+      const bl = game.bettingLines || {};
+      return bl.spread != null && bl.spread > 3.5;
+    });
+  } else if (typeFilter === "bigspread") {
+    // Big Spread: spread of 14+ points (big favorites / blowout candidates)
+    list = list.filter(({ game }) => {
+      const bl = game.bettingLines || {};
+      return bl.spread != null && Math.abs(bl.spread) >= 14;
     });
   }
 

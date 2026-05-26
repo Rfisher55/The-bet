@@ -208,6 +208,30 @@
     <div id="beat-writer-dash"></div>
   </div>
 
+  <!-- Triple Lock — all signals align -->
+  <div style="margin-bottom:24px" id="triple-lock-intel-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">HIGHEST CONVICTION</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">🔒 Triple Lock — Model + Sharps + ATS Streak</div>
+      </div>
+      <a href="games.html?type=triplelock" style="font-size:.62rem;color:var(--primary);text-decoration:none;font-weight:700">See all →</a>
+    </div>
+    <div id="triple-lock-intel-dash"></div>
+  </div>
+
+  <!-- Conference ATS Leaderboard -->
+  <div style="margin-bottom:24px" id="conf-ats-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">CONFERENCE PERFORMANCE</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">🏆 Conference ATS Leaderboard</div>
+      </div>
+      <span style="font-size:.62rem;color:var(--muted)">Which conferences are beating Vegas — ranked by ATS win rate</span>
+    </div>
+    <div id="conf-ats-dash"></div>
+  </div>
+
   <!-- Public Overload Section -->
   <div style="margin-bottom:24px" id="public-overload-section">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
@@ -1004,9 +1028,132 @@ function buildPublicOverload() {
   }).join('');
 }
 
+function buildTripleLockIntel() {
+  var el = document.getElementById("triple-lock-intel-dash");
+  if (!el || !window.GAMES) return;
+
+  var locks = [];
+  window.GAMES.forEach(function(game) {
+    try {
+      var g = window.resolveGame ? resolveGame(game) : game;
+      var pred = window.predictGame ? predictGame(g) : null;
+      if (!pred) return;
+      var tp = g.gamePreview && g.gamePreview.thePick;
+      var sp = pred.spreadPick || {};
+      var pickConf = ((tp && tp.confidence) || pred.confidence || "").toLowerCase();
+      if (pickConf !== "elite" && pickConf !== "high") return;
+      var pickTeam = tp && tp.team ? tp.team : sp.team;
+      if (!pickTeam) return;
+      var pickIsHome = pickTeam.toLowerCase() === (g.homeTeam.name || "").toLowerCase() ||
+                       pickTeam.toLowerCase() === (g.homeTeam.abbreviation || "").toLowerCase();
+      var sm = pred.sharpMoneySignal || {};
+      var sharpAligned = sm.side && ((pickIsHome && sm.side === "home") || (!pickIsHome && sm.side === "away"))
+        && (sm.strength === "strong" || sm.strength === "moderate");
+      if (!sharpAligned) return;
+      var pickedTeamObj = pickIsHome ? g.homeTeam : g.awayTeam;
+      var teamData = window.TEAMS && TEAMS[pickedTeamObj.id];
+      var atsStreak = teamData && (teamData.atsCurrentStreak || 0);
+      // Score: streak bonus + model edge + public fade bonus
+      var pb = (g.socialIntel && g.socialIntel.publicBetting) || {};
+      var pubOnPick = pickIsHome ? (pb.homePct || 50) : (100 - (pb.homePct || 50));
+      var fadingPublic = pubOnPick <= 45;
+      var score = (pickConf === "elite" ? 30 : 20) + (atsStreak >= 3 ? atsStreak * 3 : 0) + (fadingPublic ? 15 : 0) + (sp.edge || 0);
+      locks.push({ g: g, pred: pred, pickConf: pickConf, pickTeam: pickTeam, pickIsHome: pickIsHome, pickedTeamObj: pickedTeamObj, atsStreak: atsStreak, fadingPublic: fadingPublic, pubOnPick: pubOnPick, score: score, smStrength: sm.strength });
+    } catch(e) {}
+  });
+
+  if (!locks.length) {
+    el.innerHTML = '<div style="padding:14px;text-align:center;font-size:.78rem;color:var(--muted)">No Triple Lock plays this week — all three signals (model + sharps + ATS streak) must align.</div>';
+    return;
+  }
+
+  locks.sort(function(a, b) { return b.score - a.score; });
+
+  el.innerHTML = locks.slice(0, 5).map(function(lk) {
+    var g = lk.g;
+    var hAbbr = (g.homeTeam.abbreviation || g.homeTeam.name.slice(0,4)).toUpperCase();
+    var aAbbr = (g.awayTeam.abbreviation || g.awayTeam.name.slice(0,4)).toUpperCase();
+    var pickAbbr = (lk.pickedTeamObj.abbreviation || lk.pickedTeamObj.name.slice(0,4)).toUpperCase();
+    var confBg = lk.pickConf === "elite" ? "rgba(16,185,129,.12)" : "rgba(99,102,241,.12)";
+    var confColor = lk.pickConf === "elite" ? "var(--primary)" : "var(--accent)";
+    var smBadge = '<span style="font-size:.52rem;padding:1px 6px;border-radius:4px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);color:#a78bfa;font-weight:800">⚡ ' + lk.smStrength.toUpperCase() + ' SHARP</span>';
+    var confBadge = '<span style="font-size:.52rem;padding:1px 6px;border-radius:4px;background:' + confBg + ';border:1px solid ' + confColor + '40;color:' + confColor + ';font-weight:800">' + lk.pickConf.toUpperCase() + '</span>';
+    var streakBadge = lk.atsStreak >= 3 ? '<span style="font-size:.52rem;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);color:#fb923c;font-weight:800">🔥 ' + lk.atsStreak + '-0 ATS</span>' : '';
+    var fadeBadge = lk.fadingPublic ? '<span style="font-size:.52rem;padding:1px 6px;border-radius:4px;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.25);color:#f472b6;font-weight:800">🔄 FADE ' + Math.round(100 - lk.pubOnPick) + '% PUBLIC</span>' : '';
+    return '<a href="game.html?id=' + g.id + '" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:12px;background:var(--card);border:1px solid rgba(16,185,129,.3);margin-bottom:8px;transition:border-color .15s">'
+      + '<div style="width:44px;height:44px;border-radius:50%;background:rgba(16,185,129,.12);border:2px solid rgba(16,185,129,.35);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:var(--primary);flex-shrink:0">🔒</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:4px">' + aAbbr + ' @ ' + hAbbr + ' · Wk ' + (g.week || '?') + ' — Back <span style="color:var(--primary)">' + pickAbbr + '</span></div>'
+        + '<div style="display:flex;gap:4px;flex-wrap:wrap">' + confBadge + ' ' + smBadge + (streakBadge ? ' ' + streakBadge : '') + (fadeBadge ? ' ' + fadeBadge : '') + '</div>'
+      + '</div>'
+      + '<div style="font-size:.65rem;color:var(--primary);font-weight:700;flex-shrink:0">Analyze →</div>'
+    + '</a>';
+  }).join('');
+}
+
+function buildConfATSLeaderboard() {
+  var el = document.getElementById("conf-ats-dash");
+  if (!el || !window.TEAMS) return;
+
+  var confMap = {};
+  Object.values(window.TEAMS).forEach(function(team) {
+    var conf = team.conference || "Independent";
+    if (!confMap[conf]) confMap[conf] = { wins: 0, losses: 0, pushes: 0, teams: 0, streak: 0 };
+    var r = team.atsRecord;
+    if (!r) return;
+    confMap[conf].wins   += r.wins   || 0;
+    confMap[conf].losses += r.losses || 0;
+    confMap[conf].pushes += r.pushes || 0;
+    confMap[conf].teams++;
+    // Count streaking teams (3+)
+    if ((team.atsCurrentStreak || 0) >= 3) confMap[conf].streak++;
+  });
+
+  var rows = Object.entries(confMap)
+    .filter(function(e) { return e[1].wins + e[1].losses >= 4; })
+    .map(function(e) {
+      var name = e[0], d = e[1];
+      var total = d.wins + d.losses;
+      var pct = total > 0 ? d.wins / total : 0;
+      return { name: name, wins: d.wins, losses: d.losses, pushes: d.pushes, pct: pct, teams: d.teams, streak: d.streak };
+    })
+    .sort(function(a, b) { return b.pct - a.pct; });
+
+  if (!rows.length) {
+    el.innerHTML = '<div style="padding:14px;text-align:center;font-size:.78rem;color:var(--muted)">ATS data unavailable — loads with live game data.</div>';
+    return;
+  }
+
+  var medal = ["🥇","🥈","🥉"];
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px">'
+    + rows.slice(0, 8).map(function(r, i) {
+      var pctPct = Math.round(r.pct * 100);
+      var barColor = r.pct >= 0.55 ? "var(--primary)" : r.pct >= 0.50 ? "var(--gold)" : "var(--danger)";
+      var textColor = r.pct >= 0.55 ? "var(--primary)" : r.pct >= 0.50 ? "var(--gold)" : "var(--danger)";
+      return '<div style="padding:12px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--border)">'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
+          + '<div style="display:flex;align-items:center;gap:6px">'
+            + '<span style="font-size:.85rem">' + (medal[i] || "") + '</span>'
+            + '<div style="font-size:.78rem;font-weight:800;color:var(--text)">' + r.name + '</div>'
+          + '</div>'
+          + '<div style="font-size:1rem;font-weight:900;color:' + textColor + '">' + pctPct + '%</div>'
+        + '</div>'
+        + '<div style="height:5px;border-radius:3px;background:var(--border);overflow:hidden;margin-bottom:6px">'
+          + '<div style="height:100%;border-radius:3px;background:' + barColor + ';width:' + pctPct + '%;transition:width .4s"></div>'
+        + '</div>'
+        + '<div style="display:flex;justify-content:space-between;align-items:center">'
+          + '<div style="font-size:.62rem;color:var(--muted)">' + r.wins + '-' + r.losses + (r.pushes ? '-' + r.pushes : '') + ' ATS · ' + r.teams + ' teams</div>'
+          + (r.streak > 0 ? '<div style="font-size:.58rem;font-weight:800;color:#fb923c">🔥 ' + r.streak + ' streaking</div>' : '')
+        + '</div>'
+      + '</div>';
+    }).join('')
+    + '</div>';
+}
+
 window.addEventListener("teamIntelReady", function() {
   buildWeatherAlerts();
   buildInjuryImpact();
+  buildConfATSLeaderboard();
   buildItems();
   renderGrid();
 });
@@ -1015,8 +1162,10 @@ window.addEventListener("liveDataReady", function(e) {
   var d = e.detail || {};
   if (d.twitterTweets) window.__latestTweets = d.twitterTweets;
   if (d.espnNews)      window.__latestESPN   = d.espnNews;
+  buildTripleLockIntel();
   buildValuePlays();
   buildPublicOverload();
+  buildConfATSLeaderboard();
   buildWeatherAlerts();
   buildInjuryImpact();
   buildSharpSummary();
@@ -1033,8 +1182,10 @@ setInterval(function() {
 }, 60000);
 
 // Initial render
+buildTripleLockIntel();
 buildValuePlays();
 buildPublicOverload();
+buildConfATSLeaderboard();
 buildWeatherAlerts();
 buildInjuryImpact();
 buildSharpSummary();

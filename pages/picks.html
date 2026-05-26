@@ -284,6 +284,9 @@
   <!-- Stats summary strip -->
   <div class="picks-stats" id="stats-strip"></div>
 
+  <!-- Recent form strip (last 5 picks) -->
+  <div id="recent-form-wrap" style="display:none;padding:12px 16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--card);margin-bottom:12px"></div>
+
   <!-- Bankroll growth chart (shown when 2+ settled picks) -->
   <div id="bankroll-chart-wrap" style="display:none;padding:12px 16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--card);margin-bottom:12px"></div>
 
@@ -647,6 +650,69 @@
     }).join('');
   }
 
+  function renderRecentForm(picks) {
+    var wrap = document.getElementById('recent-form-wrap');
+    if (!wrap) return;
+    var settled = picks
+      .filter(function(p) { return p.result === 'win' || p.result === 'loss' || p.result === 'push'; })
+      .sort(function(a, b) { return b.addedAt.localeCompare(a.addedAt); });
+    if (settled.length < 3) { wrap.style.display = 'none'; return; }
+
+    var last5 = settled.slice(0, 5);
+    var dotHtml = last5.map(function(p) {
+      var bg = p.result === 'win' ? 'var(--primary)' : p.result === 'push' ? 'var(--muted)' : 'var(--danger)';
+      var lbl = p.result === 'win' ? 'W' : p.result === 'push' ? 'P' : 'L';
+      var teamLabel = (p.homeTeam && p.awayTeam) ? (p.homeTeam.slice(0,4).toUpperCase() + ' v ' + p.awayTeam.slice(0,4).toUpperCase()) : (p.pick || '');
+      return '<div title="' + teamLabel + '" style="width:30px;height:30px;border-radius:50%;background:' + bg + ';display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:900;color:#fff;flex-shrink:0">' + lbl + '</div>';
+    }).join('');
+
+    // Compute streak
+    var st = last5[0].result, streak = 0;
+    for (var i = 0; i < last5.length; i++) { if (last5[i].result === st) streak++; else break; }
+    var streakColor = st === 'win' ? 'var(--primary)' : st === 'loss' ? 'var(--danger)' : 'var(--muted)';
+    var streakStr = (st === 'win' ? 'W' : st === 'loss' ? 'L' : 'P') + streak;
+
+    // Recent wins/losses/pushes
+    var recentW = last5.filter(function(p) { return p.result === 'win'; }).length;
+    var recentL = last5.filter(function(p) { return p.result === 'loss'; }).length;
+
+    // Best recent bet type
+    var typeMap = {};
+    settled.slice(0, 10).forEach(function(p) {
+      var t = p.pickType || 'spread';
+      if (!typeMap[t]) typeMap[t] = { w: 0, l: 0 };
+      if (p.result === 'win') typeMap[t].w++; else typeMap[t].l++;
+    });
+    var bestType = null, bestTypeWr = 0;
+    Object.entries(typeMap).forEach(function(e) {
+      var t = e[0], d = e[1];
+      var tot = d.w + d.l;
+      if (tot < 2) return;
+      var wr = d.w / tot;
+      if (wr > bestTypeWr) { bestTypeWr = wr; bestType = t; }
+    });
+
+    wrap.style.display = '';
+    wrap.innerHTML = '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">'
+      + '<div>'
+          + '<div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">LAST ' + last5.length + ' PICKS</div>'
+          + '<div style="display:flex;gap:6px;align-items:center">' + dotHtml + '</div>'
+        + '</div>'
+      + '<div style="text-align:center;padding:8px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+          + '<div style="font-size:1rem;font-weight:900;color:' + streakColor + '">' + streakStr + '</div>'
+          + '<div style="font-size:.5rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px">Streak</div>'
+        + '</div>'
+      + '<div style="text-align:center;padding:8px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+          + '<div style="font-size:1rem;font-weight:900;color:' + (recentW > recentL ? 'var(--primary)' : 'var(--danger)') + '">' + recentW + '-' + recentL + '</div>'
+          + '<div style="font-size:.5rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px">Recent L5</div>'
+        + '</div>'
+      + (bestType ? '<div style="padding:8px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+          + '<div style="font-size:.72rem;font-weight:800;color:var(--primary)">' + (bestType.charAt(0).toUpperCase() + bestType.slice(1)) + '</div>'
+          + '<div style="font-size:.5rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px">Hot Bet Type</div>'
+        + '</div>' : '')
+      + '</div>';
+  }
+
   function renderBankrollChart(picks) {
     var wrap = document.getElementById('bankroll-chart-wrap');
     if (!wrap) return;
@@ -1003,6 +1069,7 @@
   function render() {
     var allPicks = loadPicks();
     renderStats(allPicks);
+    renderRecentForm(allPicks);
     renderBankrollChart(allPicks);
     renderConfBreakdown(allPicks);
     renderBetIntel(allPicks);

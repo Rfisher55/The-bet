@@ -407,6 +407,12 @@
       </div>
     </div>
 
+    <!-- Kelly Criterion stake recommendation -->
+    <div id="kelly-rec" style="display:none;margin-bottom:12px;padding:12px 14px;border-radius:10px;background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.25)">
+      <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:8px">🧮 KELLY CRITERION — OPTIMAL STAKE</div>
+      <div id="kelly-rec-content"></div>
+    </div>
+
     <!-- Analysis text -->
     <div id="parlay-analysis" style="font-size:.8rem;color:var(--muted-l);font-style:italic;line-height:1.55"></div>
 
@@ -901,6 +907,47 @@ function updateSummary() {
   gradeEl.style.borderColor = gradeColor + "60";
   gradeEl.style.color = gradeColor;
 
+  // Kelly Criterion stake recommendation
+  (function renderKellyRec() {
+    const kellyEl = document.getElementById("kelly-rec");
+    const kellyContent = document.getElementById("kelly-rec-content");
+    if (!kellyEl || !kellyContent) return;
+    if (legs < 2) { kellyEl.style.display = "none"; return; }
+    const b = parlay.decimal - 1;
+    const p = modelWinProb;
+    const q = 1 - p;
+    const fullKelly = b > 0 ? (b * p - q) / b : 0;
+    const halfKelly = Math.max(0, fullKelly / 2);
+    kellyEl.style.display = "";
+    if (fullKelly <= 0) {
+      kellyContent.innerHTML = '<div style="font-size:.78rem;color:var(--danger);line-height:1.5">Negative EV — Kelly says <strong>skip this parlay</strong>. The math doesn\'t favor this bet. Trim weak legs or use Auto-Build to find better combinations.</div>';
+      return;
+    }
+    const pct = (halfKelly * 100).toFixed(1);
+    const d500  = (halfKelly * 500).toFixed(0);
+    const d1000 = (halfKelly * 1000).toFixed(0);
+    const d5000 = (halfKelly * 5000).toFixed(0);
+    const evColor = evNum >= 0 ? "var(--primary)" : "var(--danger)";
+    kellyContent.innerHTML =
+      '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:stretch">'
+      + '<div style="text-align:center;padding:8px 16px;border-radius:8px;background:var(--surface);border:1px solid rgba(99,102,241,.3);min-width:72px;display:flex;flex-direction:column;justify-content:center">'
+        + '<div style="font-size:1.15rem;font-weight:900;color:var(--accent)">' + pct + '%</div>'
+        + '<div style="font-size:.5rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px">½ Kelly</div>'
+      + '</div>'
+      + '<div style="flex:1;min-width:160px;display:flex;flex-direction:column;justify-content:center;gap:4px">'
+        + '<div style="font-size:.72rem;color:var(--text);font-weight:700">'
+          + '<span style="color:var(--muted-l)">$500 bankroll →</span> <strong>$' + d500 + '</strong> &nbsp;·&nbsp; '
+          + '<span style="color:var(--muted-l)">$1K →</span> <strong>$' + d1000 + '</strong> &nbsp;·&nbsp; '
+          + '<span style="color:var(--muted-l)">$5K →</span> <strong>$' + d5000 + '</strong>'
+        + '</div>'
+        + '<div style="font-size:.62rem;color:var(--muted);line-height:1.4">'
+          + 'Full Kelly = ' + (fullKelly * 100).toFixed(1) + '% · Halved for safety. '
+          + 'Model EV: <span style="color:' + evColor + ';font-weight:800">' + (evNum >= 0 ? "+" : "") + ev + '</span> per $100.'
+        + '</div>'
+      + '</div>'
+      + '</div>';
+  })();
+
   // Identify weak legs (no curated pick, low edge)
   const weakLegs = entries.filter(([key, pick]) => {
     const gid = gameIdFromKey(key);
@@ -954,7 +1001,25 @@ function updateSummary() {
     ? ` 🪤 Trap game alert on: ${trapGames.slice(0,2).join(", ")}. Treat these legs as volatile.`
     : "";
 
-  analysisEl.textContent = advice + legWarning + corrWarning + trapWarning;
+  // Conference correlation check
+  const confGroups = {};
+  entries.forEach(([key, pick]) => {
+    const gid = gameIdFromKey(key);
+    const p = allPreds.find(p => p.game.id === gid);
+    if (!p) return;
+    const teamObj = (pick.side === "home" || pick.side === "home-ml") ? p.game.homeTeam : p.game.awayTeam;
+    const conf = teamObj && (teamObj.conference || teamObj.conf);
+    if (conf && !/independent/i.test(conf)) {
+      if (!confGroups[conf]) confGroups[conf] = [];
+      confGroups[conf].push((teamObj.abbreviation || teamObj.name || "").toUpperCase());
+    }
+  });
+  const confCorrPairs = Object.entries(confGroups).filter(([,ts]) => ts.length >= 2);
+  const confCorrWarning = confCorrPairs.length > 0
+    ? ` ⚡ Same-conference legs: ${confCorrPairs.map(([c,ts]) => c + " (" + ts.slice(0,2).join(" + ") + ")").join("; ")}. Conference teams can be correlated — sharp bettors limit same-conf legs to avoid over-exposure.`
+    : "";
+
+  analysisEl.textContent = advice + legWarning + corrWarning + confCorrWarning + trapWarning;
 }
 
 // ── Select/deselect a pick ──
