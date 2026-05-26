@@ -1215,10 +1215,41 @@ function renderGamePage(gData) {
         </div>
 
         ${injHtml ? `
-        <div>
+        <div style="margin-bottom:12px">
           <div style="font-size:.52rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Injury Report</div>
           <div style="display:flex;flex-wrap:wrap;gap:4px">${injHtml}</div>
         </div>` : ""}
+
+        ${(() => {
+          // Bet timing recommendation based on line movement
+          if (!siLM || siLM.length < 2 || openSprdVal == null || curSprdVal == null) return "";
+          const diff = curSprdVal - openSprdVal;
+          const ourPickIsHome2 = officialPickIsHome;
+          // If line moved in pick's favor (more favorable for us): prices moving away — bet soon
+          // Negative diff = home team spread shrunk (home team getting better odds)
+          const lineMovedForUs = (ourPickIsHome2 && diff < 0) || (!ourPickIsHome2 && diff > 0);
+          const lineMovedAgainstUs = (ourPickIsHome2 && diff > 0) || (!ourPickIsHome2 && diff < 0);
+          const absDiff = Math.abs(diff).toFixed(1);
+
+          if (lineMovedAgainstUs && Math.abs(diff) >= 0.5) {
+            return `<div style="padding:9px 12px;border-radius:8px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25);display:flex;align-items:center;gap:8px">
+              <span style="font-size:.9rem">⏳</span>
+              <div>
+                <div style="font-size:.62rem;font-weight:900;color:var(--gold);letter-spacing:.5px">LINE MOVED AGAINST US (${absDiff} pts)</div>
+                <div style="font-size:.68rem;color:var(--text-soft);margin-top:2px">Value has decreased since open. Consider shopping for a better number at another book, or wait to see if line corrects before kickoff.</div>
+              </div>
+            </div>`;
+          } else if (lineMovedForUs && Math.abs(diff) >= 0.5) {
+            return `<div style="padding:9px 12px;border-radius:8px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.25);display:flex;align-items:center;gap:8px">
+              <span style="font-size:.9rem">⚡</span>
+              <div>
+                <div style="font-size:.62rem;font-weight:900;color:var(--primary);letter-spacing:.5px">LINE MOVING OUR WAY (+${absDiff} pts favor)</div>
+                <div style="font-size:.68rem;color:var(--text-soft);margin-top:2px">Sharp money is already moving this line in our direction. Bet sooner rather than later — this value may disappear before kickoff.</div>
+              </div>
+            </div>`;
+          }
+          return "";
+        })()}
       </div>`;
   }
 
