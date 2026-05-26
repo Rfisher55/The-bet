@@ -168,13 +168,3 @@ jobs:
             $CONF_ARG \
             $DRY
 
-      - name: Update refresh token
-        if: steps.cfg.outputs.dry != 'true' && success()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
-        run: |
-          if [ -f /tmp/new_refresh_token ]; then
-            NEW_TOKEN=$(cat /tmp/new_refresh_token)
-            gh secret set X_OAUTH2_REFRESH_TOKEN --body "$NEW_TOKEN" --repo rfisher55/the-bet
-            echo "✅ Refresh token updated"
-          fi
