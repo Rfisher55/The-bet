@@ -1,0 +1,83 @@
+name: X Preseason Post
+
+on:
+  workflow_dispatch:
+    inputs:
+      angle:
+        description: 'Content angle'
+        required: true
+        default: 'intro'
+        type: choice
+        options:
+          - intro
+          - hot-takes
+          - sleepers
+          - fades
+          - ats-value
+          - portal
+          - momentum
+          - conference
+          - team
+          - rotate
+      team:
+        description: 'Team name (only for angle=team, e.g. "Boise State")'
+        required: false
+        default: ''
+      conf:
+        description: 'Conference (only for angle=conference, e.g. "Big Ten")'
+        required: false
+        default: ''
+      count:
+        description: 'Number of tweets to generate (default 1 for single posts, up to 5 for threads)'
+        required: false
+        default: '1'
+      offset:
+        description: 'Team offset for rotate angle (0=start, 5=next 5, 10=next 10…)'
+        required: false
+        default: '0'
+      dry_run:
+        description: 'Dry run — preview without posting'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  preseason-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: scripts
+
+      - name: Generate & post preseason tweet
+        env:
+          X_API_KEY:             ${{ secrets.X_API_KEY }}
+          X_API_SECRET:          ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          DRY=""
+          [ "${{ inputs.dry_run }}" = "true" ] && DRY="--dry-run"
+
+          TEAM_ARG=""
+          [ -n "${{ inputs.team }}" ] && TEAM_ARG="--team \"${{ inputs.team }}\""
+
+          CONF_ARG=""
+          [ -n "${{ inputs.conf }}" ] && CONF_ARG="--conf \"${{ inputs.conf }}\""
+
+          node scripts/post-preseason.js \
+            --angle "${{ inputs.angle }}" \
+            --count "${{ inputs.count }}" \
+            --offset "${{ inputs.offset }}" \
+            $TEAM_ARG \
+            $CONF_ARG \
+            $DRY
