@@ -24,7 +24,7 @@ on:
         required: true
         default: 'top5'
         type: choice
-        options: [early, top5, parlay, final, polls, gameday, results]
+        options: [early, matchups, top5, locks, parlay, final, polls, gameday, results]
       parlay_legs:
         description: 'Parlay legs (only for type=parlay)'
         required: false
@@ -65,10 +65,10 @@ jobs:
             DAY=$(date +%u)    # 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 7=Sun
             HOUR=$(date +%H)   # UTC hour
             case "$DAY" in
-              2) echo "type=early"   >> $GITHUB_OUTPUT ;;
-              3) echo "type=top5"    >> $GITHUB_OUTPUT ;;
-              4) echo "type=parlay"  >> $GITHUB_OUTPUT ;;
-              5) echo "type=final"   >> $GITHUB_OUTPUT ;;
+              2) echo "type=matchups" >> $GITHUB_OUTPUT ;;  # Tue: 5 biggest games
+              3) echo "type=top5"     >> $GITHUB_OUTPUT ;;  # Wed: top 5 picks thread
+              4) echo "type=parlay"   >> $GITHUB_OUTPUT ;;  # Thu: parlay card
+              5) echo "type=locks"    >> $GITHUB_OUTPUT ;;  # Fri: 5 highest-conf locks
               6)
                 # Two Saturday runs: 14 UTC = polls, 16 UTC = gameday
                 if [ "$HOUR" = "14" ]; then
@@ -77,7 +77,7 @@ jobs:
                   echo "type=gameday" >> $GITHUB_OUTPUT
                 fi ;;
               7) echo "type=results" >> $GITHUB_OUTPUT ;;
-              *) echo "type=final"   >> $GITHUB_OUTPUT ;;
+              *) echo "type=locks"   >> $GITHUB_OUTPUT ;;
             esac
             echo "legs=3"    >> $GITHUB_OUTPUT
             echo "dry=false" >> $GITHUB_OUTPUT

@@ -16,7 +16,7 @@
  *   node post-picks.js --type [any] --dry-run
  */
 
-const { getPicks, getTop5, getParlays } = require('./get-picks');
+const { getPicks, getTop5, getParlays, getBiggestMatchups, getLocks } = require('./get-picks');
 const { updateResults, getRecord }       = require('./get-results');
 
 // ── Args ──────────────────────────────────────────────────────────
@@ -188,6 +188,72 @@ function fmtParlayThread(combos, legCount) {
   return [hook, ...comboTweets, closer];
 }
 
+// ── Format: biggest matchups thread ──────────────────────────────
+function fmtMatchupsThread(games) {
+  const rankEmoji = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];
+  const hook = [
+    `🏟️ THE BET — WEEK ${games[0].week} TOP 5 MATCHUPS`,
+    ``,
+    `Biggest games on the board this week.`,
+    `Model grade + our take on every one 👇`,
+    `#CFB #CollegeFootball #TheBet`,
+  ].join('\n');
+
+  const gameTweets = games.map((g, i) => {
+    const homeRank = g.homeRank ? `#${g.homeRank} ` : '';
+    const awayRank = g.awayRank ? `#${g.awayRank} ` : '';
+    const spread   = g.spread != null ? ` · ${spreadStr(g.spread)}` : '';
+    const confBadge = g.ourConf === 'ELITE' ? '🔒 ELITE PICK' :
+                      g.ourConf === 'HIGH'  ? '✅ HIGH CONF PICK' : null;
+    const lines = [
+      `${rankEmoji[i]} ${awayRank}${g.awayTeam} @ ${homeRank}${g.homeTeam}`,
+      `${g.time || 'TBD'}${g.network ? ` | ${g.network}` : ''}${spread}`,
+      g.isConf ? `📋 Conference game` : '',
+      confBadge ? `\n${confBadge}: ${g.ourPick}` : g.ourPick ? `\nModel leans: ${g.ourPick}` : '',
+    ].filter(Boolean).join('\n');
+    return buildFit(lines, [`\n${g.hashHome} ${g.hashAway} #CFB`], '');
+  });
+
+  const closer = `Full analysis + parlay builder 👇\n${SITE}\n\n💬 Which game are you most locked in on? #CFB #TheBet`;
+  return [hook, ...gameTweets, closer];
+}
+
+// ── Format: locks thread ──────────────────────────────────────────
+function fmtLocksThread(picks) {
+  const today  = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const badge  = recordBadge();
+  const hook = [
+    `🔒 THE BET — WEEK ${picks[0].week} LOCKS (${today})`,
+    ``,
+    `${picks.length} plays where the model is most confident.`,
+    `These are the ones to bet.`,
+    badge ? `\n${badge}` : '',
+    ``,
+    `Thread 👇 #CFB #TheBet`,
+  ].filter(Boolean).join('\n');
+
+  const lockTweets = picks.map((pick, i) => {
+    const spread = spreadStr(pick.vegasSpread);
+    const emoji  = pick.winProb >= 75 ? '🔒' : pick.winProb >= 65 ? '✅' : '📊';
+    const required = [
+      `${emoji} LOCK ${i + 1} of ${picks.length}`,
+      `${pick.awayAbbr} @ ${pick.homeAbbr}  ·  Wk${pick.week} ${pick.time || ''}`,
+      ``,
+      `THE BET: ${pick.pickTeam}${spread ? ` ${spread}` : ''}`,
+      `🎯 ${pick.winProb}% win prob  ·  📈 +${pick.edge} pts edge`,
+    ].join('\n');
+    const optional = [
+      pick.sharpAligns ? `💰 Sharp money aligned` : null,
+      pick.publicPct != null ? `👥 ${pick.publicPct}% public — ${pick.publicPct > 60 ? 'with the crowd' : 'fading the public'}` : null,
+      pick.reasoning ? `"${pick.reasoning.slice(0, 60)}${pick.reasoning.length > 60 ? '…' : ''}"` : null,
+    ].filter(Boolean);
+    return buildFit(required, optional, `${pick.hashHome} ${pick.hashAway} #CFB #TheBet`);
+  });
+
+  const closer = `All ${picks.length} locks + parlay builder:\n${SITE}\n\n💬 Tailing? Drop it below. #CFB #TheBet`;
+  return [hook, ...lockTweets, closer];
+}
+
 // ── Format: polls ("who covers tonight?") ────────────────────────
 // Returns array of { text, poll } objects — one per game
 function fmtPolls(picks) {
@@ -331,6 +397,20 @@ async function main() {
     if (!picks.length) { console.log('No picks for polls.'); return; }
     items = fmtPolls(picks); // poll objects
     console.log(`${items.length} poll tweet(s)`);
+
+  // ── Top 5 biggest matchups (Tuesday) ─────────────────────────
+  } else if (type === 'matchups') {
+    const games = getBiggestMatchups();
+    if (!games.length) { console.log('No matchups found.'); return; }
+    items = fmtMatchupsThread(games);
+    console.log(`Matchups thread — ${items.length} tweets`);
+
+  // ── 5 locks (Friday) ──────────────────────────────────────────
+  } else if (type === 'locks') {
+    const locks = getLocks();
+    if (!locks.length) { console.log('No locks found.'); return; }
+    items = fmtLocksThread(locks);
+    console.log(`Locks thread — ${items.length} tweets`);
 
   // ── Top 5 thread (Wednesday) ──────────────────────────────────
   } else if (type === 'top5') {

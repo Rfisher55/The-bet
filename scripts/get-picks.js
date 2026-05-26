@@ -215,6 +215,122 @@ function getTop5() {
     });
 }
 
+// ── getBiggestMatchups ────────────────────────────────────────────
+// Top 5 games of the week by excitement score (ranked teams, close
+// spread, high public interest) — regardless of whether we have a pick.
+function getBiggestMatchups() {
+  const today = new Date().toISOString().slice(0, 10);
+  const predictions = allPredictions();
+  const minWeek = upcomingWeek(predictions);
+
+  return predictions
+    .filter(p => {
+      if (minWeek && p.game.week !== minWeek) return false;
+      return p.game.date >= today;
+    })
+    .map(p => {
+      const { game, prediction: pred } = p;
+      const bl  = game.bettingLines || {};
+      const pb  = (game.socialIntel || {}).publicBetting || {};
+
+      // Excitement score: ranked teams + close spread + high public interest
+      let score = 0;
+      if (game.homeApRank) score += Math.max(0, 26 - game.homeApRank) * 2;
+      if (game.awayApRank) score += Math.max(0, 26 - game.awayApRank) * 2;
+      if (bl.spread != null) score += Math.max(0, 14 - Math.abs(bl.spread)) * 1.5; // closer = better
+      if (pb.homePct) score += Math.abs(50 - pb.homePct) * 0.5; // public interest
+      if (game.isConferenceGame) score += 8;
+      if (game.neutralSite) score += 5;
+
+      const tp = game.gamePreview?.thePick;
+      return {
+        gameId:    game.id,
+        week:      game.week,
+        date:      game.date,
+        time:      game.time,
+        network:   game.network,
+        homeTeam:  game.homeTeam?.name || game.homeTeamName,
+        awayTeam:  game.awayTeam?.name || game.awayTeamName,
+        homeAbbr:  game.homeTeam?.abbreviation || game.homeTeamId,
+        awayAbbr:  game.awayTeam?.abbreviation || game.awayTeamId,
+        homeRank:  game.homeApRank || null,
+        awayRank:  game.awayApRank || null,
+        spread:    bl.spread,
+        total:     bl.total,
+        publicPct: pb.homePct || null,
+        ourPick:   tp?.team || null,
+        ourConf:   tp?.confidence || null,
+        isConf:    game.isConferenceGame,
+        excitementScore: score,
+        hashHome:  '#' + (game.homeTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
+        hashAway:  '#' + (game.awayTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
+      };
+    })
+    .sort((a, b) => b.excitementScore - a.excitementScore)
+    .slice(0, 5);
+}
+
+// ── getLocks ──────────────────────────────────────────────────────
+// Top 5 highest-confidence picks — the "money plays" with highest
+// win probability and edge. These are the ones to bet.
+function getLocks() {
+  const today = new Date().toISOString().slice(0, 10);
+  const predictions = allPredictions();
+  const minWeek = upcomingWeek(predictions);
+
+  return predictions
+    .filter(p => {
+      if (minWeek && p.game.week !== minWeek) return false;
+      if (p.game.date < today) return false;
+      const conf = pickConf(p);
+      return conf === 'elite' || conf === 'high';
+    })
+    .sort((a, b) => {
+      // Sort by win prob first, then edge
+      const aProb = modelProb(a, a.prediction.spreadPick?.side || 'home') * 100;
+      const bProb = modelProb(b, b.prediction.spreadPick?.side || 'home') * 100;
+      if (Math.abs(bProb - aProb) > 2) return bProb - aProb;
+      return (b.prediction.spreadPick?.edge || 0) - (a.prediction.spreadPick?.edge || 0);
+    })
+    .slice(0, 5)
+    .map(p => {
+      const { game, prediction: pred } = p;
+      const tp  = game.gamePreview?.thePick;
+      const sp  = pred.spreadPick || {};
+      const bl  = game.bettingLines || {};
+      const si  = game.socialIntel || {};
+      const pb  = si.publicBetting || {};
+      const pickIsHome = (tp?.team || '').toLowerCase() === (game.homeTeam?.name || '').toLowerCase();
+      const pickTeam   = tp?.team || (sp.side === 'home' ? game.homeTeam?.name : game.awayTeam?.name);
+      const vegasLine  = bl.spread != null ? (pickIsHome ? bl.spread : -bl.spread) : null;
+      const winProb    = Math.round(modelProb(p, sp.side || 'home') * 100);
+
+      return {
+        gameId:     game.id,
+        week:       game.week,
+        date:       game.date,
+        time:       game.time,
+        network:    game.network,
+        homeTeam:   game.homeTeam?.name,
+        awayTeam:   game.awayTeam?.name,
+        homeAbbr:   game.homeTeam?.abbreviation,
+        awayAbbr:   game.awayTeam?.abbreviation,
+        pickTeam,
+        vegasSpread: vegasLine,
+        edge:       parseFloat((sp.edge || 0).toFixed(1)),
+        winProb,
+        conf:       pickConf(p),
+        sharpAligns: (pred.sharpMoneySignal?.side && pred.sharpMoneySignal.side !== 'neutral' &&
+                     (pred.sharpMoneySignal.side === 'home') === pickIsHome),
+        publicPct:  (pickIsHome ? pb.homePct : pb.awayPct) != null
+                      ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
+        reasoning:  tp?.reasoning || null,
+        hashHome:   '#' + (game.homeTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
+        hashAway:   '#' + (game.awayTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
+      };
+    });
+}
+
 // ── getParlays ────────────────────────────────────────────────────
 // Returns top 3 optimal parlay combos (mirrors parlay.html logic).
 function getParlays(legCount = 3) {
@@ -352,4 +468,4 @@ function getPastPicks() {
     });
 }
 
-module.exports = { getPicks, getTop5, getParlays, getPastPicks };
+module.exports = { getPicks, getTop5, getParlays, getPastPicks, getBiggestMatchups, getLocks };
