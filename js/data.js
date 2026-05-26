@@ -2535,7 +2535,7 @@ var GAMES = [
     network: "ABC", isConferenceGame: false, isRivalryGame: false,
     situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 88, windMph: 5, humidity: 72, indoors: false },
-    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 55.5 },
+    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 55.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Death Valley Night Opener", description: "Tiger Stadium at 8 PM is the most electric opener in college football. LSU holds a 91-27 all-time home record in night games. Visiting teams average 1.8 additional false starts and a 12% higher three-and-out rate in this environment.", impactTeam: "lsu", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Clemson QB Uncertainty", description: "Clemson enters with questions at quarterback heading into 2026. Their signal-caller has limited experience in hostile road environments at this scale. Tiger Stadium at night represents the most difficult road opener any team faces.", impactTeam: "clemson", impactDirection: "negative", severity: 8, category: "player" },
@@ -2575,7 +2575,7 @@ var GAMES = [
     network: "NBC", isConferenceGame: false, isRivalryGame: false,
     situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 3, timeZoneChange: 0, neutralSite: true },
     weather: { condition: "Clear", tempF: 68, windMph: 8, humidity: 55, indoors: false },
-    bettingLines: { spread: -7, moneylineHome: -310, moneylineAway: 255, total: 48.5 },
+    bettingLines: { spread: -7, moneylineHome: -310, moneylineAway: 255, total: 48.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Shamrock Series Home Field Effect", description: "The Shamrock Series acts as a neutral-site game that Notre Dame turns into a home game. The Fighting Irish fanbase typically buys 60-70% of available tickets at neutral-site games, creating de-facto home crowd conditions.", impactTeam: "notre_dame", impactDirection: "positive", severity: 8, category: "environment" },
       { title: "Wisconsin Run Defense vs Notre Dame Power", description: "Wisconsin arrives with one of the Big Ten's elite run defenses, holding opponents to under 108 yards per game. Notre Dame's identity is physical football — if Wisconsin stuffs the run, the Irish must rely on their passing game.", impactTeam: "notre_dame", impactDirection: "negative", severity: 7, category: "matchup" },
@@ -2618,7 +2618,7 @@ var GAMES = [
     network: "ABC", isConferenceGame: false, isRivalryGame: false,
     situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 7, timeZoneChange: 1, neutralSite: false },
     weather: { condition: "Clear", tempF: 92, windMph: 7, humidity: 68, indoors: false },
-    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 58.5 },
+    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 58.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "DKR Night Game Chaos", description: "Texas Memorial Stadium holds 100,119 fans and the atmosphere in a primetime home game against a top-5 opponent creates one of the loudest environments in college football. Ohio State's offense has averaged 4.1 more false starts per game in venues over 100,000 capacity as a road team.", impactTeam: "texas", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Quarterback Storyline", description: "This game will be defined by the quarterback duel. Texas and Ohio State both return experienced signal-callers who thrive in high-pressure environments. The QB who avoids big mistakes will determine the outcome.", impactTeam: "texas", impactDirection: "positive", severity: 8, category: "player" },
@@ -2661,7 +2661,7 @@ var GAMES = [
     network: "ESPN", isConferenceGame: false, isRivalryGame: false,
     situational: { trapGameRisk: 5, primeTimeGame: false, rivalryGame: false, homeTeamEmotionalSpot: "lookahead", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 6, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Partly Cloudy", tempF: 86, windMph: 6, humidity: 65, indoors: false },
-    bettingLines: { spread: -13.5, moneylineHome: -680, moneylineAway: 500, total: 56.5 },
+    bettingLines: { spread: -13.5, moneylineHome: -680, moneylineAway: 500, total: 56.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Alabama Depth Advantage", description: "Alabama has 17 four-star or higher players projected to see significant time. Florida State has 9. By the fourth quarter, Alabama rotates fresh talent while FSU's starters are fatigued — the depth advantage alone is worth 7+ points in the second half.", impactTeam: "alabama", impactDirection: "positive", severity: 9, category: "recruiting" },
       { title: "Bryant-Denny Afternoon Heat", description: "Alabama hosts in September heat that regularly exceeds 100 degrees on the field surface. Alabama is accustomed to these conditions; Florida State players from the Florida coast are not. Heat conditioning is a legitimate performance factor.", impactTeam: "alabama", impactDirection: "positive", severity: 7, category: "environment" },
@@ -2704,7 +2704,7 @@ var GAMES = [
     network: "ABC", isConferenceGame: true, isRivalryGame: false,
     situational: { trapGameRisk: 3, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: null, awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 5, timeZoneChange: 1, neutralSite: false },
     weather: { condition: "Clear", tempF: 85, windMph: 8, humidity: 62, indoors: false },
-    bettingLines: { spread: -4.5, moneylineHome: -210, moneylineAway: 178, total: 59.5 },
+    bettingLines: { spread: -4.5, moneylineHome: -210, moneylineAway: 178, total: 59.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Heupel Tempo vs Texas Defense", description: "Josh Heupel's offense runs the fastest pace in the SEC — averaging under 18 seconds between snaps. No amount of game-planning fully prepares a defense for Tennessee's tempo. Texas's defense averages 2.4 more blown assignments per game against high-tempo offenses.", impactTeam: "tennessee", impactDirection: "positive", severity: 9, category: "scheme" },
       { title: "Nico Iamaleava Mobility Creates Third Dimension", description: "Iamaleava's ability to extend plays with his legs turns incomplete passes into first downs. Texas's scheme is built to stop the run — Nico's scramble ability exploits that defensive assignment structure when the pocket collapses.", impactTeam: "tennessee", impactDirection: "positive", severity: 8, category: "player" },
@@ -2747,7 +2747,7 @@ var GAMES = [
     network: "ESPN", isConferenceGame: true, isRivalryGame: false,
     situational: { trapGameRisk: 2, primeTimeGame: true, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 6, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 82, windMph: 10, humidity: 78, indoors: false },
-    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 52.5 },
+    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 52.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Miami NIL and Facilities Surge", description: "Cristobal has leveraged Miami's South Florida market to build one of the top NIL programs in the ACC. The Hurricanes have signed 14 four-star or higher portal transfers in the last 18 months — the talent gap over Clemson at skill positions is now measurable.", impactTeam: "miami", impactDirection: "positive", severity: 8, category: "recruiting" },
       { title: "Clemson Defense Holds Despite Transition", description: "Even in rebuilding years, Dabo Swinney's defensive units consistently outperform expectations. Clemson ranked 14th nationally in points allowed last season — their defense will keep them competitive.", impactTeam: "clemson", impactDirection: "positive", severity: 8, category: "defense" },
@@ -2790,7 +2790,7 @@ var GAMES = [
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
     situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 78, windMph: 6, humidity: 58, indoors: false },
-    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 53.5 },
+    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 53.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Bryant-Denny October Night Game", description: "Alabama at home in October under the lights is one of college football's signature events. The Crimson Tide are 18-2 at Bryant-Denny in night games over the last decade, and Georgia has won just 2 of their last 6 visits to Tuscaloosa.", impactTeam: "alabama", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Georgia December-Style October Football", description: "Kirby Smart's teams famously play their best football in October and November. The Bulldogs have the talent and depth to grind through a four-quarter battle — this is not a game Georgia will sleepwalk through.", impactTeam: "georgia", impactDirection: "positive", severity: 8, category: "coaching" },
@@ -2833,7 +2833,7 @@ var GAMES = [
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
     situational: { trapGameRisk: 4, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "letdown", restAdvantage: null, travelDistance: 4, timeZoneChange: 1, neutralSite: false },
     weather: { condition: "Partly Cloudy", tempF: 65, windMph: 9, humidity: 52, indoors: false },
-    bettingLines: { spread: 3.5, moneylineHome: 148, moneylineAway: -175, total: 54.5 },
+    bettingLines: { spread: 3.5, moneylineHome: 148, moneylineAway: -175, total: 54.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Neyland Stadium Third Saturday Tradition", description: "The Third Saturday in October is the most anticipated regular-season game in the SEC every year. Neyland Stadium holds 102,455 fans and the decibel level during key defensive stands has been measured above jet engine noise. Visiting quarterbacks average 15% more incompletions here than their season average.", impactTeam: "tennessee", impactDirection: "positive", severity: 10, category: "environment" },
       { title: "James Pearce Jr. Edge Rush Motivation", description: "Pearce returned from NFL Draft consideration specifically to compete in this rivalry. He has publicly stated beating Alabama is a personal mission. A motivated Pearce with something to prove against Alabama's offensive line is a dangerous combination.", impactTeam: "tennessee", impactDirection: "positive", severity: 9, category: "player" },
@@ -2873,7 +2873,7 @@ var GAMES = [
     network: "FOX", isConferenceGame: true, isRivalryGame: true,
     situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 4, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Overcast", tempF: 55, windMph: 14, humidity: 60, indoors: false },
-    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 47.5 },
+    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 47.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Big House Crowd Factor", description: "Michigan Stadium holds 107,601 fans — the largest stadium in America. In a primetime or big-game atmosphere, The Big House creates sustained crowd noise that Penn State's offense must communicate through for 60 minutes. Penn State is 2-6 in their last 8 visits to Ann Arbor.", impactTeam: "michigan", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Michigan Offensive Line Advantage", description: "Michigan's offensive line is among the Big Ten's best and has been built specifically for power football in October. Against Penn State's front seven, the run game will set up the play-action passing that defines Michigan's system.", impactTeam: "michigan", impactDirection: "positive", severity: 8, category: "matchup" },
@@ -2916,7 +2916,7 @@ var GAMES = [
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
     situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: true },
     weather: { condition: "Partly Cloudy", tempF: 74, windMph: 11, humidity: 70, indoors: false },
-    bettingLines: { spread: -9, moneylineHome: -450, moneylineAway: 360, total: 50.5 },
+    bettingLines: { spread: -9, moneylineHome: -450, moneylineAway: 360, total: 50.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Georgia Series Dominance", description: "Georgia has won 5 of the last 6 Cocktail Party matchups, and their average margin of victory in that span is 18.4 points. The Bulldogs have built a culture of dominance in this series that compounds year over year.", impactTeam: "georgia", impactDirection: "positive", severity: 9, category: "situational" },
       { title: "Florida Rebuilding Status", description: "The Gators are in a genuine rebuild and have struggled to recruit consistently at the SEC-elite level. Their roster has clear talent gaps compared to Georgia, and that gap is measurable in the statistics.", impactTeam: "florida", impactDirection: "negative", severity: 9, category: "recruiting" },
@@ -2956,7 +2956,7 @@ var GAMES = [
     network: "ESPN", isConferenceGame: true, isRivalryGame: true,
     situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 72, windMph: 8, humidity: 65, indoors: false },
-    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 50.5 },
+    bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 50.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Clemson Defensive Identity", description: "Under Dabo Swinney, Clemson defenses consistently outperform offensive limitations. The Tigers ranked 14th nationally in scoring defense last season. Their ability to limit FSU's offense keeps them in games and covers spreads in hostile environments.", impactTeam: "clemson", impactDirection: "positive", severity: 9, category: "defense" },
       { title: "Doak Campbell War Drums", description: "Florida State is famous for their pregame war chant and drums routine. Doak Campbell Stadium creates a unique pre-snap noise environment that has historically caused visiting teams to average 1.6 more false starts than their season average.", impactTeam: "florida_state", impactDirection: "positive", severity: 8, category: "environment" },
@@ -2999,7 +2999,7 @@ var GAMES = [
     network: "FOX", isConferenceGame: true, isRivalryGame: false,
     situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: "home", travelDistance: 10, timeZoneChange: 3, neutralSite: false },
     weather: { condition: "Overcast", tempF: 45, windMph: 16, humidity: 58, indoors: false },
-    bettingLines: { spread: -6, moneylineHome: -270, moneylineAway: 225, total: 52.5 },
+    bettingLines: { spread: -6, moneylineHome: -270, moneylineAway: 225, total: 52.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Ohio Stadium Bowl Acoustics", description: "The natural bowl shape of Ohio Stadium creates exceptional crowd noise amplification. Oregon has gone 3-8 ATS in venues with 100,000+ capacity as a road team in the last six seasons.", impactTeam: "ohio_state", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Ohio State Talent Depth at Every Position", description: "Ohio State has 14 players projected to be taken in the first three rounds of the NFL Draft. Their depth at linebacker and defensive line will wear down Oregon's offensive line over four quarters.", impactTeam: "ohio_state", impactDirection: "positive", severity: 9, category: "recruiting" },
@@ -3039,7 +3039,7 @@ var GAMES = [
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
     situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "revenge", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 68, windMph: 6, humidity: 65, indoors: false },
-    bettingLines: { spread: 1.5, moneylineHome: 115, moneylineAway: -135, total: 54.5 },
+    bettingLines: { spread: 1.5, moneylineHome: 115, moneylineAway: -135, total: 54.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Tiger Stadium Night Game Effect", description: "LSU's record in night games at Tiger Stadium is 38-4 over the last decade. The atmosphere literally changes outcomes — visiting teams average 18% more false starts than against LSU in day games, and opposing offenses average 4.2 fewer points than their season PPG.", impactTeam: "lsu", impactDirection: "positive", severity: 10, category: "environment" },
       { title: "Alabama Away-Game November Performance", description: "Alabama is 8-6 ATS in true road games in November over the last four seasons. The emotional and physical toll of the SEC schedule by November affects even the Crimson Tide on the road.", impactTeam: "alabama", impactDirection: "negative", severity: 8, category: "situational" },
@@ -3079,7 +3079,7 @@ var GAMES = [
     network: "NBC", isConferenceGame: false, isRivalryGame: true,
     situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 9, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 48, windMph: 12, humidity: 55, indoors: false },
-    bettingLines: { spread: -7.5, moneylineHome: -350, moneylineAway: 285, total: 51.5 },
+    bettingLines: { spread: -7.5, moneylineHome: -350, moneylineAway: 285, total: 51.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Notre Dame Stadium November Night Game Record", description: "Notre Dame is 24-4 in night games at Notre Dame Stadium over the last decade. The combination of the stadium's intimacy, the campus setting, and the fanbase's intensity creates one of the most unique hostile environments in football.", impactTeam: "notre_dame", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Miami Road Record at Large Hostile Venues", description: "Miami has gone 2-5 ATS at venues with 80,000+ capacity as a road team. The atmosphere in South Bend in November is as far from Hard Rock Stadium as you can get — the cold, the campus intimacy, and the silence between plays disrupts Miami's rhythm.", impactTeam: "miami", impactDirection: "negative", severity: 8, category: "situational" },
@@ -3122,7 +3122,7 @@ var GAMES = [
     network: "ESPN", isConferenceGame: true, isRivalryGame: false,
     situational: { trapGameRisk: 8, primeTimeGame: false, rivalryGame: false, homeTeamEmotionalSpot: "letdown", awayTeamEmotionalSpot: "motivated", restAdvantage: "away", travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Partly Cloudy", tempF: 62, windMph: 9, humidity: 60, indoors: false },
-    bettingLines: { spread: -4, moneylineHome: -190, moneylineAway: 162, total: 57.5 },
+    bettingLines: { spread: -4, moneylineHome: -190, moneylineAway: 162, total: 57.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Classic LSU Letdown Spot", description: "LSU is 4-9 ATS in the game immediately following their Alabama rivalry game over the last decade. The emotional and physical toll of the Death Valley night game creates a measurable performance hangover that analytics consistently identify.", impactTeam: "lsu", impactDirection: "negative", severity: 9, category: "situational" },
       { title: "Texas Fresh Week Advantage", description: "Texas arrives specifically prepared for LSU after a full week of rest. Sarkisian's staff will have detailed preparation specifically targeting LSU's tendencies, and his players will be physically fresh compared to LSU's battle-worn roster.", impactTeam: "texas", impactDirection: "positive", severity: 8, category: "situational" },
@@ -3162,7 +3162,7 @@ var GAMES = [
     network: "FOX", isConferenceGame: true, isRivalryGame: false,
     situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: "home", travelDistance: 9, timeZoneChange: 3, neutralSite: false },
     weather: { condition: "Overcast", tempF: 48, windMph: 13, humidity: 72, indoors: false },
-    bettingLines: { spread: -7, moneylineHome: -310, moneylineAway: 255, total: 48.5 },
+    bettingLines: { spread: -7, moneylineHome: -310, moneylineAway: 255, total: 48.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Autzen Stadium Decibel Record", description: "Autzen Stadium consistently records some of the highest measured crowd noise levels in college football despite holding only 54,000 fans. Its intimate design and enclosed shape create a concentrated wall of sound. Oregon is 31-7 against ranked opponents at Autzen.", impactTeam: "oregon", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Oregon Speed Creates Mismatch vs Michigan Secondary", description: "Oregon has recruited elite speed at the wide receiver position — players who can outrun Michigan's corners on the outside. In a home environment where crowd noise limits Michigan's communication, these speed mismatches become game-changing.", impactTeam: "oregon", impactDirection: "positive", severity: 8, category: "matchup" },
@@ -3205,7 +3205,7 @@ var GAMES = [
     network: "ESPN", isConferenceGame: true, isRivalryGame: false,
     situational: { trapGameRisk: 3, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "letdown", restAdvantage: "home", travelDistance: 4, timeZoneChange: 1, neutralSite: false },
     weather: { condition: "Clear", tempF: 52, windMph: 7, humidity: 48, indoors: false },
-    bettingLines: { spread: -3, moneylineHome: -155, moneylineAway: 130, total: 53.5 },
+    bettingLines: { spread: -3, moneylineHome: -155, moneylineAway: 130, total: 53.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Thursday Night Neyland After Dark", description: "Tennessee at home on a Thursday night is uniquely electric. Neyland Stadium produces the same crowd intensity as a Saturday game with the added energy of a rare weeknight spectacle. LSU has gone 3-5 ATS on Thursday night games over the last four seasons.", impactTeam: "tennessee", impactDirection: "positive", severity: 9, category: "environment" },
       { title: "Heupel Tempo Advantage on Short Prep Week", description: "In a Thursday night game, both teams have reduced preparation time — but Heupel's tempo system actually becomes MORE of an advantage. Opponents cannot simulate a full week of high-tempo preparation in three days, while Tennessee runs their system every practice day.", impactTeam: "tennessee", impactDirection: "positive", severity: 9, category: "scheme" },
@@ -3248,7 +3248,7 @@ var GAMES = [
     network: "FOX", isConferenceGame: true, isRivalryGame: true,
     situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 3, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Overcast", tempF: 36, windMph: 18, humidity: 55, indoors: false },
-    bettingLines: { spread: -8.5, moneylineHome: -400, moneylineAway: 320, total: 44.5 },
+    bettingLines: { spread: -8.5, moneylineHome: -400, moneylineAway: 320, total: 44.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Ohio State Home Record in The Game", description: "Ohio State is 18-6 ATS at home against Michigan over the last 24 years. In Columbus, The Game has an Ohio State home-field advantage that translates directly into covering spreads. Ryan Day is specifically motivated to dominate this rivalry.", impactTeam: "ohio_state", impactDirection: "positive", severity: 10, category: "situational" },
       { title: "Ryan Day Game Week Preparation", description: "Day dedicates an entire segment of spring practice to preparing for Michigan week. His preparation is year-round, specifically targeting Michigan's tendencies and installing packages that are never used until this game.", impactTeam: "ohio_state", impactDirection: "positive", severity: 9, category: "coaching" },
@@ -3288,7 +3288,7 @@ var GAMES = [
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
     situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 2, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Partly Cloudy", tempF: 55, windMph: 10, humidity: 52, indoors: false },
-    bettingLines: { spread: -16, moneylineHome: -900, moneylineAway: 640, total: 52.5 },
+    bettingLines: { spread: -16, moneylineHome: -900, moneylineAway: 640, total: 52.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Iron Bowl Underdog Cover History", description: "Auburn has covered the spread as a double-digit underdog in the Iron Bowl in 6 of the last 9 games. The rivalry factor systematically reduces the effective spread — 16 points is simply too many in any game called the Iron Bowl.", impactTeam: "auburn", impactDirection: "positive", severity: 9, category: "situational" },
       { title: "Alex Golesh Iron Bowl Debut Motivation", description: "Golesh is coaching his first Iron Bowl and will use the Alabama rivalry as a defining moment for his Auburn tenure. First-year coaches often get maximum emotional performance from their rosters in rivalry games — the players elevate to reward their new coach. An Auburn team playing with nothing to lose is dangerous against a large spread.", impactTeam: "auburn", impactDirection: "positive", severity: 8, category: "coaching" },
@@ -3331,7 +3331,7 @@ var GAMES = [
     network: "ABC", isConferenceGame: true, isRivalryGame: true,
     situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 3, timeZoneChange: 0, neutralSite: true },
     weather: { condition: "Clear", tempF: 58, windMph: 5, humidity: 48, indoors: true },
-    bettingLines: { spread: -3, moneylineHome: -155, moneylineAway: 130, total: 54.5 },
+    bettingLines: { spread: -3, moneylineHome: -155, moneylineAway: 130, total: 54.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Kirby Smart Championship Game Coaching", description: "Smart is 8-2 in conference championship games and has never lost consecutive conference championships. His teams are consistently better in December than in October — the physical and mental preparation intensifies over the season.", impactTeam: "georgia", impactDirection: "positive", severity: 9, category: "coaching" },
       { title: "Georgia Defense Peaks in December", description: "Georgia's defense has historically played their best football in championship games. Smart's defensive staff makes December adjustments that specifically target opponents' best offensive players. The Bulldogs held championship game opponents to under 21 PPG in 6 of their last 8 championship appearances.", impactTeam: "georgia", impactDirection: "positive", severity: 9, category: "defense" },
@@ -3374,7 +3374,7 @@ var GAMES = [
     network: "FOX", isConferenceGame: true, isRivalryGame: false,
     situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: "home", travelDistance: 8, timeZoneChange: 2, neutralSite: true },
     weather: { condition: "Clear", tempF: 42, windMph: 4, humidity: 45, indoors: true },
-    bettingLines: { spread: -4.5, moneylineHome: -210, moneylineAway: 178, total: 53.5 },
+    bettingLines: { spread: -4.5, moneylineHome: -210, moneylineAway: 178, total: 53.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Ryan Day Rematch Record", description: "Day is 7-1 ATS in rematches within the same season. His offensive staff is among the best in college football at exploiting tendencies already studied. Oregon's defensive coordinators must account for an entirely different game plan.", impactTeam: "ohio_state", impactDirection: "positive", severity: 9, category: "coaching" },
       { title: "Ohio State Championship Game Experience", description: "Ohio State has appeared in 6 Big Ten Championship Games in the last eight years. Their players know the format, the environment, and the mental preparation required. Oregon is appearing in a Big Ten title game for just the second time.", impactTeam: "ohio_state", impactDirection: "positive", severity: 8, category: "situational" },

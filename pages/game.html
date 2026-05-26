@@ -2901,6 +2901,78 @@ function renderGamePage(gData) {
 
     ${safe(renderSocialHub, "")}
 
+    ${(() => {
+      // Prop Bet Radar — uses key player data to surface notable prop angles
+      const propPlayers = allPlayers.filter(p => p.position && p.stats);
+      if (!propPlayers.length) return "";
+
+      const props = [];
+
+      propPlayers.forEach(p => {
+        const st = p.stats;
+        const isHome = p.teamId === home.id;
+        const teamName = isHome ? home.name : away.name;
+        const injuryStatus = p.injury && p.injury.status ? p.injury.status : "active";
+        if (injuryStatus === "out" || injuryStatus === "doubtful") return;
+        const inj = injuryStatus === "questionable" ? " ⚠ Q" : injuryStatus === "limited" ? " ⚠ LTD" : "";
+        const pos = (p.position || "").toUpperCase();
+
+        // QB passing yards — flat over/under suggestion
+        if ((pos === "QB" || pos.includes("QB")) && st.passingYardsPerGame) {
+          const pyg = st.passingYardsPerGame;
+          const mMatchup = isHome ? (away.stats && away.stats.yardsAllowedPerGame) : (home.stats && home.stats.yardsAllowedPerGame);
+          if (mMatchup && mMatchup < 280 && pyg >= 250) {
+            props.push({ icon: "🏈", name: p.name + inj, team: teamName, pos, stat: "Passing Yards", val: pyg.toFixed(0) + " avg/g", angle: "UNDER lean — tough D allows " + mMatchup.toFixed(0) + " yds/g", dir: "under" });
+          } else if (mMatchup && mMatchup >= 330 && pyg >= 230) {
+            props.push({ icon: "🔥", name: p.name + inj, team: teamName, pos, stat: "Passing Yards", val: pyg.toFixed(0) + " avg/g", angle: "OVER lean — soft D gives up " + mMatchup.toFixed(0) + " yds/g", dir: "over" });
+          }
+        }
+
+        // RB rushing yards
+        if ((pos === "RB" || pos.includes("RB")) && st.rushingYardsPerGame) {
+          const ryg = st.rushingYardsPerGame;
+          const oppRushDef = isHome ? (away.stats && away.stats.yardsAllowedPerGame) : (home.stats && home.stats.yardsAllowedPerGame);
+          if (oppRushDef && oppRushDef < 280 && ryg >= 90) {
+            props.push({ icon: "🛡", name: p.name + inj, team: teamName, pos, stat: "Rushing Yards", val: ryg.toFixed(0) + " avg/g", angle: "UNDER lean — matchup tough", dir: "under" });
+          } else if (oppRushDef && oppRushDef >= 340 && ryg >= 75) {
+            props.push({ icon: "🔥", name: p.name + inj, team: teamName, pos, stat: "Rushing Yards", val: ryg.toFixed(0) + " avg/g", angle: "Game script favors this back", dir: "over" });
+          }
+        }
+
+        // High-impact injuries that affect game
+        if (p.injury && (p.injury.status === "questionable" || p.injury.status === "limited") && p.impactRating >= 8) {
+          props.push({ icon: "🩹", name: p.name, team: teamName, pos, stat: "Status Alert", val: p.injury.status.toUpperCase(), angle: "Monitor final injury report — if active, they play through it", dir: "watch" });
+        }
+      });
+
+      if (!props.length) return "";
+
+      return `
+      <div class="card card-p mb-5" id="section-props">
+        <div class="section-label">Prop Bet Radar</div>
+        <div style="font-size:.68rem;color:var(--muted);margin-bottom:12px">Matchup-based prop angles derived from player stats vs opponent defense. Always verify actual lines at your sportsbook.</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${props.slice(0, 6).map(pr => {
+            const dc = pr.dir === "over" ? "var(--primary)" : pr.dir === "under" ? "var(--danger)" : "var(--gold)";
+            const db = pr.dir === "over" ? "rgba(16,185,129,.06)" : pr.dir === "under" ? "rgba(239,68,68,.06)" : "rgba(245,158,11,.06)";
+            return `<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius);background:${db};border:1px solid ${dc}20">
+              <span style="font-size:1rem;flex-shrink:0">${pr.icon}</span>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2px">
+                  <strong style="font-size:.8rem;color:var(--text)">${esc(pr.name)}</strong>
+                  <span style="font-size:.58rem;padding:1px 5px;border-radius:3px;background:rgba(255,255,255,.06);color:var(--muted)">${esc(pr.pos)} · ${esc(pr.team)}</span>
+                  <span style="font-size:.62rem;font-weight:700;color:var(--muted-l)">${esc(pr.stat)}: ${esc(pr.val)}</span>
+                </div>
+                <div style="font-size:.7rem;color:var(--text-soft)">${esc(pr.angle)}</div>
+              </div>
+              <span style="font-size:.62rem;font-weight:900;padding:3px 8px;border-radius:5px;background:${dc}20;border:1px solid ${dc}40;color:${dc};flex-shrink:0">${pr.dir.toUpperCase()}</span>
+            </div>`;
+          }).join("")}
+        </div>
+        <div style="margin-top:10px;font-size:.62rem;color:var(--muted);font-style:italic">Prop picks are model-based angles, not official picks. Injuries and line availability vary by sportsbook.</div>
+      </div>`;
+    })()}
+
     <!-- DISCLAIMER -->
     <div style="margin-top:24px;padding:16px 20px;border-radius:var(--radius-lg);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.15);display:flex;gap:14px;align-items:flex-start">
       <span style="color:var(--primary);font-size:1rem;flex-shrink:0;margin-top:2px">ℹ</span>
@@ -2929,6 +3001,7 @@ function renderGamePage(gData) {
     { id: "section-coaching",   label: "Coaching" },
     { id: "section-program",    label: "Prog. Health" },
     { id: "section-signals",    label: "7-Signals" },
+    { id: "section-props",      label: "Props" },
     { id: "section-social",     label: "Social" },
   ];
   const tocEl = document.createElement("nav");
