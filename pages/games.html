@@ -153,6 +153,7 @@
     <div class="chip-row" id="sort-chips">
       <div class="chip active" data-sort="date">Date</div>
       <div class="chip" data-sort="confidence">Top Picks</div>
+      <div class="chip" data-sort="ev">📐 Best EV</div>
     </div>
     <div style="display:flex;gap:6px;flex-shrink:0">
       <button id="view-cards-btn" onclick="setView('cards')" style="padding:6px 12px;border-radius:8px;font-size:.68rem;font-weight:800;border:1px solid var(--primary);background:var(--primary);color:#000;cursor:pointer">🃏 Cards</button>
@@ -272,6 +273,23 @@ function wxBadge(w) {
   if (tmp >= 88) return `<span class="wx-badge wx-hot">🌡️ ${tmp}°F Hot</span>`;
   if (tmp <= 38) return `<span class="wx-badge wx-cold">🥶 ${tmp}°F Cold</span>`;
   return `<span class="wx-badge wx-ok">☀️ ${tmp}°F</span>`;
+}
+
+// Compute expected value per $100 for a game/prediction pair
+function computeGameEV(game, pred) {
+  if (!pred.winProbability || !game.bettingLines) return -999;
+  const bl = game.bettingLines;
+  const gp = game.gamePreview;
+  const cpTeam = gp && gp.thePick && gp.thePick.team ? gp.thePick.team.toLowerCase() : null;
+  const home = game.homeTeam || {};
+  const sp = pred.spreadPick || {};
+  const pickIsHome = cpTeam
+    ? (cpTeam === (home.name||"").toLowerCase() || cpTeam === (home.abbreviation||"").toLowerCase())
+    : sp.side === "home";
+  const sOdds = pickIsHome ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110);
+  const decOdds = sOdds > 0 ? sOdds / 100 + 1 : 100 / Math.abs(sOdds) + 1;
+  const wP = pred.winProbability / 100;
+  return wP * (decOdds - 1) * 100 - (1 - wP) * 100;
 }
 
 // Build predictions with error isolation — only include 2026 season games
@@ -1003,6 +1021,8 @@ function render() {
   if (sortBy === "confidence") {
     const o = { elite:4, high:3, medium:2, low:1 };
     list.sort((a,b) => (o[b.prediction.confidence]||0) - (o[a.prediction.confidence]||0));
+  } else if (sortBy === "ev") {
+    list.sort((a,b) => computeGameEV(b.game, b.prediction) - computeGameEV(a.game, a.prediction));
   } else {
     list.sort((a,b) => a.game.date.localeCompare(b.game.date));
   }
@@ -1111,7 +1131,7 @@ function clearAllFilters() {
     }
   }
 
-  if (sortParam && ["date","confidence"].includes(sortParam)) {
+  if (sortParam && ["date","confidence","ev"].includes(sortParam)) {
     sortBy = sortParam;
     document.querySelectorAll("#sort-chips .chip").forEach(c =>
       c.classList.toggle("active", c.dataset.sort === sortParam));

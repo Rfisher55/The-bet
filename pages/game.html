@@ -1029,9 +1029,19 @@ function renderGamePage(gData) {
             ? "Model sees <strong>+" + probEdgeEV.toFixed(1) + "% probability edge</strong> vs. the " + breakevenPct.toFixed(1) + "% breakeven at " + spreadOddsStr + " juice. Long-run EV: <strong style=\"color:" + evColorEV + "\">" + evSignEV + "$" + Math.abs(evPer100).toFixed(2) + " per $100</strong>." + (mlBetterEV ? " The moneyline (" + mlSignStr + "$" + Math.abs(mlEVVal).toFixed(2) + "/100) may offer better raw value." : "")
             : "Win probability (" + wpEV + "%) sits below the " + breakevenPct.toFixed(1) + "% breakeven at current juice — consider waiting for a better line or passing.";
 
+          // Kelly Criterion: f = (b*p - q) / b  where b = decimal_odds - 1
+          const kellyB    = toDecEV(spreadOddsEV) - 1;
+          const kellyFull = kellyB > 0 ? ((kellyB * wProbEV - (1 - wProbEV)) / kellyB) : 0;
+          const kellyHalf = Math.max(0, kellyFull / 2);
+          const kellyPct  = (kellyHalf * 100).toFixed(1);
+          const kelly100  = (kellyHalf * 100).toFixed(0); // bet size per $100 bankroll
+          const kelly1000 = Math.round(kellyHalf * 1000); // per $1000
+          const kellyColor = kellyHalf >= 0.04 ? "var(--primary)" : kellyHalf >= 0.02 ? "var(--gold)" : "var(--muted)";
+          const kellyLabel = kellyHalf >= 0.04 ? "3–5 units" : kellyHalf >= 0.025 ? "2–3 units" : kellyHalf >= 0.01 ? "1–2 units" : "0.5 unit";
+
           return "<div style=\"margin-top:10px;padding:12px 14px;border-radius:var(--radius);background:" + bgEV + ";border:1px solid " + bdrEV + "\">"
             + "<div style=\"font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px\">📐 EXPECTED VALUE CALCULATOR</div>"
-            + "<div style=\"display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px\">"
+            + "<div style=\"display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px\">"
             + "<div style=\"text-align:center;padding:8px;border-radius:8px;background:var(--surface);border:1px solid var(--border)\">"
             + "<div style=\"font-size:.58rem;color:var(--muted);margin-bottom:2px\">Win Probability</div>"
             + "<div style=\"font-size:1.1rem;font-weight:900;color:var(--text)\">" + wpEV + "%</div>"
@@ -1047,6 +1057,16 @@ function renderGamePage(gData) {
             + "<div style=\"font-size:1.1rem;font-weight:900;color:" + evColorEV + "\">" + evSignEV + "$" + Math.abs(evPer100).toFixed(2) + "</div>"
             + "<div style=\"font-size:.58rem;color:" + evColorEV + ";font-weight:700\">" + evLabelEV + "</div>"
             + "</div></div>"
+            + (kellyHalf > 0 ? "<div style=\"display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border);margin-bottom:8px;flex-wrap:wrap;gap:4px\">"
+              + "<div>"
+              + "<div style=\"font-size:.55rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:2px\">Kelly Bet Size (½ Kelly)</div>"
+              + "<div style=\"font-size:.75rem;color:var(--text-soft)\">Optimal bankroll % given this edge</div>"
+              + "</div>"
+              + "<div style=\"text-align:right\">"
+              + "<div style=\"font-size:1.05rem;font-weight:900;color:" + kellyColor + "\">" + kellyPct + "% of bankroll</div>"
+              + "<div style=\"font-size:.62rem;color:var(--muted)\">${" + kelly100 + "/$100 · $" + kelly1000 + "/$1000 · " + kellyLabel + "</div>"
+              + "</div>"
+              + "</div>" : "")
             + "<div style=\"font-size:.72rem;color:var(--text-soft);line-height:1.5\">" + edgeNoteEV + "</div>"
             + "</div>";
         })()}

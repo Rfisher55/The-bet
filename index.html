@@ -703,6 +703,18 @@
     </div>
   </section>
 
+  <!-- Best EV Plays -->
+  <section class="mb-5" id="best-ev-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">📐 Best Expected Value Plays</div>
+      <a href="pages/games.html?sort=ev" class="text-sm text-muted" style="text-decoration:underline">Sort all by EV →</a>
+    </div>
+    <div id="best-ev-list" style="display:flex;flex-direction:column;gap:8px"></div>
+    <div style="margin-top:8px;padding:8px 12px;border-radius:var(--radius);background:rgba(16,185,129,.03);border:1px solid rgba(16,185,129,.15);font-size:.68rem;color:var(--muted-l)">
+      Expected Value = profit if you made this bet 100 times at these odds. Positive EV means the model's win probability exceeds the sportsbook's implied probability — the mathematical edge that drives long-run profits.
+    </div>
+  </section>
+
   <!-- Best Value Underdog -->
   <section class="mb-5" id="best-dog-section" style="display:none">
     <div class="flex items-center justify-between mb-4">
@@ -991,6 +1003,7 @@
     renderTrendingTeams();
     renderGameOfTheWeek();
     renderFadePublic();
+    renderBestEVPlays();
     renderUpcomingGames();
     renderBestUnderdog();
   });
@@ -2033,6 +2046,83 @@ function renderFadePublic() {
   sec.style.display = "";
 }
 renderFadePublic();
+
+// ── Best EV Plays ─────────────────────────────────────────────────
+function renderBestEVPlays() {
+  var el = document.getElementById("best-ev-list");
+  var sec = document.getElementById("best-ev-section");
+  if (!el || !sec) return;
+
+  function calcEV(game, pred) {
+    if (!pred.winProbability || !game.bettingLines) return null;
+    var bl = game.bettingLines;
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var sp = pred.spreadPick || {};
+    var home = game.homeTeam || {};
+    var cpTeam = tp && tp.team ? tp.team.toLowerCase() : null;
+    var pickIsHome = cpTeam
+      ? (cpTeam === (home.name || "").toLowerCase() || cpTeam === (home.abbreviation || "").toLowerCase())
+      : sp.side === "home";
+    var sOdds = pickIsHome ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110);
+    var dec = sOdds > 0 ? sOdds / 100 + 1 : 100 / Math.abs(sOdds) + 1;
+    var wP = pred.winProbability / 100;
+    var ev = wP * (dec - 1) * 100 - (1 - wP) * 100;
+    var breakeven = sOdds < 0 ? Math.abs(sOdds) / (Math.abs(sOdds) + 100) * 100 : 100 / (sOdds + 100) * 100;
+    var kellyB = dec - 1;
+    var kellyHalf = kellyB > 0 ? Math.max(0, ((kellyB * wP - (1 - wP)) / kellyB) / 2) : 0;
+    return { ev: ev, pickIsHome: pickIsHome, sOdds: sOdds, breakeven: breakeven, kellyHalf: kellyHalf };
+  }
+
+  var candidates = allPredictions.map(function(p) {
+    var r = calcEV(p.game, p.prediction);
+    if (!r || r.ev < 2) return null;
+    var tp = p.game.gamePreview && p.game.gamePreview.thePick;
+    var sp = p.prediction.spreadPick || {};
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    if (!pickTeam) return null;
+    var pickConf = (tp && tp.confidence) ? tp.confidence.toUpperCase() : (p.prediction.confidence || "MEDIUM").toUpperCase();
+    return { p: p, pickTeam: pickTeam, pickConf: pickConf, ev: r.ev, sOdds: r.sOdds, breakeven: r.breakeven, kellyHalf: r.kellyHalf, pickIsHome: r.pickIsHome };
+  }).filter(Boolean).sort(function(a, b) { return b.ev - a.ev; }).slice(0, 5);
+
+  if (!candidates.length) return;
+
+  var confColors = { ELITE: "var(--primary)", HIGH: "#34d399", MEDIUM: "var(--gold)", LOW: "var(--muted)" };
+  el.innerHTML = candidates.map(function(c, i) {
+    var game = c.p.game;
+    var pred = c.p.prediction;
+    var home = game.homeTeam, away = game.awayTeam;
+    var bl = game.bettingLines || {};
+    var cc = confColors[c.pickConf] || "var(--primary)";
+    var oddsStr = (c.sOdds > 0 ? "+" : "") + c.sOdds;
+    var evSign = c.ev >= 0 ? "+" : "";
+    var evColor = c.ev >= 8 ? "var(--primary)" : c.ev >= 3 ? "#34d399" : "var(--gold)";
+    var vegasLine = bl.spread != null ? (c.pickIsHome ? fmtSpread(bl.spread) : fmtSpread(-bl.spread)) : "";
+    var sp = pred.spreadPick || {};
+    var kellyPct = c.kellyHalf > 0 ? (c.kellyHalf * 100).toFixed(1) + "%" : "";
+    var rankBg = i === 0 ? "rgba(16,185,129,.15)" : "rgba(255,255,255,.04)";
+    var rankColor = i === 0 ? "var(--primary)" : "var(--muted)";
+    return '<a href="pages/game.html?id=' + game.id + '" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius);background:rgba(16,185,129,.03);border:1px solid rgba(16,185,129,.15);transition:border-color .15s" onmouseover="this.style.borderColor=\'rgba(16,185,129,.4)\'" onmouseout="this.style.borderColor=\'rgba(16,185,129,.15)\'">'
+      + '<div style="flex-shrink:0;width:32px;height:32px;border-radius:8px;background:' + rankBg + ';border:1px solid ' + evColor + '30;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;color:' + rankColor + '">#' + (i + 1) + '</div>'
+      + '<div style="flex-shrink:0;padding:7px 10px;border-radius:8px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);text-align:center;min-width:64px">'
+        + '<div style="font-size:.48rem;font-weight:900;text-transform:uppercase;color:var(--muted);letter-spacing:1px;margin-bottom:1px">EV/100</div>'
+        + '<div style="font-size:1.1rem;font-weight:900;color:' + evColor + '">' + evSign + '$' + Math.abs(c.ev).toFixed(1) + '</div>'
+        + (kellyPct ? '<div style="font-size:.5rem;color:var(--muted)">Kelly ' + kellyPct + '</div>' : '')
+      + '</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="font-size:.65rem;color:var(--muted);margin-bottom:3px">' + away.abbreviation + ' @ ' + home.abbreviation + (vegasLine ? " · " + vegasLine + " (" + oddsStr + ")" : "") + (game.date ? " · " + game.date : "") + '</div>'
+        + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
+          + '<span style="font-size:.88rem;font-weight:900;color:var(--text)">📐 ' + c.pickTeam + ' covers</span>'
+          + '<span style="font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:5px;background:' + cc + '20;border:1px solid ' + cc + '40;color:' + cc + '">' + c.pickConf + '</span>'
+        + '</div>'
+        + '<div style="font-size:.65rem;color:var(--muted-l);margin-top:2px">Win prob ' + (pred.winProbability || "—") + '% vs ' + c.breakeven.toFixed(1) + '% breakeven · +' + (pred.winProbability - c.breakeven).toFixed(1) + '% edge over juice</div>'
+      + '</div>'
+      + '<div style="font-size:.7rem;color:var(--primary);font-weight:700;flex-shrink:0">View →</div>'
+    + '</a>';
+  }).join("");
+
+  sec.style.display = "";
+}
+renderBestEVPlays();
 
 // ── Conference ATS Records ────────────────────────────────────────
 function renderConferenceATS() {
