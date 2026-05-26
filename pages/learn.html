@@ -1070,6 +1070,36 @@
       </div>
     </div>
 
+    <!-- Moneyline vs Spread Comparator -->
+    <div class="section-label" style="margin-top:28px">&#9878; Moneyline vs. Spread Comparator</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Given a team's win probability, compare the EV of betting them on the moneyline vs. against the spread. Sometimes the moneyline offers better value than the spread — especially when you're getting a huge dog or laying a small price on a heavy favorite.</p>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:28px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;max-width:550px">
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Win Probability (%)</label>
+          <input type="number" id="mlsp-prob" value="60" min="1" max="99"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            oninput="calcMLvSpread()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Moneyline Odds</label>
+          <input type="number" id="mlsp-ml" value="-180"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            oninput="calcMLvSpread()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Spread Odds (ATS)</label>
+          <input type="number" id="mlsp-sp" value="-110"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            oninput="calcMLvSpread()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+          <div style="font-size:.6rem;color:var(--muted);margin-top:4px">Win prob for ATS assumes ~52% for spread bets</div>
+        </div>
+      </div>
+      <div id="mlsp-result" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+        <div style="font-size:.78rem;color:var(--muted)">Enter values to compare</div>
+      </div>
+    </div>
+
     <!-- Teaser Calculator -->
     <div class="section-label" style="margin-top:28px">&#127918; Teaser Calculator</div>
     <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Teasers let you move the spread by 6, 6.5, or 7 points in exchange for reduced payout. Most common: 2-team 6-point teaser at -110. Key strategy: always cross 3 and 7 (the two most common NFL/CFB margins).</p>
@@ -1496,6 +1526,73 @@ function calcBreakEven() {
     + '</div>';
 }
 calcBreakEven();
+
+// Moneyline vs Spread Comparator
+function calcMLvSpread() {
+  var prob = parseFloat(document.getElementById('mlsp-prob').value) / 100;
+  var mlOdds = parseInt(document.getElementById('mlsp-ml').value, 10) || -180;
+  var spOdds = parseInt(document.getElementById('mlsp-sp').value, 10) || -110;
+  var el = document.getElementById('mlsp-result');
+  if (!el || isNaN(prob) || prob <= 0 || prob >= 1) return;
+
+  function toDecimal(am) { return am > 0 ? am / 100 + 1 : 100 / Math.abs(am) + 1; }
+  var mlDec = toDecimal(mlOdds);
+  var spDec = toDecimal(spOdds);
+
+  // EV on moneyline: straight win/loss based on team's win probability
+  var mlEV = prob * (mlDec - 1) * 100 - (1 - prob) * 100;
+
+  // EV on spread: team covers if they win + if they lose but within the spread
+  // We use a simplified ATS win probability: if model win prob > implied spread prob
+  // Typically spread covers happen with higher prob than straight wins for favorites
+  // For a favorite: ATS win prob ≈ prob + (1-prob) * P(losing by less than spread) ≈ prob * 1.15 capped at 0.75
+  // For a dog: ATS win prob ≈ prob * (1 + margin/100)
+  // We'll use a simpler model: spread has a ~52% base for the side with edge; their actual edge adjusts
+  var mlImplied = 1 / mlDec;
+  var edge = prob - mlImplied; // edge over book's implied prob
+  // ATS win prob: books set spread at ~52.4% (juice adjusted), our edge above that
+  var atsBase = 0.524;
+  var atsProb = Math.min(0.82, atsBase + edge);
+  var spEV = atsProb * (spDec - 1) * 100 - (1 - atsProb) * 100;
+
+  var betterBet = mlEV >= spEV ? "Moneyline" : "Spread";
+  var betterEV = Math.max(mlEV, spEV);
+  var betterColor = betterEV >= 0 ? 'var(--primary)' : 'var(--danger)';
+
+  var mlSign = mlEV >= 0 ? '+' : '';
+  var spSign = spEV >= 0 ? '+' : '';
+  var mlColor = mlEV >= 0 ? 'var(--primary)' : 'var(--danger)';
+  var spColor = spEV >= 0 ? 'var(--primary)' : 'var(--danger)';
+  var mlImpliedPct = (mlImplied * 100).toFixed(1);
+  var atsProbPct = (atsProb * 100).toFixed(1);
+
+  var rec = '';
+  if (mlEV >= 0 && spEV >= 0) {
+    rec = betterBet + ' is the better +EV option by $' + Math.abs(mlEV - spEV).toFixed(2) + '/100.';
+  } else if (mlEV >= 0 || spEV >= 0) {
+    rec = 'Only the ' + betterBet.toLowerCase() + ' is +EV at this probability.';
+  } else {
+    rec = 'Both bets are -EV at this probability. Consider passing.';
+  }
+
+  el.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">'
+    + '<div style="padding:12px;border-radius:10px;background:rgba(16,185,129,.05);border:2px solid ' + (betterBet === 'Moneyline' ? 'rgba(16,185,129,.4)' : 'rgba(255,255,255,.08)') + '">'
+      + '<div style="font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Moneyline (' + (mlOdds > 0 ? '+' : '') + mlOdds + ')</div>'
+      + '<div style="font-size:1.15rem;font-weight:900;color:' + mlColor + '">' + mlSign + '$' + Math.abs(mlEV).toFixed(2) + '<span style="font-size:.6rem;color:var(--muted)">/100</span></div>'
+      + '<div style="font-size:.62rem;color:var(--muted);margin-top:4px">Book implied: ' + mlImpliedPct + '% · Your prob: ' + Math.round(prob * 100) + '%</div>'
+      + (betterBet === 'Moneyline' ? '<div style="font-size:.55rem;padding:2px 6px;border-radius:4px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);color:var(--primary);font-weight:800;margin-top:4px;display:inline-block">✅ BETTER BET</div>' : '')
+    + '</div>'
+    + '<div style="padding:12px;border-radius:10px;background:rgba(99,102,241,.05);border:2px solid ' + (betterBet === 'Spread' ? 'rgba(99,102,241,.4)' : 'rgba(255,255,255,.08)') + '">'
+      + '<div style="font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Spread (' + (spOdds > 0 ? '+' : '') + spOdds + ')</div>'
+      + '<div style="font-size:1.15rem;font-weight:900;color:' + spColor + '">' + spSign + '$' + Math.abs(spEV).toFixed(2) + '<span style="font-size:.6rem;color:var(--muted)">/100</span></div>'
+      + '<div style="font-size:.62rem;color:var(--muted);margin-top:4px">Est. ATS prob: ' + atsProbPct + '% (from your edge)</div>'
+      + (betterBet === 'Spread' ? '<div style="font-size:.55rem;padding:2px 6px;border-radius:4px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:var(--accent);font-weight:800;margin-top:4px;display:inline-block">✅ BETTER BET</div>' : '')
+    + '</div>'
+    + '</div>'
+    + '<div style="font-size:.72rem;color:var(--text-soft);line-height:1.5">' + rec + '</div>'
+    + '<div style="font-size:.62rem;color:var(--muted);margin-top:6px;line-height:1.5">ATS probability estimate is simplified — it assumes your win probability edge translates proportionally to spread coverage. Heavy favorites or dogs with large spreads may need manual adjustment.</div>';
+}
+calcMLvSpread();
 
 // Teaser Calculator
 // Standard teaser payout table (approximate): 2-team 6pt=-110, 2-team 6.5pt=-120, 2-team 7pt=-130
