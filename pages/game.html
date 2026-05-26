@@ -924,48 +924,69 @@ function renderGamePage(gData) {
       if (a >= 4) return "#94a3b8"; return "var(--danger)";
     }
     const hs = home.stats, as_ = away.stats;
+    // Matchup edge scores — positive = home advantage, negative = away advantage
     const matchups = [
       {
         icon: "⚡", label: "OFFENSIVE LINE vs D-LINE",
+        // Measures home run game vs away run defense, and home pass protection vs away pass rush
         score: (hs.rushingYardsPerGame - as_.yardsAllowedPerGame * 0.4) * 0.35 + (hs.sacks - as_.sacksAllowed) * 1.8,
         home_lbl: `${home.abbreviation} OL / Run Game`,
         away_lbl: `${away.abbreviation} Defensive Line`,
-        gen: (w, s) => s > 0 ? `${home.name} wins the trenches — ${hs.rushingYardsPerGame} rush yds/gm vs ${away.name}'s ${(as_.yardsAllowedPerGame * 0.4).toFixed(0)} run yds allowed/gm. Pass protection also holds up.`
-                               : `${away.name} front four controls line of scrimmage — ${as_.sacks} sacks/gm creates havoc for ${home.name}'s run blocking scheme.`
+        gen: (w, s) => s > 0
+          ? `${home.name} wins the trenches — ${hs.rushingYardsPerGame} rush yds/gm vs ${away.name}'s ${(as_.yardsAllowedPerGame * 0.4).toFixed(0)} run yds allowed/gm. Pass pro holds up.`
+          : `${away.name} front four controls the line of scrimmage — ${as_.sacks} sacks/gm disrupts ${home.name}'s run blocking and creates negative plays.`
       },
       {
-        icon: "🎯", label: "QUARTERBACK BATTLE",
-        score: hs.passingYardsPerGame * 0.3 + (home.offensiveRating - away.defensiveRating) * 0.5,
-        home_lbl: `${home.abbreviation} QB / Passing Game`,
-        away_lbl: `${away.abbreviation} Coverage`,
-        gen: (w, s) => s > 0 ? `${home.name} QB has the edge — ${hs.passingYardsPerGame} pass yds/gm. ${home.coachName}'s system creates rhythm through short-to-intermediate routes.`
-                               : `${away.name} secondary rated stronger — ${as_.passingYardsPerGame} pass yds/gm and their coverage packages limit downfield shots.`
+        icon: "🎯", label: "QB vs SECONDARY",
+        // Measures home passing offense vs away pass defense
+        score: (hs.passingYardsPerGame - as_.yardsAllowedPerGame * 0.58) * 0.28 + (home.offensiveRating - away.defensiveRating) * 0.4,
+        home_lbl: `${home.abbreviation} Passing Game`,
+        away_lbl: `${away.abbreviation} Secondary`,
+        gen: (w, s) => s > 0
+          ? `${home.name} passing attack has the edge — ${hs.passingYardsPerGame} pass yds/gm vs ${away.name}'s secondary that allows ${(as_.yardsAllowedPerGame * 0.58).toFixed(0)} through the air.`
+          : `${away.name} secondary wins this matchup — their coverage limits opponents and ${home.name}'s passing game (${hs.passingYardsPerGame} yds/gm) will face pressure.`
       },
       {
         icon: "🛡️", label: "RUN DEFENSE",
+        // Measures home run defense vs away ground game
         score: (as_.rushingYardsPerGame - hs.yardsAllowedPerGame * 0.4) * -0.3 + (home.defensiveRating - away.offensiveRating) * 0.45,
         home_lbl: `${home.abbreviation} Run Defense`,
         away_lbl: `${away.abbreviation} Ground Game`,
-        gen: (w, s) => s > 0 ? `${home.name} stuffs the run — holds opponents to ${(hs.yardsAllowedPerGame * 0.4).toFixed(0)} rush yds/gm. Forces ${away.name} into passing downs.`
-                               : `${away.name} run game is too physical — ${as_.rushingYardsPerGame} rush yds/gm will wear down ${home.name}'s defense over 60 minutes.`
+        gen: (w, s) => s > 0
+          ? `${home.name} stuffs the run — holds opponents to ${(hs.yardsAllowedPerGame * 0.4).toFixed(0)} rush yds/gm. Forces ${away.name} into passing downs.`
+          : `${away.name} ground game is too physical — ${as_.rushingYardsPerGame} rush yds/gm will wear down ${home.name}'s defense over 60 minutes.`
       },
       {
-        icon: "🔒", label: "SECONDARY vs RECEIVERS",
-        score: (as_.passingYardsPerGame - hs.yardsAllowedPerGame * 0.58) * -0.28 + (home.defensiveRating - away.offensiveRating) * 0.35,
+        icon: "🔒", label: "AWAY QB vs HOME SECONDARY",
+        // Measures away passing offense vs home pass defense
+        score: (as_.passingYardsPerGame - hs.yardsAllowedPerGame * 0.58) * -0.28 + (away.offensiveRating - home.defensiveRating) * 0.35,
         home_lbl: `${home.abbreviation} Secondary`,
-        away_lbl: `${away.abbreviation} Receivers / TE`,
-        gen: (w, s) => s > 0 ? `${home.name} secondary holds the edge — limits opponents to ${(hs.yardsAllowedPerGame * 0.58).toFixed(0)} pass yds/gm. Wins man coverage battles.`
-                               : `${away.name} receivers present mismatches — ${as_.passingYardsPerGame} pass yds/gm. Size or speed advantage to win outside.`
+        away_lbl: `${away.abbreviation} Passing Game`,
+        gen: (w, s) => s >= 0
+          ? `${home.name} secondary holds the edge — limits opponents to ${(hs.yardsAllowedPerGame * 0.58).toFixed(0)} pass yds/gm. Wins coverage battles against ${away.name}'s passing attack.`
+          : `${away.name} passing game has the advantage — ${as_.passingYardsPerGame} pass yds/gm against a ${home.name} secondary that gives up ${(hs.yardsAllowedPerGame * 0.58).toFixed(0)}.`
       },
       {
         icon: "⭐", label: "OVERALL TALENT EDGE",
         score: home.rating - away.rating,
         home_lbl: `${home.abbreviation} Roster Depth`,
         away_lbl: `${away.abbreviation} Roster Depth`,
-        gen: (w, s) => Math.abs(s) >= 10 ? `${w.name} holds a significant talent advantage — ${Math.abs(s.toFixed(0))}-point composite rating gap. Depth wins in the 4th quarter.`
-                                          : `Essentially even roster talent. Coaching, scheme, and game-plan execution determine the outcome here.`
+        gen: (w, s) => Math.abs(s) >= 10
+          ? `${w.name} holds a significant talent advantage — ${Math.abs(Math.round(s))}-point composite rating gap. Depth wins in the 4th quarter.`
+          : `Essentially even roster talent. Coaching, scheme, and game-plan execution determine the outcome here.`
       }
     ];
+
+    // Count category edges to see if they align with or contradict the model pick
+    const homeEdgeCount = matchups.filter(m => m.score >= 0).length;
+    const awayEdgeCount = matchups.length - homeEdgeCount;
+    const modelPickHome = pred.predictedSpread >= 0;
+    const categoryAligns = modelPickHome ? homeEdgeCount >= awayEdgeCount : awayEdgeCount >= homeEdgeCount;
+    const pickTeamName = modelPickHome ? home.name : away.name;
+    const reconcileNote = categoryAligns
+      ? `Category edges (${modelPickHome ? homeEdgeCount : awayEdgeCount}–${modelPickHome ? awayEdgeCount : homeEdgeCount}) align with the model's pick: <strong style="color:var(--primary)">${pickTeamName}</strong>.`
+      : `Category edges favor ${modelPickHome ? away.name : home.name} in ${modelPickHome ? awayEdgeCount : homeEdgeCount}/${matchups.length} areas, but the model still picks <strong style="color:var(--gold)">${pickTeamName}</strong> — driven by ${pred.overallEdge?.breakdown ? Object.entries(pred.overallEdge.breakdown).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1]))[0][0].replace(/([A-Z])/g," $1").toLowerCase() : "composite factors"} outweighing individual category edges.`;
+
     return `
       <div class="card card-p mb-5">
         <div class="section-label">Position Group Matchup Analysis</div>
@@ -994,6 +1015,9 @@ function renderGamePage(gData) {
                 <div style="font-size:.75rem;color:var(--text-soft);line-height:1.55">${m.gen(winner, m.score)}</div>
               </div>`;
           }).join("")}
+        </div>
+        <div style="margin-top:12px;padding:10px 12px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);font-size:.72rem;color:var(--muted-l);line-height:1.6">
+          ⚖️ ${reconcileNote} <span style="color:var(--muted)">Category edges are individual matchup signals — the model's final pick weights 8 factors including coaching, program momentum, sharp money, and live injury intel.</span>
         </div>
       </div>`;
   }
@@ -1398,15 +1422,39 @@ function renderGamePage(gData) {
         </div>
         ${safe(renderWinGauge, "")}
         <div class="grid-3 mb-4">
-          <!-- ATS -->
-          <div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${pred.spreadPick && pred.spreadPick.side !== "no-bet" ? pred.spreadPick.side === "home" ? "rgba(99,102,241,.5)" : "rgba(245,158,11,.5)" : "var(--border)"};background:${pred.spreadPick && pred.spreadPick.side !== "no-bet" ? pred.spreadPick.side === "home" ? "rgba(99,102,241,.1)" : "rgba(245,158,11,.1)" : "var(--surface)"}">
-            <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">Spread Pick</div>
-            ${pred.spreadPick && pred.spreadPick.side !== "no-bet"
-              ? `<div style="font-size:.95rem;font-weight:800;color:${pred.spreadPick.side === "home" ? "var(--accent)" : "var(--gold)"}">Will cover spread</div>
-                 <div class="text-xs text-muted mt-1">${pred.spreadPick.team.split(' ').pop()} · ${game.bettingLines ? fmtSpread(pred.spreadPick.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) : ""}</div>
-                 <div class="text-xs text-muted mt-1">Edge +${pred.spreadPick.edge} pts</div>`
-              : `<div style="font-size:.95rem;font-weight:700;color:var(--muted)">No Bet</div><div class="text-xs text-muted mt-1">No significant edge</div>`}
-          </div>
+          <!-- ATS — curated pick overrides model when available so the two sections always agree -->
+          ${(function() {
+            const curatedPick = game.gamePreview && game.gamePreview.thePick && game.gamePreview.thePick.team
+              ? game.gamePreview.thePick : null;
+            const curatedTeam = curatedPick ? curatedPick.team : null;
+            const curatedLine = curatedPick ? curatedPick.line : null;
+            const curatedConf = curatedPick ? curatedPick.confidence : null;
+            // Determine home/away side from curated team name
+            const curatedSide = curatedTeam
+              ? (curatedTeam.toLowerCase().includes(home.name.toLowerCase()) || curatedTeam.toLowerCase().includes(home.abbreviation.toLowerCase()) ? "home"
+                : curatedTeam.toLowerCase().includes(away.name.toLowerCase()) || curatedTeam.toLowerCase().includes(away.abbreviation.toLowerCase()) ? "away"
+                : null) : null;
+            // Resolve to display pick: curated wins; fall back to model
+            const hasPick = curatedSide || (pred.spreadPick && pred.spreadPick.side !== "no-bet");
+            const displaySide = curatedSide || (pred.spreadPick ? pred.spreadPick.side : null);
+            const displayTeam = curatedTeam || (pred.spreadPick ? pred.spreadPick.team : "");
+            const displayLine = curatedLine || (game.bettingLines && pred.spreadPick && pred.spreadPick.side !== "no-bet"
+              ? fmtSpread(pred.spreadPick.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) : "");
+            const confColors = { HIGH: "var(--primary)", MEDIUM: "var(--gold)", LOW: "var(--muted-l)" };
+            const dispConfColor = confColors[curatedConf] || (displaySide === "home" ? "var(--accent)" : "var(--gold)");
+            const borderColor = hasPick ? (displaySide === "home" ? "rgba(99,102,241,.5)" : "rgba(245,158,11,.5)") : "var(--border)";
+            const bgColor    = hasPick ? (displaySide === "home" ? "rgba(99,102,241,.1)" : "rgba(245,158,11,.1)") : "var(--surface)";
+            return `<div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${borderColor};background:${bgColor}">
+              <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">Spread Pick</div>
+              ${hasPick
+                ? `<div style="font-size:.95rem;font-weight:800;color:${dispConfColor}">Will cover spread</div>
+                   <div class="text-xs text-muted mt-1">${displayTeam}${displayLine ? ' · ' + displayLine : ''}</div>
+                   ${curatedPick ? '<div class="text-xs mt-1" style="color:var(--muted);font-style:italic">From analysis</div>'
+                                 : `<div class="text-xs text-muted mt-1">Edge +${pred.spreadPick.edge} pts</div>`}`
+                : `<div style="font-size:.95rem;font-weight:700;color:var(--muted)">No Bet</div>
+                   <div class="text-xs text-muted mt-1">No significant edge</div>`}
+            </div>`;
+          })()}
           <!-- Total -->
           <div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${pred.totalPick && pred.totalPick.side !== "no-bet" ? pred.totalPick.side === "over" ? "rgba(16,185,129,.5)" : "rgba(239,68,68,.5)" : "var(--border)"};background:${pred.totalPick && pred.totalPick.side !== "no-bet" ? pred.totalPick.side === "over" ? "rgba(16,185,129,.1)" : "rgba(239,68,68,.1)" : "var(--surface)"}">
             <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">Total Pick</div>
