@@ -1316,9 +1316,13 @@ function calcParlay() {
   var combined = decOdds.reduce(function(acc, d) { return acc * d; }, 1);
   var combinedAmerican = combined >= 2 ? Math.round((combined - 1) * 100) : Math.round(-100 / (combined - 1));
   var impliedProb = (1 / combined) * 100;
-  var vigFreeProb = decOdds.map(function(d) { return 1 / d; }).reduce(function(a, b) { return a * b; }, 1) * 100;
-  var vigorish = vigFreeProb - impliedProb;
-  var ev = vigFreeProb - impliedProb; // vig in percentage points
+  // Vig-free probability: remove standard ~4.76% overround per leg (assumes -110/-110 symmetric markets)
+  var vigFreeProb = decOdds.map(function(d) { return (1 / d) / 1.0476; }).reduce(function(a, b) { return a * b; }, 1) * 100;
+  var vigorish = impliedProb - vigFreeProb; // positive = house edge
+  var ev = vigorish;
+  // Fair payout: use vig-free decimal odds per leg (removes the ~4.76% overround)
+  var fairCombined = decOdds.reduce(function(acc, d) { return acc * (d / 1.0476); }, 1);
+  var fairAmerican = Math.round(fairCombined >= 2 ? (fairCombined - 1) * 100 : -100 / (fairCombined - 1));
   el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">'
     + '<div style="text-align:center;padding:10px;border-radius:8px;background:var(--card);border:1px solid var(--border)">'
       + '<div style="font-size:.58rem;color:var(--muted);margin-bottom:3px">Combined Odds</div>'
@@ -1336,7 +1340,7 @@ function calcParlay() {
       + '<div style="font-size:.6rem;color:var(--muted)">house edge per parlay</div>'
     + '</div>'
     + '</div>'
-    + '<div style="margin-top:10px;font-size:.72rem;color:var(--muted-l)">At standard -110 per leg: ' + parlayLegs.length + ' legs payout ' + (combinedAmerican > 0 ? '+' : '') + combinedAmerican + ' but the fair payout (no vig) would be +' + Math.round((decOdds.reduce(function(a,b){ return a*(b > 0 ? b/100+1 : 100/Math.abs(b)+1); }, 1.0)) * 100 - 100) + '. The book keeps the difference.</div>';
+    + '<div style="margin-top:10px;font-size:.72rem;color:var(--muted-l)">At standard -110 per leg: ' + parlayLegs.length + ' legs payout ' + (combinedAmerican > 0 ? '+' : '') + combinedAmerican + ' but the fair payout (no vig) would be ' + (fairAmerican > 0 ? '+' : '') + fairAmerican + '. The book keeps the difference.</div>';
 }
 renderParlayLegs();
 
