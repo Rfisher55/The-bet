@@ -1018,6 +1018,14 @@ function renderGamePage(gData) {
           const evLabelEV     = evPer100 >= 8 ? "🔥 Strong +EV" : evPer100 >= 2 ? "✅ +EV" : evPer100 >= -2 ? "⚖️ Breakeven" : "❌ −EV";
           const evSignEV      = evPer100 >= 0 ? "+" : "";
           const mlEVVal       = mlOddsEV ? (wProbEV * (toDecEV(mlOddsEV) - 1) * 100 - (1 - wProbEV) * 100) : null;
+          // Key number detection — spreads on 3, 7, 10, 14 without a hook are dangerous
+          const rawSpreadEV   = blEV.spread != null ? Math.abs(blEV.spread) : null;
+          const KEY_NUMBERS   = [3, 7, 10, 14, 17, 21];
+          const isOnKeyNum    = rawSpreadEV != null && KEY_NUMBERS.includes(rawSpreadEV);
+          const hasHook       = rawSpreadEV != null && (rawSpreadEV % 0.5 === 0 && rawSpreadEV % 1 !== 0);
+          const keyNumAlert   = isOnKeyNum && !hasHook
+            ? "⚠️ Spread is on a key number (" + rawSpreadEV + ") with no hook. Historically ~" + (rawSpreadEV === 3 ? 9 : rawSpreadEV === 7 ? 7 : 5) + "% of D1 games land on this exact margin — consider shopping for the hook (-" + (rawSpreadEV - 0.5) + "/" + (rawSpreadEV - 0.5) + ") before placing."
+            : null;
           const mlBetterEV    = mlEVVal !== null && mlEVVal > evPer100 + 1;
           const mlSignStr     = mlEVVal !== null ? (mlEVVal >= 0 ? "+" : "") : "";
           const bgEV          = evPositiveEV ? "rgba(16,185,129,.04)" : "rgba(239,68,68,.04)";
@@ -1068,6 +1076,7 @@ function renderGamePage(gData) {
               + "</div>"
               + "</div>" : "")
             + "<div style=\"font-size:.72rem;color:var(--text-soft);line-height:1.5\">" + edgeNoteEV + "</div>"
+            + (keyNumAlert ? "<div style=\"margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);font-size:.7rem;color:var(--gold);line-height:1.45\">" + keyNumAlert + "</div>" : "")
             + "</div>";
         })()}
       </div>
