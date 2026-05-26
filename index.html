@@ -703,6 +703,15 @@
     </div>
   </section>
 
+  <!-- Best Value Underdog -->
+  <section class="mb-5" id="best-dog-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">🐶 Best Value Underdog</div>
+      <span class="text-sm text-muted">Model-backed dogs with the most edge</span>
+    </div>
+    <div id="best-dog-card"></div>
+  </section>
+
   <!-- Value Alerts -->
   <section class="mb-5" id="value-alerts-section" style="display:none">
     <div class="flex items-center justify-between mb-4">
@@ -960,6 +969,7 @@
     renderConferenceATS();
     renderTrendingTeams();
     renderUpcomingGames();
+    renderBestUnderdog();
   });
 })();
 
@@ -1770,6 +1780,83 @@ function renderUpcomingGames() {
   sec.style.display = "";
 }
 renderUpcomingGames();
+
+// ── Best Value Underdog ───────────────────────────────────────────
+function renderBestUnderdog() {
+  var confWeights = { ELITE: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+  var dogs = allPredictions.filter(function(p) {
+    var game = p.game, pred = p.prediction;
+    var bl = game.bettingLines;
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var sp = pred.spreadPick || {};
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    if (!pickTeam || !bl) return false;
+    var pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name||"").toLowerCase() ||
+                     pickTeam.toLowerCase() === (game.homeTeam.abbreviation||"").toLowerCase();
+    // Is the pick team an underdog? (away team as underdog = bl.spread < 0; home as underdog = bl.spread > 0)
+    var isUnderdog = (pickIsHome && bl.spread > 0) || (!pickIsHome && bl.spread < 0);
+    return isUnderdog;
+  }).map(function(p) {
+    var game = p.game, pred = p.prediction;
+    var bl = game.bettingLines;
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var sp = pred.spreadPick || {};
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    var pickConf = tp && tp.confidence ? tp.confidence.toUpperCase() : null;
+    var pickIsHome = pickTeam && (pickTeam.toLowerCase() === (game.homeTeam.name||"").toLowerCase() ||
+                     pickTeam.toLowerCase() === (game.homeTeam.abbreviation||"").toLowerCase());
+    var spread = pickIsHome ? bl.spread : -bl.spread; // from pick team's perspective (positive = underdog)
+    var edge = (sp.edge || 0);
+    var confW = confWeights[pickConf] || 1;
+    var score = edge * 3 + confW * 2 + Math.min(spread * 0.5, 5); // bigger dogs score higher with same edge
+    return { p: p, pickTeam: pickTeam, pickConf: pickConf, spread: spread, edge: edge, score: score, pickIsHome: pickIsHome };
+  }).sort(function(a, b) { return b.score - a.score; });
+
+  var el = document.getElementById("best-dog-card");
+  var sec = document.getElementById("best-dog-section");
+  if (!el || !sec || !dogs.length) return;
+
+  var top = dogs[0];
+  var game = top.p.game;
+  var pred = top.p.prediction;
+  var opp = top.pickIsHome ? game.awayTeam : game.homeTeam;
+  var oppSpread = -top.spread;
+  var bl = game.bettingLines;
+  var ml = top.pickIsHome ? (bl && bl.moneylineHome) : (bl && bl.moneylineAway);
+  var mlStr = ml ? (ml > 0 ? "+" + ml : ml) : "";
+  var sp = pred.spreadPick || {};
+  var tp = game.gamePreview && game.gamePreview.thePick;
+  var pickConf = (top.pickConf || pred.confidence || "medium").toUpperCase();
+  var confColor = { ELITE: "var(--primary)", HIGH: "#34d399", MEDIUM: "var(--gold)", LOW: "var(--muted)" }[pickConf] || "var(--muted)";
+  var reasoning = (tp && tp.reasoning) ? tp.reasoning : (sp.note || "Model finds value on the underdog — historical data and matchup edge suggest they can cover.");
+  var atsDog = (top.pickIsHome ? game.homeTeam : game.awayTeam);
+  var atsRec = atsDog.atsRecord || (window.TEAMS && TEAMS[top.pickIsHome ? game.homeTeamId : game.awayTeamId] && TEAMS[top.pickIsHome ? game.homeTeamId : game.awayTeamId].atsRecord);
+  var atsStr = atsRec && typeof atsRec === "object" ? atsRec.wins + "-" + atsRec.losses + " ATS (" + Math.round((atsRec.pct||0)*100) + "%)" : "";
+
+  el.innerHTML = '<a href="pages/game.html?id=' + game.id + '" style="text-decoration:none;display:block;padding:16px 18px;border-radius:var(--radius-lg);border:1px solid rgba(99,102,241,.3);background:rgba(99,102,241,.04)">'
+    + '<div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">'
+          + '<span style="font-size:1rem;font-weight:900;color:var(--text)">' + top.pickTeam + '</span>'
+          + '<span style="font-size:.6rem;font-weight:900;padding:2px 8px;border-radius:5px;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:var(--accent)">+' + top.spread.toFixed(1) + ' DOG</span>'
+          + (mlStr ? '<span style="font-size:.62rem;color:var(--muted)">ML: ' + mlStr + '</span>' : '')
+          + '<span style="font-size:.58rem;font-weight:900;padding:2px 8px;border-radius:5px;background:' + confColor + '20;border:1px solid ' + confColor + '40;color:' + confColor + '">' + pickConf + '</span>'
+        + '</div>'
+        + '<div style="font-size:.72rem;color:var(--muted);margin-bottom:6px">vs ' + (opp.abbreviation||opp.name) + ' (' + fmtSpread(oppSpread) + ') · ' + (game.time||"") + ' · Wk ' + (game.week||"?") + '</div>'
+        + '<div style="font-size:.75rem;color:var(--text-soft);line-height:1.55">' + (reasoning.length > 160 ? reasoning.slice(0,160) + "…" : reasoning) + '</div>'
+        + (atsStr ? '<div style="margin-top:6px;font-size:.62rem;color:var(--primary)">📊 ' + atsStr + ' as underdog</div>' : '')
+      + '</div>'
+      + '<div style="flex-shrink:0;text-align:right">'
+        + '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Model Edge</div>'
+        + '<div style="font-size:1.3rem;font-weight:900;color:var(--accent)">+' + top.edge.toFixed(1) + ' pts</div>'
+        + '<div style="font-size:.62rem;color:var(--muted-l);margin-top:2px">Full Analysis →</div>'
+      + '</div>'
+    + '</div>'
+  + '</a>';
+
+  sec.style.display = "";
+}
+renderBestUnderdog();
 
 // ── Conference ATS Records ────────────────────────────────────────
 function renderConferenceATS() {
