@@ -438,6 +438,20 @@ function renderGamePage(gData) {
   const homeScore  = isHomeFavored ? halfTotal + halfSpread : halfTotal - halfSpread;
   const awayScore  = isHomeFavored ? halfTotal - halfSpread : halfTotal + halfSpread;
 
+  // Detect analyst vs model split — when curated thePick disagrees with model's winner
+  const _gp0 = game.gamePreview;
+  const _curatedTeam = _gp0 && _gp0.thePick && _gp0.thePick.team ? _gp0.thePick.team : null;
+  const officialPickIsHome = _curatedTeam
+    ? (home.name.toLowerCase().includes(_curatedTeam.toLowerCase()) ||
+       home.abbreviation.toLowerCase() === _curatedTeam.toLowerCase() ||
+       home.name.split(" ").pop().toLowerCase() === _curatedTeam.toLowerCase())
+    : isHomeFavored;
+  const officialPickTeam  = _curatedTeam || winner.name;
+  const officialPickTeamObj = officialPickIsHome ? home : away;
+  const modelTeamObj = isHomeFavored ? home : away;
+  // True when analyst's pick is for a DIFFERENT team than what the model projects
+  const hasPickSplit = _curatedTeam && officialPickTeamObj.id !== modelTeamObj.id;
+
   const confCls = { elite: "badge-elite", high: "badge-high", medium: "badge-medium", low: "badge-low" }[pred.confidence] || "badge-low";
   const confLbl = { elite: "ELITE PICK", high: "HIGH CONFIDENCE", medium: "MODERATE", low: "LOW CONFIDENCE" }[pred.confidence] || "UNRATED";
 
@@ -522,21 +536,35 @@ function renderGamePage(gData) {
     const xf = safe(() => pred.xFactors, null) || safe(() => game.xFactors, null) || [];
     const topXf = xf.length ? xf.reduce((a, b) => ((b.severity || "").toLowerCase() === "critical" ? b : (a.severity || "").toLowerCase() !== "critical" && (b.severity || "").toLowerCase() === "high" ? b : a), xf[0]) : null;
 
-    const borderColor = isHomeFavored ? home.color : away.color;
+    const borderColor = officialPickIsHome ? home.color : away.color;
 
     return `
       <div class="key-insight-box" style="border-left-color:${borderColor};background:linear-gradient(135deg,${borderColor}08 0%,var(--card) 70%)">
-        <div class="key-insight-badge">The Bet — Model Pick</div>
+        <div class="key-insight-badge">The Bet — Official Pick</div>
 
-        <!-- Row 1: Our pick (plain English) -->
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:8px">
+        ${hasPickSplit ? `
+        <div style="margin-top:8px;padding:8px 12px;border-radius:8px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.35);display:flex;align-items:flex-start;gap:8px">
+          <span style="font-size:1rem;flex-shrink:0">⚡</span>
+          <div>
+            <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px">ANALYST vs MODEL SPLIT</div>
+            <div style="font-size:.75rem;color:var(--text-soft);line-height:1.5">
+              Our analyst picks <strong style="color:var(--primary)">${pickTeam}</strong> based on situational factors (home field, night game, motivation).
+              The computer model leans <strong style="color:var(--gold)">${modelTeamObj.name.split(" ").pop()}</strong> on raw talent.
+              <strong style="color:var(--text)">The Bet's official pick is ${pickTeam} — read the analysis below for why.</strong>
+            </div>
+          </div>
+        </div>` : ""}
+
+        <!-- Our pick (plain English) -->
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:10px">
           <div style="flex:1;min-width:200px">
-            <div style="font-size:.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">⭐ OUR PICK</div>
+            <div style="font-size:.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">⭐ THE BET PICKS</div>
             <div class="key-insight-pick" style="font-size:1.15rem">${pickTeam} will cover spread</div>
             <div style="font-size:.75rem;color:var(--text-soft);margin-top:4px;line-height:1.5">
-              We project <strong style="color:var(--text)">${pickTeam}</strong> to win and cover.
-              ${pickLine ? `Vegas has them at <strong style="color:var(--muted-l)">${pickLine}</strong>.` : ""}
-              Model win probability: <strong style="color:${borderColor}">${isHomeFavored ? homePct : awayPct}%</strong>.
+              ${hasPickSplit
+                ? `Taking <strong style="color:var(--text)">${pickTeam}</strong> over the model's lean — situational edge outweighs raw talent gap.`
+                : `We project <strong style="color:var(--text)">${pickTeam}</strong> to win and cover.`}
+              ${pickLine ? ` Vegas line: <strong style="color:var(--muted-l)">${pickLine}</strong>.` : ""}
             </div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:10px 14px;border-radius:var(--radius);background:${borderColor}12;border:1px solid ${borderColor}30">
@@ -546,25 +574,31 @@ function renderGamePage(gData) {
           </div>
         </div>
 
-        <!-- Row 2: What everyone else says -->
+        <!-- Comparison tiles -->
         <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
           ${vegasFav ? `
-          <div style="flex:1;min-width:120px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
+          <div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
             <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">🎰 Vegas Says</div>
             <div style="font-size:.85rem;font-weight:800;color:var(--text)">${vegasFav.split(" ").pop()} favored</div>
             <div style="font-size:.65rem;color:var(--muted-l)">${vegasLine} spread</div>
           </div>` : ""}
+          ${hasPickSplit ? `
+          <div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.25)">
+            <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px">🤖 Model Leans</div>
+            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${modelTeamObj.name.split(" ").pop()}</div>
+            <div style="font-size:.65rem;color:var(--muted-l)">${isHomeFavored ? homePct : awayPct}% win prob</div>
+          </div>` : `
+          <div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
+            <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">🤖 Model Projects</div>
+            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${Math.round(homeScore)}–${Math.round(awayScore)}</div>
+            <div style="font-size:.65rem;color:var(--muted-l)">${home.abbreviation} vs ${away.abbreviation}</div>
+          </div>`}
           ${publicFav ? `
-          <div style="flex:1;min-width:120px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
+          <div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
             <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">👥 Public Says</div>
             <div style="font-size:.85rem;font-weight:800;color:var(--text)">${publicFav.split(" ").pop()} — ${publicPct}%</div>
-            <div style="font-size:.65rem;color:var(--muted-l)">of bettors backing them</div>
+            <div style="font-size:.65rem;color:var(--muted-l)">of bettors</div>
           </div>` : ""}
-          <div style="flex:1;min-width:120px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
-            <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">📊 Model Projects</div>
-            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${Math.round(homeScore)}–${Math.round(awayScore)}</div>
-            <div style="font-size:.65rem;color:var(--muted-l)">${home.abbreviation} vs ${away.abbreviation} final score</div>
-          </div>
         </div>
 
         ${topXf ? `
@@ -1384,22 +1418,18 @@ function renderGamePage(gData) {
 
     return `
       <div class="win-gauge-wrap">
-        <div style="font-size:.6rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:4px">Win Probability</div>
+        <div style="font-size:.6rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:4px">Model Win Probability</div>
         <svg class="win-gauge-svg" width="128" height="128" viewBox="0 0 128 128">
-          <!-- Background ring -->
           <circle class="win-gauge-bg" cx="${cx}" cy="${cy}" r="${r}"
             stroke="${loserColor}" stroke-width="12" opacity="0.25"/>
-          <!-- Full away arc (behind) -->
           <circle class="win-gauge-arc" cx="${cx}" cy="${cy}" r="${r}"
             stroke="${loserColor}" stroke-width="10"
             stroke-dasharray="${circ}" stroke-dashoffset="0"
             transform="rotate(-90 ${cx} ${cy})" opacity="0.5"/>
-          <!-- Home arc on top -->
           <circle class="win-gauge-arc" cx="${cx}" cy="${cy}" r="${r}"
             stroke="${winnerColor}" stroke-width="10"
             stroke-dasharray="${homeDash} ${awayDash}"
             transform="rotate(-90 ${cx} ${cy})"/>
-          <!-- Center text -->
           <text x="${cx}" y="${cy - 6}" class="win-gauge-center"
             font-size="20" font-weight="900" fill="${winnerColor}">${winnerPctDisp}%</text>
           <text x="${cx}" y="${cy + 13}" class="win-gauge-center"
@@ -1407,6 +1437,11 @@ function renderGamePage(gData) {
         </svg>
         <div style="font-size:.78rem;font-weight:800;color:${winnerColor}">${winnerName}</div>
         <div style="font-size:.62rem;color:var(--muted)">${home.abbreviation} ${homePct}% · ${away.abbreviation} ${awayPct}%</div>
+        ${hasPickSplit ? `
+        <div style="margin-top:6px;padding:5px 8px;border-radius:6px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);font-size:.58rem;font-weight:700;color:var(--gold);text-align:center;line-height:1.4">
+          ⚡ Model leans ${winnerName.split(" ").pop()}<br>
+          <span style="color:var(--primary)">Our pick: ${officialPickTeam.split(" ").pop()}</span>
+        </div>` : ""}
       </div>`;
   }
 
