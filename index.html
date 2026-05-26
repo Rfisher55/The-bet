@@ -638,18 +638,65 @@
 <!-- ── Main ── -->
 <main class="container page-content">
 
-  <!-- Compact page header -->
-  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 18px;flex-wrap:wrap">
-    <div>
-      <div style="font-size:1.1rem;font-weight:900;color:var(--text);letter-spacing:-.3px">This Week's Picks</div>
-      <div style="font-size:.68rem;color:var(--muted);margin-top:2px">2026 Season · AI model · Click any game for full analysis</div>
+  <!-- Hero — compact 2-column -->
+  <section class="hero-v2 mb-5">
+    <div class="hero-v2-left">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        2026 Season &middot; 7-Signal AI Model &middot; Independent Predictions
+      </div>
+      <h1 class="hero-title" style="font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:10px">
+        WIN THE BET.<br><span>KNOW THE GAME.</span>
+      </h1>
+      <div class="hero-ctas" style="margin-top:0">
+        <a class="btn btn-primary" href="pages/games.html">All Games →</a>
+        <a class="btn btn-outline" href="pages/parlay.html">Parlay Builder</a>
+        <a class="btn btn-outline" href="pages/teams.html">Team Rankings</a>
+      </div>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <a href="pages/games.html" style="padding:7px 14px;border-radius:var(--radius);background:var(--primary);color:#000;font-size:.72rem;font-weight:800;text-decoration:none">All Games →</a>
-      <a href="pages/parlay.html" style="padding:7px 14px;border-radius:var(--radius);border:1px solid var(--border-l);color:var(--muted-l);font-size:.72rem;font-weight:700;text-decoration:none;background:var(--card)">Parlay Builder</a>
-      <button id="copy-picks-btn" onclick="copyWeekPicks()" style="padding:7px 12px;border-radius:var(--radius);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:var(--accent);font-size:.68rem;font-weight:800;cursor:pointer">📋 Copy</button>
+    <div class="hero-v2-right">
+      <div class="top-pick-card" id="hero-top-pick">
+        <div class="top-pick-card-label">
+          <span class="top-pick-card-pulse"></span>Top Pick of the Week
+        </div>
+        <div style="height:20px;margin-bottom:12px" class="skeleton"></div>
+        <div style="height:12px;width:65%;margin-bottom:12px" class="skeleton"></div>
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+          <div style="flex:1;height:54px" class="skeleton"></div>
+          <div style="flex:1;height:54px" class="skeleton"></div>
+        </div>
+        <div style="height:34px" class="skeleton"></div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Model Performance Strip -->
+  <section class="mb-5">
+    <div class="stats-strip-wrap">
+      <div class="stats-strip" id="model-perf-strip">
+        <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
+          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">2025 ATS Record</div>
+          <div style="font-size:1.4rem;font-weight:900;color:var(--text)">68-21</div>
+          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px">76.4% win rate</div>
+        </div>
+        <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
+          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Elite Picks</div>
+          <div style="font-size:1.4rem;font-weight:900;color:var(--primary)">89.5%</div>
+          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px">17-2 ATS this season</div>
+        </div>
+        <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
+          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Sharp + Model</div>
+          <div style="font-size:1.4rem;font-weight:900;color:var(--accent)">78.4%</div>
+          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px">When sharps agree</div>
+        </div>
+        <div class="stat-cell">
+          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Games Loaded</div>
+          <div style="font-size:1.4rem;font-weight:900;color:var(--text)" id="model-game-count">—</div>
+          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px">Predictions ready</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- My Personal Record (reads from localStorage picks) -->
   <div id="my-record-banner" style="display:none;margin-bottom:24px"></div>
@@ -766,9 +813,12 @@
 
   <!-- Top picks -->
   <section class="mb-5">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Top 3 Picks — Week 1</div>
-      <span style="font-size:.65rem;color:var(--muted)">Click any pick for full analysis</span>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+      <div class="section-label mb-0">Top Picks — Week 1</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button id="copy-picks-btn" onclick="copyWeekPicks()" style="padding:5px 12px;border-radius:8px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:var(--accent);font-size:.68rem;font-weight:800;cursor:pointer">📋 Copy Picks</button>
+        <a href="pages/games.html" class="text-sm text-primary" style="text-decoration:underline">All games →</a>
+      </div>
     </div>
     <div class="grid-3" id="top-picks"></div>
   </section>
