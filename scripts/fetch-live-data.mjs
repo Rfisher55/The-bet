@@ -898,17 +898,31 @@ async function main() {
   const weatherCount = games.filter(g => g.weather && !g.weather.dome).length;
   console.log(`  Weather fetched for ${weatherCount} outdoor games`);
 
-  // ── Write output files ───────────────────────────────────────────────
-  // Skip writing if no games fetched — avoids a timestamp-only commit that
-  // conflicts with concurrent workflow runs when the CFBD API is unavailable.
+  const now = new Date().toISOString();
+  console.log("\nPhase 5: Writing output files...");
+
+  // Always write social/team data — Reddit buzz, SP+, injuries don't need game data.
+  const hasReddit  = Object.keys(redditBuzz).length > 0;
+  const hasSP      = cfbdExtras.spRatings.length > 0;
+  const hasInjury  = Object.values(injuries).flat().length > 0;
+
+  if (hasReddit || hasSP || hasInjury) {
+    writeFileSync(join(DATA_DIR,"team-extras.json"),
+      JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz }, null, 2));
+    writeFileSync(join(DATA_DIR,"injuries.json"),
+      JSON.stringify({ generated: now, injuries }, null, 2));
+    console.log(`  Social/team data written — Reddit: ${Object.keys(redditBuzz).length} teams, SP+: ${cfbdExtras.spRatings.length}, injuries: ${Object.values(injuries).flat().length}`);
+  }
+
+  // Only write game files when we actually have games — avoids a timestamp-only
+  // commit on every run when CFBD has no season data yet (off-season).
   if (games.length === 0) {
-    console.log("\n⚠️  No game data fetched (API may be unavailable) — skipping file write to avoid empty commit.");
+    console.log("  No game data from CFBD (off-season or API unavailable) — skipping games-2026.json");
     return;
   }
 
-  console.log("\nPhase 5: Writing output files...");
   const metadata = {
-    generated:      new Date().toISOString(),
+    generated:      now,
     season:         SEASON,
     totalGames:     games.length,
     scheduledGames: games.filter(g=>g.status==="scheduled").length,
@@ -932,7 +946,7 @@ async function main() {
       Object.keys(actionBetting).length > 0?"ActionNetwork (public betting %)"       : null,
       Object.keys(coversBetting).length > 0?"Covers (public betting % fallback)"     : null,
       weatherCount > 0                    ? "OpenMeteo (hourly game-time weather)"    : null,
-      Object.keys(redditBuzz).length > 0  ? "Reddit CFB+sportsbook (sentiment)"      : null,
+      hasReddit                           ? "Reddit CFB+sportsbook (sentiment)"      : null,
       "GoogleNews (game headlines)",
     ].filter(Boolean),
     fetchDurationMs: Date.now() - startTime,
@@ -940,12 +954,6 @@ async function main() {
 
   writeFileSync(join(DATA_DIR,"games-2026.json"),
     JSON.stringify({ ...metadata, apRanks, games }, null, 2));
-
-  writeFileSync(join(DATA_DIR,"team-extras.json"),
-    JSON.stringify({ generated: metadata.generated, ...cfbdExtras, redditBuzz }, null, 2));
-
-  writeFileSync(join(DATA_DIR,"injuries.json"),
-    JSON.stringify({ generated: metadata.generated, injuries }, null, 2));
 
   writeFileSync(join(DATA_DIR,"metadata.json"),
     JSON.stringify(metadata, null, 2));
