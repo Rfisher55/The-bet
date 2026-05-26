@@ -148,6 +148,18 @@
     <div id="sm-summary-dash"></div>
   </div>
 
+  <!-- Injury Impact Report -->
+  <div style="margin-bottom:24px" id="injury-impact-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">LINE MOVERS</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">🩹 Injury Impact Report</div>
+      </div>
+      <span style="font-size:.62rem;color:var(--muted)">High-impact players — questionable or worse</span>
+    </div>
+    <div id="injury-impact-dash"></div>
+  </div>
+
   <!-- Line Movement Dashboard -->
   <div style="margin-bottom:24px" id="lm-section">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
@@ -553,6 +565,73 @@ function buildBeatWriterDash() {
   }).join("");
 }
 
+function buildInjuryImpact() {
+  var el = document.getElementById("injury-impact-dash");
+  if (!el) return;
+  var kp = window.KEY_PLAYERS;
+  if (!kp || !kp.length) {
+    el.innerHTML = '<div style="font-size:.78rem;color:var(--muted);padding:12px">Loading player data...</div>';
+    return;
+  }
+
+  var injured = kp.filter(function(p) {
+    var s = (p.injuryStatus || "").toLowerCase();
+    return s !== "healthy" && s !== "" && s !== "full";
+  });
+
+  if (!injured.length) {
+    el.innerHTML = '<div style="padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:.78rem;color:var(--primary)">✓ No significant injuries reported — all key players currently healthy</div>';
+    return;
+  }
+
+  var statusOrder = { out:0, doubtful:1, questionable:2, limited:3, "day-to-day":4 };
+  injured.sort(function(a, b) {
+    var as = (a.injuryStatus||"").toLowerCase(), bs = (b.injuryStatus||"").toLowerCase();
+    var ao = statusOrder[as] != null ? statusOrder[as] : 99;
+    var bo = statusOrder[bs] != null ? statusOrder[bs] : 99;
+    if (ao !== bo) return ao - bo;
+    var ai = (a.impact||"").toLowerCase() === "high" ? 0 : 1;
+    var bi = (b.impact||"").toLowerCase() === "high" ? 0 : 1;
+    return ai - bi;
+  });
+
+  function statusColor(s) {
+    s = (s||"").toLowerCase();
+    if (s === "out") return "var(--danger)";
+    if (s === "doubtful") return "#f97316";
+    if (s === "questionable") return "var(--gold)";
+    return "var(--muted-l)";
+  }
+
+  el.innerHTML = injured.slice(0, 10).map(function(p) {
+    var team = window.TEAMS && TEAMS[p.teamId];
+    var teamName = team ? team.abbreviation || team.name : p.teamId.toUpperCase().slice(0,4);
+    var teamColor = team ? (team.color || "#555") : "#555";
+    var sColor = statusColor(p.injuryStatus);
+
+    // Find which game this player's team is in
+    var gameForTeam = window.GAMES ? GAMES.find(function(g) {
+      return g.homeTeamId === p.teamId || g.awayTeamId === p.teamId;
+    }) : null;
+    var gameLink = gameForTeam ? "game.html?id=" + gameForTeam.id : null;
+
+    var row = '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);margin-bottom:7px">'
+      + '<div style="width:30px;height:30px;border-radius:6px;background:' + teamColor + ';display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:900;color:#fff;flex-shrink:0">' + teamName.slice(0,3) + '</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="font-size:.78rem;font-weight:800;color:var(--text)">' + (p.name || "Unknown") + ' <span style="font-size:.62rem;font-weight:500;color:var(--muted)">· ' + (p.position || "") + ' · ' + teamName + '</span></div>'
+        + '<div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">'
+          + '<span style="font-size:.58rem;font-weight:900;padding:1px 7px;border-radius:4px;background:' + sColor + '18;border:1px solid ' + sColor + '45;color:' + sColor + '">' + (p.injuryStatus||"").toUpperCase() + '</span>'
+          + (p.injuryType ? '<span style="font-size:.62rem;color:var(--muted)">' + p.injuryType + '</span>' : '')
+          + '<span style="font-size:.6rem;padding:1px 6px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted)">' + ((p.impact||"").toUpperCase() || "—") + ' IMPACT</span>'
+        + '</div>'
+        + (p.practiceStatus && p.practiceStatus !== "full" ? '<div style="font-size:.62rem;color:var(--muted-l);margin-top:2px">Practice: ' + p.practiceStatus + '</div>' : '')
+      + '</div>'
+      + (gameLink ? '<a href="' + gameLink + '" style="font-size:.62rem;color:var(--primary);font-weight:700;text-decoration:none;flex-shrink:0;white-space:nowrap">View Game →</a>' : '')
+      + '</div>';
+    return row;
+  }).join("");
+}
+
 function buildSharpSummary() {
   var el = document.getElementById("sm-summary-dash");
   if (!el || !window.GAMES) return;
@@ -657,6 +736,7 @@ function refreshAll() {
 
 // Listen for data from live.js
 window.addEventListener("teamIntelReady", function() {
+  buildInjuryImpact();
   buildItems();
   renderGrid();
 });
@@ -665,6 +745,7 @@ window.addEventListener("liveDataReady", function(e) {
   var d = e.detail || {};
   if (d.twitterTweets) window.__latestTweets = d.twitterTweets;
   if (d.espnNews)      window.__latestESPN   = d.espnNews;
+  buildInjuryImpact();
   buildSharpSummary();
   buildLineMoveDash();
   buildBeatWriterDash();
@@ -679,6 +760,7 @@ setInterval(function() {
 }, 60000);
 
 // Initial render
+buildInjuryImpact();
 buildSharpSummary();
 buildLineMoveDash();
 buildBeatWriterDash();

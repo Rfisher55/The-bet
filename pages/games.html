@@ -186,6 +186,7 @@
         <div class="chip" data-t="nonconf">Non-Conf</div>
         <div class="chip" data-t="lines">Has Lines</div>
         <div class="chip" data-t="sharp">💰 Sharp</div>
+        <div class="chip" data-t="fade">🔄 Fade Public</div>
       </div>
     </div>
   </div>
@@ -949,6 +950,21 @@ function render() {
     list = list.filter(({ prediction: pred }) => {
       const sm = pred.sharpMoneySignal || {};
       return sm.strength === "strong" || (sm.strength === "moderate" && (pred.spreadPick.edge||0) >= 2);
+    });
+  } else if (typeFilter === "fade") {
+    // Fade the public: model pick opposes public majority (>=55%)
+    list = list.filter(({ game, prediction: pred }) => {
+      const pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
+      const sp = pred.spreadPick || {};
+      const tp = game.gamePreview && game.gamePreview.thePick;
+      const pickTeam = (tp && tp.team) ? tp.team : sp.team;
+      if (!pickTeam) return false;
+      const pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name||"").toLowerCase() ||
+                         pickTeam.toLowerCase() === (game.homeTeam.abbreviation||"").toLowerCase();
+      const homePct = pb.homePct || 50;
+      const pubOnHome = homePct >= 55;
+      const pubOnAway = (100 - homePct) >= 55;
+      return (pickIsHome && pubOnAway) || (!pickIsHome && pubOnHome);
     });
   }
 
