@@ -270,7 +270,7 @@ async function getClient() {
     accessToken:  process.env.X_ACCESS_TOKEN,
     accessSecret: process.env.X_ACCESS_TOKEN_SECRET,
   });
-  return client.readWrite;
+  return client;
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -278,13 +278,11 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 async function postThread(tweets, client) {
   const ids = [];
   for (let i = 0; i < tweets.length; i++) {
-    const payload = typeof tweets[i] === 'string'
-      ? { text: tweets[i] }
-      : tweets[i]; // poll objects pass through as-is
-    const opts = i === 0 ? payload : { ...payload, reply: { in_reply_to_tweet_id: ids[i - 1] } };
-    const { data } = await client.v2.tweet(opts);
-    ids.push(data.id);
-    console.log(`  ✅ Tweet ${i + 1}: https://x.com/i/web/status/${data.id}`);
+    const text = typeof tweets[i] === 'string' ? tweets[i] : tweets[i].text;
+    const opts = i === 0 ? {} : { in_reply_to_status_id: ids[i - 1] };
+    const tweet = await client.v1.tweet(text, opts);
+    ids.push(tweet.id_str);
+    console.log(`  ✅ Tweet ${i + 1}: https://x.com/i/web/status/${tweet.id_str}`);
     if (i < tweets.length - 1) await sleep(4000);
   }
   return ids;
@@ -381,9 +379,9 @@ async function main() {
   const client = await getClient();
 
   if (items.length === 1) {
-    const payload = typeof items[0] === 'string' ? { text: items[0] } : items[0];
-    const { data } = await client.v2.tweet(payload);
-    console.log(`\n✅ Posted! https://x.com/i/web/status/${data.id}`);
+    const text = typeof items[0] === 'string' ? items[0] : items[0].text;
+    const tweet = await client.v1.tweet(text);
+    console.log(`\n✅ Posted! https://x.com/i/web/status/${tweet.id_str}`);
   } else {
     console.log(`\nPosting thread of ${items.length} tweets...`);
     const ids = await postThread(items, client);

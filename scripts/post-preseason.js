@@ -448,16 +448,14 @@ async function main() {
     appSecret: process.env.X_API_SECRET,
     accessToken: process.env.X_ACCESS_TOKEN,
     accessSecret: process.env.X_ACCESS_TOKEN_SECRET,
-  }).readWrite;
+  });
 
   let prevId = null;
   for (const text of tweets) {
-    const payload = prevId
-      ? { text, reply: { in_reply_to_tweet_id: prevId } }
-      : { text };
-    const { data } = await client.v2.tweet(payload);
-    prevId = data.id;
-    console.log(`✅ Posted: https://x.com/TheBetCFB/status/${data.id}`);
+    const opts = prevId ? { in_reply_to_status_id: prevId } : {};
+    const tweet = await client.v1.tweet(text, opts);
+    prevId = tweet.id_str;
+    console.log(`✅ Posted: https://x.com/TheBetCFB/status/${tweet.id_str}`);
     await new Promise(r => setTimeout(r, 1500));
   }
 }
