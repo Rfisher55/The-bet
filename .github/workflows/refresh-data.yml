@@ -111,6 +111,22 @@ jobs:
             echo "Not Saturday — skipping live alerts"
           fi
 
+      - name: Commit alert state files
+        run: |
+          git config user.name  "CFB Data Bot"
+          git config user.email "bot@thebetcfb.com"
+          git add data/alert-state.json data/live-state.json
+          if git diff --staged --quiet; then
+            echo "No state changes — skipping commit"
+          else
+            git commit -m "data: update alert state [skip ci]"
+            CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            if [ "$CURRENT_BRANCH" = "main" ]; then
+              git pull --rebase origin main 2>/dev/null || true
+              git push origin HEAD:main
+            fi
+          fi
+
       - name: Rotate refresh token after alerts
         if: always()
         env:

@@ -139,7 +139,13 @@ async function main() {
     return;
   }
 
-  const state     = loadState();
+  // Reset state on Sundays (clear stale Saturday game data)
+  const dayOfWeek = new Date().getDay(); // 0=Sun
+  let state = loadState();
+  if (dayOfWeek === 0 && state.posted?.length > 0) {
+    console.log('Sunday reset — clearing live-state.json');
+    state = { posted: [], lastScores: {} };
+  }
   const ourPicks  = getOurPicks();
   const alerts    = [];
 
