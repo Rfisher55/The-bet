@@ -1180,10 +1180,14 @@ function autoBuild() {
   if (Object.keys(picks).length < targetLegs) {
     const needed = targetLegs - Object.keys(picks).length;
     const winProb = poolPreds
-      .filter(({ game, prediction:pred }) =>
-        !picks[pickKey(game.id,"home-ml")] && !picks[pickKey(game.id,"away-ml")] &&
-        pred.winProbability >= 60
-      )
+      .filter(({ game, prediction:pred }) => {
+        if (picks[pickKey(game.id,"home-ml")] || picks[pickKey(game.id,"away-ml")]) return false;
+        if (pred.winProbability < 60) return false;
+        // Don't add ML if an opposing spread pick already exists for this game
+        const favored = pred.predictedSpread >= 0 ? "home" : "away";
+        const oppSpread = favored === "home" ? "away" : "home";
+        return !picks[pickKey(game.id, oppSpread)];
+      })
       .sort((a,b) => b.prediction.winProbability - a.prediction.winProbability)
       .slice(0, needed);
     winProb.forEach(({ game, prediction:pred }) => {

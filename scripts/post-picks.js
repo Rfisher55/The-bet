@@ -27,7 +27,7 @@ const dryRun = args.includes('--dry-run');
 const legs   = args.includes('--legs') ? parseInt(args[args.indexOf('--legs') + 1]) : 3;
 
 // ── Shared helpers ────────────────────────────────────────────────
-const SITE = 'rfisher55.github.io/The-bet';
+const SITE = 'https://rfisher55.github.io/The-bet';
 
 function confBadge(conf) {
   return conf === 'elite' ? '🔒 ELITE' : conf === 'high' ? '✅ HIGH CONF' : '📊 MODEL';

@@ -274,8 +274,9 @@ async function main() {
     newPosted.push(alert.key);
   }
 
-  // Save updated state
-  saveState({ injuries: currentInjuries, picks: newPicks, lines: newLines, postedAlerts: newPosted });
+  // Save updated state — cap postedAlerts to last 500 to prevent unbounded growth
+  const trimmedAlerts = newPosted.length > 500 ? newPosted.slice(-500) : newPosted;
+  saveState({ injuries: currentInjuries, picks: newPicks, lines: newLines, postedAlerts: trimmedAlerts });
 }
 
 main().catch(err => { console.error('❌', err.message || err); process.exit(1); });
