@@ -677,7 +677,7 @@ function renderGameCard(game, pred) {
   const homePct = isHomeFavored ? pred.winProbability : 100 - pred.winProbability;
   const awayPct = 100 - homePct;
   const wx = game.weather;
-  const wxBadgeHtml = (wx && (wx.indoors || wx.tempF < 40 || wx.tempF > 90 || wx.windMph > 17 || (wx.condition||"").toLowerCase().includes("rain") || (wx.condition||"").toLowerCase().includes("snow")))
+  const wxBadgeHtml = (wx && (wx.indoors || (wx.tempF != null && wx.tempF < 40) || (wx.tempF != null && wx.tempF > 90) || (wx.windMph != null && wx.windMph > 17) || (wx.condition||"").toLowerCase().includes("rain") || (wx.condition||"").toLowerCase().includes("snow")))
     ? wxBadge(wx) : "";
 
   // Score prediction line

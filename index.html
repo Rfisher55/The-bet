@@ -785,6 +785,13 @@
     var open = grp.style.display !== 'none';
     grp.style.display = open ? 'none' : '';
     if (btn) btn.classList.toggle('open', !open);
+    if (!open) {
+      // Check if any inner sections are visible; if not, show the empty fallback
+      var innerSections = grp.querySelectorAll('section');
+      var anyVisible = Array.prototype.some.call(innerSections, function(s) { return s.style.display !== 'none'; });
+      var emptyMsg = document.getElementById('analysis-empty-msg');
+      if (emptyMsg) emptyMsg.style.display = anyVisible ? 'none' : '';
+    }
     try { localStorage.setItem('theBet_analysisOpen', open ? '0' : '1'); } catch(e) {}
   }
   document.addEventListener('DOMContentLoaded', function() {
@@ -930,6 +937,13 @@
     </div>
   </section>
 
+  <!-- Fallback: shown only if all analysis sections remain hidden -->
+  <div id="analysis-empty-msg" style="display:none;padding:24px 16px;text-align:center;color:var(--muted);font-size:.82rem;border:1px dashed var(--border);border-radius:var(--radius-lg)">
+    <div style="font-size:1.2rem;margin-bottom:8px">📊</div>
+    <div style="font-weight:700;margin-bottom:4px">Analysis loading…</div>
+    <div style="font-size:.72rem;color:var(--muted-l)">Advanced sections appear as game data loads. Check back once the season starts for live sharp money, value alerts, and situational trends.</div>
+  </div>
+
   </div><!-- /#analysis-group -->
 
   <!-- Bankroll Calculator -->
@@ -993,7 +1007,6 @@
     </button>
     <div class="sect-body" id="sb-browse-conf" style="margin-top:10px">
     <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:8px"><span style="font-size:.62rem;color:var(--muted)">ATS records from team data</span></div>
-    </div>
     <div class="chip-row" id="conf-chips-row">
       <a class="conf-chip" href="pages/games.html?conf=SEC">SEC</a>
       <a class="conf-chip" href="pages/games.html?conf=Big+Ten">Big Ten</a>
@@ -1010,7 +1023,7 @@
   <!-- All picks this week (compact, visible) -->
   <section class="mb-5" id="all-picks-section">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
-      <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">All Picks This Week</div>
+      <div id="featured-week-label" style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Top Picks</div>
       <a href="pages/games.html" style="font-size:.68rem;color:var(--primary);text-decoration:none">View full schedule →</a>
     </div>
     <div class="grid-auto" id="featured-games"></div>
@@ -1482,7 +1495,7 @@ function renderValueAlerts() {
   var alerts = allPredictions
     .filter(function(p) {
       var sp = p.prediction.spreadPick;
-      return sp && sp.side !== "no-bet" && (sp.edge || 0) >= 3;
+      return sp && sp.side !== "no-bet" && (sp.edge || 0) >= 2;
     })
     .sort(function(a, b) {
       return (b.prediction.spreadPick.edge || 0) - (a.prediction.spreadPick.edge || 0);
@@ -1540,7 +1553,7 @@ function renderTotalsAlerts() {
       var predTotal = p.prediction.predictedTotal;
       if (!tp || tp.side === "no-bet" || !bl || !predTotal) return false;
       var diff = Math.abs(predTotal - bl.total);
-      return diff >= 3;
+      return diff >= 2;
     })
     .sort(function(a, b) {
       var da = Math.abs((a.prediction.predictedTotal || 0) - (a.game.bettingLines.total || 0));
@@ -1611,7 +1624,7 @@ function renderSharpTracker() {
   var sharpGames = allPredictions
     .filter(function(p) {
       var sm = p.prediction.sharpMoneySignal;
-      return sm && sm.side !== "neutral" && (sm.strength || 0) >= 7;
+      return sm && sm.side !== "neutral" && (sm.strength || 0) >= 5;
     })
     .sort(function(a, b) {
       return (b.prediction.sharpMoneySignal.strength || 0) - (a.prediction.sharpMoneySignal.strength || 0);
@@ -2674,11 +2687,23 @@ function renderPowerRankings() {
 }
 renderPowerRankings();
 
-// ── Featured games (elite + high confidence) ─────────────────────
+// ── Featured games (elite + high confidence, earliest week first) ──
 function renderFeaturedGames() {
+  // Determine earliest week so we show the next upcoming week's picks
+  var weeks = allPredictions.map(function(p) { return p.game.week; }).filter(Boolean);
+  var minWeek = weeks.length ? Math.min.apply(null, weeks) : null;
+
   var featured = allPredictions
-    .filter(function(p) { return p.prediction.confidence === "elite" || p.prediction.confidence === "high"; })
+    .filter(function(p) {
+      var weekOk = minWeek ? p.game.week === minWeek : true;
+      return weekOk && (p.prediction.confidence === "elite" || p.prediction.confidence === "high");
+    })
     .slice(0, 6);
+
+  // Update label to show which week
+  var lbl = document.getElementById("featured-week-label");
+  if (lbl && minWeek) lbl.textContent = "Top Picks — Week " + minWeek;
+  else if (lbl) lbl.textContent = "Top Picks";
 
   document.getElementById("featured-games").innerHTML = featured.map(function(p) {
     return renderGameCard(p.game, p.prediction, "pages/game.html");

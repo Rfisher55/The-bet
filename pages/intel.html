@@ -693,7 +693,7 @@ function buildWeatherAlerts() {
     var sevBorder = a.severity >= 3 ? "rgba(239,68,68,.3)" : a.severity >= 2 ? "rgba(245,158,11,.25)" : "var(--border)";
 
     var totalLine = g.bettingLines ? " · O/U " + g.bettingLines.total : "";
-    var wxAdvice = a.severity >= 2 ? " — lean UNDER" : a.severity >= 1 && g.weather.windMph >= 15 ? " — monitor total" : "";
+    var wxAdvice = a.severity >= 2 ? " — lean UNDER" : a.severity >= 1 && g.weather && g.weather.windMph != null && g.weather.windMph >= 15 ? " — monitor total" : "";
 
     return '<a href="game.html?id=' + g.id + '" style="text-decoration:none;display:block;padding:10px 14px;border-radius:10px;border:1px solid ' + sevBorder + ';background:' + sevBg + ';margin-bottom:7px">'
       + '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'

@@ -715,8 +715,25 @@ function modelProb(gameId, side) {
   const pred = p.prediction;
   const homeWinProb = pred.winProbability / 100;
   const awayWinProb = 1 - homeWinProb;
-  if (side === "home") return homeWinProb;
-  if (side === "away") return awayWinProb;
+  const sp = pred.spreadPick || {};
+  // For spread picks, use spread confidence (cover probability) rather than outright win prob
+  if (side === "home") {
+    if (sp.side === "home" && sp.confidence > 50) return sp.confidence / 100;
+    // Curated HIGH pick fallback when model has no strong spread signal
+    const tp = p.game.gamePreview && p.game.gamePreview.thePick;
+    if (tp && tp.team && tp.team.toLowerCase() === (p.game.homeTeam.name || "").toLowerCase()) {
+      return tp.confidence === "ELITE" ? 0.72 : tp.confidence === "HIGH" ? 0.64 : homeWinProb;
+    }
+    return homeWinProb;
+  }
+  if (side === "away") {
+    if (sp.side === "away" && sp.confidence > 50) return sp.confidence / 100;
+    const tp = p.game.gamePreview && p.game.gamePreview.thePick;
+    if (tp && tp.team && tp.team.toLowerCase() === (p.game.awayTeam.name || "").toLowerCase()) {
+      return tp.confidence === "ELITE" ? 0.72 : tp.confidence === "HIGH" ? 0.64 : awayWinProb;
+    }
+    return awayWinProb;
+  }
   if (side === "home-ml") return homeWinProb;
   if (side === "away-ml") return awayWinProb;
   if (side === "over") return (pred.totalPick && pred.totalPick.side === "over") ? pred.totalPick.confidence/100 : 0.48;
