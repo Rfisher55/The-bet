@@ -848,10 +848,41 @@ function renderGameCard(game, pred) {
 
         // Public betting
         const pub = bl?.homePublicPct ?? bl?.publicBettingHome;
-        if (pub != null) {
-          const favTeam = pub > 50 ? home.abbreviation : away.abbreviation;
-          const pct = pub > 50 ? Math.round(pub) : Math.round(100 - pub);
+        const pbSI = game.socialIntel && game.socialIntel.publicBetting;
+        const pubHome2 = pub != null ? pub : (pbSI && pbSI.homePct != null ? pbSI.homePct : null);
+        let publicFadesOurPick = false;
+        if (pubHome2 != null) {
+          const favTeam = pubHome2 > 50 ? home.abbreviation : away.abbreviation;
+          const pct = pubHome2 > 50 ? Math.round(pubHome2) : Math.round(100 - pubHome2);
           chips.push(`<span style="font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--muted-l)" title="Public betting">${pct}% on ${favTeam}</span>`);
+          // Determine if public fades our pick
+          const gp2 = game.gamePreview;
+          const cpTeam = gp2 && gp2.thePick && gp2.thePick.team ? gp2.thePick.team.toLowerCase() : null;
+          const spSide2 = pred.spreadPick && pred.spreadPick.side;
+          const pickIsHome2 = cpTeam ? (cpTeam === (home.name||"").toLowerCase() || cpTeam === (home.abbreviation||"").toLowerCase()) : spSide2 === "home";
+          const pubOnPick = pickIsHome2 ? pubHome2 : (100 - pubHome2);
+          publicFadesOurPick = pubOnPick <= 40;
+          if (publicFadesOurPick) {
+            chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.3);color:#f472b6">🔄 FADE</span>`);
+          }
+        }
+
+        // EV chip — show when model has positive expected value
+        if (bl && pred.winProbability) {
+          const gp3 = game.gamePreview;
+          const cpTeam3 = gp3 && gp3.thePick && gp3.thePick.team ? gp3.thePick.team.toLowerCase() : null;
+          const sp3 = pred.spreadPick || {};
+          const pickIsHome3 = cpTeam3
+            ? (cpTeam3 === (home.name||"").toLowerCase() || cpTeam3 === (home.abbreviation||"").toLowerCase())
+            : sp3.side === "home";
+          const sOdds3 = pickIsHome3 ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110);
+          const decOdds3 = sOdds3 > 0 ? sOdds3 / 100 + 1 : 100 / Math.abs(sOdds3) + 1;
+          const wP3 = pred.winProbability / 100;
+          const ev3 = wP3 * (decOdds3 - 1) * 100 - (1 - wP3) * 100;
+          if (ev3 >= 3) {
+            const evSign3 = ev3 >= 0 ? "+" : "";
+            chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--primary)" title="Expected value per $100">📐 EV ${evSign3}$${Math.abs(ev3).toFixed(0)}</span>`);
+          }
         }
 
         if (!chips.length) return "";
