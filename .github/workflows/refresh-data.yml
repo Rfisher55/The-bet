@@ -49,6 +49,10 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Install dependencies
+        run: npm install
+        working-directory: scripts
+
       - name: Fetch live CFB data
         env:
           CFBD_API_KEY:  ${{ secrets.CFBD_API_KEY }}
