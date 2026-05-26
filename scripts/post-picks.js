@@ -381,7 +381,16 @@ async function main() {
 
   const client = await getClient();
 
-  if (items.length === 1) {
+  if (type === 'polls') {
+    // Each poll must post individually with poll options — not as a thread
+    for (const item of items) {
+      const payload = { text: typeof item === 'string' ? item : item.text };
+      if (item.poll) payload.poll = item.poll;
+      const { data } = await client.v2.tweet(payload);
+      console.log(`✅ Poll posted: https://x.com/i/web/status/${data.id}`);
+      await sleep(2000);
+    }
+  } else if (items.length === 1) {
     const text = typeof items[0] === 'string' ? items[0] : items[0].text;
     const { data } = await client.v2.tweet({ text });
     console.log(`\n✅ Posted! https://x.com/i/web/status/${data.id}`);
