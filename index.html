@@ -782,24 +782,28 @@
     var grp = document.getElementById('analysis-group');
     var btn = document.getElementById('more-analysis-btn');
     if (!grp) return;
-    var open = grp.style.display !== 'none';
-    grp.style.display = open ? 'none' : '';
-    if (btn) btn.classList.toggle('open', !open);
-    if (!open) {
-      // Check if any inner sections are visible; if not, show the empty fallback
-      var innerSections = grp.querySelectorAll('section');
-      var anyVisible = Array.prototype.some.call(innerSections, function(s) { return s.style.display !== 'none'; });
+    // Use computedStyle so we correctly detect CSS-driven display:none
+    var isOpen = window.getComputedStyle(grp).display !== 'none';
+    grp.style.display = isOpen ? 'none' : 'block';
+    if (btn) btn.classList.toggle('open', !isOpen);
+    if (!isOpen) {
+      // Just opened — show fallback if all inner sections are still hidden
+      var anyVisible = Array.prototype.some.call(
+        grp.querySelectorAll('section'),
+        function(s) { return s.style.display !== 'none'; }
+      );
       var emptyMsg = document.getElementById('analysis-empty-msg');
       if (emptyMsg) emptyMsg.style.display = anyVisible ? 'none' : '';
     }
-    try { localStorage.setItem('theBet_analysisOpen', open ? '0' : '1'); } catch(e) {}
+    try { localStorage.setItem('theBet_analysisOpen', isOpen ? '0' : '1'); } catch(e) {}
   }
   document.addEventListener('DOMContentLoaded', function() {
     try {
       if (localStorage.getItem('theBet_analysisOpen') === '1') {
         var grp = document.getElementById('analysis-group');
         var btn = document.getElementById('more-analysis-btn');
-        if (grp) grp.style.display = '';
+        // Set to 'block' so it overrides the CSS display:none rule
+        if (grp) grp.style.display = 'block';
         if (btn) btn.classList.add('open');
       }
     } catch(e) {}
@@ -1619,39 +1623,81 @@ function renderTotalsAlerts() {
 }
 renderTotalsAlerts();
 
-// ── Sharp Money Tracker ───────────────────────────────────────────
+// ── Line Movement & Sharp Money Tracker ──────────────────────────
+// Uses raw socialIntel.lineMovement data so it always populates even without
+// real-time sharp feeds. Falls back to model sharpMoneySignal if no movement.
 function renderSharpTracker() {
-  var sharpGames = allPredictions
-    .filter(function(p) {
-      var sm = p.prediction.sharpMoneySignal;
-      return sm && sm.side !== "neutral" && (sm.strength || 0) >= 5;
-    })
-    .sort(function(a, b) {
-      return (b.prediction.sharpMoneySignal.strength || 0) - (a.prediction.sharpMoneySignal.strength || 0);
-    })
-    .slice(0, 5);
+  var items = [];
 
-  if (!sharpGames.length) return;
-  document.getElementById("sharp-tracker-section").style.display = "";
-  document.getElementById("sharp-tracker").innerHTML = sharpGames.map(function(p) {
+  allPredictions.forEach(function(p) {
     var game = p.game; var pred = p.prediction;
-    var sm = pred.sharpMoneySignal;
-    var bl = game.bettingLines;
-    var sharpTeam = sm.side === "home" ? game.homeTeam : game.awayTeam;
-    var pubTeam   = sm.side === "home" ? game.awayTeam : game.homeTeam;
+    var si = game.socialIntel || {};
+    var lmArr = si.lineMovement || [];
+    var pb = si.publicBetting || {};
     var tp = game.gamePreview && game.gamePreview.thePick;
-    var ourPick = (tp && tp.team) ? tp.team : (pred.spreadPick ? pred.spreadPick.team : null);
+    var sm = pred.sharpMoneySignal || {};
+    var bl = game.bettingLines || {};
+
+    // Derive line movement
+    var opening = lmArr.length ? lmArr[0].spread : null;
+    var current  = lmArr.length ? lmArr[lmArr.length - 1].spread : null;
+    var moveAmt  = (opening != null && current != null) ? Math.round((current - opening) * 10) / 10 : 0;
+    var absMove  = Math.abs(moveAmt);
+
+    // Only include games with either: (a) real line movement, (b) significant public split,
+    // or (c) strong model sharp signal
+    var hasMovement = absMove >= 0.5;
+    var hasPublicSplit = pb.homePct != null && (pb.homePct >= 60 || pb.homePct <= 40);
+    var hasSharpSignal = sm.side !== "neutral" && (sm.strength || 0) >= 6;
+    if (!hasMovement && !hasPublicSplit && !hasSharpSignal) return;
+
+    // Determine which side the movement / sharps favour
+    var sharpSide, sharpTeam, pubTeam;
+    if (sm.side !== "neutral") {
+      sharpSide = sm.side;
+    } else if (moveAmt < -0.5) { // line moved toward home (more negative = home more favoured)
+      sharpSide = "home";
+    } else if (moveAmt > 0.5) {
+      sharpSide = "away";
+    } else if (pb.homePct != null && pb.homePct <= 40) {
+      sharpSide = "home"; // public on away, sharps on home
+    } else if (pb.homePct != null && pb.homePct >= 60) {
+      sharpSide = "away"; // public on home, sharps fading
+    } else {
+      sharpSide = "home";
+    }
+    sharpTeam = sharpSide === "home" ? game.homeTeam : game.awayTeam;
+
+    // Reverse line movement? (line moves against public)
+    var isRLM = (pb.homePct != null) &&
+      ((pb.homePct > 55 && moveAmt > 0.4) ||  // public on home but line moves away
+       (pb.homePct < 45 && moveAmt < -0.4));   // public on away but line moves home
+    var pubPct = sharpSide === "home" ? pb.homePct : pb.awayPct;
+
+    var ourPick = tp && tp.team ? tp.team : (pred.spreadPick ? pred.spreadPick.team : null);
     var alignsWithUs = ourPick && ourPick.toLowerCase() === sharpTeam.name.toLowerCase();
-    var strength = sm.strength || 0;
-    var strColor = strength >= 9 ? "var(--primary)" : strength >= 7 ? "var(--gold)" : "var(--muted-l)";
-    var pb = game.socialIntel && game.socialIntel.publicBetting;
-    var pubHomeP = pb && pb.homePct != null ? pb.homePct : null;
-    var pubAwayP = pb && pb.awayPct  != null ? pb.awayPct  : null;
-    var sharpPubPct = sm.side === "home" ? pubHomeP : pubAwayP;
-    var isRLM = sharpPubPct != null && sharpPubPct < 45;
+    var moveLabel = absMove > 0
+      ? "Line moved " + (moveAmt < 0 ? "→ " + game.homeTeam.abbreviation : "→ " + game.awayTeam.abbreviation) + " (" + (moveAmt > 0 ? "+" : "") + moveAmt + ")"
+      : "No movement";
+    var score = absMove * 3 + (isRLM ? 4 : 0) + (sm.strength || 0);
+
+    items.push({ game: game, pred: pred, sharpTeam: sharpTeam, sharpSide: sharpSide,
+      isRLM: isRLM, pubPct: pubPct, moveAmt: moveAmt, absMove: absMove, moveLabel: moveLabel,
+      alignsWithUs: alignsWithUs, score: score, sm: sm, bl: bl });
+  });
+
+  if (!items.length) return;
+  items.sort(function(a, b) { return b.score - a.score; });
+  items = items.slice(0, 5);
+
+  document.getElementById("sharp-tracker-section").style.display = "";
+  document.getElementById("sharp-tracker").innerHTML = items.map(function(it) {
+    var game = it.game, sharpTeam = it.sharpTeam, sm = it.sm;
+    var strength = sm.strength || 5;
+    var strColor = it.isRLM ? "#f472b6" : it.absMove >= 1.5 ? "var(--gold)" : "var(--muted-l)";
     return '<a class="sharp-tracker-row" href="pages/game.html?id=' + game.id + '">' +
       '<div style="display:flex;align-items:center;gap:6px;flex-shrink:0;width:38px">' +
-        Array.from({length:Math.min(Math.round(strength/2),5)}, function() {
+        Array.from({length: Math.min(Math.max(1, Math.round(it.score/3)), 5)}, function() {
           return '<span style="font-size:.8rem">💰</span>';
         }).join("") +
       '</div>' +
@@ -1660,14 +1706,15 @@ function renderSharpTracker() {
       '</div>' +
       '<div style="flex:1;min-width:0">' +
         '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px">' +
-          '<strong style="font-size:.88rem;color:' + strColor + '">Sharps on ' + sharpTeam.name + '</strong>' +
-          '<span style="font-size:.65rem;font-weight:700;color:' + strColor + ';background:rgba(245,158,11,.1);padding:2px 6px;border-radius:4px">Strength ' + strength + '/10</span>' +
-          (isRLM ? '<span style="font-size:.6rem;font-weight:800;color:#f472b6;background:rgba(244,114,182,.1);padding:2px 6px;border-radius:4px">RLM ↑</span>' : '') +
-          (alignsWithUs ? '<span style="font-size:.6rem;font-weight:700;color:var(--primary)">✓ Aligns with our pick</span>' : '<span style="font-size:.6rem;font-weight:700;color:var(--gold)">⚠ Splits our pick</span>') +
+          '<strong style="font-size:.88rem;color:var(--text)">Money on ' + sharpTeam.name + '</strong>' +
+          (it.isRLM ? '<span style="font-size:.6rem;font-weight:800;color:#f472b6;background:rgba(244,114,182,.1);padding:2px 6px;border-radius:4px">RLM ↑</span>' : '') +
+          (it.absMove >= 1.5 ? '<span style="font-size:.6rem;font-weight:800;color:var(--gold);background:rgba(245,158,11,.1);padding:2px 6px;border-radius:4px">STEAM</span>' : '') +
+          (it.alignsWithUs ? '<span style="font-size:.6rem;font-weight:700;color:var(--primary)">✓ Our pick</span>' : '<span style="font-size:.6rem;font-weight:700;color:var(--gold)">⚠ Against pick</span>') +
         '</div>' +
         '<div style="font-size:.68rem;color:var(--muted)">' +
           game.awayTeam.abbreviation + ' @ ' + game.homeTeam.abbreviation + ' · ' + fmtDate(game.date) +
-          (sharpPubPct != null ? ' · Public: ' + Math.round(sharpPubPct) + '% on ' + sharpTeam.abbreviation : '') +
+          ' · ' + it.moveLabel +
+          (it.pubPct != null ? ' · Public: ' + Math.round(it.pubPct) + '% on ' + sharpTeam.abbreviation : '') +
         '</div>' +
       '</div>' +
       '<div style="font-size:.72rem;color:var(--gold);font-weight:700;flex-shrink:0">View →</div>' +
