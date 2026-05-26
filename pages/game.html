@@ -928,7 +928,7 @@ function renderGamePage(gData) {
           legScore += (confBonus[conf_pl] || 0);
           legScore += Math.min(edge_pl * 4, 20);      // up to 20 pts for edge
           legScore += wp_pl >= 65 ? 20 : wp_pl >= 58 ? 12 : wp_pl >= 52 ? 5 : 0;
-          legScore += sm_pl.strength === "strong" ? 15 : sm_pl.strength === "moderate" ? 8 : 0;
+          legScore += sm_pl.strength >= 7 ? 15 : sm_pl.strength >= 5 ? 8 : 0;
           legScore = Math.min(legScore, 100);
 
           let legGrade, legColor, legMsg;
@@ -3376,7 +3376,7 @@ function renderGamePage(gData) {
       let betScore = (confBonus2[pickConf2] || 0)
         + Math.min((sp2.edge || 0) * 4, 20)
         + (pred.winProbability >= 65 ? 18 : pred.winProbability >= 58 ? 10 : pred.winProbability >= 52 ? 4 : 0)
-        + (sm2.strength === "strong" ? 14 : sm2.strength === "moderate" ? 8 : 0)
+        + (sm2.strength >= 7 ? 14 : sm2.strength >= 5 ? 8 : 0)
         + (sharpAgrees ? 8 : 0)
         + (evPositive ? 5 : 0);
       betScore = Math.min(Math.max(betScore, 0), 100);

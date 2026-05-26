@@ -249,6 +249,9 @@
 <script src="../js/players-extended.js"></script>
 <script src="../js/predictor.js"></script>
 <script>
+function esc(str) {
+  return String(str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
 // Build conference list dynamically from loaded games (populated after liveDataReady if needed)
 function buildConferences() {
   const set = new Set();
@@ -931,7 +934,7 @@ function renderGameCard(game, pred) {
             const pickIsHome3b = pickTeam3 === (home.name||"").toLowerCase() || pickTeam3 === (home.abbreviation||"").toLowerCase();
             const sm3 = pred.sharpMoneySignal || {};
             const sharpAligned3 = sm3.side && ((pickIsHome3b && sm3.side === "home") || (!pickIsHome3b && sm3.side === "away"))
-              && (sm3.strength === "strong" || sm3.strength === "moderate");
+              && (sm3.strength >= 5);
             const pbSI3 = game.socialIntel && game.socialIntel.publicBetting;
             if (sharpAligned3 && pbSI3 && pbSI3.homePct != null) {
               const pubOnPick3 = pickIsHome3b ? pbSI3.homePct : (100 - pbSI3.homePct);
@@ -1037,7 +1040,7 @@ function render() {
   } else if (typeFilter === "sharp") {
     list = list.filter(({ prediction: pred }) => {
       const sm = pred.sharpMoneySignal || {};
-      return sm.strength === "strong" || (sm.strength === "moderate" && (pred.spreadPick.edge||0) >= 2);
+      return sm.strength >= 7 || (sm.strength >= 5 && (pred.spreadPick.edge||0) >= 2);
     });
   } else if (typeFilter === "fade") {
     // Fade the public: model pick opposes public majority (>=55%)
@@ -1074,7 +1077,7 @@ function render() {
                          pickTeam.toLowerCase() === (game.homeTeam.abbreviation||"").toLowerCase();
       const sm = pred.sharpMoneySignal || {};
       const sharpAligned = sm.side && ((pickIsHome && sm.side === "home") || (!pickIsHome && sm.side === "away"))
-        && (sm.strength === "strong" || sm.strength === "moderate" || (Number(sm.strength) || 0) >= 5);
+        && sm.strength >= 5;
       if (!sharpAligned) return false;
       const pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
       const pubOnPick = pickIsHome ? (pb.homePct || 50) : (100 - (pb.homePct || 50));

@@ -804,7 +804,7 @@ function buildValuePlays() {
       var ourPubPct = sp.side === "home" ? homePct : (100 - homePct);
 
       var sm = pred.sharpMoneySignal;
-      var sharpAligned = sm && (sm.strength === "strong" || sm.strength === "moderate") && sm.side === sp.side;
+      var sharpAligned = sm && sm.strength >= 5 && sm.side === sp.side;
 
       var score = (sp.edge || 0) * 2
         + (sharpAligned ? 5 : 0)
@@ -914,7 +914,7 @@ function buildSharpSummary() {
 
     // Classify the situation
     var isRLM = lineDir === "against-public" && pubPct >= 57;
-    var isAligned = sharpSide && sm.strength === "strong" && sharpSide !== pubSide;
+    var isAligned = sharpSide && sm.strength >= 7 && sharpSide !== pubSide;
     var note = "";
     var tagCls = "";
     var tagTxt = "";
@@ -926,7 +926,7 @@ function buildSharpSummary() {
     } else if (isAligned && sharpLabel) {
       note = "Sharp action on " + sharpLabel + " against public flow";
       tagTxt = "SHARP"; tagCls = "sm-align"; rowCls = "sm-aligned";
-    } else if (sm && sm.strength === "moderate") {
+    } else if (sm && sm.strength >= 5 && sm.strength < 7) {
       note = "Moderate sharp interest — monitor for movement";
       tagTxt = "WATCH"; tagCls = "sm-conflict-tag"; rowCls = "sm-conflict";
     } else {
@@ -1002,7 +1002,7 @@ function buildPublicOverload() {
       // Check if model fades the public
       var modelFades = pred && pred.spreadPick && pred.spreadPick.side && pred.spreadPick.side !== heavySide && pred.spreadPick.side !== "no-bet";
       var sm = pred && pred.sharpMoneySignal;
-      var sharpFades = sm && sm.side && sm.side !== heavySide && (sm.strength === "strong" || sm.strength === "moderate");
+      var sharpFades = sm && sm.side && sm.side !== heavySide && sm.strength >= 5;
       var score = Math.round(heavyPct) + (modelFades ? 15 : 0) + (sharpFades ? 20 : 0);
       rows.push({ g: g, pred: pred, heavySide: heavySide, heavyPct: heavyPct, heavyTeam: heavyTeam, fadeTeam: fadeTeam, modelFades: modelFades, sharpFades: sharpFades, spread: spread, score: score });
     } catch(e) {}
@@ -1159,7 +1159,7 @@ function buildTripleLockIntel() {
                        pickTeam.toLowerCase() === (g.homeTeam.abbreviation || "").toLowerCase();
       var sm = pred.sharpMoneySignal || {};
       var sharpAligned = sm.side && ((pickIsHome && sm.side === "home") || (!pickIsHome && sm.side === "away"))
-        && (sm.strength === "strong" || sm.strength === "moderate");
+        && sm.strength >= 5;
       if (!sharpAligned) return;
       var pickedTeamObj = pickIsHome ? g.homeTeam : g.awayTeam;
       var teamData = window.TEAMS && TEAMS[pickedTeamObj.id];

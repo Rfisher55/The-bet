@@ -1226,7 +1226,7 @@ function buildActionPlan(a, b, effPred, gameCtx) {
   if (conf === 'elite') proBullets.push('ELITE confidence — highest-certainty model tier');
   else if (conf === 'high') proBullets.push('HIGH confidence — strong model conviction');
   var sm = effPred.sharpMoneySignal;
-  if (sm && (sm.strength === 'strong' || sm.strength === 'moderate') && sm.side === sp.side)
+  if (sm && sm.strength >= 5 && sm.side === sp.side)
     proBullets.push('Sharp money aligned with this pick');
   var si = (gameCtx && gameCtx.socialIntel) || {};
   var pb = si.publicBetting || {};
