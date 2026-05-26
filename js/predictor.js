@@ -86,7 +86,8 @@ function readableOnDark(hex) {
  */
 function calcExpectedScore(team, opponent, isHome, neutralSite) {
   const base = team.stats.pointsPerGame * 0.58 + opponent.stats.pointsAllowedPerGame * 0.42;
-  const homeAdj = neutralSite ? 0 : isHome ? HOME_FIELD_ADV : -(HOME_FIELD_ADV * 0.6);
+  // Apply HFA only to the home team side to avoid double-counting (net effect ~2.8 pts on spread, matching empirical CFB data)
+  const homeAdj = neutralSite ? 0 : isHome ? HOME_FIELD_ADV : 0;
   const ratingAdj = (team.rating - opponent.rating) * 0.08;
 
   const homeTOM = (team.stats.turnoversForced || 0) - (team.stats.turnoversPerGame || 0);
@@ -287,9 +288,9 @@ function calcSituationalAdjustment(game, isHomeTeam, team, opponent) {
   // ── Trap Game Risk ────────────────────────────
   // A big favorite playing a weak opponent before/after a marquee game
   const trapRisk = gameSit.trapGameRisk || 0;
-  if (isHomeTeam && trapRisk >= 8) {
+  if (trapRisk >= 8) {
     adj -= 2.5;
-  } else if (isHomeTeam && trapRisk >= 5) {
+  } else if (trapRisk >= 5) {
     adj -= 1.2;
   }
 
@@ -709,8 +710,7 @@ function calcSharpMoneySignal(game) {
   let rlmSide = "neutral";
 
   if (openingLine !== null && currentLine !== null) {
-    const lineMovedInFavorOfHome = currentLine < openingLine; // spread decreased = home favored less = movement toward away
-    // In standard format: negative = home favored; more negative = more favored
+    // negative spread = home favored; currentLine < openingLine means more negative = home more favored
     const movedTowardHome = currentLine < openingLine;
     const publicOnHome    = publicPct > 55;
     const publicOnAway    = publicPct < 45;
@@ -1632,6 +1632,13 @@ function predictGame(game) {
     const modelSpread = -predSpread;              // same convention
     const sEdge = vegasSpread - modelSpread;      // positive = we like home vs Vegas
 
+    // Key number proximity: 3 and 7 are the most common CFB winning margins.
+    // When the Vegas spread lands within 0.5 of a key number, crossing it is harder → reduce confidence slightly.
+    const KEY_NUMBERS = [3, 7, 10, 14];
+    const nearestKey = KEY_NUMBERS.reduce((best, k) => Math.abs(vegasSpread) - k < Math.abs(Math.abs(vegasSpread) - best) ? k : best, Infinity);
+    const keyNumDist = Math.abs(Math.abs(vegasSpread) - nearestKey);
+    const keyNumPenalty = keyNumDist <= 0.5 ? 4 : keyNumDist <= 1.0 ? 2 : 0;
+
     // Confidence multiplier from sharp money
     const sharpConfBoost = sharpAlert
       ? (sharpMoneySignal.side === "home" ? 5 : -5) // boost confidence if sharp agrees with model
@@ -1641,15 +1648,17 @@ function predictGame(game) {
       spreadPick = {
         side:       "home",
         team:       home.name,
-        confidence: clamp(Math.round(50 + sEdge * 5 + sharpConfBoost), 51, 95),
+        confidence: clamp(Math.round(50 + sEdge * 5 + sharpConfBoost - keyNumPenalty), 51, 95),
         edge:       parseFloat(Math.abs(sEdge).toFixed(1)),
+        keyNumber:  keyNumDist <= 1.0 ? nearestKey : null,
       };
     } else if (sEdge < -2) {
       spreadPick = {
         side:       "away",
         team:       away.name,
-        confidence: clamp(Math.round(50 + Math.abs(sEdge) * 5 - sharpConfBoost), 51, 95),
+        confidence: clamp(Math.round(50 + Math.abs(sEdge) * 5 - sharpConfBoost - keyNumPenalty), 51, 95),
         edge:       parseFloat(Math.abs(sEdge).toFixed(1)),
+        keyNumber:  keyNumDist <= 1.0 ? nearestKey : null,
       };
     }
 
@@ -1661,7 +1670,7 @@ function predictGame(game) {
     }
 
     if (predSpread > 7 && game.bettingLines.homeMoneyline > -300) mlValue = "home";
-    else if (predSpread < -7 && game.bettingLines.awayMoneyline < 300) mlValue = "away";
+    else if (predSpread < -7 && game.bettingLines.awayMoneyline > -300) mlValue = "away";
   }
 
   /* ── Predicted Winner ────────────────────────── */

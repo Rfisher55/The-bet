@@ -460,20 +460,14 @@ function renderGamePage(gData) {
     const abbr = (team.abbreviation || "").toLowerCase();
     const mascot = (team.mascot || "").toLowerCase();
     const lastWord = fullName.split(" ").pop();
-    // Exact full name match
     if (fullName === c) return true;
-    // Curated name exactly equals abbreviation
     if (abbr === c) return true;
-    // Curated name exactly equals mascot (e.g. "Longhorns")
     if (mascot === c || mascot + "s" === c) return true;
-    // Curated name exactly equals last word of team name (e.g. "Texas" matches "Texas Longhorns"... wait, last word is "Longhorns")
-    // Instead: curated name matches the school part (everything before last word)
-    const schoolWords = fullName.split(" ").slice(0, -1).join(" ");
-    if (schoolWords === c) return true;
-    // Curated is last word of name (mascot position) - exact only
+    // lastWord exact only (e.g. "Buckeyes" for Ohio State, but NOT "Iowa" for Iowa State)
     if (lastWord === c) return true;
-    // Curated full string is contained in team name as a whole word sequence
-    if (fullName.includes(c) && c.length >= Math.min(fullName.length, 6)) return true;
+    // substring only when the curated string is at least as long as the full name
+    // (prevents "Iowa" from matching "Iowa State" via fullName.includes)
+    if (c === fullName.slice(0, c.length) && c.length === fullName.length) return true;
     return false;
   }
   const officialPickIsHome = _curatedTeam
@@ -565,9 +559,9 @@ function renderGamePage(gData) {
     const vegasLine = bl && bl.spread != null ? fmtSpread(bl.spread) : null;
     // spread < 0 = home favored (home gives points); spread > 0 = away favored; 0 = pick-em (no favourite)
     const vegasFav = bl && bl.spread != null && bl.spread !== 0 ? (bl.spread < 0 ? home.name : away.name) : null;
-    const pubHome = (bl && bl.homeMoneylinePublicPct != null) ? Number(bl.homeMoneylinePublicPct) : null;
-    const pubAway = (bl && bl.awayMoneylinePublicPct != null) ? Number(bl.awayMoneylinePublicPct) : null;
-    // Only compute public fav when BOTH sides are present to avoid null-coercion bug
+    const _pb = game.socialIntel && game.socialIntel.publicBetting;
+    const pubHome = (_pb && _pb.homePct != null) ? Number(_pb.homePct) : null;
+    const pubAway = (_pb && _pb.awayPct  != null) ? Number(_pb.awayPct)  : null;
     const publicFav = (pubHome != null && pubAway != null) ? (pubHome >= pubAway ? home.name : away.name) : null;
     const publicPct = (pubHome != null && pubAway != null) ? Math.round(pubHome >= pubAway ? pubHome : pubAway) : null;
 
@@ -615,12 +609,18 @@ function renderGamePage(gData) {
 
         <!-- Comparison tiles -->
         <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-          ${vegasFav ? `
-          <div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
-            <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">🎰 Vegas Says</div>
-            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${vegasFav.split(" ").pop()} favored</div>
-            <div style="font-size:.65rem;color:var(--muted-l)">${vegasLine} spread</div>
-          </div>` : ""}
+          ${vegasFav ? (() => {
+            const absVSpread = bl && bl.spread != null ? Math.abs(bl.spread) : 0;
+            const KEY_NUMS = [3, 7, 10, 14];
+            const nearKey = KEY_NUMS.reduce((b, k) => Math.abs(absVSpread - k) < Math.abs(absVSpread - b) ? k : b, Infinity);
+            const isNearKey = Math.abs(absVSpread - nearKey) <= 0.5;
+            return `<div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid ${isNearKey ? "rgba(245,158,11,.4)" : "var(--border)"}">
+              <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">🎰 Vegas Says</div>
+              <div style="font-size:.85rem;font-weight:800;color:var(--text)">${vegasFav.split(" ").pop()} favored</div>
+              <div style="font-size:.65rem;color:var(--muted-l)">${vegasLine} spread</div>
+              ${isNearKey ? `<div style="font-size:.58rem;color:var(--gold);font-weight:700;margin-top:2px">⚠ Near key # ${nearKey}</div>` : ""}
+            </div>`;
+          })() : ""}
           ${hasPickSplit ? `
           <div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.25)">
             <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px">🤖 Model Leans</div>
@@ -639,6 +639,31 @@ function renderGamePage(gData) {
             <div style="font-size:.65rem;color:var(--muted-l)">of bettors</div>
           </div>` : ""}
         </div>
+
+        ${(() => {
+          // ATS Trend for the picked team in this situational spot
+          const pickT = officialPickTeamObj;
+          const ats = pickT.atsRecord;
+          const sit = pickT.situational || {};
+          const isHome = officialPickIsHome;
+          const isDog  = isHome ? (bl && bl.spread > 0) : (bl && bl.spread < 0);
+          const isNight = /pm|night|evening/i.test(game.time || "");
+          const atsSit = isDog ? sit.atsUnderdog : (isHome ? sit.atsHome : sit.atsAway);
+          const atsSitLabel = isDog ? "ATS as dog" : (isHome ? "ATS at home" : "ATS on road");
+          const atsNight = isNight && sit.nightGame ? sit.nightGame : null;
+          const atsPct = ats ? Math.round((ats.pct || 0) * 100) : null;
+          const atsSitPct = atsSit ? Math.round((atsSit.pct || 0) * 100) : null;
+          const atsNightPct = atsNight ? Math.round((atsNight.pct || 0) * 100) : null;
+          if (!atsPct && !atsSitPct) return "";
+          const atsC = (atsSitPct || atsPct) >= 60 ? "var(--primary)" : (atsSitPct || atsPct) >= 50 ? "var(--gold)" : "var(--danger)";
+          return `
+          <div style="margin-top:8px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+            <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);flex:0 0 auto">📊 ATS TRENDS — ${esc(pickT.name)}</div>
+            ${atsPct != null ? `<span style="font-size:.75rem;font-weight:700;color:${atsC}">${ats.wins}-${ats.losses}${ats.pushes ? '-'+ats.pushes : ''} (${atsPct}%) overall</span>` : ""}
+            ${atsSitPct != null ? `<span style="font-size:.75rem;font-weight:700;color:${(atsSitPct >= 60 ? "var(--primary)" : atsSitPct >= 50 ? "var(--gold)" : "var(--danger)}"}">${atsSit.wins}-${atsSit.losses} (${atsSitPct}%) ${atsSitLabel}</span>` : ""}
+            ${atsNightPct != null ? `<span style="font-size:.75rem;font-weight:700;color:${(atsNightPct >= 60 ? "var(--primary)" : "var(--gold)")}">${atsNight.wins}-${atsNight.losses} (${atsNightPct}%) night games</span>` : ""}
+          </div>`;
+        })()}
 
         ${topXf ? `
         <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid ${borderColor}20;display:flex;align-items:flex-start;gap:8px">
@@ -684,9 +709,10 @@ function renderGamePage(gData) {
       kickoffTxt = h < 24 ? `${h}h to kickoff` : `${Math.floor(h/24)}d ${h%24}h`;
     }
 
-    // Public betting
-    const pubHome = bl?.homePublicPct ?? bl?.publicBettingHome;
-    const pubAway = pubHome != null ? 100 - pubHome : null;
+    // Public betting — data lives in socialIntel.publicBetting, not bettingLines
+    const _pbr = si.publicBetting;
+    const pubHome = _pbr?.homePct != null ? Number(_pbr.homePct) : null;
+    const pubAway = _pbr?.awayPct  != null ? Number(_pbr.awayPct)  : (pubHome != null ? 100 - pubHome : null);
 
     // Sharp
     const sharpSide = bl?.sharpSide || (pred.sharpAlert ? "home" : null);
@@ -1064,7 +1090,7 @@ function renderGamePage(gData) {
       {
         icon: "🔒", label: "AWAY QB vs HOME SECONDARY",
         // Measures away passing offense vs home pass defense
-        score: (as_.passingYardsPerGame - hs.yardsAllowedPerGame * 0.58) * -0.28 + (away.offensiveRating - home.defensiveRating) * 0.35,
+        score: (as_.passingYardsPerGame - hs.yardsAllowedPerGame * 0.58) * -0.28 + (home.defensiveRating - away.offensiveRating) * 0.35,
         home_lbl: `${home.abbreviation} Secondary`,
         away_lbl: `${away.abbreviation} Passing Game`,
         gen: (w, s) => s >= 0
@@ -1537,10 +1563,10 @@ function renderGamePage(gData) {
             const curatedTeam = curatedPick ? curatedPick.team : null;
             const curatedLine = curatedPick ? curatedPick.line : null;
             const curatedConf = curatedPick ? curatedPick.confidence : null;
-            // Determine home/away side from curated team name
+            // Determine home/away side using same matcher as the top-level code (avoids Iowa/Iowa-State ambiguity)
             const curatedSide = curatedTeam
-              ? (curatedTeam.toLowerCase().includes(home.name.toLowerCase()) || curatedTeam.toLowerCase().includes(home.abbreviation.toLowerCase()) ? "home"
-                : curatedTeam.toLowerCase().includes(away.name.toLowerCase()) || curatedTeam.toLowerCase().includes(away.abbreviation.toLowerCase()) ? "away"
+              ? (_teamMatchesCurated(home, curatedTeam) && !_teamMatchesCurated(away, curatedTeam) ? "home"
+                : _teamMatchesCurated(away, curatedTeam) ? "away"
                 : null) : null;
             // Resolve to display pick: curated wins; fall back to model
             const hasPick = curatedSide || (pred.spreadPick && pred.spreadPick.side !== "no-bet");
@@ -1558,7 +1584,8 @@ function renderGamePage(gData) {
                 ? `<div style="font-size:.95rem;font-weight:800;color:${dispConfColor}">Will cover spread</div>
                    <div class="text-xs text-muted mt-1">${displayTeam}${displayLine ? ' · ' + displayLine : ''}</div>
                    ${curatedPick ? '<div class="text-xs mt-1" style="color:var(--muted);font-style:italic">From analysis</div>'
-                                 : `<div class="text-xs text-muted mt-1">Edge +${pred.spreadPick.edge} pts</div>`}`
+                                 : `<div class="text-xs text-muted mt-1">Edge +${pred.spreadPick.edge} pts</div>`}
+                   ${pred.spreadPick && pred.spreadPick.keyNumber ? `<div class="text-xs mt-1" style="color:var(--gold);font-weight:700">⚠ Near key # ${pred.spreadPick.keyNumber}</div>` : ""}`
                 : `<div style="font-size:.95rem;font-weight:700;color:var(--muted)">No Bet</div>
                    <div class="text-xs text-muted mt-1">No significant edge</div>`}
             </div>`;

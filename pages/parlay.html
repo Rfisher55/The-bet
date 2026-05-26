@@ -942,10 +942,10 @@ function autoBuild() {
     const hso = bl.homeSpreadOdds || -110;
     const aso = bl.awaySpreadOdds || -110;
     if (sp.side === "home") {
-      const label = `${home.name.split(" ").pop()} will cover spread`;
+      const label = `${home.name} will cover spread`;
       picks[pickKey(game.id, "home")] = { gameId: game.id, side:"home", odds: hso, label, confidence: pred.confidence || "—" };
     } else if (sp.side === "away") {
-      const label = `${away.name.split(" ").pop()} will cover spread`;
+      const label = `${away.name} will cover spread`;
       picks[pickKey(game.id, "away")] = { gameId: game.id, side:"away", odds: aso, label, confidence: pred.confidence || "—" };
     }
   });
@@ -1100,7 +1100,7 @@ function renderGameList() {
     function sel(side) { return picks[pickKey(game.id, side)] ? " sel" : ""; }
 
     // Model rec banner — plain English, no spread numbers
-    const recTeam = sp.side === "home" ? home.name.split(" ").pop() : away.name.split(" ").pop();
+    const recTeam = sp.side === "home" ? home.name : away.name;
     const recBanner = (sp.side !== "no-bet" && sp.edge >= 1.5)
       ? '<div style="font-size:.63rem;color:var(--primary);font-weight:700;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:6px;padding:4px 10px;margin-bottom:6px">&#11088; OUR PICK: '
         + recTeam + ' will cover spread'
@@ -1113,8 +1113,8 @@ function renderGameList() {
     const intelChips = [];
     if ((hTI.insiderAlerts||[]).length || (aTI.insiderAlerts||[]).length)
       intelChips.push('<span style="font-size:.58rem;font-weight:900;padding:2px 7px;border-radius:5px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:#f87171">🚨 INSIDER INTEL</span>');
-    if (hTI.outCount) intelChips.push(`<span style="font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:5px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--danger)">🩹 ${home.name.split(" ").pop()}: ${hTI.outCount} OUT</span>`);
-    if (aTI.outCount) intelChips.push(`<span style="font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:5px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--danger)">🩹 ${away.name.split(" ").pop()}: ${aTI.outCount} OUT</span>`);
+    if (hTI.outCount) intelChips.push(`<span style="font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:5px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--danger)">🩹 ${home.name}: ${hTI.outCount} OUT</span>`);
+    if (aTI.outCount) intelChips.push(`<span style="font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:5px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--danger)">🩹 ${away.name}: ${aTI.outCount} OUT</span>`);
     const intelBanner = intelChips.length
       ? `<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px">${intelChips.join("")}</div>` : "";
 
@@ -1126,7 +1126,7 @@ function renderGameList() {
 
     // Model note (pre-computed) — plain English
     const favTeam = pred.predictedSpread >= 0 ? home.name : away.name;
-    const modelNote = "The Bet model projects " + favTeam.split(" ").pop() + " to win · " + pred.winProbability + "% confidence";
+    const modelNote = "The Bet model projects " + favTeam + " to win · " + pred.winProbability + "% confidence";
 
     return `
       <div class="parlay-game-row${hasPick ? " has-pick" : ""}" id="prow-${game.id}">
@@ -1161,12 +1161,12 @@ function renderGameList() {
             <span class="pg-team-name">${away.abbreviation}</span>
           </div>
           <button class="pg-btn${sel("away")}"
-            onclick="selectPick('${game.id}','away',${aso},'${away.name.split(" ").pop().replace(/'/g,"\\'")} ${aSpread}','${predConf}')">
+            onclick="selectPick('${game.id}','away',${aso},'${away.name.replace(/'/g,"\\'")} will cover spread','${predConf}')">
             <div class="pg-btn-line">${aSpread}</div>
             <div class="pg-btn-odds">${fmtOdds(aso)}</div>
           </button>
           <button class="pg-btn${sel("over")}"${bl.total ? "" : " disabled"}
-            onclick="selectPick('${game.id}','over',${oo},'${away.abbreviation}/${home.abbreviation} OVER ${bl.total || ""}','${predConf}')">
+            onclick="selectPick('${game.id}','over',${oo},'${away.abbreviation}/${home.abbreviation} — game goes OVER total','${predConf}')">
             <div class="pg-btn-line">${bl.total ? "O " + bl.total : "—"}</div>
             <div class="pg-btn-odds">${bl.total ? fmtOdds(oo) : ""}</div>
           </button>
@@ -1181,12 +1181,12 @@ function renderGameList() {
             <span class="pg-team-name">${home.abbreviation}</span>
           </div>
           <button class="pg-btn${sel("home")}"
-            onclick="selectPick('${game.id}','home',${hso},'${home.name.split(" ").pop().replace(/'/g,"\\'")} ${hSpread}','${predConf}')">
+            onclick="selectPick('${game.id}','home',${hso},'${home.name.replace(/'/g,"\\'")} will cover spread','${predConf}')">
             <div class="pg-btn-line">${hSpread}</div>
             <div class="pg-btn-odds">${fmtOdds(hso)}</div>
           </button>
           <button class="pg-btn${sel("under")}"${bl.total ? "" : " disabled"}
-            onclick="selectPick('${game.id}','under',${uo},'${away.abbreviation}/${home.abbreviation} UNDER ${bl.total || ""}','${predConf}')">
+            onclick="selectPick('${game.id}','under',${uo},'${away.abbreviation}/${home.abbreviation} — game goes UNDER total','${predConf}')">
             <div class="pg-btn-line">${bl.total ? "U " + bl.total : "—"}</div>
             <div class="pg-btn-odds">${bl.total ? fmtOdds(uo) : ""}</div>
           </button>
@@ -1288,7 +1288,7 @@ function openGameModal(gameId) {
     spreadPickHtml = '<div style="margin-top:8px;padding:8px 12px;border-radius:10px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2)">'
       + '<div style="font-size:.6rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:3px">Spread Pick</div>'
       + '<div style="font-size:.82rem;font-weight:800;color:var(--text)">Will cover spread' + spEdge + '</div>'
-      + '<div style="font-size:.68rem;color:var(--muted)">' + spTeam.split(' ').pop() + ' · ' + spLine + '</div></div>';
+      + '<div style="font-size:.68rem;color:var(--muted)">' + spTeam + ' · ' + spLine + '</div></div>';
   }
   var totalPickHtml = '';
   if (tp.side && tp.side !== 'no-bet' && bl.total) {
@@ -1302,7 +1302,7 @@ function openGameModal(gameId) {
     var predTotalHtml = pred.predictedTotal
       ? '<div style="flex:1;min-width:100px;padding:8px;border-radius:8px;background:var(--card);border:1px solid var(--border);text-align:center"><div style="font-size:.55rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Model Total</div><div style="font-size:1.1rem;font-weight:900;color:var(--text)">' + pred.predictedTotal.toFixed(1) + '</div><div style="font-size:.6rem;color:var(--muted)">' + (bl.total ? 'O/U ' + bl.total : '') + '</div></div>'
       : '';
-    var predWinName = (pred.predictedWinner || '').split(' ').pop();
+    var predWinName = pred.predictedWinner || '';
     winStatsHtml = '<div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">'
       + '<div style="flex:1;min-width:100px;padding:8px;border-radius:8px;background:var(--card);border:1px solid var(--border);text-align:center"><div style="font-size:.55rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Win Prob</div><div style="font-size:1.1rem;font-weight:900;color:var(--text)">' + pred.winProbability + '%</div><div style="font-size:.6rem;color:var(--muted)">' + predWinName + '</div></div>'
       + predTotalHtml

@@ -2791,7 +2791,7 @@ var GAMES = [
       { title: "SEC Championship Preview Stakes", description: "Both teams know this game has SEC Championship Game implications. The loser must run the table in conference play — elevating the pressure and intensity to playoff-level motivation for both sides.", impactTeam: "alabama", impactDirection: "positive", severity: 7, category: "motivation" }
     ],
     gamePreview: {
-      headline: "SEC Power Summit: Alabama vs Georgia for SEC West Supremacy",
+      headline: "SEC Power Summit: Alabama vs Georgia — Two Titans in the Race for the SEC Championship",
       synopsis: "The game that decides SEC supremacy takes place at Bryant-Denny Stadium. Both Alabama and Georgia are national championship caliber programs, and neither team will back down. In a game this close in talent, home field is often the deciding factor — and Bryant-Denny in October at night is as significant a home advantage as exists in college football.",
       analysis: [
         { section: "OFFENSIVE EDGE", text: "Both offenses are elite and well-designed. Georgia's offense is more balanced, using the run to set up the pass. Alabama attacks through the air first. Alabama's home crowd creates defensive alignment problems that favor the home team's offense — the slight edge goes to the Tide." },
@@ -2846,9 +2846,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -1.5, total: 52.0, note: "Tennessee opened as slight 1.5-point home favorites in The Third Saturday in October" },
-        { time: "Mid-week", spread: -2.0, total: 51.5, note: "Local Knoxville money moved the spread to -2; total edged down on expected cold-weather forecast" },
-        { time: "Current (Fri)", spread: -2.5, total: 51.5, note: "Tennessee spread grew to -2.5 on Friday — public money overwhelmingly on Vols" }
+        { time: "Open (Mon)", spread: 3.0, total: 52.0, note: "Alabama opened as 3-point road favorites at Neyland — sharp money on Tide from the jump despite the hostile environment" },
+        { time: "Mid-week", spread: 3.5, total: 51.5, note: "Line moved to Alabama -3.5 by mid-week as action continued on Tide; total edged down on expected cold-weather forecast" },
+        { time: "Current (Fri)", spread: 3.5, total: 51.5, note: "Alabama -3.5 holds firm Friday; public taking Tennessee at home but sharp money remains on the Tide" }
       ],
       publicBetting: { homePct: 58, awayPct: 42, overPct: 49, underPct: 51 },
       beatWriter: [
@@ -3047,9 +3047,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -3.5, total: 59.0, note: "LSU opened as 3.5-point home favorites in an anticipated night game showdown in Baton Rouge" },
-        { time: "Mid-week", spread: -4.0, total: 59.5, note: "Spread to -4 on LSU night game money; total rose as sharp over-bettors targeted both high-powered offenses" },
-        { time: "Current (Fri)", spread: -4.0, total: 59.0, note: "Total pulled back slightly after weather forecast showed possible humidity limiting — spread held" }
+        { time: "Open (Mon)", spread: 2.0, total: 59.0, note: "Alabama opened as 2-point road favorites — books priced Tide talent edge over LSU's night game home advantage" },
+        { time: "Mid-week", spread: 1.5, total: 59.5, note: "Line dropped to Alabama -1.5 on heavy LSU Death Valley money; total rose as sharp over-bettors targeted both high-powered offenses" },
+        { time: "Current (Fri)", spread: 1.5, total: 59.0, note: "LSU +1.5 holds through Friday — Tiger Stadium environment drawing significant public money on the home dog" }
       ],
       publicBetting: { homePct: 57, awayPct: 43, overPct: 59, underPct: 41 },
       beatWriter: [
@@ -3201,7 +3201,7 @@ var GAMES = [
       analysis: [
         { section: "OFFENSIVE EDGE", text: "Tennessee's high-tempo offense is uniquely difficult to defend on short preparation weeks. In a Thursday game, LSU's defense has three days of preparation — not seven. Heupel's system generates play-call variety that requires a full week to account for." },
         { section: "DEFENSIVE BATTLEGROUND", text: "Tennessee's defense is physical and motivated for this prime-time home game. LSU's offense has been outstanding this season, but will face a Neyland crowd that generates pre-snap noise disrupting communication from the first series." },
-        { section: "KEY X-FACTOR", text: "Short week preparation favors Tennessee. Both teams have reduced prep time for a Thursday game, but Tennessee's up-tempo system is a built-in disadvantage for the opponent — the less preparation time available, the more Oregon's scheme advantage grows." },
+        { section: "KEY X-FACTOR", text: "Short week preparation favors Tennessee. Both teams have reduced prep time for a Thursday game, but Tennessee's up-tempo system is a built-in disadvantage for the opponent — the less preparation time available, the more Heupel's tempo advantage grows over any defense trying to prepare in three days." },
         { section: "COACHING EDGE", text: "Heupel's system is a built-in advantage that intensifies on short weeks. LSU has been 3-5 ATS in Thursday night games over the last four seasons. The Thursday format specifically disadvantages preparation-intensive defensive systems." },
         { section: "THE PICK", text: "Tennessee -3 at home is the pick. Neyland home advantage, Heupel tempo increasing value on short prep week, and LSU arriving physically spent after Alabama and Texas. Vols cover in a game that stays close through the fourth quarter." }
       ],
@@ -3464,10 +3464,6 @@ function fmtML(n) {
   return (n > 0 ? "+" : "") + n;
 }
 
-// ── Helper: format moneyline for display (+250, -180)
-function fmtML(n) {
-  return (n > 0 ? "+" : "") + n;
-}
 
 // ── Helper: format date string ("Aug 29", "Sep 5")
 function fmtDate(dateStr) {

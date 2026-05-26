@@ -1226,13 +1226,13 @@
     var gameLabel = awayName + ' @ ' + homeName;
     var pickLabel;
     if (type === 'spread') {
-      var teamLast  = (side === 'home' ? homeName : awayName).split(' ').pop();
-      pickLabel = teamLast + ' — Will cover spread';
+      var spreadTeam = side === 'home' ? homeName : awayName;
+      pickLabel = spreadTeam + ' — Will cover spread';
     } else if (type === 'total') {
-      pickLabel = (side === 'over' ? 'OVER' : 'UNDER') + ' ' + line;
+      pickLabel = (side === 'over' ? 'OVER' : 'UNDER') + ' total (' + line + ')';
     } else {
-      var mlTeamLast = (side === 'home-ml' ? homeName : awayName).split(' ').pop();
-      pickLabel = mlTeamLast + ' ML';
+      var mlTeam = side === 'home-ml' ? homeName : awayName;
+      pickLabel = mlTeam + ' ML';
     }
 
     // Fill visible fields
