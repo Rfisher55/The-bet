@@ -634,12 +634,38 @@ function buildRealGameBanner(a, b, game, pred) {
           <div style="font-size:.85rem;font-weight:800;color:var(--text)">${modelLine}</div>
           ${pred ? `<div style="font-size:.65rem;color:var(--muted)">Win prob: ${pred.winProbability}%</div>` : ''}
         </div>
-        ${sp && sp.side !== 'no-bet' ? `
-        <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);border-radius:var(--radius);padding:12px;text-align:center">
-          <div style="font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">The Bet Pick</div>
-          <div style="font-size:.85rem;font-weight:800;color:var(--primary)">${sp.side === 'home' ? home.name : away.name} covers</div>
-          <div style="font-size:.65rem;color:${edgeColor}">${edgeText}</div>
-        </div>` : ''}
+        ${(() => {
+          const tp = game.gamePreview && game.gamePreview.thePick;
+          const curatedTeam = tp && tp.team ? tp.team : null;
+          const curatedConf = tp && tp.confidence ? tp.confidence.toUpperCase() : null;
+          const curatedLine = tp && tp.line ? tp.line : null;
+          const curatedUnit = tp && tp.unit ? tp.unit : null;
+          const curatedReasoning = tp && tp.reasoning ? tp.reasoning : null;
+          // Determine which side curated team is
+          let curatedSide = null;
+          if (curatedTeam) {
+            const htLow = (home.name || '').toLowerCase();
+            const atLow = (away.name || '').toLowerCase();
+            const htAbb = (home.abbreviation || '').toLowerCase();
+            const atAbb = (away.abbreviation || '').toLowerCase();
+            const ct = curatedTeam.toLowerCase();
+            if (ct === htLow || ct === htAbb) curatedSide = 'home';
+            else if (ct === atLow || ct === atAbb) curatedSide = 'away';
+          }
+          const hasPick = curatedSide || (sp && sp.side !== 'no-bet');
+          const displayTeam = curatedTeam || (sp ? (sp.side === 'home' ? home.name : away.name) : null);
+          const displayConf = curatedConf || (pred ? pred.confidence.toUpperCase() : null);
+          const confColors = { ELITE: 'var(--primary)', HIGH: 'var(--primary)', MEDIUM: 'var(--gold)', LOW: 'var(--muted)' };
+          const dispColor = confColors[displayConf] || 'var(--primary)';
+          const units = curatedUnit ? `${curatedUnit}u` : (displayConf === 'ELITE' ? '2u' : displayConf === 'HIGH' ? '1.5u' : '1u');
+          return hasPick ? `
+          <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);border-radius:var(--radius);padding:12px;text-align:center">
+            <div style="font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">${curatedSide ? '⭐ THE BET PICKS' : '🤖 MODEL PICK'}</div>
+            <div style="font-size:.85rem;font-weight:800;color:${dispColor}">${displayTeam} covers${curatedLine ? ' ' + curatedLine : ''}</div>
+            <div style="font-size:.65rem;color:${edgeColor};margin-top:2px">${edgeText || (displayConf ? displayConf + ' · ' + units : '')}</div>
+            ${curatedReasoning ? `<div style="font-size:.6rem;color:var(--muted-l);margin-top:4px;font-style:italic;line-height:1.4">${curatedReasoning.slice(0, 80)}${curatedReasoning.length > 80 ? '…' : ''}</div>` : ''}
+          </div>` : '';
+        })()}
       </div>
       ${pred ? `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <span class="badge ${confCls}">${pred.confidence.toUpperCase()} CONFIDENCE</span>

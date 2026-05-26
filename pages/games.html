@@ -563,18 +563,25 @@ function renderGameCard(game, pred) {
           const gp = game.gamePreview;
           const curatedPick = gp && gp.thePick && gp.thePick.team ? gp.thePick : null;
           if (curatedPick) {
-            const cpIsHome = curatedPick.team.toLowerCase() === (home.name||"").toLowerCase();
+            const cpIsHome = curatedPick.team.toLowerCase() === (home.name||"").toLowerCase() ||
+              curatedPick.team.toLowerCase() === (home.abbreviation||"").toLowerCase();
             const cpLine = game.bettingLines
               ? (cpIsHome ? fmtSpread(game.bettingLines.spread) : fmtSpread(-game.bettingLines.spread))
               : (curatedPick.line || "");
             const pickColor = cpIsHome ? home.color : away.color;
-            const reason = curatedPick.reasoning || "";
-            const shortReason = reason.length > 70 ? reason.slice(0, 67) + "…" : reason;
+            const cpConf = (curatedPick.confidence || "MEDIUM").toUpperCase();
+            const cpUnits = curatedPick.unit ? curatedPick.unit : (cpConf === "ELITE" ? 2 : cpConf === "HIGH" ? 1.5 : 1);
+            const cpConfColors = { ELITE: "var(--primary)", HIGH: "var(--primary)", MEDIUM: "var(--gold)", LOW: "var(--muted)" };
+            const cpConfColor = cpConfColors[cpConf] || "var(--muted)";
             return `<div style="padding:8px 10px;border-radius:8px;background:${pickColor}22;border:1px solid ${pickColor}55">
-              <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">⭐ OUR PICK</div>
+              <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">⭐ THE BET PICKS</div>
               <div style="font-size:.75rem;font-weight:900;color:var(--text)">${curatedPick.team} covers</div>
-              ${cpLine ? `<div style="font-size:.58rem;color:var(--muted-l);margin-top:1px">Line: ${cpLine}</div>` : ""}
-              ${shortReason ? `<div style="font-size:.55rem;color:var(--muted);line-height:1.4;margin-top:3px">${shortReason}</div>` : ""}
+              ${cpLine ? `<div style="font-size:.58rem;color:var(--muted-l);margin-top:1px">Vegas: ${cpLine}</div>` : ""}
+              <div style="margin-top:4px;display:flex;align-items:center;gap:5px">
+                <span style="font-size:.55rem;font-weight:800;color:${cpConfColor}">${cpConf}</span>
+                <span style="font-size:.55rem;color:var(--muted)">·</span>
+                <span style="font-size:.55rem;font-weight:700;color:var(--muted-l)">${cpUnits}u</span>
+              </div>
             </div>`;
           }
           return sp.side !== "no-bet" ? `
@@ -627,19 +634,24 @@ function renderGameCard(game, pred) {
           chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 8px;border-radius:6px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:var(--danger);animation:pulse 2s infinite">LIVE ${liveGame.awayScore}–${liveGame.homeScore} Q${liveGame.period}</span>`);
         }
 
-        // Line movement
-        if (bl && bl.openSpread != null && bl.spread != null && Math.abs(bl.spread - bl.openSpread) >= 0.5) {
-          const diff = bl.spread - bl.openSpread;
-          const dir = diff < 0 ? "▼" : "▲";
-          const teamDir = diff < 0 ? home.abbreviation : away.abbreviation;
-          chips.push(`<span style="font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--primary)" title="Line moved from ${fmtSpread(bl.openSpread)} to ${fmtSpread(bl.spread)}">${dir} ${Math.abs(diff).toFixed(1)} ${teamDir}</span>`);
+        // Line movement — use socialIntel.lineMovement array (actual data format)
+        const si2 = game.socialIntel || {};
+        const lmArr2 = si2.lineMovement || [];
+        const lmOpen2 = lmArr2.length >= 2 ? lmArr2[0] : null;
+        const lmCur2  = lmArr2.length >= 2 ? lmArr2[lmArr2.length - 1] : null;
+        if (lmOpen2 && lmCur2 && lmOpen2.spread != null && lmCur2.spread != null && bl && Math.abs(lmCur2.spread - lmOpen2.spread) >= 0.5) {
+          const diff2 = lmCur2.spread - lmOpen2.spread;
+          const dir2 = diff2 < 0 ? "▼" : "▲";
+          const teamDir2 = diff2 < 0 ? home.abbreviation : away.abbreviation;
+          chips.push(`<span style="font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--primary)" title="Line moved from ${fmtSpread(lmOpen2.spread)} to ${fmtSpread(lmCur2.spread)}">${dir2} ${Math.abs(diff2).toFixed(1)} ${teamDir2}</span>`);
         }
 
-        // Sharp signal
-        if (pred.sharpAlert || bl?.sharpSide) {
-          const side = bl?.sharpSide || (pred.sharpAlert ? (pred.predictedSpread >= 0 ? "home" : "away") : null);
-          const sharpTeam = side === "home" ? home.abbreviation : away.abbreviation;
-          chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.4);color:var(--accent)">⚡ SHARP: ${sharpTeam}</span>`);
+        // Sharp signal — use pred.sharpMoneySignal (actual computed field)
+        const sm2 = pred.sharpMoneySignal || {};
+        if (pred.sharpAlert || (sm2.side && sm2.side !== "neutral" && (sm2.strength || 0) >= 6)) {
+          const sharpSide2 = sm2.side || (pred.predictedSpread >= 0 ? "home" : "away");
+          const sharpTeam2 = sharpSide2 === "home" ? home.abbreviation : away.abbreviation;
+          chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.4);color:var(--accent)">⚡ SHARP: ${sharpTeam2}</span>`);
         }
 
         // Injury alert — use TEAM_INTEL (ESPN live) if available, else KEY_PLAYERS

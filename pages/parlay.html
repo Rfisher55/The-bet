@@ -846,16 +846,39 @@ function updateSummary() {
   gradeEl.style.borderColor = gradeColor + "60";
   gradeEl.style.color = gradeColor;
 
+  // Identify weak legs (no curated pick, low edge)
+  const weakLegs = entries.filter(([key, pick]) => {
+    const gid = gameIdFromKey(key);
+    const p = allPreds.find(p => p.game.id === gid);
+    if (!p) return false;
+    const tp2 = p.game.gamePreview && p.game.gamePreview.thePick;
+    const sp2 = p.prediction.spreadPick || {};
+    const hasAnalystPick = tp2 && tp2.team;
+    const hasEdge = sp2.side !== "no-bet" && (sp2.edge || 0) >= 1.5;
+    return !hasAnalystPick && !hasEdge;
+  }).map(([, p]) => p.label.split(" covers")[0].split(" OVER")[0].split(" UNDER")[0]);
+
+  // Strong legs (analyst pick or edge >= 3)
+  const strongLegs = entries.filter(([key, pick]) => {
+    const gid = gameIdFromKey(key);
+    const p = allPreds.find(p => p.game.id === gid);
+    if (!p) return false;
+    const tp2 = p.game.gamePreview && p.game.gamePreview.thePick;
+    const sp2 = p.prediction.spreadPick || {};
+    const curatedConf = tp2 && tp2.confidence ? tp2.confidence.toUpperCase() : null;
+    return curatedConf === "ELITE" || curatedConf === "HIGH" || (sp2.edge || 0) >= 3;
+  }).map(([, p]) => p.label.split(" covers")[0]);
+
   // Analysis
+  const evStr = evNum >= 0 ? `+$${ev}` : `-$${Math.abs(parseFloat(ev)).toFixed(1)}`;
   const advice = evNum >= 10
-    ? `This parlay shows positive expected value (+$${ev} per $100) based on our model. The picks have genuine edge against the Vegas lines.`
+    ? `Strong parlay — model projects +EV (${evStr} per $100). ${strongLegs.length > 0 ? strongLegs.slice(0,2).join(" + ") + " anchor this parlay." : "All picks show real edge vs Vegas."}`
     : evNum >= 0
-    ? `This parlay is roughly break-even from an EV perspective. Consider trimming to your 2-3 strongest legs.`
-    : `This parlay has negative expected value. Either reduce legs or swap to higher-confidence picks to improve it.`;
-  const legWarning = legs > 4 ? ` Note: ${legs}-leg parlays are high variance — even strong models rarely hit 5+ legs consistently.` : "";
+    ? `Break-even parlay (EV ${evStr}). Consider trimming to your top 2–3 legs for better win probability.`
+    : `Negative EV parlay (${evStr}). ${weakLegs.length > 0 ? "Weakest legs: " + weakLegs.slice(0,2).join(", ") + ". Consider swapping for higher-confidence picks." : "Reduce legs or swap to picks with analyst backing."}`;
+  const legWarning = legs > 4 ? ` ⚠ ${legs}-leg parlays are high variance — even our 89.5% ELITE picks rarely chain 5+ together.` : "";
 
   // Correlation check: same-game spread + total is positively correlated (both win if it's a blowout)
-  // but sportsbooks already price this in — flag it as a heads-up, not necessarily bad
   const gameIdCounts = {};
   entries.forEach(([key]) => {
     const gid = gameIdFromKey(key);
@@ -863,10 +886,20 @@ function updateSummary() {
   });
   const sameGamePairs = Object.values(gameIdCounts).filter(c => c > 1).length;
   const corrWarning = sameGamePairs > 0
-    ? ` ⚠ Same-game correlation: you have ${sameGamePairs} game(s) with multiple legs. Standard parlays don't get a correlation bonus — consider a same-game parlay (SGP) at your sportsbook instead.`
+    ? ` ⚠ Same-game legs detected (${sameGamePairs} game${sameGamePairs>1?"s":""}). Use a same-game parlay (SGP) at your sportsbook for better payouts on correlated legs.`
     : "";
 
-  analysisEl.textContent = advice + legWarning + corrWarning;
+  // Trap game warning
+  const trapGames = entries.filter(([key]) => {
+    const gid = gameIdFromKey(key);
+    const p = allPreds.find(p => p.game.id === gid);
+    return p && p.prediction.trapGameAlert;
+  }).map(([, p]) => p.label.split(" covers")[0]);
+  const trapWarning = trapGames.length > 0
+    ? ` 🪤 Trap game alert on: ${trapGames.slice(0,2).join(", ")}. Treat these legs as volatile.`
+    : "";
+
+  analysisEl.textContent = advice + legWarning + corrWarning + trapWarning;
 }
 
 // ── Select/deselect a pick ──
@@ -1124,11 +1157,20 @@ function renderGameList() {
     // Sportsbook-style selected state
     function sel(side) { return picks[pickKey(game.id, side)] ? " sel" : ""; }
 
-    // Model rec banner — plain English, no spread numbers
-    const recTeam = sp.side === "home" ? home.name : away.name;
-    const recBanner = (sp.side !== "no-bet" && sp.edge >= 1.5)
-      ? '<div style="font-size:.63rem;color:var(--primary);font-weight:700;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:6px;padding:4px 10px;margin-bottom:6px">&#11088; OUR PICK: '
-        + recTeam + ' will cover spread'
+    // Rec banner — prefer curated pick, fall back to model
+    const tpC = game.gamePreview && game.gamePreview.thePick;
+    const curatedTeamP = tpC && tpC.team;
+    const curatedConfP = tpC && tpC.confidence ? tpC.confidence.toUpperCase() : null;
+    const curatedUnitsP = tpC && tpC.unit ? tpC.unit : (curatedConfP === "ELITE" ? 2 : curatedConfP === "HIGH" ? 1.5 : 1);
+    const recTeam = curatedTeamP || (sp.side === "home" ? home.name : away.name);
+    const hasRec = curatedTeamP || (sp.side !== "no-bet" && sp.edge >= 1.5);
+    const recSrc = curatedTeamP ? "⭐ THE BET:" : "📊 MODEL:";
+    const recSuffix = curatedTeamP
+      ? ` covers · ${curatedConfP || ""} confidence · ${curatedUnitsP}u`
+      : (sp.edge >= 1 ? ` covers · +${sp.edge} pt edge` : " covers spread");
+    const recBanner = hasRec
+      ? '<div style="font-size:.63rem;color:var(--primary);font-weight:700;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:6px;padding:4px 10px;margin-bottom:6px">'
+        + recSrc + ' <strong>' + recTeam + '</strong>' + recSuffix
         + '</div>'
       : "";
 
