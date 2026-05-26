@@ -3107,6 +3107,18 @@ function renderGamePage(gData) {
       const evPositive = parseFloat(evPct) > 0;
       const evColor = evPositive ? "var(--primary)" : "var(--danger)";
 
+      // Best Bet Score — composite signal strength
+      const confBonus2 = { ELITE: 35, HIGH: 25, MEDIUM: 15, LOW: 5 };
+      let betScore = (confBonus2[pickConf2] || 0)
+        + Math.min((sp2.edge || 0) * 4, 20)
+        + (pred.winProbability >= 65 ? 18 : pred.winProbability >= 58 ? 10 : pred.winProbability >= 52 ? 4 : 0)
+        + (sm2.strength === "strong" ? 14 : sm2.strength === "moderate" ? 8 : 0)
+        + (sharpAgrees ? 8 : 0)
+        + (evPositive ? 5 : 0);
+      betScore = Math.min(Math.max(betScore, 0), 100);
+      const betScoreColor = betScore >= 70 ? "var(--primary)" : betScore >= 50 ? "var(--gold)" : betScore >= 35 ? "#f97316" : "var(--danger)";
+      const betScoreLabel = betScore >= 70 ? "Strong" : betScore >= 50 ? "Moderate" : betScore >= 35 ? "Marginal" : "Weak";
+
       if (!hasPick2 && !isNoBet) return "";
       return `
       <div style="margin-bottom:16px;padding:12px 16px;border-radius:var(--radius-lg);background:${isNoBet ? "rgba(255,255,255,.02)" : isElite ? "rgba(16,185,129,.08)" : "rgba(255,255,255,.03)"};border:1px solid ${isNoBet ? "var(--border)" : isElite ? "rgba(16,185,129,.35)" : "rgba(255,255,255,.1)"};display:flex;align-items:center;gap:12px;flex-wrap:wrap">
@@ -3123,6 +3135,11 @@ function renderGamePage(gData) {
           ${sp2.edge >= 1 ? `<span style="font-size:.6rem;font-weight:700;color:var(--primary)">+${sp2.edge} pts edge</span>` : ""}
           ${spConf2 > 0 ? `<span style="font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:4px;background:${evPositive?"rgba(16,185,129,.1)":"rgba(239,68,68,.08)"};color:${evColor};border:1px solid ${evColor}40">EV ${evPct.startsWith("-")?"":"+"}${evPct}%</span>` : ""}
           ${sharpAgrees ? `<span style="font-size:.6rem;font-weight:700;color:var(--primary)">💰 Sharps agree</span>` : ""}
+          <div style="display:flex;align-items:center;gap:5px;padding:2px 8px;border-radius:6px;background:${betScoreColor}15;border:1px solid ${betScoreColor}35">
+            <div style="font-size:.55rem;font-weight:900;color:var(--muted);letter-spacing:.5px">SCORE</div>
+            <div style="font-size:.72rem;font-weight:900;color:${betScoreColor}">${betScore}</div>
+            <div style="font-size:.55rem;color:${betScoreColor}">${betScoreLabel}</div>
+          </div>
         </div>` : `<div style="flex:1;font-size:.82rem;color:var(--muted)">No edge vs Vegas — skip this game</div>`}
         <a href="#section-picks" style="font-size:.65rem;font-weight:700;color:var(--primary);text-decoration:none;flex-shrink:0;white-space:nowrap">Full Analysis ↓</a>
       </div>`;

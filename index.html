@@ -289,6 +289,20 @@
     .trend-badge.hot  { background: rgba(16,185,129,.15); color: var(--primary); border: 1px solid rgba(16,185,129,.35); }
     .trend-badge.cold { background: rgba(239,68,68,.10);  color: var(--danger);  border: 1px solid rgba(239,68,68,.3); }
 
+    /* ── Upcoming Games Countdown ───────────────────────── */
+    .upcoming-row { padding: 11px 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); transition: border-color .15s; }
+    .upcoming-row:hover { border-color: rgba(16,185,129,.35); }
+    .upcoming-row.game-today { border-color: rgba(99,102,241,.35); background: rgba(99,102,241,.04); }
+    .upcoming-countdown { flex-shrink: 0; text-align: center; min-width: 52px; }
+    .upcoming-days { font-size: 1.2rem; font-weight: 900; line-height: 1; }
+    .upcoming-unit { font-size: .52rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); }
+    .upcoming-matchup { flex: 1; min-width: 0; }
+    .upcoming-teams { font-size: .85rem; font-weight: 800; color: var(--text); }
+    .upcoming-meta { font-size: .62rem; color: var(--muted); margin-top: 2px; }
+    .upcoming-pick { flex-shrink: 0; text-align: right; }
+    .upcoming-pick-team { font-size: .7rem; font-weight: 800; color: var(--primary); }
+    .upcoming-pick-conf { font-size: .55rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); }
+
     /* ── Power Rankings strip ───────────────────────────── */
     .power-strip {
       display: grid;
@@ -813,6 +827,15 @@
     <div class="grid-auto" id="featured-games"></div>
   </section>
 
+  <!-- Upcoming Games Countdown -->
+  <section class="mb-5" id="upcoming-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">⏰ Upcoming Games — Next Up</div>
+      <a href="pages/games.html" class="text-sm text-muted" style="text-decoration:underline">Full Schedule →</a>
+    </div>
+    <div id="upcoming-grid" style="display:flex;flex-direction:column;gap:8px"></div>
+  </section>
+
   <!-- Model transparency -->
   <section class="mb-5">
     <div class="flex items-center justify-between mb-4">
@@ -936,6 +959,7 @@
     renderSystemAlerts();
     renderConferenceATS();
     renderTrendingTeams();
+    renderUpcomingGames();
   });
 })();
 
@@ -1681,6 +1705,71 @@ function copyWeekPicks() {
     if (btn) { btn.textContent = "✅ Copied!"; setTimeout(function(){ btn.textContent = "📋 Copy Picks"; }, 2000); }
   }
 }
+
+// ── Upcoming Games Countdown ──────────────────────────────────────
+function renderUpcomingGames() {
+  if (!window.GAMES) return;
+  var today = new Date();
+  var todayStr = today.toISOString().slice(0, 10);
+
+  var upcoming = allPredictions
+    .filter(function(p) { return p.game.date && p.game.date >= todayStr; })
+    .sort(function(a, b) { return a.game.date.localeCompare(b.game.date); })
+    .slice(0, 4);
+
+  if (!upcoming.length) return;
+
+  var grid = document.getElementById("upcoming-grid");
+  var sec  = document.getElementById("upcoming-section");
+  if (!grid || !sec) return;
+
+  function textForBg(hex) {
+    if (!hex) return "#fff";
+    var c = (hex.replace("#","")+"000000").slice(0,6);
+    var r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
+    return (r*299+g*587+b*114)/1000 > 128 ? "#000" : "#fff";
+  }
+
+  grid.innerHTML = upcoming.map(function(p) {
+    var game = p.game;
+    var pred = p.prediction;
+    var gameDate = new Date(game.date + "T12:00:00");
+    var diffMs = gameDate - today;
+    var diffDays = Math.max(0, Math.floor(diffMs / (1000*60*60*24)));
+    var isToday = game.date === todayStr;
+
+    var countdownVal = isToday ? "TODAY" : (diffDays === 1 ? "TMW" : diffDays + "d");
+    var countdownColor = isToday ? "var(--accent)" : diffDays <= 3 ? "var(--primary)" : "var(--muted-l)";
+
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var sp = pred.spreadPick || {};
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    var pickConf  = tp && tp.confidence ? tp.confidence.toUpperCase() : (pred.confidence || "").toUpperCase();
+
+    var away = game.awayTeam, home = game.homeTeam;
+    var awayAbbr = away.abbreviation || away.name.slice(0,4);
+    var homeAbbr = home.abbreviation || home.name.slice(0,4);
+
+    return '<a href="pages/game.html?id=' + game.id + '" class="upcoming-row' + (isToday ? " game-today" : "") + '">'
+      + '<div class="upcoming-countdown">'
+        + '<div class="upcoming-days" style="color:' + countdownColor + '">' + countdownVal + '</div>'
+        + (!isToday && diffDays > 1 ? '<div class="upcoming-unit">away</div>' : '')
+      + '</div>'
+      + '<div style="width:1px;height:32px;background:var(--border);flex-shrink:0"></div>'
+      + '<div class="upcoming-matchup">'
+        + '<div class="upcoming-teams">' + awayAbbr + ' <span style="color:var(--muted);font-weight:500">@</span> ' + homeAbbr + '</div>'
+        + '<div class="upcoming-meta">' + (game.time || "") + (game.time && game.date ? " · " : "") + game.date + (game.week ? " · Wk " + game.week : "") + '</div>'
+      + '</div>'
+      + (pickTeam ? '<div class="upcoming-pick">'
+        + '<div class="upcoming-pick-team">' + pickTeam + ' covers</div>'
+        + (pickConf ? '<div class="upcoming-pick-conf">' + pickConf + '</div>' : '')
+        + '</div>' : '')
+      + '</a>';
+  }).join("");
+
+  sec.style.display = "";
+}
+renderUpcomingGames();
 
 // ── Conference ATS Records ────────────────────────────────────────
 function renderConferenceATS() {
