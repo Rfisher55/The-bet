@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>2026 Preseason — The Bet</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .pre-hero {
+      background: linear-gradient(135deg, #0d1117 0%, #111827 50%, #0a0f1a 100%);
+      border-bottom: 1px solid #1f2937;
+      padding: 48px 20px 32px;
+      text-align: center;
+    }
+    .pre-hero h1 { font-size: clamp(28px,5vw,52px); font-weight: 900; color: #fff; margin-bottom: 8px; }
+    .pre-hero h1 span { color: #10b981; }
+    .pre-hero p  { color: #6b7280; font-size: 14px; max-width: 520px; margin: 0 auto; }
+
+    .badge-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+    .badge { background: #10b98118; border: 1px solid #10b98140; color: #10b981;
+             font-size: 11px; font-weight: 700; letter-spacing: 1.5px; padding: 5px 12px; border-radius: 20px; }
+    .badge.gold { background: #f59e0b14; border-color: #f59e0b40; color: #f59e0b; }
+
+    .section { padding: 32px 20px; max-width: 900px; margin: 0 auto; }
+    .section-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: #6b7280; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+    }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #1f2937; }
+
+    /* Power rankings table */
+    .rankings-grid { display: flex; flex-direction: column; gap: 8px; }
+    .rank-row {
+      display: grid; grid-template-columns: 36px 1fr 60px 60px 60px;
+      align-items: center; gap: 12px;
+      background: #111827; border: 1px solid #1f2937; border-radius: 10px; padding: 12px 16px;
+      transition: border-color .2s;
+    }
+    .rank-row:hover { border-color: #374151; }
+    .rank-num { font-size: 18px; font-weight: 900; color: #4b5563; text-align: center; }
+    .rank-num.top3 { color: #10b981; }
+    .team-name { font-weight: 700; color: #e5e7eb; font-size: 14px; }
+    .team-conf { font-size: 11px; color: #6b7280; margin-top: 2px; }
+    .ap-badge { font-size: 11px; font-weight: 700; color: #f59e0b; }
+    .rating-bar-wrap { position: relative; }
+    .rating-val { font-size: 13px; font-weight: 900; color: #10b981; text-align: right; }
+    .momentum-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+    .momentum-badge.rising   { background: #10b98120; color: #10b981; }
+    .momentum-badge.stable   { background: #6b728020; color: #6b7280; }
+    .momentum-badge.declining{ background: #ef444420; color: #ef4444; }
+
+    /* Team search */
+    .team-search-wrap { margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .team-search-wrap input {
+      flex: 1; min-width: 200px; background: #111827; border: 1px solid #374151;
+      color: #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 14px; outline: none;
+    }
+    .team-search-wrap input:focus { border-color: #10b981; }
+    .team-search-wrap select {
+      background: #111827; border: 1px solid #374151; color: #6b7280;
+      border-radius: 8px; padding: 10px 14px; font-size: 13px; outline: none;
+    }
+    #all-teams-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+    .mini-team-card {
+      background: #0d1117; border: 1px solid #1f2937; border-radius: 10px;
+      padding: 12px 14px; cursor: default; transition: border-color .2s;
+    }
+    .mini-team-card:hover { border-color: #374151; }
+    .mini-team-card .mtc-name { font-size: 13px; font-weight: 700; color: #e5e7eb; }
+    .mini-team-card .mtc-conf { font-size: 11px; color: #4b5563; margin-top: 1px; }
+    .mini-team-card .mtc-rating { font-size: 18px; font-weight: 900; color: #10b981; float: right; margin-top: -2px; }
+    .mini-team-card .mtc-bar { height: 2px; background: #1f2937; border-radius: 2px; margin-top: 8px; }
+    .mini-team-card .mtc-bar-fill { height: 2px; border-radius: 2px; background: #10b981; }
+    .mini-team-card.declining .mtc-bar-fill { background: #ef4444; }
+    .mini-team-card.rising .mtc-bar-fill    { background: #10b981; }
+
+    /* Conference sections */
+    .conf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .conf-card {
+      background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 20px;
+    }
+    .conf-card h3 { font-size: 13px; font-weight: 900; color: #10b981; letter-spacing: 1px; margin-bottom: 14px; }
+    .conf-team { display: flex; justify-content: space-between; align-items: center;
+                 padding: 7px 0; border-bottom: 1px solid #1f293740; }
+    .conf-team:last-child { border-bottom: none; }
+    .conf-team-name { font-size: 13px; color: #e5e7eb; font-weight: 600; }
+    .conf-team-rating { font-size: 12px; font-weight: 700; color: #6b7280; }
+    .conf-team-rating.hot { color: #10b981; }
+
+    /* Hot takes */
+    .takes-grid { display: flex; flex-direction: column; gap: 12px; }
+    .take-card {
+      background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 18px 20px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .take-icon { font-size: 22px; flex-shrink: 0; line-height: 1; }
+    .take-body h4 { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .take-body p  { font-size: 13px; color: #9ca3af; line-height: 1.5; }
+    .take-body .stat { color: #10b981; font-weight: 700; }
+    .take-tag { font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 2px 7px;
+                border-radius: 4px; margin-top: 8px; display: inline-block; }
+    .take-tag.fire { background: #ef444420; color: #ef4444; }
+    .take-tag.lock { background: #10b98120; color: #10b981; }
+    .take-tag.fade { background: #f59e0b20; color: #f59e0b; }
+
+    /* Sleeper / fade cards */
+    .sf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .sf-card {
+      background: #111827; border-radius: 12px; padding: 18px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .sf-card.sleeper { border: 1px solid #10b98140; }
+    .sf-card.fade    { border: 1px solid #ef444440; }
+    .sf-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; }
+    .sf-card.sleeper .sf-label { color: #10b981; }
+    .sf-card.fade    .sf-label { color: #ef4444; }
+    .sf-name  { font-size: 16px; font-weight: 900; color: #fff; }
+    .sf-stats { display: flex; flex-direction: column; gap: 4px; }
+    .sf-stat  { display: flex; justify-content: space-between; font-size: 12px; }
+    .sf-stat span:first-child { color: #6b7280; }
+    .sf-stat span:last-child  { color: #e5e7eb; font-weight: 700; }
+
+    .cta-bar {
+      text-align: center; padding: 40px 20px;
+      background: linear-gradient(135deg, #111827, #0d1117);
+      border-top: 1px solid #1f2937; margin-top: 20px;
+    }
+    .cta-bar h3 { font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+    .cta-bar p  { color: #6b7280; font-size: 13px; margin-bottom: 20px; }
+    .btn-green {
+      background: #10b981; color: #000; font-weight: 800; font-size: 14px;
+      padding: 12px 28px; border-radius: 8px; text-decoration: none; display: inline-block;
+    }
+    .btn-ghost {
+      background: transparent; color: #10b981; border: 1px solid #10b98150;
+      font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 8px;
+      text-decoration: none; display: inline-block; margin-left: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .rank-row { grid-template-columns: 30px 1fr 50px; }
+      .rank-row .ap-badge, .rank-row .momentum-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">THE BET</a>
+  <div class="nav-links">
+    <a href="../index.html">Home</a>
+    <a href="parlay.html">Parlays</a>
+    <a href="preseason.html" class="active">Preseason</a>
+  </div>
+</nav>
+
+<div class="pre-hero">
+  <h1>2026 <span>Preseason</span> Preview</h1>
+  <p>Model-backed predictions, sleeper picks, fade candidates, and bold takes before a single snap is played.</p>
+  <div class="badge-row">
+    <span class="badge">AI MODEL</span>
+    <span class="badge gold">SP+ RATINGS</span>
+    <span class="badge">ATS TRENDS</span>
+    <span class="badge gold">PROGRAM MOMENTUM</span>
+    <span class="badge">TRANSFER PORTAL</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Model Power Rankings</div>
+  <div class="rankings-grid" id="rankings-grid"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">Hot Takes</div>
+  <div class="takes-grid" id="takes-grid"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">Sleepers &amp; Fade Candidates</div>
+  <div class="sf-grid" id="sf-grid"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">All 130+ FBS Teams — Model Ratings</div>
+  <div class="team-search-wrap">
+    <input type="text" id="team-search" placeholder="Search any team…" oninput="filterTeams()"/>
+    <select id="conf-filter" onchange="filterTeams()">
+      <option value="">All Conferences</option>
+    </select>
+  </div>
+  <div id="all-teams-grid"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">Conference Breakdowns</div>
+  <div class="conf-grid" id="conf-grid"></div>
+</div>
+
+<div class="cta-bar">
+  <h3>Picks Drop When the Season Starts</h3>
+  <p>Follow @TheBetCFB on X for weekly picks, top 5 threads, parlay cards, and results every Sunday.</p>
+  <a href="https://x.com/TheBetCFB" class="btn-green" target="_blank" rel="noopener">Follow @TheBetCFB</a>
+  <a href="../index.html" class="btn-ghost">See the Model</a>
+</div>
+
+<script src="../js/data.js"></script>
+<script src="../js/data-fbs-stubs.js"></script>
+<script>
+(function() {
+  const teams = Object.values(TEAMS).filter(t => t.conference !== 'FCS');
+  const sorted = [...teams].sort((a, b) => b.rating - a.rating);
+
+  // ── Power Rankings ──────────────────────────────────────────────────────
+  const grid = document.getElementById('rankings-grid');
+  sorted.forEach((t, i) => {
+    const rank = i + 1;
+    const momentum = t.programHealth?.programMomentum || 'stable';
+    const row = document.createElement('div');
+    row.className = 'rank-row';
+    row.innerHTML = `
+      <div class="rank-num ${rank <= 3 ? 'top3' : ''}">${rank}</div>
+      <div>
+        <div class="team-name">${t.name}</div>
+        <div class="team-conf">${t.conference}</div>
+      </div>
+      <div class="ap-badge">${t.apRank ? '#' + t.apRank + ' AP' : '—'}</div>
+      <div><span class="momentum-badge ${momentum}">${momentum}</span></div>
+      <div class="rating-val">${t.rating}</div>
+    `;
+    grid.appendChild(row);
+  });
+
+  // ── Hot Takes ────────────────────────────────────────────────────────────
+  const takes = [];
+
+  // Find the biggest model vs AP discrepancy (underrated)
+  const underrated = [...teams]
+    .filter(t => t.apRank)
+    .sort((a, b) => {
+      const aImplied = Math.max(1, Math.round((100 - a.rating) * 1.5) + 1);
+      const bImplied = Math.max(1, Math.round((100 - b.rating) * 1.5) + 1);
+      return (a.apRank - aImplied) - (b.apRank - bImplied);
+    });
+
+  if (underrated.length) {
+    const t = underrated[0];
+    const impliedRank = Math.max(1, Math.round((100 - t.rating) * 1.5) + 1);
+    takes.push({
+      icon: '🔥',
+      title: `${t.name} is slept on by the AP voters`,
+      body: `AP has them at <span class="stat">#${t.apRank}</span>, our model has them at <span class="stat">#${impliedRank}</span>. That's a ${t.apRank - impliedRank}-spot gap. When the market undersells a program this good, there's value early in the season.`,
+      tag: 'SLEEPER', tagClass: 'lock'
+    });
+  }
+
+  // Find most declining program with high AP rank
+  const declineFade = teams
+    .filter(t => t.programHealth?.programMomentum === 'declining' && t.apRank && t.apRank <= 20)
+    .sort((a, b) => a.apRank - b.apRank)[0];
+  if (declineFade) {
+    takes.push({
+      icon: '⚠️',
+      title: `Fade ${declineFade.name} early`,
+      body: `AP has them at <span class="stat">#${declineFade.apRank}</span> but our model shows a <span class="stat">declining program</span>. Coach hot seat: ${declineFade.programHealth?.coachHotSeat}/10. Programs in this situation underperform against the spread in September.`,
+      tag: 'FADE', tagClass: 'fade'
+    });
+  }
+
+  // Best bounce-back team
+  const bouncer = [...teams]
+    .filter(t => (t.situational?.afterLoss?.pct || 0) >= 0.75)
+    .sort((a, b) => (b.situational?.afterLoss?.pct || 0) - (a.situational?.afterLoss?.pct || 0))[0];
+  if (bouncer) {
+    const afterLoss = bouncer.situational.afterLoss;
+    takes.push({
+      icon: '💪',
+      title: `${bouncer.name} is elite after a loss`,
+      body: `<span class="stat">${Math.round(afterLoss.pct * 100)}% ATS</span> the week after a loss (${afterLoss.wins}-${afterLoss.losses}). If they drop a game early in the season, back them the following week. This pattern holds across 3+ seasons.`,
+      tag: 'ATS SYSTEM', tagClass: 'lock'
+    });
+  }
+
+  // Portal winner
+  const portalWin = [...teams]
+    .sort((a, b) => (b.programHealth?.transferPortalRating || 0) - (a.programHealth?.transferPortalRating || 0))[0];
+  if (portalWin) {
+    takes.push({
+      icon: '🔄',
+      title: `${portalWin.name} wins the portal arms race`,
+      body: `Transfer portal grade: <span class="stat">${portalWin.programHealth.transferPortalRating}/100</span>. NIL strength: <span class="stat">${portalWin.programHealth.nilStrength}/100</span>. When a program this strong can also buy the portal, the gap between them and the field widens. Back them early before the market adjusts.`,
+      tag: 'HOT TAKE', tagClass: 'fire'
+    });
+  }
+
+  // Dog underdog king
+  const dogKing = [...teams]
+    .filter(t => (t.situational?.atsUnderdog?.pct || 0) >= 0.65)
+    .sort((a, b) => (b.situational?.atsUnderdog?.pct || 0) - (a.situational?.atsUnderdog?.pct || 0))[0];
+  if (dogKing) {
+    const u = dogKing.situational.atsUnderdog;
+    takes.push({
+      icon: '🐶',
+      title: `${dogKing.name} is a dangerous underdog`,
+      body: `<span class="stat">${Math.round(u.pct * 100)}% ATS as underdogs</span> (${u.wins}-${u.losses}). The public consistently underrates this program. When the line goes against them, the sharp money is on ${dogKing.name}.`,
+      tag: 'DOG VALUE', tagClass: 'lock'
+    });
+  }
+
+  const takesGrid = document.getElementById('takes-grid');
+  takes.forEach(({ icon, title, body, tag, tagClass }) => {
+    const card = document.createElement('div');
+    card.className = 'take-card';
+    card.innerHTML = `
+      <div class="take-icon">${icon}</div>
+      <div class="take-body">
+        <h4>${title}</h4>
+        <p>${body}</p>
+        <span class="take-tag ${tagClass}">${tag}</span>
+      </div>
+    `;
+    takesGrid.appendChild(card);
+  });
+
+  // ── Sleepers & Fades ─────────────────────────────────────────────────────
+  const sfGrid = document.getElementById('sf-grid');
+  const ratingToRank = r => Math.max(1, Math.round((100 - r) * 1.5) + 1);
+
+  const sleepers = [...teams]
+    .filter(t => {
+      const impliedRank = ratingToRank(t.rating);
+      const apR = t.apRank || 99;
+      return t.rating >= 82 && (apR - impliedRank) >= 6;
+    })
+    .sort((a, b) => {
+      const aGap = (a.apRank || 99) - ratingToRank(a.rating);
+      const bGap = (b.apRank || 99) - ratingToRank(b.rating);
+      return bGap - aGap;
+    })
+    .slice(0, 3);
+
+  const fades = [...teams]
+    .filter(t => {
+      const impliedRank = ratingToRank(t.rating);
+      return t.apRank && (impliedRank - t.apRank) >= 5;
+    })
+    .sort((a, b) => {
+      const aGap = ratingToRank(a.rating) - (a.apRank || 99);
+      const bGap = ratingToRank(b.rating) - (b.apRank || 99);
+      return bGap - aGap;
+    })
+    .slice(0, 3);
+
+  sleepers.forEach(t => {
+    const impliedRank = ratingToRank(t.rating);
+    const card = document.createElement('div');
+    card.className = 'sf-card sleeper';
+    card.innerHTML = `
+      <div class="sf-label">SLEEPER</div>
+      <div class="sf-name">${t.name}</div>
+      <div class="sf-stats">
+        <div class="sf-stat"><span>Model rank</span><span>#${impliedRank}</span></div>
+        <div class="sf-stat"><span>AP rank</span><span>${t.apRank ? '#' + t.apRank : 'Unranked'}</span></div>
+        <div class="sf-stat"><span>Rating</span><span>${t.rating}/100</span></div>
+        <div class="sf-stat"><span>Momentum</span><span>${t.programHealth?.programMomentum || 'stable'}</span></div>
+        <div class="sf-stat"><span>Conference</span><span>${t.conference}</span></div>
+      </div>
+    `;
+    sfGrid.appendChild(card);
+  });
+
+  fades.forEach(t => {
+    const impliedRank = ratingToRank(t.rating);
+    const card = document.createElement('div');
+    card.className = 'sf-card fade';
+    card.innerHTML = `
+      <div class="sf-label">FADE CANDIDATE</div>
+      <div class="sf-name">${t.name}</div>
+      <div class="sf-stats">
+        <div class="sf-stat"><span>AP rank</span><span>#${t.apRank}</span></div>
+        <div class="sf-stat"><span>Model rank</span><span>#${impliedRank}</span></div>
+        <div class="sf-stat"><span>Rating</span><span>${t.rating}/100</span></div>
+        <div class="sf-stat"><span>Hot seat</span><span>${t.programHealth?.coachHotSeat || 0}/10</span></div>
+        <div class="sf-stat"><span>Momentum</span><span>${t.programHealth?.programMomentum || 'stable'}</span></div>
+      </div>
+    `;
+    sfGrid.appendChild(card);
+  });
+
+  // ── All Teams Grid ───────────────────────────────────────────────────────
+  const allGrid = document.getElementById('all-teams-grid');
+  const confFilter = document.getElementById('conf-filter');
+
+  // Populate conference filter
+  const allConfs = [...new Set(sorted.map(t => t.conference))].sort();
+  allConfs.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    confFilter.appendChild(opt);
+  });
+
+  // Render all team mini-cards
+  sorted.forEach(t => {
+    const m   = t.programHealth?.programMomentum || 'stable';
+    const pct = Math.round((t.rating / 100) * 100);
+    const card = document.createElement('div');
+    card.className = `mini-team-card ${m}`;
+    card.dataset.name = t.name.toLowerCase();
+    card.dataset.conf = t.conference;
+    card.innerHTML = `
+      <span class="mtc-rating">${t.rating}</span>
+      <div class="mtc-name">${t.name}</div>
+      <div class="mtc-conf">${t.conference}${t.apRank ? ' · AP #' + t.apRank : ''}</div>
+      <div class="mtc-bar"><div class="mtc-bar-fill" style="width:${pct}%"></div></div>
+    `;
+    allGrid.appendChild(card);
+  });
+
+  window.filterTeams = function() {
+    const q    = document.getElementById('team-search').value.toLowerCase();
+    const conf = document.getElementById('conf-filter').value;
+    document.querySelectorAll('.mini-team-card').forEach(card => {
+      const nameMatch = card.dataset.name.includes(q);
+      const confMatch = !conf || card.dataset.conf === conf;
+      card.style.display = nameMatch && confMatch ? '' : 'none';
+    });
+  };
+
+  // ── Conference Breakdowns ────────────────────────────────────────────────
+  const confGrid = document.getElementById('conf-grid');
+  const majorConfs = ['SEC', 'Big Ten', 'Big 12', 'ACC', 'Mountain West', 'Sun Belt', 'MAC', 'American', 'Independent'];
+  majorConfs.forEach(conf => {
+    const confTeams = [...sorted]
+      .filter(t => t.conference === conf)
+      .sort((a, b) => b.rating - a.rating);
+    if (!confTeams.length) return;
+
+    const card = document.createElement('div');
+    card.className = 'conf-card';
+    const rows = confTeams.map(t => `
+      <div class="conf-team">
+        <span class="conf-team-name">${t.name}</span>
+        <span class="conf-team-rating ${t.rating >= 85 ? 'hot' : ''}">${t.rating}/100</span>
+      </div>
+    `).join('');
+    card.innerHTML = `<h3>${conf}</h3>${rows}`;
+    confGrid.appendChild(card);
+  });
+
+})();
+</script>
+</body>
+</html>
