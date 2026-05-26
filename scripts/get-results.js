@@ -14,6 +14,11 @@ const RECORD_FILE = path.resolve(__dirname, '..', 'data', 'season-record.json');
 function fetchJSON(url) {
   return new Promise((resolve, reject) => {
     https.get(url, { headers: { 'User-Agent': 'TheBetCFB/1.0' } }, res => {
+      if (res.statusCode < 200 || res.statusCode >= 300) {
+        res.resume();
+        reject(new Error(`ESPN HTTP ${res.statusCode}`));
+        return;
+      }
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
@@ -28,18 +33,22 @@ async function fetchESPNScores(week, year = 2026) {
   const url = `https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?week=${week}&seasontype=2&year=${year}`;
   const data = await fetchJSON(url);
   return (data.events || []).map(event => {
-    const comp  = event.competitions[0];
-    const home  = comp.competitors.find(c => c.homeAway === 'home');
-    const away  = comp.competitors.find(c => c.homeAway === 'away');
-    return {
-      espnId:    event.id,
-      completed: comp.status.type.completed,
-      homeTeam:  home.team.displayName,
-      awayTeam:  away.team.displayName,
-      homeScore: parseInt(home.score) || 0,
-      awayScore: parseInt(away.score) || 0,
-    };
-  }).filter(g => g.completed);
+    try {
+      const comp = event.competitions?.[0];
+      if (!comp) return null;
+      const home = comp.competitors?.find(c => c.homeAway === 'home');
+      const away = comp.competitors?.find(c => c.homeAway === 'away');
+      if (!home || !away) return null;
+      return {
+        espnId:    event.id,
+        completed: comp.status?.type?.completed || false,
+        homeTeam:  home.team?.displayName || '',
+        awayTeam:  away.team?.displayName || '',
+        homeScore: parseInt(home.score) || 0,
+        awayScore: parseInt(away.score) || 0,
+      };
+    } catch { return null; }
+  }).filter(g => g?.completed);
 }
 
 // ── Team name matching ────────────────────────────────────────────

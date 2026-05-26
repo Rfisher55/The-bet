@@ -48,13 +48,13 @@ function isCovering(game, pickIsHome) {
 }
 
 function scoreLine(game) {
-  const h = game.homeTeamName || game.homeTeamId;
-  const a = game.awayTeamName || game.awayTeamId;
-  return `${a} ${game.awayScore} @ ${h} ${game.homeScore}`;
+  const h = game.homeTeamName || game.homeTeamId || 'Home';
+  const a = game.awayTeamName || game.awayTeamId || 'Away';
+  return `${a} ${game.awayScore ?? '?'} @ ${h} ${game.homeScore ?? '?'}`;
 }
 
 function rankStr(rank) { return rank ? `#${rank} ` : ''; }
-function tag(name) { return `#${(name||'').replace(/[^a-zA-Z0-9]/g,'')}` }
+function tag(name) { return `#${((name||'').replace(/[^a-zA-Z0-9]/g,'') || 'CFB')}`; }
 
 // ── Tweet builders ────────────────────────────────────────────────────────────
 function buildHalftimeTweet(game, pick) {

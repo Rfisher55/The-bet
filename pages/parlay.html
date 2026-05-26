@@ -79,6 +79,10 @@
       background:rgba(16,185,129,.13);border-color:var(--primary);
     }
     .pg-btn.sel .pg-btn-line, .pg-btn.sel .pg-btn-odds { color:var(--primary); }
+    .pg-btn.sel-away {
+      background:rgba(99,102,241,.13);border-color:#6366f1;
+    }
+    .pg-btn.sel-away .pg-btn-line, .pg-btn.sel-away .pg-btn-odds { color:#6366f1; }
     @media (max-width:400px) {
       .pg-grid { grid-template-columns:52px 1fr 1fr 1fr; }
       .pg-btn-line { font-size:.7rem; }
@@ -1047,9 +1051,16 @@ function selectPick(gameId, side, odds, label, confidence) {
     removePick(key);
     return;
   }
-  // Remove the opposing side of the same bet type (can't pick both spreads, both O/U, both ML)
-  const oppSide = { home:"away", away:"home", over:"under", under:"over", "home-ml":"away-ml", "away-ml":"home-ml" }[side];
-  if (oppSide) delete picks[pickKey(gameId, oppSide)];
+  // Remove all picks that contradict this selection for the same game
+  const conflicts = {
+    home:      ["away", "away-ml"],
+    away:      ["home", "home-ml"],
+    "home-ml": ["away-ml", "away"],
+    "away-ml": ["home-ml", "home"],
+    over:      ["under"],
+    under:     ["over"],
+  }[side] || [];
+  conflicts.forEach(s => delete picks[pickKey(gameId, s)]);
 
   picks[key] = { gameId, side, odds, label, confidence: confidence || "—" };
 
@@ -1111,6 +1122,7 @@ function autoBuild() {
     return { game, pred, sp, tp, curatedConf, modelEdge, score };
   }).filter(x => x.curatedConf > 0 || x.modelEdge >= 1)
     .sort((a, b) => b.score - a.score)
+    .filter((x, _, arr) => arr.find(c => c.game.id === x.game.id) === x)
     .slice(0, targetLegs);
 
   if (!candidates.length) {
@@ -1168,10 +1180,14 @@ function autoBuild() {
   if (Object.keys(picks).length < targetLegs) {
     const needed = targetLegs - Object.keys(picks).length;
     const winProb = poolPreds
-      .filter(({ game, prediction:pred }) =>
-        !picks[pickKey(game.id,"home-ml")] && !picks[pickKey(game.id,"away-ml")] &&
-        pred.winProbability >= 60
-      )
+      .filter(({ game, prediction:pred }) => {
+        if (picks[pickKey(game.id,"home-ml")] || picks[pickKey(game.id,"away-ml")]) return false;
+        if (pred.winProbability < 60) return false;
+        // Don't add ML if an opposing spread pick already exists for this game
+        const favored = pred.predictedSpread >= 0 ? "home" : "away";
+        const oppSpread = favored === "home" ? "away" : "home";
+        return !picks[pickKey(game.id, oppSpread)];
+      })
       .sort((a,b) => b.prediction.winProbability - a.prediction.winProbability)
       .slice(0, needed);
     winProb.forEach(({ game, prediction:pred }) => {
@@ -1230,7 +1246,7 @@ function copyParlay(btn) {
     `Wager       : $${wagerAmt % 1 === 0 ? wagerAmt : wagerAmt.toFixed(2)}`,
     `Potential Win: $${Math.round(profitAmt)} (return $${Math.round(payoutAmt)})`,
     `Model Win %  : ${Math.round(modelWinProb * 100)}%`,
-    `rfisher55.github.io/The-bet`
+    `https://rfisher55.github.io/The-bet`
   ].join("\n");
 
   navigator.clipboard?.writeText(full).then(() => {
@@ -1292,7 +1308,10 @@ function renderGameList() {
     const aSpread = fmtSpread(-(bl.spread || 0));
 
     // Sportsbook-style selected state
-    function sel(side) { return picks[pickKey(game.id, side)] ? " sel" : ""; }
+    function sel(side) {
+      if (!picks[pickKey(game.id, side)]) return "";
+      return (side === "away" || side === "away-ml") ? " sel sel-away" : " sel";
+    }
 
     // Rec banner — prefer curated pick, fall back to model
     const tpC = game.gamePreview && game.gamePreview.thePick;
@@ -1771,7 +1790,7 @@ function renderOptimalSuggestions() {
       var spProb2 = modelProb(game.id, side2);
       pool.push({
         game: game, pred: pred, side: side2, odds: odds2,
-        label: team2.name + " covers",
+        label: (team2?.name || 'Unknown') + " covers",
         conf: "model", spProb: spProb2, confWeight: 2,
         badge: "EDGE"
       });
