@@ -942,10 +942,10 @@ function autoBuild() {
     const hso = bl.homeSpreadOdds || -110;
     const aso = bl.awaySpreadOdds || -110;
     if (sp.side === "home") {
-      const label = `${home.name.split(" ").pop()} ${fmtSpread(bl.spread||0)}`;
+      const label = `${home.name.split(" ").pop()} will cover spread`;
       picks[pickKey(game.id, "home")] = { gameId: game.id, side:"home", odds: hso, label, confidence: pred.confidence || "—" };
     } else if (sp.side === "away") {
-      const label = `${away.name.split(" ").pop()} ${fmtSpread(-(bl.spread||0))}`;
+      const label = `${away.name.split(" ").pop()} will cover spread`;
       picks[pickKey(game.id, "away")] = { gameId: game.id, side:"away", odds: aso, label, confidence: pred.confidence || "—" };
     }
   });
@@ -964,7 +964,7 @@ function autoBuild() {
       const tp = pred.totalPick;
       const bl = game.bettingLines || {};
       const odds = tp.side === "over" ? (bl.overOdds || -110) : (bl.underOdds || -110);
-      const label = `${game.homeTeam.abbreviation}/${game.awayTeam.abbreviation} ${tp.side.toUpperCase()}${bl.total ? " " + bl.total : ""}`;
+      const label = `${game.homeTeam.abbreviation}/${game.awayTeam.abbreviation} — game goes ${tp.side === "over" ? "OVER" : "UNDER"} total`;
       picks[pickKey(game.id, tp.side)] = { gameId: game.id, side: tp.side, odds, label, confidence: pred.confidence || "—" };
     });
   }
@@ -1099,10 +1099,11 @@ function renderGameList() {
     // Sportsbook-style selected state
     function sel(side) { return picks[pickKey(game.id, side)] ? " sel" : ""; }
 
-    // Model rec banner (pre-computed to avoid nested template)
+    // Model rec banner — plain English, no spread numbers
+    const recTeam = sp.side === "home" ? home.name.split(" ").pop() : away.name.split(" ").pop();
     const recBanner = (sp.side !== "no-bet" && sp.edge >= 1.5)
-      ? '<div style="font-size:.63rem;color:var(--primary);font-weight:700;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:6px;padding:4px 10px;margin-bottom:6px">&#11088; MODEL: '
-        + (sp.side === "home" ? home.name.split(" ").pop() + " " + hSpread : away.name.split(" ").pop() + " " + aSpread)
+      ? '<div style="font-size:.63rem;color:var(--primary);font-weight:700;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:6px;padding:4px 10px;margin-bottom:6px">&#11088; OUR PICK: '
+        + recTeam + ' will cover spread'
         + '</div>'
       : "";
 
@@ -1123,9 +1124,9 @@ function renderGameList() {
         + (gamePicks.length > 1 ? gamePicks.length + " PICKS" : "ADDED") + '</span>'
       : "";
 
-    // Model note (pre-computed)
+    // Model note (pre-computed) — plain English
     const favTeam = pred.predictedSpread >= 0 ? home.name : away.name;
-    const modelNote = "Model: " + favTeam + " " + fmtSpread(-pred.predictedSpread) + " · " + pred.winProbability + "% win prob";
+    const modelNote = "The Bet model projects " + favTeam.split(" ").pop() + " to win · " + pred.winProbability + "% confidence";
 
     return `
       <div class="parlay-game-row${hasPick ? " has-pick" : ""}" id="prow-${game.id}">

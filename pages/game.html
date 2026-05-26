@@ -504,29 +504,39 @@ function renderGamePage(gData) {
   function renderKeyInsight() {
     const gp = game.gamePreview;
     const pickTeam = gp && gp.thePick && gp.thePick.team ? gp.thePick.team : winner.name;
-    const pickLine = gp && gp.thePick && gp.thePick.line ? " " + gp.thePick.line : (pred.predictedSpread ? " " + fmtSpread(-pred.predictedSpread) : "");
+    const pickLine = gp && gp.thePick && gp.thePick.line ? gp.thePick.line : null;
     const pickConf = gp && gp.thePick && gp.thePick.confidence ? gp.thePick.confidence : (pred.confidence || "medium").toUpperCase();
     const confClass = { "ELITE": "key-insight-conf-elite", "HIGH": "key-insight-conf-high", "MEDIUM": "key-insight-conf-medium", "LOW": "key-insight-conf-low" }[pickConf] || "key-insight-conf-medium";
     const confLabel = { "ELITE": "Elite Confidence", "HIGH": "High Confidence", "MEDIUM": "Moderate Confidence", "LOW": "Low Confidence" }[pickConf] || "Moderate Confidence";
+
+    // What Vegas/public says
+    const bl = game.bettingLines;
+    const vegasLine = bl && bl.spread != null ? fmtSpread(bl.spread) : null;
+    const vegasFav = bl && bl.spread != null ? (bl.spread <= 0 ? home.name : away.name) : null;
+    const pubHome = bl && bl.homeMoneylinePublicPct != null ? bl.homeMoneylinePublicPct : null;
+    const pubAway = bl && bl.awayMoneylinePublicPct != null ? bl.awayMoneylinePublicPct : null;
+    const publicFav = pubHome != null ? (pubHome >= pubAway ? home.name : away.name) : null;
+    const publicPct  = pubHome != null ? Math.round(pubHome >= pubAway ? pubHome : pubAway) : null;
 
     // top xfactor
     const xf = safe(() => pred.xFactors, null) || safe(() => game.xFactors, null) || [];
     const topXf = xf.length ? xf.reduce((a, b) => ((b.severity || "").toLowerCase() === "critical" ? b : (a.severity || "").toLowerCase() !== "critical" && (b.severity || "").toLowerCase() === "high" ? b : a), xf[0]) : null;
 
-    // border color — winner's team color
     const borderColor = isHomeFavored ? home.color : away.color;
 
     return `
       <div class="key-insight-box" style="border-left-color:${borderColor};background:linear-gradient(135deg,${borderColor}08 0%,var(--card) 70%)">
-        <div class="key-insight-badge">TL;DR — Model Snapshot</div>
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:6px">
+        <div class="key-insight-badge">The Bet — Model Pick</div>
+
+        <!-- Row 1: Our pick (plain English) -->
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:8px">
           <div style="flex:1;min-width:200px">
-            <div style="font-size:.6rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:5px">TOP PICK</div>
-            <div class="key-insight-pick">Will cover spread</div>
-            <div style="font-size:.68rem;color:var(--muted-l);margin-top:2px">${pickTeam}${pickLine ? ' · ' + pickLine : ''}</div>
-            <div style="font-size:.78rem;color:var(--muted-l);margin-top:4px">
-              Win Probability: <strong style="color:${borderColor}">${isHomeFavored ? homePct : awayPct}%</strong>
-              · Projected ${Math.round(homeScore)}&ndash;${Math.round(awayScore)}
+            <div style="font-size:.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">⭐ OUR PICK</div>
+            <div class="key-insight-pick" style="font-size:1.15rem">${pickTeam} will cover spread</div>
+            <div style="font-size:.75rem;color:var(--text-soft);margin-top:4px;line-height:1.5">
+              We project <strong style="color:var(--text)">${pickTeam}</strong> to win and cover.
+              ${pickLine ? `Vegas has them at <strong style="color:var(--muted-l)">${pickLine}</strong>.` : ""}
+              Model win probability: <strong style="color:${borderColor}">${isHomeFavored ? homePct : awayPct}%</strong>.
             </div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:10px 14px;border-radius:var(--radius);background:${borderColor}12;border:1px solid ${borderColor}30">
@@ -535,8 +545,30 @@ function renderGamePage(gData) {
             <div style="font-size:.62rem;color:var(--muted)">${confLabel}</div>
           </div>
         </div>
+
+        <!-- Row 2: What everyone else says -->
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+          ${vegasFav ? `
+          <div style="flex:1;min-width:120px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
+            <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">🎰 Vegas Says</div>
+            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${vegasFav.split(" ").pop()} favored</div>
+            <div style="font-size:.65rem;color:var(--muted-l)">${vegasLine} spread</div>
+          </div>` : ""}
+          ${publicFav ? `
+          <div style="flex:1;min-width:120px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
+            <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">👥 Public Says</div>
+            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${publicFav.split(" ").pop()} — ${publicPct}%</div>
+            <div style="font-size:.65rem;color:var(--muted-l)">of bettors backing them</div>
+          </div>` : ""}
+          <div style="flex:1;min-width:120px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
+            <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">📊 Model Projects</div>
+            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${Math.round(homeScore)}–${Math.round(awayScore)}</div>
+            <div style="font-size:.65rem;color:var(--muted-l)">${home.abbreviation} vs ${away.abbreviation} final score</div>
+          </div>
+        </div>
+
         ${topXf ? `
-        <div style="margin-top:12px;padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid ${borderColor}20;display:flex;align-items:flex-start;gap:8px">
+        <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid ${borderColor}20;display:flex;align-items:flex-start;gap:8px">
           <span style="font-size:1rem;flex-shrink:0">${catIcon(topXf.category)}</span>
           <div>
             <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${severityColor(topXf.severity)};margin-bottom:2px">#1 X-Factor · ${(topXf.severity||"").toUpperCase()}</div>
