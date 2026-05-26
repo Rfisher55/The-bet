@@ -27,8 +27,18 @@ function loadSandbox() {
 }
 
 function allPredictions() {
-  const { GAMES, TEAMS, predictGame, resolveGame } = loadSandbox();
-  return GAMES.map(g => {
+  const { GAMES, predictGame, resolveGame } = loadSandbox();
+
+  // Use live games-2026.json when populated; fall back to data.js stubs
+  let games = GAMES;
+  try {
+    const liveData = JSON.parse(
+      fs.readFileSync(path.resolve(__dirname, '..', 'data', 'games-2026.json'), 'utf8')
+    );
+    if (liveData.games && liveData.games.length > 0) games = liveData.games;
+  } catch { /* no live file yet — use data.js stubs */ }
+
+  return games.map(g => {
     try {
       const game = resolveGame(g);
       return { game, prediction: predictGame(game) };
