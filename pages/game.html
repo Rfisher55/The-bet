@@ -2403,6 +2403,51 @@ function renderGamePage(gData) {
                 </div>
               </div>`).join("")}
           </div>` : ""}
+        ${(() => {
+          // ATS Context from team data
+          const homeTeamData = (typeof TEAMS !== "undefined") ? (TEAMS[game.homeTeamId] || TEAMS[home.id] || null) : null;
+          const awayTeamData = (typeof TEAMS !== "undefined") ? (TEAMS[game.awayTeamId] || TEAMS[away.id] || null) : null;
+          const homeSit = homeTeamData ? homeTeamData.situational : null;
+          const awaySit = awayTeamData ? awayTeamData.situational : null;
+          if (!homeSit && !awaySit) return "";
+
+          const homeIsFav = bl.spread <= 0;
+          const homeAtsCtx = homeSit ? (homeIsFav ? homeSit.atsFavorite : homeSit.atsUnderdog) : null;
+          const awayAtsCtx = awaySit ? (!homeIsFav ? awaySit.atsFavorite : awaySit.atsUnderdog) : null;
+          const homeHomeAts = homeSit ? homeSit.atsHome : null;
+          const awayAwayAts = awaySit ? awaySit.atsAway : null;
+
+          function atsColor(pct) {
+            if (!pct && pct !== 0) return "var(--muted)";
+            if (pct >= 0.60) return "var(--primary)";
+            if (pct >= 0.52) return "var(--gold)";
+            return "var(--danger)";
+          }
+          function atsFmt(ctx) {
+            if (!ctx) return "—";
+            return ctx.wins + "-" + ctx.losses + " (" + Math.round((ctx.pct || 0) * 100) + "%)";
+          }
+
+          return `<div style="margin-top:14px;padding:12px;border-radius:var(--radius);background:rgba(99,102,241,.05);border:1px solid rgba(99,102,241,.2)">
+            <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px">ATS Team Tendencies — Relevant to This Game</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div style="padding:10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
+                <div style="font-size:.62rem;font-weight:800;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">${home.abbreviation} — Home Team</div>
+                ${homeAtsCtx ? `<div style="font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:3px"><span>ATS as ${homeIsFav ? "Fav" : "Dog"}</span><span style="font-weight:800;color:${atsColor(homeAtsCtx.pct)}">${atsFmt(homeAtsCtx)}</span></div>` : ""}
+                ${homeHomeAts ? `<div style="font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:3px"><span>ATS at Home</span><span style="font-weight:800;color:${atsColor(homeHomeAts.pct)}">${atsFmt(homeHomeAts)}</span></div>` : ""}
+                ${homeAtsCtx && homeAtsCtx.pct >= 0.60 ? `<div style="font-size:.65rem;font-weight:700;color:var(--primary);margin-top:4px">✓ Strong cover rate in this role</div>` : ""}
+                ${homeAtsCtx && homeAtsCtx.pct <= 0.48 ? `<div style="font-size:.65rem;font-weight:700;color:var(--danger);margin-top:4px">⚠ Poor ATS tendency in this role</div>` : ""}
+              </div>
+              <div style="padding:10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
+                <div style="font-size:.62rem;font-weight:800;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">${away.abbreviation} — Away Team</div>
+                ${awayAtsCtx ? `<div style="font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:3px"><span>ATS as ${!homeIsFav ? "Fav" : "Dog"}</span><span style="font-weight:800;color:${atsColor(awayAtsCtx.pct)}">${atsFmt(awayAtsCtx)}</span></div>` : ""}
+                ${awayAwayAts ? `<div style="font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:3px"><span>ATS on Road</span><span style="font-weight:800;color:${atsColor(awayAwayAts.pct)}">${atsFmt(awayAwayAts)}</span></div>` : ""}
+                ${awayAtsCtx && awayAtsCtx.pct >= 0.60 ? `<div style="font-size:.65rem;font-weight:700;color:var(--primary);margin-top:4px">✓ Strong cover rate in this role</div>` : ""}
+                ${awayAtsCtx && awayAtsCtx.pct <= 0.48 ? `<div style="font-size:.65rem;font-weight:700;color:var(--danger);margin-top:4px">⚠ Poor ATS tendency in this role</div>` : ""}
+              </div>
+            </div>
+          </div>`;
+        })()}
       </div>`;
   }
 

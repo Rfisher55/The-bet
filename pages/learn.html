@@ -143,12 +143,80 @@
       border-left: 3px solid var(--accent);
       color: var(--text-soft);
     }
+    .callout-success {
+      background: rgba(16,185,129,.07); border: 1px solid rgba(16,185,129,.3);
+      border-left: 3px solid var(--primary);
+      color: var(--text-soft);
+    }
+    .callout-danger {
+      background: rgba(239,68,68,.07); border: 1px solid rgba(239,68,68,.3);
+      border-left: 3px solid var(--danger);
+      color: var(--text-soft);
+    }
     .callout-label {
       font-size: .6rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase;
       margin-bottom: 8px;
     }
     .callout-warn .callout-label { color: var(--gold); }
     .callout-info .callout-label { color: var(--accent); }
+    .callout-success .callout-label { color: var(--primary); }
+    .callout-danger .callout-label { color: var(--danger); }
+
+    /* ── Strategy tab styles ── */
+    .rule-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .rule-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start;
+    }
+    .rule-num {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      font-size: .9rem; font-weight: 900; display: flex; align-items: center; justify-content: center;
+    }
+    .rule-body { flex: 1; }
+    .rule-title { font-size: .95rem; font-weight: 800; color: var(--text); margin-bottom: 5px; }
+    .rule-desc { font-size: .845rem; color: var(--muted); line-height: 1.6; }
+    .rule-tip {
+      margin-top: 8px; font-size: .78rem; color: var(--primary); font-weight: 700;
+      background: rgba(16,185,129,.08); border-radius: 6px; padding: 5px 10px; display: inline-block;
+    }
+
+    .unit-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px;
+    }
+    @media (max-width: 500px) { .unit-grid { grid-template-columns: 1fr; } }
+    .unit-card {
+      border-radius: 12px; padding: 14px 16px; border: 1px solid var(--border);
+    }
+    .unit-tier { font-size: .65rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+    .unit-size { font-size: 1.4rem; font-weight: 900; margin-bottom: 2px; }
+    .unit-pct { font-size: .78rem; color: var(--muted); margin-bottom: 6px; }
+    .unit-when { font-size: .78rem; color: var(--muted-l); line-height: 1.5; }
+
+    .mistake-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .mistake-card {
+      background: var(--card); border: 1px solid rgba(239,68,68,.2); border-radius: 12px;
+      padding: 16px 18px; border-left: 3px solid var(--danger);
+    }
+    .mistake-title { font-size: .9rem; font-weight: 800; color: var(--danger); margin-bottom: 5px; }
+    .mistake-fix {
+      font-size: .82rem; color: var(--muted); line-height: 1.55;
+    }
+    .mistake-fix strong { color: var(--primary); }
+
+    .shop-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px;
+    }
+    @media (max-width: 600px) { .shop-row { grid-template-columns: 1fr; } }
+    .shop-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px 16px; text-align: center;
+    }
+    .shop-book { font-size: .78rem; font-weight: 900; color: var(--muted); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 6px; }
+    .shop-line { font-size: 1.15rem; font-weight: 900; color: var(--text); }
+    .shop-juice { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+    .shop-best { border-color: var(--primary); background: rgba(16,185,129,.06); }
+    .shop-best .shop-book { color: var(--primary); }
   </style>
 </head>
 <body>
@@ -187,6 +255,7 @@
   <div class="tab-strip" role="tablist">
     <button class="tab-btn active" role="tab" data-tab="betting101" aria-selected="true">Betting 101</button>
     <button class="tab-btn" role="tab" data-tab="model" aria-selected="false">How The Model Works</button>
+    <button class="tab-btn" role="tab" data-tab="strategy" aria-selected="false">Strategy &amp; Bankroll</button>
     <button class="tab-btn" role="tab" data-tab="data" aria-selected="false">Data Sources &amp; Honesty</button>
   </div>
 
@@ -421,7 +490,328 @@
   </div><!-- /#tab-model -->
 
   <!-- ══════════════════════════════════════════════
-       TAB 3: DATA SOURCES
+       TAB 3: STRATEGY & BANKROLL
+       ══════════════════════════════════════════════ -->
+  <div class="tab-panel" id="tab-strategy" role="tabpanel">
+
+    <!-- ─── 5 Rules ─────────────────────────────── -->
+    <div class="section-label">5 Rules for Smart Bankroll Management</div>
+
+    <div class="rule-list">
+
+      <div class="rule-card">
+        <div class="rule-num">1</div>
+        <div class="rule-body">
+          <div class="rule-title">Never bet more than 2–3% of your bankroll on any single game</div>
+          <div class="rule-desc">Even the best sports bettors in the world win at ~58–60% — which means they lose 40–42% of the time. A bad weekend or a 5-game losing streak is statistically normal. Betting 10% per game can wipe out your bankroll in a single bad week; betting 2% gives you 50 bets before you run dry, enough to survive variance and let edge play out.</div>
+          <div class="rule-tip">1 unit = 1% of your bankroll. Our max is 2u (ELITE picks). That's 2% per game — never more.</div>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">2</div>
+        <div class="rule-body">
+          <div class="rule-title">Match your bet size to confidence — every tier means something</div>
+          <div class="rule-desc">Flat betting (same amount every game regardless of confidence) ignores the most valuable signal you have: the model's own uncertainty. ELITE picks have historically hit at ~89% — they deserve twice the size of a MEDIUM pick. LOW picks have noisy signals; if you bet them at full size, you erode the edge that high-confidence picks build.</div>
+          <div class="rule-tip">Use the Bankroll Calculator on the home page — enter your bankroll and see exact dollar amounts for each game automatically.</div>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">3</div>
+        <div class="rule-body">
+          <div class="rule-title">Set a weekly stop-loss — and actually follow it</div>
+          <div class="rule-desc">Decide before the week starts: if you lose X amount, you stop betting for that week. A reasonable number is 5–6% of your total bankroll (roughly 3 max-size bets). Chasing losses is the single biggest bankroll killer. The model's edge comes from volume over time — not from doubling down after a bad Saturday to "get it back."</div>
+          <div class="rule-tip">Tilt is real. A stop-loss removes the decision from emotion. Write the number down before Week 1.</div>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">4</div>
+        <div class="rule-body">
+          <div class="rule-title">Track every bet — wins and losses, not just the wins</div>
+          <div class="rule-desc">You cannot know if you have an edge without tracking. Most recreational bettors only remember their wins. Keep a spreadsheet: date, game, pick, odds, units risked, result. After 50 bets, you'll have real data. Are you hitting at 54%+? Are your ELITE bets actually performing better than your LOW bets? If the data says no, adjust.</div>
+          <div class="rule-tip">The Record page tracks the model's picks. Use the "My Picks" page to log your own bets alongside them.</div>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">5</div>
+        <div class="rule-body">
+          <div class="rule-title">Resize your units when your bankroll changes significantly</div>
+          <div class="rule-desc">If your bankroll grows 25%, your unit size should grow with it. If you take a bad run down 20%, reduce your unit size to the new number. This is called proportional (Kelly-adjacent) betting — it protects against ruin on the way down and compounds your edge on the way up. Don't stay at your original unit size after a major swing in either direction.</div>
+          <div class="rule-tip">Rule of thumb: recalculate your unit at the start of each month or after any 15%+ bankroll swing.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ─── Unit Sizing Guide ─────────────────── -->
+    <div class="section-label">Confidence Tier → Bet Size</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Every pick comes with a confidence tier. Here's exactly how to translate that into a bet size. 1u = 1% of your total bankroll.</p>
+
+    <div class="unit-grid">
+      <div class="unit-card" style="background:rgba(16,185,129,.06);border-color:rgba(16,185,129,.4)">
+        <div class="unit-tier" style="color:var(--primary)">ELITE — A+</div>
+        <div class="unit-size" style="color:var(--primary)">2 units</div>
+        <div class="unit-pct">2% of bankroll</div>
+        <div class="unit-when">All 7 signals aligned. Highest-conviction plays of the week. Historically ~89% ATS. Bet with full size — these are what the bankroll is built around.</div>
+      </div>
+      <div class="unit-card" style="background:rgba(20,184,166,.06);border-color:rgba(20,184,166,.4)">
+        <div class="unit-tier" style="color:#14b8a6">HIGH — A</div>
+        <div class="unit-size" style="color:#14b8a6">1.5 units</div>
+        <div class="unit-pct">1.5% of bankroll</div>
+        <div class="unit-when">Strong edge with 1–2 minor conflicts. Solid single-game bets. Good parlay anchors when you want two or three legs. Reduce to 1u if any injury news emerged in the last 48h.</div>
+      </div>
+      <div class="unit-card" style="background:rgba(139,92,246,.06);border-color:rgba(139,92,246,.4)">
+        <div class="unit-tier" style="color:#8b5cf6">MEDIUM — B+</div>
+        <div class="unit-size" style="color:#8b5cf6">1 unit</div>
+        <div class="unit-pct">1% of bankroll</div>
+        <div class="unit-when">Mixed signals — the model has a lean but not conviction. Fine for parlays or if additional research supports the pick. Not worth a standalone bet unless sharp money is aligned.</div>
+      </div>
+      <div class="unit-card" style="background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.4)">
+        <div class="unit-tier" style="color:var(--gold)">LOW — B/C</div>
+        <div class="unit-size" style="color:var(--gold)">0.5 units</div>
+        <div class="unit-pct">0.5% of bankroll</div>
+        <div class="unit-when">Noisy data or genuinely uncertain matchup. If you bet at all, treat it as a speculative play. Strongly consider passing — there are better spots every week. Never parlay two LOW picks together.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-success">
+      <div class="callout-label">The Kelly Criterion — In Plain English</div>
+      The Kelly Criterion says: bet the fraction of your bankroll proportional to your edge. If you have a 5% edge on a -110 bet, Kelly says bet ~5% of your roll. Our unit sizing is a <strong>fractional Kelly</strong> (we use 50% of full Kelly) — this preserves bankroll during bad variance while still growing it when the edge holds. Pure Kelly is too aggressive for most bettors; our system captures most of the upside with far less ruin risk.
+    </div>
+
+    <!-- ─── When to Bet More / Less ─────────────── -->
+    <div class="section-label">When to Bet More — When to Pass</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Not every game is worth betting. Here are the conditions that should increase or decrease your conviction beyond what the model says.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px">
+      <div class="data-col">
+        <div class="data-col-title do">Bet more / higher confidence</div>
+        <div class="data-item">
+          <div class="data-icon">+</div>
+          <div class="data-item-body">
+            <div class="data-item-name">Sharp money agrees with our pick</div>
+            <div class="data-item-desc">When the line moves our way and the model says the same thing, both the best minds in betting and the algorithm are aligned. This is the strongest corroboration you can get.</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div class="data-icon">+</div>
+          <div class="data-item-body">
+            <div class="data-item-name">Reverse line movement on our side</div>
+            <div class="data-item-desc">Public money heavily on the other team but the line moves toward our pick anyway. That's sharps betting against the grain with enough force to move the market.</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div class="data-icon">+</div>
+          <div class="data-item-body">
+            <div class="data-item-name">Situation + model + sharp all agree</div>
+            <div class="data-item-desc">When historical ATS situational data, model projection, AND sharp money signals all point the same direction, the edge is coming from multiple independent sources. That's as good as it gets.</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div class="data-icon">+</div>
+          <div class="data-item-body">
+            <div class="data-item-name">Line is still at an advantageous number</div>
+            <div class="data-item-desc">The model found value at -3. If the line has already moved to -5 by the time you place the bet, the value is reduced. If it moved to -2, your value just got better — consider sizing up slightly.</div>
+          </div>
+        </div>
+      </div>
+      <div class="data-col">
+        <div class="data-col-title dont">Pass or reduce size</div>
+        <div class="data-item">
+          <div class="data-icon">−</div>
+          <div class="data-item-body">
+            <div class="data-item-name">Late injury news contradicts our pick</div>
+            <div class="data-item-desc">A starting QB listed questionable hours before kickoff can swing 3–7 points. If the Intel page shows a key injury not reflected in the current spread, treat the pick as outdated.</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div class="data-icon">−</div>
+          <div class="data-item-body">
+            <div class="data-item-name">Line has moved 2+ points against us</div>
+            <div class="data-item-desc">If you missed the opening line and the spread already moved significantly against the model's value point, the edge has been eaten. Better to skip than to chase a closing line that's priced out the opportunity.</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div class="data-icon">−</div>
+          <div class="data-item-body">
+            <div class="data-item-name">Game on a key number with no hook</div>
+            <div class="data-item-desc">Spreads of exactly -3, -7, -10, or -14 with no half-point (no "hook") are dangerous. A significant percentage of college games land on exactly those numbers — you're playing coin flip at the most important threshold.</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div class="data-icon">−</div>
+          <div class="data-item-body">
+            <div class="data-item-name">You already have 3+ bets on the same team</div>
+            <div class="data-item-desc">Betting the same team in a parlay plus as a standalone spreads correlates your risk. If that team has a bad game, all your bets go down together. Cap single-team exposure at 2 bets per week.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Line Movement Guide ─────────────────── -->
+    <div class="section-label">How to Read Line Movement</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">The line moves for a reason — and understanding why tells you who's betting what. Here are the 4 movement patterns worth knowing.</p>
+
+    <div class="signal-list" style="margin-bottom:28px">
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.35);color:var(--primary)">SHARP</div>
+        <div class="signal-body">
+          <div class="signal-name">Reverse Line Movement (RLM) — Most Valuable Signal</div>
+          <div class="signal-desc">Public betting is 65%+ on Team A, but the line moves toward Team B. This means the smaller percentage of bettors on Team B are betting large enough to force the book to move. Those bettors are almost always professionals. <strong style="color:var(--primary)">This is the strongest indicator of sharp money.</strong> When RLM aligns with our model pick, consider it a confirmation signal.</div>
+        </div>
+      </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.35);color:var(--gold)">PUBLIC</div>
+        <div class="signal-body">
+          <div class="signal-name">Line Moves With Public — Typical, Adds No Information</div>
+          <div class="signal-desc">80% of bets on Team A and the line moves toward Team A. This is just the book balancing action. It tells you where casual money went — which is mildly useful for contrarian plays but isn't a sharp signal. Don't over-read this as confirmation of a pick.</div>
+        </div>
+      </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:var(--danger)">INJURY</div>
+        <div class="signal-body">
+          <div class="signal-name">Sudden Large Move (2.5+ pts) — Usually Injury News</div>
+          <div class="signal-desc">When a line jumps 2.5 or more points quickly without an obvious reason, check the injury report immediately. A starting QB or All-American going down can cause an instant book adjustment of 3–7 points. If you already have a bet placed and the news affects your team, it's worth reconsidering the position.</div>
+        </div>
+      </div>
+      <div class="signal-card">
+        <div class="weight-badge" style="background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.35);color:var(--accent)">STEAM</div>
+        <div class="signal-body">
+          <div class="signal-name">Steam Move — Coordinated Sharp Action</div>
+          <div class="signal-desc">A line moves 2+ points in the same direction at multiple sportsbooks within minutes of each other. This is a professional betting syndicate hitting multiple books simultaneously to get money down before the market adjusts. Steam moves are rare but powerful signals — when they happen, the direction of the move is the sharpest information available that day.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Parlay Strategy ─────────────────────── -->
+    <div class="section-label">Parlay Strategy — When It Makes Sense</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Parlays pay more but lose more. Here's how to use them without destroying your bankroll.</p>
+
+    <div class="rule-list" style="margin-bottom:20px">
+      <div class="rule-card">
+        <div class="rule-num" style="background:var(--accent)">DO</div>
+        <div class="rule-body">
+          <div class="rule-title">2–3 leg parlays anchored by ELITE or HIGH picks</div>
+          <div class="rule-desc">A 2-leg parlay of two ELITE picks (~89% each) has roughly a 79% hit rate — which at +260 typical payout is solidly +EV. The math works when the individual legs are strong. Keep total parlay risk to 0.5–1u regardless of confidence — the variance is still higher than single bets.</div>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num" style="background:var(--accent)">DO</div>
+        <div class="rule-body">
+          <div class="rule-title">Mix spread and total picks when uncorrelated</div>
+          <div class="rule-desc">An ELITE spread pick (Team A covers -7) combined with a total UNDER from a different game are uncorrelated — if one loses it tells you nothing about the other. Correlated parlays (Team A covers AND the game goes over) are worse — they tend to fail together because the same event (high-scoring game) helps or hurts both.</div>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num" style="background:var(--danger)">AVOID</div>
+        <div class="rule-body">
+          <div class="rule-title">5+ leg parlays as a regular strategy</div>
+          <div class="rule-desc">At 55% per leg (a great hit rate), a 5-leg parlay hits only 5% of the time. The expected value is almost always negative after accounting for the vig built into each leg. Sportsbooks make most of their profit on big parlays. Treat 5+ leg parlays as entertainment, not strategy — maximum 0.25u.</div>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num" style="background:var(--danger)">AVOID</div>
+        <div class="rule-body">
+          <div class="rule-title">Same-team parlays to "hedge" a large bet</div>
+          <div class="rule-desc">Parlaying a team to cover AND win on the moneyline is correlated — they'll both win or both lose together. You're not adding legs with independent value; you're adding legs with no additional edge but additional vig baked in. The sportsbook loves this play — you should avoid it.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Line Shopping ─────────────────────────── -->
+    <div class="section-label">Line Shopping — The Free Money Most Bettors Skip</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">The same game can have different spreads at different books. Always check multiple books before placing a bet — half a point can flip a push to a win.</p>
+
+    <div class="shop-row">
+      <div class="shop-card">
+        <div class="shop-book">DraftKings</div>
+        <div class="shop-line">Alabama -7</div>
+        <div class="shop-juice">-110</div>
+      </div>
+      <div class="shop-card shop-best">
+        <div class="shop-book">FanDuel — BEST LINE</div>
+        <div class="shop-line">Alabama -6.5</div>
+        <div class="shop-juice">-110</div>
+      </div>
+      <div class="shop-card">
+        <div class="shop-book">BetMGM</div>
+        <div class="shop-line">Alabama -7</div>
+        <div class="shop-juice">-115</div>
+      </div>
+    </div>
+
+    <div class="callout callout-info" style="margin-bottom:16px">
+      <div class="callout-label">Why That Half-Point Matters</div>
+      In this example, FanDuel has Alabama at -6.5 while the others have -7. If Alabama wins by exactly 7, your FanDuel bet wins (covers -6.5) while your DraftKings bet pushes. Over a full season, these half-point differences add up to multiple bets' worth of value — essentially free money for taking 60 seconds to check three apps before placing a bet.
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:28px">
+      <div style="font-size:.65rem;font-weight:900;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Recommended Line Shopping Workflow</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="flex-shrink:0;font-size:.75rem;font-weight:900;color:var(--primary);background:rgba(16,185,129,.12);border-radius:20px;padding:2px 8px;margin-top:1px">1</div>
+          <div style="font-size:.83rem;color:var(--muted-l);line-height:1.5">Note the spread from our game page — that's your reference point for value.</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="flex-shrink:0;font-size:.75rem;font-weight:900;color:var(--primary);background:rgba(16,185,129,.12);border-radius:20px;padding:2px 8px;margin-top:1px">2</div>
+          <div style="font-size:.83rem;color:var(--muted-l);line-height:1.5">Check at least 3 books: your primary book, one alternative, and DraftKings or FanDuel.</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="flex-shrink:0;font-size:.75rem;font-weight:900;color:var(--primary);background:rgba(16,185,129,.12);border-radius:20px;padding:2px 8px;margin-top:1px">3</div>
+          <div style="font-size:.83rem;color:var(--muted-l);line-height:1.5">Prioritize the best number (spread or total) over juice — a half-point is worth more than saving $5 in vig.</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="flex-shrink:0;font-size:.75rem;font-weight:900;color:var(--primary);background:rgba(16,185,129,.12);border-radius:20px;padding:2px 8px;margin-top:1px">4</div>
+          <div style="font-size:.83rem;color:var(--muted-l);line-height:1.5">On key numbers (3, 7, 10, 14) — if one book offers the hook (-6.5 vs -7) even at -125, it's usually worth the extra juice to cross the key number.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Common Mistakes ────────────────────── -->
+    <div class="section-label">7 Mistakes That Kill Bankrolls</div>
+
+    <div class="mistake-list">
+      <div class="mistake-card">
+        <div class="mistake-title">1. Chasing losses with bigger bets</div>
+        <div class="mistake-fix">You lost 3 games Saturday. The solution is NOT to double your Sunday bets to "get it back." Losses happen to every bettor — even sharps. <strong>Stick to your unit sizes regardless of recent results.</strong> The edge is in the math over time, not in any single day.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-title">2. Parlaying 5+ games because the payout looks exciting</div>
+        <div class="mistake-fix">A 10-leg parlay at +5000 sounds incredible. But at 55% per leg, it hits 0.25% of the time. At 50% per leg, it hits 0.097% of the time. <strong>The sportsbook margin on these bets is enormous.</strong> Occasional 2–3 leg parlays on your best picks — that's the sustainable version.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-title">3. Ignoring line movement before you bet</div>
+        <div class="mistake-fix">The model found value at -3. If the line is now -6 when you check it, the edge is gone — and possibly flipped. <strong>Always check current lines, not the lines from when the pick was made.</strong> Check the game page's line movement section for context on how the spread has moved.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-title">4. Betting every game on the card</div>
+        <div class="mistake-fix">There are 21 games in our system. Not all 21 are worth betting. The model flags PASS games for a reason — they have noisy signals and the expected edge is negative or minimal. <strong>Selective betting is the most underrated skill in sports betting.</strong> 6 strong bets beat 15 average bets every single week.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-title">5. Over-weighting recent results ("hot streak" thinking)</div>
+        <div class="mistake-fix">Won 4 in a row? Don't increase unit sizes as a reward — that's correlation, not causation. Lost 3 straight? Don't reduce sizes out of fear — that's when the model's historical edge is most likely to reassert. <strong>Recency bias destroys bankroll management discipline.</strong> Resize units based on your total bankroll level, not last week's results.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-title">6. Betting teams you "know" without checking the model</div>
+        <div class="mistake-fix">You watched every Alabama game this year — you're not betting against them no matter what the numbers say. This is emotional betting disguised as expertise. <strong>Your subjective view of a team is already priced into the line by millions of other bettors who also watched them.</strong> The model accounts for this and sometimes correctly fades popular teams.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-title">7. Not reading the Intel page before placing big bets</div>
+        <div class="mistake-fix">The model runs before the final injury reports drop. If a key player's status changes in the last 24 hours, the pick may no longer reflect the best information. <strong>Always check the Intel page and the game's injury section before betting more than 1u.</strong> Last-minute news is where the edges and the traps both live.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:8px">
+      <div class="callout-label">The Bottom Line</div>
+      Long-term profit in sports betting comes from one thing: consistently finding bets where your estimated probability is higher than the implied probability in the odds. Our model does the heavy lifting — your job is to manage your bankroll so you're still alive when the edge plays out. No bankroll management system can turn a 48% bettor into a winner. But terrible bankroll management can turn a 56% bettor into a loser.
+    </div>
+
+  </div><!-- /#tab-strategy -->
+
+  <!-- ══════════════════════════════════════════════
+       TAB 4: DATA SOURCES
        ══════════════════════════════════════════════ -->
   <div class="tab-panel" id="tab-data" role="tabpanel">
     <div class="section-label">Intelligence Sources — Everything We Pull</div>

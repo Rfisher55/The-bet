@@ -356,6 +356,25 @@
     }
     .value-alert-edge-num { font-size: 1.1rem; font-weight: 900; color: var(--primary); }
     .value-alert-edge-lbl { font-size: .55rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+
+    /* ── Danger Zone ────────────────────────────────────── */
+    .danger-row {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      border-radius: var(--radius); border: 1px solid rgba(239,68,68,.2);
+      background: var(--card); text-decoration: none; color: var(--text);
+      transition: all .2s; flex-wrap: wrap;
+    }
+    .danger-row:hover { border-color: rgba(239,68,68,.45); background: rgba(239,68,68,.03); }
+    .danger-icon-box {
+      min-width: 64px; text-align: center; padding: 8px 10px;
+      border-radius: var(--radius); background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); flex-shrink: 0;
+    }
+    .danger-icon-box-icon { font-size: 1.3rem; line-height: 1; }
+    .danger-icon-box-lbl { font-size: .52rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--danger); margin-top: 2px; }
+    .danger-tag {
+      font-size: .58rem; font-weight: 800; padding: 2px 7px; border-radius: 4px;
+      background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3); color: var(--danger); white-space: nowrap;
+    }
     .sharp-tracker-row {
       display: flex;
       align-items: center;
@@ -652,6 +671,18 @@
       <span class="text-sm text-muted">Professional bettor movement detected</span>
     </div>
     <div id="sharp-tracker" style="display:flex;flex-direction:column;gap:8px"></div>
+  </section>
+
+  <!-- Danger Zone -->
+  <section class="mb-5" id="danger-zone-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0" style="color:var(--danger)">⚠ Danger Zone — Consider Passing</div>
+      <span class="text-sm text-muted">Games with noise, traps, or conflicting signals</span>
+    </div>
+    <div id="danger-zone" style="display:flex;flex-direction:column;gap:8px"></div>
+    <div style="margin-top:10px;padding:10px 14px;border-radius:var(--radius);background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.15);font-size:.72rem;color:var(--muted-l)">
+      These games have the model flagging reduced confidence. Not every game is worth betting. Skipping weak spots is part of a winning strategy.
+    </div>
   </section>
 
   <!-- Bankroll Calculator -->
@@ -1228,6 +1259,117 @@ function renderSharpTracker() {
   }).join("");
 }
 renderSharpTracker();
+
+// ── Danger Zone ──────────────────────────────────────────────────
+function renderDangerZone() {
+  var dangerGames = [];
+
+  allPredictions.forEach(function(p) {
+    var game = p.game;
+    var pred = p.prediction;
+    var sp   = pred.spreadPick || {};
+    var bl   = game.bettingLines || {};
+    var sm   = pred.sharpMoneySignal || {};
+    var sit  = game.situational || {};
+    var tp   = game.gamePreview && game.gamePreview.thePick;
+    var reasons = [];
+    var riskScore = 0;
+
+    // PASS games: model says no edge
+    if (sp.side === "no-bet") {
+      reasons.push("Model finds no edge — spread priced correctly");
+      riskScore += 4;
+    }
+
+    // Very low confidence
+    if (pred.confidence === "low") {
+      reasons.push("Low model confidence — signals are noisy or conflicting");
+      riskScore += 3;
+    }
+
+    // Trap game flag in situational data
+    if ((sit.trapGameRisk || 0) >= 5) {
+      reasons.push("Trap game risk (" + sit.trapGameRisk + "/10) — one team has a key scheduling spot nearby");
+      riskScore += Math.min(4, Math.floor(sit.trapGameRisk / 2));
+    }
+
+    // Lookahead game
+    if (sit.homeTeamEmotionalSpot === "lookahead" || sit.awayTeamEmotionalSpot === "lookahead") {
+      reasons.push("Lookahead spot detected — at least one team has a bigger game next week");
+      riskScore += 2;
+    }
+
+    // Sharp money opposes our pick
+    var ourSide = tp ? (tp.team.toLowerCase() === (game.homeTeam.name || "").toLowerCase() ? "home" : "away") : sp.side;
+    var sharpOpposes = sm.strength >= 6 && sm.side !== "neutral" && sm.side !== ourSide;
+    if (sharpOpposes) {
+      reasons.push("Sharp money disagrees with model — professional bettors on opposite side");
+      riskScore += 3;
+    }
+
+    // Key number without hook
+    if (bl.spread != null) {
+      var abs = Math.abs(bl.spread);
+      if (abs === 3 || abs === 7 || abs === 10 || abs === 14) {
+        reasons.push("Spread sits on key number (" + bl.spread + ") — higher push risk");
+        riskScore += 2;
+      }
+    }
+
+    // Heavy favorite with low edge (chalk trap)
+    var spEdge = sp.edge || 0;
+    if (bl.spread != null && Math.abs(bl.spread) >= 14 && spEdge < 2) {
+      reasons.push("Large favorite (-" + Math.abs(bl.spread) + ") with minimal model edge — chalk trap risk");
+      riskScore += 2;
+    }
+
+    // Only show games with at least 2 risk points and at least 1 reason
+    if (riskScore >= 2 && reasons.length >= 1) {
+      dangerGames.push({ p: p, reasons: reasons, riskScore: riskScore });
+    }
+  });
+
+  // Sort by risk score descending, take top 5
+  dangerGames.sort(function(a, b) { return b.riskScore - a.riskScore; });
+  dangerGames = dangerGames.slice(0, 5);
+
+  if (!dangerGames.length) return;
+  document.getElementById("danger-zone-section").style.display = "";
+  document.getElementById("danger-zone").innerHTML = dangerGames.map(function(dg) {
+    var p = dg.p;
+    var game = p.game;
+    var pred = p.prediction;
+    var sp = pred.spreadPick || {};
+    var bl = game.bettingLines || {};
+    var reasons = dg.reasons;
+    var vegasLine = bl.spread != null ? (bl.spread < 0 ? game.homeTeam.name + ' ' + bl.spread : game.awayTeam.name + ' +' + Math.abs(bl.spread)) : '—';
+    var icon = dg.riskScore >= 6 ? "🚫" : "⚠";
+    var dangerLbl = dg.riskScore >= 6 ? "SKIP" : "CAUTION";
+
+    return '<a class="danger-row" href="pages/game.html?id=' + game.id + '">' +
+      '<div class="danger-icon-box">' +
+        '<div class="danger-icon-box-icon">' + icon + '</div>' +
+        '<div class="danger-icon-box-lbl">' + dangerLbl + '</div>' +
+      '</div>' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap">' +
+          '<div class="team-logo" style="width:20px;height:20px;font-size:.55rem;background:' + game.awayTeam.color + ';color:' + textForBg(game.awayTeam.color) + '">' + game.awayTeam.abbreviation.slice(0,3) + '</div>' +
+          '<strong style="font-size:.85rem;color:var(--text)">' + game.awayTeam.abbreviation + ' @ ' + game.homeTeam.abbreviation + '</strong>' +
+          '<span style="font-size:.65rem;color:var(--muted)">· ' + fmtDate(game.date) + '</span>' +
+          (vegasLine !== '—' ? '<span class="danger-tag">Vegas: ' + vegasLine + '</span>' : '') +
+        '</div>' +
+        '<div style="display:flex;flex-direction:column;gap:2px">' +
+        reasons.map(function(r) {
+          return '<div style="font-size:.72rem;color:var(--danger);display:flex;gap:5px;align-items:flex-start">' +
+            '<span style="flex-shrink:0;margin-top:1px">•</span><span>' + r + '</span></div>';
+        }).join('') +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:.7rem;color:var(--danger);font-weight:700;flex-shrink:0">Details →</div>' +
+    '</a>';
+  }).join("");
+}
+renderDangerZone();
 
 // ── Bankroll Calculator ───────────────────────────────────────────
 (function() {
