@@ -146,7 +146,7 @@ function buildHotTake(t) {
 function tweetIntro() {
   return [
     `🏈 @TheBetCFB is live.\n\nAI-powered CFB model covering ALL 130+ FBS programs.\nEvery fan. Every conference. Every team.\n\nWe post:\n📊 Weekly picks (Tuesday)\n🏆 Top 5 thread\n💰 Parlay card\n🔒 Final locks\n📈 Results Sunday\n\nAll free. All model-backed. Follow now.\n\n#CFB #TheBet`,
-    `Most CFB betting accounts only talk about the blue bloods.\n\nWe cover EVERYONE.\n\nArkansas? Yep.\nBoise State? Yep.\nMarshall? Absolutely.\n\nEvery team gets a shot in our model. No favorites.\n\nrfisher55.github.io/the-bet\n\n#CFB #TheBet`,
+    `Most CFB betting accounts only talk about the blue bloods.\n\nWe cover EVERYONE.\n\nArkansas? Yep.\nBoise State? Yep.\nMarshall? Absolutely.\n\nEvery team gets a shot in our model. No favorites.\n\nrfisher55.github.io/The-bet\n\n#CFB #TheBet`,
     `💡 How our model works:\n\n✅ SP+ ratings for all 130 FBS teams\n✅ Transfer portal grades\n✅ Coaching momentum scores\n✅ ATS situational trends\n✅ Line movement tracking\n✅ Weather edges\n\nWe turn all that into picks every Tuesday.\n\nFree. Transparent. Let the data cook.\n\n#CFB #TheBet`,
   ];
 }
@@ -306,7 +306,7 @@ function tweetConference(confFilter, count = 1) {
       [
         sleeper ? `\n\n🔍 Sleeper: ${sleeper.name}` : '',
         fade ? `\n⚠️ Fade: ${fade.name}` : '',
-        `\n\nFull breakdown: rfisher55.github.io/the-bet\n\n#CFB #${conf.replace(/\s/g,'')} #TheBet`,
+        `\n\nFull breakdown: rfisher55.github.io/The-bet\n\n#CFB #${conf.replace(/\s/g,'')} #TheBet`,
       ]
     )];
   });
