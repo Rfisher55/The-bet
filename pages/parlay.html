@@ -1754,10 +1754,8 @@ function renderOptimalSuggestions() {
         var isHome = tp.team.toLowerCase() === (home.name || "").toLowerCase();
         var side = isHome ? "home" : "away";
         var odds = isHome ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110);
-        // Prefer model spread confidence; fall back to tier estimate
-        var spProb = (sp.side !== "no-bet" && sp.confidence > 50 && sp.side === side)
-          ? sp.confidence / 100
-          : (conf === "elite" ? 0.76 : 0.67);
+        // Use modelProb() so optimal combos and live parlay bar always agree
+        var spProb = modelProb(game.id, side);
         pool.push({
           game: game, pred: pred, side: side, odds: odds,
           label: tp.team + " covers",
@@ -1770,7 +1768,7 @@ function renderOptimalSuggestions() {
       var side2 = sp.side;
       var team2 = side2 === "home" ? home : away;
       var odds2 = side2 === "home" ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110);
-      var spProb2 = sp.confidence ? sp.confidence / 100 : 0.62;
+      var spProb2 = modelProb(game.id, side2);
       pool.push({
         game: game, pred: pred, side: side2, odds: odds2,
         label: team2.name + " covers",
