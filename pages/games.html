@@ -411,12 +411,16 @@ function renderBestPick(weekNum) {
   const { game, pred } = best;
   const home = game.homeTeam, away = game.awayTeam;
   const sp = pred.spreadPick;
-  const pickTeamName = sp && sp.side !== "no-bet" ? sp.team : (pred.predictedSpread>=0?home.name:away.name);
-  const pickLine = sp && sp.side !== "no-bet"
-    ? (sp.side==="home"?fmtSpread(game.bettingLines.spread):fmtSpread(-game.bettingLines.spread))
+  const tpCurated = game.gamePreview && game.gamePreview.thePick;
+  const pickTeamName = (tpCurated && tpCurated.team) ? tpCurated.team
+    : (sp && sp.side !== "no-bet" ? sp.team : (pred.predictedSpread>=0?home.name:away.name));
+  const pickIsHome = pickTeamName.toLowerCase() === (home.name||"").toLowerCase();
+  const pickLine = game.bettingLines
+    ? (pickIsHome ? fmtSpread(game.bettingLines.spread) : fmtSpread(-game.bettingLines.spread))
     : "";
-  const confLbl = { elite:"ELITE PICK", high:"HIGH CONFIDENCE", medium:"MODERATE", low:"LOW CONF" }[pred.confidence]||"";
-  const confCls = { elite:"badge-elite", high:"badge-high", medium:"badge-medium", low:"badge-low" }[pred.confidence]||"badge-low";
+  const displayConf = (tpCurated && tpCurated.confidence ? tpCurated.confidence.toLowerCase() : null) || pred.confidence;
+  const confLbl = { elite:"ELITE PICK", high:"HIGH CONFIDENCE", medium:"MODERATE", low:"LOW CONF" }[displayConf]||"";
+  const confCls = { elite:"badge-elite", high:"badge-high", medium:"badge-medium", low:"badge-low" }[displayConf]||"badge-low";
   // Predicted score for best pick
   const bpHomeScore = Math.round(pred.homeExpected || pred.compositeScore?.home || 0);
   const bpAwayScore = Math.round(pred.awayExpected || pred.compositeScore?.away || 0);
@@ -559,13 +563,18 @@ function renderGameCard(game, pred) {
           const gp = game.gamePreview;
           const curatedPick = gp && gp.thePick && gp.thePick.team ? gp.thePick : null;
           if (curatedPick) {
-            const pickColor = sp.side === "home" ? home.color : sp.side === "away" ? away.color : (game.bettingLines && game.bettingLines.spread < 0 ? home.color : away.color);
+            const cpIsHome = curatedPick.team.toLowerCase() === (home.name||"").toLowerCase();
+            const cpLine = game.bettingLines
+              ? (cpIsHome ? fmtSpread(game.bettingLines.spread) : fmtSpread(-game.bettingLines.spread))
+              : (curatedPick.line || "");
+            const pickColor = cpIsHome ? home.color : away.color;
             const reason = curatedPick.reasoning || "";
-            const shortReason = reason.length > 80 ? reason.slice(0, 77) + "…" : reason;
+            const shortReason = reason.length > 70 ? reason.slice(0, 67) + "…" : reason;
             return `<div style="padding:8px 10px;border-radius:8px;background:${pickColor}22;border:1px solid ${pickColor}55">
               <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">⭐ OUR PICK</div>
-              <div style="font-size:.75rem;font-weight:900;color:var(--text)">${curatedPick.team}</div>
-              <div style="font-size:.58rem;color:var(--muted-l);line-height:1.4;margin-top:2px">${shortReason}</div>
+              <div style="font-size:.75rem;font-weight:900;color:var(--text)">${curatedPick.team} covers</div>
+              ${cpLine ? `<div style="font-size:.58rem;color:var(--muted-l);margin-top:1px">Line: ${cpLine}</div>` : ""}
+              ${shortReason ? `<div style="font-size:.55rem;color:var(--muted);line-height:1.4;margin-top:3px">${shortReason}</div>` : ""}
             </div>`;
           }
           return sp.side !== "no-bet" ? `

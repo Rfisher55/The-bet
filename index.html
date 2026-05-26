@@ -812,20 +812,63 @@ renderHeroPick();
 
 // ── Top picks grid ───────────────────────────────────────────────
 function renderTopPicks() {
-  var picks = allPredictions
-    .filter(function(p) { return p.prediction.spreadPick.side !== "no-bet" && p.prediction.spreadPick.confidence >= 65; })
-    .slice(0, 3);
+  var confWeights = { ELITE: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+
+  // Score each prediction: curated analyst picks get priority, then model edge
+  var scored = allPredictions.map(function(p) {
+    var tp = p.game.gamePreview && p.game.gamePreview.thePick;
+    var curatedConf = tp && tp.confidence ? confWeights[tp.confidence.toUpperCase()] || 0 : 0;
+    var modelEdge = p.prediction.spreadPick.side !== "no-bet" ? (p.prediction.spreadPick.edge || 0) : 0;
+    return { p: p, curatedConf: curatedConf, modelEdge: modelEdge,
+             score: curatedConf * 4 + modelEdge };
+  }).filter(function(x) {
+    // Must have a curated pick OR a model edge > 2
+    return x.curatedConf > 0 || (x.p.prediction.spreadPick.side !== "no-bet" && x.modelEdge > 2);
+  }).sort(function(a, b) { return b.score - a.score; }).slice(0, 3);
+
   var icons  = ["1","2","3"];
   var labels = ["#1 Pick of the Week","#2 Pick of the Week","#3 Pick of the Week"];
-  document.getElementById("top-picks").innerHTML = picks.map(function(p, i) {
+  document.getElementById("top-picks").innerHTML = scored.map(function(x, i) {
+    var p = x.p;
     var game = p.game;
     var pred = p.prediction;
     var sp   = pred.spreadPick;
-    var lineVal = sp.side === "home"
-      ? fmtSpread(game.bettingLines.spread)
-      : fmtSpread(-game.bettingLines.spread);
-    var chipCls   = sp.side === "home" ? "pick-home" : "pick-away";
-    var chipColor = sp.side === "home" ? "var(--accent)" : "var(--gold)";
+    var bl   = game.bettingLines;
+
+    // Use curated pick when available, fall back to model
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    var pickConf = (tp && tp.confidence) ? tp.confidence.toUpperCase() : null;
+
+    // Determine if curated pick team is home or away
+    var pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name || "").toLowerCase() ||
+                     pickTeam.toLowerCase() === (game.homeTeam.abbreviation || "").toLowerCase();
+    var chipColor = pickIsHome ? 'var(--accent)' : 'var(--gold)';
+
+    // Vegas line from perspective of the picked team
+    var vegasLine = bl ? (pickIsHome ? fmtSpread(bl.spread) : fmtSpread(-bl.spread)) : '';
+    var vegsasFav = bl && bl.spread !== 0 ? (bl.spread < 0 ? game.homeTeam.name : game.awayTeam.name) : null;
+
+    // Model edge context
+    var edgeStr = sp.side !== "no-bet" && sp.edge > 0 ? '+' + sp.edge + ' pts vs Vegas' : null;
+
+    // Confidence badge
+    var badgeTxt = pickConf || (sp.side !== "no-bet" ? (sp.confidence >= 80 ? 'HIGH' : 'MEDIUM') : '');
+    var badgeBg  = badgeTxt === 'ELITE' ? 'var(--primary)' : badgeTxt === 'HIGH' ? 'rgba(16,185,129,.15)' : 'rgba(245,158,11,.12)';
+    var badgeC   = badgeTxt === 'ELITE' ? '#000' : badgeTxt === 'HIGH' ? 'var(--primary)' : 'var(--gold)';
+
+    // Context: what Vegas says vs what model says
+    var contextLine = '';
+    if (bl) {
+      var favName = bl.spread < 0 ? game.homeTeam.name : game.awayTeam.name;
+      var favLine = Math.abs(bl.spread);
+      var modelPred = pred.predictedSpread; // positive = home wins by this
+      var modelFavLine = Math.abs(modelPred).toFixed(1);
+      var modelFavName = modelPred >= 0 ? game.homeTeam.name : game.awayTeam.name;
+      contextLine = 'Vegas: ' + favName + ' -' + favLine +
+                    ' · Model: ' + modelFavName + ' -' + modelFavLine;
+    }
+
     return '<a class="top-pick fade-up delay-' + (i+1) + '" href="pages/game.html?id=' + game.id + '">' +
       '<div class="pick-rank">' +
         '<span class="pick-rank-icon">' + icons[i] + '</span>' +
@@ -835,28 +878,30 @@ function renderTopPicks() {
         '<div class="team-logo team-logo-sm" style="background:' + game.awayTeam.color + ';color:' + textForBg(game.awayTeam.color) + '">' + game.awayTeam.abbreviation.slice(0,3) + '</div>' +
         '<span style="font-size:.75rem;color:var(--muted-l)">@</span>' +
         '<div class="team-logo team-logo-sm" style="background:' + game.homeTeam.color + ';color:' + textForBg(game.homeTeam.color) + '">' + game.homeTeam.abbreviation.slice(0,3) + '</div>' +
-        '<div style="margin-left:4px">' +
+        '<div style="margin-left:4px;flex:1;min-width:0">' +
           '<div style="font-size:.88rem;font-weight:700;color:var(--text)">' + game.awayTeam.abbreviation + ' @ ' + game.homeTeam.abbreviation + '</div>' +
           '<div style="font-size:.7rem;color:var(--muted-l)">' + fmtDate(game.date) + ' &middot; ' + game.network + '</div>' +
         '</div>' +
+        (badgeTxt ? '<span style="flex-shrink:0;padding:3px 8px;border-radius:6px;font-size:.58rem;font-weight:800;letter-spacing:1px;background:' + badgeBg + ';color:' + badgeC + '">' + badgeTxt + '</span>' : '') +
       '</div>' +
-      '<div class="pick-chip ' + chipCls + ' mb-3" style="text-align:left">' +
-        '<div class="pick-chip-label">The Bet Picks</div>' +
-        '<div class="pick-chip-val" style="font-size:1rem;color:' + chipColor + '">' + sp.team + ' covers</div>' +
-        '<div class="pick-chip-sub">Line: ' + lineVal + '</div>' +
+      '<div style="padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);margin-bottom:8px">' +
+        '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">The Bet Picks</div>' +
+        '<div style="font-size:1.05rem;font-weight:800;color:' + chipColor + '">' + pickTeam + ' covers</div>' +
+        (vegasLine ? '<div style="font-size:.65rem;color:var(--muted-l);margin-top:2px">Line: ' + vegasLine + '</div>' : '') +
       '</div>' +
-      '<div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted-l)">' +
-        '<span>Conf: <strong style="color:var(--text)">' + sp.confidence + '%</strong></span>' +
-        '<span>Edge: <strong style="color:var(--primary)">+' + sp.edge + ' pts</strong></span>' +
-      '</div>' +
+      (contextLine ? '<div style="font-size:.62rem;color:var(--muted);padding:5px 8px;border-radius:5px;background:rgba(255,255,255,.02);border:1px solid var(--border);margin-bottom:8px">' + contextLine + '</div>' : '') +
+      (edgeStr ? '<div style="display:flex;align-items:center;gap:4px;font-size:.72rem">' +
+        '<span style="color:var(--muted)">Model Edge:</span>' +
+        '<strong style="color:var(--primary)">' + edgeStr + '</strong>' +
+      '</div>' : '') +
       (function() {
         var oe2 = pred.overallEdge && pred.overallEdge.breakdown;
         if (!oe2) return '';
         var sigs = [
           { l:'Stats', v: oe2.baseModelEdge },
           { l:'Players', v: oe2.playerImpactEdge },
-          { l:'Sharp', v: oe2.sharpMoneyEdge },
-          { l:'Coaching', v: oe2.coachingEdgePts },
+          { l:'Sharp $', v: oe2.sharpMoneyEdge },
+          { l:'Situational', v: oe2.situationalEdge },
         ];
         return '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:8px">' +
           sigs.map(function(s) {
@@ -941,17 +986,27 @@ renderFeaturedGames();
 function renderGameCard(game, pred, baseUrl) {
   var isHomeFavored = pred.predictedSpread >= 0;
   var winner = isHomeFavored ? game.homeTeam : game.awayTeam;
-  var confCls = { elite: "badge-elite", high: "badge-high", medium: "badge-medium", low: "badge-low" }[pred.confidence];
-  var confLbl = { elite: "ELITE PICK", high: "HIGH CONF", medium: "MODERATE", low: "LOW CONF" }[pred.confidence];
+
+  // Use curated analyst pick when available
+  var tp_curated = game.gamePreview && game.gamePreview.thePick;
+  var curatedTeam = tp_curated && tp_curated.team ? tp_curated.team : null;
+  var curatedConf = tp_curated && tp_curated.confidence ? tp_curated.confidence.toLowerCase() : null;
+  var displayConf = curatedConf || pred.confidence;
+  var confCls = { elite: "badge-elite", high: "badge-high", medium: "badge-medium", low: "badge-low" }[displayConf];
+  var confLbl = { elite: "ELITE PICK", high: "HIGH CONF", medium: "MODERATE", low: "LOW CONF" }[displayConf];
 
   var sp  = pred.spreadPick;
   var tp  = pred.totalPick;
-  var ats = sp.side === "no-bet"
+
+  // For the ATS chip, use curated pick team if available
+  var pickTeamName = curatedTeam || (sp.side === "home" ? game.homeTeam.name : sp.side === "away" ? game.awayTeam.name : null);
+  var pickIsHome = pickTeamName ? pickTeamName.toLowerCase() === (game.homeTeam.name || "").toLowerCase() : sp.side === "home";
+  var ats = !pickTeamName
     ? '<div class="pick-chip pick-neutral"><div class="pick-chip-label">Spread Pick</div><div class="pick-chip-val">No edge</div></div>'
-    : '<div class="pick-chip ' + (sp.side === "home" ? "pick-home" : "pick-away") + '">' +
+    : '<div class="pick-chip ' + (pickIsHome ? "pick-home" : "pick-away") + '">' +
         '<div class="pick-chip-label">The Bet</div>' +
-        '<div class="pick-chip-val">' + (sp.side === "home" ? game.homeTeam.name : game.awayTeam.name) + ' covers</div>' +
-        (game.bettingLines ? '<div class="pick-chip-sub">Line: ' + fmtSpread(sp.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) + '</div>' : '') +
+        '<div class="pick-chip-val">' + pickTeamName + ' covers</div>' +
+        (game.bettingLines ? '<div class="pick-chip-sub">Line: ' + fmtSpread(pickIsHome ? game.bettingLines.spread : -game.bettingLines.spread) + '</div>' : '') +
       '</div>';
 
   var tot = tp.side === "no-bet"
@@ -1009,13 +1064,17 @@ function renderGameCard(game, pred, baseUrl) {
     '</div>' +
     '<div class="pick-chips">' +
       ats + tot +
-      '<div class="pick-chip pick-neutral">' +
-        '<div class="pick-chip-label">Confidence</div>' +
-        '<div class="pick-chip-val" style="color:' + (pred.winProbability>=75?"var(--primary)":pred.winProbability>=60?"var(--success)":"var(--gold)") + '">' + pred.winProbability + '%</div>' +
-        '<div style="height:3px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden">' +
-          '<div style="width:' + pred.winProbability + '%;height:100%;background:var(--primary);border-radius:2px"></div>' +
-        '</div>' +
-      '</div>' +
+      (sp.side !== "no-bet" && sp.edge > 0 ?
+        '<div class="pick-chip" style="background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.3)">' +
+          '<div class="pick-chip-label">Edge</div>' +
+          '<div class="pick-chip-val" style="color:var(--accent)">+' + sp.edge + ' pts</div>' +
+          '<div class="pick-chip-sub">vs Vegas</div>' +
+        '</div>' :
+        '<div class="pick-chip pick-neutral">' +
+          '<div class="pick-chip-label">Win Prob</div>' +
+          '<div class="pick-chip-val" style="color:' + (pred.winProbability>=75?"var(--primary)":pred.winProbability>=60?"var(--success)":"var(--gold)") + '">' + pred.winProbability + '%</div>' +
+        '</div>'
+      ) +
     '</div>' +
     '<div class="game-card-footer">' +
       '<span>' + game.venue + '</span>' +

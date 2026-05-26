@@ -929,38 +929,50 @@ function autoBuild() {
 
   const targetLegs = autoBuildLegs || 3;
 
-  const candidates = poolPreds
-    .filter(({ prediction:pred }) => {
-      const sp = pred.spreadPick || {};
-      return sp.side !== "no-bet" && sp.edge >= 1;
-    })
-    .sort((a, b) => {
-      const aEdge = (a.prediction.spreadPick||{}).edge || 0;
-      const bEdge = (b.prediction.spreadPick||{}).edge || 0;
-      return bEdge - aEdge;
-    })
+  const confWeights = { elite:4, high:3, medium:2, low:1 };
+
+  // Score each pick combining curated analyst confidence + model edge
+  const candidates = poolPreds.map(({ game, prediction:pred }) => {
+    const sp = pred.spreadPick || {};
+    const tp = game.gamePreview && game.gamePreview.thePick;
+    const curatedConf = tp && tp.confidence ? confWeights[tp.confidence.toLowerCase()] || 0 : 0;
+    const modelEdge = sp.side !== "no-bet" ? (sp.edge || 0) : 0;
+    const score = curatedConf * 3 + modelEdge;
+    return { game, pred, sp, tp, curatedConf, modelEdge, score };
+  }).filter(x => x.curatedConf > 0 || x.modelEdge >= 1)
+    .sort((a, b) => b.score - a.score)
     .slice(0, targetLegs);
 
   if (!candidates.length) {
     if (analysisEl) analysisEl.textContent = "";
     const weekDesc = weekPool ? `week(s) ${weekPool.join(", ")}` : "all weeks";
-    alert(`No strong model edges found for ${weekDesc}. Try selecting different weeks or adding picks manually.`);
+    alert(`No strong picks found for ${weekDesc}. Try selecting different weeks or adding picks manually.`);
     return;
   }
 
-  candidates.forEach(({ game, prediction:pred }) => {
-    const sp = pred.spreadPick;
+  candidates.forEach(({ game, pred, sp, tp }) => {
     const home = game.homeTeam, away = game.awayTeam;
     const bl = game.bettingLines || {};
     const hso = bl.homeSpreadOdds || -110;
     const aso = bl.awaySpreadOdds || -110;
-    if (sp.side === "home") {
-      const label = `${home.name} will cover spread`;
-      picks[pickKey(game.id, "home")] = { gameId: game.id, side:"home", odds: hso, label, confidence: pred.confidence || "—" };
+
+    // Determine pick team: curated first, then model
+    const curatedTeam = tp && tp.team;
+    let side, teamName, odds;
+    if (curatedTeam) {
+      const isHome = curatedTeam.toLowerCase() === (home.name||"").toLowerCase();
+      side = isHome ? "home" : "away";
+      teamName = curatedTeam;
+      odds = isHome ? hso : aso;
+    } else if (sp.side === "home") {
+      side = "home"; teamName = home.name; odds = hso;
     } else if (sp.side === "away") {
-      const label = `${away.name} will cover spread`;
-      picks[pickKey(game.id, "away")] = { gameId: game.id, side:"away", odds: aso, label, confidence: pred.confidence || "—" };
-    }
+      side = "away"; teamName = away.name; odds = aso;
+    } else { return; }
+
+    const vegasLine = bl.spread != null ? (side === "home" ? fmtSpread(bl.spread) : fmtSpread(-bl.spread)) : "";
+    const label = `${teamName} covers${vegasLine ? " (" + vegasLine + ")" : ""}`;
+    picks[pickKey(game.id, side)] = { gameId: game.id, side, odds, label, confidence: pred.confidence || "—" };
   });
 
   // Fill remaining legs with best total picks if we're short
@@ -977,7 +989,7 @@ function autoBuild() {
       const tp = pred.totalPick;
       const bl = game.bettingLines || {};
       const odds = tp.side === "over" ? (bl.overOdds || -110) : (bl.underOdds || -110);
-      const label = `${game.homeTeam.abbreviation}/${game.awayTeam.abbreviation} — game goes ${tp.side === "over" ? "OVER" : "UNDER"} total`;
+      const label = `${game.homeTeam.abbreviation}/${game.awayTeam.abbreviation} ${tp.side === "over" ? "OVER" : "UNDER"} ${bl.total || ""}`;
       picks[pickKey(game.id, tp.side)] = { gameId: game.id, side: tp.side, odds, label, confidence: pred.confidence || "—" };
     });
   }
