@@ -31,17 +31,8 @@
   <!-- Inner ring accent -->
   <circle cx="200" cy="200" r="178" fill="none" stroke="#f59e0b" stroke-width="1" opacity="0.15"/>
 
-  <!-- Dollar sign icon (top) -->
-  <g transform="translate(200,95)" filter="url(#shadow)">
-    <!-- Vertical bar of $ -->
-    <rect x="-2" y="-22" width="4" height="46" rx="2" fill="#10b981"/>
-    <!-- S shape using arcs -->
-    <path d="M-14,-8 Q-14,-20 0,-20 Q14,-20 14,-10 Q14,0 0,2 Q-14,4 -14,13 Q-14,22 0,22 Q14,22 14,10"
-          fill="none" stroke="#10b981" stroke-width="5.5" stroke-linecap="round"/>
-  </g>
-
   <!-- "THE BET" main text -->
-  <text x="200" y="198"
+  <text x="200" y="185"
         font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
         font-weight="900"
         font-size="62"
@@ -51,10 +42,10 @@
         filter="url(#textshadow)">THE BET</text>
 
   <!-- Thin gold divider line -->
-  <rect x="72" y="212" width="256" height="2" rx="1" fill="#f59e0b" opacity="0.7"/>
+  <rect x="72" y="200" width="256" height="2" rx="1" fill="#f59e0b" opacity="0.7"/>
 
   <!-- "CFB PICKS" subtitle -->
-  <text x="200" y="244"
+  <text x="200" y="232"
         font-family="'Arial', Helvetica, sans-serif"
         font-weight="700"
         font-size="22"
