@@ -142,6 +142,7 @@ jobs:
           fi
 
       - name: Post to X
+        id: post
         env:
           X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
           X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
@@ -167,4 +168,16 @@ jobs:
             $TEAM_ARG \
             $CONF_ARG \
             $DRY
+
+      - name: Rotate refresh token
+        if: always() && steps.cfg.outputs.dry != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -s /tmp/new_refresh_token ]; then
+            gh secret set X_OAUTH2_REFRESH_TOKEN -R rfisher55/the-bet < /tmp/new_refresh_token
+            echo "✅ Refresh token rotated"
+          else
+            echo "ℹ️ No new refresh token (dry run or pre-auth failure)"
+          fi
 

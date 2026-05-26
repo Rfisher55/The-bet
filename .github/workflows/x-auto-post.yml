@@ -84,11 +84,11 @@ jobs:
           fi
 
       - name: Post to X
+        id: post
         env:
-          X_API_KEY:             ${{ secrets.X_API_KEY }}
-          X_API_SECRET:          ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
         run: |
           DRY=""
           [ "${{ steps.cfg.outputs.dry }}" = "true" ] && DRY="--dry-run"
@@ -96,6 +96,18 @@ jobs:
             --type ${{ steps.cfg.outputs.type }} \
             --legs ${{ steps.cfg.outputs.legs }} \
             $DRY
+
+      - name: Rotate refresh token
+        if: always() && steps.cfg.outputs.dry != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -s /tmp/new_refresh_token ]; then
+            gh secret set X_OAUTH2_REFRESH_TOKEN -R rfisher55/the-bet < /tmp/new_refresh_token
+            echo "✅ Refresh token rotated"
+          else
+            echo "ℹ️ No new refresh token (dry run or pre-auth failure)"
+          fi
 
       # On Sundays, commit the updated season-record.json back to the repo
       - name: Save season record

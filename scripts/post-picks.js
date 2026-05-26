@@ -364,8 +364,8 @@ async function main() {
 
   if (dryRun) { console.log('\n[DRY RUN — nothing posted]'); return; }
 
-  if (!process.env.X_API_KEY) {
-    console.error('\n❌ X_API_KEY not set. Add GitHub secrets or use --dry-run.');
+  if (!process.env.X_OAUTH2_CLIENT_ID) {
+    console.error('\n❌ X_OAUTH2_CLIENT_ID not set. Add GitHub secrets or use --dry-run.');
     process.exit(1);
   }
 
