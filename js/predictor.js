@@ -693,17 +693,26 @@ function calcCoachingEdge(home, away) {
  * Returns { side: "home"/"away"/"neutral", strength: 1-10, note, reverseLineMovement }
  */
 function calcSharpMoneySignal(game) {
-  const lm = game.lineMovement || {};
+  // Support both explicit game.lineMovement object and game.socialIntel.lineMovement array
+  const lmRaw = game.lineMovement;
+  const si = game.socialIntel || {};
+  const lmArray = si.lineMovement || [];
+  const pb = si.publicBetting || {};
 
-  const openingLine    = lm.openingLine   ?? null;
-  const currentLine    = lm.currentLine   ?? null;
-  const movementPts    = lm.movementPts   ?? 0;
-  const publicPct      = lm.publicBettingPct ?? 50;  // % on home
+  // Derive structured fields from socialIntel array when lmRaw is absent
+  const lmFirst = lmArray.length > 0 ? lmArray[0] : null;
+  const lmLast  = lmArray.length > 1 ? lmArray[lmArray.length - 1] : lmFirst;
+
+  const lm = lmRaw || {};
+  const openingLine    = lm.openingLine   ?? (lmFirst ? lmFirst.spread : null);
+  const currentLine    = lm.currentLine   ?? (lmLast  ? lmLast.spread  : null);
+  const movementPts    = lm.movementPts   ?? (openingLine !== null && currentLine !== null ? currentLine - openingLine : 0);
+  const publicPct      = lm.publicBettingPct ?? (pb.homePct ?? 50);  // % on home
   const sharpMoneyOn   = (lm.sharpMoneyOn  || "").toLowerCase();
   const steamMoves     = lm.steamMoves    ?? 0;
-  const openingTotal   = lm.openingTotal  ?? null;
-  const currentTotal   = lm.currentTotal  ?? null;
-  const totalMovement  = lm.totalMovement ?? 0;
+  const openingTotal   = lm.openingTotal  ?? (lmFirst ? lmFirst.total : null);
+  const currentTotal   = lm.currentTotal  ?? (lmLast  ? lmLast.total  : null);
+  const totalMovement  = lm.totalMovement ?? (openingTotal !== null && currentTotal !== null ? currentTotal - openingTotal : 0);
 
   let strength = 5; // neutral baseline
   let side     = "neutral";
@@ -1680,7 +1689,7 @@ function predictGame(game) {
     else if (ratingGap >= 5) score += 1;
 
     // Data richness
-    if (game.lineMovement) score += 0.5;
+    if (game.lineMovement || (game.socialIntel && game.socialIntel.lineMovement && game.socialIntel.lineMovement.length > 1)) score += 0.5;
     if (game.weather) score += 0.5;
     if (home.coachingProfile && away.coachingProfile) score += 0.5;
     if (home.programHealth && away.programHealth) score += 0.5;

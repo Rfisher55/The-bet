@@ -720,14 +720,18 @@ function renderGamePage(gData) {
     const wx = game.weather;
     const si = game.socialIntel || {};
 
-    // Line movement
-    const openSprd = bl?.openSpread != null ? fmtSpread(bl.openSpread) : null;
-    const curSprd  = bl?.spread     != null ? fmtSpread(bl.spread)     : null;
+    // Line movement — derive from socialIntel.lineMovement array
+    const siLM = (si.lineMovement && si.lineMovement.length >= 2) ? si.lineMovement : null;
+    const openSprdVal = siLM ? siLM[0].spread : null;
+    const curSprdVal  = bl?.spread != null ? bl.spread : (siLM ? siLM[siLM.length-1].spread : null);
+    const openSprd = openSprdVal != null ? fmtSpread(openSprdVal) : null;
+    const curSprd  = curSprdVal  != null ? fmtSpread(curSprdVal)  : null;
     let lineMoveTxt = "";
-    if (openSprd && curSprd && bl.openSpread !== bl.spread) {
-      const diff = bl.spread - bl.openSpread;
-      const dir  = diff < 0 ? "home covered ↓" : "away covered ↑";
-      lineMoveTxt = `<span style="color:var(--primary);font-weight:800">${Math.abs(diff).toFixed(1)} pts ${dir}</span>`;
+    if (openSprdVal != null && curSprdVal != null && openSprdVal !== curSprdVal) {
+      const diff = curSprdVal - openSprdVal;
+      const dir  = diff < 0 ? "↓" : "↑";
+      const favDir = diff < 0 ? home.abbreviation + " gaining" : away.abbreviation + " gaining";
+      lineMoveTxt = `<span style="color:${diff < 0 ? "var(--primary)" : "var(--gold)"};font-weight:800">${Math.abs(diff).toFixed(1)}pt ${dir} ${favDir}</span>`;
     }
 
     // Win probability (winProbability is always the winner's %; predictedWinner says who)
@@ -752,8 +756,9 @@ function renderGamePage(gData) {
     const pubHome = _pbr?.homePct != null ? Number(_pbr.homePct) : null;
     const pubAway = _pbr?.awayPct  != null ? Number(_pbr.awayPct)  : (pubHome != null ? 100 - pubHome : null);
 
-    // Sharp
-    const sharpSide = bl?.sharpSide || (pred.sharpAlert ? "home" : null);
+    // Sharp money — from predictor signal
+    const smCompact = pred.sharpMoneySignal || null;
+    const sharpSide = (smCompact && smCompact.side !== "neutral" && smCompact.strength >= 6) ? smCompact.side : null;
     const sharpTeam = sharpSide === "home" ? home.abbreviation : sharpSide === "away" ? away.abbreviation : null;
 
     // Weather summary
@@ -1669,17 +1674,43 @@ function renderGamePage(gData) {
   /* 7 — Sharp Money Report (RIGHT column) */
   function renderSharpMoney() {
     const sm = pred.sharpMoneySignal || null;
-    const lm = game.lineMovement || null;
+    const si = game.socialIntel || {};
+    const lmArray = si.lineMovement || [];
+    const lmOpen  = lmArray.length > 0 ? lmArray[0] : null;
+    const lmCur   = lmArray.length > 1 ? lmArray[lmArray.length - 1] : lmOpen;
+    const hasLM   = lmArray.length >= 2;
+    const lineChanged = hasLM && lmOpen && lmCur && lmOpen.spread !== lmCur.spread;
+    const lineMoveDiff = lineChanged ? (lmCur.spread - lmOpen.spread) : 0;
+    // Reverse line movement: public on one side, line moves other
+    const pb = si.publicBetting || {};
+    const pubHome = pb.homePct || 50;
+    const rlmDetected = hasLM && lmOpen && lmCur && (
+      (lineMoveDiff < -0.5 && pubHome < 45) ||  // line moved toward home but public on away
+      (lineMoveDiff > 0.5  && pubHome > 55)      // line moved toward away but public on home
+    );
     return `
       <div class="card card-p mb-5" id="section-sharp">
         <div class="section-label">Sharp Money Report</div>
-        ${sm ? `
+
+        ${rlmDetected ? `
+        <div style="padding:10px 14px;border-radius:var(--radius);background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);margin-bottom:12px;display:flex;align-items:flex-start;gap:10px">
+          <span style="font-size:1rem;flex-shrink:0">⚡</span>
+          <div>
+            <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#f87171;margin-bottom:2px">REVERSE LINE MOVEMENT ALERT</div>
+            <div style="font-size:.72rem;color:var(--text-soft);line-height:1.5">
+              Public betting ${pubHome < 50 ? Math.round(100-pubHome) : Math.round(pubHome)}% on ${pubHome < 50 ? home.name : away.name}
+              but line moved ${lineMoveDiff < 0 ? 'toward' : 'away from'} home — sharp money is fading the public.
+            </div>
+          </div>
+        </div>` : ""}
+
+        ${sm && sm.side !== "neutral" ? `
           <div style="padding:14px;border-radius:var(--radius);background:${sm.side === "home" ? `${home.color}15` : `${away.color}15`};border:1px solid ${sm.side === "home" ? `${home.color}40` : `${away.color}40`};margin-bottom:14px">
             <div class="flex items-center gap-3 mb-2">
               <span class="sharp-arrow" style="color:${readableOnDark(sm.side === "home" ? home.color : away.color)}">→</span>
               <div>
                 <div style="font-size:.7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Smart Money On</div>
-                <div style="font-size:1.1rem;font-weight:900;color:var(--text)">${sm.side === "home" ? home.name : sm.side === "away" ? away.name : "—"}</div>
+                <div style="font-size:1.1rem;font-weight:900;color:var(--text)">${sm.side === "home" ? home.name : away.name}</div>
               </div>
               <div style="margin-left:auto;text-align:right">
                 <div class="text-xs text-muted">Strength</div>
@@ -1689,24 +1720,32 @@ function renderGamePage(gData) {
             ${sm.note ? `<div class="text-xs text-muted" style="font-style:italic;line-height:1.5">${sm.note}</div>` : ""}
           </div>` : `
           <div style="padding:12px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);margin-bottom:14px;text-align:center">
-            <div style="color:var(--muted);font-size:.82rem">No sharp money signal detected for this game</div>
+            <div style="color:var(--muted);font-size:.82rem">No significant sharp money detected — monitor for late movement</div>
           </div>`}
 
-        ${lm ? `
-          <div class="text-xs text-muted mb-2" style="letter-spacing:1px;text-transform:uppercase">Line Movement</div>
+        ${hasLM ? `
+          <div class="text-xs text-muted mb-2" style="letter-spacing:1px;text-transform:uppercase">Line Movement History</div>
           <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:6px">
-            <span style="color:var(--muted-l)">Open: <strong style="color:var(--text)">${lm.open !== undefined ? fmtSpread(lm.open) : "—"}</strong></span>
-            <span style="color:var(--muted-l)">Current: <strong style="color:${lm.current !== undefined && lm.open !== undefined && lm.current !== lm.open ? "var(--primary)" : "var(--text)"};">${lm.current !== undefined ? fmtSpread(lm.current) : "—"}</strong></span>
+            <span style="color:var(--muted-l)">Open: <strong style="color:var(--text)">${lmOpen ? fmtSpread(lmOpen.spread) : "—"}</strong></span>
+            <span style="color:var(--muted-l)">Current: <strong style="color:${lineChanged ? "var(--primary)" : "var(--text)"}">${lmCur ? fmtSpread(lmCur.spread) : "—"}</strong>
+              ${lineChanged ? `<span style="font-size:.6rem;color:${lineMoveDiff < 0 ? "var(--primary)" : "var(--danger)"}"> (${lineMoveDiff > 0 ? "+" : ""}${lineMoveDiff.toFixed(1)})</span>` : ""}
+            </span>
           </div>
+          ${lineChanged ? `
           <div class="line-move-track" style="height:6px;background:var(--border);border-radius:3px;position:relative;margin:8px 0">
-            ${lm.open !== undefined && lm.current !== undefined && lm.open !== lm.current ? `
-              <div style="height:6px;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--primary));width:${Math.min(100, Math.abs(lm.current - lm.open) * 20)}%;margin-left:${lm.current > lm.open ? "auto" : "0"}"></div>` : ""}
-          </div>
-          ${lm.steamMove ? `<div style="margin-top:6px;padding:7px 10px;border-radius:6px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);font-size:.75rem;font-weight:700;color:#f87171">STEAM MOVE DETECTED — Rapid line shift</div>` : ""}
-          ${lm.history && lm.history.length ? `
-            <div style="margin-top:10px">
-              ${lm.history.map(h => `<div class="flex justify-between text-xs text-muted mb-1"><span>${h.time || ""}</span><span style="color:var(--text-soft)">${h.line !== undefined ? fmtSpread(h.line) : ""}</span></div>`).join("")}
-            </div>` : ""}` : ""}
+            <div style="height:6px;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--primary));width:${Math.min(100, Math.abs(lineMoveDiff) * 20)}%;${lineMoveDiff > 0 ? "margin-left:auto" : ""}"></div>
+          </div>` : ""}
+          <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+            ${lmArray.map(h => `
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:7px 10px;border-radius:6px;background:rgba(255,255,255,.02);border:1px solid var(--border)">
+                <span style="font-size:.65rem;font-weight:700;color:var(--muted-l)">${esc(h.time || "")}</span>
+                <div style="text-align:right">
+                  <div style="font-size:.7rem;font-weight:800;color:var(--text)">${fmtSpread(h.spread)} &nbsp; <span style="color:var(--muted)">O/U ${h.total || "—"}</span></div>
+                  ${h.note ? `<div style="font-size:.58rem;color:var(--muted);line-height:1.4;max-width:220px;margin-top:2px">${esc(h.note)}</div>` : ""}
+                </div>
+              </div>`).join("")}
+          </div>` : `
+          <div style="font-size:.72rem;color:var(--muted);padding:8px 0">Line data not yet available for this game.</div>`}
 
         <!-- Public % breakdown -->
         ${lm && (lm.homeTickets !== undefined || lm.homeMoney !== undefined) ? `
