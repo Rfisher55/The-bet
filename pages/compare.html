@@ -550,9 +550,14 @@ function buildComparison(a, b) {
     } catch (e) { /* ignore */ }
   }
 
+  // Pick the most contextually accurate prediction for the Action Plan
+  var bestPred = realGamePred || pred;
+  var gameCtx  = realGame || fakeGame;
+
   const html = [
     buildHeader(a, b, pred),
     realGame && realGamePred ? buildRealGameBanner(a, b, realGame, realGamePred) : '',
+    bestPred ? buildActionPlan(a, b, bestPred, gameCtx) : '',
     pred ? buildWinProb(a, b, pred) : '',
     pred ? buildBettingSignals(a, b, pred) : '',
     buildATSComparison(a, b),
@@ -1163,6 +1168,103 @@ function buildBettingSignals(a, b, pred) {
         <div style="font-size:.7rem;color:var(--muted-l);margin-top:2px">+${(sp.edge||0).toFixed(1)} pt edge · ${pred.winProbability}% win prob · ${pred.confidence.toUpperCase()} confidence</div>
       </div>` : ''}
     </div>`;
+}
+
+// ── Action Plan with Kelly sizing ──────────────────
+function buildActionPlan(a, b, effPred, gameCtx) {
+  if (!effPred) return '';
+  var sp = effPred.spreadPick || {};
+  if (!sp.side || sp.side === 'no-bet') return '';
+
+  var pickedTeam = sp.side === 'home' ? a : b;
+  var edge = sp.edge || 0;
+  var conf = effPred.confidence || 'medium';
+
+  var bl = (gameCtx && gameCtx.bettingLines) || {};
+  var betOdds = sp.side === 'home' ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110);
+  var betDec  = betOdds > 0 ? betOdds / 100 + 1 : 100 / Math.abs(betOdds) + 1;
+
+  var winProb = sp.confidence ? sp.confidence / 100 : effPred.winProbability / 100;
+  var payout  = (betDec - 1) * 100;
+  var ev      = winProb * payout - (1 - winProb) * 100;
+
+  // ½ Kelly criterion
+  var bVal  = betDec - 1;
+  var kelly = bVal > 0 ? (bVal * winProb - (1 - winProb)) / bVal : 0;
+  var halfKelly = Math.max(0, kelly / 2);
+
+  // Standard units
+  var units = conf === 'elite' ? '2' : conf === 'high' ? '1.5' : conf === 'medium' ? '1' : '0.5';
+
+  var evColor = ev >= 5 ? 'var(--primary)' : ev >= 0 ? 'var(--gold)' : 'var(--danger)';
+  var evStr   = (ev >= 0 ? '+' : '') + ev.toFixed(1);
+  var kellyStr = (halfKelly * 100).toFixed(1) + '%';
+
+  // Vegas spread display
+  var vegasLine = bl.spread != null
+    ? (sp.side === 'home' ? fmtSpread(bl.spread) : fmtSpread(-bl.spread))
+    : '—';
+
+  // Pro bullets
+  var proBullets = [];
+  if (edge >= 3) proBullets.push('Strong +' + fix1(edge) + ' pt edge over the posted spread');
+  else if (edge >= 1.5) proBullets.push('+' + fix1(edge) + ' pt model edge vs Vegas line');
+  if (conf === 'elite') proBullets.push('ELITE confidence — highest-certainty model tier');
+  else if (conf === 'high') proBullets.push('HIGH confidence — strong model conviction');
+  var sm = effPred.sharpMoneySignal;
+  if (sm && (sm.strength === 'strong' || sm.strength === 'moderate') && sm.side === sp.side)
+    proBullets.push('Sharp money aligned with this pick');
+  var si = (gameCtx && gameCtx.socialIntel) || {};
+  var pb = si.publicBetting || {};
+  var ourPubPct = sp.side === 'home' ? (pb.homePct || 50) : (pb.awayPct || (100 - (pb.homePct || 50)));
+  if (ourPubPct <= 40) proBullets.push('Only ' + Math.round(ourPubPct) + '% of public on this side — contrarian value');
+
+  // Caution bullets
+  var cautionBullets = [];
+  if (edge < 1.5) cautionBullets.push('Edge vs Vegas is modest — treat as small-unit play');
+  if (kelly <= 0) cautionBullets.push('Negative Kelly — model does not recommend betting at current price');
+  if (effPred.trapGameAlert) cautionBullets.push('Trap game risk — look-ahead or letdown spot detected');
+  if (gameCtx && gameCtx.weather && !gameCtx.weather.indoors) {
+    if (gameCtx.weather.windMph >= 20) cautionBullets.push('High winds (' + gameCtx.weather.windMph + ' mph) — passing game may struggle');
+    if (gameCtx.weather.tempF <= 32) cautionBullets.push('Freezing conditions — favor rush-heavy teams and UNDERs');
+  }
+
+  var spreadLabel = bl.spread != null
+    ? pickedTeam.name + ' ' + vegasLine
+    : pickedTeam.name + ' covers';
+
+  return '<div class="cmp-section" style="border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.03)">'
+    + '<div class="cmp-section-title" style="color:#a78bfa">&#9889; Action Plan</div>'
+    + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-bottom:16px">'
+    +   '<div style="background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);border-radius:var(--radius);padding:12px;text-align:center">'
+    +     '<div style="font-size:.52rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Model Pick</div>'
+    +     '<div style="font-size:.82rem;font-weight:800;color:#a78bfa">' + spreadLabel + '</div>'
+    +     (bl.total ? '<div style="font-size:.6rem;color:var(--muted)">O/U ' + bl.total + '</div>' : '')
+    +   '</div>'
+    +   '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center">'
+    +     '<div style="font-size:.52rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">EV / $100</div>'
+    +     '<div style="font-size:.88rem;font-weight:800;color:' + evColor + '">' + evStr + '</div>'
+    +   '</div>'
+    +   '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center">'
+    +     '<div style="font-size:.52rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Units</div>'
+    +     '<div style="font-size:.88rem;font-weight:800;color:#a78bfa">' + units + 'u</div>'
+    +     '<div style="font-size:.6rem;color:var(--muted)">' + conf.toUpperCase() + '</div>'
+    +   '</div>'
+    +   '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center">'
+    +     '<div style="font-size:.52rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">&#189; Kelly</div>'
+    +     '<div style="font-size:.88rem;font-weight:800;color:var(--text)">' + kellyStr + '</div>'
+    +     '<div style="font-size:.6rem;color:var(--muted)">of bankroll</div>'
+    +   '</div>'
+    + '</div>'
+    + (proBullets.length
+      ? '<div style="margin-bottom:12px"><div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:6px">WHY BET THIS</div>'
+        + proBullets.map(function(pt) { return '<div style="font-size:.72rem;color:var(--text-soft);margin-bottom:5px;display:flex;align-items:flex-start;gap:6px"><span style="color:var(--primary);flex-shrink:0">&#10003;</span>' + pt + '</div>'; }).join('')
+        + '</div>' : '')
+    + (cautionBullets.length
+      ? '<div><div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">CAUTION</div>'
+        + cautionBullets.map(function(pt) { return '<div style="font-size:.72rem;color:var(--text-soft);margin-bottom:5px;display:flex;align-items:flex-start;gap:6px"><span style="color:var(--gold);flex-shrink:0">&#9888;</span>' + pt + '</div>'; }).join('')
+        + '</div>' : '')
+    + '</div>';
 }
 
 // ── Init ────────────────────────────────────────────

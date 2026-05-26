@@ -1006,6 +1006,70 @@
       </div>
     </div>
 
+    <!-- Middle / Arbitrage Calculator -->
+    <div class="section-label" style="margin-top:28px">&#8651; Middle Calculator</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">A "middle" occurs when you bet both sides of a game at different spreads, creating a window where <em>both bets win</em>. Enter your two spread bets to find the middle window, probability, and EV.</p>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:28px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px;margin-bottom:20px">
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Bet 1 Spread (Fav)</label>
+          <input type="number" id="mid-sp1" value="-3" step="0.5" placeholder="-3"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1rem;font-weight:700;outline:none"
+            oninput="calcMiddle()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+          <div style="font-size:.65rem;color:var(--muted);margin-top:5px">e.g. -3 for fav -3</div>
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Bet 1 Stake ($)</label>
+          <input type="number" id="mid-s1" value="110" min="1" placeholder="110"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1rem;font-weight:700;outline:none"
+            oninput="calcMiddle()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Bet 1 Odds</label>
+          <input type="number" id="mid-o1" value="-110" placeholder="-110"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1rem;font-weight:700;outline:none"
+            oninput="calcMiddle()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Bet 2 Spread (Dog)</label>
+          <input type="number" id="mid-sp2" value="6" step="0.5" placeholder="6"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1rem;font-weight:700;outline:none"
+            oninput="calcMiddle()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+          <div style="font-size:.65rem;color:var(--muted);margin-top:5px">e.g. 6 for dog +6</div>
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Bet 2 Stake ($)</label>
+          <input type="number" id="mid-s2" value="110" min="1" placeholder="110"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1rem;font-weight:700;outline:none"
+            oninput="calcMiddle()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Bet 2 Odds</label>
+          <input type="number" id="mid-o2" value="-110" placeholder="-110"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1rem;font-weight:700;outline:none"
+            oninput="calcMiddle()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+      </div>
+      <div id="middle-result" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+        <div style="font-size:.78rem;color:var(--muted)">Enter both spread bets to calculate the middle window</div>
+      </div>
+    </div>
+
+    <!-- Break-Even Finder -->
+    <div class="section-label">&#127919; Break-Even Finder</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">At any given odds, how often do you need to win to break even — and what win rate do you need to beat the vig? Use this to quickly evaluate whether your edge is real.</p>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:28px">
+      <div style="max-width:300px;margin-bottom:20px">
+        <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">American Odds</label>
+        <input type="number" id="be-odds" value="-110" placeholder="-110"
+          style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1.1rem;font-weight:700;outline:none"
+          oninput="calcBreakEven()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+      </div>
+      <div id="be-result" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+        <div style="font-size:.78rem;color:var(--muted)">Enter odds to see break-even analysis</div>
+      </div>
+    </div>
+
   </div><!-- /#tab-tools -->
 
 </main><!-- /.container.page-content -->
@@ -1217,6 +1281,144 @@ function calcHedge() {
   + '</div>';
 }
 calcHedge();
+
+// Middle Calculator
+function calcMiddle() {
+  var sp1 = parseFloat(document.getElementById('mid-sp1').value); // e.g. -3
+  var s1  = parseFloat(document.getElementById('mid-s1').value);  // stake 1
+  var o1  = parseInt(document.getElementById('mid-o1').value, 10);
+  var sp2 = parseFloat(document.getElementById('mid-sp2').value); // e.g. 6 (dog line)
+  var s2  = parseFloat(document.getElementById('mid-s2').value);  // stake 2
+  var o2  = parseInt(document.getElementById('mid-o2').value, 10);
+  var el  = document.getElementById('middle-result');
+  if (isNaN(sp1)||isNaN(sp2)||isNaN(s1)||isNaN(s2)||isNaN(o1)||isNaN(o2)||s1<=0||s2<=0) {
+    el.innerHTML = '<div style="font-size:.78rem;color:var(--muted)">Enter both spread bets to calculate the middle window</div>';
+    return;
+  }
+  // sp1 is fav spread (negative), sp2 is dog spread (positive)
+  // Middle exists when sp2 > Math.abs(sp1)
+  var favLine = Math.abs(sp1);
+  var dogLine = Math.abs(sp2);
+  var window  = dogLine - favLine;
+
+  var dec1 = o1 > 0 ? o1/100+1 : 100/Math.abs(o1)+1;
+  var dec2 = o2 > 0 ? o2/100+1 : 100/Math.abs(o2)+1;
+  var win1 = s1 * (dec1 - 1); // profit if bet1 wins
+  var win2 = s2 * (dec2 - 1); // profit if bet2 wins
+
+  if (window <= 0) {
+    var arb = '';
+    if (window === 0) arb = 'Lines are equal — no middle window. One bet will always win (free arbitrage if no-vig).';
+    else arb = 'No middle exists — the spreads overlap. Bet 1 wins if margin > ' + favLine + ', Bet 2 wins if margin ≤ ' + dogLine + ' — these overlap at the same game result.';
+    el.innerHTML = '<div style="font-size:.8rem;color:var(--gold);padding:8px 12px;border-radius:8px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2)">'
+      + '&#9888; ' + arb + '</div>';
+    return;
+  }
+
+  // Both bets win if margin is strictly between favLine and dogLine
+  // e.g. favLine=3, dogLine=6 → both win if margin is 4 or 5
+  var midPoints = Math.floor(dogLine) - Math.ceil(favLine); // integer score margins in window
+  // Rough probability: each point gap ≈ 3.0% for NFL/CFB
+  var pMid = Math.min(midPoints * 0.030, 0.50);
+
+  // p(bet1 wins, bet2 loses) ≈ (1 - pMid) * 0.5
+  // p(bet2 wins, bet1 loses) ≈ (1 - pMid) * 0.5
+  // Actually: bet1 (fav covers) wins when margin > favLine; bet2 wins when margin <= dogLine
+  // Simplified: assume roughly equal split of non-middle results
+  var pB1only = (1 - pMid) * 0.50;
+  var pB2only = (1 - pMid) * 0.50;
+
+  var evMid   = win1 + win2;
+  var evB1    = win1 - s2;
+  var evB2    = win2 - s1;
+  var evOverall = pMid * evMid + pB1only * evB1 + pB2only * evB2;
+
+  var midColor = pMid >= 0.12 ? 'var(--primary)' : pMid >= 0.06 ? 'var(--gold)' : 'var(--muted-l)';
+  var evColor  = evOverall >= 0 ? 'var(--primary)' : 'var(--danger)';
+  var evStr    = (evOverall >= 0 ? '+' : '') + evOverall.toFixed(2);
+
+  el.innerHTML = '<div style="font-size:.7rem;color:var(--primary);font-weight:800;margin-bottom:10px">&#10003; Middle exists! Window: margin between ' + favLine + ' and ' + dogLine + ' (' + midPoints + ' score gap)</div>'
+    + '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:12px">'
+    + '<div style="padding:10px;border-radius:8px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);text-align:center">'
+    +   '<div style="font-size:.55rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Middle Prob</div>'
+    +   '<div style="font-size:1.1rem;font-weight:900;color:' + midColor + '">' + (pMid * 100).toFixed(1) + '%</div>'
+    +   '<div style="font-size:.58rem;color:var(--muted)">both bets win</div>'
+    + '</div>'
+    + '<div style="padding:10px;border-radius:8px;background:var(--surface);border:1px solid var(--border);text-align:center">'
+    +   '<div style="font-size:.55rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Both Win</div>'
+    +   '<div style="font-size:1.1rem;font-weight:900;color:var(--primary)">+$' + evMid.toFixed(2) + '</div>'
+    +   '<div style="font-size:.58rem;color:var(--muted)">profit if middle hits</div>'
+    + '</div>'
+    + '<div style="padding:10px;border-radius:8px;background:var(--surface);border:1px solid var(--border);text-align:center">'
+    +   '<div style="font-size:.55rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">One Wins</div>'
+    +   '<div style="font-size:1.1rem;font-weight:900;color:var(--gold)">+$' + Math.max(evB1, evB2).toFixed(2) + '</div>'
+    +   '<div style="font-size:.58rem;color:var(--muted)">best single-win profit</div>'
+    + '</div>'
+    + '<div style="padding:10px;border-radius:8px;background:rgba(' + (evOverall >= 0 ? '16,185,129' : '239,68,68') + ',.06);border:1px solid rgba(' + (evOverall >= 0 ? '16,185,129' : '239,68,68') + ',.2);text-align:center">'
+    +   '<div style="font-size:.55rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Expected Value</div>'
+    +   '<div style="font-size:1.1rem;font-weight:900;color:' + evColor + '">' + evStr + '</div>'
+    +   '<div style="font-size:.58rem;color:var(--muted)">per attempt</div>'
+    + '</div>'
+    + '</div>'
+    + '<div style="font-size:.7rem;color:var(--muted-l);line-height:1.55">Total stake: $' + (s1+s2).toFixed(2) + ' across both books. Middle probability is approximate (3% per score margin). Play this when line movement gives you a free or near-free middle.</div>';
+}
+calcMiddle();
+
+// Break-Even Finder
+function calcBreakEven() {
+  var odds = parseInt(document.getElementById('be-odds').value, 10);
+  var el   = document.getElementById('be-result');
+  if (isNaN(odds) || odds === 0) {
+    el.innerHTML = '<div style="font-size:.78rem;color:var(--muted)">Enter valid odds</div>';
+    return;
+  }
+  var dec = odds > 0 ? odds/100+1 : 100/Math.abs(odds)+1;
+  var impliedPct = (1/dec) * 100;
+  var breakeven  = impliedPct; // you need to win this % just to break even
+  var profit10   = breakeven + 2.0; // at +2% edge
+  var profit5    = breakeven + 1.0; // at +1% edge
+  var payout     = (dec - 1) * 100; // profit per $100 risked
+
+  var tiers = [
+    { label: 'Break Even', pct: breakeven, color: 'var(--muted)' },
+    { label: '+1% Edge',   pct: breakeven + 1, color: 'var(--gold)' },
+    { label: '+3% Edge',   pct: breakeven + 3, color: '#34d399' },
+    { label: '+5% Edge',   pct: breakeven + 5, color: 'var(--primary)' },
+  ];
+
+  var evAtEdges = [1, 3, 5, 8].map(function(edge) {
+    var wp = (breakeven + edge) / 100;
+    var ev = wp * payout - (1 - wp) * 100;
+    return { edge: edge, ev: ev };
+  });
+
+  el.innerHTML = '<div style="margin-bottom:12px">'
+    + '<div style="font-size:.88rem;font-weight:800;color:var(--text)">At ' + (odds > 0 ? '+' : '') + odds + ' odds you need to win <strong style="color:var(--primary)">' + breakeven.toFixed(1) + '%</strong> just to break even</div>'
+    + '<div style="font-size:.72rem;color:var(--muted);margin-top:3px">Payout: +$' + payout.toFixed(2) + ' per $100 wagered · Decimal: ' + dec.toFixed(3) + '</div>'
+    + '</div>'
+    + '<div style="margin-bottom:14px">'
+    + tiers.map(function(t) {
+      return '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">'
+        + '<span style="font-size:.72rem;font-weight:700;color:' + t.color + ';min-width:90px">' + t.label + '</span>'
+        + '<span style="font-size:.82rem;font-weight:800;color:var(--text)">' + t.pct.toFixed(1) + '%</span>'
+        + '<div style="flex:1;height:5px;border-radius:3px;background:var(--border);overflow:hidden">'
+        +   '<div style="height:100%;border-radius:3px;background:' + t.color + ';width:' + Math.min(t.pct, 100) + '%"></div>'
+        + '</div>'
+        + '</div>';
+    }).join('')
+    + '</div>'
+    + '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px">'
+    + evAtEdges.map(function(e) {
+      var c = e.ev >= 0 ? 'var(--primary)' : 'var(--danger)';
+      return '<div style="padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border);text-align:center">'
+        + '<div style="font-size:.5rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">+' + e.edge + '% Edge</div>'
+        + '<div style="font-size:.85rem;font-weight:900;color:' + c + '">' + (e.ev >= 0 ? '+' : '') + e.ev.toFixed(1) + '</div>'
+        + '<div style="font-size:.52rem;color:var(--muted)">EV/$100</div>'
+        + '</div>';
+    }).join('')
+    + '</div>';
+}
+calcBreakEven();
 </script>
 
 <!-- ── Tab switching JS ────────────────────────────── -->

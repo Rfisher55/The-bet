@@ -190,6 +190,7 @@
         <div class="chip" data-t="fade">🔄 Fade Public</div>
         <div class="chip" data-t="weather">🌬️ Weather</div>
         <div class="chip" data-t="triplelock">🔒 Triple Lock</div>
+        <div class="chip" data-t="streak">🔥 ATS Streak</div>
       </div>
     </div>
   </div>
@@ -887,6 +888,20 @@ function renderGameCard(game, pred) {
           }
         }
 
+        // ATS Streak chip — show when either team has 3+ game ATS winning streak
+        if (window.TEAMS) {
+          const hTeamD = TEAMS[game.homeTeamId];
+          const aTeamD = TEAMS[game.awayTeamId];
+          const hStreak = hTeamD && (hTeamD.atsCurrentStreak || 0);
+          const aStreak = aTeamD && (aTeamD.atsCurrentStreak || 0);
+          if (hStreak >= 3 || aStreak >= 3) {
+            const streakParts = [];
+            if (hStreak >= 3) streakParts.push(`${home.abbreviation} ${hStreak}-0 ATS`);
+            if (aStreak >= 3) streakParts.push(`${away.abbreviation} ${aStreak}-0 ATS`);
+            chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.4);color:#fb923c" title="ATS winning streak">🔥 ${streakParts.join(" · ")}</span>`);
+          }
+        }
+
         // EV chip — show when model has positive expected value
         if (bl && pred.winProbability) {
           const gp3 = game.gamePreview;
@@ -1042,6 +1057,14 @@ function render() {
       const pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
       const pubOnPick = pickIsHome ? (pb.homePct || 50) : (100 - (pb.homePct || 50));
       return pubOnPick <= 42;
+    });
+  } else if (typeFilter === "streak") {
+    // ATS Streak: either team on a 3+ game ATS winning streak
+    list = list.filter(({ game }) => {
+      const homeTeam = window.TEAMS && TEAMS[game.homeTeamId];
+      const awayTeam = window.TEAMS && TEAMS[game.awayTeamId];
+      return (homeTeam && (homeTeam.atsCurrentStreak || 0) >= 3) ||
+             (awayTeam && (awayTeam.atsCurrentStreak || 0) >= 3);
     });
   }
 

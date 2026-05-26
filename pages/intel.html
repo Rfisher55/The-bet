@@ -136,6 +136,18 @@
     </div>
   </div>
 
+  <!-- Value Plays of the Week -->
+  <div style="margin-bottom:24px" id="value-plays-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">MODEL + SHARP ALIGNMENT</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">&#9889; Top Value Plays</div>
+      </div>
+      <span style="font-size:.62rem;color:var(--muted)">Ranked by edge × sharp alignment × public fade</span>
+    </div>
+    <div id="value-plays-dash"></div>
+  </div>
+
   <!-- Sharp Money Summary -->
   <div style="margin-bottom:24px" id="sm-summary-section">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
@@ -724,6 +736,97 @@ function buildInjuryImpact() {
   }).join("");
 }
 
+function buildValuePlays() {
+  var el = document.getElementById("value-plays-dash");
+  if (!el || !window.GAMES || !window.predictGame) return;
+
+  var plays = [];
+  window.GAMES.forEach(function(g) {
+    try {
+      var game = window.resolveGame ? resolveGame(g) : g;
+      var pred = predictGame(game);
+      if (!pred) return;
+
+      var sp = pred.spreadPick || {};
+      if (!sp.side || sp.side === "no-bet" || (sp.edge || 0) < 1.5) return;
+
+      var si = (game.socialIntel) || {};
+      var pb = si.publicBetting || {};
+      var homePct = pb.homePct || 50;
+      var ourPubPct = sp.side === "home" ? homePct : (100 - homePct);
+
+      var sm = pred.sharpMoneySignal;
+      var sharpAligned = sm && (sm.strength === "strong" || sm.strength === "moderate") && sm.side === sp.side;
+
+      var score = (sp.edge || 0) * 2
+        + (sharpAligned ? 5 : 0)
+        + (ourPubPct <= 40 ? 4 : ourPubPct <= 45 ? 2 : 0)
+        + (pred.confidence === "elite" ? 4 : pred.confidence === "high" ? 2 : 0);
+
+      if (score < 3) return;
+
+      var bl = (game.bettingLines) || {};
+      var betOdds = sp.side === "home" ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110);
+      var betDec = betOdds > 0 ? betOdds / 100 + 1 : 100 / Math.abs(betOdds) + 1;
+      var winProb = sp.confidence ? sp.confidence / 100 : pred.winProbability / 100;
+      var payout = (betDec - 1) * 100;
+      var ev = winProb * payout - (1 - winProb) * 100;
+
+      plays.push({ game: game, pred: pred, sp: sp, score: score, ev: ev, sharpAligned: sharpAligned, ourPubPct: ourPubPct });
+    } catch(e) {}
+  });
+
+  plays.sort(function(a, b) { return b.score - a.score; });
+
+  if (!plays.length) {
+    el.innerHTML = '<div style="padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:.78rem;color:var(--muted)">No strong value plays identified yet — check back as lines are posted closer to game day.</div>';
+    return;
+  }
+
+  el.innerHTML = plays.slice(0, 5).map(function(p, idx) {
+    var g = p.game;
+    var home = g.homeTeam || (window.TEAMS && TEAMS[g.homeTeamId]);
+    var away = g.awayTeam || (window.TEAMS && TEAMS[g.awayTeamId]);
+    if (!home || !away) return '';
+
+    var hAbbr = home.abbreviation || home.name.slice(0,4);
+    var aAbbr = away.abbreviation || away.name.slice(0,4);
+    var pickedTeam = p.sp.side === "home" ? home : away;
+    var pickedAbbr = p.sp.side === "home" ? hAbbr : aAbbr;
+
+    var bl = g.bettingLines || {};
+    var vegasLine = bl.spread != null
+      ? (p.sp.side === "home" ? fmtSp(bl.spread) : fmtSp(-bl.spread)) : "";
+
+    var evColor = p.ev >= 5 ? "var(--primary)" : p.ev >= 0 ? "var(--gold)" : "var(--danger)";
+    var evStr = (p.ev >= 0 ? "+" : "") + p.ev.toFixed(1);
+
+    var tags = [];
+    if (p.sharpAligned) tags.push('<span style="font-size:.52rem;font-weight:900;padding:2px 6px;border-radius:4px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary)">&#128176; SHARP</span>');
+    if (p.ourPubPct <= 42) tags.push('<span style="font-size:.52rem;font-weight:900;padding:2px 6px;border-radius:4px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.3);color:#a78bfa">CONTRARIAN</span>');
+    var rankColors = ["var(--primary)", "#34d399", "var(--gold)", "var(--gold)", "var(--muted-l)"];
+    var rankLabels = ["#1 PLAY", "#2 PLAY", "#3 PLAY", "#4 PLAY", "#5 PLAY"];
+
+    return '<a href="game.html?id=' + g.id + '" style="display:block;text-decoration:none;padding:12px 14px;border-radius:12px;border:1px solid ' + (idx === 0 ? 'rgba(16,185,129,.4)' : 'rgba(16,185,129,.2)') + ';background:' + (idx === 0 ? 'rgba(16,185,129,.04)' : 'var(--surface)') + ';margin-bottom:8px;transition:all .15s">'
+      + '<div style="display:flex;align-items:center;gap:10px">'
+      +   '<div style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:900;flex-shrink:0;background:' + rankColors[idx] + '18;border:2px solid ' + rankColors[idx] + '60;color:' + rankColors[idx] + '">' + (idx+1) + '</div>'
+      +   '<div style="flex:1;min-width:0">'
+      +     '<div style="font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:1px">' + pickedAbbr + ' covers <span style="color:var(--primary)">' + vegasLine + '</span></div>'
+      +     '<div style="font-size:.62rem;color:var(--muted);margin-bottom:4px">' + aAbbr + ' @ ' + hAbbr + ' &middot; Wk ' + g.week + (bl.total ? ' &middot; O/U ' + bl.total : '') + '</div>'
+      +     (tags.length ? '<div style="display:flex;gap:4px;flex-wrap:wrap">' + tags.join("") + '</div>' : '')
+      +   '</div>'
+      +   '<div style="flex-shrink:0;text-align:right">'
+      +     '<div style="padding:5px 10px;border-radius:8px;background:var(--card);border:1px solid var(--border);text-align:center;min-width:58px">'
+      +       '<div style="font-size:.85rem;font-weight:900;color:' + evColor + '">' + evStr + '</div>'
+      +       '<div style="font-size:.48rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">EV/$100</div>'
+      +     '</div>'
+      +     '<div style="font-size:.6rem;color:var(--primary);font-weight:700;margin-top:4px;text-align:right">Analyze &#8594;</div>'
+      +   '</div>'
+      + '</div>'
+      + '</a>';
+  }).join("");
+}
+
 function buildSharpSummary() {
   var el = document.getElementById("sm-summary-dash");
   if (!el || !window.GAMES) return;
@@ -838,6 +941,7 @@ window.addEventListener("liveDataReady", function(e) {
   var d = e.detail || {};
   if (d.twitterTweets) window.__latestTweets = d.twitterTweets;
   if (d.espnNews)      window.__latestESPN   = d.espnNews;
+  buildValuePlays();
   buildWeatherAlerts();
   buildInjuryImpact();
   buildSharpSummary();
@@ -854,6 +958,7 @@ setInterval(function() {
 }, 60000);
 
 // Initial render
+buildValuePlays();
 buildWeatherAlerts();
 buildInjuryImpact();
 buildSharpSummary();

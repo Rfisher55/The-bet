@@ -281,6 +281,18 @@
   <!-- Stats strip -->
   <div class="stats-strip mb-5" id="page-stats"></div>
 
+  <!-- My Saved Parlays -->
+  <div class="card card-p mb-5" id="saved-parlays-panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">SAVE &amp; RELOAD</div>
+        <div style="font-size:.92rem;font-weight:900;color:var(--text)">&#128190; My Saved Parlays</div>
+      </div>
+      <div style="font-size:.65rem;color:var(--muted)">3 save slots · stored locally</div>
+    </div>
+    <div id="saved-parlays-list"></div>
+  </div>
+
   <!-- Auto Build panel -->
   <div class="card card-p mb-5" id="auto-build-panel">
     <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:10px">AUTO-BUILD SETTINGS</div>
@@ -401,7 +413,8 @@
     <!-- Action buttons -->
     <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
       <button onclick="clearParlay()" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer">Clear All</button>
-      <button onclick="copyParlay(this)" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer">📋 Copy Picks</button>
+      <button onclick="copyParlay(this)" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer">&#128203; Copy Picks</button>
+      <button onclick="openSaveSlotDialog()" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(99,102,241,.4);background:rgba(99,102,241,.08);color:var(--accent);font-size:.78rem;font-weight:700;cursor:pointer">&#128190; Save Parlay</button>
     </div>
   </div>
 
@@ -1315,6 +1328,101 @@ function renderGameList() {
   }).join("");
 }
 
+// ── Save / Load Parlay slots ──────────────────────
+var PARLAY_SAVE_KEY = "theBet_savedParlays";
+
+function getSavedParlays() {
+  try { return JSON.parse(localStorage.getItem(PARLAY_SAVE_KEY) || "[]"); } catch(e) { return []; }
+}
+
+function renderSavedParlays() {
+  var saved = getSavedParlays();
+  var el = document.getElementById("saved-parlays-list");
+  if (!el) return;
+  if (!saved.length) {
+    el.innerHTML = '<div style="font-size:.78rem;color:var(--muted);padding:8px 0">No saved parlays yet. Build a parlay and click Save Parlay to store it here.</div>';
+    return;
+  }
+  el.innerHTML = saved.map(function(sl, i) {
+    var legCount = sl.legs ? sl.legs.length : 0;
+    var american = sl.american != null ? (sl.american > 0 ? "+" + sl.american : sl.american) : "—";
+    var winPct = sl.winPct != null ? sl.winPct + "%" : "—";
+    var evStr = sl.ev != null ? (sl.ev >= 0 ? "+" : "") + sl.ev.toFixed(1) : "—";
+    var evColor = sl.ev != null ? (sl.ev >= 5 ? "var(--primary)" : sl.ev >= 0 ? "var(--gold)" : "var(--danger)") : "var(--muted)";
+    return '<div style="padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface);margin-bottom:6px">'
+      + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
+      + '<div style="flex:1;min-width:0">'
+      +   '<div style="font-size:.78rem;font-weight:800;color:var(--text);margin-bottom:2px">' + (sl.name || "Parlay " + (i+1)) + '</div>'
+      +   '<div style="font-size:.62rem;color:var(--muted);margin-bottom:4px">' + legCount + ' legs &middot; ' + (sl.savedAt ? new Date(sl.savedAt).toLocaleDateString() : "") + '</div>'
+      +   (sl.legs ? '<div style="display:flex;flex-wrap:wrap;gap:4px">' + sl.legs.slice(0,4).map(function(l) {
+        return '<span style="font-size:.58rem;font-weight:700;padding:1px 6px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text-soft)">' + (l.label || l.side) + '</span>';
+      }).join("") + (sl.legs.length > 4 ? '<span style="font-size:.58rem;color:var(--muted)">+' + (sl.legs.length-4) + ' more</span>' : '') + '</div>' : '')
+      + '</div>'
+      + '<div style="display:flex;gap:8px;align-items:center;flex-shrink:0;flex-wrap:wrap">'
+      +   '<div style="text-align:center;min-width:40px"><div style="font-size:.78rem;font-weight:900;color:var(--primary)">' + american + '</div><div style="font-size:.5rem;color:var(--muted);font-weight:700;text-transform:uppercase">Odds</div></div>'
+      +   '<div style="text-align:center;min-width:40px"><div style="font-size:.78rem;font-weight:900;color:var(--gold)">' + winPct + '</div><div style="font-size:.5rem;color:var(--muted);font-weight:700;text-transform:uppercase">Win%</div></div>'
+      +   '<div style="text-align:center;min-width:40px"><div style="font-size:.78rem;font-weight:900;color:' + evColor + '">' + evStr + '</div><div style="font-size:.5rem;color:var(--muted);font-weight:700;text-transform:uppercase">EV</div></div>'
+      +   '<button onclick="loadSavedParlay(' + i + ')" style="padding:6px 12px;border-radius:7px;background:var(--primary);color:#fff;font-size:.72rem;font-weight:800;border:none;cursor:pointer">Load</button>'
+      +   '<button onclick="deleteSavedParlay(' + i + ')" style="padding:6px 12px;border-radius:7px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--danger);font-size:.72rem;font-weight:700;cursor:pointer">&#10005;</button>'
+      + '</div>'
+      + '</div>'
+      + '</div>';
+  }).join("");
+}
+
+function openSaveSlotDialog() {
+  const entries = Object.entries(picks);
+  if (!entries.length) { alert("Add picks to your parlay first, then save."); return; }
+  var name = document.getElementById("parlay-name").value.trim() || ("Week " + (activeWeek || 1) + " Parlay");
+  var legOdds = entries.map(function(e) { return e[1].odds; });
+  var parlay = calcParlayOdds(legOdds);
+  var modelWinProb = combinedModelProb();
+  var payout = (parlay.decimal - 1) * 100;
+  var ev = modelWinProb * payout - (1 - modelWinProb) * 100;
+  var slot = {
+    name: name,
+    savedAt: Date.now(),
+    legs: entries.map(function(e) { return e[1]; }),
+    legKeys: entries.map(function(e) { return e[0]; }),
+    american: parlay.american,
+    winPct: Math.round(modelWinProb * 100),
+    ev: ev
+  };
+  var saved = getSavedParlays();
+  // Keep last 3 saves; newest first
+  saved.unshift(slot);
+  if (saved.length > 3) saved = saved.slice(0, 3);
+  localStorage.setItem(PARLAY_SAVE_KEY, JSON.stringify(saved));
+  renderSavedParlays();
+  // Brief flash confirmation on the button
+  var btn = document.querySelector('[onclick="openSaveSlotDialog()"]');
+  if (btn) { var orig = btn.innerHTML; btn.innerHTML = "&#10003; Saved!"; btn.style.background = "rgba(16,185,129,.15)"; btn.style.borderColor = "var(--primary)"; btn.style.color = "var(--primary)"; setTimeout(function() { btn.innerHTML = orig; btn.style.background = ""; btn.style.borderColor = ""; btn.style.color = ""; }, 1600); }
+}
+
+function loadSavedParlay(idx) {
+  var saved = getSavedParlays();
+  var slot = saved[idx];
+  if (!slot || !slot.legs) return;
+  clearParlay();
+  slot.legs.forEach(function(leg, i) {
+    var key = slot.legKeys ? slot.legKeys[i] : (leg.gameId + "|" + leg.side);
+    picks[key] = leg;
+  });
+  var el = document.getElementById("parlay-name");
+  if (el) { el.value = slot.name || "Saved Parlay"; saveParlayName(); }
+  renderGameList();
+  updateSummary();
+  scrollToSummary();
+  showPickToast();
+}
+
+function deleteSavedParlay(idx) {
+  var saved = getSavedParlays();
+  saved.splice(idx, 1);
+  localStorage.setItem(PARLAY_SAVE_KEY, JSON.stringify(saved));
+  renderSavedParlays();
+}
+
 let parlayLiveLoaded = false;
 
 // Stats strip
@@ -1719,6 +1827,7 @@ document.getElementById("suggest-tabs").addEventListener("click", function(e) {
 });
 
 // Initial render
+renderSavedParlays();
 renderGameList();
 updateSummary();
 renderOptimalSuggestions();

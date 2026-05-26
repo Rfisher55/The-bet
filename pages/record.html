@@ -158,6 +158,21 @@
     </div>
   </div>
 
+  <!-- Rolling 10 pick trend -->
+  <div id="rolling-trend-section" style="margin-bottom:24px;display:none">
+    <div class="section-label mb-3">Last 10 Picks — Rolling Win Rate</div>
+    <div id="rolling-trend-wrap" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px">
+      <div id="rolling-trend-dots" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:8px"></div>
+      <div id="rolling-trend-stats" style="font-size:.72rem;color:var(--muted)"></div>
+    </div>
+  </div>
+
+  <!-- Weekly P&L breakdown -->
+  <div id="weekly-pnl-section" style="margin-bottom:24px;display:none">
+    <div class="section-label mb-3">Week-by-Week Performance</div>
+    <div id="weekly-pnl-wrap"></div>
+  </div>
+
   <!-- Pick history -->
   <div class="flex items-center justify-between mb-3" style="flex-wrap:wrap;gap:8px">
     <div class="section-label mb-0">Published Pick History</div>
@@ -303,11 +318,68 @@ function renderList() {
   }).join('');
 }
 
+function renderRollingTrend(picks) {
+  var settled = picks.filter(function(p) { return p.result === 'W' || p.result === 'L'; });
+  if (settled.length < 3) { document.getElementById('rolling-trend-section').style.display = 'none'; return; }
+  document.getElementById('rolling-trend-section').style.display = '';
+  var last10 = settled.slice(-10);
+  var wins10 = last10.filter(function(p) { return p.result === 'W'; }).length;
+  var dotsHtml = last10.map(function(p) {
+    var color = p.result === 'W' ? 'var(--primary)' : 'var(--danger)';
+    var bg = p.result === 'W' ? 'rgba(16,185,129,.15)' : 'rgba(239,68,68,.12)';
+    var border = p.result === 'W' ? 'rgba(16,185,129,.5)' : 'rgba(239,68,68,.4)';
+    return '<div style="width:32px;height:32px;border-radius:50%;background:' + bg + ';border:2px solid ' + border + ';display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;color:' + color + '" title="' + fmtDate(p.gameDate) + '">' + p.result + '</div>';
+  }).join('');
+  var streakDir = last10[last10.length-1].result;
+  var streakCount = 0;
+  for (var i = last10.length - 1; i >= 0; i--) {
+    if (last10[i].result === streakDir) streakCount++;
+    else break;
+  }
+  var streakLabel = streakCount + '-' + streakDir + ' streak';
+  var winRate10 = Math.round(wins10 / last10.length * 100);
+  var rateColor = winRate10 >= 60 ? 'var(--primary)' : winRate10 >= 50 ? 'var(--gold)' : 'var(--danger)';
+  document.getElementById('rolling-trend-dots').innerHTML = dotsHtml;
+  document.getElementById('rolling-trend-stats').innerHTML =
+    '<strong style="color:' + rateColor + '">' + wins10 + '-' + (last10.length - wins10) + ' (' + winRate10 + '%)</strong> in last ' + last10.length + ' picks &middot; '
+    + '<strong style="color:' + (streakDir === 'W' ? 'var(--primary)' : 'var(--danger)') + '">' + streakLabel + '</strong>';
+}
+
+function renderWeeklyPnL(picks) {
+  var settled = picks.filter(function(p) { return (p.result === 'W' || p.result === 'L') && p.gameWeek; });
+  if (settled.length < 3) { document.getElementById('weekly-pnl-section').style.display = 'none'; return; }
+  document.getElementById('weekly-pnl-section').style.display = '';
+  var byWeek = {};
+  settled.forEach(function(p) {
+    var wk = p.gameWeek || 'Wk?';
+    if (!byWeek[wk]) byWeek[wk] = { wins:0, losses:0, units:0 };
+    if (p.result === 'W') { byWeek[wk].wins++; byWeek[wk].units += (p.kellyPct || 1); }
+    else { byWeek[wk].losses++; byWeek[wk].units -= (p.kellyPct || 1); }
+  });
+  var weeks = Object.keys(byWeek).sort(function(a,b){ return parseInt(a)-parseInt(b); });
+  document.getElementById('weekly-pnl-wrap').innerHTML = weeks.map(function(wk) {
+    var d = byWeek[wk];
+    var total = d.wins + d.losses;
+    var pct = total ? Math.round(d.wins / total * 100) : 0;
+    var unitsStr = (d.units >= 0 ? '+' : '') + d.units.toFixed(1) + 'u';
+    var color = d.units >= 0 ? 'var(--primary)' : 'var(--danger)';
+    var bg = d.units >= 0 ? 'rgba(16,185,129,.05)' : 'rgba(239,68,68,.05)';
+    var border = d.units >= 0 ? 'rgba(16,185,129,.2)' : 'rgba(239,68,68,.2)';
+    return '<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;border:1px solid ' + border + ';background:' + bg + ';margin-bottom:6px">'
+      + '<div style="min-width:44px;font-size:.72rem;font-weight:800;color:var(--muted)">Wk ' + wk + '</div>'
+      + '<div style="flex:1;font-size:.78rem;font-weight:700;color:var(--text)">' + d.wins + '-' + d.losses + ' (' + pct + '%)</div>'
+      + '<div style="font-size:.85rem;font-weight:900;color:' + color + '">' + unitsStr + '</div>'
+      + '</div>';
+  }).join('');
+}
+
 function refresh(picks) {
   allPicks = picks || (window.AutoPicks ? window.AutoPicks.getPublished() : []);
   var stats = window.AutoPicks ? window.AutoPicks.computeStats(allPicks) : { wins:0,losses:0,pushes:0,pending:0,winRate:null,roi:null,netUnits:0,avgClv:null,tiers:{elite:{label:'Elite',expected:72,w:0,l:0},high:{label:'High',expected:62,w:0,l:0},medium:{label:'Medium',expected:56,w:0,l:0},low:{label:'Low',expected:52,w:0,l:0}} };
   updateStats(stats);
   updateCalibration(stats.tiers);
+  renderRollingTrend(allPicks);
+  renderWeeklyPnL(allPicks);
   renderList();
 }
 

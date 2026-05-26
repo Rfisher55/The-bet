@@ -1716,6 +1716,18 @@ const LIVE = (() => {
         if (atsEntry && atsEntry.wins + atsEntry.losses > 3) {
           ex.atsRecord = { wins: atsEntry.wins, losses: atsEntry.losses, pushes: atsEntry.pushes, pct: atsEntry.pct };
         }
+        // Current ATS win streak (consecutive ATS wins from most recent games)
+        const tgh = teamGameHistory[id];
+        if (tgh && tgh.length > 0) {
+          let streak = 0;
+          for (let gi = tgh.length - 1; gi >= 0; gi--) {
+            const r = gameATS(tgh[gi]);
+            if (r === "win") streak++;
+            else if (r === "push") continue; // pushes don't break the streak
+            else break;
+          }
+          if (streak >= 2) ex.atsCurrentStreak = streak;
+        }
         const sit = situationalRecords[id];
         if (sit) {
           if (!ex.situational) ex.situational = {};

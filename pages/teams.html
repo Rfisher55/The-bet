@@ -189,6 +189,16 @@
         <div class="chip" data-sort="nil">NIL</div>
         <div class="chip" data-sort="transfer">Portal</div>
         <div class="chip" data-sort="sp">SP+</div>
+        <div class="chip" data-sort="ats">ATS %</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">Bet Profile</div>
+      <div class="chip-row" id="bet-chips">
+        <div class="chip active" data-bet="all">All</div>
+        <div class="chip" data-bet="hot">🔥 Hot ATS</div>
+        <div class="chip" data-bet="fade">🚫 Fade</div>
+        <div class="chip" data-bet="dog">🐉 Dog Kings</div>
       </div>
     </div>
   </div>
@@ -264,7 +274,7 @@ function getConferences() {
     return a.localeCompare(b);
   });
 }
-let filterConf = "all", filterDivision = "all", filterMomentum = "all", filterElite = false, searchQ = "", sortBy = "rating", viewMode = "grid";
+let filterConf = "all", filterDivision = "all", filterMomentum = "all", filterElite = false, filterBet = "all", searchQ = "", sortBy = "rating", viewMode = "grid";
 
 // Stats strip — build HTML only (listener wired once below)
 function buildStatsStrip() {
@@ -299,8 +309,9 @@ document.getElementById("page-stats").addEventListener("click", function(e) {
   const act = cell.dataset.statAction;
   document.querySelectorAll("#page-stats .stat-cell-clickable").forEach(c => c.classList.remove("active"));
   cell.classList.add("active");
-  filterConf = "all"; filterDivision = "all"; filterMomentum = "all"; filterElite = false; searchQ = "";
+  filterConf = "all"; filterDivision = "all"; filterMomentum = "all"; filterElite = false; filterBet = "all"; searchQ = "";
   document.getElementById("search").value = "";
+  document.querySelectorAll("#bet-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.bet === "all"));
   document.querySelectorAll("#conf-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.conf === "all"));
   document.querySelectorAll("#div-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.div === "all"));
   document.querySelectorAll("#mom-chips .chip").forEach(c => c.classList.toggle("active", c.dataset.mom === "all"));
@@ -345,6 +356,12 @@ document.getElementById("mom-chips").addEventListener("click", e => {
 });
 
 document.getElementById("search").addEventListener("input", e => { searchQ = e.target.value.toLowerCase(); render(); });
+
+document.getElementById("bet-chips").addEventListener("click", e => {
+  const chip = e.target.closest(".chip"); if (!chip) return;
+  document.querySelectorAll("#bet-chips .chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active"); filterBet = chip.dataset.bet; render();
+});
 
 document.querySelector(".view-toggle").addEventListener("click", e => {
   const btn = e.target.closest(".view-btn"); if (!btn) return;
@@ -442,6 +459,14 @@ function renderCard(team, rank) {
   const gameCount = window.GAMES ? GAMES.filter(g => g.homeTeamId === team.id || g.awayTeamId === team.id).length : 0;
   const nextGame = nextGameLabel(team);
   const proj = projectedRecord(team);
+  const atsPct = team.atsRecord ? team.atsRecord.pct : null;
+  const atsTot = team.atsRecord ? (team.atsRecord.wins + team.atsRecord.losses) : 0;
+  const atsHot  = atsPct !== null && atsTot >= 5 && atsPct > 0.56;
+  const atsCold = atsPct !== null && atsTot >= 5 && atsPct < 0.43;
+  const sit = team.situational || {};
+  const dogStat = sit.atsUnderdog;
+  const dogTot = dogStat ? (dogStat.wins||0) + (dogStat.losses||0) : 0;
+  const isDogKing = dogStat && dogTot >= 4 && dogStat.wins / dogTot >= 0.62;
 
   return `
     <div class="team-card" onclick="location.href='games.html?teamId=${encodeURIComponent(team.id)}'">
@@ -452,6 +477,9 @@ function renderCard(team, rank) {
           ${team.apRank ? `<span style="font-size:.58rem;font-weight:900;letter-spacing:.5px;padding:2px 7px;border-radius:4px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);color:var(--gold)">AP #${team.apRank}</span>` : ""}
           <span class="mom-badge ${momClass(mom)}">${momIcon(mom)} ${momLabel(mom)}</span>
           ${ph.coachHotSeat >= 5 ? `<span class="momentum-pill mom-declining">🔥 Hot Seat</span>` : ""}
+          ${atsHot  ? `<span class="momentum-pill mom-rising">🔥 Hot ATS</span>` : ""}
+          ${atsCold ? `<span class="momentum-pill mom-declining">🚫 Fade</span>` : ""}
+          ${isDogKing ? `<span class="momentum-pill mom-rising">🐉 Dog King</span>` : ""}
           ${(function(){
             const ti = window.TEAM_INTEL && window.TEAM_INTEL[team.id];
             if (!ti) return "";
@@ -614,12 +642,28 @@ function render() {
     (t.conference || "").toLowerCase().includes(searchQ)
   );
 
+  if (filterBet !== "all") teams = teams.filter(t => {
+    const atsPct = t.atsRecord ? t.atsRecord.pct : null;
+    const atsTot = t.atsRecord ? (t.atsRecord.wins + t.atsRecord.losses) : 0;
+    const sit = t.situational || {};
+    if (filterBet === "hot")  return atsPct !== null && atsTot >= 5 && atsPct >= 0.55;
+    if (filterBet === "fade") return atsPct !== null && atsTot >= 5 && atsPct < 0.45;
+    if (filterBet === "dog") {
+      const d = sit.atsUnderdog;
+      if (!d) return false;
+      const tot = (d.wins||0) + (d.losses||0);
+      return tot >= 4 && d.wins / tot >= 0.60;
+    }
+    return true;
+  });
+
   switch(sortBy) {
     case "offense":  teams.sort((a,b) => b.offensiveRating - a.offensiveRating); break;
     case "defense":  teams.sort((a,b) => b.defensiveRating - a.defensiveRating); break;
     case "nil":      teams.sort((a,b) => (b.programHealth?.nilStrength||0) - (a.programHealth?.nilStrength||0)); break;
     case "transfer": teams.sort((a,b) => (b.programHealth?.transferPortalRating||0) - (a.programHealth?.transferPortalRating||0)); break;
     case "sp":       teams.sort((a,b) => (b.spRating||b.rating*0.5||0) - (a.spRating||a.rating*0.5||0)); break;
+    case "ats":      teams.sort((a,b) => ((b.atsRecord?.pct||0) - (a.atsRecord?.pct||0))); break;
     default:         teams.sort((a,b) => b.rating - a.rating);
   }
 
