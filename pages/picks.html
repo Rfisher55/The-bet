@@ -284,7 +284,10 @@
   <!-- Stats summary strip -->
   <div class="picks-stats" id="stats-strip"></div>
 
-  <!-- Confidence breakdown (shown when 5+ settled picks) -->
+  <!-- Bankroll growth chart (shown when 2+ settled picks) -->
+  <div id="bankroll-chart-wrap" style="display:none;padding:12px 16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--card);margin-bottom:12px"></div>
+
+  <!-- Confidence & bet type breakdown (shown when 5+ settled picks) -->
   <div id="conf-breakdown" style="display:none;padding:12px 16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--card);margin-bottom:16px"></div>
 
   <!-- Filter chips -->
@@ -641,38 +644,114 @@
     }).join('');
   }
 
+  function renderBankrollChart(picks) {
+    var wrap = document.getElementById('bankroll-chart-wrap');
+    if (!wrap) return;
+    var settled = picks
+      .filter(function(p) { return p.result === 'win' || p.result === 'loss' || p.result === 'push'; })
+      .sort(function(a, b) { return a.addedAt.localeCompare(b.addedAt); });
+    if (settled.length < 2) { wrap.style.display = 'none'; return; }
+
+    var points = [0];
+    var running = 0;
+    settled.forEach(function(p) {
+      var w = parseFloat(p.wager) || 0;
+      var win = potentialWin(w, p.odds);
+      if (p.result === 'win') running += win;
+      else if (p.result === 'loss') running -= w;
+      points.push(running);
+    });
+
+    var minY = Math.min.apply(null, points);
+    var maxY = Math.max.apply(null, points);
+    var range = Math.max(maxY - minY, 1);
+    var W = 600, H = 90, padX = 4, padT = 10, padB = 4;
+    var chartW = W - padX * 2, chartH = H - padT - padB;
+    function toX(i) { return padX + (i / (points.length - 1)) * chartW; }
+    function toY(v) { return padT + chartH - ((v - minY) / range) * chartH; }
+
+    var polyline = points.map(function(v, i) { return toX(i).toFixed(1) + ',' + toY(v).toFixed(1); }).join(' ');
+    var lastVal = points[points.length - 1];
+    var isPos = lastVal >= 0;
+    var lineColor = isPos ? '#10b981' : '#f87171';
+    var fillColor = isPos ? 'rgba(16,185,129,.13)' : 'rgba(248,113,113,.1)';
+    var baseY = toY(0);
+    var fillPoly = toX(0).toFixed(1) + ',' + baseY.toFixed(1) + ' ' + polyline + ' ' + toX(points.length - 1).toFixed(1) + ',' + baseY.toFixed(1);
+    var labelColor = isPos ? 'var(--primary)' : 'var(--danger)';
+    var label = (lastVal >= 0 ? '+' : '') + fmtMoney(lastVal);
+
+    wrap.style.display = '';
+    wrap.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:4px">'
+      + '<div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">📈 BANKROLL CURVE</div>'
+      + '<div style="font-size:.72rem;font-weight:800;color:' + labelColor + '">' + label + ' NET · ' + settled.length + ' settled bets</div>'
+      + '</div>'
+      + '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:70px;display:block" preserveAspectRatio="none">'
+      + '<defs><linearGradient id="bcFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="' + lineColor + '" stop-opacity=".22"/><stop offset="100%" stop-color="' + lineColor + '" stop-opacity=".02"/></linearGradient></defs>'
+      + '<polygon points="' + fillPoly + '" fill="url(#bcFill)" />'
+      + '<line x1="' + padX + '" y1="' + baseY.toFixed(1) + '" x2="' + (W - padX) + '" y2="' + baseY.toFixed(1) + '" stroke="rgba(255,255,255,.1)" stroke-width=".8" stroke-dasharray="3,3" />'
+      + '<polyline points="' + polyline + '" fill="none" stroke="' + lineColor + '" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" />'
+      + '<circle cx="' + toX(points.length - 1).toFixed(1) + '" cy="' + toY(lastVal).toFixed(1) + '" r="3.5" fill="' + lineColor + '" />'
+      + '</svg>';
+  }
+
   function renderConfBreakdown(picks) {
     var settled = picks.filter(function(p) { return p.result === 'win' || p.result === 'loss'; });
-    if (settled.length < 5) return; // need min data
+    if (settled.length < 5) return;
+    var el = document.getElementById('conf-breakdown');
+    if (!el) return;
+
+    // ── Confidence tier rows ──
     var tiers = ['elite', 'high', 'medium', 'low', ''];
     var tierLabels = { elite:'Elite', high:'High', medium:'Medium', low:'Low', '':'Unrated' };
     var tierColors = { elite:'var(--primary)', high:'#34d399', medium:'var(--gold)', low:'var(--muted)', '':'var(--muted-l)' };
-    var rows = [];
+    var confRows = [];
     tiers.forEach(function(t) {
-      var group = settled.filter(function(p) { return (p.confidence || '').toLowerCase() === (t || p.confidence.toLowerCase()); });
-      if (!t) group = settled.filter(function(p) { return !p.confidence; });
+      var group = t ? settled.filter(function(p) { return (p.confidence || '').toLowerCase() === t; })
+                    : settled.filter(function(p) { return !p.confidence; });
       if (!group.length) return;
       var wins = group.filter(function(p) { return p.result === 'win'; }).length;
       var wr = Math.round(wins / group.length * 100);
-      rows.push({ label: tierLabels[t] || t, wins: wins, total: group.length, wr: wr, color: tierColors[t] || 'var(--muted)' });
+      confRows.push({ label: tierLabels[t] || t, wins: wins, total: group.length, wr: wr, color: tierColors[t] || 'var(--muted)' });
     });
-    if (!rows.length) return;
-    var el = document.getElementById('conf-breakdown');
-    if (!el) return;
+
+    // ── Bet type rows ──
+    var types = ['spread', 'total', 'moneyline', null];
+    var typeLabels = { spread:'Spread', total:'Total', moneyline:'Moneyline' };
+    var typeColors = { spread:'var(--primary)', total:'var(--gold)', moneyline:'var(--accent)' };
+    var typeRows = [];
+    types.forEach(function(t) {
+      var group = t ? settled.filter(function(p) { return (p.pickType || '').toLowerCase() === t; })
+                    : settled.filter(function(p) { return !p.pickType; });
+      if (!group.length) return;
+      var wins = group.filter(function(p) { return p.result === 'win'; }).length;
+      var wr = Math.round(wins / group.length * 100);
+      typeRows.push({ label: t ? typeLabels[t] : 'Untyped', wins: wins, total: group.length, wr: wr, color: t ? typeColors[t] : 'var(--muted)' });
+    });
+
+    function barRow(r) {
+      var barColor = r.wr >= 60 ? 'var(--primary)' : r.wr >= 50 ? 'var(--gold)' : 'var(--danger)';
+      return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'
+        + '<div style="font-size:.68rem;font-weight:700;color:' + r.color + ';width:58px;flex-shrink:0">' + r.label + '</div>'
+        + '<div style="flex:1;height:8px;border-radius:4px;background:var(--border);overflow:hidden">'
+          + '<div style="height:100%;border-radius:4px;background:' + barColor + ';width:' + r.wr + '%;transition:width .4s"></div>'
+        + '</div>'
+        + '<div style="font-size:.68rem;font-weight:800;color:var(--text);width:34px;text-align:right;flex-shrink:0">' + r.wr + '%</div>'
+        + '<div style="font-size:.58rem;color:var(--muted);flex-shrink:0">' + r.wins + '/' + r.total + '</div>'
+      + '</div>';
+    }
+
+    var hasTypes = typeRows.length > 1;
     el.style.display = '';
-    el.innerHTML = '<div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Win Rate by Confidence Tier</div>'
-      + rows.map(function(r) {
-        var barW = r.wr;
-        var barColor = r.wr >= 60 ? 'var(--primary)' : r.wr >= 50 ? 'var(--gold)' : 'var(--danger)';
-        return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'
-          + '<div style="font-size:.68rem;font-weight:700;color:' + r.color + ';width:52px;flex-shrink:0">' + r.label + '</div>'
-          + '<div style="flex:1;height:8px;border-radius:4px;background:var(--border);overflow:hidden">'
-            + '<div style="height:100%;border-radius:4px;background:' + barColor + ';width:' + barW + '%;transition:width .4s"></div>'
-          + '</div>'
-          + '<div style="font-size:.68rem;font-weight:800;color:var(--text);width:38px;text-align:right;flex-shrink:0">' + r.wr + '%</div>'
-          + '<div style="font-size:.58rem;color:var(--muted);flex-shrink:0">' + r.wins + '/' + r.total + '</div>'
-        + '</div>';
-      }).join('');
+    el.innerHTML = (hasTypes
+      ? '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">'
+        + '<div><div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Win Rate by Confidence</div>'
+          + confRows.map(barRow).join('') + '</div>'
+        + '<div><div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Win Rate by Bet Type</div>'
+          + typeRows.map(barRow).join('') + '</div>'
+        + '</div>'
+      : '<div><div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Win Rate by Confidence Tier</div>'
+        + confRows.map(barRow).join('') + '</div>'
+    );
   }
 
   /* ────────────────────────────────────────────────
@@ -807,6 +886,7 @@
   function render() {
     var allPicks = loadPicks();
     renderStats(allPicks);
+    renderBankrollChart(allPicks);
     renderConfBreakdown(allPicks);
 
     // Apply filter

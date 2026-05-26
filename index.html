@@ -679,6 +679,53 @@
     </div>
   </section>
 
+  <!-- My Personal Record (reads from localStorage picks) -->
+  <div id="my-record-banner" style="display:none;margin-bottom:24px"></div>
+  <script>
+  (function() {
+    try {
+      var picks = JSON.parse(localStorage.getItem('theBet_myPicks') || '[]');
+      var settled = picks.filter(function(p) { return p.result === 'win' || p.result === 'loss' || p.result === 'push'; });
+      if (!settled.length) return;
+      var wins = settled.filter(function(p) { return p.result === 'win'; }).length;
+      var losses = settled.filter(function(p) { return p.result === 'loss'; }).length;
+      var pushes = settled.filter(function(p) { return p.result === 'push'; }).length;
+      var pending = picks.filter(function(p) { return p.result === 'pending'; }).length;
+      var wr = (wins + losses) > 0 ? Math.round(wins / (wins + losses) * 100) : null;
+      var totalNet = 0;
+      settled.forEach(function(p) {
+        var w = parseFloat(p.wager) || 0;
+        var o = parseInt(p.odds, 10) || -110;
+        var winAmt = o < 0 ? w / (Math.abs(o) / 100) : w * (o / 100);
+        if (p.result === 'win') totalNet += winAmt;
+        else if (p.result === 'loss') totalNet -= w;
+      });
+      var sorted = settled.slice().sort(function(a, b) { return b.addedAt.localeCompare(a.addedAt); });
+      var st = sorted[0].result, sc = 0;
+      for (var i = 0; i < sorted.length; i++) { if (sorted[i].result === st) sc++; else break; }
+      var stStr = (st === 'win' ? '🔥 W' : st === 'loss' ? '🧊 L' : '➡️ P') + sc;
+      var stColor = st === 'win' ? 'var(--primary)' : st === 'loss' ? 'var(--danger)' : 'var(--muted)';
+      var netStr = (totalNet >= 0 ? '+$' : '-$') + Math.abs(totalNet).toFixed(2);
+      var nc = totalNet >= 0 ? 'var(--primary)' : 'var(--danger)';
+      var wc = wr === null ? 'var(--muted)' : wr >= 55 ? 'var(--primary)' : wr >= 50 ? 'var(--gold)' : 'var(--danger)';
+      var el = document.getElementById('my-record-banner');
+      if (!el) return;
+      el.style.display = '';
+      el.innerHTML = '<a href="pages/picks.html" style="text-decoration:none;display:flex;align-items:center;gap:14px;padding:12px 18px;border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--border);flex-wrap:wrap;transition:border-color .15s" onmouseover="this.style.borderColor=\'rgba(16,185,129,.4)\'" onmouseout="this.style.borderColor=\'var(--border)\'">'
+        + '<div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);flex-shrink:0">📋 MY PICKS</div>'
+        + '<div style="display:flex;gap:18px;flex-wrap:wrap;flex:1;align-items:center">'
+          + '<div style="text-align:center"><div style="font-size:1.1rem;font-weight:900;color:var(--text)">' + wins + '-' + losses + (pushes ? '-' + pushes : '') + '</div><div style="font-size:.55rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Record</div></div>'
+          + (wr !== null ? '<div style="text-align:center"><div style="font-size:1.1rem;font-weight:900;color:' + wc + '">' + wr + '%</div><div style="font-size:.55rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Win Rate</div></div>' : '')
+          + '<div style="text-align:center"><div style="font-size:1.1rem;font-weight:900;color:' + nc + '">' + netStr + '</div><div style="font-size:.55rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Net P&L</div></div>'
+          + '<div style="text-align:center"><div style="font-size:1.1rem;font-weight:900;color:' + stColor + '">' + stStr + '</div><div style="font-size:.55rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Streak</div></div>'
+          + (pending > 0 ? '<div style="text-align:center"><div style="font-size:1.1rem;font-weight:900;color:var(--accent)">' + pending + '</div><div style="font-size:.55rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Pending</div></div>' : '')
+        + '</div>'
+        + '<div style="font-size:.72rem;color:var(--primary);font-weight:700;flex-shrink:0">View Ledger →</div>'
+      + '</a>';
+    } catch(e) {}
+  })();
+  </script>
+
   <!-- Top picks -->
   <section class="mb-5">
     <div class="flex items-center justify-between mb-4">
