@@ -853,7 +853,20 @@ function updateSummary() {
     ? `This parlay is roughly break-even from an EV perspective. Consider trimming to your 2-3 strongest legs.`
     : `This parlay has negative expected value. Either reduce legs or swap to higher-confidence picks to improve it.`;
   const legWarning = legs > 4 ? ` Note: ${legs}-leg parlays are high variance — even strong models rarely hit 5+ legs consistently.` : "";
-  analysisEl.textContent = advice + legWarning;
+
+  // Correlation check: same-game spread + total is positively correlated (both win if it's a blowout)
+  // but sportsbooks already price this in — flag it as a heads-up, not necessarily bad
+  const gameIdCounts = {};
+  entries.forEach(([key]) => {
+    const gid = gameIdFromKey(key);
+    gameIdCounts[gid] = (gameIdCounts[gid] || 0) + 1;
+  });
+  const sameGamePairs = Object.values(gameIdCounts).filter(c => c > 1).length;
+  const corrWarning = sameGamePairs > 0
+    ? ` ⚠ Same-game correlation: you have ${sameGamePairs} game(s) with multiple legs. Standard parlays don't get a correlation bonus — consider a same-game parlay (SGP) at your sportsbook instead.`
+    : "";
+
+  analysisEl.textContent = advice + legWarning + corrWarning;
 }
 
 // ── Select/deselect a pick ──

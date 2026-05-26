@@ -2155,6 +2155,8 @@ function renderGamePage(gData) {
           </div>
           <div style="font-size:.78rem;color:var(--muted);display:grid;gap:5px">
             <div class="flex justify-between"><span>Overall Record</span><span style="color:var(--text)">${team.coachRecord}</span></div>
+            ${cp && cp.atsRecord ? `<div class="flex justify-between"><span>Coach ATS</span><span style="color:var(--primary);font-weight:700">${cp.atsRecord}</span></div>` : ""}
+            ${cp && cp.closeGameRecord ? `<div class="flex justify-between"><span>Close Games</span><span style="color:var(--text-soft)">${cp.closeGameRecord}</span></div>` : ""}
             <div class="flex justify-between"><span>Recruiting</span><span style="color:var(--primary)">#${team.recruitingRank} nationally</span></div>
             ${hotSeat >= 4 ? `<div style="margin-top:4px;padding:6px 8px;border-radius:6px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#f87171;font-size:.72rem;font-weight:700">HOT SEAT — Job security pressure affects game-day decisions</div>` : ""}
           </div>
@@ -2173,7 +2175,9 @@ function renderGamePage(gData) {
                   <div class="flex justify-between mb-1"><span>Aggressiveness</span><span style="color:var(--text-soft)">${cp.aggressiveness}/10</span></div>
                   ${meterBar(cp.aggressiveness, 10, "#f97316", 4)}
                 </div>` : ""}
-              ${cp && cp.blitzRate !== undefined ? `<div class="flex justify-between"><span>Blitz Rate</span><span style="color:var(--text-soft)">${(cp.blitzRate * 100).toFixed(0)}%</span></div>` : ""}
+              ${cp && cp.blitzRate !== undefined ? `<div class="flex justify-between"><span>Blitz Rate</span><span style="color:var(--text-soft)">${typeof cp.blitzRate === "number" && cp.blitzRate <= 10 ? cp.blitzRate + "/10" : cp.blitzRate}</span></div>` : ""}
+              ${cp && cp.pressureRate ? `<div class="flex justify-between"><span>Pressure Rate</span><span style="color:var(--text-soft)">${cp.pressureRate}</span></div>` : ""}
+              ${cp && cp.bigSpotRecord ? `<div class="flex justify-between"><span>Big Games ATS</span><span style="color:var(--text-soft)">${cp.bigSpotRecord}</span></div>` : ""}
               ${cp && cp.staffStability ? `<div class="flex justify-between"><span>Staff Stability</span><span style="color:${cp.staffStability === "stable" ? "var(--primary)" : "var(--gold)"}">${cp.staffStability}</span></div>` : ""}
             </div>
           </details>

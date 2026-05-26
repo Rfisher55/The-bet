@@ -2720,9 +2720,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -3.0, total: 60.5, note: "Texas opened as 3-point home favorites in this SEC showdown; high total reflects both offenses" },
-        { time: "Mid-week", spread: -3.5, total: 61.0, note: "Texas money pushed spread to -3.5; total climbed as sharp over-bettors targeted both QBs" },
-        { time: "Current (Fri)", spread: -3.5, total: 61.5, note: "Total continued upward — two respected sharps confirmed over plays on Friday" }
+        { time: "Open (Mon)", spread: -4.0, total: 60.5, note: "Texas opened as 4-point home favorites in this SEC showdown; high total reflects both high-powered offenses" },
+        { time: "Mid-week", spread: -4.5, total: 61.0, note: "Texas money pushed spread to -4.5; total climbed as sharp over-bettors targeted both QBs in this shootout spot" },
+        { time: "Current (Fri)", spread: -4.5, total: 61.5, note: "Line holds at Texas -4.5; total continued upward — sharps confirmed over plays on Friday" }
       ],
       publicBetting: { homePct: 54, awayPct: 46, overPct: 66, underPct: 34 },
       beatWriter: [
@@ -2762,9 +2762,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -4.5, total: 55.5, note: "Miami opened as 4.5-point home favorites in this ACC heavyweight matchup" },
-        { time: "Mid-week", spread: -5.0, total: 55.0, note: "Spread moved to -5 as Miami home money dominated; total slid on Clemson defensive film" },
-        { time: "Current (Fri)", spread: -4.5, total: 55.0, note: "Reverse-line movement as sharp Clemson money arrived — worth noting for live betting" }
+        { time: "Open (Mon)", spread: -3.0, total: 55.5, note: "Miami opened as 3-point home favorites in this ACC heavyweight matchup" },
+        { time: "Mid-week", spread: -3.5, total: 55.0, note: "Spread moved to -3.5 as Miami home money dominated; total slid on Clemson defensive film" },
+        { time: "Current (Fri)", spread: -3.5, total: 55.0, note: "Line holds at Miami -3.5 — sharp Clemson money attempted to move it but books held firm" }
       ],
       publicBetting: { homePct: 60, awayPct: 40, overPct: 51, underPct: 49 },
       beatWriter: [
@@ -2927,9 +2927,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -3.0, total: 49.5, note: "Georgia opened as 3-point favorites in the World's Largest Outdoor Cocktail Party in Jacksonville" },
-        { time: "Mid-week", spread: -3.5, total: 49.0, note: "Georgia money moved the spread to -3.5; total ticked down on defensive film from both programs" },
-        { time: "Current (Fri)", spread: -3.5, total: 49.0, note: "Line stable heading into game week — even ticket split despite neutral-site designation" }
+        { time: "Open (Mon)", spread: -7.5, total: 49.5, note: "Georgia opened as 7.5-point favorites in the World's Largest Outdoor Cocktail Party despite neutral-site designation" },
+        { time: "Mid-week", spread: -9.0, total: 49.0, note: "Line surged to -9 on Georgia money and Florida injury news; total ticked down on strong defensive film from both programs" },
+        { time: "Current (Fri)", spread: -9.0, total: 49.0, note: "Georgia -9 holds firm — sharp money backed the Bulldogs after Florida practice reports showed limited availability at WR" }
       ],
       publicBetting: { homePct: 53, awayPct: 47, overPct: 50, underPct: 50 },
       beatWriter: [
@@ -3008,9 +3008,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -7.0, total: 56.5, note: "Ohio State opened as heavy 7-point home favorites in the Horseshoe for a marquee November matchup" },
-        { time: "Mid-week", spread: -7.5, total: 56.0, note: "Spread moved to -7.5 on OSU home money; Oregon injury news leaked Wednesday afternoon" },
-        { time: "Current (Fri)", spread: -7.0, total: 55.5, note: "Line reverse-moved to -7 as sharp Oregon money arrived — sharp books see value with the points" }
+        { time: "Open (Mon)", spread: -5.0, total: 56.5, note: "Ohio State opened as 5-point home favorites in the Horseshoe for a marquee November matchup" },
+        { time: "Mid-week", spread: -6.0, total: 56.0, note: "Spread jumped to -6 on heavy OSU home money; Oregon injury news leaked Wednesday afternoon moved the line further" },
+        { time: "Current (Fri)", spread: -6.0, total: 55.5, note: "Line holds at Ohio State -6 Friday; sharp Oregon money noted but not enough to move the number back" }
       ],
       publicBetting: { homePct: 64, awayPct: 36, overPct: 57, underPct: 43 },
       beatWriter: [
@@ -3290,9 +3290,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -10.5, total: 54.5, note: "Alabama opened as double-digit home favorites in the Iron Bowl — Auburn limping in with three losses" },
-        { time: "Mid-week", spread: -11.0, total: 54.0, note: "Spread grew to -11 on Alabama ticket dominance; total ticked down on defensive rivalry expectations" },
-        { time: "Current (Fri)", spread: -10.5, total: 54.0, note: "Reverse line movement to -10.5 — sharp Auburn money noted; Iron Bowl routinely defies the spread" }
+        { time: "Open (Mon)", spread: -14.0, total: 54.5, note: "Alabama opened as 14-point home favorites in the Iron Bowl — Auburn limping in with a losing record" },
+        { time: "Mid-week", spread: -16.0, total: 54.0, note: "Spread ballooned to -16 on massive Alabama public support and Auburn injury news mid-week; total ticked down on defensive rivalry expectations" },
+        { time: "Current (Fri)", spread: -16.0, total: 54.0, note: "Line holds at Alabama -16 Friday; sharp Auburn reverse line movement noted — Iron Bowl historically defies large spreads" }
       ],
       publicBetting: { homePct: 74, awayPct: 26, overPct: 50, underPct: 50 },
       beatWriter: [
