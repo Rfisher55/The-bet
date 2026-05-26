@@ -66,6 +66,23 @@
     .stat-chip { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px 14px; display:flex; flex-direction:column; gap:2px; }
     .stat-val  { font-size:1.1rem; font-weight:900; color:var(--text); }
     .stat-lbl  { font-size:.6rem; font-weight:700; letter-spacing:.05em; color:var(--muted); text-transform:uppercase; }
+
+    /* ── Line Movement Dashboard ── */
+    .lm-row { display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;
+      border:1px solid var(--border);background:var(--surface);margin-bottom:8px;
+      text-decoration:none;color:var(--text);transition:border-color .15s;flex-wrap:wrap; }
+    .lm-row:hover { border-color:rgba(16,185,129,.4); }
+    .lm-badge { font-size:.52rem;font-weight:900;padding:2px 7px;border-radius:5px;white-space:nowrap;flex-shrink:0; }
+    .lm-steam  { background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.4);color:#7c3aed; }
+    .lm-rlm    { background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:#f87171; }
+    .lm-sharp  { background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);color:var(--primary); }
+
+    /* ── Beat Writer section ── */
+    .bw-card { padding:14px 16px;border-radius:12px;border:1px solid var(--border);
+      background:var(--surface);margin-bottom:8px; }
+    .bw-pos { border-left:3px solid var(--primary); }
+    .bw-neg { border-left:3px solid var(--danger); }
+    .bw-neu { border-left:3px solid var(--border-l); }
   </style>
 </head>
 <body>
@@ -105,6 +122,30 @@
       Real-time feed: Twitter/X · ESPN Injuries · Transfer Portal · Coaching moves
       <span id="intel-updated" style="margin-left:8px"></span>
     </div>
+  </div>
+
+  <!-- Line Movement Dashboard -->
+  <div style="margin-bottom:24px" id="lm-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">SHARP MONEY</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">📈 Line Movement Tracker</div>
+      </div>
+      <span style="font-size:.62rem;color:var(--muted)">Sorted by biggest moves · tap for full analysis</span>
+    </div>
+    <div id="line-move-dash"></div>
+  </div>
+
+  <!-- Beat Writer Roundup -->
+  <div style="margin-bottom:24px" id="bw-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">ON-SITE REPORTERS</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">📰 Beat Writer Intelligence</div>
+      </div>
+      <span style="font-size:.62rem;color:var(--muted)">Direct from beat reporters covering each team</span>
+    </div>
+    <div id="beat-writer-dash"></div>
   </div>
 
   <!-- Stats strip -->
@@ -344,6 +385,150 @@ function renderGrid() {
   }).join("");
 }
 
+function fmtSp(n) { return n > 0 ? "+" + n : "" + n; }
+
+function buildLineMoveDash() {
+  var el = document.getElementById("line-move-dash");
+  if (!el || !window.GAMES) return;
+
+  var rows = [];
+  window.GAMES.forEach(function(game) {
+    var si = game.socialIntel;
+    var lm = si && si.lineMovement;
+    if (!lm || lm.length < 2) return;
+
+    var opening = lm[0].spread;
+    var current = lm[lm.length - 1].spread;
+    var movement = current - opening;
+    var absMove = Math.abs(movement);
+    if (absMove < 0.5) return;
+
+    var pb = (si.publicBetting) || {};
+    var homePct = pb.homePct || 50;
+    var awayPct = pb.awayPct || 50;
+
+    // RLM: majority bets one side but line moves the other
+    var isRLM = (homePct >= 58 && movement > 0) || (awayPct >= 58 && movement < 0);
+    var isSteam = absMove >= 1.5;
+
+    var homeTeam = window.TEAMS && window.TEAMS[game.homeTeamId];
+    var awayTeam = window.TEAMS && window.TEAMS[game.awayTeamId];
+    rows.push({
+      game: game, homeTeam: homeTeam, awayTeam: awayTeam,
+      opening: opening, current: current, movement: movement, absMove: absMove,
+      isRLM: isRLM, isSteam: isSteam, homePct: homePct, awayPct: awayPct,
+      note: lm[lm.length - 1].note || ""
+    });
+  });
+
+  rows.sort(function(a, b) { return b.absMove - a.absMove; });
+
+  if (!rows.length) {
+    el.innerHTML = '<div style="padding:16px;text-align:center;color:var(--muted);font-size:.82rem">No significant line movement yet. Lines update throughout the week — check back closer to game day.</div>';
+    return;
+  }
+
+  el.innerHTML = rows.slice(0, 6).map(function(r) {
+    var hAbbr = r.homeTeam ? r.homeTeam.abbreviation : r.game.homeTeamId;
+    var aAbbr = r.awayTeam ? r.awayTeam.abbreviation : r.game.awayTeamId;
+    var hColor = r.homeTeam ? r.homeTeam.color : "#444";
+    var aColor = r.awayTeam ? r.awayTeam.color : "#444";
+    var movDir = r.movement < 0 ? hAbbr + " ↑" : aAbbr + " ↑";
+    var movColor = r.movement < 0 ? "var(--primary)" : "#7c3aed";
+    var typeBadge, typeLabel;
+    if (r.isRLM) {
+      typeBadge = "lm-rlm";
+      typeLabel = "⚡ RLM";
+    } else if (r.isSteam) {
+      typeBadge = "lm-steam";
+      typeLabel = "🔥 STEAM";
+    } else {
+      typeBadge = "lm-sharp";
+      typeLabel = "📊 SHARP";
+    }
+    var explanation = r.isRLM
+      ? "Public (" + (r.movement > 0 ? r.homePct : r.awayPct) + "%) on " + (r.movement > 0 ? hAbbr : aAbbr) + " but sharp money pushed line the other way"
+      : r.isSteam
+        ? "Line moved " + r.absMove.toFixed(1) + " pts — large coordinated sharp bets detected"
+        : "Steady sharp action on " + movDir + " side throughout the week";
+
+    return '<a href="game.html?id=' + r.game.id + '" class="lm-row">'
+      + '<div style="display:flex;align-items:center;gap:4px;flex-shrink:0">'
+      +   '<div style="width:22px;height:22px;border-radius:5px;background:' + aColor + ';display:flex;align-items:center;justify-content:center;font-size:.42rem;font-weight:900;color:#fff;flex-shrink:0">' + aAbbr.slice(0,3) + '</div>'
+      +   '<span style="font-size:.62rem;color:var(--muted)">@</span>'
+      +   '<div style="width:22px;height:22px;border-radius:5px;background:' + hColor + ';display:flex;align-items:center;justify-content:center;font-size:.42rem;font-weight:900;color:#fff;flex-shrink:0">' + hAbbr.slice(0,3) + '</div>'
+      + '</div>'
+      + '<div style="flex:1;min-width:0">'
+      +   '<div style="font-size:.75rem;font-weight:800;color:var(--text)">' + aAbbr + ' @ ' + hAbbr + ' <span style="font-size:.6rem;color:var(--muted);font-weight:500">Wk ' + r.game.week + '</span></div>'
+      +   '<div style="font-size:.62rem;color:var(--muted-l);margin-top:2px;line-height:1.4">' + explanation + '</div>'
+      + '</div>'
+      + '<div style="display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end">'
+      +   '<span class="lm-badge ' + typeBadge + '">' + typeLabel + '</span>'
+      +   '<div style="text-align:center">'
+      +     '<div style="font-size:.55rem;color:var(--muted);font-weight:700;letter-spacing:.5px">OPEN → NOW</div>'
+      +     '<div style="font-size:.82rem;font-weight:900;color:var(--text)">' + fmtSp(r.opening) + ' → ' + fmtSp(r.current) + '</div>'
+      +   '</div>'
+      +   '<div style="text-align:center;min-width:44px">'
+      +     '<div style="font-size:.55rem;color:var(--muted);font-weight:700;letter-spacing:.5px">MOVE</div>'
+      +     '<div style="font-size:.88rem;font-weight:900;color:' + movColor + '">' + (r.movement > 0 ? "+" : "") + r.movement.toFixed(1) + ' ' + movDir + '</div>'
+      +   '</div>'
+      + '</div>'
+      + '</a>';
+  }).join("");
+}
+
+function buildBeatWriterDash() {
+  var el = document.getElementById("beat-writer-dash");
+  if (!el || !window.GAMES) return;
+
+  var reports = [];
+  window.GAMES.forEach(function(game) {
+    var bw = game.socialIntel && game.socialIntel.beatWriter;
+    if (!bw || !bw.length) return;
+    var homeTeam = window.TEAMS && window.TEAMS[game.homeTeamId];
+    var awayTeam = window.TEAMS && window.TEAMS[game.awayTeamId];
+    bw.forEach(function(r) {
+      reports.push({
+        game: game, homeTeam: homeTeam, awayTeam: awayTeam,
+        reporter: r.reporter, outlet: r.outlet, report: r.report,
+        team: r.team, sentiment: r.sentiment, daysAgo: r.daysAgo || 1
+      });
+    });
+  });
+
+  // Sort by daysAgo ascending (most recent first)
+  reports.sort(function(a, b) { return a.daysAgo - b.daysAgo; });
+
+  if (!reports.length) {
+    el.innerHTML = '<div style="padding:16px;text-align:center;color:var(--muted);font-size:.82rem">Beat writer reports load during game week. Check back once the season starts.</div>';
+    return;
+  }
+
+  el.innerHTML = reports.slice(0, 8).map(function(r) {
+    var sentCls = r.sentiment === "positive" ? "bw-pos" : r.sentiment === "negative" ? "bw-neg" : "bw-neu";
+    var sentLabel = r.sentiment === "positive" ? "POSITIVE" : r.sentiment === "negative" ? "NEGATIVE" : "NEUTRAL";
+    var sentColor = r.sentiment === "positive" ? "var(--primary)" : r.sentiment === "negative" ? "var(--danger)" : "var(--muted)";
+    var hAbbr = r.homeTeam ? r.homeTeam.abbreviation : r.game.homeTeamId;
+    var aAbbr = r.awayTeam ? r.awayTeam.abbreviation : r.game.awayTeamId;
+    var daysLabel = r.daysAgo === 0 ? "Today" : r.daysAgo === 1 ? "Yesterday" : r.daysAgo + " days ago";
+
+    return '<div class="bw-card ' + sentCls + '">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px">'
+      +   '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
+      +     '<span style="font-size:.72rem;font-weight:900;color:var(--text)">' + r.reporter + '</span>'
+      +     '<span style="font-size:.62rem;color:var(--muted)">· ' + r.outlet + '</span>'
+      +     '<span style="font-size:.55rem;font-weight:900;padding:1px 6px;border-radius:4px;background:rgba(16,185,129,.08);border:1px solid ' + sentColor + '30;color:' + sentColor + '">' + sentLabel + '</span>'
+      +   '</div>'
+      +   '<div style="display:flex;align-items:center;gap:8px">'
+      +     '<a href="game.html?id=' + r.game.id + '" style="font-size:.6rem;color:var(--primary);font-weight:700;text-decoration:none">' + aAbbr + ' @ ' + hAbbr + ' →</a>'
+      +     '<span style="font-size:.6rem;color:var(--muted)">' + daysLabel + '</span>'
+      +   '</div>'
+      + '</div>'
+      + '<div style="font-size:.78rem;color:var(--text-soft);line-height:1.55">' + r.report + '</div>'
+      + '</div>';
+  }).join("");
+}
+
 function refreshAll() {
   var btn = document.getElementById("refresh-btn");
   btn.textContent = "↻ Refreshing...";
@@ -363,6 +548,8 @@ window.addEventListener("liveDataReady", function(e) {
   var d = e.detail || {};
   if (d.twitterTweets) window.__latestTweets = d.twitterTweets;
   if (d.espnNews)      window.__latestESPN   = d.espnNews;
+  buildLineMoveDash();
+  buildBeatWriterDash();
   buildItems();
   renderGrid();
 });
@@ -374,9 +561,15 @@ setInterval(function() {
 }, 60000);
 
 // Initial render
+buildLineMoveDash();
+buildBeatWriterDash();
 buildItems();
 renderGrid();
 </script>
+<script src="../js/data.js"></script>
+<script src="../js/data-fbs-stubs.js"></script>
+<script src="../js/players-extended.js"></script>
+<script src="../js/predictor.js"></script>
 <script src="../js/config.js"></script>
 <script src="../js/live.js"></script>
 </body>

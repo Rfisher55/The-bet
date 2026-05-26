@@ -858,6 +858,62 @@ function renderGamePage(gData) {
           </div>`;
         })()}
 
+        ${(() => {
+          // ── Bet Timing Recommendation ──────────────────────────────
+          const lmArrT = (game.socialIntel && game.socialIntel.lineMovement) || [];
+          let timing = "BET ANYTIME", timingColor = "var(--gold)", timingMsg = "", timingDetail = "";
+
+          if (lmArrT.length >= 2) {
+            const openT  = lmArrT[0].spread;
+            const curT   = lmArrT[lmArrT.length - 1].spread;
+            const diffT  = curT - openT;
+            const againstPick = (officialPickIsHome && diffT < -0.3) || (!officialPickIsHome && diffT > 0.3);
+            const forPick     = (officialPickIsHome && diffT > 0.3)  || (!officialPickIsHome && diffT < -0.3);
+            if (againstPick) {
+              timing = "BET NOW"; timingColor = "var(--danger)";
+              timingMsg = "Line moving against your pick — lock in now before more value disappears";
+              timingDetail = "Spread moved " + Math.abs(diffT).toFixed(1) + " pt(s) unfavorably for " + officialPickTeam + " (" + fmtSpread(openT) + " → " + fmtSpread(curT) + "). Each further move costs you value.";
+            } else if (forPick) {
+              timing = "CONSIDER WAITING"; timingColor = "var(--primary)";
+              timingMsg = "Line improving for your pick — you may get a better number if patient";
+              timingDetail = "Spread improved " + Math.abs(diffT).toFixed(1) + " pt(s) for " + officialPickTeam + " (" + fmtSpread(openT) + " → " + fmtSpread(curT) + "). Monitor for continued movement.";
+            } else {
+              timingMsg = "Line stable since opening — no rush, no timing edge";
+              timingDetail = "Spread has held at " + fmtSpread(curT) + " (opened " + fmtSpread(openT) + "). Bet when convenient.";
+            }
+          } else {
+            timingMsg = "No line movement data available — bet when convenient";
+            timingDetail = "Monitor the line closer to kickoff for potential movement.";
+          }
+
+          // Override: doubtful key players → wait for status
+          const kpDoubt = (typeof KEY_PLAYERS !== "undefined") ? KEY_PLAYERS.filter(function(p){
+            return (p.teamId === game.homeTeamId || p.teamId === game.awayTeamId) &&
+              /doubtful/i.test(p.injuryStatus || "");
+          }) : [];
+          if (kpDoubt.length > 0) {
+            timing = "WAIT FOR STATUS"; timingColor = "#f97316";
+            timingMsg = "Doubtful player(s) listed — confirm final status before betting";
+            timingDetail = kpDoubt.map(function(p){ return p.name + " (" + p.injuryStatus + ")"; }).slice(0,2).join(", ") + " — outcome could shift significantly depending on status.";
+          }
+
+          const timingIcon = timing === "BET NOW" ? "⏰" : (timing === "CONSIDER WAITING" || timing === "WAIT FOR STATUS") ? "⏳" : "✅";
+          return `
+          <div style="margin-top:10px;padding:12px 14px;border-radius:var(--radius);background:rgba(255,255,255,.02);border:1px solid var(--border)">
+            <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">⏱ BET TIMING</div>
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <div style="flex-shrink:0;padding:7px 10px;border-radius:8px;background:${timingColor}15;border:1px solid ${timingColor}40;text-align:center;min-width:72px">
+                <div style="font-size:.8rem;margin-bottom:1px">${timingIcon}</div>
+                <div style="font-size:.55rem;font-weight:900;color:${timingColor};letter-spacing:.4px;line-height:1.3">${timing}</div>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:.75rem;font-weight:700;color:var(--text);margin-bottom:3px">${timingMsg}</div>
+                <div style="font-size:.68rem;color:var(--muted-l);line-height:1.5">${timingDetail}</div>
+              </div>
+            </div>
+          </div>`;
+        })()}
+
         ${topXf ? `
         <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid ${borderColor}20;display:flex;align-items:flex-start;gap:8px">
           <span style="font-size:1rem;flex-shrink:0">${catIcon(topXf.category)}</span>

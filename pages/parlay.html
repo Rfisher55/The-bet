@@ -202,6 +202,21 @@
       .win-prob-pct { font-size:1.5rem; }
     }
 
+    /* ── Optimal Parlay Suggestions ── */
+    .suggest-card {
+      padding:14px 16px;border-radius:var(--radius-lg);border:1px solid var(--border-l);
+      background:var(--card);margin-bottom:10px;transition:border-color .15s,background .15s;
+    }
+    .suggest-card:hover { border-color:rgba(16,185,129,.3); }
+    .suggest-card.loaded { border-color:var(--primary);background:rgba(16,185,129,.02); }
+    .load-suggest-btn {
+      padding:7px 13px;border-radius:8px;
+      background:linear-gradient(135deg,#7c3aed,var(--accent));
+      color:#fff;font-size:.75rem;font-weight:800;border:none;cursor:pointer;
+      transition:opacity .15s;white-space:nowrap;flex-shrink:0;
+    }
+    .load-suggest-btn:hover { opacity:.85; }
+
     /* ── Game analysis modal ── */
     .ga-overlay {
       position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);
@@ -290,6 +305,22 @@
     </div>
 
     <button class="auto-build-btn" onclick="autoBuild()">⚡ Auto-Build Best Parlay</button>
+  </div>
+
+  <!-- Optimal Parlay Suggestions -->
+  <div class="card card-p mb-5" id="optimal-suggestions-panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">AI-POWERED</div>
+        <div style="font-size:.92rem;font-weight:900;color:var(--text)">🎯 Optimal Parlay Combos</div>
+      </div>
+      <div style="font-size:.65rem;color:var(--muted);text-align:right;max-width:160px">Auto-ranked by model win probability &amp; EV</div>
+    </div>
+    <div class="chip-row" id="suggest-tabs" style="margin-bottom:12px">
+      <div class="chip active" data-legs="2">2-Leg Combos</div>
+      <div class="chip" data-legs="3">3-Leg Combos</div>
+    </div>
+    <div id="suggest-list"></div>
   </div>
 
   <!-- Current Parlay Card -->
@@ -1500,9 +1531,186 @@ document.addEventListener("keydown", e => {
   if (e.key === "Escape") closeGameModal();
 });
 
+// ── Optimal Parlay Suggestions ──
+var suggestLegs = 2;
+var suggestCombosCache = [];
+
+function renderOptimalSuggestions() {
+  var pool = [];
+  var confWeightsS = { elite: 4, high: 3 };
+
+  allPreds.forEach(function(entry) {
+    var game = entry.game, pred = entry.prediction;
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var sp = pred.spreadPick || {};
+    var bl = game.bettingLines || {};
+    var home = game.homeTeam, away = game.awayTeam;
+
+    // Curated ELITE / HIGH analyst picks
+    if (tp && tp.team && tp.confidence) {
+      var conf = tp.confidence.toLowerCase();
+      if (conf === "elite" || conf === "high") {
+        var isHome = tp.team.toLowerCase() === (home.name || "").toLowerCase();
+        var side = isHome ? "home" : "away";
+        var odds = isHome ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110);
+        // Prefer model spread confidence; fall back to tier estimate
+        var spProb = (sp.side !== "no-bet" && sp.confidence > 50 && sp.side === side)
+          ? sp.confidence / 100
+          : (conf === "elite" ? 0.76 : 0.67);
+        pool.push({
+          game: game, pred: pred, side: side, odds: odds,
+          label: tp.team + " covers",
+          conf: conf, spProb: spProb, confWeight: confWeightsS[conf] || 2,
+          badge: conf.toUpperCase()
+        });
+      }
+    } else if (sp.side && sp.side !== "no-bet" && (sp.edge || 0) >= 2.5) {
+      // Strong model edge when no curated pick exists
+      var side2 = sp.side;
+      var team2 = side2 === "home" ? home : away;
+      var odds2 = side2 === "home" ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110);
+      var spProb2 = sp.confidence ? sp.confidence / 100 : 0.62;
+      pool.push({
+        game: game, pred: pred, side: side2, odds: odds2,
+        label: team2.name + " covers",
+        conf: "model", spProb: spProb2, confWeight: 2,
+        badge: "EDGE"
+      });
+    }
+  });
+
+  // Sort best-first, take top 8 to keep combo count manageable
+  pool.sort(function(a, b) { return b.confWeight - a.confWeight || b.spProb - a.spProb; });
+  var topPool = pool.slice(0, 8);
+
+  if (topPool.length < suggestLegs) {
+    document.getElementById("suggest-list").innerHTML =
+      '<div style="padding:24px 16px;text-align:center;color:var(--muted);font-size:.82rem">Not enough ELITE / HIGH picks to build ' + suggestLegs + '-leg combos yet.<br><span style="font-size:.72rem;color:var(--muted-l)">Picks populate as games are curated each week.</span></div>';
+    return;
+  }
+
+  // Generate all C(n, r) combinations
+  function combinate(arr, r) {
+    var results = [];
+    function helper(start, curr) {
+      if (curr.length === r) { results.push(curr.slice()); return; }
+      for (var i = start; i <= arr.length - (r - curr.length); i++) {
+        curr.push(arr[i]);
+        helper(i + 1, curr);
+        curr.pop();
+      }
+    }
+    helper(0, []);
+    return results;
+  }
+
+  var combos = combinate(topPool, suggestLegs);
+
+  // Score each combo by win probability, EV, and ELITE bonus
+  var scoredCombos = combos.map(function(legs) {
+    var combinedWinP = legs.reduce(function(acc, l) { return acc * l.spProb; }, 1);
+    var parlay = calcParlayOdds(legs.map(function(l) { return l.odds; }));
+    var payout = parlay.decimal * 100 - 100;
+    var ev = combinedWinP * payout - (1 - combinedWinP) * 100;
+    var eliteBonus = legs.filter(function(l) { return l.conf === "elite"; }).length * 5;
+    var score = combinedWinP * 100 + eliteBonus + Math.max(ev, 0) * 0.3;
+    return { legs: legs, combinedWinP: combinedWinP, parlay: parlay, ev: ev, score: score };
+  }).sort(function(a, b) { return b.score - a.score; }).slice(0, 3);
+
+  suggestCombosCache = scoredCombos;
+
+  function suggestGrade(ev, winPct) {
+    if (ev >= 20 && winPct >= 40) return { grade: "A+", bg: "rgba(16,185,129,.15)", color: "var(--primary)" };
+    if (ev >= 10 && winPct >= 35) return { grade: "A",  bg: "rgba(16,185,129,.1)",  color: "#34d399" };
+    if (ev >= 0  && winPct >= 28) return { grade: "B",  bg: "rgba(99,102,241,.1)",  color: "var(--accent)" };
+    if (ev >= -10)                return { grade: "C",  bg: "rgba(245,158,11,.1)",  color: "var(--gold)" };
+    return                               { grade: "D",  bg: "rgba(239,68,68,.1)",   color: "var(--danger)" };
+  }
+
+  var rankLabels = ["#1 Best Bet", "#2 Pick", "#3 Value Play"];
+
+  document.getElementById("suggest-list").innerHTML = scoredCombos.map(function(combo, idx) {
+    var winPct = Math.round(combo.combinedWinP * 100);
+    var g = suggestGrade(combo.ev, winPct);
+    var american = combo.parlay.american > 0 ? "+" + combo.parlay.american : "" + combo.parlay.american;
+    var evDisplay = (combo.ev >= 0 ? "+" : "") + combo.ev.toFixed(1);
+    var evColor = combo.ev >= 0 ? "var(--primary)" : "var(--danger)";
+    var winColor = winPct >= 35 ? "var(--primary)" : winPct >= 20 ? "var(--gold)" : "var(--danger)";
+
+    var legsHtml = combo.legs.map(function(l) {
+      var cColor = l.conf === "elite" ? "var(--primary)" : l.conf === "high" ? "#7c3aed" : "var(--gold)";
+      var cBg    = l.conf === "elite" ? "rgba(16,185,129,.12)" : l.conf === "high" ? "rgba(124,58,237,.12)" : "rgba(245,158,11,.1)";
+      var wkTag  = l.game.week ? " Wk " + l.game.week : "";
+      return '<div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid var(--border)">'
+        + '<span style="font-size:.72rem;font-weight:700;flex:1;color:var(--text)">• ' + l.label + '</span>'
+        + '<span style="font-size:.55rem;font-weight:900;padding:1px 6px;border-radius:4px;background:' + cBg + ';border:1px solid ' + cColor + '40;color:' + cColor + '">' + l.badge + '</span>'
+        + '<span style="font-size:.62rem;color:var(--muted)">' + (l.odds > 0 ? "+" : "") + l.odds + '</span>'
+        + '<span style="font-size:.58rem;color:var(--muted-l)">' + wkTag + '</span>'
+        + '</div>';
+    }).join("");
+
+    return '<div class="suggest-card" id="suggest-' + idx + '">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:8px">'
+      +   '<div style="display:flex;align-items:center;gap:10px">'
+      +     '<div style="width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;flex-shrink:0;background:' + g.bg + ';border:2px solid ' + g.color + '60;color:' + g.color + '">' + g.grade + '</div>'
+      +     '<div>'
+      +       '<div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l)">' + (rankLabels[idx] || "Option") + '</div>'
+      +       '<div style="font-size:.85rem;font-weight:800;color:var(--text)">' + suggestLegs + '-Leg Parlay</div>'
+      +     '</div>'
+      +   '</div>'
+      +   '<button class="load-suggest-btn" onclick="loadSuggestion(' + idx + ')">Load ↗</button>'
+      + '</div>'
+      + '<div style="margin-bottom:8px">' + legsHtml + '</div>'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap">'
+      +   '<div style="text-align:center;min-width:54px;padding:6px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+      +     '<div style="font-size:.88rem;font-weight:900;color:var(--primary)">' + american + '</div>'
+      +     '<div style="font-size:.5rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:1px">Payout</div>'
+      +   '</div>'
+      +   '<div style="text-align:center;min-width:54px;padding:6px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+      +     '<div style="font-size:.88rem;font-weight:900;color:' + winColor + '">' + winPct + '%</div>'
+      +     '<div style="font-size:.5rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:1px">Win Prob</div>'
+      +   '</div>'
+      +   '<div style="text-align:center;min-width:54px;padding:6px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+      +     '<div style="font-size:.88rem;font-weight:900;color:' + evColor + '">' + evDisplay + '</div>'
+      +     '<div style="font-size:.5rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:1px">EV/$100</div>'
+      +   '</div>'
+      + '</div>'
+      + '</div>';
+  }).join("");
+}
+
+function loadSuggestion(idx) {
+  var combo = suggestCombosCache[idx];
+  if (!combo) return;
+  clearParlay();
+  combo.legs.forEach(function(l) {
+    picks[pickKey(l.game.id, l.side)] = {
+      gameId: l.game.id, side: l.side, odds: l.odds,
+      label: l.label, confidence: l.pred.confidence || "—"
+    };
+  });
+  document.querySelectorAll(".suggest-card").forEach(function(c) { c.classList.remove("loaded"); });
+  var card = document.getElementById("suggest-" + idx);
+  if (card) card.classList.add("loaded");
+  renderGameList();
+  updateSummary();
+  scrollToSummary();
+  showPickToast();
+}
+
+document.getElementById("suggest-tabs").addEventListener("click", function(e) {
+  var chip = e.target.closest(".chip");
+  if (!chip) return;
+  document.querySelectorAll("#suggest-tabs .chip").forEach(function(c) { c.classList.remove("active"); });
+  chip.classList.add("active");
+  suggestLegs = parseInt(chip.dataset.legs);
+  renderOptimalSuggestions();
+});
+
 // Initial render
 renderGameList();
 updateSummary();
+renderOptimalSuggestions();
 
 // Re-render when live data arrives
 window.addEventListener("liveDataReady", function() {
@@ -1514,6 +1722,7 @@ window.addEventListener("liveDataReady", function() {
   initParlayConfChips();
   renderGameList();
   updateSummary();
+  renderOptimalSuggestions();
 });
 </script>
 <script src="../js/config.js"></script>
