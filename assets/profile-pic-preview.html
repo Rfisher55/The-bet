@@ -3,45 +3,84 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Bet — Profile Pic</title>
+  <title>The Bet — Profile Assets</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: #111;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      gap: 24px;
+      background:#0d0d1a;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:32px 16px;
+      gap:40px;
+      font-family:Arial,sans-serif;
     }
-    .preview {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      overflow: hidden;
-      box-shadow: 0 0 40px rgba(16,185,129,0.3);
+    h2 { color:#6b7280; font-size:11px; letter-spacing:3px; text-transform:uppercase; }
+
+    /* Banner */
+    .banner-wrap {
+      width:100%;
+      max-width:800px;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 0 40px rgba(16,185,129,0.15);
     }
-    .preview img { width: 100%; height: 100%; }
-    p {
-      color: #6b7280;
-      font-family: Arial, sans-serif;
-      font-size: 13px;
-      text-align: center;
-      padding: 0 20px;
+    .banner-wrap img { width:100%; display:block; }
+
+    /* Profile pic overlapping banner (like X does) */
+    .profile-row {
+      width:100%;
+      max-width:800px;
+      position:relative;
     }
+    .avatar {
+      width:90px;
+      height:90px;
+      border-radius:50%;
+      overflow:hidden;
+      border:3px solid #0d0d1a;
+      box-shadow:0 0 20px rgba(16,185,129,0.3);
+      position:absolute;
+      top:-45px;
+      left:16px;
+    }
+    .avatar img { width:100%; height:100%; }
+
     .hint {
-      color: #10b981;
-      font-weight: 700;
-      font-size: 15px;
+      color:#10b981;
+      font-weight:700;
+      font-size:13px;
+      text-align:center;
+    }
+    .sub {
+      color:#4b5563;
+      font-size:11px;
+      text-align:center;
+      margin-top:4px;
     }
   </style>
 </head>
 <body>
-  <div class="preview">
-    <img src="profile-pic.svg" alt="The Bet profile pic"/>
+
+  <h2>Banner</h2>
+  <div class="banner-wrap">
+    <img src="x-banner.svg" alt="X banner"/>
   </div>
-  <p class="hint">Screenshot this on your iPhone</p>
-  <p>Then crop to just the circle in Photos app<br>before uploading to X</p>
+
+  <div class="profile-row">
+    <div class="avatar">
+      <img src="profile-pic.svg" alt="Profile pic"/>
+    </div>
+  </div>
+
+  <div style="margin-top:60px; display:flex; flex-direction:column; align-items:center; gap:12px;">
+    <h2>Profile Pic (upload square, X crops to circle)</h2>
+    <div style="width:160px;height:160px;border-radius:50%;overflow:hidden;box-shadow:0 0 30px rgba(16,185,129,0.3)">
+      <img src="profile-pic.svg" style="width:100%;height:100%"/>
+    </div>
+    <p class="hint">Screenshot each one separately</p>
+    <p class="sub">Banner: screenshot the banner above · Profile: screenshot the circle above</p>
+  </div>
+
 </body>
 </html>

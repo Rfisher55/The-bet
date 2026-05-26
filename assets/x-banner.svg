@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 500" width="1500" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#0d0d1a"/>
+      <stop offset="50%"  stop-color="#111827"/>
+      <stop offset="100%" stop-color="#060608"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="25%" cy="50%" r="40%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="80%" cy="50%" r="35%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
+    <filter id="glow">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#10b981" flood-opacity="0.6"/>
+    </filter>
+    <filter id="textshadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1500" height="500" fill="url(#bg)"/>
+  <rect width="1500" height="500" fill="url(#glow1)"/>
+  <rect width="1500" height="500" fill="url(#glow2)"/>
+
+  <!-- Subtle grid lines (data/analytics feel) -->
+  <g opacity="0.04" stroke="#10b981" stroke-width="1">
+    <line x1="0" y1="100" x2="1500" y2="100"/>
+    <line x1="0" y1="200" x2="1500" y2="200"/>
+    <line x1="0" y1="300" x2="1500" y2="300"/>
+    <line x1="0" y1="400" x2="1500" y2="400"/>
+    <line x1="200"  y1="0" x2="200"  y2="500"/>
+    <line x1="400"  y1="0" x2="400"  y2="500"/>
+    <line x1="600"  y1="0" x2="600"  y2="500"/>
+    <line x1="800"  y1="0" x2="800"  y2="500"/>
+    <line x1="1000" y1="0" x2="1000" y2="500"/>
+    <line x1="1200" y1="0" x2="1200" y2="500"/>
+    <line x1="1400" y1="0" x2="1400" y2="500"/>
+  </g>
+
+  <!-- Animated-feel chart line (right side decoration) -->
+  <polyline
+    points="900,420 960,380 1020,390 1080,310 1140,290 1200,220 1260,240 1320,160 1380,130 1440,80 1500,60"
+    fill="none" stroke="#10b981" stroke-width="2.5" opacity="0.25" stroke-linejoin="round"/>
+  <!-- Dots on chart line -->
+  <g fill="#10b981" opacity="0.35">
+    <circle cx="960"  cy="380" r="4"/>
+    <circle cx="1080" cy="310" r="4"/>
+    <circle cx="1200" cy="220" r="4"/>
+    <circle cx="1320" cy="160" r="4"/>
+    <circle cx="1440" cy="80"  r="5"/>
+  </g>
+  <!-- Glowing top dot -->
+  <circle cx="1440" cy="80" r="7" fill="#10b981" opacity="0.6" filter="url(#glow)"/>
+
+  <!-- Second faint line (volume bars feel) -->
+  <g opacity="0.08" fill="#10b981">
+    <rect x="920"  y="360" width="18" height="60"  rx="3"/>
+    <rect x="960"  y="320" width="18" height="100" rx="3"/>
+    <rect x="1000" y="340" width="18" height="80"  rx="3"/>
+    <rect x="1040" y="270" width="18" height="150" rx="3"/>
+    <rect x="1080" y="290" width="18" height="130" rx="3"/>
+    <rect x="1120" y="240" width="18" height="180" rx="3"/>
+    <rect x="1160" y="260" width="18" height="160" rx="3"/>
+    <rect x="1200" y="190" width="18" height="230" rx="3"/>
+    <rect x="1240" y="210" width="18" height="210" rx="3"/>
+    <rect x="1280" y="150" width="18" height="270" rx="3"/>
+    <rect x="1320" y="120" width="18" height="300" rx="3"/>
+    <rect x="1360" y="80"  width="18" height="340" rx="3"/>
+  </g>
+
+  <!-- Left green accent bar -->
+  <rect x="60" y="120" width="5" height="260" rx="2.5" fill="#10b981" opacity="0.7"/>
+
+  <!-- "THE BET" main text -->
+  <text x="100" y="248"
+        font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+        font-weight="900"
+        font-size="120"
+        letter-spacing="-2"
+        fill="#ffffff"
+        filter="url(#textshadow)">THE BET</text>
+
+  <!-- Gold underline -->
+  <rect x="100" y="268" width="580" height="4" rx="2" fill="#f59e0b" opacity="0.9"/>
+
+  <!-- Tagline row -->
+  <g font-family="'Arial', Helvetica, sans-serif" font-weight="700" font-size="22" fill="#10b981" opacity="0.85">
+    <!-- Dot separators -->
+    <text x="100" y="316">AI-Powered CFB Model</text>
+    <circle cx="338" cy="308" r="3" fill="#f59e0b" opacity="0.7"/>
+    <text x="352" y="316">Sharp Money</text>
+    <circle cx="488" cy="308" r="3" fill="#f59e0b" opacity="0.7"/>
+    <text x="502" y="316">Free Picks Weekly</text>
+  </g>
+
+  <!-- Bottom stat chips -->
+  <g font-family="'Arial', Helvetica, sans-serif">
+    <!-- Chip 1 -->
+    <rect x="100" y="360" width="150" height="52" rx="10" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-width="1.2" stroke-opacity="0.4"/>
+    <text x="175" y="381" font-size="11" font-weight="700" letter-spacing="2" text-anchor="middle" fill="#10b981" opacity="0.7">PICKS DROP</text>
+    <text x="175" y="401" font-size="16" font-weight="900" text-anchor="middle" fill="#ffffff">TUESDAY</text>
+
+    <!-- Chip 2 -->
+    <rect x="268" y="360" width="150" height="52" rx="10" fill="#f59e0b" fill-opacity="0.08" stroke="#f59e0b" stroke-width="1.2" stroke-opacity="0.4"/>
+    <text x="343" y="381" font-size="11" font-weight="700" letter-spacing="2" text-anchor="middle" fill="#f59e0b" opacity="0.7">LOCKS IN</text>
+    <text x="343" y="401" font-size="16" font-weight="900" text-anchor="middle" fill="#ffffff">FRIDAY</text>
+
+    <!-- Chip 3 -->
+    <rect x="436" y="360" width="150" height="52" rx="10" fill="#6366f1" fill-opacity="0.08" stroke="#6366f1" stroke-width="1.2" stroke-opacity="0.4"/>
+    <text x="511" y="381" font-size="11" font-weight="700" letter-spacing="2" text-anchor="middle" fill="#a5b4fc" opacity="0.7">RESULTS</text>
+    <text x="511" y="401" font-size="16" font-weight="900" text-anchor="middle" fill="#ffffff">SUNDAY</text>
+  </g>
+
+  <!-- thebetcfb.com bottom right -->
+  <text x="1460" y="470"
+        font-family="'Arial', Helvetica, sans-serif"
+        font-weight="700"
+        font-size="18"
+        letter-spacing="1"
+        text-anchor="end"
+        fill="#ffffff"
+        opacity="0.2">thebetcfb.com</text>
+
+  <!-- Top border line -->
+  <rect x="0" y="0" width="1500" height="3" fill="#10b981" opacity="0.5"/>
+  <!-- Bottom border line -->
+  <rect x="0" y="497" width="1500" height="3" fill="#10b981" opacity="0.3"/>
+</svg>
