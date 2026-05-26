@@ -3128,9 +3128,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -2.5, total: 61.0, note: "LSU opened as slight 2.5-point home favorites in this premier SEC offensive showcase" },
-        { time: "Mid-week", spread: -3.0, total: 61.5, note: "Line moved to -3 as LSU home money arrived; total pushed up on reputation of both offenses" },
-        { time: "Current (Fri)", spread: -3.0, total: 61.0, note: "Total pulled back slightly — sharp under-money noted on Friday after injury report" }
+        { time: "Open (Mon)", spread: -3.5, total: 61.0, note: "LSU opened as 3.5-point home favorites in this premier SEC offensive showcase in Death Valley" },
+        { time: "Mid-week", spread: -4.0, total: 61.5, note: "Line moved to -4 on heavy LSU home money and Texas injury news mid-week; total pushed up on both offenses" },
+        { time: "Current (Fri)", spread: -4.0, total: 61.0, note: "LSU -4 holds Friday — sharp Texas money attempted reverse line move but couldn't budge the number" }
       ],
       publicBetting: { homePct: 53, awayPct: 47, overPct: 64, underPct: 36 },
       beatWriter: [
@@ -3209,9 +3209,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -3.5, total: 57.5, note: "Tennessee opened as 3.5-point home favorites in a Thursday night SEC showcase at Neyland" },
-        { time: "Mid-week", spread: -4.0, total: 57.0, note: "Local Vol money pushed to -4; total edged down on short-week preparation concerns" },
-        { time: "Current (Fri)", spread: -4.0, total: 57.5, note: "Total reversed upward on Friday — sharp over-money confirmed for primetime Thursday showdown" }
+        { time: "Open (Mon)", spread: -2.5, total: 57.5, note: "Tennessee opened as 2.5-point home favorites in a Thursday night SEC showcase at Neyland" },
+        { time: "Mid-week", spread: -3.0, total: 57.0, note: "Line moved to -3 on Vol home money; total edged down on short-week defensive preparation concerns" },
+        { time: "Current (Fri)", spread: -3.0, total: 57.5, note: "Tennessee -3 holds Friday — total reversed upward on sharp over-money for primetime Thursday showdown" }
       ],
       publicBetting: { homePct: 57, awayPct: 43, overPct: 60, underPct: 40 },
       beatWriter: [
@@ -3251,9 +3251,9 @@ var GAMES = [
     },
     socialIntel: {
       lineMovement: [
-        { time: "Open (Mon)", spread: -7.0, total: 55.5, note: "Ohio State opened as 7-point favorites at home in THE GAME — the biggest regular-season matchup in college football" },
-        { time: "Mid-week", spread: -7.5, total: 55.0, note: "Spread moved to -7.5 on OSU home volume; under-money pushed the total down" },
-        { time: "Current (Fri)", spread: -7.0, total: 54.5, note: "Line trimmed back to -7 as sharp Michigan money arrived Friday — double-digit ticket split toward OSU but sharp money on Michigan" }
+        { time: "Open (Mon)", spread: -7.5, total: 55.5, note: "Ohio State opened as 7.5-point home favorites in THE GAME — the biggest regular-season matchup in college football" },
+        { time: "Mid-week", spread: -8.5, total: 55.0, note: "Line surged to -8.5 as massive OSU ticket volume pushed the spread; under-money pressed the total down" },
+        { time: "Current (Fri)", spread: -8.5, total: 54.5, note: "Ohio State -8.5 holds firm — sharp Michigan money couldn't move the number, confirming books respect OSU's home-field edge in THE GAME" }
       ],
       publicBetting: { homePct: 68, awayPct: 32, overPct: 52, underPct: 48 },
       beatWriter: [
