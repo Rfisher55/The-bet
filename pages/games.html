@@ -125,12 +125,16 @@
   <!-- Week Tabs -->
   <div class="week-strip" id="week-strip"></div>
 
-  <!-- Search + Sort -->
+  <!-- Search + Sort + View Toggle -->
   <div class="search-row">
     <input id="search" class="search-input" placeholder="🔍 Search team..." autocomplete="off" />
     <div class="chip-row" id="sort-chips">
       <div class="chip active" data-sort="date">Date</div>
       <div class="chip" data-sort="confidence">Top Picks</div>
+    </div>
+    <div style="display:flex;gap:6px;flex-shrink:0">
+      <button id="view-cards-btn" onclick="setView('cards')" style="padding:6px 12px;border-radius:8px;font-size:.68rem;font-weight:800;border:1px solid var(--primary);background:var(--primary);color:#000;cursor:pointer">🃏 Cards</button>
+      <button id="view-table-btn" onclick="setView('table')" style="padding:6px 12px;border-radius:8px;font-size:.68rem;font-weight:800;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);cursor:pointer">📋 Table</button>
     </div>
   </div>
 
@@ -374,6 +378,81 @@ document.getElementById("sort-chips").addEventListener("click", e => {
 // Week detection & tabs
 const weekLabels = { 1:"Wk 1", 2:"Wk 2", 3:"Wk 3", 4:"Wk 4", 5:"Wk 5", 6:"Wk 6", 7:"Wk 7", 8:"Wk 8", 9:"Wk 9", 10:"Wk 10", 11:"Wk 11", 12:"Wk 12", 13:"Wk 13", 14:"Wk 14", 15:"Champs", 16:"CFP" };
 let activeWeek = 0;
+let viewMode = "cards"; // "cards" | "table"
+
+function setView(mode) {
+  viewMode = mode;
+  document.getElementById("view-cards-btn").style.background = mode === "cards" ? "var(--primary)" : "var(--surface)";
+  document.getElementById("view-cards-btn").style.color = mode === "cards" ? "#000" : "var(--muted-l)";
+  document.getElementById("view-cards-btn").style.borderColor = mode === "cards" ? "var(--primary)" : "var(--border)";
+  document.getElementById("view-table-btn").style.background = mode === "table" ? "var(--primary)" : "var(--surface)";
+  document.getElementById("view-table-btn").style.color = mode === "table" ? "#000" : "var(--muted-l)";
+  document.getElementById("view-table-btn").style.borderColor = mode === "table" ? "var(--primary)" : "var(--border)";
+  render();
+}
+
+function renderTableView(list) {
+  const confWeightsT = { elite:4, high:3, medium:2, low:1 };
+  const tableRows = list.map(({ game, prediction:pred }) => {
+    const home = game.homeTeam, away = game.awayTeam;
+    const sp = pred.spreadPick || {};
+    const tp = game.gamePreview && game.gamePreview.thePick;
+    const pickTeam = (tp && tp.team) ? tp.team : (sp.side !== "no-bet" ? sp.team : null);
+    const pickConf = (tp && tp.confidence) ? tp.confidence.toUpperCase() : (pred.confidence || "").toUpperCase();
+    const pickLine = game.bettingLines && pickTeam
+      ? (pickTeam.toLowerCase() === (home.name||"").toLowerCase() || pickTeam.toLowerCase() === (home.abbreviation||"").toLowerCase()
+          ? fmtSpread(game.bettingLines.spread) : fmtSpread(-game.bettingLines.spread))
+      : "";
+    const units = (tp && tp.unit) ? tp.unit : (pickConf === "ELITE" ? 2 : pickConf === "HIGH" ? 1.5 : pickConf === "MEDIUM" ? 1 : 0.5);
+    const edge = sp.edge || 0;
+    const sm = pred.sharpMoneySignal || {};
+    const sharpAgree = sm.strength >= 6 && sm.side !== "neutral" && pickTeam &&
+      ((sm.side === "home" && (pickTeam.toLowerCase() === (home.name||"").toLowerCase())) ||
+       (sm.side === "away" && (pickTeam.toLowerCase() === (away.name||"").toLowerCase())));
+    const confC = { ELITE:"var(--primary)", HIGH:"#34d399", MEDIUM:"var(--gold)", LOW:"var(--muted)" }[pickConf] || "var(--muted)";
+    const action = !pickTeam ? "PASS" : "BET";
+    const actionC = pickTeam ? "var(--primary)" : "var(--muted)";
+    return `<tr onclick="location.href='game.html?id=${game.id}'" style="cursor:pointer;transition:background .1s" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='transparent'">
+      <td style="padding:8px 10px;white-space:nowrap;font-size:.72rem;color:var(--muted)">Wk${game.week} · ${fmtDate(game.date)}</td>
+      <td style="padding:8px 10px">
+        <div style="font-size:.8rem;font-weight:700;color:var(--text)">${away.abbreviation} @ ${home.abbreviation}</div>
+        <div style="font-size:.6rem;color:var(--muted)">${game.time} · ${game.network}</div>
+      </td>
+      <td style="padding:8px 10px;text-align:center">
+        <span style="font-size:.65rem;font-weight:900;color:var(--muted)">${game.bettingLines ? fmtSpread(game.bettingLines.spread) : "—"}</span>
+        <div style="font-size:.55rem;color:var(--muted)">${game.bettingLines ? "O/U "+game.bettingLines.total : ""}</div>
+      </td>
+      <td style="padding:8px 10px">
+        <div style="font-size:.78rem;font-weight:800;color:${actionC}">${pickTeam ? esc(pickTeam)+' covers' : 'Pass'}</div>
+        ${pickLine ? `<div style="font-size:.6rem;color:var(--muted-l)">${pickLine}</div>` : ""}
+      </td>
+      <td style="padding:8px 10px;text-align:center">
+        <span style="font-size:.65rem;font-weight:900;padding:2px 7px;border-radius:5px;background:${confC}20;color:${confC}">${pickConf||"—"}</span>
+      </td>
+      <td style="padding:8px 10px;text-align:center;font-size:.75rem;font-weight:800;color:var(--primary)">${units ? units+"u" : "—"}</td>
+      <td style="padding:8px 10px;text-align:center;font-size:.72rem;color:${edge>=3?"var(--primary)":edge>=1?"var(--gold)":"var(--muted)"}">${edge>=0.5?"+"+edge.toFixed(1):"—"}</td>
+      <td style="padding:8px 10px;text-align:center">${sharpAgree?'<span style="font-size:.7rem;color:var(--primary)">💰</span>':''}</td>
+    </tr>`;
+  });
+
+  return `<div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:.78rem">
+      <thead>
+        <tr style="border-bottom:1px solid var(--border)">
+          <th style="padding:8px 10px;text-align:left;font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Date</th>
+          <th style="padding:8px 10px;text-align:left;font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Matchup</th>
+          <th style="padding:8px 10px;text-align:center;font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Vegas</th>
+          <th style="padding:8px 10px;text-align:left;font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">The Bet Picks</th>
+          <th style="padding:8px 10px;text-align:center;font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Conf</th>
+          <th style="padding:8px 10px;text-align:center;font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Units</th>
+          <th style="padding:8px 10px;text-align:center;font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Edge</th>
+          <th style="padding:8px 10px;text-align:center;font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Sharp</th>
+        </tr>
+      </thead>
+      <tbody>${tableRows.join("")}</tbody>
+    </table>
+  </div>`;
+}
 
 function buildWeekTabs() {
   const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
@@ -832,7 +911,11 @@ function render() {
     </div>`;
     return;
   }
-  document.getElementById("game-grid").innerHTML = list.map(({ game, prediction }) => renderGameCard(game, prediction)).join("");
+  if (viewMode === "table") {
+    document.getElementById("game-grid").innerHTML = renderTableView(list);
+  } else {
+    document.getElementById("game-grid").innerHTML = list.map(({ game, prediction }) => renderGameCard(game, prediction)).join("");
+  }
 }
 
 function clearSearch() {
