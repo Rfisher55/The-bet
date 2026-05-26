@@ -120,7 +120,9 @@ function calcExpectedScore(team, opponent, isHome, neutralSite) {
  * Returns integer 1-99 representing home win %.
  */
 function calcWinProb(spread) {
-  const prob = 1 / (1 + Math.exp(-spread * 0.15));
+  // k=0.114 calibrated to empirical CFB data: 3pt → ~58%, 7pt → ~69%, 14pt → ~83%
+  // (k=0.15 was systematically high by 3-8pp for moderate-to-large favorites)
+  const prob = 1 / (1 + Math.exp(-spread * 0.114));
   return Math.round(clamp(prob * 100, 1, 99));
 }
 

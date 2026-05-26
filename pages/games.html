@@ -555,7 +555,20 @@ function renderGameCard(game, pred) {
 
       <!-- Pick chips -->
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
-        ${sp.side !== "no-bet" ? `
+        ${(function() {
+          const gp = game.gamePreview;
+          const curatedPick = gp && gp.thePick && gp.thePick.team ? gp.thePick : null;
+          if (curatedPick) {
+            const pickColor = sp.side === "home" ? home.color : sp.side === "away" ? away.color : (game.bettingLines && game.bettingLines.spread < 0 ? home.color : away.color);
+            const reason = curatedPick.reasoning || "";
+            const shortReason = reason.length > 80 ? reason.slice(0, 77) + "…" : reason;
+            return `<div style="padding:8px 10px;border-radius:8px;background:${pickColor}22;border:1px solid ${pickColor}55">
+              <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">⭐ OUR PICK</div>
+              <div style="font-size:.75rem;font-weight:900;color:var(--text)">${curatedPick.team}</div>
+              <div style="font-size:.58rem;color:var(--muted-l);line-height:1.4;margin-top:2px">${shortReason}</div>
+            </div>`;
+          }
+          return sp.side !== "no-bet" ? `
           <div style="padding:8px 10px;border-radius:8px;background:${sp.side==="home"?home.color+"22":away.color+"22"};border:1px solid ${sp.side==="home"?home.color+"55":away.color+"55"}">
             <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">⭐ OUR PICK</div>
             <div style="font-size:.75rem;font-weight:900;color:var(--text)">${sp.side==="home"?home.name:away.name}</div>
@@ -564,7 +577,8 @@ function renderGameCard(game, pred) {
           <div style="padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
             <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">SPREAD</div>
             <div style="font-size:.8rem;color:var(--muted-l)">No edge</div>
-          </div>`}
+          </div>`;
+        })()}
         ${tp.side !== "no-bet" ? `
           <div style="padding:8px 10px;border-radius:8px;background:${tp.side==="over"?"rgba(16,185,129,.12)":"rgba(239,68,68,.1)"};border:1px solid ${tp.side==="over"?"rgba(16,185,129,.3)":"rgba(239,68,68,.3)"}">
             <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">TOTAL</div>

@@ -582,7 +582,7 @@ function renderGamePage(gData) {
             <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px">ANALYST vs MODEL SPLIT</div>
             <div style="font-size:.75rem;color:var(--text-soft);line-height:1.5">
               Our analyst picks <strong style="color:var(--primary)">${pickTeam}</strong> based on situational factors (home field, night game, motivation).
-              The computer model leans <strong style="color:var(--gold)">${modelTeamObj.name.split(" ").pop()}</strong> on raw talent.
+              The computer model leans <strong style="color:var(--gold)">${modelTeamObj.name}</strong> on raw talent.
               <strong style="color:var(--text)">The Bet's official pick is ${pickTeam} — read the analysis below for why.</strong>
             </div>
           </div>
@@ -594,16 +594,24 @@ function renderGamePage(gData) {
             <div style="font-size:.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">⭐ THE BET PICKS</div>
             <div class="key-insight-pick" style="font-size:1.15rem">${pickTeam} will cover spread</div>
             <div style="font-size:.75rem;color:var(--text-soft);margin-top:4px;line-height:1.5">
-              ${hasPickSplit
-                ? `Taking <strong style="color:var(--text)">${pickTeam}</strong> over the model's lean — situational edge outweighs raw talent gap.`
-                : `We project <strong style="color:var(--text)">${pickTeam}</strong> to win and cover.`}
-              ${pickLine ? ` Vegas line: <strong style="color:var(--muted-l)">${pickLine}</strong>.` : ""}
+              ${gp && gp.thePick && gp.thePick.reasoning
+                ? esc(gp.thePick.reasoning)
+                : hasPickSplit
+                  ? `Taking <strong style="color:var(--text)">${pickTeam}</strong> over the model's lean — situational edge outweighs raw talent gap.`
+                  : `We project <strong style="color:var(--text)">${pickTeam}</strong> to win and cover.`}
+              ${pickLine ? `<span style="display:inline-block;margin-top:2px;font-size:.7rem;color:var(--muted-l)">Line: ${pickLine}</span>` : ""}
             </div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:10px 14px;border-radius:var(--radius);background:${borderColor}12;border:1px solid ${borderColor}30">
             <div style="font-size:.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-l)">Confidence</div>
             <div class="${confClass}" style="font-size:1rem;font-weight:900">${pickConf}</div>
             <div style="font-size:.62rem;color:var(--muted)">${confLabel}</div>
+            ${(() => {
+              const u = game.gamePreview && game.gamePreview.thePick && game.gamePreview.thePick.unit;
+              if (!u) return "";
+              const uColor = u >= 2 ? "var(--primary)" : "var(--muted-l)";
+              return `<div style="margin-top:4px;font-size:.6rem;font-weight:800;color:${uColor}">${u}u BET</div>`;
+            })()}
           </div>
         </div>
 
@@ -1506,8 +1514,8 @@ function renderGamePage(gData) {
         <div style="font-size:.62rem;color:var(--muted)">${home.abbreviation} ${homePct}% · ${away.abbreviation} ${awayPct}%</div>
         ${hasPickSplit ? `
         <div style="margin-top:6px;padding:5px 8px;border-radius:6px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);font-size:.58rem;font-weight:700;color:var(--gold);text-align:center;line-height:1.4">
-          ⚡ Model leans ${winnerName.split(" ").pop()}<br>
-          <span style="color:var(--primary)">Our pick: ${officialPickTeam.split(" ").pop()}</span>
+          ⚡ Model leans ${winnerName}<br>
+          <span style="color:var(--primary)">Our pick: ${officialPickTeam}</span>
         </div>` : ""}
       </div>`;
   }
