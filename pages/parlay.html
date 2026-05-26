@@ -77,15 +77,12 @@
     .pg-btn:disabled { opacity:.3;cursor:default; }
     .pg-btn-line { font-size:.78rem;font-weight:900;color:var(--text);line-height:1.15; }
     .pg-btn-odds { font-size:.6rem;font-weight:700;color:var(--muted);line-height:1; }
-    /* Selected states */
-    .pg-btn.sel {
+    /* Selected state — always green regardless of home/away */
+    .pg-btn.sel, .pg-btn.sel.sel-away {
       background:rgba(16,185,129,.13);border-color:var(--primary);
     }
-    .pg-btn.sel .pg-btn-line, .pg-btn.sel .pg-btn-odds { color:var(--primary); }
-    .pg-btn.sel-away {
-      background:rgba(99,102,241,.13);border-color:#6366f1;
-    }
-    .pg-btn.sel-away .pg-btn-line, .pg-btn.sel-away .pg-btn-odds { color:#6366f1; }
+    .pg-btn.sel .pg-btn-line, .pg-btn.sel .pg-btn-odds,
+    .pg-btn.sel.sel-away .pg-btn-line, .pg-btn.sel.sel-away .pg-btn-odds { color:var(--primary); }
     /* Opposing-pick dim — fades out the button that conflicts with the selected one */
     .pg-btn.conflicted { opacity:.28;pointer-events:none; }
     @media (max-width:400px) {
