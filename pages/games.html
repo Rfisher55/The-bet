@@ -922,6 +922,26 @@ function renderGameCard(game, pred) {
           }
         }
 
+        // Triple Lock chip — elite/high model + sharp aligned + public fading
+        {
+          const tp3 = game.gamePreview && game.gamePreview.thePick;
+          const pickConf3 = ((tp3 && tp3.confidence) || pred.confidence || "").toLowerCase();
+          if (pickConf3 === "elite" || pickConf3 === "high") {
+            const pickTeam3 = tp3 && tp3.team ? tp3.team.toLowerCase() : (pred.spreadPick && pred.spreadPick.side === "home" ? (home.name||"").toLowerCase() : (away.name||"").toLowerCase());
+            const pickIsHome3b = pickTeam3 === (home.name||"").toLowerCase() || pickTeam3 === (home.abbreviation||"").toLowerCase();
+            const sm3 = pred.sharpMoneySignal || {};
+            const sharpAligned3 = sm3.side && ((pickIsHome3b && sm3.side === "home") || (!pickIsHome3b && sm3.side === "away"))
+              && (sm3.strength === "strong" || sm3.strength === "moderate");
+            const pbSI3 = game.socialIntel && game.socialIntel.publicBetting;
+            if (sharpAligned3 && pbSI3 && pbSI3.homePct != null) {
+              const pubOnPick3 = pickIsHome3b ? pbSI3.homePct : (100 - pbSI3.homePct);
+              if (pubOnPick3 <= 42) {
+                chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.5);color:var(--primary)">🔒 TRIPLE LOCK</span>`);
+              }
+            }
+          }
+        }
+
         if (!chips.length) return "";
         return `<div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap">${chips.join("")}</div>`;
       })()}
