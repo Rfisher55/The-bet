@@ -8,12 +8,15 @@ on:
     - cron: '0 16 * * 3'
     # Thursday 10am ET  — Parlay card thread
     - cron: '0 15 * * 4'
-    # Friday 10am ET    — Final locked picks
+    # Friday 10am ET    — Final locked picks (all ELITE + HIGH)
     - cron: '0 15 * * 5'
-    # Saturday 9am ET   — Game day reminders
+    # Saturday 9am ET   — "Who covers?" polls
     - cron: '0 14 * * 6'
+    # Saturday 11am ET  — Game day hype tweets
+    - cron: '0 16 * * 6'
+    # Sunday 11am ET    — Results thread + update season record
+    - cron: '0 16 * * 0'
 
-  # Manual trigger from GitHub Actions tab (for testing)
   workflow_dispatch:
     inputs:
       post_type:
@@ -21,9 +24,9 @@ on:
         required: true
         default: 'top5'
         type: choice
-        options: [early, top5, parlay, final, gameday]
+        options: [early, top5, parlay, final, polls, gameday, results]
       parlay_legs:
-        description: 'Parlay legs (2-5, only used when type=parlay)'
+        description: 'Parlay legs (only for type=parlay)'
         required: false
         default: '3'
       dry_run:
@@ -35,6 +38,9 @@ on:
 jobs:
   post-picks:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to commit season-record.json on Sundays
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,16 +62,24 @@ jobs:
             echo "legs=${{ inputs.parlay_legs }}" >> $GITHUB_OUTPUT
             echo "dry=${{ inputs.dry_run }}"      >> $GITHUB_OUTPUT
           else
-            DAY=$(date +%u)   # 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 7=Sun
+            DAY=$(date +%u)    # 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 7=Sun
+            HOUR=$(date +%H)   # UTC hour
             case "$DAY" in
               2) echo "type=early"   >> $GITHUB_OUTPUT ;;
               3) echo "type=top5"    >> $GITHUB_OUTPUT ;;
               4) echo "type=parlay"  >> $GITHUB_OUTPUT ;;
               5) echo "type=final"   >> $GITHUB_OUTPUT ;;
-              6) echo "type=gameday" >> $GITHUB_OUTPUT ;;
+              6)
+                # Two Saturday runs: 14 UTC = polls, 16 UTC = gameday
+                if [ "$HOUR" = "14" ]; then
+                  echo "type=polls"   >> $GITHUB_OUTPUT
+                else
+                  echo "type=gameday" >> $GITHUB_OUTPUT
+                fi ;;
+              7) echo "type=results" >> $GITHUB_OUTPUT ;;
               *) echo "type=final"   >> $GITHUB_OUTPUT ;;
             esac
-            echo "legs=3"  >> $GITHUB_OUTPUT
+            echo "legs=3"    >> $GITHUB_OUTPUT
             echo "dry=false" >> $GITHUB_OUTPUT
           fi
 
@@ -82,3 +96,13 @@ jobs:
             --type ${{ steps.cfg.outputs.type }} \
             --legs ${{ steps.cfg.outputs.legs }} \
             $DRY
+
+      # On Sundays, commit the updated season-record.json back to the repo
+      - name: Save season record
+        if: steps.cfg.outputs.type == 'results' && steps.cfg.outputs.dry == 'false'
+        run: |
+          git config user.name  "TheBet Bot"
+          git config user.email "bot@thebetcfb.com"
+          git add data/season-record.json
+          git diff --staged --quiet || git commit -m "Update season record [skip ci]"
+          git push

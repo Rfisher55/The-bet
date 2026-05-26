@@ -305,4 +305,41 @@ function getParlays(legCount = 3) {
     }));
 }
 
-module.exports = { getPicks, getTop5, getParlays };
+// Returns ALL picks including past weeks (for results matching)
+function getPastPicks() {
+  const predictions = allPredictions();
+  return predictions
+    .filter(p => {
+      const conf = pickConf(p);
+      return conf === 'elite' || conf === 'high';
+    })
+    .map(p => {
+      const { game, prediction: pred } = p;
+      const tp  = game.gamePreview && game.gamePreview.thePick;
+      const sp  = pred.spreadPick || {};
+      const bl  = game.bettingLines || {};
+      const conf       = pickConf(p);
+      const pickTeam   = (tp && tp.team) ? tp.team : (sp.side === 'home' ? game.homeTeam.name : game.awayTeam.name);
+      const pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name || '').toLowerCase();
+      const vegasLine  = bl.spread != null ? (pickIsHome ? bl.spread : -bl.spread) : null;
+      return {
+        gameId:     game.id,
+        week:       game.week,
+        date:       game.date,
+        time:       game.time,
+        network:    game.network,
+        homeTeam:   game.homeTeam.name,
+        awayTeam:   game.awayTeam.name,
+        homeAbbr:   game.homeTeam.abbreviation,
+        awayAbbr:   game.awayTeam.abbreviation,
+        pickTeam,
+        vegasSpread: vegasLine,
+        conf,
+        hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
+        hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
+        reasoning:  tp && tp.reasoning ? tp.reasoning : null,
+      };
+    });
+}
+
+module.exports = { getPicks, getTop5, getParlays, getPastPicks };

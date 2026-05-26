@@ -1,21 +1,23 @@
 #!/usr/bin/env node
 /**
- * post-picks.js — The Bet X auto-poster
+ * post-picks.js — The Bet X auto-poster (full account)
  *
  * Env vars (GitHub Secrets):
  *   X_API_KEY  X_API_SECRET  X_ACCESS_TOKEN  X_ACCESS_TOKEN_SECRET
  *
  * Usage:
- *   node post-picks.js --type early      # Tue: teaser picks (ELITE only)
- *   node post-picks.js --type top5       # Wed: top 5 games thread
- *   node post-picks.js --type parlay     # Thu: parlay card thread
- *   node post-picks.js --type final      # Fri: locked picks
- *   node post-picks.js --type gameday    # Sat: day-of reminders
- *   node post-picks.js --type parlay --legs 4   # 4-leg parlay
- *   node post-picks.js --type top5 --dry-run    # preview without posting
+ *   node post-picks.js --type early       Tue: teaser (ELITE only)
+ *   node post-picks.js --type top5        Wed: top 5 thread
+ *   node post-picks.js --type parlay      Thu: parlay card thread
+ *   node post-picks.js --type final       Fri: locked picks w/ record badge
+ *   node post-picks.js --type polls       Sat AM: "who covers?" polls
+ *   node post-picks.js --type gameday     Sat: hype + kickoff reminders
+ *   node post-picks.js --type results     Sun: weekly recap thread
+ *   node post-picks.js --type [any] --dry-run
  */
 
 const { getPicks, getTop5, getParlays } = require('./get-picks');
+const { updateResults, getRecord }       = require('./get-results');
 
 // ── Args ──────────────────────────────────────────────────────────
 const args   = process.argv.slice(2);
@@ -23,7 +25,7 @@ const type   = args[args.indexOf('--type') + 1] || 'final';
 const dryRun = args.includes('--dry-run');
 const legs   = args.includes('--legs') ? parseInt(args[args.indexOf('--legs') + 1]) : 3;
 
-// ── Tweet helpers ─────────────────────────────────────────────────
+// ── Shared helpers ────────────────────────────────────────────────
 const SITE = 'thebetcfb.com';
 
 function confBadge(conf) {
@@ -35,35 +37,46 @@ function spreadStr(n) {
   return n > 0 ? `+${n}` : `${n}`;
 }
 
-// Build tweet from parts, dropping optional parts until it fits 280 chars
-function buildFit(required, optional, footer) {
-  let tweet = required;
-  for (const part of optional) {
-    const candidate = tweet + '\n' + part + '\n' + footer;
-    if (candidate.length <= 280) tweet += '\n' + part;
-  }
-  return (tweet + '\n' + footer).trim();
+// ATS record badge — appended to every pick tweet
+function recordBadge() {
+  const r = getRecord().record;
+  const total = r.wins + r.losses + r.pushes;
+  if (!total) return null; // no record yet — don't show 0-0
+  const pct = total > 0 ? Math.round((r.wins / (r.wins + r.losses)) * 100) : 0;
+  return `📊 Season: ${r.wins}-${r.losses}${r.pushes ? `-${r.pushes}` : ''} ATS (${pct}%)`;
 }
 
-// ── Format: single pick (early / final / gameday) ─────────────────
+// Build tweet fitting within 280 chars — drop optional parts greedily
+function buildFit(required, optional, footer) {
+  let body = required;
+  for (const part of optional) {
+    const candidate = body + '\n' + part;
+    if ((candidate + '\n' + footer).length <= 280) body += '\n' + part;
+  }
+  return (body + '\n' + footer).trim();
+}
+
+// ── Format: single pick ───────────────────────────────────────────
 function fmtSinglePick(pick, mode) {
   const spread = spreadStr(pick.vegasSpread);
-  const tag    = `${pick.hashHome} ${pick.hashAway} #CFB #TheBet`;
+  const badge  = recordBadge();
+  const tags   = `${pick.hashHome} ${pick.hashAway} #CFB #TheBet`;
 
   if (mode === 'gameday') {
-    return [
+    const lines = [
       `🏈 GAME DAY — Week ${pick.week}`,
       `${pick.awayAbbr} @ ${pick.homeAbbr}  ·  ${pick.time}${pick.network ? ` | ${pick.network}` : ''}`,
       ``,
       `${confBadge(pick.conf)} → ${pick.pickTeam}${spread ? ` ${spread}` : ''} covers`,
-      ``,
-      `Good luck 🙏  ${SITE}`,
-      `${tag}`,
-    ].join('\n').trim();
+    ];
+    const optional = [badge, `Let's get it! 🙏`].filter(Boolean);
+    return buildFit(lines.join('\n'), optional, `${SITE}  ${tags}`);
   }
 
   const required = [
-    mode === 'early' ? `🔍 EARLY LOOK — Week ${pick.week}` : `${confBadge(pick.conf)} — Week ${pick.week}`,
+    mode === 'early'
+      ? `🔍 EARLY LOOK — Week ${pick.week}`
+      : `${confBadge(pick.conf)} — Week ${pick.week}`,
     ``,
     `${pick.awayAbbr} @ ${pick.homeAbbr}`,
     `THE BET: ${pick.pickTeam}${spread ? ` ${spread}` : ''}`,
@@ -72,35 +85,38 @@ function fmtSinglePick(pick, mode) {
   ].join('\n');
 
   const optional = [
-    pick.publicPct != null ? `👥 ${pick.publicPct}% public on ${pick.pickTeam}${pick.publicPct >= 60 ? ' (fade alert)' : ''}` : null,
+    badge,
+    pick.publicPct != null
+      ? `👥 ${pick.publicPct}% public on ${pick.pickTeam}${pick.publicPct >= 60 ? ' (fade)' : ''}`
+      : null,
     pick.sharpAligns ? `💰 Sharp money aligned ✓` : null,
-    pick.reasoning ? `"${pick.reasoning.slice(0, 55)}${pick.reasoning.length > 55 ? '…' : ''}"` : null,
+    pick.reasoning
+      ? `"${pick.reasoning.slice(0, 52)}${pick.reasoning.length > 52 ? '…' : ''}"`
+      : null,
   ].filter(Boolean);
 
-  return buildFit(required, optional, `${SITE}  ${tag}`);
+  return buildFit(required, optional, `${SITE}  ${tags}`);
 }
 
 // ── Format: top 5 thread ──────────────────────────────────────────
 function fmtTop5Thread(picks) {
-  if (!picks.length) return [];
-
-  const week = picks[0].week;
+  const week      = picks[0].week;
+  const badge     = recordBadge();
   const rankEmoji = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];
 
-  // Hook tweet (no site link — leaves room for full text)
   const hook = [
     `🏈 THE BET — WEEK ${week} TOP ${picks.length} PICKS`,
     ``,
     `Model ran every game on the board.`,
     `Only ${picks.length} made the cut.`,
+    badge ? `\n${badge}` : '',
     ``,
     `Here's where the edge is 👇`,
     `#CFB #CollegeFootball #TheBet`,
-  ].join('\n').trim();
+  ].filter(Boolean).join('\n').trim();
 
-  // One tweet per pick
   const pickTweets = picks.map((pick, i) => {
-    const spread = spreadStr(pick.vegasSpread);
+    const spread   = spreadStr(pick.vegasSpread);
     const required = [
       `${rankEmoji[i]} ${confBadge(pick.conf)}`,
       `${pick.awayAbbr} @ ${pick.homeAbbr}  ·  Wk${pick.week} ${pick.time || ''}`,
@@ -111,19 +127,19 @@ function fmtTop5Thread(picks) {
 
     const optional = [
       pick.publicPct != null ? `👥 ${pick.publicPct}% public on ${pick.pickTeam}` : null,
-      pick.reasoning ? `"${pick.reasoning.slice(0, 60)}${pick.reasoning.length > 60 ? '…' : ''}"` : null,
+      pick.reasoning
+        ? `"${pick.reasoning.slice(0, 58)}${pick.reasoning.length > 58 ? '…' : ''}"`
+        : null,
     ].filter(Boolean);
 
     return buildFit(required, optional, `${pick.hashHome} ${pick.hashAway} #CFB`);
   });
 
-  // Closer tweet
   const closer = [
     `Full breakdowns + parlay builder 👇`,
-    ``,
     `${SITE}`,
     ``,
-    `💬 Drop your picks below! #CFB #TheBet #CollegeFootball`,
+    `💬 Drop your picks below! #CFB #TheBet`,
   ].join('\n').trim();
 
   return [hook, ...pickTweets, closer];
@@ -131,48 +147,39 @@ function fmtTop5Thread(picks) {
 
 // ── Format: parlay thread ─────────────────────────────────────────
 function fmtParlayThread(combos, legCount) {
-  if (!combos.length) return [];
-
-  const week = combos[0].legs[0].week;
+  const week      = combos[0].legs[0].week;
+  const badge     = recordBadge();
   const rankLabel = ['💎 #1 BEST BET', '🥈 #2 PICK', '🥉 #3 VALUE'];
-  const evLabel   = ev => ev >= 0 ? `+$${ev.toFixed(0)} EV` : `-$${Math.abs(ev).toFixed(0)} EV`;
 
   const hook = [
     `💎 THE BET PARLAY CARD — WEEK ${week}`,
     ``,
     `${legCount}-leg combos ranked by expected value.`,
-    `Model win probability verified against Vegas lines.`,
+    `Win prob verified against Vegas lines.`,
+    badge ? badge : '',
     ``,
     `Thread 👇  #CFB #Parlay #TheBet`,
-  ].join('\n').trim();
+  ].filter(Boolean).join('\n').trim();
 
   const comboTweets = combos.map((combo, i) => {
     const legLines = combo.legs.map(l =>
       `  • ${l.label}  (${l.odds > 0 ? '+' : ''}${l.odds})`
     ).join('\n');
-
-    const evColor = combo.ev >= 0 ? '✅' : '⚠️';
+    const evSign = combo.ev >= 0 ? '✅ +' : '⚠️ ';
     const required = [
       rankLabel[i],
       ``,
       legLines,
       ``,
       `Odds: ${combo.american}  ·  Win: ${combo.winPct}%`,
-      `${evColor} ${evLabel(combo.ev)} per $100`,
+      `${evSign}$${Math.abs(combo.ev).toFixed(0)} EV per $100`,
     ].join('\n');
-
-    return buildFit(
-      required,
-      [],
-      `Build it → ${SITE}/pages/parlay.html  #CFB #Parlay`
-    );
+    return buildFit(required, [], `Build it → ${SITE}/pages/parlay.html  #CFB #Parlay`);
   });
 
   const closer = [
     `🧮 All combos built with real Vegas odds + model edge.`,
-    ``,
-    `Parlay builder (mix & match) 👇`,
-    `${SITE}/pages/parlay.html`,
+    `Parlay builder → ${SITE}/pages/parlay.html`,
     ``,
     `Who's tailing? 👇 #CFB #Parlay #TheBet`,
   ].join('\n').trim();
@@ -180,7 +187,81 @@ function fmtParlayThread(combos, legCount) {
   return [hook, ...comboTweets, closer];
 }
 
-// ── X API posting ─────────────────────────────────────────────────
+// ── Format: polls ("who covers tonight?") ────────────────────────
+// Returns array of { text, poll } objects — one per game
+function fmtPolls(picks) {
+  return picks.map(pick => {
+    const spread = spreadStr(pick.vegasSpread);
+    const oppTeam = pick.pickTeam === pick.homeTeam ? pick.awayTeam : pick.homeTeam;
+    const oppAbbr = pick.pickTeam === pick.homeTeam ? pick.awayAbbr : pick.homeAbbr;
+    const spread2 = pick.vegasSpread != null ? spreadStr(-pick.vegasSpread) : '';
+    return {
+      text: [
+        `🗳️ Week ${pick.week} — Who covers tonight?`,
+        ``,
+        `${pick.awayAbbr} @ ${pick.homeAbbr}  ·  ${pick.time || ''}`,
+        ``,
+        `Our model: ${pick.pickTeam}${spread ? ` ${spread}` : ''} 🔒`,
+        ``,
+        `#CFB ${pick.hashHome} ${pick.hashAway} #CollegeFootball`,
+      ].join('\n').trim(),
+      poll: {
+        options: [
+          { label: `${pick.pickTeam.slice(0, 25)}${spread ? ` ${spread}` : ''}` },
+          { label: `${oppTeam.slice(0, 25)}${spread2 ? ` ${spread2}` : ''}` },
+        ],
+        duration_minutes: 1440, // 24 hours
+      },
+    };
+  });
+}
+
+// ── Format: weekly results thread ────────────────────────────────
+function fmtResultsThread(newResults, fullRecord) {
+  if (!newResults.length) return [];
+
+  const week   = newResults[0].week;
+  const wins   = newResults.filter(r => r.result === 'W').length;
+  const losses = newResults.filter(r => r.result === 'L').length;
+  const pushes = newResults.filter(r => r.result === 'P').length;
+  const rec    = fullRecord.record;
+  const emoji  = wins > losses ? '🔥' : wins === losses ? '😤' : '📉';
+
+  const hook = [
+    `${emoji} WEEK ${week} RESULTS — THE BET`,
+    ``,
+    `This week: ${wins}-${losses}${pushes ? `-${pushes}` : ''} ATS`,
+    `Season:    ${rec.wins}-${rec.losses}${rec.pushes ? `-${rec.pushes}` : ''} ATS`,
+    ``,
+    `Full breakdown 👇  #CFB #TheBet`,
+  ].join('\n').trim();
+
+  const resultTweets = newResults.map(r => {
+    const icon     = r.result === 'W' ? '✅' : r.result === 'L' ? '❌' : '➖';
+    const score    = r.homeScore != null ? `Final: ${r.awayScore}-${r.homeScore}` : '';
+    const spread   = r.spread != null ? spreadStr(r.spread) : '';
+    return [
+      `${icon} ${r.matchup}`,
+      `${r.pickTeam}${spread ? ` ${spread}` : ''} — ${r.result === 'W' ? 'COVERED ✅' : r.result === 'L' ? 'NO COVER ❌' : 'PUSH ➖'}`,
+      score ? score : '',
+      `#CFB`,
+    ].filter(Boolean).join('\n').trim();
+  });
+
+  const seasonPct = (rec.wins + rec.losses) > 0
+    ? Math.round(rec.wins / (rec.wins + rec.losses) * 100) : 0;
+
+  const closer = [
+    `📊 Season record: ${rec.wins}-${rec.losses}${rec.pushes ? `-${rec.pushes}` : ''} ATS (${seasonPct}%)`,
+    ``,
+    `Next week's picks drop Tuesday 👀`,
+    `${SITE}  #CFB #TheBet #CollegeFootball`,
+  ].join('\n').trim();
+
+  return [hook, ...resultTweets, closer];
+}
+
+// ── X API client ──────────────────────────────────────────────────
 async function getClient() {
   const { TwitterApi } = await import('twitter-api-v2');
   const client = new TwitterApi({
@@ -197,76 +278,117 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 async function postThread(tweets, client) {
   const ids = [];
   for (let i = 0; i < tweets.length; i++) {
-    const opts = i === 0 ? {} : { reply: { in_reply_to_tweet_id: ids[i - 1] } };
-    const { data } = await client.v2.tweet(tweets[i], opts);
+    const payload = typeof tweets[i] === 'string'
+      ? { text: tweets[i] }
+      : tweets[i]; // poll objects pass through as-is
+    const opts = i === 0 ? payload : { ...payload, reply: { in_reply_to_tweet_id: ids[i - 1] } };
+    const { data } = await client.v2.tweet(opts);
     ids.push(data.id);
-    if (i < tweets.length - 1) await sleep(3000);
+    console.log(`  ✅ Tweet ${i + 1}: https://x.com/i/web/status/${data.id}`);
+    if (i < tweets.length - 1) await sleep(4000);
   }
   return ids;
+}
+
+// ── Print preview ─────────────────────────────────────────────────
+function printTweets(items) {
+  items.forEach((item, i) => {
+    const text = typeof item === 'string' ? item : item.text;
+    const poll = typeof item === 'object' && item.poll
+      ? `\n[POLL: ${item.poll.options.map(o => o.label).join(' / ')}]` : '';
+    console.log(`\n── Tweet ${i + 1} (${text.length} chars) ${'─'.repeat(22)}`);
+    console.log(text + poll);
+    if (text.length > 280) console.warn(`⚠️  OVER 280 CHARS`);
+  });
 }
 
 // ── Main ──────────────────────────────────────────────────────────
 async function main() {
   console.log(`\n📣 The Bet — X Auto-Poster`);
-  console.log(`Mode: ${type.toUpperCase()} | Dry run: ${dryRun}`);
-  console.log(`${'─'.repeat(44)}`);
+  console.log(`Mode: ${type.toUpperCase()} | Dry run: ${dryRun}\n${'─'.repeat(44)}`);
 
-  let tweets = [];
+  let items = []; // array of strings or poll objects
 
-  if (type === 'top5') {
+  // ── Results (Sunday) ─────────────────────────────────────────
+  if (type === 'results') {
+    const allPicks = getPicks('all');
+    // Include past picks too — updateResults handles the "already recorded" check
+    const { getPastPicks } = require('./get-picks');
+    const allPicksWithPast = getPastPicks ? getPastPicks() : allPicks;
+    console.log('Fetching ESPN scores...');
+    const { record, newResults } = await updateResults(allPicksWithPast.length ? allPicksWithPast : allPicks);
+    if (!newResults.length) {
+      console.log('No new results to post (either off-season or already recorded).');
+      return;
+    }
+    items = fmtResultsThread(newResults, record).map(t => t); // strings
+    console.log(`Results thread — ${items.length} tweets`);
+
+  // ── Polls (Saturday AM) ───────────────────────────────────────
+  } else if (type === 'polls') {
+    const picks = getPicks('all');
+    if (!picks.length) { console.log('No picks for polls.'); return; }
+    items = fmtPolls(picks); // poll objects
+    console.log(`${items.length} poll tweet(s)`);
+
+  // ── Top 5 thread (Wednesday) ──────────────────────────────────
+  } else if (type === 'top5') {
     const picks = getTop5();
     if (!picks.length) { console.log('No games found for top 5.'); return; }
-    tweets = fmtTop5Thread(picks);
-    console.log(`Top 5 thread — ${tweets.length} tweets\n`);
+    items = fmtTop5Thread(picks);
+    console.log(`Top 5 thread — ${items.length} tweets`);
 
+  // ── Parlay thread (Thursday) ──────────────────────────────────
   } else if (type === 'parlay') {
     const combos = getParlays(legs);
-    if (!combos.length) { console.log(`Not enough picks for a ${legs}-leg parlay.`); return; }
-    tweets = fmtParlayThread(combos, legs);
-    console.log(`Parlay thread (${legs}-leg) — ${tweets.length} tweets\n`);
+    if (!combos.length) {
+      console.log(`Not enough picks for a ${legs}-leg parlay. Trying ${legs - 1}-leg...`);
+      const fallback = legs > 2 ? getParlays(legs - 1) : [];
+      if (!fallback.length) { console.log('No parlay combos available.'); return; }
+      items = fmtParlayThread(fallback, legs - 1);
+    } else {
+      items = fmtParlayThread(combos, legs);
+    }
+    console.log(`Parlay thread — ${items.length} tweets`);
 
+  // ── Individual picks: early / final / gameday ─────────────────
   } else {
-    // Individual picks: early / final / gameday
     const allPicks = getPicks('all');
     const filtered = type === 'early' ? allPicks.filter(p => p.conf === 'elite') : allPicks;
-    if (!filtered.length) { console.log(`No picks to post for mode "${type}".`); return; }
-    tweets = filtered.map(p => fmtSinglePick(p, type));
-    console.log(`${filtered.length} individual tweet(s)\n`);
+    if (!filtered.length) { console.log(`No picks for "${type}".`); return; }
+    items = filtered.map(p => fmtSinglePick(p, type));
+    console.log(`${filtered.length} individual tweet(s)`);
   }
 
-  // Print all tweets
-  tweets.forEach((t, i) => {
-    console.log(`── Tweet ${i + 1}/${tweets.length} (${t.length} chars) ${'─'.repeat(20)}`);
-    console.log(t);
-    if (t.length > 280) console.warn(`\n⚠️  OVER 280 CHARS — will be skipped`);
-    console.log();
-  });
+  printTweets(items);
 
-  if (dryRun) { console.log('[DRY RUN — nothing posted]'); return; }
+  if (dryRun) { console.log('\n[DRY RUN — nothing posted]'); return; }
 
   if (!process.env.X_API_KEY) {
-    console.error('❌ X_API_KEY not set. Use --dry-run or set env vars.');
+    console.error('\n❌ X_API_KEY not set. Add GitHub secrets or use --dry-run.');
     process.exit(1);
   }
 
-  const overLimit = tweets.filter(t => t.length > 280);
+  const overLimit = items.filter(t => {
+    const text = typeof t === 'string' ? t : t.text;
+    return text.length > 280;
+  });
   if (overLimit.length) {
-    console.error(`❌ ${overLimit.length} tweet(s) exceed 280 chars. Fix before posting.`);
+    console.error(`\n❌ ${overLimit.length} tweet(s) over 280 chars. Fix before posting.`);
     process.exit(1);
   }
 
   const client = await getClient();
 
-  if (tweets.length === 1) {
-    const { data } = await client.v2.tweet(tweets[0]);
-    console.log(`✅ Posted! https://x.com/i/web/status/${data.id}`);
+  if (items.length === 1) {
+    const payload = typeof items[0] === 'string' ? { text: items[0] } : items[0];
+    const { data } = await client.v2.tweet(payload);
+    console.log(`\n✅ Posted! https://x.com/i/web/status/${data.id}`);
   } else {
-    // Post as a thread
-    console.log(`Posting thread of ${tweets.length} tweets...`);
-    const ids = await postThread(tweets, client);
-    console.log(`✅ Thread posted! https://x.com/i/web/status/${ids[0]}`);
-    ids.forEach((id, i) => console.log(`  Tweet ${i + 1}: https://x.com/i/web/status/${id}`));
+    console.log(`\nPosting thread of ${items.length} tweets...`);
+    const ids = await postThread(items, client);
+    console.log(`\n✅ Done! Thread: https://x.com/i/web/status/${ids[0]}`);
   }
 }
 
-main().catch(e => { console.error(e); process.exit(1); });
+main().catch(e => { console.error('\n❌', e.message || e); process.exit(1); });
