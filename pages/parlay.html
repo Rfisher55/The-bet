@@ -86,6 +86,8 @@
       background:rgba(99,102,241,.13);border-color:#6366f1;
     }
     .pg-btn.sel-away .pg-btn-line, .pg-btn.sel-away .pg-btn-odds { color:#6366f1; }
+    /* Opposing-pick dim — fades out the button that conflicts with the selected one */
+    .pg-btn.conflicted { opacity:.28;pointer-events:none; }
     @media (max-width:400px) {
       .pg-grid { grid-template-columns:52px 1fr 1fr 1fr; }
       .pg-btn-line { font-size:.7rem; }
@@ -1310,10 +1312,18 @@ function renderGameList() {
     const hSpread = fmtSpread(bl.spread || 0);
     const aSpread = fmtSpread(-(bl.spread || 0));
 
-    // Sportsbook-style selected state
+    // Sportsbook-style selected / conflicted state
+    const _conflictMap = {
+      home:["away","away-ml"], away:["home","home-ml"],
+      "home-ml":["away-ml","away"], "away-ml":["home-ml","home"],
+      over:["under"], under:["over"],
+    };
     function sel(side) {
-      if (!picks[pickKey(game.id, side)]) return "";
-      return (side === "away" || side === "away-ml") ? " sel sel-away" : " sel";
+      if (picks[pickKey(game.id, side)])
+        return (side === "away" || side === "away-ml") ? " sel sel-away" : " sel";
+      if ((_conflictMap[side] || []).some(s => picks[pickKey(game.id, s)]))
+        return " conflicted";
+      return "";
     }
 
     // Rec banner — prefer curated pick, fall back to model
