@@ -638,71 +638,18 @@
 <!-- ── Main ── -->
 <main class="container page-content">
 
-  <!-- Hero v2: two-column -->
-  <section class="hero-v2 mb-5">
-    <!-- Left: headline + CTA -->
-    <div class="hero-v2-left">
-      <div class="hero-eyebrow">
-        <span class="hero-eyebrow-dot"></span>
-        2026 Season &middot; 7-Signal AI Model &middot; Independent Predictions
-      </div>
-      <h1 class="hero-title" style="font-size:1.9rem;margin-bottom:10px">
-        WIN THE BET.<br>
-        <span>KNOW THE GAME.</span>
-      </h1>
-      <div class="hero-ctas" style="margin-top:0">
-        <a class="btn btn-primary" href="pages/games.html?week=1">Week 1 Picks →</a>
-        <a class="btn btn-outline" href="pages/parlay.html">Build Parlay</a>
-        <a class="btn btn-outline" href="pages/teams.html">Teams</a>
-      </div>
+  <!-- Compact page header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 18px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:1.1rem;font-weight:900;color:var(--text);letter-spacing:-.3px">This Week's Picks</div>
+      <div style="font-size:.68rem;color:var(--muted);margin-top:2px">2026 Season · AI model · Click any game for full analysis</div>
     </div>
-
-    <!-- Right: Top Pick of the Week card -->
-    <div class="hero-v2-right">
-      <div class="top-pick-card" id="hero-top-pick">
-        <!-- Filled by JS; skeleton shown initially -->
-        <div class="top-pick-card-label">
-          <span class="top-pick-card-pulse"></span>
-          Top Pick of the Week
-        </div>
-        <div style="height:22px;margin-bottom:14px" class="skeleton"></div>
-        <div style="height:14px;width:70%;margin-bottom:14px" class="skeleton"></div>
-        <div style="display:flex;gap:8px;margin-bottom:14px">
-          <div style="flex:1;height:60px" class="skeleton"></div>
-          <div style="flex:1;height:60px" class="skeleton"></div>
-        </div>
-        <div style="height:36px" class="skeleton"></div>
-      </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <a href="pages/games.html" style="padding:7px 14px;border-radius:var(--radius);background:var(--primary);color:#000;font-size:.72rem;font-weight:800;text-decoration:none">All Games →</a>
+      <a href="pages/parlay.html" style="padding:7px 14px;border-radius:var(--radius);border:1px solid var(--border-l);color:var(--muted-l);font-size:.72rem;font-weight:700;text-decoration:none;background:var(--card)">Parlay Builder</a>
+      <button id="copy-picks-btn" onclick="copyWeekPicks()" style="padding:7px 12px;border-radius:var(--radius);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:var(--accent);font-size:.68rem;font-weight:800;cursor:pointer">📋 Copy</button>
     </div>
-  </section>
-
-  <!-- Model Performance Strip -->
-  <section class="mb-5">
-    <div class="stats-strip-wrap">
-      <div class="stats-strip" id="model-perf-strip">
-        <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
-          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">2025 ATS Record</div>
-          <div style="font-size:1.45rem;font-weight:900;color:var(--text)">68-21</div>
-          <div style="font-size:.62rem;color:var(--muted-l);margin-top:2px">76.4% win rate</div>
-        </div>
-        <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
-          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Elite Confidence</div>
-          <div style="font-size:1.45rem;font-weight:900;color:var(--primary)">89.5%</div>
-          <div style="font-size:.62rem;color:var(--muted-l);margin-top:2px">17-2 ATS (19 picks)</div>
-        </div>
-        <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
-          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Sharp Aligned</div>
-          <div style="font-size:1.45rem;font-weight:900;color:var(--accent)">78.4%</div>
-          <div style="font-size:.62rem;color:var(--muted-l);margin-top:2px">When model + sharps agree</div>
-        </div>
-        <div class="stat-cell" id="model-live-stat">
-          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">2026 Games</div>
-          <div style="font-size:1.45rem;font-weight:900;color:var(--text)" id="model-game-count">—</div>
-          <div style="font-size:.62rem;color:var(--muted-l);margin-top:2px">Predictions generated</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <!-- My Personal Record (reads from localStorage picks) -->
   <div id="my-record-banner" style="display:none;margin-bottom:24px"></div>
@@ -819,13 +766,6 @@
 
   <!-- Top picks -->
   <section class="mb-5">
-    <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">Top Picks — Week 1</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <button id="copy-picks-btn" onclick="copyWeekPicks()" style="padding:5px 12px;border-radius:8px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:var(--accent);font-size:.68rem;font-weight:800;cursor:pointer;transition:all .15s">📋 Copy Picks</button>
-        <a href="pages/games.html?week=1" class="text-sm text-primary" style="text-decoration:underline">All Week 1 →</a>
-      </div>
-    </div>
     <div class="grid-3" id="top-picks"></div>
   </section>
 
@@ -1013,22 +953,15 @@
     </div><!-- /sb-browse-conf -->
   </section>
 
-  <!-- Upcoming Games Countdown -->
-  <section class="mb-5" id="upcoming-section" style="display:none">
-    <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">⏰ Upcoming Games — Next Up</div>
-      <a href="pages/games.html" class="text-sm text-muted" style="text-decoration:underline">Full Schedule →</a>
-    </div>
-    <div id="upcoming-grid" style="display:flex;flex-direction:column;gap:8px"></div>
-  </section>
-
-  <!-- Featured games -->
-  <section class="mb-5">
-    <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">Elite &amp; High Confidence Games</div>
-      <a href="pages/games.html?sort=confidence" class="text-sm text-primary" style="text-decoration:underline">All picks →</a>
+  <!-- All picks this week (compact, visible) -->
+  <section class="mb-5" id="all-picks-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+      <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">All Picks This Week</div>
+      <a href="pages/games.html" style="font-size:.68rem;color:var(--primary);text-decoration:none">View full schedule →</a>
     </div>
     <div class="grid-auto" id="featured-games"></div>
+    <!-- Upcoming countdown - shown inline below the picks grid -->
+    <div id="upcoming-grid" style="display:flex;flex-direction:column;gap:8px;margin-top:10px"></div>
   </section>
 
   <!-- Team Trends collapsible group -->
@@ -1974,8 +1907,7 @@ function renderUpcomingGames() {
   if (!upcoming.length) return;
 
   var grid = document.getElementById("upcoming-grid");
-  var sec  = document.getElementById("upcoming-section");
-  if (!grid || !sec) return;
+  if (!grid) return;
 
   function textForBg(hex) {
     if (!hex) return "#fff";
@@ -2021,7 +1953,6 @@ function renderUpcomingGames() {
       + '</a>';
   }).join("");
 
-  sec.style.display = "";
 }
 renderUpcomingGames();
 
