@@ -1555,7 +1555,7 @@ function logParleyToPicks(btn) {
     odds:     parlay.american,
     wager:    wager || 25,
     result:   "pending",
-    notes:    entries.length + "-leg parlay · Model: " + Math.round(winProb * 100) + "% · " + parlay.american,
+    notes:    entries.length + "-leg parlay · " + Math.round(winProb * 100) + "% win prob",
     addedAt:  today.toISOString(),
     pickType: "parlay",
   };
