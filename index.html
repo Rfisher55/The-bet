@@ -712,6 +712,18 @@
     <div id="best-dog-card"></div>
   </section>
 
+  <!-- Fade the Public -->
+  <section class="mb-5" id="fade-public-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">🔄 Fade the Public — Contrarian Picks</div>
+      <a href="pages/games.html?type=fade" class="text-sm text-muted" style="text-decoration:underline">See all →</a>
+    </div>
+    <div id="fade-public-list" style="display:flex;flex-direction:column;gap:8px"></div>
+    <div style="margin-top:8px;padding:8px 12px;border-radius:var(--radius);background:rgba(244,114,182,.03);border:1px solid rgba(244,114,182,.15);font-size:.68rem;color:var(--muted-l)">
+      These games have our model backing the team that the majority of public bettors are fading. Sharp-vs-public contrarian spots finish 58–62% ATS historically.
+    </div>
+  </section>
+
   <!-- Value Alerts -->
   <section class="mb-5" id="value-alerts-section" style="display:none">
     <div class="flex items-center justify-between mb-4">
@@ -816,6 +828,15 @@
       <a href="pages/teams.html" class="text-sm text-muted" style="text-decoration:underline">All teams →</a>
     </div>
     <div class="trend-grid" id="trending-grid"></div>
+  </section>
+
+  <!-- Game of the Week -->
+  <section class="mb-5" id="gotw-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">⭐ Game of the Week — Top Conviction Play</div>
+      <span class="text-sm text-muted">Highest edge + confidence this week</span>
+    </div>
+    <div id="gotw-card"></div>
   </section>
 
   <!-- Power Rankings Preview -->
@@ -968,6 +989,8 @@
     renderSystemAlerts();
     renderConferenceATS();
     renderTrendingTeams();
+    renderGameOfTheWeek();
+    renderFadePublic();
     renderUpcomingGames();
     renderBestUnderdog();
   });
@@ -1857,6 +1880,159 @@ function renderBestUnderdog() {
   sec.style.display = "";
 }
 renderBestUnderdog();
+
+// ── Game of the Week ─────────────────────────────────────────────
+function renderGameOfTheWeek() {
+  var confW = { ELITE: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+  var candidates = allPredictions.filter(function(p) {
+    var tp = p.game.gamePreview && p.game.gamePreview.thePick;
+    var sp = p.prediction.spreadPick || {};
+    return ((tp && tp.confidence) || sp.side !== "no-bet") && (sp.edge || 0) >= 1;
+  }).map(function(p) {
+    var game = p.game, pred = p.prediction;
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var sp = pred.spreadPick || {};
+    var sm = pred.sharpMoneySignal || {};
+    var pickConf = (tp && tp.confidence) ? tp.confidence.toUpperCase() : (pred.confidence || "MEDIUM").toUpperCase();
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    var edge = sp.edge || 0;
+    var pickIsHome = pickTeam && (pickTeam.toLowerCase() === (game.homeTeam.name||"").toLowerCase() ||
+                                  pickTeam.toLowerCase() === (game.homeTeam.abbreviation||"").toLowerCase());
+    var sharpAligned = (sm.strength || 0) >= 6 && sm.side !== "neutral" &&
+      ((sm.side === "home" && pickIsHome) || (sm.side === "away" && !pickIsHome));
+    var pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
+    var pubHome = pb.homePct || 50;
+    var isRLM = (sm.strength || 0) >= 6 && ((sm.side === "home" && pubHome < 45) || (sm.side === "away" && pubHome > 55));
+    var score = (confW[pickConf] || 1) * 5 + edge * 3 + (sharpAligned ? 6 : 0) + (isRLM ? 4 : 0);
+    return { p: p, pickTeam: pickTeam, pickConf: pickConf, pickIsHome: pickIsHome, edge: edge, score: score, sharpAligned: sharpAligned, isRLM: isRLM };
+  }).sort(function(a, b) { return b.score - a.score; });
+
+  var el = document.getElementById("gotw-card");
+  var sec = document.getElementById("gotw-section");
+  if (!el || !sec || !candidates.length) return;
+
+  var top = candidates[0];
+  var game = top.p.game;
+  var pred = top.p.prediction;
+  var home = game.homeTeam, away = game.awayTeam;
+  var tp = game.gamePreview && game.gamePreview.thePick;
+  var sp = pred.spreadPick || {};
+  var sm = pred.sharpMoneySignal || {};
+  var bl = game.bettingLines || {};
+  var pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
+  var pickConf = top.pickConf;
+  var confColor = { ELITE: "var(--primary)", HIGH: "#34d399", MEDIUM: "var(--gold)", LOW: "var(--muted)" }[pickConf] || "var(--muted)";
+  var reasoning = (tp && tp.reasoning) || sp.note || "Top conviction play this week with the highest combined edge and confidence score.";
+  var pickLine = (tp && tp.line) || (bl.spread != null ? (top.pickIsHome ? fmtSpread(bl.spread) : "+" + Math.abs(bl.spread)) : "");
+  var wp = pred.winProbability || null;
+  var pubHome = pb.homePct || 50;
+  var pubOnPick = top.pickIsHome ? pubHome : (100 - pubHome);
+  var publicFades = pubOnPick < 45;
+  var vegasLine = bl.spread != null ? (bl.spread < 0 ? home.abbreviation + " " + bl.spread : away.abbreviation + " +" + Math.abs(bl.spread)) : "";
+
+  var smBadge = top.sharpAligned
+    ? '<span style="font-size:.62rem;padding:2px 8px;border-radius:5px;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">💰 Sharps Agree</span>'
+    : ((sm.strength || 0) >= 6
+      ? '<span style="font-size:.62rem;padding:2px 8px;border-radius:5px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:var(--gold);font-weight:700">⚡ Sharp Split</span>'
+      : "");
+  var rlmBadge = top.isRLM ? '<span style="font-size:.62rem;padding:2px 8px;border-radius:5px;background:rgba(244,114,182,.12);border:1px solid rgba(244,114,182,.3);color:#f472b6;font-weight:700">📡 RLM</span>' : "";
+  var fadeBadge = publicFades ? '<span style="font-size:.62rem;padding:2px 8px;border-radius:5px;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.25);color:#f472b6;font-weight:700">🔄 Fade Public (' + Math.round(100 - pubOnPick) + '% vs us)</span>' : "";
+  var wpBar = wp ? '<div style="margin:8px 0 4px">'
+    + '<div style="display:flex;justify-content:space-between;font-size:.58rem;color:var(--muted);margin-bottom:3px"><span>Win Probability</span><span style="color:var(--primary);font-weight:800">' + wp + '%</span></div>'
+    + '<div style="height:5px;border-radius:3px;background:var(--border);overflow:hidden"><div style="width:' + wp + '%;height:100%;background:var(--primary)"></div></div>'
+    + '</div>' : "";
+
+  el.innerHTML = '<a href="pages/game.html?id=' + game.id + '" style="text-decoration:none;display:block;padding:20px 22px;border-radius:var(--radius-lg);border:1px solid rgba(245,158,11,.35);background:linear-gradient(135deg,rgba(245,158,11,.06) 0%,rgba(8,13,26,0) 60%)">'
+    + '<div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">'
+      + '<div style="flex:1;min-width:200px">'
+        + '<div style="font-size:.52rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">⭐ GAME OF THE WEEK</div>'
+        + '<div style="font-size:1.1rem;font-weight:900;color:var(--text);margin-bottom:2px">' + away.abbreviation + ' @ ' + home.abbreviation + '</div>'
+        + '<div style="font-size:.72rem;color:var(--muted);margin-bottom:8px">' + (game.time || "") + (game.time && game.date ? " · " : "") + game.date + ' · Wk ' + (game.week || "?") + (vegasLine ? " · " + vegasLine : "") + '</div>'
+        + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">'
+          + '<span style="font-size:.98rem;font-weight:900;color:var(--text)">' + top.pickTeam + ' covers</span>'
+          + (pickLine ? '<span style="font-size:.72rem;color:var(--muted-l)">' + pickLine + '</span>' : '')
+          + '<span style="font-size:.6rem;font-weight:900;padding:2px 8px;border-radius:5px;background:' + confColor + '20;border:1px solid ' + confColor + '40;color:' + confColor + '">' + pickConf + '</span>'
+        + '</div>'
+        + '<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">' + smBadge + rlmBadge + fadeBadge + '</div>'
+        + wpBar
+        + '<div style="font-size:.73rem;color:var(--text-soft);line-height:1.55">' + (reasoning.length > 190 ? reasoning.slice(0, 190) + "…" : reasoning) + '</div>'
+      + '</div>'
+      + '<div style="flex-shrink:0;text-align:center;padding:14px 18px;border-radius:var(--radius);background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)">'
+        + '<div style="font-size:.52rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Model Edge</div>'
+        + '<div style="font-size:1.6rem;font-weight:900;color:var(--gold)">+' + top.edge.toFixed(1) + '</div>'
+        + '<div style="font-size:.6rem;color:var(--muted-l)">pts vs Vegas</div>'
+        + '<div style="margin-top:10px;font-size:.65rem;color:var(--accent);font-weight:700">Full Analysis →</div>'
+      + '</div>'
+    + '</div>'
+  + '</a>';
+
+  sec.style.display = "";
+}
+renderGameOfTheWeek();
+
+// ── Fade the Public ───────────────────────────────────────────────
+function renderFadePublic() {
+  var confW = { ELITE: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+  var fades = allPredictions.filter(function(p) {
+    var game = p.game, pred = p.prediction;
+    var pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var sp = pred.spreadPick || {};
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    if (!pickTeam || !pb.homePct) return false;
+    var pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name || "").toLowerCase() ||
+                     pickTeam.toLowerCase() === (game.homeTeam.abbreviation || "").toLowerCase();
+    var pubHome = Number(pb.homePct || 50);
+    var pubOnPick = pickIsHome ? pubHome : (100 - pubHome);
+    return pubOnPick <= 42;
+  }).map(function(p) {
+    var game = p.game, pred = p.prediction;
+    var pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var sp = pred.spreadPick || {};
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    var pickConf = (tp && tp.confidence) ? tp.confidence.toUpperCase() : (pred.confidence || "MEDIUM").toUpperCase();
+    var pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name || "").toLowerCase() ||
+                     pickTeam.toLowerCase() === (game.homeTeam.abbreviation || "").toLowerCase();
+    var pubHome = Number(pb.homePct || 50);
+    var pubOnPick = pickIsHome ? pubHome : (100 - pubHome);
+    var pubAgainst = Math.round(100 - pubOnPick);
+    var score = (pubAgainst - 50) * 2 + (confW[pickConf] || 1) * 3 + (sp.edge || 0) * 2;
+    return { p: p, pickTeam: pickTeam, pickConf: pickConf, pickIsHome: pickIsHome, pubAgainst: pubAgainst, score: score, edge: sp.edge || 0 };
+  }).sort(function(a, b) { return b.score - a.score; }).slice(0, 4);
+
+  var el = document.getElementById("fade-public-list");
+  var sec = document.getElementById("fade-public-section");
+  if (!el || !sec || !fades.length) return;
+
+  var confColors = { ELITE: "var(--primary)", HIGH: "#34d399", MEDIUM: "var(--gold)", LOW: "var(--muted)" };
+  el.innerHTML = fades.map(function(f) {
+    var game = f.p.game;
+    var home = game.homeTeam, away = game.awayTeam;
+    var bl = game.bettingLines || {};
+    var cc = confColors[f.pickConf] || "var(--muted)";
+    var vegasLine = bl.spread != null ? (bl.spread < 0 ? home.abbreviation + " " + bl.spread : away.abbreviation + " +" + Math.abs(bl.spread)) : "";
+    return '<a href="pages/game.html?id=' + game.id + '" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius);background:rgba(244,114,182,.04);border:1px solid rgba(244,114,182,.2)">'
+      + '<div style="flex-shrink:0;padding:8px 10px;border-radius:8px;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.25);text-align:center;min-width:60px">'
+        + '<div style="font-size:.5rem;font-weight:900;text-transform:uppercase;color:#f472b6;letter-spacing:1px">PUBLIC</div>'
+        + '<div style="font-size:1.15rem;font-weight:900;color:#f472b6">' + f.pubAgainst + '%</div>'
+        + '<div style="font-size:.52rem;color:var(--muted)">vs our pick</div>'
+      + '</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="font-size:.7rem;color:var(--muted);margin-bottom:3px">' + away.abbreviation + ' @ ' + home.abbreviation + (vegasLine ? " · " + vegasLine : "") + ' · ' + (game.date || "") + '</div>'
+        + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
+          + '<span style="font-size:.88rem;font-weight:900;color:var(--text)">🔄 ' + f.pickTeam + ' covers</span>'
+          + '<span style="font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:5px;background:' + cc + '20;border:1px solid ' + cc + '40;color:' + cc + '">' + f.pickConf + '</span>'
+        + '</div>'
+        + (f.edge > 0 ? '<div style="font-size:.68rem;color:var(--muted-l);margin-top:2px">+' + f.edge.toFixed(1) + ' pts model edge · ' + f.pubAgainst + '% of public on the other side</div>' : "")
+      + '</div>'
+      + '<div style="font-size:.7rem;color:#f472b6;font-weight:700;flex-shrink:0">View →</div>'
+    + '</a>';
+  }).join("");
+
+  sec.style.display = "";
+}
+renderFadePublic();
 
 // ── Conference ATS Records ────────────────────────────────────────
 function renderConferenceATS() {

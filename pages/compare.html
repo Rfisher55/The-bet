@@ -554,6 +554,8 @@ function buildComparison(a, b) {
     buildHeader(a, b, pred),
     realGame && realGamePred ? buildRealGameBanner(a, b, realGame, realGamePred) : '',
     pred ? buildWinProb(a, b, pred) : '',
+    pred ? buildBettingSignals(a, b, pred) : '',
+    buildATSComparison(a, b),
     buildStatTable(a, b),
     buildCoaching(a, b),
     buildProgramHealth(a, b),
@@ -1050,6 +1052,116 @@ function buildAdvantages(a, b) {
     <div class="cmp-section">
       <div class="cmp-section-title">Key Matchup Advantages</div>
       <div class="adv-grid">${advantages.join('')}</div>
+    </div>`;
+}
+
+// ── ATS Records side-by-side ────────────────────────
+function buildATSComparison(a, b) {
+  const teamA = (typeof TEAMS !== 'undefined' && TEAMS[a.id]) ? TEAMS[a.id] : a;
+  const teamB = (typeof TEAMS !== 'undefined' && TEAMS[b.id]) ? TEAMS[b.id] : b;
+  const arA = teamA.atsRecord || null;
+  const arB = teamB.atsRecord || null;
+  const sitA = teamA.situational || {};
+  const sitB = teamB.situational || {};
+  if (!arA && !arB) return '';
+
+  function atsPct(rec) {
+    if (!rec || typeof rec !== 'object') return null;
+    const tot = (rec.wins || 0) + (rec.losses || 0);
+    if (tot < 3) return null;
+    return { pct: Math.round(rec.wins / tot * 100), wins: rec.wins, losses: rec.losses };
+  }
+  function atsColor(pct) {
+    return pct >= 60 ? 'var(--primary)' : pct >= 53 ? '#34d399' : pct >= 47 ? 'var(--gold)' : 'var(--danger)';
+  }
+  function atsRow(recA, recB, label) {
+    const pA = atsPct(recA), pB = atsPct(recB);
+    if (!pA && !pB) return '';
+    const lhs = pA ? `<span style="font-size:.82rem;font-weight:800;color:${atsColor(pA.pct)}">${pA.wins}-${pA.losses}</span><span style="font-size:.6rem;color:${atsColor(pA.pct)};margin-left:4px">(${pA.pct}%)</span>` : `<span style="color:var(--muted);font-size:.75rem">—</span>`;
+    const rhs = pB ? `<span style="font-size:.6rem;color:${atsColor(pB.pct)};margin-right:4px">(${pB.pct}%)</span><span style="font-size:.82rem;font-weight:800;color:${atsColor(pB.pct)}">${pB.wins}-${pB.losses}</span>` : `<span style="color:var(--muted);font-size:.75rem">—</span>`;
+    return `<div style="display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;padding:9px 4px;border-top:1px solid var(--border)">
+      <div>${lhs}</div>
+      <div style="text-align:center;font-size:.58rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">${label}</div>
+      <div style="text-align:right">${rhs}</div>
+    </div>`;
+  }
+
+  return `
+    <div class="cmp-section">
+      <div class="cmp-section-title">ATS Records — Side by Side</div>
+      <div style="display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;margin-bottom:8px">
+        <div style="font-size:.65rem;font-weight:800;color:${readableOnDark(a.color)}">${a.name}</div>
+        <div></div>
+        <div style="font-size:.65rem;font-weight:800;color:${readableOnDark(b.color || '#334155')};text-align:right">${b.name}</div>
+      </div>
+      ${atsRow(arA, arB, 'OVERALL')}
+      ${atsRow(sitA.atsHome, sitB.atsHome, 'AT HOME')}
+      ${atsRow(sitA.atsAway, sitB.atsAway, 'ON ROAD')}
+      ${atsRow(sitA.atsFavorite, sitB.atsFavorite, 'AS FAV')}
+      ${atsRow(sitA.atsUnderdog, sitB.atsUnderdog, 'AS DOG')}
+      ${atsRow(sitA.afterLoss, sitB.afterLoss, 'AFTER LOSS')}
+      ${atsRow(sitA.nightGame, sitB.nightGame, 'NIGHT GAMES')}
+      ${atsRow(sitA.vsRanked, sitB.vsRanked, 'vs RANKED')}
+    </div>`;
+}
+
+// ── Signal-by-signal breakdown ──────────────────────
+function buildBettingSignals(a, b, pred) {
+  if (!pred) return '';
+  const sp = pred.spreadPick || {};
+  const oe = (pred.overallEdge && pred.overallEdge.breakdown) || {};
+  const signals = [
+    { label: 'Offense vs Defense', value: oe.baseModelEdge || 0,       icon: '📊' },
+    { label: 'Player Impact',       value: oe.playerImpactEdge || 0,    icon: '🏃' },
+    { label: 'Situational',         value: oe.situationalEdge || 0,     icon: '🎯' },
+    { label: 'Coaching',            value: oe.coachingEdgePts || 0,     icon: '🎓' },
+    { label: 'Program Momentum',    value: oe.programMomentumEdge || 0, icon: '📈' },
+    { label: 'Weather',             value: oe.weatherEdge || 0,         icon: '🌤️' },
+    { label: 'Sharp Money',         value: oe.sharpMoneyEdge || 0,      icon: '💰' },
+  ];
+  const hasSome = signals.some(s => Math.abs(s.value) >= 0.3);
+  if (!hasSome) return '';
+
+  function sigRow(s) {
+    const abs = Math.abs(s.value);
+    const pct = Math.min(40, abs * 14);
+    const favorA = s.value > 0.3;
+    const favorB = s.value < -0.3;
+    const color = favorA ? (a.color || 'var(--primary)') : favorB ? (b.color || '#334155') : 'var(--border)';
+    const edge = !favorA && !favorB ? 'Even' : (favorA ? a.abbreviation : b.abbreviation) + (abs >= 2 ? ' big edge' : ' edge');
+    const barLeft = favorA
+      ? `<div style="position:absolute;left:50%;width:${pct}%;height:100%;background:${color}"></div>`
+      : favorB
+        ? `<div style="position:absolute;right:50%;width:${pct}%;height:100%;background:${color}"></div>`
+        : '';
+    return `<div style="margin-bottom:9px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+        <span style="font-size:.65rem;color:var(--muted)">${s.icon} ${s.label}</span>
+        <span style="font-size:.6rem;font-weight:700;color:${favorA || favorB ? color : 'var(--muted)'}">${edge}</span>
+      </div>
+      <div style="height:5px;border-radius:3px;background:var(--border);overflow:hidden;position:relative">
+        ${barLeft}
+        <div style="position:absolute;left:50%;transform:translateX(-50%);width:1px;height:100%;background:rgba(255,255,255,.15)"></div>
+      </div>
+    </div>`;
+  }
+
+  const pickedTeam = sp.side === 'home' ? a.name : sp.side === 'away' ? b.name : null;
+  return `
+    <div class="cmp-section">
+      <div class="cmp-section-title">Model Signal Breakdown — Neutral Site</div>
+      <div style="display:grid;grid-template-columns:100px 1fr 100px;align-items:center;margin-bottom:12px">
+        <div style="font-size:.62rem;font-weight:800;color:${readableOnDark(a.color)}">${a.name}</div>
+        <div style="text-align:center;font-size:.58rem;color:var(--muted)">← ${a.abbreviation} · ${b.abbreviation} →</div>
+        <div style="font-size:.62rem;font-weight:800;color:${readableOnDark(b.color||'#334155')};text-align:right">${b.name}</div>
+      </div>
+      ${signals.map(sigRow).join('')}
+      ${pickedTeam ? `
+      <div style="margin-top:14px;padding:10px 12px;border-radius:var(--radius);background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)">
+        <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">⭐ MODEL PICK (Neutral Site)</div>
+        <div style="font-size:.85rem;font-weight:800;color:var(--text)">${pickedTeam} covers</div>
+        <div style="font-size:.7rem;color:var(--muted-l);margin-top:2px">+${(sp.edge||0).toFixed(1)} pt edge · ${pred.winProbability}% win prob · ${pred.confidence.toUpperCase()} confidence</div>
+      </div>` : ''}
     </div>`;
 }
 
