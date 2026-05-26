@@ -244,28 +244,28 @@ function calcPlayerImpactAdjustment(team, isHome) {
   }
 
   // ── OL depth bonus ────────────────────────────────────────
-  // A healthy, experienced OL provides a consistent but modest floor benefit.
-  // No OL entry = no data, skip. Injured OL = slight negative.
+  // An OL is the most physically impactful unit — healthy elite OL = run game + pass pro.
+  // Empirically, losing a starting OL is worth ~1.5-2 pts; calibrated accordingly.
   const olPlayers = teamPlayers.filter(p => p.position === "OL");
   if (olPlayers.length > 0) {
     const olHealthy = olPlayers.filter(p => (p.injuryStatus || "healthy") === "healthy");
-    if (olHealthy.length > 0) {
-      totalAdj += 0.3; // healthy anchor OL identified
-    } else {
-      const olOut = olPlayers.filter(p => (p.injuryStatus || "healthy") === "out");
-      if (olOut.length > 0) totalAdj -= 0.4; // key OL missing → pass-pro / run-game degraded
+    const olOut     = olPlayers.filter(p => (p.injuryStatus || "healthy") === "out");
+    if (olOut.length > 0) {
+      totalAdj -= 1.2 * olOut.length; // key OL missing → pass-pro / run-game degraded (~1.2 pts each)
+    } else if (olHealthy.length > 0) {
+      totalAdj += 1.0; // full healthy anchor OL identified — protection and run-blocking intact
     }
   }
 
   // ── Pass rush / Edge rusher defensive bonus ───────────────
-  // A healthy edge rusher with high impact slightly boosts defensive effectiveness.
+  // An elite edge rusher is worth ~1-1.5 sacks/game premium; calibrated here.
   const edgePlayers = teamPlayers.filter(p => p.position === "EDGE" || p.position === "DE");
   for (const edge of edgePlayers) {
     const edgeStatus = (edge.injuryStatus || "healthy").toLowerCase();
     if (edgeStatus === "healthy" && edge.impact === "high") {
-      totalAdj += 0.25; // elite pass rusher active — forces quick decisions from opponent QB
+      totalAdj += 0.6; // elite pass rusher active — forces quick decisions from opponent QB
     } else if (edgeStatus === "out" && edge.impact === "high") {
-      totalAdj -= 0.3;  // elite pass rusher absent — opponent QB gets extra time
+      totalAdj -= 0.8; // elite pass rusher absent — opponent QB gets extra time
     }
   }
 
@@ -1235,9 +1235,11 @@ function getPlayerGameIntel(player, isHome, game) {
 
 function buildFactors(home, away, neutralSite) {
   const factors = [];
+  const hs = home.stats || {};
+  const as_ = away.stats || {};
 
   // ── Offensive Firepower ───────────────────────
-  const offEdge = home.stats.pointsPerGame - away.stats.pointsPerGame;
+  const offEdge = (hs.pointsPerGame || 0) - (as_.pointsPerGame || 0);
   factors.push({
     name: "Offensive Firepower",
     description: Math.abs(offEdge) < 1.5
@@ -1249,7 +1251,7 @@ function buildFactors(home, away, neutralSite) {
   });
 
   // ── Defensive Dominance ───────────────────────
-  const defEdge = away.stats.pointsAllowedPerGame - home.stats.pointsAllowedPerGame;
+  const defEdge = (as_.pointsAllowedPerGame || 0) - (hs.pointsAllowedPerGame || 0);
   factors.push({
     name: "Defensive Dominance",
     description: Math.abs(defEdge) < 1.5
@@ -1261,8 +1263,8 @@ function buildFactors(home, away, neutralSite) {
   });
 
   // ── Turnover Margin ───────────────────────────
-  const homeTOM = (home.stats.turnoversForced || 0) - (home.stats.turnoversPerGame || 0);
-  const awayTOM = (away.stats.turnoversForced || 0) - (away.stats.turnoversPerGame || 0);
+  const homeTOM = (hs.turnoversForced || 0) - (hs.turnoversPerGame || 0);
+  const awayTOM = (as_.turnoversForced || 0) - (as_.turnoversPerGame || 0);
   const toEdge  = homeTOM - awayTOM;
   factors.push({
     name: "Turnover Margin",
@@ -1298,7 +1300,7 @@ function buildFactors(home, away, neutralSite) {
   });
 
   // ── Passing Game Edge ─────────────────────────
-  const passEdge = home.stats.passingYardsPerGame - away.stats.passingYardsPerGame;
+  const passEdge = (hs.passingYardsPerGame || 0) - (as_.passingYardsPerGame || 0);
   factors.push({
     name: "Passing Game Edge",
     description: Math.abs(passEdge) < 20
@@ -1310,7 +1312,7 @@ function buildFactors(home, away, neutralSite) {
   });
 
   // ── Rushing Game Edge ─────────────────────────
-  const rushEdge = home.stats.rushingYardsPerGame - away.stats.rushingYardsPerGame;
+  const rushEdge = (hs.rushingYardsPerGame || 0) - (as_.rushingYardsPerGame || 0);
   factors.push({
     name: "Ground Game Control",
     description: Math.abs(rushEdge) < 15
@@ -1322,8 +1324,8 @@ function buildFactors(home, away, neutralSite) {
   });
 
   // ── Pressure/Sack Edge ────────────────────────
-  const pressEdge = (home.stats.sacks || 0) - (away.stats.sacks || 0);
-  const protEdge  = (away.stats.sacksAllowed || 0) - (home.stats.sacksAllowed || 0);
+  const pressEdge = (hs.sacks || 0) - (as_.sacks || 0);
+  const protEdge  = (as_.sacksAllowed || 0) - (hs.sacksAllowed || 0);
   const sackNet   = pressEdge * 0.5 + protEdge * 0.5;
   factors.push({
     name: "Pressure & Protection",
@@ -1336,7 +1338,7 @@ function buildFactors(home, away, neutralSite) {
   });
 
   // ── Red Zone Efficiency ───────────────────────
-  const rzEdge = (home.stats.redZonePct || 0) - (away.stats.redZonePct || 0);
+  const rzEdge = (hs.redZonePct || 0) - (as_.redZonePct || 0);
   factors.push({
     name: "Red Zone Efficiency",
     description: Math.abs(rzEdge) < 0.04
