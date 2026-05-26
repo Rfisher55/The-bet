@@ -3760,10 +3760,20 @@ window.addCurrentPickToParlay = function() {
     return;
   }
 
+  var _liveRendered = false;
   window.addEventListener("liveDataReady", function onLiveReady() {
     window.removeEventListener("liveDataReady", onLiveReady);
+    _liveRendered = true;
     if (!tryRender()) showNotFound();
   });
+
+  // Safety net: if API is slow or down, don't spin forever — show not-found after 18s
+  setTimeout(function() {
+    if (!_liveRendered) {
+      window.removeEventListener("liveDataReady", arguments.callee); // noop — already removed on fire
+      showNotFound();
+    }
+  }, 18000);
 })();
 </script>
 <script src="../js/config.js"></script>

@@ -22,11 +22,11 @@
       // Ignore the stub file (generated before GitHub Actions ran)
       if (d.generated === "2026-01-01T00:00:00.000Z") return;
 
-      // Ignore if stale > 12 hours
+      // Warn if stale > 12 hours but still use the data — stale schedule is
+      // better than waiting for a slow/unavailable API on every page load.
       const ageH = (Date.now() - new Date(d.generated).getTime()) / 3600000;
       if (ageH > 12) {
-        console.log("[PREGEN] File is " + ageH.toFixed(1) + "h old — will rely on API");
-        return;
+        console.log("[PREGEN] File is " + ageH.toFixed(1) + "h old — using anyway, API will refresh");
       }
 
       if (!window.GAMES) return;
