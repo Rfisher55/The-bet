@@ -5,6 +5,21 @@
 
 const HOME_FIELD_ADV = 2.8;
 
+/* Dynamic Home Field Intensity — elite fan environments produce larger HFA */
+function calcHomeFieldIntensity(team, neutralSite) {
+  if (neutralSite) return 0;
+  const fanMorale  = safeGet(team, "programHealth.fanMorale", 75);
+  const nilStr     = safeGet(team, "programHealth.nilStrength", 70);
+  const momentum   = safeGet(team, "programHealth.programMomentum", "stable");
+  // Base 2.0 + morale bonus up to +2.0 + momentum kicker
+  let hfi = 2.0 + Math.max(0, (fanMorale - 60) / 40) * 2.0;
+  if (momentum === "rising")   hfi += 0.25;
+  if (momentum === "declining") hfi -= 0.25;
+  // Programs with elite NIL/recruiting have higher crowd energy
+  if (nilStr >= 90) hfi += 0.25;
+  return clamp(hfi, 1.5, 4.5);
+}
+
 /* ─── WEIGHT CONSTANTS ────────────────────────────── */
 const WEIGHTS = {
   baseModel:          0.30,
@@ -86,8 +101,8 @@ function readableOnDark(hex) {
  */
 function calcExpectedScore(team, opponent, isHome, neutralSite) {
   const base = team.stats.pointsPerGame * 0.58 + opponent.stats.pointsAllowedPerGame * 0.42;
-  // Apply HFA only to the home team side to avoid double-counting (net effect ~2.8 pts on spread, matching empirical CFB data)
-  const homeAdj = neutralSite ? 0 : isHome ? HOME_FIELD_ADV : 0;
+  // Dynamic HFA — scales with fan atmosphere, momentum, and NIL strength (1.5–4.5 pts)
+  const homeAdj = isHome ? calcHomeFieldIntensity(team, neutralSite) : 0;
   const ratingAdj = (team.rating - opponent.rating) * 0.08;
 
   const homeTOM = (team.stats.turnoversForced || 0) - (team.stats.turnoversPerGame || 0);

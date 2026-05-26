@@ -142,6 +142,12 @@
     <p class="page-sub">AI composite ratings — offense, defense, recruiting talent, NIL strength, transfer portal grade, coaching profile, and program momentum.</p>
   </div>
 
+  <!-- Conference Leaders panel -->
+  <div style="margin-bottom:16px" id="conf-leaders-wrap" style="display:none">
+    <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:8px">CONFERENCE LEADERS — TOP TEAM PER CONFERENCE</div>
+    <div id="conf-leaders-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px"></div>
+  </div>
+
   <!-- Stats strip -->
   <div class="stats-strip mb-5" id="page-stats"></div>
 
@@ -190,6 +196,8 @@
         <div class="chip" data-sort="transfer">Portal</div>
         <div class="chip" data-sort="sp">SP+</div>
         <div class="chip" data-sort="ats">ATS %</div>
+        <div class="chip" data-sort="sos">SOS</div>
+        <div class="chip" data-sort="projWins">Proj W</div>
       </div>
     </div>
     <div>
@@ -386,6 +394,19 @@ function atsDisplay(t) {
   const a = t.atsRecord || null;
   if (!a) return "—";
   return `${a.wins}-${a.losses} (${Math.round(a.pct*100)}%)`;
+}
+
+function calcSOS(team) {
+  if (!window.GAMES) return 0;
+  var teamGames = GAMES.filter(g => g.homeTeamId === team.id || g.awayTeamId === team.id);
+  if (!teamGames.length) return 0;
+  var totalRating = 0, count = 0;
+  teamGames.forEach(function(g) {
+    var oppId = g.homeTeamId === team.id ? g.awayTeamId : g.homeTeamId;
+    var opp = window.TEAMS && TEAMS[oppId];
+    if (opp) { totalRating += opp.rating; count++; }
+  });
+  return count > 0 ? totalRating / count : 0;
 }
 
 function bestSpot(team) {
@@ -674,6 +695,8 @@ function render() {
     case "transfer": teams.sort((a,b) => (b.programHealth?.transferPortalRating||0) - (a.programHealth?.transferPortalRating||0)); break;
     case "sp":       teams.sort((a,b) => (b.spRating||b.rating*0.5||0) - (a.spRating||a.rating*0.5||0)); break;
     case "ats":      teams.sort((a,b) => ((b.atsRecord?.pct||0) - (a.atsRecord?.pct||0))); break;
+    case "sos":      teams.sort((a,b) => calcSOS(b) - calcSOS(a)); break;
+    case "projWins": teams.sort((a,b) => (parseFloat(projectedRecord(b)||"0-0")||0) - (parseFloat(projectedRecord(a)||"0-0")||0)); break;
     default:         teams.sort((a,b) => b.rating - a.rating);
   }
 
@@ -691,11 +714,49 @@ function render() {
   }
 }
 
+try { buildConfLeaders(); } catch(e) { console.warn("[Teams] buildConfLeaders failed:", e); }
 try { render(); } catch(e) { console.error("[Teams] render() failed:", e); document.getElementById("teams-container").innerHTML = '<div style="padding:40px;text-align:center;color:var(--danger)">Error loading teams — check console for details.</div>'; }
+
+function buildConfLeaders() {
+  var grid = document.getElementById("conf-leaders-grid");
+  var wrap = document.getElementById("conf-leaders-wrap");
+  if (!grid || !wrap) return;
+  var allTeams = Object.values(TEAMS);
+  var confMap = {};
+  allTeams.forEach(function(t) {
+    var c = t.conference || "Independent";
+    if (!confMap[c] || t.rating > confMap[c].rating) confMap[c] = t;
+  });
+  var confs = Object.keys(confMap).sort();
+  grid.innerHTML = confs.map(function(c) {
+    var t = confMap[c];
+    var ph = t.programHealth || {};
+    var mom = ph.programMomentum || "stable";
+    var momIcon2 = mom === "rising" ? "↑" : mom === "declining" ? "↓" : "→";
+    var momColor2 = mom === "rising" ? "var(--primary)" : mom === "declining" ? "var(--danger)" : "var(--gold)";
+    var sos = calcSOS(t);
+    return '<div style="padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface);cursor:pointer;transition:border-color .15s" onclick="location.href=\'games.html?teamId=\'+encodeURIComponent(\'' + t.id + '\')">'
+      + '<div style="font-size:.52rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">' + c + '</div>'
+      + '<div style="display:flex;align-items:center;gap:8px">'
+        + '<div style="width:26px;height:26px;border-radius:6px;background:' + t.color + ';display:flex;align-items:center;justify-content:center;font-size:.48rem;font-weight:900;color:' + textForBg(t.color) + ';flex-shrink:0">' + t.abbreviation.slice(0,3) + '</div>'
+        + '<div style="flex:1;min-width:0">'
+          + '<div style="font-size:.78rem;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + t.name + '</div>'
+          + '<div style="font-size:.58rem;color:var(--muted)">Rating: <span style="color:var(--primary);font-weight:800">' + t.rating + '</span>'
+            + (t.apRank ? ' · AP #' + t.apRank : '')
+            + ' · <span style="color:' + momColor2 + ';font-weight:800">' + momIcon2 + '</span>'
+          + '</div>'
+          + (sos > 0 ? '<div style="font-size:.52rem;color:var(--muted)">SOS: ' + sos.toFixed(0) + '</div>' : '')
+        + '</div>'
+      + '</div>'
+    + '</div>';
+  }).join('');
+  wrap.style.display = '';
+}
 
 function onLiveData() {
   try { buildStatsStrip(); } catch(e) { console.warn("[Teams] buildStatsStrip failed:", e); }
   try { initConfChips(); } catch(e) { console.warn("[Teams] initConfChips failed:", e); }
+  try { buildConfLeaders(); } catch(e) { console.warn("[Teams] buildConfLeaders failed:", e); }
   try { render(); } catch(e) { console.error("[Teams] render() failed on live update:", e); }
 }
 if (window.__liveDataReady) {

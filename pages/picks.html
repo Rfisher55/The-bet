@@ -950,6 +950,19 @@
     return map[result] || map['pending'];
   }
 
+  function calcBetGrade(pick) {
+    var odds = parseInt(pick.odds, 10) || -110;
+    var decOdds = odds > 0 ? odds / 100 + 1 : 100 / Math.abs(odds) + 1;
+    var confWP = { elite: 0.67, high: 0.62, medium: 0.55, low: 0.52 };
+    var estWP = confWP[(pick.confidence || '').toLowerCase()] || 0.525;
+    var ev = estWP * (decOdds - 1) - (1 - estWP);
+    if (ev >= 0.15) return { label: 'A+', color: 'var(--primary)',   bg: 'rgba(16,185,129,.12)',  border: 'rgba(16,185,129,.4)'  };
+    if (ev >= 0.08) return { label: 'A',  color: '#34d399',          bg: 'rgba(52,211,153,.1)',   border: 'rgba(52,211,153,.35)' };
+    if (ev >= 0.02) return { label: 'B',  color: 'var(--gold)',      bg: 'rgba(245,158,11,.1)',   border: 'rgba(245,158,11,.35)' };
+    if (ev >= -0.04)return { label: 'C',  color: 'var(--muted-l)',   bg: 'rgba(139,157,187,.08)', border: 'rgba(139,157,187,.25)' };
+    return               { label: 'D',  color: 'var(--danger)',     bg: 'rgba(239,68,68,.08)',   border: 'rgba(239,68,68,.3)'   };
+  }
+
   function buildPickRow(pick) {
     var win = potentialWin(pick.wager, pick.odds);
     var resultCls = pick.result === 'win' ? 'pick-win'
@@ -995,6 +1008,12 @@
       ? ' <span class="ag-badge">auto-gradeable</span>'
       : '';
 
+    // Bet quality grade
+    var grade = calcBetGrade(pick);
+    var gradeBadge = pick.confidence
+      ? ' <span style="font-size:.52rem;font-weight:900;padding:1px 6px;border-radius:4px;background:' + grade.bg + ';border:1px solid ' + grade.border + ';color:' + grade.color + '">' + grade.label + '</span>'
+      : '';
+
     return '<div class="pick-row ' + resultCls + '" data-id="' + escHtml(pick.id) + '">'
       + '<div class="pick-row-top">'
       + '<div class="pick-col">'
@@ -1009,7 +1028,7 @@
       + '</div>'
       + '<div class="pick-col">'
         + '<div class="pick-col-label">My Pick</div>'
-        + '<div class="pick-col-value">' + escHtml(pick.pick) + agBadge + '</div>'
+        + '<div class="pick-col-value">' + escHtml(pick.pick) + agBadge + gradeBadge + '</div>'
       + '</div>'
       + '<div class="pick-col">'
         + '<div class="pick-col-label">Odds</div>'

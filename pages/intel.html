@@ -208,6 +208,18 @@
     <div id="beat-writer-dash"></div>
   </div>
 
+  <!-- Situational Radar -->
+  <div style="margin-bottom:24px" id="sit-radar-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">THIS WEEK'S EDGE</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">🎯 Situational Radar — Emotional Spots &amp; Traps</div>
+      </div>
+      <span style="font-size:.62rem;color:var(--muted)">Revenge, bounce-back, lookahead, trap — exploitable game environments</span>
+    </div>
+    <div id="sit-radar-dash"></div>
+  </div>
+
   <!-- Triple Lock — all signals align -->
   <div style="margin-bottom:24px" id="triple-lock-intel-section">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
@@ -1028,6 +1040,105 @@ function buildPublicOverload() {
   }).join('');
 }
 
+function buildSituationalRadar() {
+  var el = document.getElementById("sit-radar-dash");
+  if (!el || !window.GAMES) return;
+
+  var sitMap = {
+    revenge:      { label:"Revenge Game",   icon:"🔥", color:"#f87171",  bg:"rgba(239,68,68,.08)",  border:"rgba(239,68,68,.25)",  desc:"Team looking to settle a score from a previous loss" },
+    bounce_back:  { label:"Bounce-Back Spot",icon:"⚡", color:"#34d399",  bg:"rgba(16,185,129,.08)", border:"rgba(16,185,129,.25)", desc:"Team coming off a tough loss — historically covers ATS" },
+    letdown:      { label:"Letdown Alert",   icon:"📉", color:"var(--gold)",bg:"rgba(245,158,11,.07)",border:"rgba(245,158,11,.25)", desc:"Team coming off a big win — motivation may be lacking" },
+    lookahead:    { label:"Lookahead Risk",  icon:"👀", color:"#fb923c",  bg:"rgba(251,146,60,.08)", border:"rgba(251,146,60,.25)", desc:"Team looking past this week to next week's bigger game" },
+    rivalry_hate: { label:"Rivalry Surge",  icon:"⚔️", color:"#c084fc",  bg:"rgba(192,132,252,.08)",border:"rgba(192,132,252,.25)",desc:"Rivalry game — expect elevated intensity and variance" },
+    desperation:  { label:"Desperation",    icon:"💢", color:"#38bdf8",  bg:"rgba(56,189,248,.08)", border:"rgba(56,189,248,.25)", desc:"Must-win situation — desperation ATS boost historically" },
+  };
+
+  var spots = [];
+  window.GAMES.forEach(function(game) {
+    try {
+      var g = window.resolveGame ? resolveGame(game) : game;
+      var si = g.situational || {};
+      var home = g.homeTeam, away = g.awayTeam;
+      if (!home || !away) return;
+
+      // Trap game alert
+      var trapRisk = si.trapGameRisk || 0;
+      if (trapRisk >= 5) {
+        spots.push({ game: g, home: home, away: away, spotKey: "trap", trapRisk: trapRisk,
+          label: trapRisk >= 8 ? "High Trap Risk" : "Trap Game", icon: "🪤",
+          color: "var(--gold)", bg: "rgba(245,158,11,.07)", border: "rgba(245,158,11,.25)",
+          desc: "Favorite may be overlooking this game — classic trap scenario",
+          side: null, severity: trapRisk });
+      }
+
+      // Emotional spots — check home and away
+      ["home","away"].forEach(function(side) {
+        var spot = side === "home"
+          ? (si.homeTeamEmotionalSpot || si.emotionalSpot || "")
+          : (si.awayTeamEmotionalSpot || si.emotionalSpot || "");
+        var def = sitMap[spot];
+        if (!def) return;
+        var teamSched = (side === "home" ? home : away).schedule || {};
+        // Extra check: team schedule must match
+        if (spot === "bounce_back" && !teamSched.isComingOffBigLoss) return;
+        if (spot === "letdown" && !teamSched.isComingOffBigWin) return;
+        if (spot === "lookahead" && !teamSched.hasLookaheadGame) return;
+        var severity = spot === "revenge" ? 8 : spot === "lookahead" ? 7 : spot === "letdown" ? 6 : 5;
+        spots.push({ game: g, home: home, away: away, side: side, spotKey: spot,
+          label: def.label, icon: def.icon, color: def.color, bg: def.bg, border: def.border,
+          desc: def.desc, severity: severity });
+      });
+
+      // Rest advantage
+      var rest = si.restAdvantage;
+      if (rest && rest !== "none") {
+        var restTeam = rest === "home" ? home : away;
+        spots.push({ game: g, home: home, away: away, side: rest, spotKey: "rest",
+          label: "Rest Edge", icon: "😴",
+          color: "var(--primary)", bg: "rgba(16,185,129,.06)", border: "rgba(16,185,129,.2)",
+          desc: (restTeam.abbreviation || restTeam.name) + " has a significant rest advantage this week",
+          severity: 4 });
+      }
+    } catch(e) {}
+  });
+
+  // Dedup: one entry per game (keep highest severity)
+  var seen = {};
+  spots = spots.filter(function(s) {
+    var key = s.game.id + "_" + s.spotKey + "_" + s.side;
+    if (seen[key]) return false;
+    seen[key] = true;
+    return true;
+  });
+
+  spots.sort(function(a, b) { return b.severity - a.severity; });
+
+  if (!spots.length) {
+    el.innerHTML = '<div style="padding:14px;text-align:center;font-size:.78rem;color:var(--muted)">No notable situational spots identified this week — all matchups appear standard.</div>';
+    return;
+  }
+
+  el.innerHTML = spots.slice(0, 8).map(function(s) {
+    var g = s.game;
+    var hAbbr = (s.home.abbreviation || s.home.name.slice(0,4)).toUpperCase();
+    var aAbbr = (s.away.abbreviation || s.away.name.slice(0,4)).toUpperCase();
+    var sideLabel = s.side === "home" ? hAbbr + " (home)" : s.side === "away" ? aAbbr + " (away)" : "Game-wide";
+    return '<a href="game.html?id=' + g.id + '" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;background:' + s.bg + ';border:1px solid ' + s.border + ';margin-bottom:8px;text-decoration:none;transition:border-color .15s">'
+      + '<div style="width:38px;height:38px;border-radius:10px;background:' + s.bg + ';border:1px solid ' + s.border + ';display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">' + s.icon + '</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;flex-wrap:wrap">'
+          + '<span style="font-size:.78rem;font-weight:900;color:var(--text)">' + aAbbr + ' @ ' + hAbbr + '</span>'
+          + '<span style="font-size:.55rem;color:var(--muted)">Wk ' + (g.week||'?') + '</span>'
+          + '<span style="font-size:.55rem;font-weight:900;padding:1px 7px;border-radius:4px;border:1px solid ' + s.border + ';color:' + s.color + ';background:' + s.bg + '">' + s.label.toUpperCase() + '</span>'
+        + '</div>'
+        + '<div style="font-size:.68rem;color:var(--muted);margin-bottom:1px">' + s.desc + '</div>'
+        + '<div style="font-size:.6rem;font-weight:700;color:' + s.color + '">→ Affects: ' + sideLabel + '</div>'
+      + '</div>'
+      + '<div style="font-size:.62rem;color:var(--primary);font-weight:700;flex-shrink:0">Analyze →</div>'
+    + '</a>';
+  }).join('');
+}
+
 function buildTripleLockIntel() {
   var el = document.getElementById("triple-lock-intel-dash");
   if (!el || !window.GAMES) return;
@@ -1162,6 +1273,7 @@ window.addEventListener("liveDataReady", function(e) {
   var d = e.detail || {};
   if (d.twitterTweets) window.__latestTweets = d.twitterTweets;
   if (d.espnNews)      window.__latestESPN   = d.espnNews;
+  buildSituationalRadar();
   buildTripleLockIntel();
   buildValuePlays();
   buildPublicOverload();
@@ -1182,6 +1294,7 @@ setInterval(function() {
 }, 60000);
 
 // Initial render
+buildSituationalRadar();
 buildTripleLockIntel();
 buildValuePlays();
 buildPublicOverload();
