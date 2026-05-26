@@ -733,6 +733,35 @@ function renderHeroPick() {
     awayScore = Math.round((total / 2) - pred.predictedSpread / 2);
   }
 
+  // Build signal breakdown strip
+  var oe = pred.overallEdge && pred.overallEdge.breakdown;
+  var signalItems = oe ? [
+    { icon: '📊', label: 'Stats',    val: oe.baseModelEdge },
+    { icon: '🏃', label: 'Players',  val: oe.playerImpactEdge },
+    { icon: '🎯', label: 'Situation',val: oe.situationalEdge },
+    { icon: '💰', label: 'Sharp $',  val: oe.sharpMoneyEdge },
+    { icon: '🎓', label: 'Coaching', val: oe.coachingEdgePts },
+    { icon: '🌤️', label: 'Weather',  val: oe.weatherEdge },
+  ] : [];
+  var signalStrip = signalItems.length
+    ? '<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border)">' +
+        '<div style="font-size:.52rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Signal Breakdown</div>' +
+        '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
+        signalItems.map(function(s) {
+          var isPos = s.val > 0.3;
+          var isNeg = s.val < -0.3;
+          var bg = isPos ? 'rgba(16,185,129,.1)' : isNeg ? 'rgba(239,68,68,.08)' : 'var(--surface)';
+          var bc = isPos ? 'rgba(16,185,129,.3)' : isNeg ? 'rgba(239,68,68,.2)' : 'var(--border)';
+          var vc = isPos ? 'var(--primary)' : isNeg ? 'var(--danger)' : 'var(--muted)';
+          var vStr = (s.val > 0 ? '+' : '') + s.val.toFixed(1);
+          return '<div style="padding:3px 7px;border-radius:6px;background:' + bg + ';border:1px solid ' + bc + ';text-align:center">' +
+            '<div style="font-size:.6rem;color:var(--muted)">' + s.icon + ' ' + s.label + '</div>' +
+            '<div style="font-size:.65rem;font-weight:800;color:' + vc + '">' + vStr + '</div>' +
+          '</div>';
+        }).join('') +
+        '</div></div>'
+    : '';
+
   container.innerHTML =
     '<div class="top-pick-card-label">' +
       '<span class="top-pick-card-pulse"></span>' +
@@ -762,6 +791,7 @@ function renderHeroPick() {
         '<div class="top-pick-score-val">' + pred.winProbability + '%</div>' +
       '</div>' +
     '</div>' +
+    signalStrip +
     '<div class="top-pick-footer">' +
       '<div class="top-pick-spread">' +
         '<div class="top-pick-spread-lbl">The Bet Picks</div>' +
@@ -819,6 +849,25 @@ function renderTopPicks() {
         '<span>Conf: <strong style="color:var(--text)">' + sp.confidence + '%</strong></span>' +
         '<span>Edge: <strong style="color:var(--primary)">+' + sp.edge + ' pts</strong></span>' +
       '</div>' +
+      (function() {
+        var oe2 = pred.overallEdge && pred.overallEdge.breakdown;
+        if (!oe2) return '';
+        var sigs = [
+          { l:'Stats', v: oe2.baseModelEdge },
+          { l:'Players', v: oe2.playerImpactEdge },
+          { l:'Sharp', v: oe2.sharpMoneyEdge },
+          { l:'Coaching', v: oe2.coachingEdgePts },
+        ];
+        return '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:8px">' +
+          sigs.map(function(s) {
+            var pos = s.v > 0.3; var neg = s.v < -0.3;
+            var c = pos ? 'var(--primary)' : neg ? 'var(--danger)' : 'var(--muted)';
+            var b = pos ? 'rgba(16,185,129,.15)' : neg ? 'rgba(239,68,68,.1)' : 'var(--surface)';
+            return '<span style="font-size:.55rem;font-weight:700;padding:2px 5px;border-radius:4px;background:' + b + ';color:' + c + '">' +
+              s.l + ': ' + (s.v > 0 ? '+' : '') + s.v.toFixed(1) + '</span>';
+          }).join('') +
+        '</div>';
+      })() +
       '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:.7rem;color:var(--primary);font-weight:700;text-align:right">Full Analysis →</div>' +
     '</a>';
   }).join("") || '<p style="color:var(--muted-l);font-size:.9rem">No high-confidence picks found this week.</p>';

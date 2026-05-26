@@ -592,7 +592,7 @@ function renderGamePage(gData) {
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:10px">
           <div style="flex:1;min-width:200px">
             <div style="font-size:.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">⭐ THE BET PICKS</div>
-            <div class="key-insight-pick" style="font-size:1.15rem">${pickTeam} will cover spread</div>
+            <div class="key-insight-pick" style="font-size:1.15rem">${pickTeam} covers</div>
             <div style="font-size:.75rem;color:var(--text-soft);margin-top:4px;line-height:1.5">
               ${gp && gp.thePick && gp.thePick.reasoning
                 ? esc(gp.thePick.reasoning)
@@ -624,7 +624,7 @@ function renderGamePage(gData) {
             const isNearKey = Math.abs(absVSpread - nearKey) <= 0.5;
             return `<div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid ${isNearKey ? "rgba(245,158,11,.4)" : "var(--border)"}">
               <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">🎰 Vegas Says</div>
-              <div style="font-size:.85rem;font-weight:800;color:var(--text)">${vegasFav.split(" ").pop()} favored</div>
+              <div style="font-size:.85rem;font-weight:800;color:var(--text)">${vegasFav} favored</div>
               <div style="font-size:.65rem;color:var(--muted-l)">${vegasLine} spread</div>
               ${isNearKey ? `<div style="font-size:.58rem;color:var(--gold);font-weight:700;margin-top:2px">⚠ Near key # ${nearKey}</div>` : ""}
             </div>`;
@@ -632,7 +632,7 @@ function renderGamePage(gData) {
           ${hasPickSplit ? `
           <div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.25)">
             <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px">🤖 Model Leans</div>
-            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${modelTeamObj.name.split(" ").pop()}</div>
+            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${modelTeamObj.name}</div>
             <div style="font-size:.65rem;color:var(--muted-l)">${isHomeFavored ? homePct : awayPct}% win prob</div>
           </div>` : `
           <div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
@@ -643,7 +643,7 @@ function renderGamePage(gData) {
           ${publicFav ? `
           <div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(255,255,255,.03);border:1px solid var(--border)">
             <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">👥 Public Says</div>
-            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${publicFav.split(" ").pop()} — ${publicPct}%</div>
+            <div style="font-size:.85rem;font-weight:800;color:var(--text)">${publicFav} — ${publicPct}%</div>
             <div style="font-size:.65rem;color:var(--muted-l)">of bettors</div>
           </div>` : ""}
         </div>
@@ -681,6 +681,36 @@ function renderGamePage(gData) {
             <div style="font-size:.78rem;color:var(--text-soft);line-height:1.5"><strong style="color:var(--text)">${topXf.title}</strong> — ${topXf.description}</div>
           </div>
         </div>` : ""}
+
+        ${(() => {
+          const oe = pred.overallEdge && pred.overallEdge.breakdown;
+          if (!oe) return "";
+          const sigs = [
+            { icon: '📊', label: 'Stats',      val: oe.baseModelEdge },
+            { icon: '🏃', label: 'Players',    val: oe.playerImpactEdge },
+            { icon: '🎯', label: 'Situational',val: oe.situationalEdge },
+            { icon: '💰', label: 'Sharp $',    val: oe.sharpMoneyEdge },
+            { icon: '🎓', label: 'Coaching',   val: oe.coachingEdgePts },
+            { icon: '🌤️', label: 'Weather',    val: oe.weatherEdge },
+            { icon: '📈', label: 'Momentum',   val: oe.programMomentumEdge },
+          ];
+          const chips = sigs.map(s => {
+            const pos = s.val > 0.3, neg = s.val < -0.3;
+            const bg = pos ? 'rgba(16,185,129,.1)' : neg ? 'rgba(239,68,68,.08)' : 'rgba(255,255,255,.03)';
+            const bc = pos ? 'rgba(16,185,129,.3)' : neg ? 'rgba(239,68,68,.2)' : 'var(--border)';
+            const vc = pos ? 'var(--primary)' : neg ? 'var(--danger)' : 'var(--muted)';
+            const vStr = (s.val > 0 ? '+' : '') + s.val.toFixed(1);
+            return `<div style="padding:4px 8px;border-radius:6px;background:${bg};border:1px solid ${bc};text-align:center">
+              <div style="font-size:.58rem;color:var(--muted)">${s.icon} ${s.label}</div>
+              <div style="font-size:.68rem;font-weight:800;color:${vc}">${vStr}</div>
+            </div>`;
+          }).join('');
+          return `
+          <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(255,255,255,.02);border:1px solid var(--border)">
+            <div style="font-size:.52rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Signal Breakdown — Edge by Factor (positive = favors ${pickTeam})</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">${chips}</div>
+          </div>`;
+        })()}
       </div>`;
   }
 
@@ -1219,7 +1249,7 @@ function renderGamePage(gData) {
                 : safeReport;
               return `
                 <div class="beat-writer-card" style="${borderStyle}">
-                  <div class="beat-writer-flag" style="color:${flagColor}">${srcIcon} ${team.name.split(" ").pop()}</div>
+                  <div class="beat-writer-flag" style="color:${flagColor}">${srcIcon} ${team.abbreviation || team.name}</div>
                   <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap;margin-top:4px">
                     <span style="font-size:.8rem;font-weight:700;color:var(--text)">${esc(r.reporter)}</span>
                     ${r.outlet && r.outlet !== r.reporter ? `<span style="font-size:.7rem;color:var(--muted)">· ${esc(r.outlet)}</span>` : ""}

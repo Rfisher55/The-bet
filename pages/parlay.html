@@ -996,7 +996,7 @@ function autoBuild() {
       const home = game.homeTeam, away = game.awayTeam;
       const favored = pred.predictedSpread >= 0 ? "home" : "away";
       const favTeam = favored === "home" ? home : away;
-      const label = `${favTeam.name.split(" ").pop()} ML`;
+      const label = `${favTeam.name} ML`;
       const mlOdds = favored === "home" ? (game.bettingLines?.moneylineHome || -110) : (game.bettingLines?.moneylineAway || -110);
       const side = favored + "-ml";
       picks[pickKey(game.id, side)] = { gameId: game.id, side, odds: mlOdds, label, confidence: pred.confidence || "—" };
