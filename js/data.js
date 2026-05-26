@@ -2533,6 +2533,7 @@ var GAMES = [
     homeTeamId: "lsu", awayTeamId: "clemson",
     venue: "Tiger Stadium, Baton Rouge, LA",
     network: "ABC", isConferenceGame: false, isRivalryGame: false,
+    situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 88, windMph: 5, humidity: 72, indoors: false },
     bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 55.5 },
     xFactors: [
@@ -2572,6 +2573,7 @@ var GAMES = [
     homeTeamId: "notre_dame", awayTeamId: "wisconsin",
     venue: "Lambeau Field, Green Bay, WI",
     network: "NBC", isConferenceGame: false, isRivalryGame: false,
+    situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 3, timeZoneChange: 0, neutralSite: true },
     weather: { condition: "Clear", tempF: 68, windMph: 8, humidity: 55, indoors: false },
     bettingLines: { spread: -7, moneylineHome: -310, moneylineAway: 255, total: 48.5 },
     xFactors: [
@@ -2614,6 +2616,7 @@ var GAMES = [
     homeTeamId: "texas", awayTeamId: "ohio_state",
     venue: "Darrell K Royal-Texas Memorial Stadium, Austin, TX",
     network: "ABC", isConferenceGame: false, isRivalryGame: false,
+    situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 7, timeZoneChange: 1, neutralSite: false },
     weather: { condition: "Clear", tempF: 92, windMph: 7, humidity: 68, indoors: false },
     bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 58.5 },
     xFactors: [
@@ -2656,6 +2659,7 @@ var GAMES = [
     homeTeamId: "alabama", awayTeamId: "florida_state",
     venue: "Bryant-Denny Stadium, Tuscaloosa, AL",
     network: "ESPN", isConferenceGame: false, isRivalryGame: false,
+    situational: { trapGameRisk: 5, primeTimeGame: false, rivalryGame: false, homeTeamEmotionalSpot: "lookahead", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 6, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Partly Cloudy", tempF: 86, windMph: 6, humidity: 65, indoors: false },
     bettingLines: { spread: -13.5, moneylineHome: -680, moneylineAway: 500, total: 56.5 },
     xFactors: [
@@ -2698,6 +2702,7 @@ var GAMES = [
     homeTeamId: "texas", awayTeamId: "tennessee",
     venue: "Darrell K Royal-Texas Memorial Stadium, Austin, TX",
     network: "ABC", isConferenceGame: true, isRivalryGame: false,
+    situational: { trapGameRisk: 3, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: null, awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 5, timeZoneChange: 1, neutralSite: false },
     weather: { condition: "Clear", tempF: 85, windMph: 8, humidity: 62, indoors: false },
     bettingLines: { spread: -4.5, moneylineHome: -210, moneylineAway: 178, total: 59.5 },
     xFactors: [
@@ -2740,6 +2745,7 @@ var GAMES = [
     homeTeamId: "miami", awayTeamId: "clemson",
     venue: "Hard Rock Stadium, Miami Gardens, FL",
     network: "ESPN", isConferenceGame: true, isRivalryGame: false,
+    situational: { trapGameRisk: 2, primeTimeGame: true, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 6, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 82, windMph: 10, humidity: 78, indoors: false },
     bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 52.5 },
     xFactors: [
@@ -2782,6 +2788,7 @@ var GAMES = [
     homeTeamId: "alabama", awayTeamId: "georgia",
     venue: "Bryant-Denny Stadium, Tuscaloosa, AL",
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
+    situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 78, windMph: 6, humidity: 58, indoors: false },
     bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 53.5 },
     xFactors: [
@@ -2824,6 +2831,7 @@ var GAMES = [
     homeTeamId: "tennessee", awayTeamId: "alabama",
     venue: "Neyland Stadium, Knoxville, TN",
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
+    situational: { trapGameRisk: 4, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "letdown", restAdvantage: null, travelDistance: 4, timeZoneChange: 1, neutralSite: false },
     weather: { condition: "Partly Cloudy", tempF: 65, windMph: 9, humidity: 52, indoors: false },
     bettingLines: { spread: 3.5, moneylineHome: 148, moneylineAway: -175, total: 54.5 },
     xFactors: [
@@ -2863,6 +2871,7 @@ var GAMES = [
     homeTeamId: "michigan", awayTeamId: "penn_state",
     venue: "Michigan Stadium, Ann Arbor, MI",
     network: "FOX", isConferenceGame: true, isRivalryGame: true,
+    situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 4, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Overcast", tempF: 55, windMph: 14, humidity: 60, indoors: false },
     bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 47.5 },
     xFactors: [
@@ -2905,6 +2914,7 @@ var GAMES = [
     homeTeamId: "georgia", awayTeamId: "florida",
     venue: "TIAA Bank Field, Jacksonville, FL",
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
+    situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: true },
     weather: { condition: "Partly Cloudy", tempF: 74, windMph: 11, humidity: 70, indoors: false },
     bettingLines: { spread: -9, moneylineHome: -450, moneylineAway: 360, total: 50.5 },
     xFactors: [
@@ -2944,6 +2954,7 @@ var GAMES = [
     homeTeamId: "florida_state", awayTeamId: "clemson",
     venue: "Doak Campbell Stadium, Tallahassee, FL",
     network: "ESPN", isConferenceGame: true, isRivalryGame: true,
+    situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 72, windMph: 8, humidity: 65, indoors: false },
     bettingLines: { spread: -3.5, moneylineHome: -175, moneylineAway: 148, total: 50.5 },
     xFactors: [
@@ -2986,6 +2997,7 @@ var GAMES = [
     homeTeamId: "ohio_state", awayTeamId: "oregon",
     venue: "Ohio Stadium, Columbus, OH",
     network: "FOX", isConferenceGame: true, isRivalryGame: false,
+    situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: "home", travelDistance: 10, timeZoneChange: 3, neutralSite: false },
     weather: { condition: "Overcast", tempF: 45, windMph: 16, humidity: 58, indoors: false },
     bettingLines: { spread: -6, moneylineHome: -270, moneylineAway: 225, total: 52.5 },
     xFactors: [
@@ -3025,6 +3037,7 @@ var GAMES = [
     homeTeamId: "lsu", awayTeamId: "alabama",
     venue: "Tiger Stadium, Baton Rouge, LA",
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
+    situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "revenge", restAdvantage: null, travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 68, windMph: 6, humidity: 65, indoors: false },
     bettingLines: { spread: 1.5, moneylineHome: 115, moneylineAway: -135, total: 54.5 },
     xFactors: [
@@ -3064,6 +3077,7 @@ var GAMES = [
     homeTeamId: "notre_dame", awayTeamId: "miami",
     venue: "Notre Dame Stadium, Notre Dame, IN",
     network: "NBC", isConferenceGame: false, isRivalryGame: true,
+    situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 9, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Clear", tempF: 48, windMph: 12, humidity: 55, indoors: false },
     bettingLines: { spread: -7.5, moneylineHome: -350, moneylineAway: 285, total: 51.5 },
     xFactors: [
@@ -3106,6 +3120,7 @@ var GAMES = [
     homeTeamId: "lsu", awayTeamId: "texas",
     venue: "Tiger Stadium, Baton Rouge, LA",
     network: "ESPN", isConferenceGame: true, isRivalryGame: false,
+    situational: { trapGameRisk: 8, primeTimeGame: false, rivalryGame: false, homeTeamEmotionalSpot: "letdown", awayTeamEmotionalSpot: "motivated", restAdvantage: "away", travelDistance: 5, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Partly Cloudy", tempF: 62, windMph: 9, humidity: 60, indoors: false },
     bettingLines: { spread: -4, moneylineHome: -190, moneylineAway: 162, total: 57.5 },
     xFactors: [
@@ -3145,6 +3160,7 @@ var GAMES = [
     homeTeamId: "oregon", awayTeamId: "michigan",
     venue: "Autzen Stadium, Eugene, OR",
     network: "FOX", isConferenceGame: true, isRivalryGame: false,
+    situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: "home", travelDistance: 9, timeZoneChange: 3, neutralSite: false },
     weather: { condition: "Overcast", tempF: 48, windMph: 13, humidity: 72, indoors: false },
     bettingLines: { spread: -7, moneylineHome: -310, moneylineAway: 255, total: 48.5 },
     xFactors: [
@@ -3187,6 +3203,7 @@ var GAMES = [
     homeTeamId: "tennessee", awayTeamId: "lsu",
     venue: "Neyland Stadium, Knoxville, TN",
     network: "ESPN", isConferenceGame: true, isRivalryGame: false,
+    situational: { trapGameRisk: 3, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "letdown", restAdvantage: "home", travelDistance: 4, timeZoneChange: 1, neutralSite: false },
     weather: { condition: "Clear", tempF: 52, windMph: 7, humidity: 48, indoors: false },
     bettingLines: { spread: -3, moneylineHome: -155, moneylineAway: 130, total: 53.5 },
     xFactors: [
@@ -3229,6 +3246,7 @@ var GAMES = [
     homeTeamId: "ohio_state", awayTeamId: "michigan",
     venue: "Ohio Stadium, Columbus, OH",
     network: "FOX", isConferenceGame: true, isRivalryGame: true,
+    situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 3, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Overcast", tempF: 36, windMph: 18, humidity: 55, indoors: false },
     bettingLines: { spread: -8.5, moneylineHome: -400, moneylineAway: 320, total: 44.5 },
     xFactors: [
@@ -3268,6 +3286,7 @@ var GAMES = [
     homeTeamId: "alabama", awayTeamId: "auburn",
     venue: "Bryant-Denny Stadium, Tuscaloosa, AL",
     network: "CBS", isConferenceGame: true, isRivalryGame: true,
+    situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "rivalry_hate", awayTeamEmotionalSpot: "rivalry_hate", restAdvantage: null, travelDistance: 2, timeZoneChange: 0, neutralSite: false },
     weather: { condition: "Partly Cloudy", tempF: 55, windMph: 10, humidity: 52, indoors: false },
     bettingLines: { spread: -16, moneylineHome: -900, moneylineAway: 640, total: 52.5 },
     xFactors: [
@@ -3310,6 +3329,7 @@ var GAMES = [
     homeTeamId: "georgia", awayTeamId: "alabama",
     venue: "Mercedes-Benz Stadium, Atlanta, GA",
     network: "ABC", isConferenceGame: true, isRivalryGame: true,
+    situational: { trapGameRisk: 0, primeTimeGame: false, rivalryGame: true, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: null, travelDistance: 3, timeZoneChange: 0, neutralSite: true },
     weather: { condition: "Clear", tempF: 58, windMph: 5, humidity: 48, indoors: true },
     bettingLines: { spread: -3, moneylineHome: -155, moneylineAway: 130, total: 54.5 },
     xFactors: [
@@ -3352,6 +3372,7 @@ var GAMES = [
     homeTeamId: "ohio_state", awayTeamId: "oregon",
     venue: "Lucas Oil Stadium, Indianapolis, IN",
     network: "FOX", isConferenceGame: true, isRivalryGame: false,
+    situational: { trapGameRisk: 0, primeTimeGame: true, rivalryGame: false, homeTeamEmotionalSpot: "motivated", awayTeamEmotionalSpot: "motivated", restAdvantage: "home", travelDistance: 8, timeZoneChange: 2, neutralSite: true },
     weather: { condition: "Clear", tempF: 42, windMph: 4, humidity: 45, indoors: true },
     bettingLines: { spread: -4.5, moneylineHome: -210, moneylineAway: 178, total: 53.5 },
     xFactors: [

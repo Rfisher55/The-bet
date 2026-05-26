@@ -283,7 +283,10 @@ function calcPlayerImpactAdjustment(team, isHome) {
  */
 function calcSituationalAdjustment(game, isHomeTeam, team, opponent) {
   let adj = 0;
-  const gameSit = game.situational || {};
+  const gameSit = {
+    rivalryGame: game.isRivalryGame || false,
+    ...(game.situational || {}),
+  };
   const teamSit = team.schedule || {};
   const teamSituational = team.situational || {};
 
@@ -859,7 +862,7 @@ function calcProgramMomentumAdj(team) {
  */
 function buildXFactors(game, home, away, pred) {
   const xFactors = [];
-  const gameSit  = game.situational || {};
+  const gameSit  = { rivalryGame: game.isRivalryGame || false, ...(game.situational || {}) };
   const wx       = game.weather || {};
 
   // ── Pre-defined x-factors from data ───────────
@@ -1057,7 +1060,7 @@ function buildXFactors(game, home, away, pred) {
  */
 function getPlayerGameIntel(player, isHome, game) {
   const wx        = game.weather || {};
-  const gameSit   = game.situational || {};
+  const gameSit   = { rivalryGame: game.isRivalryGame || false, ...(game.situational || {}) };
   const pm        = player.performanceMetrics || {};
   const pf        = player.personalFlags || {};
 
@@ -1388,7 +1391,7 @@ function buildFactors(home, away, neutralSite) {
    UPGRADED: generateSocialBuzz
    ═══════════════════════════════════════════════════ */
 
-function generateSocialBuzz(home, away) {
+function generateSocialBuzz(home, away, game) {
   const hNorm = home.rating / 100;
   const aNorm = away.rating / 100;
 
@@ -1408,7 +1411,6 @@ function generateSocialBuzz(home, away) {
       notes: `${p.name} listed as ${p.injuryStatus} — monitor through game week`,
     }));
 
-  // Build distraction buzz
   const distractionBuzz = KEY_PLAYERS
     .filter(p => (p.teamId === home.id || p.teamId === away.id) && safeGet(p, "personalFlags.distractionLevel", 0) >= 6)
     .map(p => ({
@@ -1418,37 +1420,110 @@ function generateSocialBuzz(home, away) {
       level: safeGet(p, "personalFlags.distractionLevel", 0),
     }));
 
+  // Derive buzz scores from team rating + injury situation
+  const homeInjuryPenalty = homeInjuries.filter(i => i.impact === "high").length * 5;
+  const awayInjuryPenalty = awayInjuries.filter(i => i.impact === "high").length * 5;
+  const homeBuzz = Math.max(10, Math.round(hNorm * 65 + 15) - homeInjuryPenalty);
+  const awayBuzz = Math.max(10, Math.round(aNorm * 55 + 15) - awayInjuryPenalty);
+
+  // Sentiment: positive injuries or key player news push sentiment down
+  const homeSentiment = Math.max(0.1, Math.min(0.9, hNorm * 0.6 + 0.1 - homeInjuryPenalty * 0.01));
+  const awaySentiment = Math.max(0.1, Math.min(0.9, aNorm * 0.5 + 0.05 - awayInjuryPenalty * 0.01));
+
+  // Build insider tips from actual game data when available
+  const insiderTips = [];
+  const si = game && game.socialIntel;
+
+  if (si && si.beatWriter && si.beatWriter.length > 0) {
+    si.beatWriter.forEach(bw => {
+      insiderTips.push({
+        source: bw.reporter,
+        handle: `@${bw.reporter.replace(/\s/g, "")}`,
+        platform: "twitter",
+        content: bw.report,
+        reliability: bw.sentiment === "positive" ? 5 : bw.sentiment === "negative" ? 4 : 3,
+        timestamp: bw.daysAgo === 0 ? "Today" : bw.daysAgo === 1 ? "Yesterday" : `${bw.daysAgo}d ago`,
+        tags: [bw.team, bw.sentiment, "beat writer"],
+      });
+    });
+  }
+
+  // If no beat writer data, derive tips from x-factors and injuries
+  if (insiderTips.length === 0) {
+    const xFactors = (game && game.xFactors) || [];
+    const homeXF = xFactors.filter(x => x.impactTeam === home.id).slice(0, 1);
+    const awayXF = xFactors.filter(x => x.impactTeam === away.id).slice(0, 1);
+
+    if (homeXF.length > 0) {
+      insiderTips.push({
+        source: "Model Scout",
+        handle: "@TheBetScout",
+        platform: "analysis",
+        content: `Key ${home.name} factor: ${homeXF[0].title} — ${homeXF[0].description.slice(0, 120)}...`,
+        reliability: 5,
+        timestamp: "Analysis",
+        tags: [home.id, "xfactor", homeXF[0].category],
+      });
+    }
+    if (awayXF.length > 0) {
+      insiderTips.push({
+        source: "Model Scout",
+        handle: "@TheBetScout",
+        platform: "analysis",
+        content: `Key ${away.name} factor: ${awayXF[0].title} — ${awayXF[0].description.slice(0, 120)}...`,
+        reliability: 5,
+        timestamp: "Analysis",
+        tags: [away.id, "xfactor", awayXF[0].category],
+      });
+    }
+
+    // Surface high-impact injuries as tips if no other tips
+    if (insiderTips.length === 0) {
+      [...homeInjuries, ...awayInjuries].filter(i => i.impact === "high").slice(0, 2).forEach(inj => {
+        insiderTips.push({
+          source: "Injury Report",
+          handle: "@TheBetInjuries",
+          platform: "injury",
+          content: `⚠️ ${inj.team} — ${inj.player} (${inj.position}) is ${inj.status}. High-impact player watch.`,
+          reliability: 5,
+          timestamp: "Injury report",
+          tags: [inj.team, "injury", inj.position],
+        });
+      });
+    }
+  }
+
+  // Line movement context
+  const lineMovement = si && si.lineMovement;
+  const currentLine = lineMovement && lineMovement[lineMovement.length - 1];
+  const openLine = lineMovement && lineMovement[0];
+  let lineMoveNote = null;
+  if (currentLine && openLine && currentLine.spread !== openLine.spread) {
+    const diff = (currentLine.spread - openLine.spread).toFixed(1);
+    const dir = diff < 0 ? "dropped" : "climbed";
+    const favTeam = currentLine.spread <= 0 ? home.name : away.name;
+    lineMoveNote = `Line ${dir} ${Math.abs(diff)} pts since open — ${favTeam} now ${currentLine.spread > 0 ? "+" : ""}${currentLine.spread}`;
+  }
+
+  // Trending topics driven by game context
+  const topics = [`#${home.abbreviation}vs${away.abbreviation}`, "#CFB2026"];
+  if (game && game.isRivalryGame) topics.push(`#${home.abbreviation}${away.abbreviation}Rivalry`);
+  if (game && game.situational && game.situational.primeTimeGame) topics.push("#PrimeTimeCFB");
+  const homeLastName = (home.coachName || "").split(" ").pop();
+  const awayLastName = (away.coachName || "").split(" ").pop();
+  if (homeLastName) topics.push(`#${homeLastName}`);
+  if (awayLastName && awayLastName !== homeLastName) topics.push(`#${awayLastName}`);
+
   return {
-    homeTeamBuzz: Math.round(hNorm * 65 + 15),
-    awayTeamBuzz: Math.round(aNorm * 55 + 15),
-    sentimentHome: (hNorm * 0.6 + 0.1).toFixed(2),
-    sentimentAway: (aNorm * 0.5 + 0.05).toFixed(2),
-    trendingTopics: [
-      `#${home.abbreviation}vs${away.abbreviation}`,
-      `#${(home.mascot || "").replace(/\s/g, "")}`,
-      `#${(away.mascot || "").replace(/\s/g, "")}`,
-      "#CFB2026",
-      `#${(home.coachName || "").split(" ")[1] || home.abbreviation}`,
-    ],
-    insiderTips: [
-      {
-        source: "Pete Thamel", handle: "@PeteThamel", platform: "twitter",
-        content: `${home.name} practiced in full pads Tuesday — offense looked sharp. ${home.coachName} mentioned the team is fully healthy heading into this week.`,
-        reliability: 5, timestamp: "2h ago", tags: ["practice", "health", home.name],
-      },
-      {
-        source: "r/cfb Insider", handle: "u/GridironGuru88", platform: "reddit",
-        content: `Hearing ${away.name} has been installing a new defensive wrinkle specifically targeting ${home.name}'s spread attack tendencies.`,
-        reliability: 3, timestamp: "4h ago", tags: ["defense", "scheme", away.name],
-      },
-      {
-        source: "Brett McMurphy", handle: "@Brett_McMurphy", platform: "twitter",
-        content: `Multiple sources tell me ${away.name} dealing with depth chart uncertainty this week. Changes expected by Friday.`,
-        reliability: 4, timestamp: "6h ago", tags: ["depth chart", away.name, "insider"],
-      },
-    ],
+    homeTeamBuzz: homeBuzz,
+    awayTeamBuzz: awayBuzz,
+    sentimentHome: homeSentiment.toFixed(2),
+    sentimentAway: awaySentiment.toFixed(2),
+    trendingTopics: topics.slice(0, 5),
+    insiderTips,
     injuryAlerts: [...homeInjuries, ...awayInjuries],
     distractionAlerts: distractionBuzz,
+    lineMoveNote,
     weatherImpact: null,
   };
 }
@@ -1464,7 +1539,7 @@ function generateSocialBuzz(home, away) {
 function predictGame(game) {
   const home    = game.homeTeam;
   const away    = game.awayTeam;
-  const neutral = game.neutralSite;
+  const neutral = game.neutralSite || (game.situational && game.situational.neutralSite) || false;
 
   /* ── Step 1: Base Expected Scores (30% weight) ── */
   const homeBaseExp = calcExpectedScore(home, away, true,  neutral);
@@ -1564,7 +1639,7 @@ function predictGame(game) {
   const predTotal  = homeFinal + awayFinal;
 
   /* ── Alert Flags ──────────────────────────────── */
-  const trapGameAlert = (game.situational?.trapGameRisk || 0) >= 7;
+  const trapGameAlert = ((game.situational?.trapGameRisk) || 0) >= 7;
   const injuryAlert   =
     intelAlert ||  // insider/suspension flag from Twitter
     ((window.TEAM_INTEL && ((window.TEAM_INTEL[home.id]?.outCount || 0) + (window.TEAM_INTEL[away.id]?.outCount || 0))) >= 1) ||
@@ -1682,7 +1757,7 @@ function predictGame(game) {
 
   /* ── Factors & Social Buzz ───────────────────── */
   const factors    = buildFactors(home, away, neutral);
-  const socialBuzz = generateSocialBuzz(home, away);
+  const socialBuzz = generateSocialBuzz(home, away, game);
 
   /* ── Player Profiles for this game ──────────── */
   const playerProfiles = KEY_PLAYERS
