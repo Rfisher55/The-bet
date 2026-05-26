@@ -3433,7 +3433,7 @@ const MODEL_RECORD = {
   eliteOnly:          { wins: 17, losses: 2, pct: 0.895, games: 19 },
   sharpAlignedPicks:  { wins: 29, losses: 8, pct: 0.784, games: 37 },
   weatherAdjusted:    { wins: 24, losses: 7, pct: 0.774, games: 31 },
-  seasonNote: "2025 season performance. Model uses 7-signal weighted approach: base stats (30%), player impact (20%), situational (15%), weather (10%), coaching edge (10%), program momentum (8%), sharp money (7%)."
+  seasonNote: "Historical record from 2025 season, predicting 2026 games. Team stats & player data reflect 2025 performance + 2026 offseason changes. Model uses 7-signal weighted approach: base stats (30%), player impact (20%), situational (15%), weather (10%), coaching edge (10%), program momentum (8%), sharp money (7%)."
 };
 
 // ── Helper: resolve teamId references to full team objects
