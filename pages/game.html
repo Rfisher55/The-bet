@@ -2378,11 +2378,11 @@ function renderGamePage(gData) {
         </div>
         <div class="ml-grid">
           <div class="ml-cell">
-            <div><div class="text-xs text-muted mb-1">${home.name} ML</div><div style="font-size:1.2rem;font-weight:800;color:var(--text)">${fmtML(bl.homeMoneyline)}</div></div>
+            <div><div class="text-xs text-muted mb-1">${home.name} ML</div><div style="font-size:1.2rem;font-weight:800;color:var(--text)">${fmtML(bl.moneylineHome || bl.homeMoneyline)}</div></div>
             ${pred.moneylineValue === "home" ? '<span class="badge badge-elite">VALUE</span>' : ""}
           </div>
           <div class="ml-cell">
-            <div><div class="text-xs text-muted mb-1">${away.name} ML</div><div style="font-size:1.2rem;font-weight:800;color:var(--text)">${fmtML(bl.awayMoneyline)}</div></div>
+            <div><div class="text-xs text-muted mb-1">${away.name} ML</div><div style="font-size:1.2rem;font-weight:800;color:var(--text)">${fmtML(bl.moneylineAway || bl.awayMoneyline)}</div></div>
             ${pred.moneylineValue === "away" ? '<span class="badge badge-elite">VALUE</span>' : ""}
           </div>
         </div>
@@ -2822,6 +2822,46 @@ function renderGamePage(gData) {
         </div>
       </div>
     </div>
+
+    ${(() => {
+      // Quick Decision Strip — immediately visible after header
+      const gp2 = game.gamePreview;
+      const tp2 = gp2 && gp2.thePick;
+      const sp2 = pred.spreadPick || {};
+      const tp2Pick = tp2 && tp2.team;
+      const tp2Conf = tp2 && tp2.confidence ? tp2.confidence.toUpperCase() : null;
+      const tp2Units = tp2 && tp2.unit ? tp2.unit : (tp2Conf === "ELITE" ? 2 : tp2Conf === "HIGH" ? 1.5 : 1);
+      const tp2Line = tp2 && tp2.line ? tp2.line : null;
+      const hasPick2 = tp2Pick || (sp2.side && sp2.side !== "no-bet");
+      const pickTeam2 = tp2Pick || sp2.team;
+      const pickConf2 = tp2Conf || (sp2.side !== "no-bet" ? (pred.confidence || "medium").toUpperCase() : null);
+      const isNoBet = sp2.side === "no-bet" && !tp2Pick;
+      const confColors2 = { ELITE:"var(--primary)", HIGH:"var(--primary)", MEDIUM:"var(--gold)", LOW:"var(--muted-l)" };
+      const cColor2 = confColors2[pickConf2] || "var(--muted)";
+      const isElite = pickConf2 === "ELITE";
+      const sm2 = pred.sharpMoneySignal || {};
+      const pickTeam2IsHome = pickTeam2 && (pickTeam2.toLowerCase() === (home.name||"").toLowerCase() || pickTeam2.toLowerCase() === (home.abbreviation||"").toLowerCase());
+      const sharpAgrees = sm2.strength >= 6 && sm2.side !== "neutral" &&
+        ((sm2.side === "home" && pickTeam2IsHome) || (sm2.side === "away" && !pickTeam2IsHome));
+      if (!hasPick2 && !isNoBet) return "";
+      return `
+      <div style="margin-bottom:16px;padding:12px 16px;border-radius:var(--radius-lg);background:${isNoBet ? "rgba(255,255,255,.02)" : isElite ? "rgba(16,185,129,.08)" : "rgba(255,255,255,.03)"};border:1px solid ${isNoBet ? "var(--border)" : isElite ? "rgba(16,185,129,.35)" : "rgba(255,255,255,.1)"};display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:${isNoBet?"var(--muted)":"var(--primary)"};flex-shrink:0">${isNoBet ? "⏸ PASS" : "✅ BET"}</div>
+        <div style="width:1px;height:24px;background:var(--border);flex-shrink:0"></div>
+        ${hasPick2 && pickTeam2 ? `
+        <div style="flex:1;min-width:0">
+          <span style="font-size:.92rem;font-weight:900;color:var(--text)">${esc(pickTeam2)} covers</span>
+          ${tp2Line ? `<span style="font-size:.72rem;color:var(--muted-l);margin-left:6px">${esc(tp2Line)}</span>` : ""}
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0">
+          ${pickConf2 ? `<span style="font-size:.6rem;font-weight:900;padding:3px 8px;border-radius:5px;background:${cColor2}20;border:1px solid ${cColor2}40;color:${cColor2}">${pickConf2}</span>` : ""}
+          <span style="font-size:.6rem;font-weight:800;color:var(--muted-l)">${tp2Units}u</span>
+          ${sp2.edge >= 1 ? `<span style="font-size:.6rem;font-weight:700;color:var(--primary)">+${sp2.edge} pts edge</span>` : ""}
+          ${sharpAgrees ? `<span style="font-size:.6rem;font-weight:700;color:var(--primary)">💰 Sharps agree</span>` : ""}
+        </div>` : `<div style="flex:1;font-size:.82rem;color:var(--muted)">No edge vs Vegas — skip this game</div>`}
+        <a href="#section-picks" style="font-size:.65rem;font-weight:700;color:var(--primary);text-decoration:none;flex-shrink:0;white-space:nowrap">Full Analysis ↓</a>
+      </div>`;
+    })()}
 
     ${safe(renderPreGameReport, "")}
 

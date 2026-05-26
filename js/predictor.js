@@ -1757,8 +1757,9 @@ function predictGame(game) {
       totalPick = { side: "under", confidence: clamp(Math.round(50 + Math.abs(tEdge) * 4), 51, 95), edge: parseFloat(Math.abs(tEdge).toFixed(1)) };
     }
 
-    if (predSpread > 7 && game.bettingLines.homeMoneyline > -300) mlValue = "home";
-    else if (predSpread < -7 && game.bettingLines.awayMoneyline > -300) mlValue = "away";
+    const blML = game.bettingLines;
+    if (predSpread > 7 && (blML.moneylineHome || blML.homeMoneyline || -999) > -300) mlValue = "home";
+    else if (predSpread < -7 && (blML.moneylineAway || blML.awayMoneyline || -999) > -300) mlValue = "away";
   }
 
   /* ── Predicted Winner ────────────────────────── */
