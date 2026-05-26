@@ -296,10 +296,35 @@ function renderGrid() {
     var ago = item.date ? relTime(item.date) : "";
     var impact = item.impact < 0 ? impactBadge(item.impact) : "";
     var teamPill = item.teamName
-      ? '<span class="intel-team-pill">' + item.teamName.split(" ").slice(-1)[0].toUpperCase() + '</span>'
+      ? '<span class="intel-team-pill">' + item.teamName + '</span>'
       : "";
     var linkAttr = item.url && item.url !== "#" ? ' href="' + item.url + '" target="_blank" rel="noopener"' : "";
     var tag = linkAttr ? "a" : "div";
+
+    // For injury items, find upcoming games for this team and link to them
+    var affectsRow = "";
+    if (item.type === "injury" && item.teamName && window.TEAMS && window.GAMES) {
+      var affTeam = Object.values(window.TEAMS).find(function(t) {
+        return t.name.toLowerCase() === item.teamName.toLowerCase() || t.id === item.teamName.toLowerCase().replace(/\s+/g, "_");
+      });
+      if (affTeam) {
+        var affGames = window.GAMES.filter(function(g) {
+          return g.homeTeamId === affTeam.id || g.awayTeamId === affTeam.id;
+        }).slice(0, 2);
+        if (affGames.length) {
+          var affLinks = affGames.map(function(g) {
+            var homeT = window.TEAMS[g.homeTeamId], awayT = window.TEAMS[g.awayTeamId];
+            if (!homeT || !awayT) return "";
+            var label = awayT.abbreviation + " @ " + homeT.abbreviation + " Wk" + g.week;
+            return '<a href="game.html?id=' + g.id + '" style="color:var(--gold);text-decoration:underline;font-size:.62rem">' + label + '</a>';
+          }).filter(Boolean).join(" · ");
+          if (affLinks) {
+            affectsRow = '<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:.62rem;color:var(--muted)">Affects: ' + affLinks + '</div>';
+          }
+        }
+      }
+    }
+
     return '<' + tag + ' class="intel-card type-' + item.type + '"' + linkAttr + ' style="display:block;text-decoration:none">' +
       '<div class="intel-card-inner">' +
         '<div class="intel-card-header">' +
@@ -313,6 +338,7 @@ function renderGrid() {
           (ago ? '<span class="intel-meta-item">· ' + ago + '</span>' : '') +
           impact +
         '</div>' +
+        affectsRow +
       '</div>' +
     '</' + tag + '>';
   }).join("");

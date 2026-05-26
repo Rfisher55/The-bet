@@ -764,8 +764,9 @@ function renderHeroPick() {
     '</div>' +
     '<div class="top-pick-footer">' +
       '<div class="top-pick-spread">' +
-        '<div class="top-pick-spread-lbl">Spread Pick</div>' +
-        '<div class="top-pick-spread-val">Will cover spread</div>' +
+        '<div class="top-pick-spread-lbl">The Bet Picks</div>' +
+        '<div class="top-pick-spread-val">' + pickTeam + ' covers</div>' +
+        (pickLine ? '<div style="font-size:.65rem;color:var(--muted);margin-top:2px">Line: ' + pickLine + '</div>' : '') +
       '</div>' +
       (sp && sp.edge > 0 ?
         '<div class="top-pick-spread" style="background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.3)">' +
@@ -810,8 +811,8 @@ function renderTopPicks() {
         '</div>' +
       '</div>' +
       '<div class="pick-chip ' + chipCls + ' mb-3" style="text-align:left">' +
-        '<div class="pick-chip-label">Spread Pick</div>' +
-        '<div class="pick-chip-val" style="font-size:1rem;color:' + chipColor + '">Will cover spread</div>' +
+        '<div class="pick-chip-label">The Bet Picks</div>' +
+        '<div class="pick-chip-val" style="font-size:1rem;color:' + chipColor + '">' + sp.team + ' covers</div>' +
         '<div class="pick-chip-sub">Line: ' + lineVal + '</div>' +
       '</div>' +
       '<div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted-l)">' +
@@ -899,9 +900,9 @@ function renderGameCard(game, pred, baseUrl) {
   var ats = sp.side === "no-bet"
     ? '<div class="pick-chip pick-neutral"><div class="pick-chip-label">Spread Pick</div><div class="pick-chip-val">No edge</div></div>'
     : '<div class="pick-chip ' + (sp.side === "home" ? "pick-home" : "pick-away") + '">' +
-        '<div class="pick-chip-label">Spread Pick</div>' +
-        '<div class="pick-chip-val">Will cover spread</div>' +
-        (game.bettingLines ? '<div class="pick-chip-sub">' + (sp.side === "home" ? game.homeTeam.name : game.awayTeam.name).split(" ").pop() + ' · ' + fmtSpread(sp.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) + '</div>' : '') +
+        '<div class="pick-chip-label">The Bet</div>' +
+        '<div class="pick-chip-val">' + (sp.side === "home" ? game.homeTeam.name : game.awayTeam.name) + ' covers</div>' +
+        (game.bettingLines ? '<div class="pick-chip-sub">Line: ' + fmtSpread(sp.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) + '</div>' : '') +
       '</div>';
 
   var tot = tp.side === "no-bet"
@@ -1150,7 +1151,7 @@ window.renderGameCard = renderGameCard;
           var author = tw.author ? "@" + tw.author.username : "Twitter/X";
           var ago = tw.created_at ? relTime(tw.created_at) : "";
           return '<div class="alert-banner-item">' +
-            '<span class="alert-team-chip">' + a.teamName.split(" ").pop().toUpperCase() + '</span>' +
+            '<span class="alert-team-chip">' + a.teamName.toUpperCase() + '</span>' +
             '<div class="alert-tweet-text">' +
               (tw.text || "").slice(0, 180) + (tw.text && tw.text.length > 180 ? "…" : "") +
               '<div class="alert-tweet-meta">' + author + (ago ? " · " + ago : "") + '</div>' +

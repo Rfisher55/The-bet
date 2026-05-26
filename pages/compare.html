@@ -508,6 +508,15 @@ function confLabel(c) {
   return c === 'elite' ? 'ELITE' : c === 'high' ? 'HIGH' : c === 'medium' ? 'MEDIUM' : 'LOW';
 }
 
+// ── Find a scheduled game between these two teams ──
+function findScheduledGame(a, b) {
+  if (typeof GAMES === 'undefined') return null;
+  return GAMES.find(g =>
+    (g.homeTeamId === a.id && g.awayTeamId === b.id) ||
+    (g.homeTeamId === b.id && g.awayTeamId === a.id)
+  ) || null;
+}
+
 // ── Build the full comparison HTML ─────────────────
 function buildComparison(a, b) {
   // Create a mock game object and run the prediction
@@ -530,8 +539,20 @@ function buildComparison(a, b) {
   let pred = null;
   try { pred = predictGame(fakeGame); } catch (e) { /* predictor may require resolveGame */ }
 
+  // Check if there's a real scheduled game between these teams
+  const scheduledGame = findScheduledGame(a, b);
+  let realGamePred = null;
+  let realGame = null;
+  if (scheduledGame) {
+    try {
+      realGame = (typeof resolveGame === 'function') ? resolveGame(scheduledGame) : scheduledGame;
+      realGamePred = predictGame(realGame);
+    } catch (e) { /* ignore */ }
+  }
+
   const html = [
     buildHeader(a, b, pred),
+    realGame && realGamePred ? buildRealGameBanner(a, b, realGame, realGamePred) : '',
     pred ? buildWinProb(a, b, pred) : '',
     buildStatTable(a, b),
     buildCoaching(a, b),
@@ -540,6 +561,93 @@ function buildComparison(a, b) {
   ].join('');
 
   return html;
+}
+
+// ── Real Scheduled Game Banner ──────────────────────
+function buildRealGameBanner(a, b, game, pred) {
+  const homeIsA = game.homeTeamId === a.id;
+  const home = homeIsA ? a : b;
+  const away = homeIsA ? b : a;
+
+  const bl = game.bettingLines;
+  const sp = pred && pred.spreadPick;
+
+  // Model spread (home perspective)
+  const modelSpread = pred ? pred.predictedSpread : null;
+
+  // Vegas spread (negative = home favored)
+  const vegasSpread = bl ? bl.spread : null;
+
+  // Model edge = how much better model's number is vs Vegas for the pick
+  let edgeText = '';
+  let edgeColor = 'var(--muted)';
+  let valueTeam = '';
+  let valueDir = '';
+
+  if (modelSpread !== null && vegasSpread !== null && sp && sp.side !== 'no-bet') {
+    const modelEdge = sp.edge || 0;
+    if (modelEdge >= 3) {
+      edgeColor = 'var(--primary)';
+      valueTeam = sp.side === 'home' ? home.name : away.name;
+      valueDir = 'strong value';
+    } else if (modelEdge >= 1.5) {
+      edgeColor = '#34d399';
+      valueTeam = sp.side === 'home' ? home.name : away.name;
+      valueDir = 'value';
+    } else {
+      edgeColor = 'var(--gold)';
+      valueTeam = sp.side === 'home' ? home.name : away.name;
+      valueDir = 'slight value';
+    }
+    edgeText = modelEdge > 0 ? `+${modelEdge} pt edge on ${valueTeam} (${valueDir})` : 'No edge vs Vegas';
+  }
+
+  const vegasLine = vegasSpread !== null
+    ? (vegasSpread === 0 ? 'Pick-em' : (vegasSpread < 0 ? `${home.name} ${fmtSpread(vegasSpread)}` : `${away.name} ${fmtSpread(-vegasSpread)}`))
+    : 'Line TBD';
+
+  const modelLine = modelSpread !== null
+    ? (Math.abs(modelSpread) < 0.5 ? 'Pick-em' : (modelSpread > 0 ? `${home.name} by ${fix1(Math.abs(modelSpread))}` : `${away.name} by ${fix1(Math.abs(modelSpread))}`))
+    : '—';
+
+  const confCls = pred ? ({ elite: 'badge-elite', high: 'badge-high', medium: 'badge-medium', low: 'badge-low' }[pred.confidence] || '') : '';
+
+  return `
+    <div class="cmp-section" style="border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.04)">
+      <div class="cmp-section-title" style="color:var(--primary)">
+        <span style="background:var(--primary);color:#000;padding:1px 7px;border-radius:4px;font-size:.58rem">REAL GAME SCHEDULED</span>
+        Actual Matchup — Week ${game.week}
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Game Date</div>
+          <div style="font-size:.85rem;font-weight:800;color:var(--text)">${fmtDate(game.date)}</div>
+          <div style="font-size:.65rem;color:var(--muted)">${game.time} · ${game.network}</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Vegas Line</div>
+          <div style="font-size:.85rem;font-weight:800;color:var(--text)">${vegasLine}</div>
+          ${bl ? `<div style="font-size:.65rem;color:var(--muted)">O/U ${bl.total}</div>` : ''}
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Model Says</div>
+          <div style="font-size:.85rem;font-weight:800;color:var(--text)">${modelLine}</div>
+          ${pred ? `<div style="font-size:.65rem;color:var(--muted)">Win prob: ${pred.winProbability}%</div>` : ''}
+        </div>
+        ${sp && sp.side !== 'no-bet' ? `
+        <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">The Bet Pick</div>
+          <div style="font-size:.85rem;font-weight:800;color:var(--primary)">${sp.side === 'home' ? home.name : away.name} covers</div>
+          <div style="font-size:.65rem;color:${edgeColor}">${edgeText}</div>
+        </div>` : ''}
+      </div>
+      ${pred ? `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="badge ${confCls}">${pred.confidence.toUpperCase()} CONFIDENCE</span>
+        <span style="font-size:.75rem;color:var(--muted)">at ${game.venue}</span>
+        <a href="game.html?id=${game.id}" style="margin-left:auto;font-size:.75rem;font-weight:700;color:var(--primary);text-decoration:underline">Full Game Analysis →</a>
+      </div>` : ''}
+    </div>`
+  ;
 }
 
 // ── Header: logos, names, VS ────────────────────────
@@ -781,6 +889,26 @@ function buildCoaching(a, b) {
         <div class="coach-stat-row">
           <span class="coach-stat-lbl">Contract Status</span>
           <span class="coach-stat-val" style="text-transform:capitalize">${cp.contractStatus}</span>
+        </div>` : ''}
+        ${team.atsRecord ? `
+        <div class="coach-stat-row">
+          <span class="coach-stat-lbl">Team ATS Record</span>
+          <span class="coach-stat-val">${team.atsRecord}</span>
+        </div>` : ''}
+        ${team.situational && team.situational.atsHome ? `
+        <div class="coach-stat-row">
+          <span class="coach-stat-lbl">ATS at Home</span>
+          <span class="coach-stat-val">${team.situational.atsHome}</span>
+        </div>` : ''}
+        ${team.situational && team.situational.atsAway ? `
+        <div class="coach-stat-row">
+          <span class="coach-stat-lbl">ATS on Road</span>
+          <span class="coach-stat-val">${team.situational.atsAway}</span>
+        </div>` : ''}
+        ${team.situational && team.situational.atsUnderdog ? `
+        <div class="coach-stat-row">
+          <span class="coach-stat-lbl">ATS as Underdog</span>
+          <span class="coach-stat-val">${team.situational.atsUnderdog}</span>
         </div>` : ''}
       </div>`;
   }

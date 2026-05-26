@@ -230,8 +230,11 @@ function updateCalibration(tiers) {
     var barColor = delta == null ? 'var(--muted)' : delta >= 0 ? 'var(--primary)' : 'var(--danger)';
     var deltaStr = delta == null ? '—' : (delta >= 0 ? '+' : '') + delta + '%';
     var deltaCls = delta == null ? 'delta-neu' : delta >= 0 ? 'delta-pos' : 'delta-neg';
+    var sampleWarn = total > 0 && total < 20
+      ? '<div style="font-size:.58rem;color:var(--gold);margin-top:2px">⚠ small sample (' + total + ' picks)</div>'
+      : '';
     return '<tr>' +
-      '<td><span style="font-weight:800;color:var(--text)">' + t.label + '</span></td>' +
+      '<td><span style="font-weight:800;color:var(--text)">' + t.label + '</span>' + sampleWarn + '</td>' +
       '<td style="color:var(--muted)">' + t.expected + '%</td>' +
       '<td style="font-weight:800;color:' + barColor + '">' + (actual != null ? actual + '%' : total ? '—' : 'No data yet') + '</td>' +
       '<td><div class="cal-bar-wrap"><div class="cal-bar-track"><div class="cal-bar-fill" style="width:' + Math.min(pct,100) + '%;background:' + barColor + '"></div></div></div></td>' +

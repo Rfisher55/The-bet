@@ -572,7 +572,7 @@ function renderGameCard(game, pred) {
           <div style="padding:8px 10px;border-radius:8px;background:${sp.side==="home"?home.color+"22":away.color+"22"};border:1px solid ${sp.side==="home"?home.color+"55":away.color+"55"}">
             <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">⭐ OUR PICK</div>
             <div style="font-size:.75rem;font-weight:900;color:var(--text)">${sp.side==="home"?home.name:away.name}</div>
-            <div style="font-size:.6rem;color:var(--muted-l)">Will cover spread</div>
+            <div style="font-size:.6rem;color:var(--muted-l)">covers spread</div>
           </div>` : `
           <div style="padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
             <div style="font-size:.55rem;font-weight:800;color:var(--muted-l);letter-spacing:1px;margin-bottom:3px">SPREAD</div>
@@ -603,11 +603,17 @@ function renderGameCard(game, pred) {
 
         // Live score
         const liveScores = window.__espnLiveScores || [];
-        const liveGame = liveScores.find(s =>
-          s.status === "STATUS_IN_PROGRESS" &&
-          ((s.homeTeam||"").toLowerCase().includes((home.name||"").split(" ").pop().toLowerCase()) ||
-           (s.awayTeam||"").toLowerCase().includes((away.name||"").split(" ").pop().toLowerCase()))
-        );
+        const liveGame = liveScores.find(s => {
+          if (s.status !== "STATUS_IN_PROGRESS") return false;
+          const sh = (s.homeTeam||"").toLowerCase();
+          const sa = (s.awayTeam||"").toLowerCase();
+          const hn = home.name.toLowerCase();
+          const an = away.name.toLowerCase();
+          const hab = (home.abbreviation||"").toLowerCase();
+          const aab = (away.abbreviation||"").toLowerCase();
+          return sh.includes(hn) || sa.includes(hn) || sh.includes(an) || sa.includes(an) ||
+                 sh.includes(hab) || sa.includes(hab) || sh.includes(aab) || sa.includes(aab);
+        });
         if (liveGame) {
           chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 8px;border-radius:6px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:var(--danger);animation:pulse 2s infinite">LIVE ${liveGame.awayScore}–${liveGame.homeScore} Q${liveGame.period}</span>`);
         }
