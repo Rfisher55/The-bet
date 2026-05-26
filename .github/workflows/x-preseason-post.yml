@@ -141,26 +141,11 @@ jobs:
             echo "dry=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Verify secrets are loaded
-        env:
-          X_API_KEY:             ${{ secrets.X_API_KEY }}
-          X_API_SECRET:          ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-        run: |
-          echo "X_API_KEY length:             ${#X_API_KEY}"
-          echo "X_API_SECRET length:          ${#X_API_SECRET}"
-          echo "X_ACCESS_TOKEN length:        ${#X_ACCESS_TOKEN}"
-          echo "X_ACCESS_TOKEN_SECRET length: ${#X_ACCESS_TOKEN_SECRET}"
-          echo "X_API_KEY starts with:        ${X_API_KEY:0:4}..."
-          echo "X_ACCESS_TOKEN starts with:   ${X_ACCESS_TOKEN:0:6}..."
-
       - name: Post to X
         env:
-          X_API_KEY:             ${{ secrets.X_API_KEY }}
-          X_API_SECRET:          ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
         run: |
           DRY=""
           [ "${{ steps.cfg.outputs.dry }}" = "true" ] && DRY="--dry-run"
@@ -182,3 +167,14 @@ jobs:
             $TEAM_ARG \
             $CONF_ARG \
             $DRY
+
+      - name: Update refresh token
+        if: steps.cfg.outputs.dry != 'true' && success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
+        run: |
+          if [ -f /tmp/new_refresh_token ]; then
+            NEW_TOKEN=$(cat /tmp/new_refresh_token)
+            gh secret set X_OAUTH2_REFRESH_TOKEN --body "$NEW_TOKEN" --repo rfisher55/the-bet
+            echo "✅ Refresh token updated"
+          fi

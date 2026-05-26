@@ -1,0 +1,46 @@
+name: X OAuth2 Setup (one-time)
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Step to run'
+        required: true
+        default: 'generate'
+        type: choice
+        options:
+          - generate
+          - exchange
+      oauth2_code:
+        description: 'Step 2 only — paste the code from the redirect URL here'
+        required: false
+        default: ''
+      oauth2_code_verifier:
+        description: 'Step 2 only — paste the CODE VERIFIER from Step 1 logs here'
+        required: false
+        default: ''
+
+jobs:
+  oauth2-setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: scripts
+
+      - name: Run OAuth2 setup
+        env:
+          X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          OAUTH2_CODE:            ${{ inputs.oauth2_code }}
+          OAUTH2_CODE_VERIFIER:   ${{ inputs.oauth2_code_verifier }}
+        run: node scripts/oauth2-setup.js ${{ inputs.action }}

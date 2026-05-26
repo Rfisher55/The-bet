@@ -263,13 +263,14 @@ function fmtResultsThread(newResults, fullRecord) {
 
 // ── X API client ──────────────────────────────────────────────────
 async function getClient() {
-  const { TwitterApi } = await import('twitter-api-v2');
-  const client = new TwitterApi({
-    appKey:    process.env.X_API_KEY,
-    appSecret: process.env.X_API_SECRET,
-    accessToken:  process.env.X_ACCESS_TOKEN,
-    accessSecret: process.env.X_ACCESS_TOKEN_SECRET,
+  const { TwitterApi } = require('twitter-api-v2');
+  const authClient = new TwitterApi({
+    clientId:     process.env.X_OAUTH2_CLIENT_ID,
+    clientSecret: process.env.X_OAUTH2_CLIENT_SECRET,
   });
+  const { client, refreshToken: newRefresh } =
+    await authClient.refreshOAuth2Token(process.env.X_OAUTH2_REFRESH_TOKEN);
+  require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
   return client;
 }
 
@@ -279,10 +280,11 @@ async function postThread(tweets, client) {
   const ids = [];
   for (let i = 0; i < tweets.length; i++) {
     const text = typeof tweets[i] === 'string' ? tweets[i] : tweets[i].text;
-    const opts = i === 0 ? {} : { in_reply_to_status_id: ids[i - 1] };
-    const tweet = await client.v1.tweet(text, opts);
-    ids.push(tweet.id_str);
-    console.log(`  ✅ Tweet ${i + 1}: https://x.com/i/web/status/${tweet.id_str}`);
+    const payload = { text };
+    if (i > 0) payload.reply = { in_reply_to_tweet_id: ids[i - 1] };
+    const { data } = await client.v2.tweet(payload);
+    ids.push(data.id);
+    console.log(`  ✅ Tweet ${i + 1}: https://x.com/i/web/status/${data.id}`);
     if (i < tweets.length - 1) await sleep(4000);
   }
   return ids;
@@ -380,8 +382,8 @@ async function main() {
 
   if (items.length === 1) {
     const text = typeof items[0] === 'string' ? items[0] : items[0].text;
-    const tweet = await client.v1.tweet(text);
-    console.log(`\n✅ Posted! https://x.com/i/web/status/${tweet.id_str}`);
+    const { data } = await client.v2.tweet({ text });
+    console.log(`\n✅ Posted! https://x.com/i/web/status/${data.id}`);
   } else {
     console.log(`\nPosting thread of ${items.length} tweets...`);
     const ids = await postThread(items, client);

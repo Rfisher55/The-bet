@@ -443,19 +443,24 @@ async function main() {
 
   if (dryRun) return;
 
-  const client = new TwitterApi({
-    appKey:    process.env.X_API_KEY,
-    appSecret: process.env.X_API_SECRET,
-    accessToken: process.env.X_ACCESS_TOKEN,
-    accessSecret: process.env.X_ACCESS_TOKEN_SECRET,
+  // Refresh OAuth 2.0 token
+  const authClient = new TwitterApi({
+    clientId:     process.env.X_OAUTH2_CLIENT_ID,
+    clientSecret: process.env.X_OAUTH2_CLIENT_SECRET,
   });
+  const { client, refreshToken: newRefresh } =
+    await authClient.refreshOAuth2Token(process.env.X_OAUTH2_REFRESH_TOKEN);
+
+  // Save new refresh token for the workflow to update in GitHub secrets
+  require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
 
   let prevId = null;
   for (const text of tweets) {
-    const opts = prevId ? { in_reply_to_status_id: prevId } : {};
-    const tweet = await client.v1.tweet(text, opts);
-    prevId = tweet.id_str;
-    console.log(`✅ Posted: https://x.com/TheBetCFB/status/${tweet.id_str}`);
+    const payload = { text };
+    if (prevId) payload.reply = { in_reply_to_tweet_id: prevId };
+    const { data } = await client.v2.tweet(payload);
+    prevId = data.id;
+    console.log(`✅ Posted: https://x.com/TheBetCFB/status/${data.id}`);
     await new Promise(r => setTimeout(r, 1500));
   }
 }
