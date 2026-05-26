@@ -2,24 +2,32 @@ name: X Auto-Post Picks
 
 on:
   schedule:
-    # Tuesday 10am ET (15:00 UTC) — Early look when lines open
+    # Tuesday 10am ET  — Early look (ELITE picks only)
     - cron: '0 15 * * 2'
-    # Friday 10am ET (15:00 UTC) — Final locked picks
+    # Wednesday 11am ET — Top 5 games thread
+    - cron: '0 16 * * 3'
+    # Thursday 10am ET  — Parlay card thread
+    - cron: '0 15 * * 4'
+    # Friday 10am ET    — Final locked picks
     - cron: '0 15 * * 5'
-    # Saturday 9am ET (14:00 UTC) — Game day reminders
+    # Saturday 9am ET   — Game day reminders
     - cron: '0 14 * * 6'
 
-  # Allow manual trigger from GitHub Actions tab for testing
+  # Manual trigger from GitHub Actions tab (for testing)
   workflow_dispatch:
     inputs:
       post_type:
         description: 'Post type'
         required: true
-        default: 'final'
+        default: 'top5'
         type: choice
-        options: [early, final, gameday]
+        options: [early, top5, parlay, final, gameday]
+      parlay_legs:
+        description: 'Parlay legs (2-5, only used when type=parlay)'
+        required: false
+        default: '3'
       dry_run:
-        description: 'Dry run (preview only, do not post)'
+        description: 'Dry run — preview without posting'
         required: false
         default: true
         type: boolean
@@ -28,7 +36,7 @@ jobs:
   post-picks:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -36,38 +44,41 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install X API package
-        run: npm install twitter-api-v2
+      - name: Install dependencies
+        run: npm install
         working-directory: scripts
 
-      # Determine post type from schedule (day of week)
-      - name: Determine post type
-        id: post-type
+      - name: Resolve post type from schedule
+        id: cfg
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "type=${{ inputs.post_type }}" >> $GITHUB_OUTPUT
-            echo "dry=${{ inputs.dry_run }}" >> $GITHUB_OUTPUT
+            echo "type=${{ inputs.post_type }}"   >> $GITHUB_OUTPUT
+            echo "legs=${{ inputs.parlay_legs }}" >> $GITHUB_OUTPUT
+            echo "dry=${{ inputs.dry_run }}"      >> $GITHUB_OUTPUT
           else
-            DAY=$(date +%u)   # 1=Mon … 7=Sun
-            if [ "$DAY" = "2" ]; then
-              echo "type=early" >> $GITHUB_OUTPUT
-            elif [ "$DAY" = "5" ]; then
-              echo "type=final" >> $GITHUB_OUTPUT
-            else
-              echo "type=gameday" >> $GITHUB_OUTPUT
-            fi
+            DAY=$(date +%u)   # 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 7=Sun
+            case "$DAY" in
+              2) echo "type=early"   >> $GITHUB_OUTPUT ;;
+              3) echo "type=top5"    >> $GITHUB_OUTPUT ;;
+              4) echo "type=parlay"  >> $GITHUB_OUTPUT ;;
+              5) echo "type=final"   >> $GITHUB_OUTPUT ;;
+              6) echo "type=gameday" >> $GITHUB_OUTPUT ;;
+              *) echo "type=final"   >> $GITHUB_OUTPUT ;;
+            esac
+            echo "legs=3"  >> $GITHUB_OUTPUT
             echo "dry=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Post picks to X
+      - name: Post to X
         env:
           X_API_KEY:             ${{ secrets.X_API_KEY }}
           X_API_SECRET:          ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         run: |
-          DRY_FLAG=""
-          if [ "${{ steps.post-type.outputs.dry }}" = "true" ]; then
-            DRY_FLAG="--dry-run"
-          fi
-          node scripts/post-picks.js --type ${{ steps.post-type.outputs.type }} $DRY_FLAG
+          DRY=""
+          [ "${{ steps.cfg.outputs.dry }}" = "true" ] && DRY="--dry-run"
+          node scripts/post-picks.js \
+            --type ${{ steps.cfg.outputs.type }} \
+            --legs ${{ steps.cfg.outputs.legs }} \
+            $DRY
