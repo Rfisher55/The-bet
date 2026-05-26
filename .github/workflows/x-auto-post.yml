@@ -2,20 +2,22 @@ name: X Auto-Post Picks
 
 on:
   schedule:
-    # Tuesday 10am ET  — Early look (ELITE picks only)
-    - cron: '0 15 * * 2'
-    # Wednesday 11am ET — Top 5 games thread
-    - cron: '0 16 * * 3'
+    # All times UTC — CFB season runs Aug–Nov (EDT=UTC-4), late bowl season (EST=UTC-5)
+    # Times set for EDT (primary season). Nov DST switch makes these 1h early — acceptable.
+    # Tuesday 10am ET  — Top 5 biggest matchups thread
+    - cron: '0 14 * * 2'
+    # Wednesday 11am ET — Top 5 picks thread
+    - cron: '0 15 * * 3'
     # Thursday 10am ET  — Parlay card thread
-    - cron: '0 15 * * 4'
-    # Friday 10am ET    — Final locked picks (all ELITE + HIGH)
-    - cron: '0 15 * * 5'
+    - cron: '0 14 * * 4'
+    # Friday 10am ET    — 5 highest-confidence locks
+    - cron: '0 14 * * 5'
     # Saturday 9am ET   — "Who covers?" polls
-    - cron: '0 14 * * 6'
+    - cron: '0 13 * * 6'
     # Saturday 11am ET  — Game day hype tweets
-    - cron: '0 16 * * 6'
+    - cron: '0 15 * * 6'
     # Sunday 11am ET    — Results thread + update season record
-    - cron: '0 16 * * 0'
+    - cron: '0 15 * * 0'
 
   workflow_dispatch:
     inputs:

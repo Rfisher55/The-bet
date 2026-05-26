@@ -1230,7 +1230,7 @@ function copyParlay(btn) {
     `Wager       : $${wagerAmt % 1 === 0 ? wagerAmt : wagerAmt.toFixed(2)}`,
     `Potential Win: $${Math.round(profitAmt)} (return $${Math.round(payoutAmt)})`,
     `Model Win %  : ${Math.round(modelWinProb * 100)}%`,
-    `rfisher55.github.io/the-bet`
+    `rfisher55.github.io/The-bet`
   ].join("\n");
 
   navigator.clipboard?.writeText(full).then(() => {

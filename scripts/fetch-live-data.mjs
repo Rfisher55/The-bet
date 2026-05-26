@@ -35,7 +35,8 @@ const ACTION_BASE   = "https://api.actionnetwork.com/web/v1";
 const REDDIT_BASE   = "https://www.reddit.com";
 const GNEWS_BASE    = "https://news.google.com/rss/search";
 
-const CFBD_KEY     = process.env.CFBD_API_KEY  || "PYpnlfCwGnHmml4BtUbvE0q+oafSE2BuqAREeEXnY+NUalkbuV6hYHoKO3udgFdB";
+const CFBD_KEY     = process.env.CFBD_API_KEY;
+if (!CFBD_KEY) { console.error("❌ CFBD_API_KEY not set — aborting fetch"); process.exit(1); }
 const ODDS_KEY     = process.env.ODDS_API_KEY  || null;  // free at the-odds-api.com
 const ODDSPAPI_KEY = process.env.ODDSPAPI_KEY  || null;  // free at oddspapi.io — includes Pinnacle (sharp reference)
 
@@ -175,7 +176,7 @@ const STADIUM_COORDS = {
   texas_tech:      { lat:33.5913,  lon:-101.8748, dome:false },
   baylor:          { lat:31.5588,  lon:-97.1195,  dome:false },
   ucf:             { lat:28.6004,  lon:-81.1912,  dome:false },
-  cincinatti:      { lat:39.1017,  lon:-84.5161,  dome:false },
+  cincinnati:      { lat:39.1017,  lon:-84.5161,  dome:false },
   memphis:         { lat:35.1327,  lon:-90.0281,  dome:false },
 };
 
@@ -297,9 +298,9 @@ async function fetchESPNInjuries() {
     mississippi_state:344,missouri:142,nebraska:158,minnesota:135,maryland:120,
     indiana:84,purdue:2509,illinois:356,northwestern:77,rutgers:164,
     michigan_state:127,usc:30,ucla:26,washington:264,oregon_state:204,
-    washington_state:265,nebraska:158,georgia_tech:59,nc_state:152,
+    washington_state:265,georgia_tech:59,nc_state:152,
     app_state:2026,coastal_carolina:324,liberty:2335,marshall:276,
-    old_dominion:295,james_madison:2655,western_kentucky:98,utsa:2636,
+    old_dominion:295,james_madison:2259,western_kentucky:98,utsa:2636,
     uab:2629,fau:2226,fiu:2296,charlotte:2429,southern_miss:239,
     troy:2653,south_alabama:6,louisiana:309,ul_monroe:2433,arkansas_state:2032,
     georgia_southern:290,georgia_state:2247,texas_state:326,middle_tennessee:2393,

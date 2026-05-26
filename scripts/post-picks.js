@@ -3,16 +3,17 @@
  * post-picks.js — The Bet X auto-poster (full account)
  *
  * Env vars (GitHub Secrets):
- *   X_API_KEY  X_API_SECRET  X_ACCESS_TOKEN  X_ACCESS_TOKEN_SECRET
+ *   X_OAUTH2_CLIENT_ID  X_OAUTH2_CLIENT_SECRET  X_OAUTH2_REFRESH_TOKEN
  *
  * Usage:
- *   node post-picks.js --type early       Tue: teaser (ELITE only)
- *   node post-picks.js --type top5        Wed: top 5 thread
+ *   node post-picks.js --type matchups    Tue: top 5 biggest games thread
+ *   node post-picks.js --type top5        Wed: top 5 picks thread
  *   node post-picks.js --type parlay      Thu: parlay card thread
- *   node post-picks.js --type final       Fri: locked picks w/ record badge
+ *   node post-picks.js --type locks       Fri: 5 highest-confidence locks
  *   node post-picks.js --type polls       Sat AM: "who covers?" polls
  *   node post-picks.js --type gameday     Sat: hype + kickoff reminders
- *   node post-picks.js --type results     Sun: weekly recap thread
+ *   node post-picks.js --type results     Sun: weekly recap + season record
+ *   node post-picks.js --type early       Single-pick mode (ELITE only)
  *   node post-picks.js --type [any] --dry-run
  */
 
@@ -39,11 +40,13 @@ function spreadStr(n) {
 
 // ATS record badge — appended to every pick tweet
 function recordBadge() {
-  const r = getRecord().record;
-  const total = r.wins + r.losses + r.pushes;
-  if (!total) return null; // no record yet — don't show 0-0
-  const pct = total > 0 ? Math.round((r.wins / (r.wins + r.losses)) * 100) : 0;
-  return `📊 Season: ${r.wins}-${r.losses}${r.pushes ? `-${r.pushes}` : ''} ATS (${pct}%)`;
+  try {
+    const r = getRecord().record;
+    const total = r.wins + r.losses + r.pushes;
+    if (!total) return null; // no record yet — don't show 0-0
+    const pct = total > 0 ? Math.round((r.wins / (r.wins + r.losses)) * 100) : 0;
+    return `📊 Season: ${r.wins}-${r.losses}${r.pushes ? `-${r.pushes}` : ''} ATS (${pct}%)`;
+  } catch { return null; }
 }
 
 // Build tweet fitting within 280 chars — drop optional parts greedily

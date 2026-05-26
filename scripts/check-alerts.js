@@ -167,12 +167,12 @@ function buildPickFlipTweet({ game, oldTeam, newTeam, spread }) {
 }
 
 function buildLineTweet({ game, oldSpread, newSpread, move }) {
-  const home      = game.homeTeamName || game.homeTeamId;
-  const away      = game.awayTeamName || game.awayTeamId;
-  const direction = newSpread < oldSpread ? 'moved toward home' : 'moved toward away';
+  const home      = (game.homeTeamName || game.homeTeamId || '').slice(0, 22);
+  const away      = (game.awayTeamName || game.awayTeamId || '').slice(0, 22);
+  const direction = newSpread < oldSpread ? 'toward home' : 'toward away';
   const tag1      = `#${(game.homeTeamName || '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const tag2      = `#${(game.awayTeamName || '').replace(/[^a-zA-Z0-9]/g, '')}`;
-  return `📈 LINE ALERT — Wk${game.week}: ${away} @ ${home}\n\nLine moved ${move.toFixed(1)} pts (${spreadStr(oldSpread)} → ${spreadStr(newSpread)})\n${direction} — sharp money or breaking news driving this.\n\nSite updated: rfisher55.github.io/The-bet\n\n${tag1} ${tag2} #CFB #TheBet`;
+  return `📈 LINE MOVE — Wk${game.week}: ${away} @ ${home}\n\n${move.toFixed(1)} pts ${direction} (${spreadStr(oldSpread)} → ${spreadStr(newSpread)})\nSharp money or breaking news.\n\n${tag1} ${tag2} #CFB #TheBet`;
 }
 
 // ── Post to X ─────────────────────────────────────────────────────────────────
@@ -265,10 +265,13 @@ async function main() {
     else if (alert.type === 'pick-flip') text = buildPickFlipTweet(alert);
     else if (alert.type === 'line') text = buildLineTweet(alert);
 
-    if (text && text.length <= 280) {
-      await postTweet(client, text, dryRun);
-      newPosted.push(alert.key);
+    if (!text) continue;
+    if (text.length > 280) {
+      console.warn(`⚠️  Alert tweet too long (${text.length} chars) — skipping ${alert.key}`);
+      continue;
     }
+    await postTweet(client, text, dryRun);
+    newPosted.push(alert.key);
   }
 
   // Save updated state

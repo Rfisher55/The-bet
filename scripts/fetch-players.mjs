@@ -23,8 +23,8 @@ const SEASON    = 2026;
 const CFBD_BASE = "https://api.collegefootballdata.com";
 const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
 
-const CFBD_KEY = process.env.CFBD_API_KEY ||
-  "PYpnlfCwGnHmml4BtUbvE0q+oafSE2BuqAREeEXnY+NUalkbuV6hYHoKO3udgFdB";
+const CFBD_KEY = process.env.CFBD_API_KEY;
+if (!CFBD_KEY) { console.error("❌ CFBD_API_KEY not set — aborting fetch"); process.exit(1); }
 
 const UA = "TheBet/2.0 (cfb-predictor; contact rfisher55@github.com)";
 
