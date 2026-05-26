@@ -72,8 +72,8 @@ jobs:
               4) echo "type=parlay"   >> $GITHUB_OUTPUT ;;  # Thu: parlay card
               5) echo "type=locks"    >> $GITHUB_OUTPUT ;;  # Fri: 5 highest-conf locks
               6)
-                # Two Saturday runs: 14 UTC = polls, 16 UTC = gameday
-                if [ "$HOUR" = "14" ]; then
+                # Two Saturday runs: 13 UTC (9am EDT) = polls, 15 UTC (11am EDT) = gameday
+                if [ "$HOUR" = "13" ]; then
                   echo "type=polls"   >> $GITHUB_OUTPUT
                 else
                   echo "type=gameday" >> $GITHUB_OUTPUT
@@ -119,4 +119,5 @@ jobs:
           git config user.email "bot@thebetcfb.com"
           git add data/season-record.json
           git diff --staged --quiet || git commit -m "Update season record [skip ci]"
+          git pull --rebase origin main || true
           git push

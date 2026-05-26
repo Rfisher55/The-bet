@@ -1242,7 +1242,7 @@ function copyParlay(btn) {
     `Wager       : $${wagerAmt % 1 === 0 ? wagerAmt : wagerAmt.toFixed(2)}`,
     `Potential Win: $${Math.round(profitAmt)} (return $${Math.round(payoutAmt)})`,
     `Model Win %  : ${Math.round(modelWinProb * 100)}%`,
-    `rfisher55.github.io/The-bet`
+    `https://rfisher55.github.io/The-bet`
   ].join("\n");
 
   navigator.clipboard?.writeText(full).then(() => {
@@ -1786,7 +1786,7 @@ function renderOptimalSuggestions() {
       var spProb2 = modelProb(game.id, side2);
       pool.push({
         game: game, pred: pred, side: side2, odds: odds2,
-        label: team2.name + " covers",
+        label: (team2?.name || 'Unknown') + " covers",
         conf: "model", spProb: spProb2, confWeight: 2,
         badge: "EDGE"
       });
