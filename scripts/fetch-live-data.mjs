@@ -555,7 +555,10 @@ function parseNewsXML(xml, maxItems = 5) {
     const x = m[1];
     const title   = (x.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)||x.match(/<title>(.*?)<\/title>/))?.[1]?.trim() || "";
     const source  = (x.match(/<source[^>]*><!\[CDATA\[(.*?)\]\]>/)||x.match(/<source[^>]*>(.*?)<\/source>/))?.[1]?.trim() || "News";
-    const link    = (x.match(/<link>(.*?)<\/link>/))?.[1]?.trim() || "";
+    // Google News RSS uses bare <link> without closing tag; try CDATA href attr, then bare tag, then guid
+    const link    = (x.match(/<link><!\[CDATA\[(.*?)\]\]><\/link>/) ||
+                     x.match(/<link>(https?:\/\/[^<\s]+)/) ||
+                     x.match(/<guid[^>]*>(https?:\/\/[^<]+)<\/guid>/))?.[1]?.trim() || "";
     const pubDate = x.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || "";
     if (!title || title.length < 10) continue;
     const lower = title.toLowerCase();
