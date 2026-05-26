@@ -141,6 +141,20 @@ jobs:
             echo "dry=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Verify secrets are loaded
+        env:
+          X_API_KEY:             ${{ secrets.X_API_KEY }}
+          X_API_SECRET:          ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          echo "X_API_KEY length:             ${#X_API_KEY}"
+          echo "X_API_SECRET length:          ${#X_API_SECRET}"
+          echo "X_ACCESS_TOKEN length:        ${#X_ACCESS_TOKEN}"
+          echo "X_ACCESS_TOKEN_SECRET length: ${#X_ACCESS_TOKEN_SECRET}"
+          echo "X_API_KEY starts with:        ${X_API_KEY:0:4}..."
+          echo "X_ACCESS_TOKEN starts with:   ${X_ACCESS_TOKEN:0:6}..."
+
       - name: Post to X
         env:
           X_API_KEY:             ${{ secrets.X_API_KEY }}
