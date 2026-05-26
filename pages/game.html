@@ -744,7 +744,7 @@ function renderGamePage(gData) {
           <div style="margin-top:8px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;align-items:center">
             <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);flex:0 0 auto">📊 ATS TRENDS — ${esc(pickT.name)}</div>
             ${atsPct != null ? `<span style="font-size:.75rem;font-weight:700;color:${atsC}">${ats.wins}-${ats.losses}${ats.pushes ? '-'+ats.pushes : ''} (${atsPct}%) overall</span>` : ""}
-            ${atsSitPct != null ? `<span style="font-size:.75rem;font-weight:700;color:${(atsSitPct >= 60 ? "var(--primary)" : atsSitPct >= 50 ? "var(--gold)" : "var(--danger)}"}">${atsSit.wins}-${atsSit.losses} (${atsSitPct}%) ${atsSitLabel}</span>` : ""}
+            ${atsSitPct != null ? `<span style="font-size:.75rem;font-weight:700;color:${(atsSitPct >= 60 ? "var(--primary)" : atsSitPct >= 50 ? "var(--gold)" : "var(--danger)")}">${atsSit.wins}-${atsSit.losses} (${atsSitPct}%) ${atsSitLabel}</span>` : ""}
             ${atsNightPct != null ? `<span style="font-size:.75rem;font-weight:700;color:${(atsNightPct >= 60 ? "var(--primary)" : "var(--gold)")}">${atsNight.wins}-${atsNight.losses} (${atsNightPct}%) night games</span>` : ""}
           </div>`;
         })()}
