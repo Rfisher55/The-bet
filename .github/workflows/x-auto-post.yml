@@ -1,0 +1,73 @@
+name: X Auto-Post Picks
+
+on:
+  schedule:
+    # Tuesday 10am ET (15:00 UTC) — Early look when lines open
+    - cron: '0 15 * * 2'
+    # Friday 10am ET (15:00 UTC) — Final locked picks
+    - cron: '0 15 * * 5'
+    # Saturday 9am ET (14:00 UTC) — Game day reminders
+    - cron: '0 14 * * 6'
+
+  # Allow manual trigger from GitHub Actions tab for testing
+  workflow_dispatch:
+    inputs:
+      post_type:
+        description: 'Post type'
+        required: true
+        default: 'final'
+        type: choice
+        options: [early, final, gameday]
+      dry_run:
+        description: 'Dry run (preview only, do not post)'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  post-picks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install X API package
+        run: npm install twitter-api-v2
+        working-directory: scripts
+
+      # Determine post type from schedule (day of week)
+      - name: Determine post type
+        id: post-type
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "type=${{ inputs.post_type }}" >> $GITHUB_OUTPUT
+            echo "dry=${{ inputs.dry_run }}" >> $GITHUB_OUTPUT
+          else
+            DAY=$(date +%u)   # 1=Mon … 7=Sun
+            if [ "$DAY" = "2" ]; then
+              echo "type=early" >> $GITHUB_OUTPUT
+            elif [ "$DAY" = "5" ]; then
+              echo "type=final" >> $GITHUB_OUTPUT
+            else
+              echo "type=gameday" >> $GITHUB_OUTPUT
+            fi
+            echo "dry=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Post picks to X
+        env:
+          X_API_KEY:             ${{ secrets.X_API_KEY }}
+          X_API_SECRET:          ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          DRY_FLAG=""
+          if [ "${{ steps.post-type.outputs.dry }}" = "true" ]; then
+            DRY_FLAG="--dry-run"
+          fi
+          node scripts/post-picks.js --type ${{ steps.post-type.outputs.type }} $DRY_FLAG
