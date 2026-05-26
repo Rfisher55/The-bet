@@ -467,6 +467,7 @@ function renderCard(team, rank) {
   const dogStat = sit.atsUnderdog;
   const dogTot = dogStat ? (dogStat.wins||0) + (dogStat.losses||0) : 0;
   const isDogKing = dogStat && dogTot >= 4 && dogStat.wins / dogTot >= 0.62;
+  const atsStreak = team.atsCurrentStreak || 0;
 
   return `
     <div class="team-card" onclick="location.href='games.html?teamId=${encodeURIComponent(team.id)}'">
@@ -480,6 +481,7 @@ function renderCard(team, rank) {
           ${atsHot  ? `<span class="momentum-pill mom-rising">🔥 Hot ATS</span>` : ""}
           ${atsCold ? `<span class="momentum-pill mom-declining">🚫 Fade</span>` : ""}
           ${isDogKing ? `<span class="momentum-pill mom-rising">🐉 Dog King</span>` : ""}
+          ${atsStreak >= 3 ? `<span style="font-size:.5rem;font-weight:900;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);color:#fb923c">🔥 ${atsStreak}-0 Streak</span>` : ""}
           ${(function(){
             const ti = window.TEAM_INTEL && window.TEAM_INTEL[team.id];
             if (!ti) return "";
@@ -561,6 +563,10 @@ function renderListRow(team, rank) {
   const pg = portalGrade(portal);
   const proj = projectedRecord(team);
   const record = team.lastSeasonRecord || (team.wins+"-"+team.losses);
+  const listAts = atsDisplay(team);
+  const listAtsStreak = team.atsCurrentStreak || 0;
+  const listAtsPct = team.atsRecord ? team.atsRecord.pct : null;
+  const listAtsColor = listAtsPct !== null ? (listAtsPct >= 0.57 ? 'var(--primary)' : listAtsPct <= 0.43 ? 'var(--danger)' : 'var(--text-soft)') : 'var(--muted)';
   const offPct = Math.min(100, team.offensiveRating || 0);
   const defPct = Math.min(100, team.defensiveRating || 0);
   const ratingPct = Math.min(100, team.rating || 0);
@@ -610,6 +616,10 @@ function renderListRow(team, rank) {
           <div style="font-size:.52rem;color:var(--muted);font-weight:700;text-transform:uppercase">Portal</div>
         </div>
         ${proj ? `<div style="text-align:center" class="hide-xs"><div style="font-size:.72rem;font-weight:900;color:var(--accent)">${proj}</div><div style="font-size:.52rem;color:var(--muted);font-weight:700;text-transform:uppercase">Proj</div></div>` : ""}
+        <div style="text-align:center">
+          <div style="font-size:.82rem;font-weight:900;color:${listAtsColor}">${listAts}</div>
+          <div style="font-size:.52rem;color:var(--muted);font-weight:700;text-transform:uppercase">${listAtsStreak >= 3 ? `🔥${listAtsStreak}` : 'ATS'}</div>
+        </div>
         <button class="compare-chip" onclick="event.stopPropagation();location.href='compare.html?a=${encodeURIComponent(team.id)}'">⇄</button>
         <div style="font-size:.72rem;color:var(--primary);font-weight:700">→</div>
       </div>
