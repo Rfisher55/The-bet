@@ -204,6 +204,21 @@ async function postTweet(client, text, dryRun) {
 // ── Main ──────────────────────────────────────────────────────────────────────
 async function main() {
   const dryRun = process.argv.includes('--dry-run');
+  const isTest = process.argv.includes('--test');
+
+  // Test mode: fire one sample of each alert type so you can see how they look on X
+  if (isTest) {
+    console.log('\n🧪 TEST MODE — posting one sample alert tweet\n');
+    const sampleText = `🚨 INJURY ALERT — Notre Dame\n\nRiley Leonard (QB) — Doubtful (knee)\n"Limited in practice Wednesday, did not participate Thursday."\nQuarterback loss is the biggest single factor in model adjustment.\n\nLine will move. Adjust your bets accordingly.\n\n#NotreDame #CFB #TheBet`;
+    console.log('Sample tweet:');
+    console.log(sampleText);
+    console.log(`\n(${sampleText.length} chars)`);
+    if (!dryRun) {
+      const client = await getClient();
+      await postTweet(client, sampleText, false);
+    }
+    return;
+  }
 
   const injuryData  = loadJSON(DATA('injuries.json'));
   const gamesData   = loadJSON(DATA('games-2026.json'));

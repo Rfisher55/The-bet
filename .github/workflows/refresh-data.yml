@@ -19,6 +19,11 @@ on:
         description: "Force full refresh even if data is fresh"
         required: false
         default: "false"
+      test_alert:
+        description: "Post a sample injury alert tweet to test the system"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write   # needed to commit data/ back to main
@@ -84,7 +89,10 @@ jobs:
           X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
           X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
           X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
-        run: node scripts/check-alerts.js
+        run: |
+          TEST_FLAG=""
+          [ "${{ inputs.test_alert }}" = "true" ] && TEST_FLAG="--test"
+          node scripts/check-alerts.js $TEST_FLAG
 
       - name: Rotate refresh token after alerts
         if: always()
