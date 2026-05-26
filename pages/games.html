@@ -188,6 +188,8 @@
         <div class="chip" data-t="lines">Has Lines</div>
         <div class="chip" data-t="sharp">💰 Sharp</div>
         <div class="chip" data-t="fade">🔄 Fade Public</div>
+        <div class="chip" data-t="weather">🌬️ Weather</div>
+        <div class="chip" data-t="triplelock">🔒 Triple Lock</div>
       </div>
     </div>
   </div>
@@ -1014,6 +1016,32 @@ function render() {
       const pubOnHome = homePct >= 55;
       const pubOnAway = (100 - homePct) >= 55;
       return (pickIsHome && pubOnAway) || (!pickIsHome && pubOnHome);
+    });
+  } else if (typeFilter === "weather") {
+    // Outdoor games with significant weather impact (wind 15+ mph, temp <40°F, or rain)
+    list = list.filter(({ game }) => {
+      const wx = game.weather;
+      if (!wx || wx.indoors) return false;
+      return (wx.windMph >= 15) || (wx.tempF <= 40) || /rain|thunder|storm|snow/i.test(wx.condition || "");
+    });
+  } else if (typeFilter === "triplelock") {
+    // Triple Lock: high/elite conf + sharp money aligned + public ≤42% on our pick
+    list = list.filter(({ game, prediction: pred }) => {
+      const sp = pred.spreadPick || {};
+      const tp = game.gamePreview && game.gamePreview.thePick;
+      const pickConf = ((tp && tp.confidence) || pred.confidence || "").toLowerCase();
+      if (pickConf !== "elite" && pickConf !== "high") return false;
+      const pickTeam = (tp && tp.team) ? tp.team : sp.team;
+      if (!pickTeam) return false;
+      const pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name||"").toLowerCase() ||
+                         pickTeam.toLowerCase() === (game.homeTeam.abbreviation||"").toLowerCase();
+      const sm = pred.sharpMoneySignal || {};
+      const sharpAligned = sm.side && ((pickIsHome && sm.side === "home") || (!pickIsHome && sm.side === "away"))
+        && (sm.strength === "strong" || sm.strength === "moderate" || (Number(sm.strength) || 0) >= 5);
+      if (!sharpAligned) return false;
+      const pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
+      const pubOnPick = pickIsHome ? (pb.homePct || 50) : (100 - (pb.homePct || 50));
+      return pubOnPick <= 42;
     });
   }
 

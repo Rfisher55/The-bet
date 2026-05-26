@@ -969,6 +969,43 @@
       <div id="conv-result" style="font-size:.78rem;color:var(--muted-l);min-height:20px"></div>
     </div>
 
+    <!-- Hedge Calculator -->
+    <div class="section-label" style="margin-top:28px">🛡️ Hedge Calculator</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Lock in guaranteed profit on a winning parlay or live bet by hedging with an opposite side. Enter your original stake, potential win, and the hedge bet odds.</p>
+    <div class="callout callout-success" style="margin-bottom:20px">
+      <div class="callout-label">When to Hedge</div>
+      Hedge when your expected value of cashing the remaining legs is less than the guaranteed profit from hedging — typically late in a parlay when odds on one leg shift dramatically. The calculator shows the exact amount to bet for a "free" middle or guaranteed cash-out.
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:10px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px;margin-bottom:20px">
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Original Stake ($)</label>
+          <input type="number" id="hedge-orig" value="100" min="1" placeholder="100"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1rem;font-weight:700;outline:none"
+            oninput="calcHedge()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+          <div style="font-size:.65rem;color:var(--muted);margin-top:5px">Amount you already bet</div>
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Potential Win ($)</label>
+          <input type="number" id="hedge-win" value="400" min="1" placeholder="400"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1rem;font-weight:700;outline:none"
+            oninput="calcHedge()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+          <div style="font-size:.65rem;color:var(--muted);margin-top:5px">Profit if bet wins (not total return)</div>
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Hedge Bet Odds</label>
+          <input type="number" id="hedge-odds" value="-110" placeholder="-110"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:1rem;font-weight:700;outline:none"
+            oninput="calcHedge()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+          <div style="font-size:.65rem;color:var(--muted);margin-top:5px">Odds on the opposite side now</div>
+        </div>
+      </div>
+      <div id="hedge-result" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+        <div style="font-size:.78rem;color:var(--muted)">Enter values above to calculate optimal hedge</div>
+      </div>
+    </div>
+
   </div><!-- /#tab-tools -->
 
 </main><!-- /.container.page-content -->
@@ -1129,6 +1166,57 @@ function convertOdds(from) {
   var vig = prob - (1 / decimal * 100);
   rEl.innerHTML = '<strong style="color:var(--text)">' + prob.toFixed(1) + '%</strong> implied probability · Decimal: <strong style="color:var(--text)">' + decimal.toFixed(3) + '</strong> · American: <strong style="color:var(--text)">' + (american > 0 ? '+' : '') + american + '</strong>';
 }
+
+// Hedge Calculator
+function calcHedge() {
+  var orig = parseFloat(document.getElementById('hedge-orig').value);
+  var win  = parseFloat(document.getElementById('hedge-win').value);
+  var odds = parseInt(document.getElementById('hedge-odds').value, 10);
+  var el   = document.getElementById('hedge-result');
+  if (isNaN(orig) || isNaN(win) || isNaN(odds) || orig <= 0 || win <= 0 || odds === 0) {
+    el.innerHTML = '<div style="font-size:.78rem;color:var(--muted)">Enter valid values above</div>';
+    return;
+  }
+  var dec = odds > 0 ? odds / 100 + 1 : 100 / Math.abs(odds) + 1;
+  // Full hedge: H = (win + orig) / dec — locks equal profit on both outcomes
+  var fullH   = (win + orig) / dec;
+  var fullProfit = win - fullH; // guaranteed regardless of outcome
+  // Half hedge: hedge half the optimal amount
+  var halfH   = fullH / 2;
+  var halfP1  = win - halfH;          // profit if original wins
+  var halfP2  = halfH * (dec - 1) - orig; // profit if hedge wins
+  // No hedge scenario
+  var noHedgeWin  = win;
+  var noHedgeLoss = -orig;
+
+  var gpColor = fullProfit >= 0 ? 'var(--primary)' : 'var(--gold)';
+  var gpLabel = fullProfit >= 0 ? '✅ Guaranteed profit: $' + fullProfit.toFixed(2) : '⚠️ Reduces max loss to: $' + (-fullProfit).toFixed(2);
+
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:14px">'
+    + '<div style="padding:10px;border-radius:8px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);text-align:center">'
+      + '<div style="font-size:.55rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Full Hedge Amount</div>'
+      + '<div style="font-size:1.25rem;font-weight:900;color:' + gpColor + '">$' + fullH.toFixed(2) + '</div>'
+      + '<div style="font-size:.62rem;color:var(--muted)">bet this on opposite side</div>'
+    + '</div>'
+    + '<div style="padding:10px;border-radius:8px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);text-align:center">'
+      + '<div style="font-size:.55rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Guaranteed Profit</div>'
+      + '<div style="font-size:1.25rem;font-weight:900;color:' + gpColor + '">' + (fullProfit >= 0 ? '+$' : '-$') + Math.abs(fullProfit).toFixed(2) + '</div>'
+      + '<div style="font-size:.62rem;color:var(--muted)">no matter what happens</div>'
+    + '</div>'
+    + '<div style="padding:10px;border-radius:8px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);text-align:center">'
+      + '<div style="font-size:.55rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Half Hedge ($' + halfH.toFixed(0) + ')</div>'
+      + '<div style="font-size:.8rem;font-weight:800;color:var(--text)">Win: +$' + halfP1.toFixed(2) + '</div>'
+      + '<div style="font-size:.8rem;font-weight:800;color:' + (halfP2 >= 0 ? 'var(--primary)' : 'var(--danger)') + '">Lose: ' + (halfP2 >= 0 ? '+$' : '-$') + Math.abs(halfP2).toFixed(2) + '</div>'
+      + '<div style="font-size:.62rem;color:var(--muted)">partial hedge scenarios</div>'
+    + '</div>'
+  + '</div>'
+  + '<div style="font-size:.72rem;color:var(--muted-l);line-height:1.55">'
+    + '<strong style="color:var(--text)">Full hedge</strong> ($' + fullH.toFixed(2) + ' at ' + (odds > 0 ? '+' : '') + odds + '): ' + gpLabel + '. '
+    + 'No hedge: win $' + noHedgeWin.toFixed(2) + ' or lose $' + orig.toFixed(2) + '. '
+    + 'The hedge costs $' + (noHedgeWin - fullProfit).toFixed(2) + ' in upside but eliminates all downside risk.'
+  + '</div>';
+}
+calcHedge();
 </script>
 
 <!-- ── Tab switching JS ────────────────────────────── -->
