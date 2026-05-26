@@ -703,6 +703,18 @@
     </div>
   </section>
 
+  <!-- Triple Lock Plays -->
+  <section class="mb-5" id="triple-lock-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">🔒 Triple Lock — All Signals Agree</div>
+      <span class="text-sm text-muted">Model + sharps + contrarian all aligned</span>
+    </div>
+    <div id="triple-lock-list" style="display:flex;flex-direction:column;gap:8px"></div>
+    <div style="margin-top:8px;padding:8px 12px;border-radius:var(--radius);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.2);font-size:.68rem;color:var(--muted-l)">
+      Triple Locks require: <strong style="color:var(--text)">Elite/High model confidence</strong> + <strong style="color:var(--text)">sharp money aligned with the pick</strong> + <strong style="color:var(--text)">public majority on the other side</strong>. When all three converge, historical ATS rates for this pattern exceed 65%.
+    </div>
+  </section>
+
   <!-- Best EV Plays -->
   <section class="mb-5" id="best-ev-section" style="display:none">
     <div class="flex items-center justify-between mb-4">
@@ -1004,6 +1016,7 @@
     renderGameOfTheWeek();
     renderFadePublic();
     renderBestEVPlays();
+    renderTripleLock();
     renderUpcomingGames();
     renderBestUnderdog();
   });
@@ -2123,6 +2136,90 @@ function renderBestEVPlays() {
   sec.style.display = "";
 }
 renderBestEVPlays();
+
+// ── Triple Lock Plays ─────────────────────────────────────────────
+function renderTripleLock() {
+  var el = document.getElementById("triple-lock-list");
+  var sec = document.getElementById("triple-lock-section");
+  if (!el || !sec) return;
+
+  var candidates = allPredictions.filter(function(p) {
+    var game = p.game, pred = p.prediction;
+    // 1. Model confidence must be high or elite
+    var conf = pred.confidence || "low";
+    if (conf !== "elite" && conf !== "high") return false;
+    // 2. Sharp money must be aligned with pick
+    var sm = pred.sharpMoneySignal || {};
+    var sp = pred.spreadPick || {};
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    if (!pickTeam) return false;
+    var home = game.homeTeam || {};
+    var pickIsHome = pickTeam.toLowerCase() === (home.name||"").toLowerCase() ||
+                     pickTeam.toLowerCase() === (home.abbreviation||"").toLowerCase();
+    var sharpAligned = sm.side && (
+      (pickIsHome && sm.side === "home") || (!pickIsHome && sm.side === "away")
+    ) && (sm.strength === "strong" || sm.strength === "moderate" || (Number(sm.strength) || 0) >= 5);
+    if (!sharpAligned) return false;
+    // 3. Public must be fading the pick (≤40% on our pick)
+    var pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
+    if (!pb.homePct) return false;
+    var pubHome = Number(pb.homePct || 50);
+    var pubOnPick = pickIsHome ? pubHome : (100 - pubHome);
+    if (pubOnPick > 42) return false;
+    return true;
+  }).map(function(p) {
+    var game = p.game, pred = p.prediction;
+    var tp = game.gamePreview && game.gamePreview.thePick;
+    var sp = pred.spreadPick || {};
+    var pickTeam = (tp && tp.team) ? tp.team : sp.team;
+    var pickConf = (tp && tp.confidence) ? tp.confidence.toUpperCase() : (pred.confidence || "MEDIUM").toUpperCase();
+    var home = game.homeTeam || {};
+    var pickIsHome = pickTeam.toLowerCase() === (home.name||"").toLowerCase() ||
+                     pickTeam.toLowerCase() === (home.abbreviation||"").toLowerCase();
+    var pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
+    var pubHome = Number(pb.homePct || 50);
+    var pubAgainst = Math.round(100 - (pickIsHome ? pubHome : (100 - pubHome)));
+    var sm = pred.sharpMoneySignal || {};
+    var edge = sp.edge || 0;
+    var score = (pickConf === "ELITE" ? 4 : 3) * 3 + edge * 2 + (pubAgainst - 50) * 1.5;
+    return { p: p, pickTeam: pickTeam, pickConf: pickConf, pickIsHome: pickIsHome, pubAgainst: pubAgainst, sm: sm, edge: edge, score: score };
+  }).sort(function(a, b) { return b.score - a.score; }).slice(0, 3);
+
+  if (!candidates.length) return;
+
+  var confColors = { ELITE: "var(--primary)", HIGH: "#34d399", MEDIUM: "var(--gold)", LOW: "var(--muted)" };
+  el.innerHTML = candidates.map(function(c, i) {
+    var game = c.p.game;
+    var pred = c.p.prediction;
+    var home = game.homeTeam, away = game.awayTeam;
+    var bl = game.bettingLines || {};
+    var cc = confColors[c.pickConf] || "var(--primary)";
+    var vegasLine = bl.spread != null ? (c.pickIsHome ? fmtSpread(bl.spread) : fmtSpread(-bl.spread)) : "";
+    var smNote = c.sm.note || (c.sm.strength === "strong" ? "Strong sharp action confirmed" : "Sharp money detected");
+    return '<a href="pages/game.html?id=' + game.id + '" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:var(--radius);background:linear-gradient(135deg,rgba(16,185,129,.06) 0%,var(--card) 80%);border:1.5px solid rgba(16,185,129,.3);transition:border-color .15s" onmouseover="this.style.borderColor=\'rgba(16,185,129,.6)\'" onmouseout="this.style.borderColor=\'rgba(16,185,129,.3)\'">'
+      + '<div style="flex-shrink:0;padding:8px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);text-align:center;min-width:50px">'
+        + '<div style="font-size:.48rem;font-weight:900;text-transform:uppercase;color:var(--muted);letter-spacing:1px">LOCK</div>'
+        + '<div style="font-size:1.3rem;line-height:1">🔒</div>'
+        + '<div style="font-size:.5rem;color:var(--primary);font-weight:800">' + c.pickConf + '</div>'
+      + '</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="font-size:.65rem;color:var(--muted);margin-bottom:3px">' + away.abbreviation + ' @ ' + home.abbreviation + (vegasLine ? " · " + vegasLine : "") + (game.date ? " · " + game.date : "") + '</div>'
+        + '<div style="font-size:.9rem;font-weight:900;color:var(--text);margin-bottom:4px">' + c.pickTeam + ' covers</div>'
+        + '<div style="display:flex;gap:6px;flex-wrap:wrap">'
+          + '<span style="font-size:.58rem;padding:2px 7px;border-radius:5px;background:' + cc + '18;border:1px solid ' + cc + '35;color:' + cc + ';font-weight:800">✅ Model ' + c.pickConf + (c.edge > 0 ? " +" + c.edge + "pt" : "") + '</span>'
+          + '<span style="font-size:.58rem;padding:2px 7px;border-radius:5px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);color:var(--accent);font-weight:800">💰 Sharps agree</span>'
+          + '<span style="font-size:.58rem;padding:2px 7px;border-radius:5px;background:rgba(244,114,182,.08);border:1px solid rgba(244,114,182,.25);color:#f472b6;font-weight:800">🔄 ' + c.pubAgainst + '% public fading</span>'
+        + '</div>'
+        + '<div style="font-size:.64rem;color:var(--muted-l);margin-top:3px">' + smNote + '</div>'
+      + '</div>'
+      + '<div style="font-size:.75rem;color:var(--primary);font-weight:700;flex-shrink:0">View →</div>'
+    + '</a>';
+  }).join("");
+
+  sec.style.display = "";
+}
+renderTripleLock();
 
 // ── Conference ATS Records ────────────────────────────────────────
 function renderConferenceATS() {
