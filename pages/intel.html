@@ -536,7 +536,16 @@ function buildLineMoveDash() {
     return;
   }
 
-  el.innerHTML = rows.slice(0, 6).map(function(r) {
+  // Check if all games are in the future (pre-season snapshot)
+  var allFuture = rows.every(function(r) { return r.game.date && r.game.date > new Date().toISOString().slice(0,10); });
+  var lmFreshnessNote = allFuture
+    ? '<div style="margin-bottom:10px;padding:8px 12px;border-radius:8px;background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.2);font-size:.68rem;color:#a5b4fc;display:flex;align-items:center;gap:8px">'
+      + '<span>📅</span>'
+      + '<span><strong>Pre-season line snapshot</strong> — these are projected opening lines and early movement based on offseason intel. Live lines will replace this data once the CFBD API is connected.</span>'
+      + '</div>'
+    : '';
+
+  el.innerHTML = lmFreshnessNote + rows.slice(0, 6).map(function(r) {
     var hAbbr = r.homeTeam ? r.homeTeam.abbreviation : r.game.homeTeamId;
     var aAbbr = r.awayTeam ? r.awayTeam.abbreviation : r.game.awayTeamId;
     var hColor = r.homeTeam ? r.homeTeam.color : "#444";
@@ -585,40 +594,75 @@ function buildLineMoveDash() {
   }).join("");
 }
 
+// Compute human-readable age for a beat-writer report.
+// daysAgo is "days before the game" when the report was written.
+// We reconstruct reportDate = gameDate − daysAgo, then compute age from today.
+function calcReportAge(gameDate, daysAgo) {
+  if (!gameDate || daysAgo == null) return "";
+  var gd = new Date(gameDate + "T12:00:00");
+  var rd = new Date(gd);
+  rd.setDate(rd.getDate() - daysAgo);
+  var now = new Date();
+  var diffDays = Math.round((now - rd) / 86400000);
+  if (diffDays < 0) {
+    return rd.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + " (pre-game)";
+  }
+  if (diffDays === 0) return "Today";
+  if (diffDays === 1) return "Yesterday";
+  return diffDays + " days ago";
+}
+
 function buildBeatWriterDash() {
   var el = document.getElementById("beat-writer-dash");
   if (!el || !window.GAMES) return;
 
   var reports = [];
+  var today = new Date();
   window.GAMES.forEach(function(game) {
     var bw = game.socialIntel && game.socialIntel.beatWriter;
     if (!bw || !bw.length) return;
     var homeTeam = window.TEAMS && window.TEAMS[game.homeTeamId];
     var awayTeam = window.TEAMS && window.TEAMS[game.awayTeamId];
     bw.forEach(function(r) {
+      // Compute actual report date so we can sort correctly
+      var daysAgo = r.daysAgo || 1;
+      var gd = game.date ? new Date(game.date + "T12:00:00") : null;
+      var rd = gd ? new Date(gd) : null;
+      if (rd) rd.setDate(rd.getDate() - daysAgo);
+      var actualDaysAgo = rd ? Math.round((today - rd) / 86400000) : daysAgo;
       reports.push({
         game: game, homeTeam: homeTeam, awayTeam: awayTeam,
         reporter: r.reporter, outlet: r.outlet, report: r.report,
-        team: r.team, sentiment: r.sentiment, daysAgo: r.daysAgo || 1
+        team: r.team, sentiment: r.sentiment, daysAgo: daysAgo,
+        actualDaysAgo: actualDaysAgo, reportDate: rd
       });
     });
   });
 
-  // Sort by daysAgo ascending (most recent first)
-  reports.sort(function(a, b) { return a.daysAgo - b.daysAgo; });
+  // Sort by actual report date (most recent first regardless of game order)
+  reports.sort(function(a, b) { return a.actualDaysAgo - b.actualDaysAgo; });
 
   if (!reports.length) {
     el.innerHTML = '<div style="padding:16px;text-align:center;color:var(--muted);font-size:.82rem">Beat writer reports load during game week. Check back once the season starts.</div>';
     return;
   }
 
-  el.innerHTML = reports.slice(0, 8).map(function(r) {
+  // Show freshness notice if any reports are pre-season (future date)
+  var hasPreSeason = reports.some(function(r) { return r.actualDaysAgo < 0; });
+  var freshnessNote = hasPreSeason
+    ? '<div style="margin-bottom:10px;padding:8px 12px;border-radius:8px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);font-size:.68rem;color:var(--gold);display:flex;align-items:center;gap:8px">'
+      + '<span>📅</span>'
+      + '<span><strong>Pre-season scouting reports</strong> — dates shown are when each report is scheduled to publish. Reports become live during game week.</span>'
+      + '</div>'
+    : '';
+
+  el.innerHTML = freshnessNote + reports.slice(0, 8).map(function(r) {
     var sentCls = r.sentiment === "positive" ? "bw-pos" : r.sentiment === "negative" ? "bw-neg" : "bw-neu";
     var sentLabel = r.sentiment === "positive" ? "POSITIVE" : r.sentiment === "negative" ? "NEGATIVE" : "NEUTRAL";
     var sentColor = r.sentiment === "positive" ? "var(--primary)" : r.sentiment === "negative" ? "var(--danger)" : "var(--muted)";
     var hAbbr = r.homeTeam ? r.homeTeam.abbreviation : r.game.homeTeamId;
     var aAbbr = r.awayTeam ? r.awayTeam.abbreviation : r.game.awayTeamId;
-    var daysLabel = r.daysAgo === 0 ? "Today" : r.daysAgo === 1 ? "Yesterday" : r.daysAgo + " days ago";
+    var daysLabel = calcReportAge(r.game.date, r.daysAgo);
 
     return '<div class="bw-card ' + sentCls + '">'
       + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px">'
@@ -1306,6 +1350,31 @@ buildLineMoveDash();
 buildBeatWriterDash();
 buildItems();
 renderGrid();
+
+// Show data status when no live data is present
+(function() {
+  var hasLive = !!(window.TEAM_INTEL && Object.keys(window.TEAM_INTEL).length > 0);
+  var updEl = document.getElementById("intel-updated");
+  if (updEl && !lastUpdated) {
+    if (hasLive) {
+      updEl.textContent = "· Live data loaded";
+    } else {
+      // Find earliest game date to compute weeks until season
+      var games = window.GAMES || [];
+      var earliest = games.reduce(function(min, g) {
+        return g.date && (!min || g.date < min) ? g.date : min;
+      }, null);
+      if (earliest) {
+        var weeksOut = Math.round((new Date(earliest + "T12:00:00") - new Date()) / (7 * 86400000));
+        updEl.textContent = weeksOut > 0
+          ? "· Pre-season data · Season opens in ~" + weeksOut + " weeks"
+          : "· Static data — connect CFBD API key for live updates";
+      } else {
+        updEl.textContent = "· Static data — add API key in settings for live updates";
+      }
+    }
+  }
+})();
 </script>
 <script src="../js/data.js"></script>
 <script src="../js/data-fbs-stubs.js"></script>

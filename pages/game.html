@@ -1658,6 +1658,52 @@ function renderGamePage(gData) {
   }
 
   /* 3e — Social Intelligence Hub */
+
+  // Returns a human-readable age label for a report whose daysAgo is relative to gameDate.
+  // e.g. daysAgo=2 for a Sep-5 game → reportDate = Sep 3. Shows "Sep 3" if future, "X days ago" if past.
+  function reportAgeLabel(gameDate, daysAgo, source) {
+    if (source === "twitter" || source === "live") {
+      // Live items already carry real timestamps; daysAgo is already from-now
+      if (daysAgo == null) return "";
+      if (daysAgo === 0) return "Today";
+      if (daysAgo === 1) return "Yesterday";
+      return daysAgo + "d ago";
+    }
+    if (!gameDate || daysAgo == null) return "";
+    var gd = new Date(gameDate + "T12:00:00");
+    var rd = new Date(gd);
+    rd.setDate(rd.getDate() - daysAgo);
+    var now = new Date();
+    var diffDays = Math.round((now - rd) / 86400000);
+    if (diffDays < 0) {
+      // Still in the future — show the target date so user knows when it's scheduled
+      return rd.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + " (pre-game)";
+    }
+    if (diffDays === 0) return "Today";
+    if (diffDays === 1) return "Yesterday";
+    return diffDays + " days ago";
+  }
+
+  // Data-freshness badge for the hub header
+  function socialHubFreshnessHtml() {
+    const hasLive = !!(window.__teamNews && (Object.keys(window.__teamNews).length > 0)) ||
+                    !!(window.TEAM_INTEL && Object.keys(window.TEAM_INTEL).length > 0);
+    if (hasLive) {
+      return `<span style="font-size:.55rem;font-weight:900;padding:2px 7px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);letter-spacing:.5px">● LIVE</span>`;
+    }
+    // Static pre-season data — show how old the scouting reports are
+    const gameDate = game.date ? new Date(game.date + "T12:00:00") : null;
+    const today = new Date();
+    if (gameDate && gameDate > today) {
+      const weeksOut = Math.round((gameDate - today) / (7 * 86400000));
+      const weeksLabel = weeksOut === 1 ? "1 week" : weeksOut + " weeks";
+      return `<span style="font-size:.55rem;font-weight:700;padding:2px 7px;border-radius:10px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--gold)">Pre-Season · Game in ${weeksLabel}</span>`;
+    }
+    // Game date has passed
+    const daysSince = gameDate ? Math.round((today - gameDate) / 86400000) : null;
+    return `<span style="font-size:.55rem;font-weight:700;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted)">${daysSince != null ? "Post-game · " + daysSince + "d old" : "Static data"}</span>`;
+  }
+
   function renderSocialHub() {
     const si = game.socialIntel || {};
     const lm = si.lineMovement || [];
@@ -1696,7 +1742,13 @@ function renderGamePage(gData) {
 
     return `
       <div class="card card-p mb-5" id="section-social">
-        <div class="section-label">Social Intelligence Hub</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+          <div class="section-label" style="margin-bottom:0">Social Intelligence Hub</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            ${socialHubFreshnessHtml()}
+            <span style="font-size:.6rem;color:var(--muted)">Beat writers · Line movement · Sharps</span>
+          </div>
+        </div>
 
         <!-- Breaking News + Beat Writer Reports -->
         <div style="margin-bottom:22px">
@@ -1719,7 +1771,7 @@ function renderGamePage(gData) {
                   <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap;margin-top:4px">
                     <span style="font-size:.8rem;font-weight:700;color:var(--text)">${esc(r.reporter)}</span>
                     ${r.outlet && r.outlet !== r.reporter ? `<span style="font-size:.7rem;color:var(--muted)">· ${esc(r.outlet)}</span>` : ""}
-                    <span style="margin-left:auto;font-size:.65rem;color:var(--muted)">${r.daysAgo != null ? r.daysAgo + "d ago" : ""}</span>
+                    <span style="margin-left:auto;font-size:.65rem;color:var(--muted)">${reportAgeLabel(game.date, r.daysAgo, r.source)}</span>
                   </div>
                   <div style="font-size:.82rem;color:var(--text-soft);line-height:1.65">${headline}</div>
                   <div style="margin-top:8px;font-size:.65rem;font-weight:700;color:${sc};text-transform:uppercase">${r.isCritical ? "🚨 CRITICAL ALERT" : r.sentiment === "positive" ? "↑ POSITIVE" : r.sentiment === "negative" ? "↓ NEGATIVE" : "→ NEUTRAL"} — ${team.name}</div>
