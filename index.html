@@ -55,10 +55,10 @@
       overflow: hidden;
       border: 1px solid var(--border);
       background: linear-gradient(135deg, #080d1a 0%, #0f1e3a 55%, #0a1628 100%);
-      padding: 52px 48px;
+      padding: 28px 32px;
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 48px;
+      grid-template-columns: 1fr 340px;
+      gap: 32px;
       align-items: center;
     }
     .hero-v2::before {
@@ -76,13 +76,13 @@
     @media (max-width: 900px) {
       .hero-v2 {
         grid-template-columns: 1fr;
-        gap: 32px;
-        padding: 36px 24px;
+        gap: 20px;
+        padding: 22px 18px;
       }
     }
     @media (max-width: 600px) {
-      .hero-v2 { padding: 28px 18px; }
-      .hero-title { font-size: 2.2rem; }
+      .hero-v2 { padding: 18px 14px; }
+      .hero-title { font-size: 1.8rem; }
     }
 
     /* ── Top Pick Card ──────────────────────────────────── */
@@ -585,6 +585,19 @@
     .sect-body.open      { opacity: 1; }
     .sect-def { font-size: .62rem; color: var(--muted); font-weight: 400;
                 margin-left: 6px; font-style: italic; }
+    /* ── More Analysis toggle ────────────────────────────────── */
+    .more-analysis-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 11px 16px; border-radius: var(--radius-lg);
+      background: var(--card); border: 1px solid var(--border-l);
+      color: var(--muted-l); font-size: .75rem; font-weight: 800;
+      letter-spacing: .5px; cursor: pointer; transition: all .15s;
+      margin-bottom: 0;
+    }
+    .more-analysis-btn:hover { border-color: rgba(16,185,129,.35); color: var(--primary); background: rgba(16,185,129,.04); }
+    .more-analysis-btn .ma-chev { transition: transform .2s; }
+    .more-analysis-btn.open .ma-chev { transform: rotate(180deg); }
+    #analysis-group { display: none; }
   </style>
 </head>
 <body>
@@ -633,19 +646,14 @@
         <span class="hero-eyebrow-dot"></span>
         2026 Season &middot; 7-Signal AI Model &middot; Independent Predictions
       </div>
-      <h1 class="hero-title">
+      <h1 class="hero-title" style="font-size:1.9rem;margin-bottom:10px">
         WIN THE BET.<br>
         <span>KNOW THE GAME.</span>
       </h1>
-      <p class="hero-sub">
-        The most complete D1 college football predictor. Independent AI — no sportsbook influence,
-        no media bias. Seven signals: stats, players, situational, weather, coaching, program momentum,
-        and sharp money.
-      </p>
-      <div class="hero-ctas">
+      <div class="hero-ctas" style="margin-top:0">
         <a class="btn btn-primary" href="pages/games.html?week=1">Week 1 Picks →</a>
         <a class="btn btn-outline" href="pages/parlay.html">Build Parlay</a>
-        <a class="btn btn-outline" href="pages/teams.html">Power Rankings</a>
+        <a class="btn btn-outline" href="pages/teams.html">Teams</a>
       </div>
     </div>
 
@@ -776,17 +784,36 @@
     if (!body) return;
     if (body.classList.contains('collapsed')) sectOpen(id); else sectClose(id);
   }
+  function toggleAnalysisGroup() {
+    var grp = document.getElementById('analysis-group');
+    var btn = document.getElementById('more-analysis-btn');
+    if (!grp) return;
+    var open = grp.style.display !== 'none';
+    grp.style.display = open ? 'none' : '';
+    if (btn) btn.classList.toggle('open', !open);
+    try { localStorage.setItem('theBet_analysisOpen', open ? '0' : '1'); } catch(e) {}
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    try {
+      if (localStorage.getItem('theBet_analysisOpen') === '1') {
+        var grp = document.getElementById('analysis-group');
+        var btn = document.getElementById('more-analysis-btn');
+        if (grp) grp.style.display = '';
+        if (btn) btn.classList.add('open');
+      }
+    } catch(e) {}
+  });
   function initSect(id, defaultOpen) {
     var wasOpen = (_sectState[id] !== undefined) ? !!_sectState[id] : defaultOpen;
     if (wasOpen) { sectOpen(id); } else { sectClose(id); }
   }
   // Init after DOM ready
   document.addEventListener('DOMContentLoaded', function() {
-    // Open by default: news; Closed by default: bankroll, model-how, browse-conf
-    initSect('bankroll',    false);
-    initSect('model-how',   false);
-    initSect('browse-conf', false);
-    initSect('news',        true);
+    initSect('bankroll',     false);
+    initSect('model-how',    false);
+    initSect('browse-conf',  false);
+    initSect('news',         false);
+    initSect('team-trends',  false);
   });
   </script>
 
@@ -801,6 +828,17 @@
     </div>
     <div class="grid-3" id="top-picks"></div>
   </section>
+
+  <!-- More Analysis toggle -->
+  <div class="mb-5">
+    <button class="more-analysis-btn" id="more-analysis-btn" onclick="toggleAnalysisGroup()">
+      <span>More Analysis</span>
+      <span class="ma-chev">▼</span>
+    </button>
+  </div>
+
+  <!-- ─── All secondary analysis (collapsed by default) ─────── -->
+  <div id="analysis-group">
 
   <!-- System Alerts — Situational Triggers -->
   <section class="mb-5" id="system-alerts-section" style="display:none">
@@ -898,6 +936,8 @@
     </div>
   </section>
 
+  </div><!-- /#analysis-group -->
+
   <!-- Bankroll Calculator -->
   <section class="mb-5">
     <button class="sect-toggle-btn" onclick="toggleSect('bankroll')" aria-expanded="true">
@@ -917,17 +957,25 @@
           </div>
         </div>
         <div style="padding-left:12px;border-left:1px solid var(--border)">
-          <div class="bankroll-unit-label" style="margin-bottom:3px">1 Unit =</div>
-          <div class="bankroll-unit-val" id="bankroll-unit-display">$10.00</div>
-          <div class="bankroll-unit-label">(1% of bankroll)</div>
+          <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px"># of Games to Bet</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <input type="number" class="bankroll-input" id="bankroll-games" value="3" min="1" max="15" step="1" style="width:80px" />
+            <span style="font-size:.75rem;color:var(--muted-l)">games</span>
+          </div>
+          <div style="font-size:.6rem;color:var(--muted);margin-top:4px">Splits bankroll evenly</div>
         </div>
         <div style="padding-left:12px;border-left:1px solid var(--border)">
-          <div style="font-size:.58rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Unit Guide</div>
+          <div class="bankroll-unit-label" style="margin-bottom:3px">Flat bet / game</div>
+          <div class="bankroll-unit-val" id="bankroll-unit-display">$333</div>
+          <div class="bankroll-unit-label">(bankroll ÷ games)</div>
+        </div>
+        <div style="padding-left:12px;border-left:1px solid var(--border)">
+          <div style="font-size:.58rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Bet Guide</div>
           <div style="display:flex;flex-direction:column;gap:3px">
-            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-elite" style="color:var(--primary);font-weight:800">$20</span> · ELITE (2u)</div>
-            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-high"  style="color:var(--primary);font-weight:700">$15</span> · HIGH (1.5u)</div>
-            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-med"   style="color:var(--muted-l);font-weight:600">$10</span> · MEDIUM (1u)</div>
-            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-low"   style="color:var(--muted);font-weight:600">$5</span>  · LOW (0.5u)</div>
+            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-elite" style="color:var(--primary);font-weight:800">$667</span> · ELITE (2×)</div>
+            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-high"  style="color:var(--primary);font-weight:700">$500</span> · HIGH (1.5×)</div>
+            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-med"   style="color:var(--muted-l);font-weight:600">$333</span> · MEDIUM (1×)</div>
+            <div style="font-size:.68rem;color:var(--muted-l)"><span id="guide-low"   style="color:var(--muted);font-weight:600">$167</span>  · LOW (0.5×)</div>
           </div>
         </div>
       </div>
@@ -935,8 +983,9 @@
       <div style="font-size:.65rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Suggested Bets — This Week's Picks</div>
       <div class="calc-picks-grid" id="calc-picks-grid"></div>
       <div style="margin-top:14px;padding:10px 14px;border-radius:var(--radius);background:rgba(255,255,255,.02);border:1px solid var(--border);font-size:.72rem;color:var(--muted)">
-        <strong style="color:var(--text)">Kelly Criterion tip:</strong> Never bet more than 3–5% of bankroll on any single game. ELITE picks use 2u, HIGH = 1.5u, MEDIUM = 1u, LOW = 0.5u.
-        Unit sizing (1% base) is industry-standard for long-term bankroll preservation.
+        <strong style="color:var(--text)">How it works:</strong> Your bankroll is split evenly across the number of games you choose.
+        ELITE picks bet 2× the flat amount, HIGH = 1.5×, MEDIUM = 1×, LOW = 0.5×.
+        Adjust the # of games to control how aggressively you spread your bankroll.
       </div>
     </div>
     </div><!-- /sb-bankroll -->
@@ -963,6 +1012,32 @@
     </div>
     </div><!-- /sb-browse-conf -->
   </section>
+
+  <!-- Upcoming Games Countdown -->
+  <section class="mb-5" id="upcoming-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">⏰ Upcoming Games — Next Up</div>
+      <a href="pages/games.html" class="text-sm text-muted" style="text-decoration:underline">Full Schedule →</a>
+    </div>
+    <div id="upcoming-grid" style="display:flex;flex-direction:column;gap:8px"></div>
+  </section>
+
+  <!-- Featured games -->
+  <section class="mb-5">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">Elite &amp; High Confidence Games</div>
+      <a href="pages/games.html?sort=confidence" class="text-sm text-primary" style="text-decoration:underline">All picks →</a>
+    </div>
+    <div class="grid-auto" id="featured-games"></div>
+  </section>
+
+  <!-- Team Trends collapsible group -->
+  <section class="mb-5">
+    <button class="sect-toggle-btn" onclick="toggleSect('team-trends')">
+      <div class="section-label mb-0" style="pointer-events:none">Team Trends &amp; Rankings</div>
+      <span class="sect-chev" id="sc-team-trends">▼</span>
+    </button>
+    <div class="sect-body" id="sb-team-trends" style="margin-top:12px">
 
   <!-- Trending Teams ATS -->
   <section class="mb-5" id="trending-section" style="display:none">
@@ -1000,22 +1075,7 @@
     <div class="power-strip" id="power-rankings"></div>
   </section>
 
-  <!-- Featured games -->
-  <section class="mb-5">
-    <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">Elite &amp; High Confidence Games</div>
-      <a href="pages/games.html?sort=confidence" class="text-sm text-primary" style="text-decoration:underline">All picks →</a>
-    </div>
-    <div class="grid-auto" id="featured-games"></div>
-  </section>
-
-  <!-- Upcoming Games Countdown -->
-  <section class="mb-5" id="upcoming-section" style="display:none">
-    <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">⏰ Upcoming Games — Next Up</div>
-      <a href="pages/games.html" class="text-sm text-muted" style="text-decoration:underline">Full Schedule →</a>
-    </div>
-    <div id="upcoming-grid" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div><!-- /sb-team-trends -->
   </section>
 
   <!-- Model transparency -->
@@ -2540,11 +2600,12 @@ renderATSStreaks();
       .sort(function(a, b) { return b.score - a.score; });
   }
 
-  function fmt$(v) { return v >= 100 ? '$' + v.toFixed(0) : '$' + v.toFixed(2); }
+  function fmt$(v) { return v >= 100 ? '$' + Math.round(v) : '$' + v.toFixed(2); }
 
   function update() {
     var bankroll = parseFloat(document.getElementById("bankroll-input").value) || 1000;
-    var unit = bankroll * 0.01;
+    var numGames = Math.max(1, parseInt(document.getElementById("bankroll-games").value) || 3);
+    var unit = bankroll / numGames; // flat bet per game
     document.getElementById("bankroll-unit-display").textContent = fmt$(unit);
     document.getElementById("guide-elite").textContent = fmt$(unit * 2);
     document.getElementById("guide-high").textContent  = fmt$(unit * 1.5);
@@ -2554,16 +2615,20 @@ renderATSStreaks();
     var confColors = { ELITE: "var(--primary)", HIGH: "var(--primary)", MEDIUM: "var(--gold)", LOW: "var(--muted)" };
     var confBg = { ELITE: "rgba(16,185,129,.12)", HIGH: "rgba(16,185,129,.07)", MEDIUM: "rgba(245,158,11,.06)", LOW: "rgba(255,255,255,.02)" };
 
-    // Compute total exposure
-    var totalRisked = picks.reduce(function(acc, p) { return acc + (unit * p.units); }, 0);
+    // Compute total exposure (cap at numGames to avoid showing all picks)
+    var displayPicks = picks.slice(0, numGames);
+    var totalRisked = displayPicks.reduce(function(acc, p) { return acc + (unit * p.units); }, 0);
     var totalRiskedPct = bankroll > 0 ? (totalRisked / bankroll * 100) : 0;
-    var elitePicks = picks.filter(function(p) { return p.pickConf === "ELITE"; });
     var maxWinAtBreakeven = totalRisked * (100 / 110); // -110 odds win
     var elExposure = document.getElementById("calc-exposure");
     if (elExposure) {
-      var safeZone = totalRiskedPct <= 8;
       elExposure.innerHTML =
-        '<div style="display:flex;gap:12px;flex-wrap:wrap;padding:10px 14px;border-radius:var(--radius);background:' + (safeZone ? 'rgba(16,185,129,.05)' : 'rgba(245,158,11,.06)') + ';border:1px solid ' + (safeZone ? 'rgba(16,185,129,.2)' : 'rgba(245,158,11,.25)') + ';margin-bottom:12px">' +
+        '<div style="display:flex;gap:12px;flex-wrap:wrap;padding:10px 14px;border-radius:var(--radius);background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);margin-bottom:12px">' +
+          '<div style="min-width:110px">' +
+            '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Flat Bet / Game</div>' +
+            '<div style="font-size:1.1rem;font-weight:900;color:var(--text)">' + fmt$(unit) + '</div>' +
+            '<div style="font-size:.62rem;color:var(--muted)">' + fmt$(bankroll) + ' ÷ ' + numGames + ' games</div>' +
+          '</div>' +
           '<div style="min-width:110px">' +
             '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Total at Risk</div>' +
             '<div style="font-size:1.1rem;font-weight:900;color:var(--text)">' + fmt$(totalRisked) + '</div>' +
@@ -2574,20 +2639,10 @@ renderATSStreaks();
             '<div style="font-size:1.1rem;font-weight:900;color:var(--primary)">+' + fmt$(maxWinAtBreakeven) + '</div>' +
             '<div style="font-size:.62rem;color:var(--muted)">at standard -110</div>' +
           '</div>' +
-          '<div style="min-width:110px">' +
-            '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Elite Picks</div>' +
-            '<div style="font-size:1.1rem;font-weight:900;color:var(--primary)">' + elitePicks.length + '</div>' +
-            '<div style="font-size:.62rem;color:var(--muted)">highest confidence</div>' +
-          '</div>' +
-          '<div style="min-width:130px;margin-left:auto">' +
-            '<div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:' + (safeZone ? 'var(--primary)' : 'var(--gold)') + ';margin-bottom:2px">Exposure Check</div>' +
-            '<div style="font-size:.78rem;font-weight:700;color:' + (safeZone ? 'var(--primary)' : 'var(--gold)') + '">' + (safeZone ? '✓ Safe range' : '⚠ Consider reducing') + '</div>' +
-            '<div style="font-size:.62rem;color:var(--muted)">Ideal: under 8% weekly</div>' +
-          '</div>' +
         '</div>';
     }
 
-    document.getElementById("calc-picks-grid").innerHTML = picks.map(function(p) {
+    document.getElementById("calc-picks-grid").innerHTML = displayPicks.map(function(p) {
       var betAmt = unit * p.units;
       var c = confColors[p.pickConf] || "var(--muted)";
       var bg = confBg[p.pickConf] || "rgba(255,255,255,.02)";
@@ -2595,13 +2650,14 @@ renderATSStreaks();
       return '<div class="calc-pick-card" style="background:' + bg + ';border-color:rgba(255,255,255,.07)">' +
         '<div class="calc-pick-team" style="color:' + c + '">' + p.pickTeam + '</div>' +
         '<div class="calc-pick-game">' + p.game.awayTeam.abbreviation + ' @ ' + p.game.homeTeam.abbreviation + (p.vegasLine ? ' · ' + p.vegasLine : '') + '</div>' +
-        '<div class="calc-pick-bet">' + fmt$(betAmt) + ' → <span style="color:var(--primary)">+' + fmt$(winAmt) + '</span></div>' +
-        '<div class="calc-pick-conf">' + p.pickConf + ' · ' + p.units + 'u</div>' +
+        '<div class="calc-pick-bet">' + fmt$(betAmt) + ' → win <span style="color:var(--primary)">+' + fmt$(winAmt) + '</span></div>' +
+        '<div class="calc-pick-conf">' + p.pickConf + ' · ' + p.units + '×</div>' +
       '</div>';
     }).join("") || '<div style="color:var(--muted-l);font-size:.85rem">No picks found.</div>';
   }
 
   document.getElementById("bankroll-input").addEventListener("input", update);
+  document.getElementById("bankroll-games").addEventListener("input", update);
   update();
 })();
 

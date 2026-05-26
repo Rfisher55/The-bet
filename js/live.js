@@ -2538,6 +2538,11 @@ const LIVE = (() => {
         state.apiKey = key;
         fetchAll(key).catch(e => {
           console.warn("[LIVE] Auto-fetch failed:", e.message);
+          // If the API completely failed and no pregen fired, fall back to static data
+          if (!window.__liveDataReady) {
+            window.__liveDataReady = true;
+            window.dispatchEvent(new CustomEvent("liveDataReady", { detail: { _fromPregen: true, _static: true } }));
+          }
         });
       } else {
         state.status = "no-key";
@@ -2550,6 +2555,15 @@ const LIVE = (() => {
           _startLiveScorePolling();
           _startOddsPolling();
         }, { once: true });
+        // If pregen never fires liveDataReady (e.g. 0-game stub file), fire it from
+        // static data after 2 s so game pages & home page always render.
+        setTimeout(function() {
+          if (!window.__liveDataReady) {
+            console.log("[LIVE] No API key & no pregen — firing liveDataReady from static data");
+            window.__liveDataReady = true;
+            window.dispatchEvent(new CustomEvent("liveDataReady", { detail: { _fromPregen: true, _static: true } }));
+          }
+        }, 2000);
       }
     });
   }
