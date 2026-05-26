@@ -1393,6 +1393,22 @@ function buildFactors(home, away, neutralSite) {
     });
   }
 
+  // ── ATS Current Win Streak ────────────────────────
+  const homeStreak = home.atsCurrentStreak || 0;
+  const awayStreak = away.atsCurrentStreak || 0;
+  if (homeStreak >= 3 || awayStreak >= 3) {
+    const streakTeam = homeStreak >= awayStreak ? home : away;
+    const streak = Math.max(homeStreak, awayStreak);
+    const side = homeStreak >= awayStreak ? "home" : "away";
+    factors.push({
+      name: "Active ATS Winning Streak",
+      description: `${streakTeam.name} has covered the spread in ${streak} consecutive games — hot ATS momentum is a meaningful short-term signal`,
+      impact: side === "home" ? "positive" : "negative",
+      favoredTeam: side,
+      magnitude: Math.min(10, streak + 1),
+    });
+  }
+
   return factors;
 }
 
@@ -1620,6 +1636,12 @@ function predictGame(game) {
      Base model already accounts for 30% of confidence; the adjustments are additive
      signals that shift the final expected scores. ─── */
 
+  // ATS streak adjustment: 3+ game ATS win streak = small edge persistence signal
+  const homeAtsStreak = home.atsCurrentStreak || 0;
+  const awayAtsStreak = away.atsCurrentStreak || 0;
+  const homeAtsStreakAdj = homeAtsStreak >= 3 ? Math.min(homeAtsStreak - 2, 3) * 0.35 : 0;
+  const awayAtsStreakAdj = awayAtsStreak >= 3 ? Math.min(awayAtsStreak - 2, 3) * 0.35 : 0;
+
   const homeComposite =
     homeBaseExp                                    // base (already weighted internally)
     + homePlayerAdj   * (WEIGHTS.playerImpact   / WEIGHTS.baseModel * 1.2)
@@ -1628,7 +1650,8 @@ function predictGame(game) {
     + homeCoachAdj    * (WEIGHTS.coachingEdge   / WEIGHTS.baseModel * 1.0)
     + homeMomentumAdj * (WEIGHTS.programMomentum/ WEIGHTS.baseModel * 0.9)
     + homeSharpAdj    * (WEIGHTS.sharpMoney     / WEIGHTS.baseModel * 1.0)
-    + homeIntel.pts;   // live ESPN injuries + Twitter insider intel
+    + homeIntel.pts   // live ESPN injuries + Twitter insider intel
+    + homeAtsStreakAdj;  // ATS momentum bonus for teams on a hot streak
 
   const awayComposite =
     awayBaseExp
@@ -1638,7 +1661,8 @@ function predictGame(game) {
     + awayCoachAdj    * (WEIGHTS.coachingEdge   / WEIGHTS.baseModel * 1.0)
     + awayMomentumAdj * (WEIGHTS.programMomentum/ WEIGHTS.baseModel * 0.9)
     + awaySharpAdj    * (WEIGHTS.sharpMoney     / WEIGHTS.baseModel * 1.0)
-    + awayIntel.pts;   // live ESPN injuries + Twitter insider intel
+    + awayIntel.pts   // live ESPN injuries + Twitter insider intel
+    + awayAtsStreakAdj;  // ATS momentum bonus for teams on a hot streak
 
   const homeFinal = clamp(homeComposite, 7, 70);
   const awayFinal = clamp(awayComposite, 7, 70);

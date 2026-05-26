@@ -1091,13 +1091,27 @@ function buildATSComparison(a, b) {
     </div>`;
   }
 
+  const streakA = teamA.atsCurrentStreak || 0;
+  const streakB = teamB.atsCurrentStreak || 0;
+  function streakBadge(streak, side) {
+    if (streak < 3) return '';
+    const align = side === 'left' ? 'flex-start' : 'flex-end';
+    return `<span style="font-size:.55rem;padding:1px 7px;border-radius:4px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:#fb923c;font-weight:800;display:inline-block">🔥 ${streak}-0 streak</span>`;
+  }
+
   return `
     <div class="cmp-section">
       <div class="cmp-section-title">ATS Records — Side by Side</div>
-      <div style="display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;margin-bottom:8px">
-        <div style="font-size:.65rem;font-weight:800;color:${readableOnDark(a.color)}">${a.name}</div>
+      <div style="display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;margin-bottom:6px">
+        <div>
+          <div style="font-size:.65rem;font-weight:800;color:${readableOnDark(a.color)}">${a.name}</div>
+          ${streakBadge(streakA, 'left')}
+        </div>
         <div></div>
-        <div style="font-size:.65rem;font-weight:800;color:${readableOnDark(b.color || '#334155')};text-align:right">${b.name}</div>
+        <div style="text-align:right">
+          <div style="font-size:.65rem;font-weight:800;color:${readableOnDark(b.color || '#334155')}">${b.name}</div>
+          ${streakBadge(streakB, 'right')}
+        </div>
       </div>
       ${atsRow(arA, arB, 'OVERALL')}
       ${atsRow(sitA.atsHome, sitB.atsHome, 'AT HOME')}
