@@ -568,6 +568,23 @@
     .news-dot.coaching { background: #a78bfa; }
     .news-dot.insider  { background: #f87171; }
     .news-dot.twitter  { background: #38bdf8; }
+    /* ── Collapsible sections ─────────────────────────────── */
+    .sect-toggle-btn {
+      display: flex; align-items: center; gap: 6px; cursor: pointer;
+      user-select: none; background: none; border: none; padding: 0;
+      font: inherit; text-align: left; width: 100%;
+    }
+    .sect-toggle-btn:hover .sect-chev { color: var(--primary); }
+    .sect-chev {
+      font-size: .75rem; color: var(--muted-l); transition: transform .2s;
+      flex-shrink: 0; margin-left: auto;
+    }
+    .sect-chev.open { transform: rotate(180deg); }
+    .sect-body { overflow: hidden; transition: max-height .25s ease, opacity .2s; }
+    .sect-body.collapsed { max-height: 0 !important; opacity: 0; pointer-events: none; }
+    .sect-body.open      { opacity: 1; }
+    .sect-def { font-size: .62rem; color: var(--muted); font-weight: 400;
+                margin-left: 6px; font-style: italic; }
   </style>
 </head>
 <body>
@@ -726,6 +743,53 @@
   })();
   </script>
 
+  <script>
+  // ── Collapsible section helpers ──────────────────────────────────────────
+  var _sectState = {};
+  try { _sectState = JSON.parse(localStorage.getItem('theBet_sectCollapse') || '{}'); } catch(e) {}
+
+  function sectOpen(id) {
+    var body = document.getElementById('sb-' + id);
+    var chev = document.getElementById('sc-' + id);
+    if (!body) return;
+    body.classList.remove('collapsed'); body.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    if (chev) chev.classList.add('open');
+    _sectState[id] = 1;
+    try { localStorage.setItem('theBet_sectCollapse', JSON.stringify(_sectState)); } catch(e) {}
+  }
+  function sectClose(id) {
+    var body = document.getElementById('sb-' + id);
+    var chev = document.getElementById('sc-' + id);
+    if (!body) return;
+    body.style.maxHeight = body.scrollHeight + 'px'; // set explicitly for transition
+    requestAnimationFrame(function() {
+      body.classList.add('collapsed'); body.classList.remove('open');
+      body.style.maxHeight = '0';
+    });
+    if (chev) chev.classList.remove('open');
+    _sectState[id] = 0;
+    try { localStorage.setItem('theBet_sectCollapse', JSON.stringify(_sectState)); } catch(e) {}
+  }
+  function toggleSect(id) {
+    var body = document.getElementById('sb-' + id);
+    if (!body) return;
+    if (body.classList.contains('collapsed')) sectOpen(id); else sectClose(id);
+  }
+  function initSect(id, defaultOpen) {
+    var wasOpen = (_sectState[id] !== undefined) ? !!_sectState[id] : defaultOpen;
+    if (wasOpen) { sectOpen(id); } else { sectClose(id); }
+  }
+  // Init after DOM ready
+  document.addEventListener('DOMContentLoaded', function() {
+    // Open by default: news; Closed by default: bankroll, model-how, browse-conf
+    initSect('bankroll',    false);
+    initSect('model-how',   false);
+    initSect('browse-conf', false);
+    initSect('news',        true);
+  });
+  </script>
+
   <!-- Top picks -->
   <section class="mb-5">
     <div class="flex items-center justify-between mb-4">
@@ -836,11 +900,14 @@
 
   <!-- Bankroll Calculator -->
   <section class="mb-5">
-    <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">🧮 Bankroll Calculator</div>
-      <span class="text-sm text-muted">How much to bet on each pick</span>
-    </div>
-    <div class="bankroll-card">
+    <button class="sect-toggle-btn" onclick="toggleSect('bankroll')" aria-expanded="true">
+      <div class="section-label mb-0" style="pointer-events:none">🧮 Bankroll Calculator
+        <span class="sect-def">Your bankroll = total betting budget (how much you've set aside to bet with)</span>
+      </div>
+      <span class="sect-chev" id="sc-bankroll">▼</span>
+    </button>
+    <div class="sect-body" id="sb-bankroll">
+    <div class="bankroll-card" style="margin-top:12px">
       <div class="bankroll-input-row">
         <div>
           <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Your Bankroll</div>
@@ -872,13 +939,17 @@
         Unit sizing (1% base) is industry-standard for long-term bankroll preservation.
       </div>
     </div>
+    </div><!-- /sb-bankroll -->
   </section>
 
   <!-- Browse by Conference -->
   <section class="mb-5">
-    <div class="flex items-center justify-between mb-4" style="margin-bottom:10px">
-      <div class="conf-section-label" style="margin-bottom:0">Browse by Conference</div>
-      <span style="font-size:.62rem;color:var(--muted)">ATS records from team data</span>
+    <button class="sect-toggle-btn" onclick="toggleSect('browse-conf')">
+      <div class="conf-section-label" style="margin-bottom:0;pointer-events:none">Browse by Conference</div>
+      <span class="sect-chev" id="sc-browse-conf">▼</span>
+    </button>
+    <div class="sect-body" id="sb-browse-conf" style="margin-top:10px">
+    <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:8px"><span style="font-size:.62rem;color:var(--muted)">ATS records from team data</span></div>
     </div>
     <div class="chip-row" id="conf-chips-row">
       <a class="conf-chip" href="pages/games.html?conf=SEC">SEC</a>
@@ -890,6 +961,7 @@
       <a class="conf-chip" href="pages/games.html?conf=Sun+Belt">Sun Belt</a>
       <a class="conf-chip" href="pages/games.html?conf=MAC">MAC</a>
     </div>
+    </div><!-- /sb-browse-conf -->
   </section>
 
   <!-- Trending Teams ATS -->
@@ -948,14 +1020,17 @@
 
   <!-- Model transparency -->
   <section class="mb-5">
-    <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">How the Model Works</div>
-    </div>
+    <button class="sect-toggle-btn" onclick="toggleSect('model-how')">
+      <div class="section-label mb-0" style="pointer-events:none">How the Model Works</div>
+      <span class="sect-chev" id="sc-model-how">▼</span>
+    </button>
+    <div class="sect-body" id="sb-model-how" style="margin-top:12px">
     <div class="transparency-card">
       <div class="transparency-title">7-Signal Prediction Engine</div>
       <div class="transparency-sub">Each signal contributes a weighted adjustment to the final predicted score and spread. Signals are independent — no single factor dominates.</div>
       <div id="signals-grid"></div>
     </div>
+    </div><!-- /sb-model-how -->
   </section>
 
   <!-- Insider Alerts Banner -->
@@ -963,13 +1038,16 @@
 
   <!-- Breaking News & Intel Feed -->
   <section class="mb-5">
-    <div class="flex items-center justify-between mb-4">
-      <div class="section-label mb-0">Breaking News &amp; Intel</div>
-      <span id="news-last-updated" class="text-sm text-muted"></span>
-    </div>
+    <button class="sect-toggle-btn" onclick="toggleSect('news')">
+      <div class="section-label mb-0" style="pointer-events:none">Breaking News &amp; Intel</div>
+      <span id="news-last-updated" class="text-sm text-muted" style="font-size:.62rem;margin-left:8px;font-weight:400"></span>
+      <span class="sect-chev" id="sc-news">▼</span>
+    </button>
+    <div class="sect-body" id="sb-news" style="margin-top:12px">
     <div class="news-feed" id="news-feed">
       <div style="padding:20px;text-align:center;color:var(--muted);font-size:.85rem">Loading latest CFB intel...</div>
     </div>
+    </div><!-- /sb-news -->
   </section>
 
   <!-- Disclaimer -->
