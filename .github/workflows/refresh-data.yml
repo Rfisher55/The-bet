@@ -98,6 +98,19 @@ jobs:
           [ "${{ inputs.test_alert }}" = "true" ] && TEST_FLAG="--test"
           node scripts/check-alerts.js $TEST_FLAG
 
+      - name: Post live game alerts (Saturdays only)
+        env:
+          X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
+        run: |
+          DAY=$(date +%u)
+          if [ "$DAY" = "6" ]; then
+            node scripts/live-game-alerts.js
+          else
+            echo "Not Saturday — skipping live alerts"
+          fi
+
       - name: Rotate refresh token after alerts
         if: always()
         env:
