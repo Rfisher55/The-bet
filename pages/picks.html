@@ -106,10 +106,9 @@
     }
     .btn-icon:hover { border-color:var(--danger);color:var(--danger); }
 
-    /* ── Pick notes ── */
-    .pick-notes {
-      margin-top:10px;padding-top:10px;border-top:1px solid var(--border);
-      font-size:.78rem;color:var(--muted-l);font-style:italic;
+    /* ── Pick notes — inline under the pick label ── */
+    .pick-notes-inline {
+      font-size:.68rem;color:var(--muted-l);font-style:italic;margin-top:3px;
     }
 
     /* ── Table header row ── */
@@ -989,9 +988,7 @@
         + '</div>';
     }
 
-    var notesHtml = pick.notes
-      ? '<div class="pick-notes">' + escHtml(pick.notes) + '</div>'
-      : '';
+    // notes rendered inline inside pick column — no separate block needed
 
     // Score display (shown once auto-graded)
     var scoreHtml = '';
@@ -1029,6 +1026,7 @@
       + '<div class="pick-col">'
         + '<div class="pick-col-label">My Pick</div>'
         + '<div class="pick-col-value">' + escHtml(pick.pick) + agBadge + gradeBadge + '</div>'
+        + (pick.notes ? '<div class="pick-notes-inline">' + escHtml(pick.notes) + '</div>' : '')
       + '</div>'
       + '<div class="pick-col">'
         + '<div class="pick-col-label">Odds</div>'
@@ -1050,7 +1048,6 @@
         + actionsHtml
       + '</div>'
       + '</div>'
-      + notesHtml
       + '</div>';
   }
 
