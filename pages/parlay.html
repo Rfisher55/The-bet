@@ -1832,6 +1832,31 @@ renderGameList();
 updateSummary();
 renderOptimalSuggestions();
 
+// Import any legs queued from game.html via theBet_parlayLegs
+(function importQueuedLegs() {
+  var QUEUE_KEY = "theBet_parlayLegs";
+  try {
+    var queued = JSON.parse(localStorage.getItem(QUEUE_KEY) || "[]");
+    if (!queued.length) return;
+    queued.forEach(function(leg) {
+      var key = leg.gameId + "|" + (leg.side || "home");
+      if (!picks[key]) {
+        picks[key] = { gameId: leg.gameId, side: leg.side || "home", odds: leg.odds || -110, label: leg.pick || "Pick", confidence: "medium" };
+      }
+    });
+    localStorage.removeItem(QUEUE_KEY);
+    renderGameList();
+    updateSummary();
+    if (queued.length) {
+      var toastEl = document.createElement("div");
+      toastEl.textContent = queued.length + " pick" + (queued.length > 1 ? "s" : "") + " added from game page!";
+      toastEl.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:10px 20px;border-radius:10px;background:rgba(124,58,237,.9);color:#fff;font-size:.78rem;font-weight:700;z-index:9999;white-space:nowrap";
+      document.body.appendChild(toastEl);
+      setTimeout(function() { toastEl.remove(); }, 3000);
+    }
+  } catch(e) {}
+})();
+
 // Re-render when live data arrives
 window.addEventListener("liveDataReady", function() {
   rebuildPreds();

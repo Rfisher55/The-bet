@@ -208,6 +208,18 @@
     <div id="beat-writer-dash"></div>
   </div>
 
+  <!-- Public Overload Section -->
+  <div style="margin-bottom:24px" id="public-overload-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+      <div>
+        <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:2px">CONTRARIAN RADAR</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--text)">🎰 Public Overload — Fade Opportunities</div>
+      </div>
+      <span style="font-size:.62rem;color:var(--muted)">75%+ public on one side · historically fade-able</span>
+    </div>
+    <div id="public-overload-dash"></div>
+  </div>
+
   <!-- Stats strip -->
   <div class="stats-strip" id="stats-strip">
     <div class="stat-chip"><div class="stat-val" id="stat-total">—</div><div class="stat-lbl">Total Items</div></div>
@@ -930,6 +942,68 @@ function refreshAll() {
 }
 
 // Listen for data from live.js
+function buildPublicOverload() {
+  var el = document.getElementById("public-overload-dash");
+  if (!el || !window.GAMES) return;
+
+  var rows = [];
+  window.GAMES.forEach(function(game) {
+    try {
+      var g = window.resolveGame ? resolveGame(game) : game;
+      var pred = window.predictGame ? predictGame(g) : null;
+      var si = g.socialIntel || {};
+      var pb = si.publicBetting || {};
+      var homePct = pb.homePct != null ? pb.homePct : null;
+      if (homePct == null) return;
+      var awayPct = 100 - homePct;
+      var heavySide = homePct >= 75 ? "home" : awayPct >= 75 ? "away" : null;
+      if (!heavySide) return;
+      var heavyPct = heavySide === "home" ? homePct : awayPct;
+      var heavyTeam = heavySide === "home" ? g.homeTeam : g.awayTeam;
+      var fadeTeam  = heavySide === "home" ? g.awayTeam : g.homeTeam;
+      var bl = g.bettingLines || {};
+      var spread = bl.spread != null ? bl.spread : null;
+      // Check if model fades the public
+      var modelFades = pred && pred.spreadPick && pred.spreadPick.side && pred.spreadPick.side !== heavySide && pred.spreadPick.side !== "no-bet";
+      var sm = pred && pred.sharpMoneySignal;
+      var sharpFades = sm && sm.side && sm.side !== heavySide && (sm.strength === "strong" || sm.strength === "moderate");
+      var score = Math.round(heavyPct) + (modelFades ? 15 : 0) + (sharpFades ? 20 : 0);
+      rows.push({ g: g, pred: pred, heavySide: heavySide, heavyPct: heavyPct, heavyTeam: heavyTeam, fadeTeam: fadeTeam, modelFades: modelFades, sharpFades: sharpFades, spread: spread, score: score });
+    } catch(e) {}
+  });
+
+  if (!rows.length) {
+    el.innerHTML = '<div style="padding:14px;text-align:center;font-size:.78rem;color:var(--muted)">No extreme public lopsidedness detected this week.</div>';
+    return;
+  }
+
+  rows.sort(function(a, b) { return b.score - a.score; });
+
+  el.innerHTML = rows.slice(0, 6).map(function(r) {
+    var g = r.g;
+    var hAbbr = (g.homeTeam.abbreviation || g.homeTeam.name.slice(0,4)).toUpperCase();
+    var aAbbr = (g.awayTeam.abbreviation || g.awayTeam.name.slice(0,4)).toUpperCase();
+    var fadeAbbr = (r.fadeTeam.abbreviation || r.fadeTeam.name.slice(0,4)).toUpperCase();
+    var heavyAbbr = (r.heavyTeam.abbreviation || r.heavyTeam.name.slice(0,4)).toUpperCase();
+    var spreadStr = r.spread != null ? (r.spread >= 0 ? '+' + r.spread.toFixed(1) : r.spread.toFixed(1)) : '';
+    var tags = [];
+    if (r.modelFades) tags.push('<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);color:var(--primary);font-weight:800">✅ Model fades</span>');
+    if (r.sharpFades) tags.push('<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);color:#a78bfa;font-weight:800">⚡ Sharp fades</span>');
+    return '<a href="game.html?id=' + g.id + '" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:var(--card);border:1px solid rgba(244,114,182,.25);margin-bottom:8px;transition:border-color .15s">'
+      + '<div style="flex-shrink:0;text-align:center">'
+        + '<div style="font-size:1.3rem;font-weight:900;color:#f472b6">' + Math.round(r.heavyPct) + '%</div>'
+        + '<div style="font-size:.52rem;color:var(--muted)">on ' + heavyAbbr + '</div>'
+      + '</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="font-size:.78rem;font-weight:800;color:var(--text);margin-bottom:3px">' + aAbbr + ' @ ' + hAbbr + (spreadStr ? ' · ' + spreadStr : '') + ' · Wk ' + (g.week || '?') + '</div>'
+        + '<div style="font-size:.65rem;color:var(--muted);margin-bottom:4px">Public heavy on <strong style="color:#f472b6">' + heavyAbbr + '</strong> → Fade: <strong style="color:var(--primary)">' + fadeAbbr + '</strong></div>'
+        + '<div style="display:flex;gap:5px;flex-wrap:wrap">' + tags.join('') + '</div>'
+      + '</div>'
+      + '<div style="font-size:.65rem;color:var(--primary);font-weight:700;flex-shrink:0">View →</div>'
+    + '</a>';
+  }).join('');
+}
+
 window.addEventListener("teamIntelReady", function() {
   buildWeatherAlerts();
   buildInjuryImpact();
@@ -942,6 +1016,7 @@ window.addEventListener("liveDataReady", function(e) {
   if (d.twitterTweets) window.__latestTweets = d.twitterTweets;
   if (d.espnNews)      window.__latestESPN   = d.espnNews;
   buildValuePlays();
+  buildPublicOverload();
   buildWeatherAlerts();
   buildInjuryImpact();
   buildSharpSummary();
@@ -959,6 +1034,7 @@ setInterval(function() {
 
 // Initial render
 buildValuePlays();
+buildPublicOverload();
 buildWeatherAlerts();
 buildInjuryImpact();
 buildSharpSummary();

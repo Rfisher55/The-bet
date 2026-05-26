@@ -1136,7 +1136,10 @@ function renderGamePage(gData) {
         + '</div>';
       })()}
       <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-        <button id="quick-add-btn" onclick="addCurrentPickToTracker()" style="padding:7px 16px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-size:.72rem;font-weight:800;cursor:pointer;transition:all .15s">📋 Track This Pick</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button id="quick-add-btn" onclick="addCurrentPickToTracker()" style="padding:7px 16px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-size:.72rem;font-weight:800;cursor:pointer;transition:all .15s">📋 Track This Pick</button>
+          <button id="add-parlay-btn" onclick="addCurrentPickToParlay()" style="padding:7px 16px;border-radius:8px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);color:#a78bfa;font-size:.72rem;font-weight:800;cursor:pointer;transition:all .15s">🎯 Add to Parlay</button>
+        </div>
         <a href="picks.html" style="font-size:.68rem;color:var(--muted);font-weight:700;text-decoration:underline">My Picks →</a>
       </div>`;
   }
@@ -3566,6 +3569,7 @@ function renderGamePage(gData) {
     gameWeek: game.week || null,
     gameDate: game.date || null,
   };
+  window._gameData = game;
 
   /* ── Section TOC (sticky right nav, desktop only) ── */
   const tocSections = [
@@ -3649,6 +3653,44 @@ window.addCurrentPickToTracker = function() {
       btn.textContent = "📋 Track This Pick";
       btn.style.background = "rgba(16,185,129,.12)";
       btn.style.borderColor = "rgba(16,185,129,.3)";
+    }, 2500);
+  }
+};
+
+window.addCurrentPickToParlay = function() {
+  var dp = window._gamePick;
+  if (!dp || !dp.pickTeam) return;
+  var btn = document.getElementById("add-parlay-btn");
+  var PARLAY_KEY = "theBet_parlayLegs";
+  var legs = JSON.parse(localStorage.getItem(PARLAY_KEY) || "[]");
+  if (legs.some(function(l) { return l.gameId === dp.gameId; })) {
+    if (btn) { btn.textContent = "✓ Already in Parlay"; btn.style.opacity = ".6"; }
+    setTimeout(function() {
+      if (btn) { btn.textContent = "🎯 Add to Parlay"; btn.style.opacity = "1"; }
+    }, 2000);
+    return;
+  }
+  var bl = window._gameData && window._gameData.bettingLines;
+  var pickIsHome = dp.pickSide === "home";
+  var spreadOdds = bl ? (pickIsHome ? (bl.homeSpreadOdds || -110) : (bl.awaySpreadOdds || -110)) : -110;
+  legs.push({
+    gameId: dp.gameId,
+    game: dp.awayTeam + " @ " + dp.homeTeam,
+    pick: dp.pickTeam + (dp.pickLine ? " " + dp.pickLine : " covers"),
+    odds: spreadOdds,
+    side: dp.pickSide,
+    date: dp.gameDate,
+    week: dp.gameWeek
+  });
+  localStorage.setItem(PARLAY_KEY, JSON.stringify(legs));
+  if (btn) {
+    btn.textContent = "✅ Added to Parlay!";
+    btn.style.background = "rgba(124,58,237,.25)";
+    btn.style.borderColor = "#7c3aed";
+    setTimeout(function() {
+      btn.textContent = "🎯 Add to Parlay";
+      btn.style.background = "rgba(124,58,237,.12)";
+      btn.style.borderColor = "rgba(124,58,237,.3)";
     }, 2500);
   }
 };

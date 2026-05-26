@@ -901,6 +901,15 @@
     <div class="trend-grid" id="trending-grid"></div>
   </section>
 
+  <!-- ATS Hot Streak Alert -->
+  <section class="mb-5" id="ats-streak-section" style="display:none">
+    <div class="flex items-center justify-between mb-4">
+      <div class="section-label mb-0">🔥 ATS Win Streak — Teams on a Run</div>
+      <a href="pages/games.html?type=streak" class="text-sm text-muted" style="text-decoration:underline">Games this week →</a>
+    </div>
+    <div id="ats-streak-list" style="display:flex;flex-direction:column;gap:8px"></div>
+  </section>
+
   <!-- Game of the Week -->
   <section class="mb-5" id="gotw-section" style="display:none">
     <div class="flex items-center justify-between mb-4">
@@ -1060,6 +1069,7 @@
     renderSystemAlerts();
     renderConferenceATS();
     renderTrendingTeams();
+    renderATSStreaks();
     renderGameOfTheWeek();
     renderFadePublic();
     renderBestEVPlays();
@@ -2364,6 +2374,64 @@ function renderTrendingTeams() {
   if (sec && cards.length) sec.style.display = "";
 }
 renderTrendingTeams();
+
+// ── ATS Win Streak Alerts ─────────────────────────────────────────
+function renderATSStreaks() {
+  if (!window.TEAMS) return;
+  var sec = document.getElementById("ats-streak-section");
+  var list = document.getElementById("ats-streak-list");
+  if (!sec || !list) return;
+
+  function textForBgLocal(hex) {
+    if (!hex) return "#fff";
+    var c = hex.replace("#","");
+    if (c.length === 3) c = c[0]+c[0]+c[1]+c[1]+c[2]+c[2];
+    var r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
+    return (r*299 + g*587 + b*114) / 1000 > 128 ? "#000" : "#fff";
+  }
+
+  var streakTeams = Object.values(TEAMS)
+    .filter(function(t) { return (t.atsCurrentStreak || 0) >= 3; })
+    .sort(function(a, b) { return (b.atsCurrentStreak || 0) - (a.atsCurrentStreak || 0); })
+    .slice(0, 6);
+
+  if (!streakTeams.length) return;
+  sec.style.display = "";
+
+  list.innerHTML = streakTeams.map(function(t) {
+    var streak = t.atsCurrentStreak || 3;
+    var ar = t.atsRecord || {};
+    var pct = ar.pct != null ? Math.round(ar.pct * 100) : null;
+    var pctStr = pct != null ? pct + '% ATS' : '';
+    var color = t.color || '#1a1a2e';
+    var textColor = textForBgLocal(color);
+    var conf = t.conference || '';
+    // Find upcoming game for this team
+    var nextGame = allPredictions.find(function(p) {
+      return p.game.homeTeamId === t.id || p.game.awayTeamId === t.id;
+    });
+    var gameLink = nextGame ? 'pages/game.html?id=' + nextGame.game.id : 'pages/teams.html?team=' + t.id;
+    var matchupStr = '';
+    if (nextGame) {
+      var isHome = nextGame.game.homeTeamId === t.id;
+      var opp = isHome ? nextGame.game.awayTeam : nextGame.game.homeTeam;
+      var oppAbbr = (opp.abbreviation || opp.name.slice(0,4)).toUpperCase();
+      matchupStr = (isHome ? 'vs ' : '@ ') + oppAbbr + ' · Wk ' + (nextGame.game.week || '?');
+    }
+    return '<a href="' + gameLink + '" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:var(--card);border:1px solid rgba(251,146,60,.3);transition:border-color .15s">'
+      + '<div style="width:36px;height:36px;border-radius:10px;background:' + color + ';color:' + textColor + ';display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">' + (t.abbreviation || t.name.slice(0,3)).slice(0,3).toUpperCase() + '</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="font-size:.85rem;font-weight:800;color:var(--text)">' + t.name + '</div>'
+        + '<div style="font-size:.65rem;color:var(--muted)">' + conf + (pctStr ? ' · ' + pctStr + ' overall' : '') + (matchupStr ? ' · ' + matchupStr : '') + '</div>'
+      + '</div>'
+      + '<div style="text-align:right;flex-shrink:0">'
+        + '<div style="font-size:1.1rem;font-weight:900;color:#fb923c">' + streak + '-0</div>'
+        + '<div style="font-size:.58rem;color:var(--muted)">ATS streak</div>'
+      + '</div>'
+    + '</a>';
+  }).join('');
+}
+renderATSStreaks();
 
 // ── Bankroll Calculator ───────────────────────────────────────────
 (function() {

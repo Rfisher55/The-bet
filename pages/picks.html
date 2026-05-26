@@ -290,6 +290,9 @@
   <!-- Confidence & bet type breakdown (shown when 5+ settled picks) -->
   <div id="conf-breakdown" style="display:none;padding:12px 16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--card);margin-bottom:16px"></div>
 
+  <!-- Bet intelligence panel (shown when 8+ settled picks) -->
+  <div id="bet-intel-wrap" style="display:none;padding:12px 16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--card);margin-bottom:16px"></div>
+
   <!-- Filter chips -->
   <div class="filter-row">
     <span class="filter-row-label">Filter</span>
@@ -755,6 +758,120 @@
   }
 
   /* ────────────────────────────────────────────────
+     Bet Intelligence Panel
+  ──────────────────────────────────────────────── */
+  function renderBetIntel(picks) {
+    var el = document.getElementById('bet-intel-wrap');
+    if (!el) return;
+    var settled = picks.filter(function(p) { return p.result === 'win' || p.result === 'loss'; });
+    if (settled.length < 8) { el.style.display = 'none'; return; }
+
+    // Expected Value tracking: did we bet +EV spots?
+    var evWins = 0, evLosses = 0, negEvWins = 0, negEvLosses = 0;
+    settled.forEach(function(p) {
+      var odds = parseInt(p.odds, 10) || -110;
+      var dec = odds > 0 ? odds / 100 + 1 : 100 / Math.abs(odds) + 1;
+      var implied = 1 / dec; // bookmaker's implied probability
+      // Positive EV means our estimated win prob > implied (hard to know without model, but we can check odds)
+      // Use odds as a proxy: heavy favorites (-200+) are typically -EV to bet, underdogs (+150+) can be +EV
+      var isUnderdogBet = odds > 0;
+      if (isUnderdogBet) {
+        if (p.result === 'win') evWins++; else evLosses++;
+      } else {
+        if (p.result === 'win') negEvWins++; else negEvLosses++;
+      }
+    });
+
+    // Best win / worst loss
+    var wins = settled.filter(function(p) { return p.result === 'win'; });
+    var losses = settled.filter(function(p) { return p.result === 'loss'; });
+    var bestWin = null, worstLoss = null;
+    wins.forEach(function(p) {
+      var net = potentialWin(parseFloat(p.wager) || 0, parseInt(p.odds, 10) || -110);
+      if (!bestWin || net > bestWin.net) bestWin = { pick: p, net: net };
+    });
+    losses.forEach(function(p) {
+      var cost = parseFloat(p.wager) || 0;
+      if (!worstLoss || cost > worstLoss.cost) worstLoss = { pick: p, cost: cost };
+    });
+
+    // Longest winning/losing streak
+    var maxWinStreak = 0, maxLossStreak = 0, curW = 0, curL = 0;
+    settled.slice().sort(function(a, b) { return a.addedAt.localeCompare(b.addedAt); }).forEach(function(p) {
+      if (p.result === 'win') { curW++; curL = 0; maxWinStreak = Math.max(maxWinStreak, curW); }
+      else { curL++; curW = 0; maxLossStreak = Math.max(maxLossStreak, curL); }
+    });
+
+    // Avg odds on wins vs losses
+    var avgWinOdds = wins.length ? Math.round(wins.reduce(function(s, p) { return s + (parseInt(p.odds, 10) || -110); }, 0) / wins.length) : null;
+    var avgLossOdds = losses.length ? Math.round(losses.reduce(function(s, p) { return s + (parseInt(p.odds, 10) || -110); }, 0) / losses.length) : null;
+    function fmtOddsShort(n) { return n == null ? '—' : (n > 0 ? '+' + n : '' + n); }
+
+    // Underdog record
+    var ugBets = settled.filter(function(p) { return (parseInt(p.odds, 10) || -110) > 0; });
+    var ugWins = ugBets.filter(function(p) { return p.result === 'win'; }).length;
+    var favBets = settled.filter(function(p) { return (parseInt(p.odds, 10) || -110) < 0; });
+    var favWins = favBets.filter(function(p) { return p.result === 'win'; }).length;
+
+    el.style.display = '';
+    var html = '<div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">🧠 BET INTELLIGENCE</div>';
+
+    // Streak records
+    html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px">';
+    html += '<div style="padding:8px 12px;border-radius:8px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);text-align:center">'
+      + '<div style="font-size:.58rem;color:var(--muted);margin-bottom:2px">Best Win Streak</div>'
+      + '<div style="font-size:1.2rem;font-weight:900;color:var(--primary)">' + maxWinStreak + 'W</div>'
+      + '</div>';
+    html += '<div style="padding:8px 12px;border-radius:8px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);text-align:center">'
+      + '<div style="font-size:.58rem;color:var(--muted);margin-bottom:2px">Worst Loss Streak</div>'
+      + '<div style="font-size:1.2rem;font-weight:900;color:var(--danger)">' + maxLossStreak + 'L</div>'
+      + '</div>';
+    html += '</div>';
+
+    // Fav vs dog split
+    if (ugBets.length && favBets.length) {
+      var ugWR = Math.round(ugWins / ugBets.length * 100);
+      var favWR = Math.round(favWins / favBets.length * 100);
+      html += '<div style="margin-bottom:10px">';
+      html += '<div style="font-size:.58rem;color:var(--muted);margin-bottom:6px;font-weight:700;letter-spacing:1px;text-transform:uppercase">Favorite vs Underdog Record</div>';
+      html += '<div style="display:flex;gap:8px;flex-wrap:wrap">';
+      html += '<div style="flex:1;min-width:90px;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+        + '<div style="font-size:.62rem;color:var(--muted)">Favorites</div>'
+        + '<div style="font-size:.95rem;font-weight:900;color:' + (favWR >= 55 ? 'var(--primary)' : favWR >= 45 ? 'var(--gold)' : 'var(--danger)') + '">' + favWins + '-' + (favBets.length - favWins) + ' (' + favWR + '%)</div>'
+        + '<div style="font-size:.58rem;color:var(--muted)">avg odds ' + fmtOddsShort(Math.round(favBets.reduce(function(s,p){return s+(parseInt(p.odds,10)||-110)},0)/favBets.length)) + '</div>'
+        + '</div>';
+      html += '<div style="flex:1;min-width:90px;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+        + '<div style="font-size:.62rem;color:var(--muted)">Underdogs</div>'
+        + '<div style="font-size:.95rem;font-weight:900;color:' + (ugWR >= 40 ? 'var(--primary)' : ugWR >= 30 ? 'var(--gold)' : 'var(--danger)') + '">' + ugWins + '-' + (ugBets.length - ugWins) + ' (' + ugWR + '%)</div>'
+        + '<div style="font-size:.58rem;color:var(--muted)">avg odds +' + Math.round(ugBets.reduce(function(s,p){return s+(parseInt(p.odds,10)||150)},0)/ugBets.length) + '</div>'
+        + '</div>';
+      html += '</div></div>';
+    }
+
+    // Best win / worst loss
+    if (bestWin || worstLoss) {
+      html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+      if (bestWin) {
+        html += '<div style="padding:8px 10px;border-radius:8px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)">'
+          + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px;font-weight:700;letter-spacing:1px">🏆 BEST WIN</div>'
+          + '<div style="font-size:.78rem;font-weight:800;color:var(--primary)">+' + fmtMoney(bestWin.net) + '</div>'
+          + '<div style="font-size:.62rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + escHtml(bestWin.pick.pick || '') + '">' + escHtml((bestWin.pick.pick || '').slice(0, 28)) + '</div>'
+          + '</div>';
+      }
+      if (worstLoss) {
+        html += '<div style="padding:8px 10px;border-radius:8px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2)">'
+          + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px;font-weight:700;letter-spacing:1px">💸 BIGGEST LOSS</div>'
+          + '<div style="font-size:.78rem;font-weight:800;color:var(--danger)">-' + fmtMoney(worstLoss.cost) + '</div>'
+          + '<div style="font-size:.62rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + escHtml(worstLoss.pick.pick || '') + '">' + escHtml((worstLoss.pick.pick || '').slice(0, 28)) + '</div>'
+          + '</div>';
+      }
+      html += '</div>';
+    }
+
+    el.innerHTML = html;
+  }
+
+  /* ────────────────────────────────────────────────
      Build one pick row HTML
   ──────────────────────────────────────────────── */
   function resultBadge(result) {
@@ -888,6 +1005,7 @@
     renderStats(allPicks);
     renderBankrollChart(allPicks);
     renderConfBreakdown(allPicks);
+    renderBetIntel(allPicks);
 
     // Apply filter
     var filtered;

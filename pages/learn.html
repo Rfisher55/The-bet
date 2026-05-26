@@ -1070,6 +1070,83 @@
       </div>
     </div>
 
+    <!-- Teaser Calculator -->
+    <div class="section-label" style="margin-top:28px">&#127918; Teaser Calculator</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Teasers let you move the spread by 6, 6.5, or 7 points in exchange for reduced payout. Most common: 2-team 6-point teaser at -110. Key strategy: always cross 3 and 7 (the two most common NFL/CFB margins).</p>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:28px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;max-width:500px">
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Teaser Points</label>
+          <select id="teas-pts" style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            onchange="calcTeaser()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'">
+            <option value="6">6 pts</option>
+            <option value="6.5">6.5 pts</option>
+            <option value="7">7 pts</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Teams</label>
+          <select id="teas-legs" style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            onchange="calcTeaser()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'">
+            <option value="2">2 teams</option>
+            <option value="3">3 teams</option>
+            <option value="4">4 teams</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Wager ($)</label>
+          <input type="number" id="teas-stake" value="100" min="1"
+            style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            oninput="calcTeaser()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Team Spreads (one per line, e.g. <code style="background:var(--surface);padding:0 4px;border-radius:4px">-7</code>)</label>
+        <textarea id="teas-spreads" rows="2" placeholder="-7&#10;+3"
+          style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.9rem;font-weight:600;outline:none;resize:vertical;font-family:inherit"
+          oninput="calcTeaser()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'">-7
++3</textarea>
+      </div>
+      <div id="teas-result" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+        <div style="font-size:.78rem;color:var(--muted)">Enter teams and spreads to see teaser analysis</div>
+      </div>
+    </div>
+
+    <!-- Round Robin Calculator -->
+    <div class="section-label" style="margin-top:8px">&#128260; Round Robin Calculator</div>
+    <p style="font-size:.845rem;color:var(--muted);margin-bottom:16px;line-height:1.6">A round robin creates every possible parlay combination from your picks. Instead of needing all legs to hit, you win on any sub-parlay that cashes — lower risk, lower reward vs a straight parlay.</p>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:28px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;max-width:400px">
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Picks (3–6)</label>
+          <select id="rr-picks" style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            onchange="calcRoundRobin()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'">
+            <option value="3">3 picks</option>
+            <option value="4">4 picks</option>
+            <option value="5">5 picks</option>
+            <option value="6">6 picks</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Parlay Size</label>
+          <select id="rr-size" style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+            onchange="calcRoundRobin()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'">
+            <option value="2">2-team parlays</option>
+            <option value="3">3-team parlays</option>
+          </select>
+        </div>
+      </div>
+      <div style="max-width:200px;margin-bottom:14px">
+        <label style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Wager per combo ($)</label>
+        <input type="number" id="rr-stake" value="20" min="1"
+          style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border-l);background:var(--surface);color:var(--text);font-size:.95rem;font-weight:700;outline:none"
+          oninput="calcRoundRobin()" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-l)'" />
+      </div>
+      <div id="rr-result" style="padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--surface)">
+        <div style="font-size:.78rem;color:var(--muted)">Select options to see round robin breakdown</div>
+      </div>
+    </div>
+
   </div><!-- /#tab-tools -->
 
 </main><!-- /.container.page-content -->
@@ -1419,6 +1496,174 @@ function calcBreakEven() {
     + '</div>';
 }
 calcBreakEven();
+
+// Teaser Calculator
+// Standard teaser payout table (approximate): 2-team 6pt=-110, 2-team 6.5pt=-120, 2-team 7pt=-130
+// 3-team 6pt=+180, 3-team 6.5pt=+160, 3-team 7pt=+140
+// 4-team 6pt=+300, 4-team 6.5pt=+260, 4-team 7pt=+200
+function calcTeaser() {
+  var ptsVal = parseFloat(document.getElementById('teas-pts').value) || 6;
+  var legs   = parseInt(document.getElementById('teas-legs').value, 10) || 2;
+  var stake  = parseFloat(document.getElementById('teas-stake').value) || 100;
+  var raw    = (document.getElementById('teas-spreads').value || '').trim().split('\n');
+  var spreads = raw.map(function(s) { return parseFloat(s); }).filter(function(n) { return !isNaN(n); });
+  var el = document.getElementById('teas-result');
+  if (!el) return;
+
+  // Standard payout odds table
+  var oddsTable = {
+    6:   { 2: -110, 3: 180,  4: 300 },
+    6.5: { 2: -120, 3: 160,  4: 260 },
+    7:   { 2: -130, 3: 140,  4: 200 }
+  };
+  var americanOdds = (oddsTable[ptsVal] || oddsTable[6])[legs] || -110;
+  var dec = americanOdds > 0 ? americanOdds / 100 + 1 : 100 / Math.abs(americanOdds) + 1;
+  var potWin = stake * (dec - 1);
+  var implied = 1 / dec * 100;
+
+  // Key number analysis for each spread
+  var keyNums = [3, 3.5, 7, 7.5, 10, 10.5, 14];
+  var legAnalysis = spreads.slice(0, legs).map(function(sp, i) {
+    var newSp = sp >= 0 ? sp + ptsVal : sp - ptsVal; // fav gets subtracted, dog gets added
+    // Actually: you always move the spread in your favor
+    // if betting favorite (sp < 0): new spread = sp + ptsVal (closer to 0)
+    // if betting dog (sp > 0): new spread = sp + ptsVal (even more points)
+    var teasedSp = sp - ptsVal; // move in bettor's favor: favorited team needs to win by less
+    // Better: teaser always buys points toward 0 and beyond
+    // Favorite at -10 → teaser 6pts → -4
+    // Dog at +3 → teaser 6pts → +9
+    var isFav = sp < 0;
+    var teasedLine = isFav ? sp + ptsVal : sp + ptsVal;
+    var crossedKeys = keyNums.filter(function(k) {
+      // Did we cross this key number?
+      var lo = Math.min(Math.abs(sp), Math.abs(teasedLine));
+      var hi = Math.max(Math.abs(sp), Math.abs(teasedLine));
+      return k > lo && k <= hi;
+    });
+    return { orig: sp, teased: teasedLine, crossed: crossedKeys };
+  });
+
+  // Each leg win prob (simplified: assume 52% base, boosted by key num crossings)
+  var legProbs = legAnalysis.map(function(l) {
+    var base = 0.52;
+    var bonus = l.crossed.length * 0.05; // +5% per key number crossed
+    return Math.min(0.78, base + bonus);
+  });
+  var combinedProb = legProbs.reduce(function(acc, p) { return acc * p; }, 1);
+  var ev = combinedProb * potWin - (1 - combinedProb) * stake;
+  var evSign = ev >= 0 ? '+' : '';
+
+  var crossedColor = function(n) { return n > 0 ? 'var(--primary)' : 'var(--muted)'; };
+
+  var legRows = legAnalysis.map(function(l, i) {
+    var crossTxt = l.crossed.length ? l.crossed.map(function(k) { return (l.orig < 0 ? '-' : '+') + k; }).join(', ') : 'None';
+    var sp1 = l.orig >= 0 ? '+' + l.orig : '' + l.orig;
+    var sp2 = l.teased >= 0 ? '+' + l.teased.toFixed(1) : l.teased.toFixed(1);
+    var pct = Math.round(legProbs[i] * 100);
+    return '<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border);margin-bottom:6px;flex-wrap:wrap">'
+      + '<span style="font-size:.68rem;font-weight:800;color:var(--muted);width:16px">' + (i + 1) + '</span>'
+      + '<span style="font-size:.8rem;font-weight:800;color:var(--muted)">' + sp1 + '</span>'
+      + '<span style="font-size:.65rem;color:var(--muted)">→</span>'
+      + '<span style="font-size:.8rem;font-weight:900;color:var(--primary)">' + sp2 + '</span>'
+      + '<span style="font-size:.6rem;color:var(--muted)">|</span>'
+      + '<span style="font-size:.65rem;color:' + crossedColor(l.crossed.length) + ';font-weight:700">Crosses: ' + crossTxt + '</span>'
+      + '<span style="font-size:.6rem;color:var(--muted);margin-left:auto">~' + pct + '% win</span>'
+      + '</div>';
+  }).join('');
+
+  var oddsStr = americanOdds > 0 ? '+' + americanOdds : '' + americanOdds;
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">'
+    + '<div style="text-align:center;padding:8px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+      + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px">Teaser Odds</div>'
+      + '<div style="font-size:1.1rem;font-weight:900;color:var(--text)">' + oddsStr + '</div>'
+    + '</div>'
+    + '<div style="text-align:center;padding:8px;border-radius:8px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2)">'
+      + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px">Win $' + stake.toFixed(0) + '</div>'
+      + '<div style="font-size:1.1rem;font-weight:900;color:var(--primary)">+$' + potWin.toFixed(2) + '</div>'
+    + '</div>'
+    + '<div style="text-align:center;padding:8px;border-radius:8px;background:' + (ev >= 0 ? 'rgba(16,185,129,.07)' : 'rgba(239,68,68,.07)') + ';border:1px solid ' + (ev >= 0 ? 'rgba(16,185,129,.2)' : 'rgba(239,68,68,.2)') + '">'
+      + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px">Est. EV</div>'
+      + '<div style="font-size:1.1rem;font-weight:900;color:' + (ev >= 0 ? 'var(--primary)' : 'var(--danger)') + '">' + evSign + '$' + Math.abs(ev).toFixed(2) + '</div>'
+    + '</div>'
+    + '</div>'
+    + (legAnalysis.length ? legRows : '<div style="font-size:.75rem;color:var(--muted)">Enter team spreads above (one per line)</div>')
+    + '<div style="font-size:.68rem;color:var(--muted);margin-top:8px;line-height:1.5">Combined hit prob: <strong style="color:var(--text)">' + Math.round(combinedProb * 100) + '%</strong> · EV estimate uses simplified win probabilities based on key number crossings (3, 7, 10, 14). Actual value depends on your edge per leg.</div>';
+}
+calcTeaser();
+
+// Round Robin Calculator
+function calcRoundRobin() {
+  var picks = parseInt(document.getElementById('rr-picks').value, 10) || 3;
+  var size  = parseInt(document.getElementById('rr-size').value, 10) || 2;
+  var stake = parseFloat(document.getElementById('rr-stake').value) || 20;
+  var el = document.getElementById('rr-result');
+  if (!el) return;
+
+  if (size >= picks) { size = picks - 1; }
+
+  // n choose k
+  function choose(n, k) {
+    if (k > n) return 0;
+    if (k === 0 || k === n) return 1;
+    var result = 1;
+    for (var i = 0; i < k; i++) { result = result * (n - i) / (i + 1); }
+    return Math.round(result);
+  }
+
+  var combos = choose(picks, size);
+  var totalRisk = combos * stake;
+
+  // Parlay odds at -110 per leg: dec per leg = 100/110 + 1 = 1.909...
+  var decPerLeg = 100 / 110 + 1;
+  var parlayDec = Math.pow(decPerLeg, size);
+  var parlayAm = parlayDec >= 2 ? Math.round((parlayDec - 1) * 100) : Math.round(-100 / (parlayDec - 1));
+  var parlayWin = stake * (parlayDec - 1);
+
+  // Scenarios: 0 through picks legs hit
+  var scenarios = [];
+  for (var hit = 0; hit <= picks; hit++) {
+    // How many of our combos have all legs win?
+    // A combo wins if all 'size' legs in that combo hit
+    // # of winning combos = choose(hit, size) (combos entirely within the hit group)
+    var winCombos = choose(hit, size);
+    var grossWin = winCombos * parlayWin;
+    var net = grossWin - totalRisk;
+    scenarios.push({ hit: hit, winCombos: winCombos, grossWin: grossWin, net: net });
+  }
+
+  var oddsStr = parlayAm > 0 ? '+' + parlayAm : '' + parlayAm;
+  var summaryRows = scenarios.map(function(s) {
+    var color = s.net > 0 ? 'var(--primary)' : s.net === 0 ? 'var(--gold)' : 'var(--danger)';
+    var netStr = (s.net >= 0 ? '+' : '') + '$' + Math.abs(s.net).toFixed(2);
+    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:7px;background:var(--surface);border:1px solid var(--border);margin-bottom:5px">'
+      + '<span style="font-size:.68rem;font-weight:800;color:var(--muted);width:60px">' + s.hit + '/' + picks + ' hit</span>'
+      + '<span style="font-size:.65rem;color:var(--muted)">' + s.winCombos + ' of ' + combos + ' parlays cash</span>'
+      + '<span style="font-size:.75rem;font-weight:900;color:' + color + ';margin-left:auto">' + netStr + '</span>'
+      + '</div>';
+  }).join('');
+
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">'
+    + '<div style="text-align:center;padding:8px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+      + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px">Total Combos</div>'
+      + '<div style="font-size:1.1rem;font-weight:900;color:var(--text)">' + combos + '</div>'
+      + '<div style="font-size:.58rem;color:var(--muted)">' + picks + ' picks → ' + size + '-team parlays</div>'
+    + '</div>'
+    + '<div style="text-align:center;padding:8px;border-radius:8px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2)">'
+      + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px">Total Risk</div>'
+      + '<div style="font-size:1.1rem;font-weight:900;color:var(--danger)">$' + totalRisk.toFixed(2) + '</div>'
+      + '<div style="font-size:.58rem;color:var(--muted)">$' + stake.toFixed(0) + ' × ' + combos + ' bets</div>'
+    + '</div>'
+    + '<div style="text-align:center;padding:8px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">'
+      + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px">Per-Parlay Win</div>'
+      + '<div style="font-size:1.1rem;font-weight:900;color:var(--primary)">+$' + parlayWin.toFixed(2) + '</div>'
+      + '<div style="font-size:.58rem;color:var(--muted)">' + oddsStr + ' at -110/leg</div>'
+    + '</div>'
+    + '</div>'
+    + '<div style="font-size:.58rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Outcome Scenarios</div>'
+    + summaryRows
+    + '<div style="font-size:.68rem;color:var(--muted);margin-top:8px;line-height:1.5">Assumes all legs at -110 odds. Round robins protect against 1-2 losses while still paying multi-leg parlay odds on your hits.</div>';
+}
+calcRoundRobin();
 </script>
 
 <!-- ── Tab switching JS ────────────────────────────── -->
