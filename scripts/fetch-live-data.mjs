@@ -273,9 +273,19 @@ async function fetchESPNScoreboard() {
       const statusName = ev.status?.type?.name || "STATUS_SCHEDULED";
       const completed  = statusName === "STATUS_FINAL";
       const inProgress = statusName === "STATUS_IN_PROGRESS";
-      const key = `${home.team?.displayName}|${away.team?.displayName}`;
+      const homeDisplay = home.team?.displayName || "";
+      const awayDisplay = away.team?.displayName || "";
+      // location = school name without mascot (e.g. "LSU" not "LSU Tigers")
+      // Used for schoolToId() lookup in the ESPN fallback path.
+      const homeLocation = home.team?.location || homeDisplay;
+      const awayLocation = away.team?.location || awayDisplay;
+      const key = `${homeDisplay}|${awayDisplay}`;
       byKey[key] = {
         espnId:       ev.id,
+        homeTeamName: homeDisplay,
+        awayTeamName: awayDisplay,
+        homeLocation,
+        awayLocation,
         homeScore:    completed||inProgress ? parseInt(home.score)||null : null,
         awayScore:    completed||inProgress ? parseInt(away.score)||null : null,
         date:         (ev.date||"").slice(0,10),
@@ -988,6 +998,139 @@ async function main() {
     }
   }
 
+  // ── ESPN fallback: if CFBD returned 0 games but ESPN has the schedule ────────
+  // CFBD typically doesn't publish the upcoming season's schedule until July/August.
+  // ESPN has the full schedule posted months earlier — use it as primary source
+  // when CFBD is empty, so the site shows real game data during the preseason.
+  if (games.length === 0 && Object.keys(espnByKey).length > 0) {
+    console.log(`  CFBD returned 0 games — using ESPN schedule as primary source (${Object.keys(espnByKey).length} games found)`);
+
+    // Build SP+ / ELO lookups for enriching ESPN-sourced games
+    const spLookup = {};
+    for (const sp of cfbdExtras.spRatings) {
+      const id = schoolToId(sp.team);
+      if (id) spLookup[id] = sp;
+    }
+    const eloLookup = {};
+    for (const elo of cfbdExtras.eloRatings) {
+      const id = schoolToId(elo.school);
+      if (id) eloLookup[id] = elo.elo;
+    }
+
+    for (const [key, espn] of Object.entries(espnByKey)) {
+      if (!espn.date || !espn.week) continue;
+
+      const homeId = schoolToId(espn.homeLocation);
+      const awayId = schoolToId(espn.awayLocation);
+      const oddsKey = key; // Odds API uses displayName-based keys too
+
+      const odds       = oddsData[oddsKey]     || null;
+      const pinnacle   = pinnacleData[oddsKey] || null;
+      const pubBet     = getPublicBetting(espn.homeTeamName, espn.awayTeamName);
+      const lineMovement = buildLineMovement(null, odds);
+
+      let sharpSignal = odds?.sharpSignal || null;
+      if (!sharpSignal && pinnacle?.pinnacleSpread != null) {
+        // Pinnacle vs consensus divergence as sharp signal
+        const allSpreads = Object.values(odds?.byBook || {});
+        const consensus  = allSpreads.length ? allSpreads.reduce((a,b)=>a+b,0)/allSpreads.length : null;
+        if (consensus != null) {
+          const div = pinnacle.pinnacleSpread - consensus;
+          if (Math.abs(div) >= 1) sharpSignal = div < 0 ? "home" : "away";
+        }
+      }
+
+      // Weather only available for games within 16-day forecast window
+      const weather = espn.status === "scheduled"
+        ? await getWeather(homeId, espn.date, espn.time)
+        : null;
+
+      const beatWriter = [];
+      if (pubBet.source !== "default" && pubBet.homePct !== 50) {
+        const favSide = pubBet.homePct > 50 ? espn.homeTeamName : espn.awayTeamName;
+        const pct     = pubBet.homePct > 50 ? pubBet.homePct   : pubBet.awayPct;
+        beatWriter.push({
+          reporter: "Public Betting Data",
+          outlet:   pubBet.source === "action_network" ? "Action Network" : "Covers.com",
+          report:   `${pct}% of public bets on ${favSide} — ${pct >= 70 ? "heavy public lean, watch for sharp counter" : "moderate public leaning"}.`,
+          sentiment: "neutral", daysAgo: 0,
+          team: pubBet.homePct > 50 ? homeId : awayId,
+        });
+      }
+
+      const homeSP = spLookup[homeId];
+      const awaySP = spLookup[awayId];
+
+      const socialBuzz = {
+        homeTeamBuzz: Math.min(100, (redditBuzz[homeId]?.score||0) + (apRanks[homeId] ? Math.max(0, 25-apRanks[homeId]) : 0)),
+        awayTeamBuzz: Math.min(100, (redditBuzz[awayId]?.score||0) + (apRanks[awayId] ? Math.max(0, 25-apRanks[awayId]) : 0)),
+        sentimentHome: redditBuzz[homeId]?.sentiment === "positive" ? "0.65" : redditBuzz[homeId]?.sentiment === "negative" ? "0.35" : "0.50",
+        sentimentAway: redditBuzz[awayId]?.sentiment === "positive" ? "0.65" : redditBuzz[awayId]?.sentiment === "negative" ? "0.35" : "0.50",
+        trendingTopics: [
+          weather?.windMph > 20 ? `💨 Wind ${weather.windMph}mph` : null,
+          weather?.precipitation > 0.5 ? `🌧 Rain ${Math.round(weather.precipitation * 100)}%` : null,
+          weather?.tempF < 35 ? `🥶 Cold Weather` : null,
+          apRanks[homeId] ? `#${apRanks[homeId]} ${espn.homeTeamName}` : null,
+          apRanks[awayId] ? `#${apRanks[awayId]} ${espn.awayTeamName}` : null,
+          sharpSignal ? `💰 Sharp Signal` : null,
+        ].filter(Boolean).slice(0, 5),
+      };
+
+      games.push({
+        id:               `espn_${espn.espnId}`,
+        espnId:           espn.espnId,
+        week:             espn.week,
+        seasonType:       "regular",
+        date:             espn.date,
+        time:             espn.time || "TBD",
+        homeTeamId:       homeId,
+        awayTeamId:       awayId,
+        homeTeamName:     espn.homeTeamName,
+        awayTeamName:     espn.awayTeamName,
+        homeConference:   "",
+        awayConference:   "",
+        network:          espn.network || "TBD",
+        venue:            espn.venue || "",
+        venueCity:        espn.venueCity || "",
+        venueState:       espn.venueState || "",
+        isConferenceGame: false,
+        neutralSite:      espn.neutralSite || false,
+        status:           espn.status || "scheduled",
+        homeScore:        espn.homeScore ?? null,
+        awayScore:        espn.awayScore ?? null,
+        homeApRank:       apRanks[homeId] || null,
+        awayApRank:       apRanks[awayId] || null,
+        homeSP:           homeSP?.rating ?? null,
+        awaySP:           awaySP?.rating ?? null,
+        homeSpRank:       homeSP?.ranking ?? null,
+        awaySpRank:       awaySP?.ranking ?? null,
+        homeElo:          eloLookup[homeId] || null,
+        awayElo:          eloLookup[awayId] || null,
+        bettingLines:     null, // populated once sportsbooks post lines (closer to season)
+        weather,
+        lineMovement,
+        situational:      {},
+        xFactors:         [],
+        socialBuzz,
+        socialIntel: {
+          lineMovement,
+          publicBetting: pubBet,
+          beatWriter,
+          sharpSignal,
+          oddsBookCount: odds?.bookCount || 0,
+        },
+        gamePreview: {
+          headline:  `${espn.awayTeamName} at ${espn.homeTeamName}`,
+          synopsis:  `Week ${espn.week} matchup. Lines and preview analysis update as game week approaches.`,
+          analysis:  [],
+          thePick:   { team:"", line:"", confidence:"LOW", unit:1, reasoning:"" },
+        },
+        fromESPN: true, // flag so live.js / predictor knows CFBD data is not yet available
+      });
+    }
+    console.log(`  ESPN fallback: ${games.length} game objects built`);
+  }
+
   const weatherCount = games.filter(g => g.weather && !g.weather.indoors).length;
   console.log(`  Weather fetched for ${weatherCount} outdoor games`);
 
@@ -1008,10 +1151,8 @@ async function main() {
     console.log(`  Social/team data written — Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, SP+: ${cfbdExtras.spRatings.length}, injuries: ${Object.values(injuries).flat().length}`);
   }
 
-  // Only write game files when we actually have games — avoids a timestamp-only
-  // commit on every run when CFBD has no season data yet (off-season).
   if (games.length === 0) {
-    console.log("  No game data from CFBD (off-season or API unavailable) — skipping games-2026.json");
+    console.log("  No game data from CFBD or ESPN — skipping games-2026.json");
     return;
   }
 
@@ -1032,9 +1173,11 @@ async function main() {
     ppaTeams:       cfbdExtras.ppa.length,
     recruitingTeams:cfbdExtras.recruiting.length,
     transferCount:  cfbdExtras.transfers.length,
+    espnFallback:   games.some(g => g.fromESPN) && !games.some(g => g.fromPregen),
     dataSourcesActive: [
-      "CFBD (schedule+lines+SP++ELO+stats+recruiting+PPA)",
-      "ESPN (scores+injuries)",
+      games.some(g => g.fromPregen) ? "CFBD (schedule+lines+SP++ELO+stats+recruiting+PPA)" : null,
+      games.some(g => g.fromESPN)   ? "ESPN (schedule — CFBD preseason fallback)"           : "ESPN (scores+injuries)",
+      cfbdExtras.spRatings.length > 0 && games.some(g=>g.fromESPN) ? "CFBD (SP++ELO+recruiting+PPA)" : null,
       Object.keys(oddsData).length > 0    ? "TheOddsAPI (20+ US books)"              : null,
       Object.keys(pinnacleData).length > 0? "OddsPapi/Pinnacle (sharp reference)"    : null,
       Object.keys(actionBetting).length > 0?"ActionNetwork (public betting %)"       : null,
