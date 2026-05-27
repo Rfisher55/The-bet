@@ -837,7 +837,7 @@
   <!-- Top picks -->
   <section class="mb-5">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
-      <div class="section-label mb-0">Top Picks — Week 1</div>
+      <div class="section-label mb-0" id="top-picks-week-label">Top Picks — Week 1</div>
       <div style="display:flex;align-items:center;gap:8px">
         <button id="copy-picks-btn" onclick="copyWeekPicks()" style="padding:5px 12px;border-radius:8px;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:var(--accent);font-size:.68rem;font-weight:800;cursor:pointer">📋 Copy Picks</button>
         <a href="pages/games.html" class="text-sm text-primary" style="text-decoration:underline">All games →</a>
@@ -1284,11 +1284,13 @@ function renderHeroPick() {
       '</div>';
     return;
   }
-  var wk1 = allPredictions.filter(function(p) { return p.game.week === 1; });
-  if (!wk1.length) {
-    // Use all predictions if no week 1 games
-    wk1 = allPredictions;
-  }
+  var today2 = new Date();
+  var upcomingWeeks = allPredictions
+    .filter(function(p) { return p.game.week && new Date(p.game.date) >= today2; })
+    .map(function(p) { return p.game.week; });
+  var nextWeek = upcomingWeeks.length ? Math.min.apply(null, upcomingWeeks) : 1;
+  var wk1 = allPredictions.filter(function(p) { return p.game.week === nextWeek; });
+  if (!wk1.length) wk1 = allPredictions;
   if (!wk1.length) return; // leave skeleton
 
   var confW = { elite: 4, high: 3, medium: 2, low: 1 };
@@ -1421,8 +1423,22 @@ function renderTopPicks() {
   }
   var confWeights = { ELITE: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
 
-  // Score each prediction: curated analyst picks get priority, then model edge
-  var scored = allPredictions.map(function(p) {
+  // Determine the earliest upcoming week so we show next-up picks, not season highlights
+  var today = new Date();
+  var weeks = allPredictions
+    .filter(function(p) { return p.game.week && new Date(p.game.date) >= today; })
+    .map(function(p) { return p.game.week; });
+  var currentWeek = weeks.length ? Math.min.apply(null, weeks) : 1;
+
+  // Update the section label dynamically
+  var lbl = document.getElementById("top-picks-week-label");
+  if (lbl) lbl.textContent = "Top Picks — Week " + currentWeek;
+
+  // Filter to current week only, then score by confidence + model edge
+  var weekPreds = allPredictions.filter(function(p) { return p.game.week === currentWeek; });
+  if (!weekPreds.length) weekPreds = allPredictions; // fallback: all games
+
+  var scored = weekPreds.map(function(p) {
     var tp = p.game.gamePreview && p.game.gamePreview.thePick;
     var curatedConf = tp && tp.confidence ? confWeights[tp.confidence.toUpperCase()] || 0 : 0;
     var sp = p.prediction.spreadPick || {};
