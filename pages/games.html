@@ -381,14 +381,18 @@ function initConfChips() {
   const confs = buildConferences();
   const chips = [{ label:"All", val:"all" }, ...confs.map(c => ({ label: c.replace("American Athletic","AAC").replace("Mountain West","MWC").replace("Conference USA","CUSA").replace("FBS Independents","Ind."), val:c }))];
   document.getElementById("conf-chips").innerHTML = chips.map(c => `<div class="week-tab${c.val===CONF_STATE.active?" active":""}" data-conf="${c.val}">${c.label}</div>`).join("");
-  document.getElementById("conf-chips").addEventListener("click", e => {
-    const tab = e.target.closest(".week-tab");
-    if (!tab) return;
-    document.querySelectorAll("#conf-chips .week-tab").forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-    CONF_STATE.active = tab.dataset.conf;
-    render();
-  });
+  const el = document.getElementById("conf-chips");
+  if (!el._chipListenerAdded) {
+    el.addEventListener("click", e => {
+      const tab = e.target.closest(".week-tab");
+      if (!tab) return;
+      document.querySelectorAll("#conf-chips .week-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      CONF_STATE.active = tab.dataset.conf;
+      render();
+    });
+    el._chipListenerAdded = true;
+  }
 }
 initConfChips();
 
@@ -462,7 +466,7 @@ function renderTableView(list) {
     const confC = { ELITE:"var(--primary)", HIGH:"#34d399", MEDIUM:"var(--gold)", LOW:"var(--muted)" }[pickConf] || "var(--muted)";
     const action = !pickTeam ? "PASS" : "BET";
     const actionC = pickTeam ? "var(--primary)" : "var(--muted)";
-    return `<tr onclick="location.href='game.html?id=${game.id}'" style="cursor:pointer;transition:background .1s" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='transparent'">
+    return `<tr onclick="location.href='game.html?id=${encodeURIComponent(game.id)}'" style="cursor:pointer;transition:background .1s" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='transparent'">
       <td style="padding:8px 10px;white-space:nowrap;font-size:.72rem;color:var(--muted)">Wk${game.week} · ${fmtDate(game.date)}</td>
       <td style="padding:8px 10px">
         <div style="font-size:.8rem;font-weight:700;color:var(--text)">${away.abbreviation} @ ${home.abbreviation}</div>
@@ -505,6 +509,7 @@ function renderTableView(list) {
 }
 
 function buildWeekTabs() {
+  if (typeof GAMES === 'undefined' || !window.GAMES || !GAMES.length) return;
   const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
   const strip = document.getElementById("week-strip");
   const prev = activeWeek;
@@ -868,7 +873,7 @@ function renderGameCard(game, pred) {
         // Insider alert — Twitter intel on either team
         const insiderTweets = [...(homeIntel.insiderAlerts||[]), ...(awayIntel.insiderAlerts||[])];
         if (insiderTweets.length) {
-          const snippet = insiderTweets[0].text.slice(0, 60) + (insiderTweets[0].text.length > 60 ? "…" : "");
+          const snippet = (insiderTweets[0].text || '').slice(0, 60) + ((insiderTweets[0].text || '').length > 60 ? "…" : "");
           chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.5);color:#f87171" title="${snippet.replace(/"/g,"'")}">🚨 INSIDER</span>`);
         }
 
@@ -1112,7 +1117,7 @@ function render() {
   } else if (sortBy === "ev") {
     list.sort((a,b) => computeGameEV(b.game, b.prediction) - computeGameEV(a.game, a.prediction));
   } else {
-    list.sort((a,b) => a.game.date.localeCompare(b.game.date));
+    list.sort((a,b) => (a.game.date||'').localeCompare(b.game.date||''));
   }
 
   // Update result count with prominence

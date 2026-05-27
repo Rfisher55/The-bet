@@ -56,13 +56,13 @@ const SCHOOL_TO_ID = {
   "Mississippi State":"mississippi_state",Missouri:"missouri",
   "Ole Miss":"ole_miss",Mississippi:"ole_miss",
   "South Carolina":"south_carolina","Texas A&M":"texas_am",Vanderbilt:"vanderbilt",
-  "Boston College":"boston_college",California:"california",
+  "Boston College":"boston_college",California:"cal",
   Duke:"duke","Georgia Tech":"georgia_tech",Louisville:"louisville",
   "NC State":"nc_state","North Carolina State":"nc_state",
   "North Carolina":"north_carolina",Pittsburgh:"pittsburgh",
   Syracuse:"syracuse",Virginia:"virginia","Virginia Tech":"virginia_tech",
-  "Wake Forest":"wake_forest",SMU:"smu",Stanford:"stanford",Cal:"california",
-  Arizona:"arizona","Arizona State":"arizona_state",Baylor:"baylor",
+  "Wake Forest":"wake_forest",SMU:"smu",Stanford:"stanford",
+  Arizona:"arizona","Arizona State":"arizona_state",Cal:"cal",Baylor:"baylor",
   BYU:"byu",Cincinnati:"cincinnati",Colorado:"colorado",
   Houston:"houston","Iowa State":"iowa_state",Kansas:"kansas",
   "Kansas State":"kansas_state","Oklahoma State":"oklahoma_state",
@@ -296,7 +296,7 @@ async function fetchESPNInjuries() {
     utah:254,byu:252,cincinnati:2132,ucf:2116,florida_state:52,
     north_carolina:153,pittsburgh:221,virginia_tech:259,louisville:97,
     wake_forest:154,boston_college:103,duke:150,syracuse:183,virginia:258,
-    stanford:24,california:25,smu:2567,arizona_state:9,arizona:12,
+    stanford:24,cal:25,smu:2567,arizona_state:9,arizona:12,
     colorado:38,west_virginia:277,iowa_state:66,kansas:2305,texas_tech:2641,
     tcu:2628,houston:248,north_texas:249,memphis:235,tulane:2655,navy:2426,
     army:349,south_florida:58,east_carolina:151,rice:242,boise_state:68,
@@ -309,7 +309,7 @@ async function fetchESPNInjuries() {
     washington_state:265,georgia_tech:59,nc_state:152,
     app_state:2026,coastal_carolina:324,liberty:2335,marshall:276,
     old_dominion:295,james_madison:2259,western_kentucky:98,utsa:2636,
-    uab:2629,fau:2226,fiu:2296,charlotte:2429,southern_miss:239,
+    uab:2629,fau:2226,fiu:2296,charlotte:2429,southern_miss:238,
     troy:2653,south_alabama:6,louisiana:309,ul_monroe:2433,arkansas_state:2032,
     georgia_southern:290,georgia_state:2247,texas_state:326,middle_tennessee:2393,
     new_mexico_state:166,la_tech:2348,sam_houston:2534,utep:2638,
@@ -475,7 +475,7 @@ async function fetchCoversBetting() {
 // ── OpenMeteo — free game-day weather (hourly, game-time accurate) ────────
 // Uses hourly data and picks the hour closest to a typical kickoff (6pm-8pm local)
 async function fetchWeather(lat, lon, date, isDome, gameTime) {
-  if (isDome) return { condition:"Dome", temp:72, wind:0, precipitation:0, dome:true };
+  if (isDome) return { condition:"Dome", tempF:72, windMph:0, precipitation:0, indoors:true };
   if (!lat || !lon || !date) return null;
   const diffDays = (new Date(date) - new Date()) / 86400000;
   if (diffDays > 16 || diffDays < -3) return null; // OpenMeteo forecast limit + allow recent past
@@ -503,13 +503,13 @@ async function fetchWeather(lat, lon, date, isDome, gameTime) {
   const code = d.hourly.weathercode[idx];
   return {
     condition:    WX_CODE[code] ?? "Unknown",
-    temp:         Math.round(d.hourly.temperature_2m[idx] ?? 65),
-    wind:         Math.round(d.hourly.windspeed_10m[idx] ?? 0),
+    tempF:        Math.round(d.hourly.temperature_2m[idx] ?? 65),
+    windMph:      Math.round(d.hourly.windspeed_10m[idx] ?? 0),
     gusts:        Math.round(d.hourly.windgusts_10m[idx] ?? 0),
     windDir:      d.hourly.winddirection_10m[idx] != null ? DIRS[Math.round(d.hourly.winddirection_10m[idx]/22.5) % 16] : "N/A",
-    precipitation:Math.round(d.hourly.precipitation_probability[idx] ?? 0),
+    precipitation:Math.round(d.hourly.precipitation_probability[idx] ?? 0) / 100,
     humidity:     Math.round(d.hourly.relativehumidity_2m[idx] ?? 50),
-    dome:         false,
+    indoors:      false,
     kickoffHour,
     code,
   };
@@ -907,9 +907,9 @@ async function main() {
         sentimentHome: homeBuzz?.sentiment === "positive" ? "0.65" : homeBuzz?.sentiment === "negative" ? "0.35" : "0.50",
         sentimentAway: awayBuzz?.sentiment === "positive" ? "0.65" : awayBuzz?.sentiment === "negative" ? "0.35" : "0.50",
         trendingTopics: [...new Set([
-          weather?.wind > 20 ? `💨 Wind ${weather.wind}mph` : null,
-          weather?.precipitation > 50 ? `🌧 Rain ${weather.precipitation}%` : null,
-          weather?.temp < 35 ? `🥶 Cold Weather` : null,
+          weather?.windMph > 20 ? `💨 Wind ${weather.windMph}mph` : null,
+          weather?.precipitation > 0.5 ? `🌧 Rain ${Math.round(weather.precipitation * 100)}%` : null,
+          weather?.tempF < 35 ? `🥶 Cold Weather` : null,
           apRanks[homeId] ? `#${apRanks[homeId]} ${g.home_team}` : null,
           apRanks[awayId] ? `#${apRanks[awayId]} ${g.away_team}` : null,
           sharpSignal ? `💰 Sharp Signal` : null,
@@ -966,7 +966,7 @@ async function main() {
         },
         gamePreview: {
           headline: `${g.away_team} at ${g.home_team}`,
-          synopsis: `Week ${g.week||1} ${g.season_type||"regular"} season matchup. ${weather ? `Weather: ${weather.condition}, ${weather.temp}°F, wind ${weather.wind}mph.` : ""}`,
+          synopsis: `Week ${g.week||1} ${g.season_type||"regular"} season matchup. ${weather ? `Weather: ${weather.condition}, ${weather.tempF}°F, wind ${weather.windMph}mph.` : ""}`,
           analysis: [],
           thePick: { team:"", line:"", confidence:"LOW", unit:1, reasoning:"" },
         },

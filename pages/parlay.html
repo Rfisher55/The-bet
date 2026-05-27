@@ -427,7 +427,7 @@
       <button onclick="clearParlay()" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer">Clear All</button>
       <button onclick="copyParlay(this)" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted-l);font-size:.78rem;font-weight:700;cursor:pointer">&#128203; Copy Picks</button>
       <button onclick="openSaveSlotDialog()" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(99,102,241,.4);background:rgba(99,102,241,.08);color:var(--accent);font-size:.78rem;font-weight:700;cursor:pointer">&#128190; Save Parlay</button>
-      <button onclick="logParleyToPicks(this)" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(16,185,129,.4);background:rgba(16,185,129,.08);color:var(--primary);font-size:.78rem;font-weight:700;cursor:pointer">&#9998; Log to Picks</button>
+      <button onclick="logParlayToPicks(this)" style="padding:8px 16px;border-radius:8px;border:1px solid rgba(16,185,129,.4);background:rgba(16,185,129,.08);color:var(--primary);font-size:.78rem;font-weight:700;cursor:pointer">&#9998; Log to Picks</button>
     </div>
   </div>
 
@@ -566,7 +566,7 @@ function rebuildPreds() {
 rebuildPreds();
 
 // ── Week state ──
-let activeWeek = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b)[0];
+let activeWeek = (window.GAMES && GAMES.length) ? [...new Set(GAMES.map(g=>g.week))].sort((a,b)=>a-b)[0] : 1;
 let edgeFilter = "all";
 let parlayConfFilter = "all";
 let parlayQualityFilter = "all";
@@ -597,6 +597,7 @@ function getParlayName() {
 
 // ── Week tabs ──
 function buildParlayWeekTabs() {
+  if (!window.GAMES || !GAMES.length) return;
   const allWeeks = [...new Set(GAMES.map(g => g.week))].sort((a,b)=>a-b);
   const strip = document.getElementById("week-strip");
   strip.innerHTML = allWeeks.map(w =>
@@ -1047,7 +1048,7 @@ function updateSummary() {
 }
 
 // ── Select/deselect a pick ──
-function selectPick(gameId, side, odds, label, confidence) {
+function selectPick(event, gameId, side, odds, label, confidence) {
   const btn = event && event.target ? event.target.closest(".pick-btn, .pg-btn") : null;
   const key = pickKey(gameId, side);
   if (picks[key]) {
@@ -1255,7 +1256,7 @@ function copyParlay(btn) {
   navigator.clipboard?.writeText(full).then(() => {
     btn.textContent = "✓ Copied!";
     setTimeout(() => { btn.textContent = "📋 Copy Picks"; }, 1500);
-  }).catch(() => {});
+  }).catch(e => { console.warn('Clipboard failed:', e); /* fallback: show manual copy prompt */ var msg = document.getElementById('parlay-copy-msg'); if (msg) { msg.textContent = 'Copy failed — please select and copy manually'; } });
 }
 
 // ── Scroll ──
@@ -1395,17 +1396,17 @@ function renderGameList() {
             <span class="pg-team-name">${away.abbreviation}</span>
           </div>
           <button class="pg-btn${sel("away")}"
-            onclick="selectPick('${game.id}','away',${aso},'${away.name.replace(/'/g,"\\'")} will cover spread','${predConf}')">
+            onclick="selectPick(event,'${game.id}','away',${aso},'${away.name.replace(/'/g,"\\'")} will cover spread','${predConf}')">
             <div class="pg-btn-line">${aSpread}</div>
             <div class="pg-btn-odds">${fmtOdds(aso)}</div>
           </button>
           <button class="pg-btn${sel("over")}"${bl.total ? "" : " disabled"}
-            onclick="selectPick('${game.id}','over',${oo},'${away.abbreviation}/${home.abbreviation} — game goes OVER total','${predConf}')">
+            onclick="selectPick(event,'${game.id}','over',${oo},'${away.abbreviation}/${home.abbreviation} — game goes OVER total','${predConf}')">
             <div class="pg-btn-line">${bl.total ? "O " + bl.total : "—"}</div>
             <div class="pg-btn-odds">${bl.total ? fmtOdds(oo) : ""}</div>
           </button>
           <button class="pg-btn${sel("away-ml")}"${bl.moneylineAway ? "" : " disabled"}
-            onclick="selectPick('${game.id}','away-ml',${bl.moneylineAway || 0},'${away.abbreviation} ML','${predConf}')">
+            onclick="selectPick(event,'${game.id}','away-ml',${bl.moneylineAway || 0},'${away.abbreviation} ML','${predConf}')">
             <div class="pg-btn-line">${bl.moneylineAway ? fmtML(bl.moneylineAway) : "—"}</div>
           </button>
 
@@ -1415,17 +1416,17 @@ function renderGameList() {
             <span class="pg-team-name">${home.abbreviation}</span>
           </div>
           <button class="pg-btn${sel("home")}"
-            onclick="selectPick('${game.id}','home',${hso},'${home.name.replace(/'/g,"\\'")} will cover spread','${predConf}')">
+            onclick="selectPick(event,'${game.id}','home',${hso},'${home.name.replace(/'/g,"\\'")} will cover spread','${predConf}')">
             <div class="pg-btn-line">${hSpread}</div>
             <div class="pg-btn-odds">${fmtOdds(hso)}</div>
           </button>
           <button class="pg-btn${sel("under")}"${bl.total ? "" : " disabled"}
-            onclick="selectPick('${game.id}','under',${uo},'${away.abbreviation}/${home.abbreviation} — game goes UNDER total','${predConf}')">
+            onclick="selectPick(event,'${game.id}','under',${uo},'${away.abbreviation}/${home.abbreviation} — game goes UNDER total','${predConf}')">
             <div class="pg-btn-line">${bl.total ? "U " + bl.total : "—"}</div>
             <div class="pg-btn-odds">${bl.total ? fmtOdds(uo) : ""}</div>
           </button>
           <button class="pg-btn${sel("home-ml")}"${bl.moneylineHome ? "" : " disabled"}
-            onclick="selectPick('${game.id}','home-ml',${bl.moneylineHome || 0},'${home.abbreviation} ML','${predConf}')">
+            onclick="selectPick(event,'${game.id}','home-ml',${bl.moneylineHome || 0},'${home.abbreviation} ML','${predConf}')">
             <div class="pg-btn-line">${bl.moneylineHome ? fmtML(bl.moneylineHome) : "—"}</div>
           </button>
         </div>
@@ -1535,7 +1536,7 @@ function deleteSavedParlay(idx) {
   renderSavedParlays();
 }
 
-function logParleyToPicks(btn) {
+function logParlayToPicks(btn) {
   const entries = Object.entries(picks);
   if (!entries.length) { alert("Build a parlay first, then log it to your picks."); return; }
 
@@ -1683,8 +1684,8 @@ function openGameModal(gameId) {
     totalBtnHtml = '<div style="flex:1;min-width:120px">'
       + '<div style="font-size:.55rem;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Total ' + bl.total + '</div>'
       + '<div style="display:flex;gap:6px">'
-      + '<button class="' + mbtnCls('over') + '" style="flex:1" onclick="selectPick(\'' + gameId + '\',\'over\',' + oo + ',\'' + overLabel + '\',\'' + predConf + '\');updateModalPickIndicator(\'' + gameId + '\')">OVER<div style="font-size:.58rem;opacity:.7">' + fmtOdds(oo) + '</div></button>'
-      + '<button class="' + mbtnCls('under') + '" style="flex:1" onclick="selectPick(\'' + gameId + '\',\'under\',' + uo + ',\'' + underLabel + '\',\'' + predConf + '\');updateModalPickIndicator(\'' + gameId + '\')">UNDER<div style="font-size:.58rem;opacity:.7">' + fmtOdds(uo) + '</div></button>'
+      + '<button class="' + mbtnCls('over') + '" style="flex:1" onclick="selectPick(event,\'' + gameId + '\',\'over\',' + oo + ',\'' + overLabel + '\',\'' + predConf + '\');updateModalPickIndicator(\'' + gameId + '\')">OVER<div style="font-size:.58rem;opacity:.7">' + fmtOdds(oo) + '</div></button>'
+      + '<button class="' + mbtnCls('under') + '" style="flex:1" onclick="selectPick(event,\'' + gameId + '\',\'under\',' + uo + ',\'' + underLabel + '\',\'' + predConf + '\');updateModalPickIndicator(\'' + gameId + '\')">UNDER<div style="font-size:.58rem;opacity:.7">' + fmtOdds(uo) + '</div></button>'
       + '</div></div>';
   }
   var mlBtnHtml = '';
@@ -1694,8 +1695,8 @@ function openGameModal(gameId) {
     mlBtnHtml = '<div style="flex:1;min-width:120px">'
       + '<div style="font-size:.55rem;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Moneyline</div>'
       + '<div style="display:flex;gap:6px">'
-      + '<button class="' + mbtnCls('home-ml') + '" style="flex:1" onclick="selectPick(\'' + gameId + '\',\'home-ml\',' + bl.moneylineHome + ',\'' + homeMLLabel + '\',\'' + predConf + '\');updateModalPickIndicator(\'' + gameId + '\')">' + home.abbreviation + '<div style="font-size:.7rem;font-weight:900">' + fmtML(bl.moneylineHome) + '</div></button>'
-      + '<button class="' + mbtnCls('away-ml') + '" style="flex:1" onclick="selectPick(\'' + gameId + '\',\'away-ml\',' + bl.moneylineAway + ',\'' + awayMLLabel + '\',\'' + predConf + '\');updateModalPickIndicator(\'' + gameId + '\')">' + away.abbreviation + '<div style="font-size:.7rem;font-weight:900">' + fmtML(bl.moneylineAway) + '</div></button>'
+      + '<button class="' + mbtnCls('home-ml') + '" style="flex:1" onclick="selectPick(event,\'' + gameId + '\',\'home-ml\',' + bl.moneylineHome + ',\'' + homeMLLabel + '\',\'' + predConf + '\');updateModalPickIndicator(\'' + gameId + '\')">' + home.abbreviation + '<div style="font-size:.7rem;font-weight:900">' + fmtML(bl.moneylineHome) + '</div></button>'
+      + '<button class="' + mbtnCls('away-ml') + '" style="flex:1" onclick="selectPick(event,\'' + gameId + '\',\'away-ml\',' + bl.moneylineAway + ',\'' + awayMLLabel + '\',\'' + predConf + '\');updateModalPickIndicator(\'' + gameId + '\')">' + away.abbreviation + '<div style="font-size:.7rem;font-weight:900">' + fmtML(bl.moneylineAway) + '</div></button>'
       + '</div></div>';
   }
   var pickIndHtml = gamePicks.length
@@ -1754,10 +1755,10 @@ function openGameModal(gameId) {
         <div style="flex:1;min-width:120px">
           <div style="font-size:.55rem;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Spread (ATS)</div>
           <div style="display:flex;gap:6px">
-            <button class="${mbtnCls('home')}" style="flex:1" onclick="selectPick('${gameId}','home',${hso},'${homeSpLabel}','${predConf}');updateModalPickIndicator('${gameId}')">
+            <button class="${mbtnCls('home')}" style="flex:1" onclick="selectPick(event,'${gameId}','home',${hso},'${homeSpLabel}','${predConf}');updateModalPickIndicator('${gameId}')">
               ${home.abbreviation} ${fmtSpread(bl.spread||0)}<div style="font-size:.58rem;opacity:.7">${fmtOdds(hso)}</div>
             </button>
-            <button class="${mbtnCls('away')}" style="flex:1" onclick="selectPick('${gameId}','away',${aso},'${awaySpLabel}','${predConf}');updateModalPickIndicator('${gameId}')">
+            <button class="${mbtnCls('away')}" style="flex:1" onclick="selectPick(event,'${gameId}','away',${aso},'${awaySpLabel}','${predConf}');updateModalPickIndicator('${gameId}')">
               ${away.abbreviation} ${fmtSpread(-(bl.spread||0))}<div style="font-size:.58rem;opacity:.7">${fmtOdds(aso)}</div>
             </button>
           </div>

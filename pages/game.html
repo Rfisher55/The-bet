@@ -356,6 +356,16 @@ const METRIC_GLOSSARY = {
   "Pressure":    { desc: "Ability to perform under or while generating pass-rush pressure. For QBs: keeping composure when hit. For defenders: disrupting the pocket.", icon: "💨" },
 };
 
+var _metricTipClickSetup = false;
+function setupMetricTipDismiss() {
+  if (_metricTipClickSetup) return;
+  _metricTipClickSetup = true;
+  document.addEventListener('click', function(e) {
+    var tt = document.getElementById("metric-tooltip-popup");
+    if (tt) tt.style.display = "none";
+  });
+}
+
 function showMetricTip(e, key) {
   const info = METRIC_GLOSSARY[key];
   if (!info) return;
@@ -367,7 +377,6 @@ function showMetricTip(e, key) {
     tt.className = "metric-tooltip-popup";
     tt.innerHTML = `<div class="mtp-title"></div><div class="mtp-body"></div>`;
     document.body.appendChild(tt);
-    document.addEventListener("click", () => { tt.style.display = "none"; });
   }
   tt.querySelector(".mtp-title").textContent = info.icon + " " + key;
   tt.querySelector(".mtp-body").textContent = info.desc;
@@ -379,6 +388,7 @@ function showMetricTip(e, key) {
   tt.style.top = (top + window.scrollY) + "px";
   tt.style.position = "absolute";
 }
+setupMetricTipDismiss();
 
 function radarBar(label, val, color) {
   const v = Math.min(100, Math.max(0, val || 0));
@@ -428,6 +438,12 @@ function strengIcon(s) {
 ───────────────────────────────────────────────────── */
 const params  = new URLSearchParams(location.search);
 const gameId  = params.get("id");
+
+if (!gameId) {
+  document.title = 'Game Not Found — The Bet';
+  var _gs = document.querySelector('.game-shell, main, #game-content');
+  if (_gs) _gs.innerHTML = '<div class="empty-state"><h2>Game not found</h2><p>No game ID specified. <a href="../pages/games.html">Browse all games</a></p></div>';
+}
 
 function renderGamePage(gData) {
   try {
@@ -1021,7 +1037,7 @@ function renderGamePage(gData) {
           const rawSpreadEV   = blEV.spread != null ? Math.abs(blEV.spread) : null;
           const KEY_NUMBERS   = [3, 7, 10, 14, 17, 21];
           const isOnKeyNum    = rawSpreadEV != null && KEY_NUMBERS.includes(rawSpreadEV);
-          const hasHook       = rawSpreadEV != null && (rawSpreadEV % 0.5 === 0 && rawSpreadEV % 1 !== 0);
+          const hasHook       = rawSpreadEV != null && (Math.round(rawSpreadEV * 10) % 5 === 0 && Math.round(rawSpreadEV * 10) % 10 !== 0);
           const keyNumAlert   = isOnKeyNum && !hasHook
             ? "⚠️ Spread is on a key number (" + rawSpreadEV + ") with no hook. Historically ~" + (rawSpreadEV === 3 ? 9 : rawSpreadEV === 7 ? 7 : 5) + "% of D1 games land on this exact margin — consider shopping for the hook (-" + (rawSpreadEV - 0.5) + "/" + (rawSpreadEV - 0.5) + ") before placing."
             : null;
@@ -1558,7 +1574,7 @@ function renderGamePage(gData) {
       if (a >= 18) return "var(--primary)"; if (a >= 12) return "#34d399"; if (a >= 7) return "var(--gold)";
       if (a >= 4) return "#94a3b8"; return "var(--danger)";
     }
-    const hs = home.stats, as_ = away.stats;
+    const hs = home.stats || {}, as_ = away.stats || {};
     // Matchup edge scores — positive = home advantage, negative = away advantage
     const matchups = [
       {

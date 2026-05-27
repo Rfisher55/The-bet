@@ -419,6 +419,7 @@
 
 // ── Populate dropdowns ──────────────────────────────
 function populateSelects() {
+  if (typeof TEAMS === 'undefined' || !window.TEAMS) return;
   const teams = Object.values(TEAMS).sort((a, b) => a.name.localeCompare(b.name));
   const opts = teams.map(t => `<option value="${t.id}">${t.name} (${t.abbreviation}) — ${t.conference}</option>`).join('');
   const placeholder = '<option value="">— Select a team —</option>';
@@ -724,8 +725,8 @@ function buildWinProb(a, b, pred) {
   const winner = pred.predictedWinner;
   const winnerIsA = winner === a.name;
   const spread = Math.abs(pred.predictedSpread);
-  const aScore = Math.round(pred.homeExpected);
-  const bScore = Math.round(pred.awayExpected);
+  const aScore = Math.round(pred.homeExpected || 0);
+  const bScore = Math.round(pred.awayExpected || 0);
   const conf = pred.confidence;
   const grade = pred.modelGrade;
 
