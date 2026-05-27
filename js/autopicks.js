@@ -130,7 +130,7 @@
         var a = (s.awayTeam || '').toLowerCase();
         var ph = pick.homeTeam.split(' ').pop().toLowerCase();
         var pa = pick.awayTeam.split(' ').pop().toLowerCase();
-        return h.includes(ph) || a.includes(pa);
+        return (h.includes(ph) && a.includes(pa)) || (h.includes(pa) && a.includes(ph));
       });
       if (espnGame) { homeScore = parseInt(espnGame.homeScore); awayScore = parseInt(espnGame.awayScore); }
 
