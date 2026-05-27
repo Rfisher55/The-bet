@@ -566,7 +566,7 @@ function rebuildPreds() {
 rebuildPreds();
 
 // ── Week state ──
-let activeWeek = (window.GAMES && GAMES.length) ? [...new Set(GAMES.map(g=>g.week))].sort((a,b)=>a-b)[0] : 1;
+let activeWeek = (window.GAMES && window.GAMES.length) ? [...new Set(window.GAMES.map(g=>g.week))].sort((a,b)=>a-b)[0] : 1;
 let edgeFilter = "all";
 let parlayConfFilter = "all";
 let parlayQualityFilter = "all";

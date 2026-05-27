@@ -202,7 +202,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
-            gh secret set X_OAUTH2_REFRESH_TOKEN -R rfisher55/the-bet < /tmp/new_refresh_token
+            gh secret set X_OAUTH2_REFRESH_TOKEN -R ${{ github.repository }} < /tmp/new_refresh_token
             echo "✅ Refresh token rotated"
           else
             echo "ℹ️ No new refresh token (dry run or pre-auth failure)"
