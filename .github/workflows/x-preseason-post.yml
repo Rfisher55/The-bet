@@ -59,18 +59,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Gate: skip automatically once real game data exists (season has started).
-      # games-2026.json totalGames > 0 means CFBD has published the schedule and
-      # x-auto-post.yml is now handling all posting — no more preseason content.
+      # Gate: skip once the FULL schedule is published (100+ games from CFBD).
+      # The curated seed has 21 games — that's still preseason.
+      # Once CFBD publishes the schedule (~July/August), totalGames hits 500+
+      # and x-auto-post.yml takes over all posting.
       - name: Check season gate
         id: gate
         run: |
           TOTAL=$(node -e "try{const d=require('./data/games-2026.json');console.log(d.totalGames||0)}catch{console.log(0)}")
           echo "total_games=$TOTAL" >> $GITHUB_OUTPUT
-          if [ "$TOTAL" -gt "0" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
-            echo "Season is active ($TOTAL games) — skipping preseason post"
+          if [ "$TOTAL" -gt "100" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            echo "Season schedule live ($TOTAL games) — x-auto-post.yml is now active, skipping preseason"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
+            echo "Preseason mode ($TOTAL games < 100) — running preseason post"
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 

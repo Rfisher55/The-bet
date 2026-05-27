@@ -688,13 +688,13 @@
       <div class="stats-strip" id="model-perf-strip">
         <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
           <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">2025 ATS Record</div>
-          <div style="font-size:1.4rem;font-weight:900;color:var(--text)">68-21</div>
-          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px">76.4% win rate</div>
+          <div style="font-size:1.4rem;font-weight:900;color:var(--text)" id="stat-ats-record">68-21</div>
+          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px" id="stat-ats-sub">76.4% win rate · 2025 season</div>
         </div>
         <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
           <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Elite Picks</div>
-          <div style="font-size:1.4rem;font-weight:900;color:var(--primary)">89.5%</div>
-          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px">17-2 ATS this season</div>
+          <div style="font-size:1.4rem;font-weight:900;color:var(--primary)" id="stat-elite">89.5%</div>
+          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px">17-2 ATS · 2025 season</div>
         </div>
         <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
           <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Sharp + Model</div>
@@ -1266,6 +1266,28 @@ rebuildPredictions();
 (function() {
   var el = document.getElementById('model-game-count');
   if (el) el.textContent = allPredictions.length || (window.GAMES ? GAMES.length : 0) || '21';
+})();
+
+// Update ATS record stats strip from live season-record.json when 2026 games are played
+(function() {
+  var base = window.location.pathname.includes('/pages/') ? '../' : './';
+  fetch(base + 'data/season-record.json', { cache: 'no-cache' })
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.record) return;
+      var r = d.record;
+      var total = r.wins + r.losses + r.pushes;
+      if (total === 0) return; // season hasn't started — keep 2025 display
+      var decided = r.wins + r.losses;
+      var pct = decided > 0 ? (r.wins / decided * 100).toFixed(1) : '0.0';
+      var recEl = document.getElementById('stat-ats-record');
+      var subEl = document.getElementById('stat-ats-sub');
+      if (recEl) recEl.textContent = r.wins + '-' + r.losses + (r.pushes ? '-' + r.pushes : '');
+      if (subEl) subEl.textContent = pct + '% win rate · 2026 season';
+      var atsLabel = recEl && recEl.closest('.stat-cell') && recEl.closest('.stat-cell').querySelector('[style*="letter-spacing"]');
+      if (atsLabel) atsLabel.textContent = '2026 ATS Record';
+    })
+    .catch(function() {});
 })();
 
 // ── Hero Top Pick of the Week ────────────────────────────────────
