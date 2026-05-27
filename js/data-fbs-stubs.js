@@ -10,7 +10,7 @@
   const STUBS = [
     // ── SEC ─────────────────────────────────────────────────────────────
     // 2025: Arkansas 7-5, Kentucky 5-7, Ole Miss 9-3, Mizzou 9-3, A&M 9-3, Vandy 9-4
-    ["arkansas",          "Arkansas",          "ARK",  "SEC",     "#9D2235","Razorbacks",      76,  5.5, "Sam Pittman"],
+    ["arkansas",          "Arkansas",          "ARK",  "SEC",     "#9D2235","Razorbacks",      76,  5.5, "Ryan Silverfield"],
     ["kentucky",          "Kentucky",          "UK",   "SEC",     "#0033A0","Wildcats",         76,  6.0, "Mark Stoops"],
     ["mississippi_state", "Mississippi State", "MSST", "SEC",     "#5D1E37","Bulldogs",         71,  1.2, "Jeff Lebby"],
     ["missouri",          "Missouri",          "MIZ",  "SEC",     "#F1B82D","Tigers",           79,  9.1, "Eli Drinkwitz"],
@@ -45,7 +45,7 @@
     ["north_carolina",    "North Carolina",    "UNC",  "ACC",     "#4B9CD3","Tar Heels",        74,  4.0, "Bill Belichick"],
     ["pittsburgh",        "Pittsburgh",        "PITT", "ACC",     "#003594","Panthers",         76,  5.6, "Pat Narduzzi"],
     ["smu",               "SMU",               "SMU",  "ACC",     "#0039A6","Mustangs",         81, 10.6, "Rhett Lashlee"],
-    ["stanford",          "Stanford",          "STAN", "ACC",     "#8C1515","Cardinal",         71,  1.0, "Troy Taylor"],
+    ["stanford",          "Stanford",          "STAN", "ACC",     "#8C1515","Cardinal",         71,  1.0, "Tavita Pritchard"],
     ["syracuse",          "Syracuse",          "SYR",  "ACC",     "#F76900","Orange",           73,  3.2, "Fran Brown"],
     ["virginia",          "Virginia",          "UVA",  "ACC",     "#232D4B","Cavaliers",        69, -1.0, "Tony Elliott"],
     ["virginia_tech",     "Virginia Tech",     "VT",   "ACC",     "#630031","Hokies",           72,  2.1, "Brent Pry"],
@@ -72,7 +72,7 @@
     // 2025: Boise State had CFP run, UNLV rising
     ["air_force",         "Air Force",         "AFA",  "Mountain West","#004080","Falcons",      71,  0.6, "Troy Calhoun"],
     ["boise_state",       "Boise State",       "BSU",  "Mountain West","#0033A0","Broncos",      78,  8.2, "Spencer Danielson"],
-    ["colorado_state",    "Colorado State",    "CSU",  "Mountain West","#1E4D2B","Rams",         69, -1.1, "Jay Norvell"],
+    ["colorado_state",    "Colorado State",    "CSU",  "Mountain West","#1E4D2B","Rams",         69, -1.1, "Jim Mora"],
     ["fresno_state",      "Fresno State",      "FRES", "Mountain West","#CC0000","Bulldogs",     71,  1.1, "Jeff Tedford"],
     ["hawaii",            "Hawaii",            "HAW",  "Mountain West","#024731","Rainbow Warriors",67,-3.1,"Timmy Chang"],
     ["nevada",            "Nevada",            "NEV",  "Mountain West","#003366","Wolf Pack",    67, -3.0, "Ken Wilson"],
@@ -97,7 +97,7 @@
     ["utsa",              "UTSA",              "UTSA", "American Athletic","#F15A22","Roadrunners",68,-2.0,"Jeff Traylor"],
     ["temple",            "Temple",            "TEMP", "American Athletic","#9D2235","Owls",     63, -7.1, "Stan Drayton"],
     // ── Sun Belt ─────────────────────────────────────────────────────────
-    ["app_state",         "Appalachian State", "APP",  "Sun Belt","#000000","Mountaineers",     69, -1.1, "Shawn Clark"],
+    ["app_state",         "Appalachian State", "APP",  "Sun Belt","#000000","Mountaineers",     69, -1.1, "Dowell Loggains"],
     ["arkansas_state",    "Arkansas State",    "ARST", "Sun Belt","#CC0000","Red Wolves",       66, -4.2, "Butch Jones"],
     ["coastal_carolina",  "Coastal Carolina",  "CCU",  "Sun Belt","#006F51","Chanticleers",     68, -2.1, "Tim Beck"],
     ["georgia_southern",  "Georgia Southern",  "GS",   "Sun Belt","#011E41","Eagles",           67, -3.0, "Clay Helton"],
@@ -110,30 +110,30 @@
     ["south_alabama",     "South Alabama",     "USA",  "Sun Belt","#00205B","Jaguars",          67, -3.1, "Kane Wommack"],
     ["southern_miss",     "Southern Miss",     "USM",  "Sun Belt","#FFD046","Golden Eagles",    65, -5.2, "Will Hall"],
     ["texas_state",       "Texas State",       "TXST", "Sun Belt","#501214","Bobcats",          67, -3.4, "G.J. Kinne"],
-    ["troy",              "Troy",              "TROY", "Sun Belt","#862633","Trojans",          67, -3.5, "Cody Kennedy"],
+    ["troy",              "Troy",              "TROY", "Sun Belt","#862633","Trojans",          67, -3.5, "Gerad Parker"],
     // ── MAC ──────────────────────────────────────────────────────────────
     ["akron",             "Akron",             "AKR",  "MAC",     "#002147","Zips",             62, -8.2, "Joe Moorhead"],
-    ["ball_state",        "Ball State",        "BAST", "MAC",     "#BA0C2F","Cardinals",        63, -7.1, "Mike Neu"],
-    ["bowling_green",     "Bowling Green",     "BGSU", "MAC",     "#4F2C1D","Falcons",          64, -6.0, "Scot Loeffler"],
-    ["buffalo",           "Buffalo",           "BUFF", "MAC",     "#005BBB","Bulls",            63, -7.2, "Maurice Linguist"],
-    ["central_michigan",  "Central Michigan",  "CMU",  "MAC",     "#6A0032","Chippewas",        65, -5.1, "Jim McElwain"],
+    ["ball_state",        "Ball State",        "BAST", "MAC",     "#BA0C2F","Cardinals",        63, -7.1, "Mike Uremovich"],
+    ["bowling_green",     "Bowling Green",     "BGSU", "MAC",     "#4F2C1D","Falcons",          64, -6.0, "Eddie George"],
+    ["buffalo",           "Buffalo",           "BUFF", "MAC",     "#005BBB","Bulls",            63, -7.2, "Pete Lembo"],
+    ["central_michigan",  "Central Michigan",  "CMU",  "MAC",     "#6A0032","Chippewas",        65, -5.1, "Matt Drinkall"],
     ["eastern_michigan",  "Eastern Michigan",  "EMU",  "MAC",     "#006633","Eagles",           61, -9.1, "Chris Creighton"],
     ["kent_state",        "Kent State",        "KENT", "MAC",     "#002664","Golden Flashes",   62, -8.1, "Kenni Burns"],
     ["miami_oh",          "Miami (OH)",        "MIOH", "MAC",     "#B61E2E","RedHawks",         66, -4.2, "Chuck Martin"],
     ["northern_illinois", "Northern Illinois", "NIU",  "MAC",     "#BA0C2F","Huskies",          67, -3.1, "Thomas Hammock"],
-    ["ohio",              "Ohio",              "OHIO", "MAC",     "#00694E","Bobcats",          66, -4.0, "Tim Albin"],
-    ["toledo",            "Toledo",            "TOL",  "MAC",     "#003366","Rockets",          68, -2.0, "Jason Candle"],
+    ["ohio",              "Ohio",              "OHIO", "MAC",     "#00694E","Bobcats",          66, -4.0, "John Hauser"],
+    ["toledo",            "Toledo",            "TOL",  "MAC",     "#003366","Rockets",          68, -2.0, "Mike Jacobs"],
     ["western_michigan",  "Western Michigan",  "WMU",  "MAC",     "#6C4023","Broncos",          65, -5.0, "Lance Taylor"],
     // ── Conference USA ───────────────────────────────────────────────────
-    ["fiu",               "FIU",               "FIU",  "Conference USA","#002D62","Panthers",    61, -9.1, "Mike MacIntyre"],
-    ["jacksonville_state","Jacksonville State","JSU",  "Conference USA","#CC0000","Gamecocks",   64, -6.1, "Rich Rodriguez"],
+    ["fiu",               "FIU",               "FIU",  "Conference USA","#002D62","Panthers",    61, -9.1, "Willie Simmons"],
+    ["jacksonville_state","Jacksonville State","JSU",  "Conference USA","#CC0000","Gamecocks",   64, -6.1, "Charles Kelly"],
     ["kennesaw_state",    "Kennesaw State",    "KSU2", "Conference USA","#FDBB30","Owls",        63, -7.0, "Brian Bohannon"],
     ["la_tech",           "Louisiana Tech",    "LAT",  "Conference USA","#002F6C","Bulldogs",    67, -3.1, "Sonny Cumbie"],
     ["liberty",           "Liberty",           "LIB",  "Conference USA","#002868","Flames",      69, -1.0, "Jamey Chadwell"],
     ["middle_tennessee",  "Middle Tennessee",  "MTSU", "Conference USA","#0066CC","Blue Raiders",66,-4.1, "Derek Mason"],
-    ["new_mexico_state",  "New Mexico State",  "NMST", "Conference USA","#892034","Aggies",      64, -6.0, "Jerry Kill"],
-    ["sam_houston",       "Sam Houston",       "SHSU", "Conference USA","#F26522","Bearkats",    65, -5.0, "K.C. Keeler"],
-    ["utep",              "UTEP",              "UTEP", "Conference USA","#FF8200","Miners",       62, -8.1, "Dana Dimel"],
+    ["new_mexico_state",  "New Mexico State",  "NMST", "Conference USA","#892034","Aggies",      64, -6.0, "Tony Sanchez"],
+    ["sam_houston",       "Sam Houston",       "SHSU", "Conference USA","#F26522","Bearkats",    65, -5.0, "Phil Longo"],
+    ["utep",              "UTEP",              "UTEP", "Conference USA","#FF8200","Miners",       62, -8.1, "Scotty Walden"],
     ["western_kentucky",  "Western Kentucky",  "WKU",  "Conference USA","#CC0000","Hilltoppers", 67, -3.0, "Tyson Helton"],
     // ── FBS Independents ─────────────────────────────────────────────────
     // Army 12-1 in 2025! Went to CFP first round
@@ -142,7 +142,7 @@
     ["umass",             "Massachusetts",     "MASS", "FBS Independents","#881C1C","Minutemen", 57,-13.0, "Don Brown"],
     // ── Pac-2 ────────────────────────────────────────────────────────────
     ["oregon_state",      "Oregon State",      "ORST", "Pac-2",   "#DC4405","Beavers",          71,  0.6, "Trent Bray"],
-    ["washington_state",  "Washington State",  "WSU",  "Pac-2",   "#981E32","Cougars",          71,  0.7, "Jake Dickert"],
+    ["washington_state",  "Washington State",  "WSU",  "Pac-2",   "#981E32","Cougars",          71,  0.7, "Kirby Moore"],
   ];
 
   const defaultStats = {
