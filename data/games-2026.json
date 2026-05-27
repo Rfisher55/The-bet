@@ -1,7 +1,7 @@
 {
   "generated": "2026-05-27T18:47:37.245Z",
   "season": 2026,
-  "totalGames": 21,
+  "totalGames": 40,
   "scheduledGames": 21,
   "completedGames": 0,
   "liveGames": 0,
@@ -4105,6 +4105,2340 @@
           "confidence": "MEDIUM",
           "unit": 1.5,
           "reasoning": "Day 7-1 ATS in same-season rematches + championship game experience + OSU roster depth"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g22",
+      "week": 0,
+      "seasonType": "regular",
+      "date": "2026-08-29",
+      "time": "12:00 PM ET",
+      "homeTeamId": "north_carolina",
+      "awayTeamId": "tcu",
+      "homeTeamName": "North Carolina",
+      "awayTeamName": "TCU",
+      "homeConference": "ACC",
+      "awayConference": "Big 12",
+      "network": "ESPN",
+      "venue": "Aviva Stadium",
+      "venueCity": "Dublin",
+      "venueState": "Ireland",
+      "isConferenceGame": false,
+      "neutralSite": true,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -2.5,
+        "moneylineHome": -140,
+        "moneylineAway": 118,
+        "total": 51.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Partly Cloudy",
+        "tempF": 61,
+        "windMph": 12,
+        "humidity": 68,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -2.5,
+          "total": 52,
+          "note": "UNC opens slight favorite at neutral Aviva — ACC edge over Big 12 visitor"
+        },
+        {
+          "time": "Current",
+          "spread": -2.5,
+          "total": 51.5,
+          "note": "Total ticked down half-point on expected slow-paced, defensive game overseas"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 2,
+        "primeTimeGame": false,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 4000,
+        "timeZoneChange": 5,
+        "neutralSite": true
+      },
+      "xFactors": [
+        {
+          "title": "Aer Lingus Classic — Dublin Debut",
+          "description": "Playing in Aviva Stadium in front of 51,000 brings massive crowd energy unlike any regular-season opener. Both teams practiced in Dublin for a week — routine is disrupted equally. Historically, neutral-site openers overseas favor the team with stronger fan travel, and the ACC draws better transatlantic support.",
+          "impactTeam": "north_carolina",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "environment"
+        },
+        {
+          "title": "Big 12 Jet Lag Factor",
+          "description": "TCU travels from Fort Worth — a full 5-hour time zone shift west-to-east. Teams playing overseas for the first time average 1.2 more turnovers and 15% slower offensive tempo in the first half as players adjust. The Horned Frogs' offensive line depth will be tested in an unfamiliar environment.",
+          "impactTeam": "tcu",
+          "impactDirection": "negative",
+          "severity": 6,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 55,
+        "awayTeamBuzz": 45,
+        "sentimentHome": 0.55,
+        "sentimentAway": 0.45,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 55,
+          "awayPct": 45,
+          "overPct": 52,
+          "underPct": 48,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Aer Lingus Classic: ACC vs Big 12 in Dublin",
+        "synopsis": "College football goes global as North Carolina and TCU open the 2026 season at Aviva Stadium in Dublin, Ireland. The Aer Lingus Classic brings marquee FBS football to Europe for a neutral-site opener unlike anything in the regular season.",
+        "analysis": [
+          {
+            "section": "KEY X-FACTOR",
+            "text": "Overseas travel disrupts both teams equally, but UNC's ACC roots and East Coast fanbase travel better to Dublin. The team that handles the 5-hour time zone shift and unfamiliar turf first will control the first half."
+          },
+          {
+            "section": "THE PICK",
+            "text": "UNC -2.5. ACC programs historically perform better in overseas openers and the Tar Heels have the more seasoned coaching staff for neutral-site preparation."
+          }
+        ],
+        "thePick": {
+          "team": "North Carolina",
+          "line": "-2.5",
+          "confidence": "MEDIUM",
+          "unit": 1,
+          "reasoning": "ACC edge in overseas preparation + better transatlantic fan support"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g23",
+      "week": 0,
+      "seasonType": "regular",
+      "date": "2026-08-29",
+      "time": "2:30 PM ET",
+      "homeTeamId": "nc_state",
+      "awayTeamId": "virginia",
+      "homeTeamName": "NC State",
+      "awayTeamName": "Virginia",
+      "homeConference": "ACC",
+      "awayConference": "ACC",
+      "network": "ESPN2",
+      "venue": "Estadio Nilton Santos",
+      "venueCity": "Rio de Janeiro",
+      "venueState": "Brazil",
+      "isConferenceGame": true,
+      "neutralSite": true,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -4,
+        "moneylineHome": -185,
+        "moneylineAway": 155,
+        "total": 48.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Humid, Warm",
+        "tempF": 79,
+        "windMph": 8,
+        "humidity": 82,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -4,
+          "total": 49,
+          "note": "NC State opens as solid favorite in inaugural College Football Brasil game"
+        },
+        {
+          "time": "Current",
+          "spread": -4,
+          "total": 48.5,
+          "note": "Books shading under on humid Rio conditions affecting passing game"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 1,
+        "primeTimeGame": false,
+        "rivalryGame": true,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 4700,
+        "timeZoneChange": 1,
+        "neutralSite": true
+      },
+      "xFactors": [
+        {
+          "title": "College Football Brasil — Historic First",
+          "description": "The inaugural game in South America puts both programs on a global stage. NC State carries a talent edge, but Virginia has better team speed that could translate on the synthetic Nilton Santos turf. Historic firsts often produce unpredictable results.",
+          "impactTeam": "nc_state",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "environment"
+        },
+        {
+          "title": "Rio Heat and Humidity",
+          "description": "Playing at 79°F with 82% humidity in late August is taxing on both defenses. Expect more big plays in the second half as defensive linemen fatigue. NC State's depth advantage becomes crucial in the fourth quarter.",
+          "impactTeam": "nc_state",
+          "impactDirection": "positive",
+          "severity": 6,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 58,
+        "awayTeamBuzz": 42,
+        "sentimentHome": 0.58,
+        "sentimentAway": 0.42,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 62,
+          "awayPct": 38,
+          "overPct": 44,
+          "underPct": 56,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "College Football Brasil: ACC Rivals in Rio",
+        "synopsis": "History is made in South America as NC State and Virginia play the inaugural College Football Brasil game at Estadio Nilton Santos in Rio de Janeiro. The Wolfpack enter as clear favorites in this ACC conference game played 4,700 miles from home.",
+        "analysis": [
+          {
+            "section": "KEY X-FACTOR",
+            "text": "NC State's depth and conditioning advantage becomes decisive in the Rio heat. Virginia will be competitive early but depth thins by the fourth quarter."
+          },
+          {
+            "section": "THE PICK",
+            "text": "NC State -4. The Wolfpack's talent edge is real and the humid conditions favor the deeper roster."
+          }
+        ],
+        "thePick": {
+          "team": "NC State",
+          "line": "-4",
+          "confidence": "MEDIUM",
+          "unit": 1,
+          "reasoning": "Depth advantage + conditioning edge in Rio humidity"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g24",
+      "week": 0,
+      "seasonType": "regular",
+      "date": "2026-08-29",
+      "time": "4:00 PM ET",
+      "homeTeamId": "usc",
+      "awayTeamId": "san_jose_state",
+      "homeTeamName": "USC",
+      "awayTeamName": "San Jose State",
+      "homeConference": "Big Ten",
+      "awayConference": "Mountain West",
+      "network": "NBC",
+      "venue": "Los Angeles Memorial Coliseum",
+      "venueCity": "Los Angeles",
+      "venueState": "CA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 18,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -21.5,
+        "moneylineHome": -2200,
+        "moneylineAway": 1100,
+        "total": 55.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 82,
+        "windMph": 6,
+        "humidity": 45,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -21.5,
+          "total": 56,
+          "note": "USC opens as massive home favorite for Big Ten debut week"
+        },
+        {
+          "time": "Current",
+          "spread": -21.5,
+          "total": 55.5,
+          "note": "Line stable — SJSU offers little resistance at this level"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 3,
+        "primeTimeGame": false,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 340,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "NBC Big Ten Debut — USC Under the Lights",
+          "description": "USC opens Big Ten play on NBC with national eyes watching. The Trojans have something to prove after a rocky conference transition. Expect an explosive offensive performance to set the tone for the season.",
+          "impactTeam": "usc",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "environment"
+        },
+        {
+          "title": "Backdoor Cover Risk",
+          "description": "With a 21.5-point spread, the biggest risk is USC resting starters in the fourth quarter allowing SJSU to cover. Sharp bettors will look for late-game back door opportunities if USC leads big early.",
+          "impactTeam": "san_jose_state",
+          "impactDirection": "positive",
+          "severity": 5,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 78,
+        "awayTeamBuzz": 22,
+        "sentimentHome": 0.72,
+        "sentimentAway": 0.28,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 74,
+          "awayPct": 26,
+          "overPct": 61,
+          "underPct": 39,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "USC Opens Big Ten Season on NBC",
+        "synopsis": "USC kicks off their 2026 season hosting San Jose State at the Coliseum on NBC. The Trojans are massive favorites and this game serves as a tune-up before their Big Ten schedule begins in earnest.",
+        "analysis": [
+          {
+            "section": "KEY X-FACTOR",
+            "text": "USC's motivation to make a statement on NBC. Expect the Trojans to put up 40+ in the first three quarters before resting starters — the backdoor cover is the real betting angle here."
+          },
+          {
+            "section": "THE PICK",
+            "text": "SJSU +21.5 is the sharp play. Backdoor cover potential in the fourth quarter when USC pulls starters. Total lean: Under after USC goes up big early."
+          }
+        ],
+        "thePick": {
+          "team": "San Jose State",
+          "line": "+21.5",
+          "confidence": "MEDIUM",
+          "unit": 1,
+          "reasoning": "Backdoor cover when USC pulls starters — take the points"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g25",
+      "week": 0,
+      "seasonType": "regular",
+      "date": "2026-08-29",
+      "time": "7:00 PM ET",
+      "homeTeamId": "florida_state",
+      "awayTeamId": "new_mexico_state",
+      "homeTeamName": "Florida State",
+      "awayTeamName": "New Mexico State",
+      "homeConference": "ACC",
+      "awayConference": "Sun Belt",
+      "network": "ACC Network",
+      "venue": "Doak Campbell Stadium",
+      "venueCity": "Tallahassee",
+      "venueState": "FL",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -28.5,
+        "moneylineHome": -3500,
+        "moneylineAway": 1800,
+        "total": 57.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Partly Cloudy",
+        "tempF": 91,
+        "windMph": 7,
+        "humidity": 76,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -28.5,
+          "total": 58,
+          "note": "FSU opened as massive home favorite — a scheduled warm-up game"
+        },
+        {
+          "time": "Current",
+          "spread": -28.5,
+          "total": 57.5,
+          "note": "Stable line — books not expecting action on this mismatch"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 2,
+        "primeTimeGame": true,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 1800,
+        "timeZoneChange": 2,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Florida State Bounce-Back Mode",
+          "description": "FSU enters 2026 with something to prove after recent struggles. Home night game in Tallahassee creates an emotional atmosphere — the Seminoles will want to put up a huge number and restore the program's reputation from the first snap.",
+          "impactTeam": "florida_state",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "environment"
+        },
+        {
+          "title": "Backdoor Cover Watch",
+          "description": "A 28.5-point spread is historically vulnerable to backdoor covers in the final 10 minutes. SJSU-caliber opponents often put up garbage-time scores when defense gets complacent.",
+          "impactTeam": "new_mexico_state",
+          "impactDirection": "positive",
+          "severity": 5,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 72,
+        "awayTeamBuzz": 28,
+        "sentimentHome": 0.7,
+        "sentimentAway": 0.3,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 68,
+          "awayPct": 32,
+          "overPct": 65,
+          "underPct": 35,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Seminoles Open Season Under the Lights in Tallahassee",
+        "synopsis": "Florida State opens 2026 against New Mexico State in a home night game — a tune-up designed to build confidence and install their offensive system before conference play. FSU needs a statement opener.",
+        "analysis": [
+          {
+            "section": "THE PICK",
+            "text": "New Mexico State +28.5. Garbage time covers are common in this spot. FSU covers comfortably but doesn't run it up — take the huge number with the visitor."
+          }
+        ],
+        "thePick": {
+          "team": "New Mexico State",
+          "line": "+28.5",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": "Large spread vulnerable to backdoor cover in garbage time"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g26",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-03",
+      "time": "8:00 PM ET",
+      "homeTeamId": "georgia_tech",
+      "awayTeamId": "colorado",
+      "homeTeamName": "Georgia Tech",
+      "awayTeamName": "Colorado",
+      "homeConference": "ACC",
+      "awayConference": "Big 12",
+      "network": "ESPN",
+      "venue": "Bobby Dodd Stadium",
+      "venueCity": "Atlanta",
+      "venueState": "GA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": 22,
+      "bettingLines": {
+        "spread": 2.5,
+        "moneylineHome": 118,
+        "moneylineAway": -140,
+        "total": 52.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 85,
+        "windMph": 5,
+        "humidity": 70,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": 2.5,
+          "total": 53,
+          "note": "Colorado opens as slight road favorite — Buffs bring national buzz to Atlanta"
+        },
+        {
+          "time": "Current",
+          "spread": 2.5,
+          "total": 52.5,
+          "note": "Sharp money hitting Georgia Tech — home field advantage undervalued by public"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 4,
+        "primeTimeGame": true,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 1600,
+        "timeZoneChange": 2,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Colorado's National Spotlight Road Test",
+          "description": "Colorado arrives as a ranked program with national media attention. Thursday night ESPN openers under the lights are trap games — the buzz doesn't always translate to wins, especially when traveling cross-country.",
+          "impactTeam": "colorado",
+          "impactDirection": "negative",
+          "severity": 7,
+          "category": "situational"
+        },
+        {
+          "title": "Bobby Dodd Night Game Advantage",
+          "description": "Georgia Tech's home field in Atlanta is underrated. The Thursday night crowd is loud and energized. Ranked road teams historically cover at only a 44% rate in weeknight road games — the emotional edge belongs to the home team.",
+          "impactTeam": "georgia_tech",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "environment"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 40,
+        "awayTeamBuzz": 60,
+        "sentimentHome": 0.45,
+        "sentimentAway": 0.55,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 35,
+          "awayPct": 65,
+          "overPct": 55,
+          "underPct": 45,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Thursday Night Opener: Colorado Visits Bobby Dodd",
+        "synopsis": "Colorado opens the season ranked and traveling to Atlanta for a Thursday night showdown at Bobby Dodd Stadium. The Buffs bring national buzz but Georgia Tech has the home field advantage in a classic trap game setup.",
+        "analysis": [
+          {
+            "section": "KEY X-FACTOR",
+            "text": "Colorado's national media attention creates a trap game scenario on the road. Georgia Tech feeds off the underdog energy in a Thursday night home opener."
+          },
+          {
+            "section": "THE PICK",
+            "text": "Georgia Tech +2.5 at home. Ranked road teams on Thursday night openers cover under 45% historically. Take the home dog."
+          }
+        ],
+        "thePick": {
+          "team": "Georgia Tech",
+          "line": "+2.5",
+          "confidence": "MEDIUM",
+          "unit": 1.5,
+          "reasoning": "Home dog in trap game — Colorado's media hype overblown for road opener"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g27",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "12:00 PM ET",
+      "homeTeamId": "michigan",
+      "awayTeamId": "western_michigan",
+      "homeTeamName": "Michigan",
+      "awayTeamName": "Western Michigan",
+      "homeConference": "Big Ten",
+      "awayConference": "MAC",
+      "network": "NBC",
+      "venue": "Michigan Stadium",
+      "venueCity": "Ann Arbor",
+      "venueState": "MI",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 14,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -24.5,
+        "moneylineHome": -2800,
+        "moneylineAway": 1400,
+        "total": 51.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 73,
+        "windMph": 8,
+        "humidity": 55,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -24.5,
+          "total": 52,
+          "note": "Kyle Whittingham era opens at Michigan Stadium — public hammering Wolverines"
+        },
+        {
+          "time": "Current",
+          "spread": -24.5,
+          "total": 51.5,
+          "note": "Total down — books expecting Michigan to control tempo and run clock"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 1,
+        "primeTimeGame": false,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 90,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Kyle Whittingham's Michigan Debut",
+          "description": "New head coach Kyle Whittingham opens his Michigan tenure in The Big House on NBC. A dominant opening statement sends an immediate message to the Big Ten. Michigan's roster is loaded — this is about installing culture and winning convincingly.",
+          "impactTeam": "michigan",
+          "impactDirection": "positive",
+          "severity": 9,
+          "category": "coaching"
+        },
+        {
+          "title": "Big House Crowd — 107,000 Strong",
+          "description": "Michigan Stadium holds 107,000 fans and is the largest stadium in the US. Western Michigan's roster has never experienced an environment remotely close to this. Mental errors from WMU in the first quarter are highly likely.",
+          "impactTeam": "western_michigan",
+          "impactDirection": "negative",
+          "severity": 8,
+          "category": "environment"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 82,
+        "awayTeamBuzz": 18,
+        "sentimentHome": 0.78,
+        "sentimentAway": 0.22,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 81,
+          "awayPct": 19,
+          "overPct": 58,
+          "underPct": 42,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Whittingham Era Begins at the Big House",
+        "synopsis": "Kyle Whittingham opens his Michigan head coaching career in front of 107,000 fans at Michigan Stadium against in-state rival Western Michigan. The Wolverines are massive favorites and the nation will be watching how the new era begins on NBC.",
+        "analysis": [
+          {
+            "section": "COACHING DEBUT",
+            "text": "Whittingham brings his physical, run-first philosophy from Utah. Expect Michigan to establish the run, limit mistakes, and dominate the trenches in a methodical blowout that shows the Big Ten this team is back."
+          },
+          {
+            "section": "THE PICK",
+            "text": "Western Michigan +24.5. Michigan will pull starters by the fourth quarter — WMU will cover with garbage time points. Take the 24.5 with the Broncos."
+          }
+        ],
+        "thePick": {
+          "team": "Western Michigan",
+          "line": "+24.5",
+          "confidence": "MEDIUM",
+          "unit": 1,
+          "reasoning": "Michigan pulls starters late — WMU covers with garbage time scoring"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g28",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "3:30 PM ET",
+      "homeTeamId": "penn_state",
+      "awayTeamId": "marshall",
+      "homeTeamName": "Penn State",
+      "awayTeamName": "Marshall",
+      "homeConference": "Big Ten",
+      "awayConference": "Sun Belt",
+      "network": "FS1",
+      "venue": "Beaver Stadium",
+      "venueCity": "State College",
+      "venueState": "PA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 8,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -28.5,
+        "moneylineHome": -3500,
+        "moneylineAway": 1800,
+        "total": 54.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Partly Cloudy",
+        "tempF": 76,
+        "windMph": 9,
+        "humidity": 60,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -28.5,
+          "total": 55,
+          "note": "Penn State opens as massive favorite — James Franklin's crew primed for bounce-back year"
+        },
+        {
+          "time": "Current",
+          "spread": -28.5,
+          "total": 54.5,
+          "note": "Total slightly down — Nittany Lions expected to control game tempo completely"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 1,
+        "primeTimeGame": false,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 500,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Beaver Stadium White Out Energy",
+          "description": "Penn State's White Out tradition creates one of the loudest environments in college football. Even against a Sun Belt opponent, 106,000 fans in white generates electricity. James Franklin's team thrives in this environment and typically delivers dominant performances for the home crowd.",
+          "impactTeam": "penn_state",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "environment"
+        },
+        {
+          "title": "James Franklin Statement Game",
+          "description": "After recent playoff near-misses, Franklin enters 2026 with a motivated squad. The opener is an opportunity to install offensive identity and put the Big Ten on notice. Expect Penn State to score early and often.",
+          "impactTeam": "penn_state",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "coaching"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 75,
+        "awayTeamBuzz": 25,
+        "sentimentHome": 0.72,
+        "sentimentAway": 0.28,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 77,
+          "awayPct": 23,
+          "overPct": 63,
+          "underPct": 37,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Penn State Opener: Franklin's Lions vs Marshall",
+        "synopsis": "James Franklin opens Penn State's 2026 season against Marshall in front of a White Out crowd at Beaver Stadium. The Nittany Lions are heavy favorites and the game serves as an early litmus test for Penn State's offensive identity.",
+        "analysis": [
+          {
+            "section": "THE PICK",
+            "text": "Marshall +28.5. Like all massive spreads, garbage time covers are real. Penn State will win big but won't run it up to 35+ — take Marshall covering late."
+          }
+        ],
+        "thePick": {
+          "team": "Marshall",
+          "line": "+28.5",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": "Massive spread vulnerable to backdoor cover in garbage time"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g29",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "4:00 PM ET",
+      "homeTeamId": "washington",
+      "awayTeamId": "washington_state",
+      "homeTeamName": "Washington",
+      "awayTeamName": "Washington State",
+      "homeConference": "Big Ten",
+      "awayConference": "Pac-12",
+      "network": "NBC",
+      "venue": "Husky Stadium",
+      "venueCity": "Seattle",
+      "venueState": "WA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -7,
+        "moneylineHome": -300,
+        "moneylineAway": 248,
+        "total": 53.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Overcast",
+        "tempF": 68,
+        "windMph": 11,
+        "humidity": 72,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -7,
+          "total": 54,
+          "note": "Washington opens as 7-point home favorite — Big Ten vs Pac-12 in the Apple Cup preview"
+        },
+        {
+          "time": "Current",
+          "spread": -7,
+          "total": 53.5,
+          "note": "Total slightly down — Pacific Northwest weather favors defensive game"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 3,
+        "primeTimeGame": false,
+        "rivalryGame": true,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 280,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Apple Cup Intensity — Conference Split Edition",
+          "description": "The Apple Cup rivalry is supercharged now that Washington is in the Big Ten and Washington State remains in the Pac-12. Both programs are fighting for Pacific Northwest recruiting territory and bragging rights in a deeply personal rivalry.",
+          "impactTeam": "washington_state",
+          "impactDirection": "positive",
+          "severity": 9,
+          "category": "rivalry"
+        },
+        {
+          "title": "Big Ten Depth Advantage",
+          "description": "Washington's move to the Big Ten brings stronger recruiting classes and deeper rosters. WSU competes but the talent gap has grown. In rivalry games though, recruiting rankings get thrown out.",
+          "impactTeam": "washington",
+          "impactDirection": "positive",
+          "severity": 6,
+          "category": "talent"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 58,
+        "awayTeamBuzz": 42,
+        "sentimentHome": 0.56,
+        "sentimentAway": 0.44,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 62,
+          "awayPct": 38,
+          "overPct": 51,
+          "underPct": 49,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Apple Cup: Big Ten vs Pac-12 — A Rivalry Renewed",
+        "synopsis": "Washington and Washington State renew their Apple Cup rivalry with a new wrinkle — UW is now Big Ten, WSU remains in the Pac-12. Husky Stadium on NBC in a nationally televised rivalry opener with real conference prestige stakes on both sides.",
+        "analysis": [
+          {
+            "section": "KEY X-FACTOR",
+            "text": "Apple Cup rivalry games are decided by emotion, not recruiting rankings. Washington State will be fired up and this is closer than 7 points suggests."
+          },
+          {
+            "section": "THE PICK",
+            "text": "Washington State +7. Rivalry games with conference identity stakes rarely land on the spread. WSU covers in a competitive game decided late."
+          }
+        ],
+        "thePick": {
+          "team": "Washington State",
+          "line": "+7",
+          "confidence": "MEDIUM",
+          "unit": 1.5,
+          "reasoning": "Rivalry + conference identity stakes = closer game than spread implies"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g30",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "7:30 PM ET",
+      "homeTeamId": "alabama",
+      "awayTeamId": "east_carolina",
+      "homeTeamName": "Alabama",
+      "awayTeamName": "East Carolina",
+      "homeConference": "SEC",
+      "awayConference": "American Athletic",
+      "network": "ESPN",
+      "venue": "Bryant-Denny Stadium",
+      "venueCity": "Tuscaloosa",
+      "venueState": "AL",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 3,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -35.5,
+        "moneylineHome": -10000,
+        "moneylineAway": 3500,
+        "total": 59.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 89,
+        "windMph": 5,
+        "humidity": 68,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -35.5,
+          "total": 60,
+          "note": "Alabama opens as a historically large home favorite — scheduled warmup"
+        },
+        {
+          "time": "Current",
+          "spread": -35.5,
+          "total": 59.5,
+          "note": "Books taking some under action — Alabama expected to run clock in second half"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 1,
+        "primeTimeGame": true,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 650,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Bryant-Denny Night — Crimson Tide on a Mission",
+          "description": "Alabama under the lights at Bryant-Denny is one of the most dominant home environments in college football. The Tide average 48 points in home night openers over the last decade. This is a recruiting showcase and program statement game.",
+          "impactTeam": "alabama",
+          "impactDirection": "positive",
+          "severity": 9,
+          "category": "environment"
+        },
+        {
+          "title": "Garbage Time Cover — 35.5 Is Huge",
+          "description": "When Alabama goes up 40+ by the third quarter — which is likely — the backups play and the opponent often scores late. ECU has enough offensive talent to put up 20+ garbage-time points if Alabama loses focus.",
+          "impactTeam": "east_carolina",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 85,
+        "awayTeamBuzz": 15,
+        "sentimentHome": 0.82,
+        "sentimentAway": 0.18,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 84,
+          "awayPct": 16,
+          "overPct": 66,
+          "underPct": 34,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Alabama Night Opener: Tide vs East Carolina",
+        "synopsis": "Alabama opens 2026 under the Bryant-Denny lights against East Carolina in a scheduled tune-up. The Crimson Tide are ranked in the top 3 nationally and this game is about installing systems and evaluating depth before SEC play.",
+        "analysis": [
+          {
+            "section": "THE PICK",
+            "text": "East Carolina +35.5. Alabama wins easily but garbage time scoring gets ECU to cover. 35.5 is too many points to lay against a team with a real Power conference offense."
+          }
+        ],
+        "thePick": {
+          "team": "East Carolina",
+          "line": "+35.5",
+          "confidence": "MEDIUM",
+          "unit": 1.5,
+          "reasoning": "Massive spread + Alabama pulling starters = ECU backdoor cover"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g31",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "7:30 PM ET",
+      "homeTeamId": "auburn",
+      "awayTeamId": "baylor",
+      "homeTeamName": "Auburn",
+      "awayTeamName": "Baylor",
+      "homeConference": "SEC",
+      "awayConference": "Big 12",
+      "network": "ESPN",
+      "venue": "Jordan-Hare Stadium",
+      "venueCity": "Auburn",
+      "venueState": "AL",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -3.5,
+        "moneylineHome": -175,
+        "moneylineAway": 148,
+        "total": 49.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 90,
+        "windMph": 6,
+        "humidity": 71,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -3.5,
+          "total": 50,
+          "note": "Auburn opens as slight home favorite in SEC vs Big 12 opener"
+        },
+        {
+          "time": "Current",
+          "spread": -3.5,
+          "total": 49.5,
+          "note": "Total slightly down — both defenses expected to be physical and disruptive early"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 3,
+        "primeTimeGame": true,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 750,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Jordan-Hare Night Game Intensity",
+          "description": "Auburn at night is a different beast. The 87,000-seat stadium rocks with noise and the Tigers have historically been dominant at home in primetime. Baylor's offense will face communication challenges from the first play.",
+          "impactTeam": "auburn",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "environment"
+        },
+        {
+          "title": "SEC vs Big 12 — Conference Pride",
+          "description": "This is a measuring stick game for Baylor. A win in Jordan-Hare validates the Big 12 schedule. Baylor arrives motivated to prove they belong on the same field as an SEC program — expect a tough, physical game.",
+          "impactTeam": "baylor",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 62,
+        "awayTeamBuzz": 38,
+        "sentimentHome": 0.6,
+        "sentimentAway": 0.4,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 59,
+          "awayPct": 41,
+          "overPct": 47,
+          "underPct": 53,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "SEC vs Big 12: Auburn Hosts Baylor Under the Lights",
+        "synopsis": "Auburn opens 2026 hosting Baylor in a marquee non-conference showdown at Jordan-Hare Stadium. This is a true measuring stick game — SEC pride vs Big 12 challenger in one of the loudest night game environments in college football.",
+        "analysis": [
+          {
+            "section": "KEY X-FACTOR",
+            "text": "Jordan-Hare at night neutralizes Baylor's offensive tempo. The Bears will face communication issues and false starts early."
+          },
+          {
+            "section": "THE PICK",
+            "text": "Auburn -3.5. Home night game advantage plus SEC talent edge should hold. Expect a physical 24-17 type game with Auburn covering at home."
+          }
+        ],
+        "thePick": {
+          "team": "Auburn",
+          "line": "-3.5",
+          "confidence": "MEDIUM",
+          "unit": 1.5,
+          "reasoning": "SEC home night game advantage + conference talent edge"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g32",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "3:30 PM ET",
+      "homeTeamId": "duke",
+      "awayTeamId": "tulane",
+      "homeTeamName": "Duke",
+      "awayTeamName": "Tulane",
+      "homeConference": "ACC",
+      "awayConference": "American Athletic",
+      "network": "ESPN",
+      "venue": "Wallace Wade Stadium",
+      "venueCity": "Durham",
+      "venueState": "NC",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -3,
+        "moneylineHome": -158,
+        "moneylineAway": 134,
+        "total": 51.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Partly Cloudy",
+        "tempF": 84,
+        "windMph": 7,
+        "humidity": 65,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -3,
+          "total": 52,
+          "note": "Duke opens as slight home favorite — two evenly matched programs"
+        },
+        {
+          "time": "Current",
+          "spread": -3,
+          "total": 51.5,
+          "note": "Line stable — sharp money split evenly on this matchup"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 2,
+        "primeTimeGame": false,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 900,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Tulane's System Advantage",
+          "description": "Tulane runs one of the most sophisticated offensive systems in non-Power conference football. Their air raid attack has shredded Power conference defenses before. Duke's defense must prepare for an opponent they've rarely seen.",
+          "impactTeam": "tulane",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "scheme"
+        },
+        {
+          "title": "Duke's ACC Credibility Moment",
+          "description": "Duke has emerged as a legitimate ACC program. A home opener win over Tulane — a nationally respected Group of 5 team — validates their growth. The Blue Devils will be fired up in this showcase game.",
+          "impactTeam": "duke",
+          "impactDirection": "positive",
+          "severity": 6,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 52,
+        "awayTeamBuzz": 48,
+        "sentimentHome": 0.52,
+        "sentimentAway": 0.48,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 54,
+          "awayPct": 46,
+          "overPct": 52,
+          "underPct": 48,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Duke vs Tulane: G5 Challenger Tests ACC Program",
+        "synopsis": "Tulane brings one of the best Group of 5 offenses to Durham to test Duke's defensive growth. This is a coin-flip game between two well-coached programs playing for early-season momentum.",
+        "analysis": [
+          {
+            "section": "THE PICK",
+            "text": "Tulane +3. Green Wave's offensive system gives them an edge in a close game. Lay the points with the road team."
+          }
+        ],
+        "thePick": {
+          "team": "Tulane",
+          "line": "+3",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": "Tulane's offensive system creates matchup problems — take the points"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g33",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-06",
+      "time": "7:30 PM ET",
+      "homeTeamId": "ole_miss",
+      "awayTeamId": "louisville",
+      "homeTeamName": "Ole Miss",
+      "awayTeamName": "Louisville",
+      "homeConference": "SEC",
+      "awayConference": "ACC",
+      "network": "ABC",
+      "venue": "Nissan Stadium",
+      "venueCity": "Nashville",
+      "venueState": "TN",
+      "isConferenceGame": false,
+      "neutralSite": true,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 12,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -4.5,
+        "moneylineHome": -200,
+        "moneylineAway": 168,
+        "total": 54.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 84,
+        "windMph": 6,
+        "humidity": 62,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -4.5,
+          "total": 55,
+          "note": "Ole Miss opens as favorite in Nashville neutral site — Music City Kickoff inaugural game"
+        },
+        {
+          "time": "Current",
+          "spread": -4.5,
+          "total": 54.5,
+          "note": "Total ticked down half-point — both defenses showed well in spring practice"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 2,
+        "primeTimeGame": true,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 400,
+        "timeZoneChange": 0,
+        "neutralSite": true
+      },
+      "xFactors": [
+        {
+          "title": "Inaugural Music City Kickoff — National Stage",
+          "description": "The Liberty Mutual Music City Kickoff is the newest marquee neutral-site opener. Ole Miss and Louisville are both programs hungry for national recognition. The Nashville atmosphere is electric and both fan bases travel exceptionally well.",
+          "impactTeam": "ole_miss",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "environment"
+        },
+        {
+          "title": "SEC Talent Advantage at Neutral Site",
+          "description": "Ole Miss recruits at a top-15 national level. At a true neutral site without the benefit of a home crowd, the talent gap matters more. Brian Kelly's system deploys that talent efficiently.",
+          "impactTeam": "ole_miss",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "talent"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 63,
+        "awayTeamBuzz": 37,
+        "sentimentHome": 0.62,
+        "sentimentAway": 0.38,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 64,
+          "awayPct": 36,
+          "overPct": 55,
+          "underPct": 45,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Music City Kickoff: Ole Miss vs Louisville in Nashville",
+        "synopsis": "The inaugural Liberty Mutual Music City Kickoff pairs Ole Miss and Louisville in a primetime Sunday showdown in Nashville. Ole Miss enters ranked in the top 15 while Louisville looks to validate their ACC standing against an SEC opponent.",
+        "analysis": [
+          {
+            "section": "KEY X-FACTOR",
+            "text": "Neutral site neutralizes home field — Ole Miss's talent advantage in the trenches should decide this game."
+          },
+          {
+            "section": "THE PICK",
+            "text": "Ole Miss -4.5. SEC talent wins at neutral sites. Brian Kelly's squad covers in a 31-20 type final."
+          }
+        ],
+        "thePick": {
+          "team": "Ole Miss",
+          "line": "-4.5",
+          "confidence": "MEDIUM",
+          "unit": 1.5,
+          "reasoning": "SEC talent advantage decisive at neutral site — Ole Miss covers"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g34",
+      "week": 2,
+      "seasonType": "regular",
+      "date": "2026-09-12",
+      "time": "12:00 PM ET",
+      "homeTeamId": "michigan",
+      "awayTeamId": "oklahoma",
+      "homeTeamName": "Michigan",
+      "awayTeamName": "Oklahoma",
+      "homeConference": "Big Ten",
+      "awayConference": "SEC",
+      "network": "FOX",
+      "venue": "Michigan Stadium",
+      "venueCity": "Ann Arbor",
+      "venueState": "MI",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 14,
+      "awayApRank": 11,
+      "bettingLines": {
+        "spread": -3.5,
+        "moneylineHome": -175,
+        "moneylineAway": 148,
+        "total": 52.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Partly Cloudy",
+        "tempF": 71,
+        "windMph": 10,
+        "humidity": 58,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -3.5,
+          "total": 53,
+          "note": "Michigan opens as slight home favorite in Big Ten-SEC clash — prime FOX noon window"
+        },
+        {
+          "time": "Current",
+          "spread": -3.5,
+          "total": 52.5,
+          "note": "Oklahoma money coming in — SEC vs Big Ten narrative driving significant two-way action"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 2,
+        "primeTimeGame": false,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": "home",
+        "travelDistance": 1100,
+        "timeZoneChange": 1,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Whittingham's Second Game — Establishing Identity",
+          "description": "Kyle Whittingham's Michigan program faces its first true test in Week 2. Oklahoma brings SEC physicality and a loaded roster. How Michigan responds to an elite opponent defines the early narrative of the Whittingham era.",
+          "impactTeam": "michigan",
+          "impactDirection": "positive",
+          "severity": 9,
+          "category": "coaching"
+        },
+        {
+          "title": "Oklahoma's SEC Chip — Big House Road Test",
+          "description": "Oklahoma joins the SEC and immediately faces Michigan at The Big House in Week 2. This is a defining game for the Sooners — beat a blue-blood Big Ten program on the road and establish SEC credibility immediately.",
+          "impactTeam": "oklahoma",
+          "impactDirection": "positive",
+          "severity": 9,
+          "category": "situational"
+        },
+        {
+          "title": "Big House Crowd Advantage",
+          "description": "107,000 fans create a wall of noise that road teams historically struggle with. Oklahoma will need clean snaps and zero false starts to stay competitive in the first half against a Michigan team eager to make a statement.",
+          "impactTeam": "michigan",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "environment"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 62,
+        "awayTeamBuzz": 38,
+        "sentimentHome": 0.6,
+        "sentimentAway": 0.4,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 57,
+          "awayPct": 43,
+          "overPct": 52,
+          "underPct": 48,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Big Ten vs SEC: Michigan Hosts Oklahoma in Elite Early Showdown",
+        "synopsis": "Michigan and Oklahoma meet in Ann Arbor in one of the most anticipated Week 2 matchups in years. Two blue-blood programs — one establishing a new coaching era, the other proving SEC relevance — clash in a noon FOX showdown at The Big House.",
+        "analysis": [
+          {
+            "section": "OFFENSIVE EDGE",
+            "text": "Oklahoma's SEC-style offense brings spread concepts that Michigan's defense hasn't seen in Big Ten play. The Sooners' skill position talent is elite. Michigan counters with Whittingham's physical run game."
+          },
+          {
+            "section": "DEFENSIVE BATTLEGROUND",
+            "text": "Michigan's defense under Whittingham will be physical and assignment-sound. Oklahoma's offensive line faces a rebuilt Michigan front that will be motivated to impose its will."
+          },
+          {
+            "section": "THE PICK",
+            "text": "Oklahoma +3.5. Road teams in SEC vs Big Ten matchups historically cover at a 52% rate. Oklahoma's talent is SEC-grade — take the points in The Big House."
+          }
+        ],
+        "thePick": {
+          "team": "Oklahoma",
+          "line": "+3.5",
+          "confidence": "MEDIUM",
+          "unit": 2,
+          "reasoning": "SEC talent on road vs Big Ten — Oklahoma's roster can steal this in Ann Arbor"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g35",
+      "week": 2,
+      "seasonType": "regular",
+      "date": "2026-09-12",
+      "time": "3:30 PM ET",
+      "homeTeamId": "notre_dame",
+      "awayTeamId": "rice",
+      "homeTeamName": "Notre Dame",
+      "awayTeamName": "Rice",
+      "homeConference": "Independent",
+      "awayConference": "American Athletic",
+      "network": "NBC",
+      "venue": "Notre Dame Stadium",
+      "venueCity": "South Bend",
+      "venueState": "IN",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 7,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -27.5,
+        "moneylineHome": -3200,
+        "moneylineAway": 1600,
+        "total": 53.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 74,
+        "windMph": 8,
+        "humidity": 56,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -27.5,
+          "total": 54,
+          "note": "Notre Dame opens as massive home favorite — Rice is a warmup for bigger tests ahead"
+        },
+        {
+          "time": "Current",
+          "spread": -27.5,
+          "total": 53.5,
+          "note": "Total down slightly — ND expected to control tempo and rest key players by third quarter"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 2,
+        "primeTimeGame": false,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 1100,
+        "timeZoneChange": 1,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Notre Dame Stadium Mystique",
+          "description": "Notre Dame Stadium holds 80,795 fans and carries 130 years of football tradition. The golden dome, Touchdown Jesus — visiting teams face a psychological weight that no other venue replicates. Rice has no answer for this environment.",
+          "impactTeam": "notre_dame",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "environment"
+        },
+        {
+          "title": "Early Playoff Seed Preservation",
+          "description": "Notre Dame enters Week 2 ranked in the top 10. Running up the score and covering big is important for early CFP positioning. Expect the Fighting Irish to play their starters deep into the third quarter.",
+          "impactTeam": "notre_dame",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 78,
+        "awayTeamBuzz": 22,
+        "sentimentHome": 0.76,
+        "sentimentAway": 0.24,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 79,
+          "awayPct": 21,
+          "overPct": 62,
+          "underPct": 38,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Notre Dame Hosts Rice Under the Golden Dome",
+        "synopsis": "Notre Dame welcomes Rice to South Bend in a lopsided home opener on NBC. The Fighting Irish are ranked top-10 and this game serves as a tune-up before their brutal schedule kicks in. The only betting question is backdoor cover.",
+        "analysis": [
+          {
+            "section": "THE PICK",
+            "text": "Rice +27.5. Notre Dame wins easily but doesn't run up the score to 40+ — backdoor cover in the fourth quarter when starters sit."
+          }
+        ],
+        "thePick": {
+          "team": "Rice",
+          "line": "+27.5",
+          "confidence": "MEDIUM",
+          "unit": 1,
+          "reasoning": "ND pulls starters in fourth — backdoor cover is real at this spread"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g36",
+      "week": 3,
+      "seasonType": "regular",
+      "date": "2026-09-19",
+      "time": "12:00 PM ET",
+      "homeTeamId": "ohio_state",
+      "awayTeamId": "kent_state",
+      "homeTeamName": "Ohio State",
+      "awayTeamName": "Kent State",
+      "homeConference": "Big Ten",
+      "awayConference": "MAC",
+      "network": "FOX",
+      "venue": "Ohio Stadium",
+      "venueCity": "Columbus",
+      "venueState": "OH",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 5,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -38.5,
+        "moneylineHome": -10000,
+        "moneylineAway": 4000,
+        "total": 63.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 78,
+        "windMph": 7,
+        "humidity": 55,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -38.5,
+          "total": 64,
+          "note": "Ohio State opens as historically large favorite — Kent State is overmatched at every level"
+        },
+        {
+          "time": "Current",
+          "spread": -38.5,
+          "total": 63.5,
+          "note": "Books shading under — Buckeyes run clock after big first-half lead"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 1,
+        "primeTimeGame": false,
+        "rivalryGame": false,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 120,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Ohio Stadium — The Horseshoe at Capacity",
+          "description": "Ohio Stadium holds 102,780 fans and is one of the most imposing home fields in football. Kent State has MAC-level talent facing a top-5 program. Ohio State uses this as a live-action practice to install tempo packages.",
+          "impactTeam": "ohio_state",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "environment"
+        },
+        {
+          "title": "38.5 — Backdoor Central",
+          "description": "Ohio State at -38.5 means they need to score 39+ more than Kent State. Historically, when OSU leads 35-0 after three quarters, the backups play and allow 14-21 garbage-time points. The back door is wide open.",
+          "impactTeam": "kent_state",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 88,
+        "awayTeamBuzz": 12,
+        "sentimentHome": 0.85,
+        "sentimentAway": 0.15,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 85,
+          "awayPct": 15,
+          "overPct": 71,
+          "underPct": 29,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Ohio State Opens The Horseshoe vs Kent State",
+        "synopsis": "Ohio State hosts Kent State in front of 102,000 fans at The Horseshoe. The Buckeyes are ranked top-5 and this game is purely a tune-up. The only interesting bet is on the backdoor cover.",
+        "analysis": [
+          {
+            "section": "THE PICK",
+            "text": "Kent State +38.5. Ohio State rolls, pulls starters in the third quarter, and Kent State scores late. Best backdoor cover on the board."
+          }
+        ],
+        "thePick": {
+          "team": "Kent State",
+          "line": "+38.5",
+          "confidence": "HIGH",
+          "unit": 2,
+          "reasoning": "OSU pulls starters after 35-0 lead — Kent State covers in garbage time easily"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g37",
+      "week": 3,
+      "seasonType": "regular",
+      "date": "2026-09-19",
+      "time": "7:30 PM ET",
+      "homeTeamId": "ole_miss",
+      "awayTeamId": "lsu",
+      "homeTeamName": "Ole Miss",
+      "awayTeamName": "LSU",
+      "homeConference": "SEC",
+      "awayConference": "SEC",
+      "network": "ABC",
+      "venue": "Vaught-Hemingway Stadium",
+      "venueCity": "Oxford",
+      "venueState": "MS",
+      "isConferenceGame": true,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 12,
+      "awayApRank": 9,
+      "bettingLines": {
+        "spread": 3,
+        "moneylineHome": 138,
+        "moneylineAway": -162,
+        "total": 57.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 86,
+        "windMph": 6,
+        "humidity": 72,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": 3,
+          "total": 58,
+          "note": "LSU opens as 3-point road favorite in Oxford — Grove Bowl rivalry early in SEC schedule"
+        },
+        {
+          "time": "Current",
+          "spread": 3,
+          "total": 57.5,
+          "note": "Ole Miss home money moving — Grove atmosphere undervalued by market"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 3,
+        "primeTimeGame": true,
+        "rivalryGame": true,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 210,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "The Grove — SEC's Most Electric Tailgate Atmosphere",
+          "description": "Ole Miss's Grove atmosphere is unmatched on game day. The Vaught-Hemingway crowd generates electric energy that has cost opposing teams points historically. LSU hates playing in Oxford — the Tigers are 3-7 ATS in their last 10 visits.",
+          "impactTeam": "ole_miss",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "environment"
+        },
+        {
+          "title": "LSU's Road Vulnerability",
+          "description": "Despite their talent, LSU has historically been inconsistent on SEC roads. A Week 3 game in Oxford before their home slate kicks in creates a motivation and focus risk for Brian Kelly's squad.",
+          "impactTeam": "lsu",
+          "impactDirection": "negative",
+          "severity": 7,
+          "category": "situational"
+        },
+        {
+          "title": "Brian Kelly Early Conference Challenge",
+          "description": "LSU needs a road statement win to validate their top-10 ranking. Brian Kelly has struggled in true road environments against rivals — Ole Miss knows how to play at home in primetime.",
+          "impactTeam": "lsu",
+          "impactDirection": "negative",
+          "severity": 6,
+          "category": "coaching"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 55,
+        "awayTeamBuzz": 45,
+        "sentimentHome": 0.56,
+        "sentimentAway": 0.44,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 42,
+          "awayPct": 58,
+          "overPct": 59,
+          "underPct": 41,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "SEC Primetime: Ole Miss Hosts LSU in the Grove",
+        "synopsis": "LSU travels to Oxford in Week 3 for one of the SEC's most electric atmospheres. The Vaught-Hemingway crowd and Grove energy have haunted visiting teams for decades. Ole Miss enters as a home dog with serious upset potential on ABC primetime.",
+        "analysis": [
+          {
+            "section": "ENVIRONMENT",
+            "text": "Oxford's Grove atmosphere is genuinely one of the most intimidating environments in the SEC for road teams. LSU has a poor ATS record at Ole Miss historically."
+          },
+          {
+            "section": "MATCHUP",
+            "text": "Both teams run high-powered offenses. The defensive edge goes to LSU but Ole Miss's home crowd neutralizes it. Expect 30+ from both sides."
+          },
+          {
+            "section": "THE PICK",
+            "text": "Ole Miss +3. The Grove atmosphere, LSU's road struggles, and the primetime ABC stage make this the ideal home-dog spot. Ole Miss covers or wins outright."
+          }
+        ],
+        "thePick": {
+          "team": "Ole Miss",
+          "line": "+3",
+          "confidence": "HIGH",
+          "unit": 2,
+          "reasoning": "LSU's road struggles in Oxford + Grove atmosphere = prime home-dog spot"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g38",
+      "week": 3,
+      "seasonType": "regular",
+      "date": "2026-09-19",
+      "time": "7:30 PM ET",
+      "homeTeamId": "notre_dame",
+      "awayTeamId": "michigan_state",
+      "homeTeamName": "Notre Dame",
+      "awayTeamName": "Michigan State",
+      "homeConference": "Independent",
+      "awayConference": "Big Ten",
+      "network": "NBC",
+      "venue": "Notre Dame Stadium",
+      "venueCity": "South Bend",
+      "venueState": "IN",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 7,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -10.5,
+        "moneylineHome": -450,
+        "moneylineAway": 360,
+        "total": 52.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Partly Cloudy",
+        "tempF": 72,
+        "windMph": 10,
+        "humidity": 60,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -10.5,
+          "total": 53,
+          "note": "Notre Dame opens as double-digit favorite — MSU arrives rebuilding but dangerous"
+        },
+        {
+          "time": "Current",
+          "spread": -10.5,
+          "total": 52.5,
+          "note": "Total slightly down — MSU defense has shown improvement in fall camp reports"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 2,
+        "primeTimeGame": true,
+        "rivalryGame": true,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 155,
+        "timeZoneChange": 0,
+        "neutralSite": false
+      },
+      "xFactors": [
+        {
+          "title": "Notre Dame Stadium — NBC Primetime Mystique",
+          "description": "Notre Dame under the lights on NBC is the gold standard of college football broadcasting. The Fighting Irish have a 28-7 all-time record in home primetime games. Michigan State faces 80,000 of the most intense fans in the sport.",
+          "impactTeam": "notre_dame",
+          "impactDirection": "positive",
+          "severity": 9,
+          "category": "environment"
+        },
+        {
+          "title": "Michigan State Rivalry Upset History",
+          "description": "Michigan State has historically been a thorn in Notre Dame's side. The Spartans embrace the underdog role and their physicality matches ND's style. This rivalry has produced upsets even when the spread looked prohibitive.",
+          "impactTeam": "michigan_state",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "rivalry"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 72,
+        "awayTeamBuzz": 28,
+        "sentimentHome": 0.7,
+        "sentimentAway": 0.3,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 73,
+          "awayPct": 27,
+          "overPct": 49,
+          "underPct": 51,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Notre Dame vs Michigan State: NBC Saturday Night Primetime",
+        "synopsis": "Notre Dame hosts Michigan State in a primetime NBC showdown at Notre Dame Stadium. The Fighting Irish are heavy favorites but MSU brings rivalry energy and the Spartans historically make this game interesting regardless of the spread.",
+        "analysis": [
+          {
+            "section": "THE PICK",
+            "text": "Michigan State +10.5. Rivalry game in South Bend — MSU keeps it within two scores. Take the points with the Spartans in a game that will be physical and close early."
+          }
+        ],
+        "thePick": {
+          "team": "Michigan State",
+          "line": "+10.5",
+          "confidence": "MEDIUM",
+          "unit": 1.5,
+          "reasoning": "Rivalry energy keeps MSU in it — 10.5 is too many points in this matchup"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g39",
+      "week": 6,
+      "seasonType": "regular",
+      "date": "2026-10-10",
+      "time": "3:30 PM ET",
+      "homeTeamId": "texas",
+      "awayTeamId": "oklahoma",
+      "homeTeamName": "Texas",
+      "awayTeamName": "Oklahoma",
+      "homeConference": "SEC",
+      "awayConference": "SEC",
+      "network": "ABC",
+      "venue": "Cotton Bowl",
+      "venueCity": "Dallas",
+      "venueState": "TX",
+      "isConferenceGame": true,
+      "neutralSite": true,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": 4,
+      "awayApRank": 11,
+      "bettingLines": {
+        "spread": -2.5,
+        "moneylineHome": -135,
+        "moneylineAway": 114,
+        "total": 58.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Clear",
+        "tempF": 78,
+        "windMph": 9,
+        "humidity": 52,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -2.5,
+          "total": 59,
+          "note": "Texas opens slight favorite in the Red River Showdown — SEC stakes raised with both in same division"
+        },
+        {
+          "time": "Current",
+          "spread": -2.5,
+          "total": 58.5,
+          "note": "Oklahoma money flooding in — Sooners have strong motivation after Michigan loss"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 1,
+        "primeTimeGame": false,
+        "rivalryGame": true,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 185,
+        "timeZoneChange": 0,
+        "neutralSite": true
+      },
+      "xFactors": [
+        {
+          "title": "Red River Showdown — Now an SEC Game",
+          "description": "The Red River Showdown gains massive new stakes now that Texas and Oklahoma are both in the SEC. A conference win here has direct CFP implications. The Cotton Bowl atmosphere — split 50/50 crimson and burnt orange — is unlike anything in college football.",
+          "impactTeam": "texas",
+          "impactDirection": "positive",
+          "severity": 10,
+          "category": "rivalry"
+        },
+        {
+          "title": "Oklahoma's Revenge Tour Motivation",
+          "description": "Oklahoma enters having lost at Michigan in Week 2. The Sooners are a wounded, motivated team by October. Programs that lose their first big game and then hit their rivalry game often over-perform — Sooner Magic is real.",
+          "impactTeam": "oklahoma",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "situational"
+        },
+        {
+          "title": "Texas's SEC Power Statement",
+          "description": "Texas needs a Red River win to cement their top-5 ranking and establish SEC credibility. The Longhorns' offensive line is elite and their talent advantage is real — they need to demonstrate they belong at the top of the conference.",
+          "impactTeam": "texas",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "situational"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 54,
+        "awayTeamBuzz": 46,
+        "sentimentHome": 0.54,
+        "sentimentAway": 0.46,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 52,
+          "awayPct": 48,
+          "overPct": 58,
+          "underPct": 42,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Red River Showdown: Texas vs Oklahoma in the SEC Era",
+        "synopsis": "The Red River Rivalry at the Cotton Bowl takes on monumental new significance as both Texas and Oklahoma are SEC programs. This game now carries direct CFP implications. 90,000 fans split down the middle — the most electric atmosphere in college football.",
+        "analysis": [
+          {
+            "section": "RIVALRY STAKES",
+            "text": "This is no longer just a rivalry game — it's an SEC championship game preview. The loser likely needs to run the table the rest of the season to stay in CFP contention."
+          },
+          {
+            "section": "MATCHUP EDGE",
+            "text": "Texas has the talent advantage at skill positions. Oklahoma counters with a more experienced offensive line and a defense that has improved since the Michigan loss."
+          },
+          {
+            "section": "THE PICK",
+            "text": "Oklahoma +2.5. Rivalry games at neutral sites are coin flips. Oklahoma's Sooner Magic plus revenge motivation from Michigan loss = take the points. This game goes to overtime."
+          }
+        ],
+        "thePick": {
+          "team": "Oklahoma",
+          "line": "+2.5",
+          "confidence": "HIGH",
+          "unit": 2.5,
+          "reasoning": "Rivalry neutralizes talent gap + Sooner Magic revenge motivation — coin flip, take the points"
+        }
+      },
+      "fromPregen": true
+    },
+    {
+      "id": "g40",
+      "week": 16,
+      "seasonType": "regular",
+      "date": "2026-12-12",
+      "time": "3:00 PM ET",
+      "homeTeamId": "navy",
+      "awayTeamId": "army",
+      "homeTeamName": "Navy",
+      "awayTeamName": "Army",
+      "homeConference": "American Athletic",
+      "awayConference": "Independent",
+      "network": "CBS",
+      "venue": "MetLife Stadium",
+      "venueCity": "East Rutherford",
+      "venueState": "NJ",
+      "isConferenceGame": false,
+      "neutralSite": true,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "bettingLines": {
+        "spread": -2,
+        "moneylineHome": -120,
+        "moneylineAway": 102,
+        "total": 38.5,
+        "homeSpreadOdds": -110,
+        "awaySpreadOdds": -110,
+        "overOdds": -110,
+        "underOdds": -110
+      },
+      "weather": {
+        "condition": "Cold, Overcast",
+        "tempF": 40,
+        "windMph": 14,
+        "humidity": 65,
+        "indoors": false
+      },
+      "lineMovement": [
+        {
+          "time": "Open",
+          "spread": -2,
+          "total": 39,
+          "note": "Navy opens as slight favorite — series has been remarkably even over the last decade"
+        },
+        {
+          "time": "Current",
+          "spread": -2,
+          "total": 38.5,
+          "note": "Under money heavy — cold December MetLife conditions favor ground game, low scoring"
+        }
+      ],
+      "situational": {
+        "trapGameRisk": 0,
+        "primeTimeGame": false,
+        "rivalryGame": true,
+        "homeTeamEmotionalSpot": "motivated",
+        "awayTeamEmotionalSpot": "motivated",
+        "restAdvantage": null,
+        "travelDistance": 200,
+        "timeZoneChange": 0,
+        "neutralSite": true
+      },
+      "xFactors": [
+        {
+          "title": "127th Army-Navy Game — MetLife Return",
+          "description": "The 127th Army-Navy Game at MetLife Stadium in New Jersey marks the first time the game returns to the New York area since 2021. 82,000 fans split between military branches create the most patriotic and emotional atmosphere in sports. These players compete for something bigger than football.",
+          "impactTeam": "navy",
+          "impactDirection": "positive",
+          "severity": 10,
+          "category": "environment"
+        },
+        {
+          "title": "Option Football in December Cold",
+          "description": "Both academies run the triple option — a style completely unlike anything else in college football. The December cold at MetLife typically suppresses scoring and favors the team with the deeper option backfield. Navy's option has been more refined in recent years.",
+          "impactTeam": "navy",
+          "impactDirection": "positive",
+          "severity": 7,
+          "category": "scheme"
+        },
+        {
+          "title": "Army's Motivation After Season",
+          "description": "Army comes in with a full season of preparation for this single rivalry game. The Black Knights treat every other game as preparation for Navy. Their defensive front has been specifically designed to stop Navy's speed option.",
+          "impactTeam": "army",
+          "impactDirection": "positive",
+          "severity": 8,
+          "category": "rivalry"
+        }
+      ],
+      "socialBuzz": {
+        "homeTeamBuzz": 50,
+        "awayTeamBuzz": 50,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "publicBetting": {
+          "homePct": 52,
+          "awayPct": 48,
+          "overPct": 31,
+          "underPct": 69,
+          "source": "default"
+        }
+      },
+      "gamePreview": {
+        "headline": "Army-Navy: 127th Meeting at MetLife Stadium",
+        "synopsis": "The 127th Army-Navy Game comes to MetLife Stadium in New Jersey for the most emotionally charged game in college football. Cold December weather, 82,000 military fans, and the purest rivalry in sports. The total is a legitimate play here.",
+        "analysis": [
+          {
+            "section": "BETTING ANGLE",
+            "text": "Under 38.5 is the play. Cold MetLife December weather plus two triple-option teams that bleed clock equals a low-scoring, methodical game. Historical Army-Navy totals go under 60% of the time."
+          },
+          {
+            "section": "THE PICK",
+            "text": "Under 38.5. Army-Navy in cold weather with option football is the ideal under spot. Lean Navy -2 if you need a side — their option has been cleaner recently."
+          }
+        ],
+        "thePick": {
+          "team": "Under",
+          "line": "38.5",
+          "confidence": "HIGH",
+          "unit": 2,
+          "reasoning": "Cold MetLife + option football + rivalry = classic under spot"
         }
       },
       "fromPregen": true
