@@ -2,7 +2,7 @@ name: Deploy Cloudflare Worker
 
 on:
   push:
-    branches: [main, claude/d1-football-predictor-rkApg]
+    branches: [main]
     paths:
       - 'worker/**'
   workflow_dispatch:

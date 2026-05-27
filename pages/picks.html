@@ -1258,7 +1258,8 @@
       document.getElementById('form-toggle-icon').classList.add('open');
 
       setTimeout(function () {
-        document.querySelector('.add-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var fc = document.querySelector('.add-form-card');
+        if (fc) fc.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 200);
     }
   })();

@@ -53,16 +53,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Gate: skip automatically once real game data exists (season has started).
+      # games-2026.json totalGames > 0 means CFBD has published the schedule and
+      # x-auto-post.yml is now handling all posting — no more preseason content.
+      - name: Check season gate
+        id: gate
+        run: |
+          TOTAL=$(node -e "try{const d=require('./data/games-2026.json');console.log(d.totalGames||0)}catch{console.log(0)}")
+          echo "total_games=$TOTAL" >> $GITHUB_OUTPUT
+          if [ "$TOTAL" -gt "0" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            echo "Season is active ($TOTAL games) — skipping preseason post"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup Node.js
+        if: steps.gate.outputs.skip != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '24'
 
       - name: Install dependencies
+        if: steps.gate.outputs.skip != 'true'
         run: npm install
         working-directory: scripts
 
       - name: Resolve angle from schedule
+        if: steps.gate.outputs.skip != 'true'
         id: cfg
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -142,6 +160,7 @@ jobs:
           fi
 
       - name: Post to X
+        if: steps.gate.outputs.skip != 'true'
         id: post
         env:
           X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
@@ -170,7 +189,7 @@ jobs:
             $DRY
 
       - name: Rotate refresh token
-        if: always() && steps.cfg.outputs.dry != 'true'
+        if: always() && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |

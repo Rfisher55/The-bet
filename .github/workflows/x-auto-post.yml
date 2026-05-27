@@ -79,7 +79,7 @@ jobs:
                   echo "type=gameday" >> $GITHUB_OUTPUT
                 fi ;;
               7) echo "type=results" >> $GITHUB_OUTPUT ;;
-              *) echo "type=locks"   >> $GITHUB_OUTPUT ;;
+              *) echo "Unexpected DAY=$DAY — no scheduled post for this day" >&2; exit 1 ;;
             esac
             echo "legs=3"    >> $GITHUB_OUTPUT
             echo "dry=false" >> $GITHUB_OUTPUT
@@ -113,11 +113,11 @@ jobs:
 
       # On Sundays, commit the updated season-record.json back to the repo
       - name: Save season record
-        if: steps.cfg.outputs.type == 'results' && steps.cfg.outputs.dry == 'false'
+        if: steps.cfg.outputs.type == 'results' && steps.cfg.outputs.dry == 'false' && github.ref == 'refs/heads/main'
         run: |
           git config user.name  "TheBet Bot"
           git config user.email "bot@thebetcfb.com"
+          git pull --rebase origin main || true
           git add data/season-record.json
           git diff --staged --quiet || git commit -m "Update season record [skip ci]"
-          git pull --rebase origin main || true
           git push
