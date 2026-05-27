@@ -35,7 +35,10 @@ function writeAtomic(filepath, content) {
 }
 
 const CFBD_BASE     = "https://api.collegefootballdata.com";
-const ESPN_BASE     = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
+// ESPN has two APIs: site.api.espn.com (mobile) and site.web.api.espn.com (web).
+// The web API is what ESPN.com's front-end uses and has fuller schedule coverage.
+const ESPN_BASE     = "https://site.web.api.espn.com/apis/site/v2/sports/football/college-football";
+const ESPN_CORE     = "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football";
 const ODDS_BASE     = "https://api.the-odds-api.com/v4";
 const ODDSPAPI_BASE = "https://api.oddspapi.io";
 const METEO_BASE    = "https://api.open-meteo.com/v1";
@@ -291,54 +294,37 @@ function parseESPNEvent(ev, byKey) {
   };
 }
 
-// ── ESPN: full scoreboard — date-specific queries ───────────────────────
-// ESPN's scoreboard with year-format dates (dates=YEAR) silently returns 0
-// games for seasons that haven't started yet. Querying with specific
-// YYYYMMDD dates (e.g. dates=20260905) returns whatever ESPN has published
-// for that day — including pre-published future-season schedules.
-// We cover every key CFB date: Week 0 late-August, all regular-season Fri/Sat
-// through Thanksgiving weekend, and the conference-championship weekend.
-async function fetchESPNScoreboard() {
-  const SEASON_DATES = [
-    // Week 0 — late August
-    "20260828","20260829",
-    // Weeks 1-4
-    "20260904","20260905",
-    "20260911","20260912",
-    "20260918","20260919",
-    "20260925","20260926",
-    // Weeks 5-8
-    "20261002","20261003",
-    "20261009","20261010",
-    "20261016","20261017",
-    "20261023","20261024",
-    // Weeks 9-12
-    "20261030","20261031",
-    "20261106","20261107",
-    "20261113","20261114",
-    "20261120","20261121",
-    // Thanksgiving / rivalry weekend
-    "20261127","20261128",
-    // Conference championship weekend
-    "20261204","20261205","20261206",
-  ];
+// CFB Fridays + Saturdays for 2026 regular season + conference championship weekend
+const CFB_DATES_2026 = [
+  "20260828","20260829",
+  "20260904","20260905","20260911","20260912",
+  "20260918","20260919","20260925","20260926",
+  "20261002","20261003","20261009","20261010",
+  "20261016","20261017","20261023","20261024",
+  "20261030","20261031","20261106","20261107",
+  "20261113","20261114","20261120","20261121",
+  "20261127","20261128","20261204","20261205","20261206",
+];
 
+// ── ESPN: scoreboard using site.web.api.espn.com with specific YYYYMMDD dates ─
+// ESPN.com's frontend uses site.web.api.espn.com (not site.api.espn.com).
+// Querying specific dates rather than a year lets us get pre-published schedules.
+async function fetchESPNScoreboard() {
   const byKey = {};
-  // Batch 8 dates at a time with a short pause to be a good API citizen
   const BATCH = 8;
-  for (let i = 0; i < SEASON_DATES.length; i += BATCH) {
-    const batch = SEASON_DATES.slice(i, i + BATCH);
+  for (let i = 0; i < CFB_DATES_2026.length; i += BATCH) {
+    const batch = CFB_DATES_2026.slice(i, i + BATCH);
     const results = await Promise.allSettled(
-      batch.map(d => espnFetch(`/scoreboard?groups=80&limit=200&dates=${d}`))
+      batch.map(d => espnFetch(`/scoreboard?groups=80&limit=200&seasontype=2&dates=${d}`))
     );
     for (const r of results) {
       const events = r.status === "fulfilled" ? r.value?.events : null;
       if (!events) continue;
       for (const ev of events) parseESPNEvent(ev, byKey);
     }
-    if (i + BATCH < SEASON_DATES.length) await new Promise(r => setTimeout(r, 300));
+    if (i + BATCH < CFB_DATES_2026.length) await new Promise(r => setTimeout(r, 200));
   }
-  console.log(`  ESPN scoreboard (date-specific, ${SEASON_DATES.length} dates): ${Object.keys(byKey).length} games found`);
+  console.log(`  ESPN scoreboard (web API, ${CFB_DATES_2026.length} dates): ${Object.keys(byKey).length} games`);
   return byKey;
 }
 
