@@ -1,6 +1,6 @@
 // Site configuration for The Bet
 // CFBD API key — enables live schedule, SP+, betting lines, and ATS data
-window.CFBD_DEFAULT_KEY = "PYpnlfCwGnHmml4BtUbvE0q+oafSE2BuqAREeEXnY+NUalkbuV6hYHoKO3udgFdB";
+window.CFBD_DEFAULT_KEY = "4ouAWKQwmTedylg940Npl2fO9AgQRq/uIhSZyBMe6Ntc+cL8W4CDBH4AFjBtdd3c";
 
 // Cloudflare Worker URL — Twitter/X insider intel proxy
 // Format: "https://the-bet-proxy.YOUR-USERNAME.workers.dev"
