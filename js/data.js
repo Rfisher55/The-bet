@@ -430,7 +430,7 @@ var TEAMS = {
     rating: 87, offensiveRating: 84, defensiveRating: 90, spRating: 18.4,
     apRank: 7,
     recruitingRank: 10,
-    coachName: "Matt Campbell", coachRecord: "0-0",
+    coachName: "James Franklin", coachRecord: "107-52",
     stats: {
       pointsPerGame: 33.2, pointsAllowedPerGame: 17.4,
       yardsPerGame: 408.4, yardsAllowedPerGame: 282.1,
@@ -679,7 +679,7 @@ var TEAMS = {
     rating: 85, offensiveRating: 88, defensiveRating: 80, spRating: 15.2,
     apRank: 9,
     recruitingRank: 6,
-    coachName: "Lane Kiffin", coachRecord: "108-46",
+    coachName: "Brian Kelly", coachRecord: "310-102",
     stats: {
       pointsPerGame: 41.3, pointsAllowedPerGame: 24.7,
       yardsPerGame: 501.2, yardsAllowedPerGame: 358.4,
@@ -1076,7 +1076,7 @@ var TEAMS = {
     conference: "SEC", color: "#003087",
     wins: 0, losses: 0, lastSeasonRecord: "7-5 (2025)",
     rating: 72, offensiveRating: 73, defensiveRating: 70, spRating: 6.4,
-    recruitingRank: 13, coachName: "Jon Sumrall", coachRecord: "27-13",
+    recruitingRank: 13, coachName: "Billy Napier", coachRecord: "36-34",
     stats: {
       pointsPerGame: 26.8, pointsAllowedPerGame: 26.2,
       yardsPerGame: 372.4, yardsAllowedPerGame: 358.1,
@@ -2707,21 +2707,21 @@ var GAMES = [
     bettingLines: { spread: -4.5, moneylineHome: -210, moneylineAway: 178, total: 59.5 , homeSpreadOdds: -110, awaySpreadOdds: -110, overOdds: -110, underOdds: -110 },
     xFactors: [
       { title: "Heupel Tempo vs Texas Defense", description: "Josh Heupel's offense runs the fastest pace in the SEC — averaging under 18 seconds between snaps. No amount of game-planning fully prepares a defense for Tennessee's tempo. Texas's defense averages 2.4 more blown assignments per game against high-tempo offenses.", impactTeam: "tennessee", impactDirection: "positive", severity: 9, category: "scheme" },
-      { title: "Nico Iamaleava Mobility Creates Third Dimension", description: "Iamaleava's ability to extend plays with his legs turns incomplete passes into first downs. Texas's scheme is built to stop the run — Nico's scramble ability exploits that defensive assignment structure when the pocket collapses.", impactTeam: "tennessee", impactDirection: "positive", severity: 8, category: "player" },
+      { title: "Joey Aguilar Mobility Creates Third Dimension", description: "Aguilar's ability to extend plays with his legs turns incomplete passes into first downs. Texas's scheme is built to stop the run — his scramble ability exploits that defensive assignment structure when the pocket collapses.", impactTeam: "tennessee", impactDirection: "positive", severity: 8, category: "player" },
       { title: "Texas SEC Road Warrior Status", description: "Texas is adjusting to SEC road environments. Their home record is elite but their first SEC road games have occasionally featured adjustment penalties and false starts from crowd noise unfamiliarity.", impactTeam: "tennessee", impactDirection: "positive", severity: 6, category: "situational" },
       { title: "Tennessee Vertical Passing Game", description: "Tennessee ranked top 5 nationally in yards per attempt last season. Against Texas zone coverage, the Vols will attack the deep ball early to test whether the Longhorns can carry coverage over the top for 60 minutes.", impactTeam: "tennessee", impactDirection: "positive", severity: 7, category: "matchup" }
     ],
     gamePreview: {
       headline: "QB Showdown in Austin: Tennessee +4.5 Is the Value Side",
-      synopsis: "Two of college football's most compelling quarterbacks face off as Tennessee visits DKR Memorial Stadium. This is a chess match between two programs with legitimate national championship aspirations. Texas is a 4.5-point home favorite, but Heupel's tempo attack and Nico Iamaleava's improvisation make Tennessee the value play regardless of where the game is played.",
+      synopsis: "Two of college football's most compelling offenses face off as Tennessee visits DKR Memorial Stadium. This is a chess match between two programs with legitimate national championship aspirations. Texas is a 4.5-point home favorite, but Heupel's tempo attack and Joey Aguilar's improvisation make Tennessee the value play regardless of where the game is played.",
       analysis: [
         { section: "OFFENSIVE EDGE", text: "Both offenses are elite, but the edge goes to Tennessee's scheme. Heupel's high-tempo system generates favorable down-and-distance situations that no defense can fully simulate in preparation. Texas's defense will be well-prepared but will still face tempo they cannot fully account for." },
         { section: "DEFENSIVE BATTLEGROUND", text: "Tennessee's defense is underrated and physical. The Vols held opponents to under 19 PPG last season and bring elite pass rushers who can disrupt Texas's timing routes. If Tennessee wins the turnover battle, they win the game outright." },
-        { section: "KEY X-FACTOR", text: "Nico Iamaleava's mobility. Texas's defensive scheme is built to contain the run — Iamaleava's scramble ability exploits those assignments when the pocket collapses, turning would-be incompletions into 15-yard scrambles that change field position dramatically." },
+        { section: "KEY X-FACTOR", text: "Joey Aguilar's mobility. Texas's defensive scheme is built to contain the run — Aguilar's scramble ability exploits those assignments when the pocket collapses, turning would-be incompletions into 15-yard scrambles that change field position dramatically." },
         { section: "COACHING EDGE", text: "Heupel's tempo is a built-in coaching advantage that is impossible to fully neutralize through game planning. The pace alone generates 3-5 extra possessions per game that accumulate into points by the fourth quarter." },
-        { section: "THE PICK", text: "Tennessee +4.5 is the value side. Heupel's tempo attack, Iamaleava's mobility, and Tennessee's physical defense make this game a coin flip regardless of location. Take the Vols with the points." }
+        { section: "THE PICK", text: "Tennessee +4.5 is the value side. Heupel's tempo attack, Aguilar's mobility, and Tennessee's physical defense make this game a coin flip regardless of location. Take the Vols with the points." }
       ],
-      thePick: { team: "Tennessee", line: "+4.5", confidence: "HIGH", unit: 2, reasoning: "Heupel tempo impossible to simulate + Iamaleava mobility creates third dimension + underdog value" }
+      thePick: { team: "Tennessee", line: "+4.5", confidence: "HIGH", unit: 2, reasoning: "Heupel tempo impossible to simulate + Aguilar mobility creates third dimension + underdog value" }
     },
     socialIntel: {
       lineMovement: [

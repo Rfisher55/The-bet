@@ -687,19 +687,19 @@
     <div class="stats-strip-wrap">
       <div class="stats-strip" id="model-perf-strip">
         <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
-          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">2025 ATS Record</div>
+          <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px" id="stat-ats-label">2025 ATS Record</div>
           <div style="font-size:1.4rem;font-weight:900;color:var(--text)" id="stat-ats-record">68-21</div>
           <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px" id="stat-ats-sub">76.4% win rate · 2025 season</div>
         </div>
         <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
           <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Elite Picks</div>
           <div style="font-size:1.4rem;font-weight:900;color:var(--primary)" id="stat-elite">89.5%</div>
-          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px">17-2 ATS · 2025 season</div>
+          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px" id="stat-elite-sub">17-2 ATS · 2025 season</div>
         </div>
         <div class="stat-cell stat-cell-clickable" onclick="location.href='pages/record.html'">
           <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Sharp + Model</div>
-          <div style="font-size:1.4rem;font-weight:900;color:var(--accent)">78.4%</div>
-          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px">When sharps agree</div>
+          <div style="font-size:1.4rem;font-weight:900;color:var(--accent)" id="stat-sharp">78.4%</div>
+          <div style="font-size:.6rem;color:var(--muted-l);margin-top:2px" id="stat-sharp-sub">When sharps agree · 2025</div>
         </div>
         <div class="stat-cell">
           <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Games Loaded</div>
@@ -1280,12 +1280,16 @@ rebuildPredictions();
       if (total === 0) return; // season hasn't started — keep 2025 display
       var decided = r.wins + r.losses;
       var pct = decided > 0 ? (r.wins / decided * 100).toFixed(1) : '0.0';
-      var recEl = document.getElementById('stat-ats-record');
-      var subEl = document.getElementById('stat-ats-sub');
-      if (recEl) recEl.textContent = r.wins + '-' + r.losses + (r.pushes ? '-' + r.pushes : '');
-      if (subEl) subEl.textContent = pct + '% win rate · 2026 season';
-      var atsLabel = recEl && recEl.closest('.stat-cell') && recEl.closest('.stat-cell').querySelector('[style*="letter-spacing"]');
-      if (atsLabel) atsLabel.textContent = '2026 ATS Record';
+      var recEl    = document.getElementById('stat-ats-record');
+      var subEl    = document.getElementById('stat-ats-sub');
+      var eliteEl  = document.getElementById('stat-elite-sub');
+      var sharpEl  = document.getElementById('stat-sharp-sub');
+      if (recEl)   recEl.textContent = r.wins + '-' + r.losses + (r.pushes ? '-' + r.pushes : '');
+      if (subEl)   subEl.textContent = pct + '% win rate · 2026 season';
+      if (eliteEl) eliteEl.textContent = r.eliteWins + '-' + r.eliteLosses + ' ATS · 2026 season';
+      if (sharpEl) sharpEl.textContent = 'When sharps agree · 2026';
+      var atsLabelEl = document.getElementById('stat-ats-label');
+      if (atsLabelEl) atsLabelEl.textContent = '2026 ATS Record';
     })
     .catch(function() {});
 })();

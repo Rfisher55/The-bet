@@ -1031,7 +1031,7 @@ const LIVE = (() => {
       fetch(base + `data/games-${SEASON}.json`, { cache: "no-cache" })
         .then(r => r.ok ? r.json() : null)
         .then(d => {
-          if (!d || !Array.isArray(d.games) || d.games.length < 50) return;
+          if (!d || !Array.isArray(d.games) || d.games.length < 1) return;
           if (d.generated === "2026-01-01T00:00:00.000Z") return;
           const ageH = (Date.now() - new Date(d.generated).getTime()) / 3600000;
           if (ageH > 12) return;

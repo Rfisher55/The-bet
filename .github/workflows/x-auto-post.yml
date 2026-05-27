@@ -37,12 +37,11 @@ on:
         default: true
         type: boolean
 
-# Prevent two posting runs from firing simultaneously (e.g. slow Saturday
-# 9am run still alive when 11am run starts). Branch-scoped so a manual
-# dispatch on a dev branch doesn't cancel the scheduled main run.
+# Queues a new run rather than cancelling a live thread mid-post.
+# Branch-scoped so a manual dispatch on a dev branch doesn't block the scheduled main run.
 concurrency:
   group: x-auto-post-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   post-picks:
@@ -54,16 +53,35 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Gate: only run when the full season schedule is live (100+ games from CFBD).
+      # During preseason (21 curated games), x-preseason-post.yml handles all posting.
+      # Manual workflow_dispatch always bypasses the gate for testing.
+      - name: Check season gate
+        id: gate
+        run: |
+          TOTAL=$(node -e "try{const d=require('./data/games-2026.json');console.log(d.totalGames||0)}catch{console.log(0)}")
+          echo "total_games=$TOTAL" >> $GITHUB_OUTPUT
+          if [ "$TOTAL" -le "100" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            echo "Preseason ($TOTAL games ≤ 100) — x-preseason-post.yml handles posting until CFBD publishes full schedule"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Season live ($TOTAL games) — running in-season post"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup Node.js
+        if: steps.gate.outputs.skip != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '24'
 
       - name: Install dependencies
+        if: steps.gate.outputs.skip != 'true'
         run: npm install
         working-directory: scripts
 
       - name: Resolve post type from schedule
+        if: steps.gate.outputs.skip != 'true'
         id: cfg
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -80,7 +98,8 @@ jobs:
               5) echo "type=locks"    >> $GITHUB_OUTPUT ;;  # Fri: 5 highest-conf locks
               6)
                 # Two Saturday runs: 13 UTC (9am EDT) = polls, 15 UTC (11am EDT) = gameday
-                if [ "$HOUR" = "13" ]; then
+                # Use a range to handle GitHub's scheduler delay (up to ~30 min late)
+                if [ "$HOUR" -ge "13" ] && [ "$HOUR" -lt "15" ]; then
                   echo "type=polls"   >> $GITHUB_OUTPUT
                 else
                   echo "type=gameday" >> $GITHUB_OUTPUT
@@ -93,6 +112,7 @@ jobs:
           fi
 
       - name: Post to X
+        if: steps.gate.outputs.skip != 'true'
         id: post
         env:
           X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
@@ -107,12 +127,12 @@ jobs:
             $DRY
 
       - name: Rotate refresh token
-        if: always() && steps.cfg.outputs.dry != 'true'
+        if: always() && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
-            gh secret set X_OAUTH2_REFRESH_TOKEN -R rfisher55/the-bet < /tmp/new_refresh_token
+            gh secret set X_OAUTH2_REFRESH_TOKEN -R ${{ github.repository }} < /tmp/new_refresh_token
             echo "✅ Refresh token rotated"
           else
             echo "ℹ️ No new refresh token (dry run or pre-auth failure)"
@@ -126,5 +146,4 @@ jobs:
           git config user.email "bot@thebetcfb.com"
           git pull --rebase origin main || { echo "Rebase failed — aborting push"; exit 1; }
           git add data/season-record.json
-          git diff --staged --quiet || git commit -m "Update season record [skip ci]"
-          git push
+          git diff --staged --quiet || { git commit -m "Update season record [skip ci]" && git push; }
