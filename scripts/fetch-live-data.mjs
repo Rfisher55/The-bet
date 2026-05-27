@@ -253,7 +253,45 @@ async function safeFetch(url, opts = {}) {
   } catch { return null; }
 }
 
-// ── ESPN: full scoreboard ────────────────────────────────────────────────
+// ── ESPN: parse a competition event into our byKey format ───────────────
+function parseESPNEvent(ev, byKey) {
+  const comp = ev.competitions?.[0];
+  if (!comp) return;
+  const home = comp.competitors?.find(c => c.homeAway === "home");
+  const away = comp.competitors?.find(c => c.homeAway === "away");
+  if (!home || !away) return;
+  const statusName = ev.status?.type?.name || "STATUS_SCHEDULED";
+  const completed  = statusName === "STATUS_FINAL";
+  const inProgress = statusName === "STATUS_IN_PROGRESS";
+  const homeDisplay = home.team?.displayName || "";
+  const awayDisplay = away.team?.displayName || "";
+  // location = school name without mascot (e.g. "LSU" not "LSU Tigers")
+  const homeLocation = home.team?.location || homeDisplay;
+  const awayLocation = away.team?.location || awayDisplay;
+  const key = `${homeDisplay}|${awayDisplay}`;
+  byKey[key] = {
+    espnId:       ev.id,
+    homeTeamName: homeDisplay,
+    awayTeamName: awayDisplay,
+    homeLocation,
+    awayLocation,
+    homeScore:    completed||inProgress ? parseInt(home.score)||null : null,
+    awayScore:    completed||inProgress ? parseInt(away.score)||null : null,
+    date:         (ev.date||"").slice(0,10),
+    time:         completed||inProgress
+      ? (ev.status?.type?.shortDetail||"Final")
+      : toTime(ev.date, false),
+    network:      comp.broadcasts?.[0]?.names?.[0] || comp.geoBroadcasts?.[0]?.media?.shortName || "TBD",
+    status:       completed ? "final" : inProgress ? "in_progress" : "scheduled",
+    week:         ev.week?.number || null,
+    neutralSite:  comp.neutralSite || false,
+    venue:        comp.venue?.fullName || "",
+    venueCity:    comp.venue?.address?.city || "",
+    venueState:   comp.venue?.address?.state || "",
+  };
+}
+
+// ── ESPN: full scoreboard (current/in-season games) ──────────────────────
 async function fetchESPNScoreboard() {
   const WEEKS = Array.from({ length:16 }, (_,i) => i+1);
   const results = await Promise.allSettled([
@@ -264,44 +302,72 @@ async function fetchESPNScoreboard() {
   for (const r of results) {
     const events = r.status === "fulfilled" ? r.value?.events : null;
     if (!events) continue;
-    for (const ev of events) {
-      const comp = ev.competitions?.[0];
-      if (!comp) continue;
-      const home = comp.competitors?.find(c => c.homeAway === "home");
-      const away = comp.competitors?.find(c => c.homeAway === "away");
-      if (!home || !away) continue;
-      const statusName = ev.status?.type?.name || "STATUS_SCHEDULED";
-      const completed  = statusName === "STATUS_FINAL";
-      const inProgress = statusName === "STATUS_IN_PROGRESS";
-      const homeDisplay = home.team?.displayName || "";
-      const awayDisplay = away.team?.displayName || "";
-      // location = school name without mascot (e.g. "LSU" not "LSU Tigers")
-      // Used for schoolToId() lookup in the ESPN fallback path.
-      const homeLocation = home.team?.location || homeDisplay;
-      const awayLocation = away.team?.location || awayDisplay;
-      const key = `${homeDisplay}|${awayDisplay}`;
-      byKey[key] = {
-        espnId:       ev.id,
-        homeTeamName: homeDisplay,
-        awayTeamName: awayDisplay,
-        homeLocation,
-        awayLocation,
-        homeScore:    completed||inProgress ? parseInt(home.score)||null : null,
-        awayScore:    completed||inProgress ? parseInt(away.score)||null : null,
-        date:         (ev.date||"").slice(0,10),
-        time:         completed||inProgress
-          ? (ev.status?.type?.shortDetail||"Final")
-          : toTime(ev.date, false),
-        network:      comp.broadcasts?.[0]?.names?.[0] || comp.geoBroadcasts?.[0]?.media?.shortName || "TBD",
-        status:       completed ? "final" : inProgress ? "in_progress" : "scheduled",
-        week:         ev.week?.number || null,
-        neutralSite:  comp.neutralSite || false,
-        venue:        comp.venue?.fullName || "",
-        venueCity:    comp.venue?.address?.city || "",
-        venueState:   comp.venue?.address?.state || "",
-      };
+    for (const ev of events) parseESPNEvent(ev, byKey);
+  }
+  return byKey;
+}
+
+// ── ESPN: team schedule endpoint — returns full future-season schedules ───
+// ESPN's scoreboard API only returns current/recent games.
+// The team schedule endpoint returns the full schedule including future seasons.
+// We fetch one team per FBS conference to cover all games without hitting every team.
+// ESPN deduplicates by event ID so each game only appears once.
+async function fetchESPNTeamSchedules() {
+  // Representative FBS teams — covers all conferences and independent schedules.
+  // Each game appears in both teams' schedules so ~30 teams covers all FBS matchups.
+  const SAMPLE_ESPN_IDS = [
+    99,   // LSU
+    333,  // Alabama
+    61,   // Georgia
+    251,  // Texas
+    87,   // Notre Dame
+    213,  // Penn State
+    130,  // Michigan
+    228,  // Clemson
+    194,  // Ohio State
+    2483, // Oregon
+    2633, // Tennessee
+    2390, // Miami
+    52,   // Florida State
+    245,  // Texas A&M
+    2,    // Auburn
+    57,   // Florida
+    30,   // USC
+    264,  // Washington
+    254,  // Utah
+    252,  // BYU
+    68,   // Boise State
+    66,   // Iowa State
+    2306, // Kansas State
+    2628, // TCU
+    248,  // Houston
+    2655, // Tulane
+    235,  // Memphis
+    2026, // App State
+    349,  // Army
+    2426, // Navy
+  ];
+
+  const byKey = {};
+  const seenIds = new Set();
+
+  // Batch 6 at a time to avoid rate limits
+  for (let i = 0; i < SAMPLE_ESPN_IDS.length; i += 6) {
+    const batch = SAMPLE_ESPN_IDS.slice(i, i + 6);
+    await Promise.all(batch.map(async espnId => {
+      const data = await espnFetch(`/teams/${espnId}/schedule?season=${SEASON}`);
+      const events = data?.events || [];
+      for (const ev of events) {
+        if (!ev.id || seenIds.has(ev.id)) continue;
+        seenIds.add(ev.id);
+        parseESPNEvent(ev, byKey);
+      }
+    }));
+    if (i + 6 < SAMPLE_ESPN_IDS.length) {
+      await new Promise(r => setTimeout(r, 500));
     }
   }
+  console.log(`  ESPN team schedules: ${Object.keys(byKey).length} unique games from ${SAMPLE_ESPN_IDS.length} teams`);
   return byKey;
 }
 
@@ -750,7 +816,7 @@ async function main() {
   // ── Phase 1: Parallel primary fetches ────────────────────────────────
   console.log("Phase 1: Schedule + scores + extras...");
   const [
-    gamesReg, gamesPost, linesRaw, rankings, espnByKey,
+    gamesReg, gamesPost, linesRaw, rankings, espnScoreboard,
     cfbdExtras,
   ] = await Promise.all([
     cfbdFetch(`/games?year=${SEASON}&seasonType=regular`),
@@ -760,6 +826,17 @@ async function main() {
     fetchESPNScoreboard(),
     fetchCFBDExtras(),
   ]);
+
+  // If the scoreboard returned no games (future season), use team schedule endpoints instead.
+  // ESPN's scoreboard API only covers current/recent games; the team schedule endpoint
+  // returns the full published schedule including future seasons.
+  let espnByKey = espnScoreboard;
+  if (Object.keys(espnScoreboard).length === 0) {
+    console.log("  ESPN scoreboard empty — fetching via team schedule endpoints...");
+    espnByKey = await fetchESPNTeamSchedules();
+  } else {
+    console.log(`  ESPN scoreboard: ${Object.keys(espnScoreboard).length} games`);
+  }
 
   // ── Phase 2: Betting intel (parallel) ────────────────────────────────
   console.log("Phase 2: Betting intel (Odds API + OddsPapi/Pinnacle + Action Network + Covers)...");
