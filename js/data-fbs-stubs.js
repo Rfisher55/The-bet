@@ -52,7 +52,7 @@
     ["wake_forest",       "Wake Forest",       "WAKE", "ACC",     "#9E7E38","Demon Deacons",    71,  0.5, "Dave Clawson"],
     // ── Big 12 ───────────────────────────────────────────────────────────
     // 2025: Iowa State 11-2, Arizona State 11-2, BYU 10-2, Colorado 9-3
-    ["arizona",           "Arizona",           "ARIZ", "Big 12",  "#AB0520","Wildcats",         72,  2.1, "Jedd Fisch"],
+    ["arizona",           "Arizona",           "ARIZ", "Big 12",  "#AB0520","Wildcats",         72,  2.1, "Brent Brennan"],
     ["arizona_state",     "Arizona State",     "ASU",  "Big 12",  "#8C1D40","Sun Devils",       81, 10.7, "Kenny Dillingham"],
     ["baylor",            "Baylor",            "BAY",  "Big 12",  "#003015","Bears",            73,  3.1, "Dave Aranda"],
     ["byu",               "BYU",               "BYU",  "Big 12",  "#002E5D","Cougars",          80, 10.1, "Kalani Sitake"],
@@ -62,12 +62,12 @@
     ["iowa_state",        "Iowa State",        "ISU",  "Big 12",  "#C8102E","Cyclones",         83, 12.7, "Jimmy Rogers"],
     ["kansas",            "Kansas",            "KU",   "Big 12",  "#0051A5","Jayhawks",         73,  2.6, "Lance Leipold"],
     ["kansas_state",      "Kansas State",      "KSU",  "Big 12",  "#512888","Wildcats",         79,  9.1, "Chris Klieman"],
-    ["oklahoma_state",    "Oklahoma State",    "OKST", "Big 12",  "#FF6600","Cowboys",          74,  3.6, "Mike Gundy"],
-    ["tcu",               "TCU",               "TCU",  "Big 12",  "#4D1979","Horned Frogs",     74,  3.5, "Eric Morris"],
+    ["oklahoma_state",    "Oklahoma State",    "OKST", "Big 12",  "#FF6600","Cowboys",          74,  3.6, "Eric Morris"],
+    ["tcu",               "TCU",               "TCU",  "Big 12",  "#4D1979","Horned Frogs",     74,  3.5, "Sonny Dykes"],
     ["texas_tech",        "Texas Tech",        "TTU",  "Big 12",  "#CC0000","Red Raiders",      73,  2.7, "Joey McGuire"],
     ["ucf",               "UCF",               "UCF",  "Big 12",  "#FFC904","Knights",          73,  3.0, "Gus Malzahn"],
     ["utah",              "Utah",              "UTAH", "Big 12",  "#CC0000","Utes",             75,  4.6, "Morgan Scalley"],
-    ["west_virginia",     "West Virginia",     "WVU",  "Big 12",  "#002855","Mountaineers",     72,  2.1, "Neal Brown"],
+    ["west_virginia",     "West Virginia",     "WVU",  "Big 12",  "#002855","Mountaineers",     72,  2.1, "Rich Rodriguez"],
     // ── Mountain West ────────────────────────────────────────────────────
     // 2025: Boise State had CFP run, UNLV rising
     ["air_force",         "Air Force",         "AFA",  "Mountain West","#004080","Falcons",      71,  0.6, "Troy Calhoun"],
@@ -89,7 +89,7 @@
     ["fau",               "Florida Atlantic",  "FAU",  "American Athletic","#003366","Owls",     69, -1.0, "Tom Herman"],
     ["memphis",           "Memphis",           "MEM",  "American Athletic","#003087","Tigers",   73,  2.9, "Ryan Silverfield"],
     ["navy",              "Navy",              "NAVY", "American Athletic","#00205B","Midshipmen",71, 1.2, "Brian Newberry"],
-    ["north_texas",       "North Texas",       "UNT",  "American Athletic","#00853E","Mean Green",67,-3.1,"Eric Morris"],
+    ["north_texas",       "North Texas",       "UNT",  "American Athletic","#00853E","Mean Green",67,-3.1,"Neal Brown"],
     ["rice",              "Rice",              "RICE", "American Athletic","#002469","Owls",     66, -4.1, "Mike Bloomgren"],
     ["south_florida",     "South Florida",     "USF",  "American Athletic","#006747","Bulls",    68, -2.0, "Alex Golesh"],
     ["tulane",            "Tulane",            "TUL",  "American Athletic","#006341","Green Wave",72, 2.1, "Jon Sumrall"],
