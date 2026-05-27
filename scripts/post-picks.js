@@ -22,7 +22,9 @@ const { updateResults, getRecord }       = require('./get-results');
 
 // ── Args ──────────────────────────────────────────────────────────
 const args   = process.argv.slice(2);
-const type   = args[args.indexOf('--type') + 1] || 'final';
+const typeIdx = args.indexOf('--type');
+const type   = (typeIdx !== -1 && args[typeIdx + 1] && !args[typeIdx + 1].startsWith('--'))
+  ? args[typeIdx + 1] : 'final';
 const dryRun = args.includes('--dry-run');
 const legs   = args.includes('--legs') ? parseInt(args[args.indexOf('--legs') + 1]) : 3;
 
@@ -44,7 +46,8 @@ function recordBadge() {
     const r = getRecord().record;
     const total = r.wins + r.losses + r.pushes;
     if (!total) return null; // no record yet — don't show 0-0
-    const pct = total > 0 ? Math.round((r.wins / (r.wins + r.losses)) * 100) : 0;
+    const decided = r.wins + r.losses;
+    const pct = decided > 0 ? Math.round((r.wins / decided) * 100) : 0;
     return `📊 Season: ${r.wins}-${r.losses}${r.pushes ? `-${r.pushes}` : ''} ATS (${pct}%)`;
   } catch { return null; }
 }
@@ -113,11 +116,11 @@ function fmtTop5Thread(picks) {
     ``,
     `Model ran every game on the board.`,
     `Only ${picks.length} made the cut.`,
-    badge ? `\n${badge}` : '',
+    badge || null,
     ``,
     `Here's where the edge is 👇  (${today})`,
     `#CFB #CollegeFootball #TheBet`,
-  ].filter(Boolean).join('\n').trim();
+  ].filter(x => x != null).join('\n').trim();
 
   const pickTweets = picks.map((pick, i) => {
     const spread   = spreadStr(pick.vegasSpread);
@@ -160,10 +163,10 @@ function fmtParlayThread(combos, legCount) {
     ``,
     `${legCount}-leg combos ranked by expected value.`,
     `Win prob verified against Vegas lines.`,
-    badge ? badge : '',
+    badge || null,
     ``,
     `Thread 👇  #CFB #Parlay #TheBet`,
-  ].filter(Boolean).join('\n').trim();
+  ].filter(x => x != null).join('\n').trim();
 
   const comboTweets = combos.map((combo, i) => {
     const legLines = combo.legs.map(l =>
@@ -230,10 +233,10 @@ function fmtLocksThread(picks) {
     ``,
     `${picks.length} plays where the model is most confident.`,
     `These are the ones to bet.`,
-    badge ? `\n${badge}` : '',
+    badge || null,
     ``,
     `Thread 👇 #CFB #TheBet`,
-  ].filter(Boolean).join('\n');
+  ].filter(x => x != null).join('\n');
 
   const lockTweets = picks.map((pick, i) => {
     const spread = spreadStr(pick.vegasSpread);
@@ -262,8 +265,9 @@ function fmtLocksThread(picks) {
 function fmtPolls(picks) {
   return picks.map(pick => {
     const spread = spreadStr(pick.vegasSpread);
-    const oppTeam = pick.pickTeam === pick.homeTeam ? pick.awayTeam : pick.homeTeam;
-    const oppAbbr = pick.pickTeam === pick.homeTeam ? pick.awayAbbr : pick.homeAbbr;
+    const pickIsHome = pick.pickTeam.toLowerCase() === pick.homeTeam.toLowerCase();
+    const oppTeam = pickIsHome ? pick.awayTeam : pick.homeTeam;
+    const oppAbbr = pickIsHome ? pick.awayAbbr : pick.homeAbbr;
     const spread2 = pick.vegasSpread != null ? spreadStr(-pick.vegasSpread) : '';
     return {
       text: [
@@ -340,7 +344,11 @@ async function getClient() {
   });
   const { client, refreshToken: newRefresh } =
     await authClient.refreshOAuth2Token(process.env.X_OAUTH2_REFRESH_TOKEN);
-  require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
+  // Guard: only persist the token if it's a real non-empty string.
+  // Writing null/undefined would store "undefined" and permanently brick the secret.
+  if (newRefresh && typeof newRefresh === 'string') {
+    require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
+  }
   return client;
 }
 
@@ -381,10 +389,9 @@ async function main() {
 
   // ── Results (Sunday) ─────────────────────────────────────────
   if (type === 'results') {
-    const allPicks = getPicks('all');
-    // Include past picks too — updateResults handles the "already recorded" check
+    // Include past picks — updateResults handles the "already recorded" check
     const { getPastPicks } = require('./get-picks');
-    const allPicksWithPast = getPastPicks ? getPastPicks() : allPicks;
+    const allPicksWithPast = getPastPicks();
     console.log('Fetching ESPN scores...');
     const { record, newResults } = await updateResults(allPicksWithPast.length ? allPicksWithPast : allPicks);
     if (!newResults.length) {
