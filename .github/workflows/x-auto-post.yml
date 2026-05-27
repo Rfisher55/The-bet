@@ -37,6 +37,13 @@ on:
         default: true
         type: boolean
 
+# Prevent two posting runs from firing simultaneously (e.g. slow Saturday
+# 9am run still alive when 11am run starts). Branch-scoped so a manual
+# dispatch on a dev branch doesn't cancel the scheduled main run.
+concurrency:
+  group: x-auto-post-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   post-picks:
     runs-on: ubuntu-latest

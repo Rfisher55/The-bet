@@ -447,8 +447,13 @@ async function main() {
     const allPicks = getPicks('all');
     const filtered = type === 'early' ? allPicks.filter(p => p.conf === 'elite') : allPicks;
     if (!filtered.length) { console.log(`No picks for "${type}".`); return; }
-    items = filtered.map(p => fmtSinglePick(p, type));
-    console.log(`${filtered.length} individual tweet(s)`);
+    // Cap at 10 tweets per run — "final" with no cap could spam 20+ tweets at once.
+    const capped = filtered.slice(0, 10);
+    if (filtered.length > 10) {
+      console.warn(`⚠️  ${filtered.length} picks found — capping at 10 to avoid spam`);
+    }
+    items = capped.map(p => fmtSinglePick(p, type));
+    console.log(`${capped.length} individual tweet(s)`);
   }
 
   printTweets(items);
