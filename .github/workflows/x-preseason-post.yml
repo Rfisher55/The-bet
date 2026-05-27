@@ -45,9 +45,15 @@ on:
         default: false
         type: boolean
 
+concurrency:
+  group: x-post-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   preseason-post:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout

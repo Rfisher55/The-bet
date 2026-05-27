@@ -519,7 +519,8 @@
       }
     });
     var decided = wins + losses + pushes;
-    var winRate = decided > 0 ? Math.round((wins / (wins + losses || 1)) * 100) : null;
+    var decidedWL = wins + losses;
+    var winRate = decidedWL > 0 ? Math.round(wins / decidedWL * 100) : null;
     var roi = totalWagered > 0 ? ((totalNet / totalWagered) * 100) : null;
     var unitsNet = totalNet / 10;
     return { wins, losses, pushes, pending, totalWagered, totalNet, winRate, roi, unitsNet, decided };
@@ -551,7 +552,7 @@
     var netColor = s.totalNet >= 0 ? 'var(--primary)' : 'var(--danger)';
     var unitsStr = (s.unitsNet >= 0 ? '+' : '') + s.unitsNet.toFixed(1) + 'u';
     var unitsColor = s.unitsNet >= 0 ? 'var(--primary)' : 'var(--danger)';
-    var winRateStr = s.winRate !== null ? s.winRate + '%' : '—';
+    var winRateStr = s.winRate !== null ? s.winRate + '%' : 'N/A';
     var winRateColor = s.winRate === null ? 'var(--muted)' : (s.winRate >= 52 ? 'var(--primary)' : s.winRate >= 45 ? 'var(--gold)' : 'var(--danger)');
 
     var streak = calcStreak(picks);
@@ -1728,7 +1729,7 @@
         done++;
         if (done === weeks.length) finish();
       })
-      .catch(function () { done++; if (done === weeks.length) finish(); });
+      .catch(function (e) { console.warn('Auto-grade fetch failed for week ' + week + ':', e); done++; if (done === weeks.length) finish(); });
     });
   });
 

@@ -731,7 +731,7 @@
         if (p.result === 'win') totalNet += winAmt;
         else if (p.result === 'loss') totalNet -= w;
       });
-      var sorted = settled.slice().sort(function(a, b) { return b.addedAt.localeCompare(a.addedAt); });
+      var sorted = settled.slice().sort(function(a, b) { return (b.addedAt||'').localeCompare(a.addedAt||''); });
       var st = sorted[0].result, sc = 0;
       for (var i = 0; i < sorted.length; i++) { if (sorted[i].result === st) sc++; else break; }
       var stStr = (st === 'win' ? '🔥 W' : st === 'loss' ? '🧊 L' : '➡️ P') + sc;
@@ -1201,12 +1201,14 @@
       teamCount  = window.TEAMS  ? Object.keys(TEAMS).length : 0;
     }
     if (dot) dot.classList.remove("loading");
-    if (text) text.classList.add("is-live");
-    text.innerHTML =
-      '<strong style="color:var(--primary)">LIVE</strong>' +
-      ' &middot; ' + gameCount + ' games' +
-      ' &middot; ' + teamCount + ' teams' +
-      ' &middot; Updated just now';
+    if (text) {
+      text.classList.add("is-live");
+      text.innerHTML =
+        '<strong style="color:var(--primary)">LIVE</strong>' +
+        ' &middot; ' + gameCount + ' games' +
+        ' &middot; ' + teamCount + ' teams' +
+        ' &middot; Updated just now';
+    }
   }
 
   window.addEventListener("liveDataReady", function() {
@@ -1233,10 +1235,19 @@
   });
 })();
 
+// ── Utility: pick readable text color for a background hex ───────
+function textForBg(hex) {
+  if (!hex) return "#fff";
+  var c = (hex.replace("#","")+"000000").slice(0,6);
+  var r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
+  return (r*299+g*587+b*114)/1000 > 128 ? "#000" : "#fff";
+}
+
 // ── Generate predictions + render all live sections ──────────────
 var allPredictions = [];
 
 function rebuildPredictions() {
+  if (typeof GAMES === 'undefined' || !window.GAMES) return;
   allPredictions = [];
   try {
     GAMES.filter(function(g) { return !g.date || g.date >= "2026-01-01"; })
@@ -1254,7 +1265,7 @@ rebuildPredictions();
 // Update the live game count in the stats strip
 (function() {
   var el = document.getElementById('model-game-count');
-  if (el) el.textContent = allPredictions.length || GAMES.length || '21';
+  if (el) el.textContent = allPredictions.length || (window.GAMES ? GAMES.length : 0) || '21';
 })();
 
 // ── Hero Top Pick of the Week ────────────────────────────────────
@@ -1291,8 +1302,8 @@ function renderHeroPick() {
   var confCls = { elite: "badge-elite", high: "badge-high", medium: "badge-medium", low: "badge-low" }[pred.confidence];
   var confLbl = { elite: "ELITE PICK", high: "HIGH CONFIDENCE", medium: "MODERATE", low: "LOW CONF" }[pred.confidence];
 
-  var awayScore = pred.awayScore !== undefined ? pred.awayScore : (pred.predictedSpread < 0 ? Math.round(pred.homeScore - pred.predictedSpread) : pred.homeScore);
-  var homeScore = pred.homeScore !== undefined ? pred.homeScore : Math.round(pred.predictedSpread >= 0 ? pred.homeScore : pred.homeScore);
+  var awayScore = pred.awayScore !== undefined ? pred.awayScore : (pred.predictedSpread >= 0 ? Math.round((pred.predictedTotal/2) - Math.abs(pred.predictedSpread)/2) : Math.round((pred.predictedTotal/2) + Math.abs(pred.predictedSpread)/2));
+  var homeScore = pred.homeScore !== undefined ? pred.homeScore : (pred.predictedSpread >= 0 ? Math.round((pred.predictedTotal/2) + Math.abs(pred.predictedSpread)/2) : Math.round((pred.predictedTotal/2) - Math.abs(pred.predictedSpread)/2));
   // Normalize score display
   if (typeof pred.homeScore === "number" && typeof pred.awayScore === "number") {
     homeScore = pred.homeScore;
@@ -1388,12 +1399,14 @@ function renderTopPicks() {
   var scored = allPredictions.map(function(p) {
     var tp = p.game.gamePreview && p.game.gamePreview.thePick;
     var curatedConf = tp && tp.confidence ? confWeights[tp.confidence.toUpperCase()] || 0 : 0;
-    var modelEdge = p.prediction.spreadPick.side !== "no-bet" ? (p.prediction.spreadPick.edge || 0) : 0;
+    var sp = p.prediction.spreadPick || {};
+    var modelEdge = sp.side && sp.side !== "no-bet" ? (sp.edge || 0) : 0;
     return { p: p, curatedConf: curatedConf, modelEdge: modelEdge,
              score: curatedConf * 4 + modelEdge };
   }).filter(function(x) {
     // Must have a curated pick OR a model edge > 2
-    return x.curatedConf > 0 || (x.p.prediction.spreadPick.side !== "no-bet" && x.modelEdge > 2);
+    var sp = x.p.prediction.spreadPick || {};
+    return x.curatedConf > 0 || (sp.side && sp.side !== "no-bet" && x.modelEdge > 2);
   }).sort(function(a, b) { return b.score - a.score; }).slice(0, 3);
 
   var icons  = ["1","2","3"];
@@ -2034,13 +2047,6 @@ function renderUpcomingGames() {
 
   var grid = document.getElementById("upcoming-grid");
   if (!grid) return;
-
-  function textForBg(hex) {
-    if (!hex) return "#fff";
-    var c = (hex.replace("#","")+"000000").slice(0,6);
-    var r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
-    return (r*299+g*587+b*114)/1000 > 128 ? "#000" : "#fff";
-  }
 
   grid.innerHTML = upcoming.map(function(p) {
     var game = p.game;
@@ -3004,7 +3010,7 @@ window.renderGameCard = renderGameCard;
       endpoints.map(function(ep) {
         return fetch(proxyUrl + "?endpoint=" + ep, { cache: "no-cache" })
           .then(function(r) { return r.ok ? r.json() : null; })
-          .catch(function() { return null; });
+          .catch(function(e) { console.warn('Twitter fetch failed:', e); return null; });
       })
     ).then(function(results) {
       var tweets = [];

@@ -268,7 +268,7 @@ function renderList() {
   else if (activeFilter === 'total')   list = list.filter(function(p){return p.betType==='total';});
   else if (activeFilter === 'elite')   list = list.filter(function(p){return p.confidence==='elite';});
 
-  list.sort(function(a,b){ return b.publishedAt.localeCompare(a.publishedAt); });
+  list.sort(function(a,b){ return (b.publishedAt||'').localeCompare(a.publishedAt||''); });
 
   var el = document.getElementById('pick-list');
   if (!list.length) {
@@ -286,7 +286,7 @@ function renderList() {
     var resLabel = p.result || '···';
     var confCls = 'conf-' + p.confidence;
     var side = p.betType === 'spread'
-      ? (p.side === 'home' ? p.homeTeam.split(' ').pop() : p.awayTeam.split(' ').pop()) + ' ' + fmtSpread(p.side==='home' ? -(p.vegasLine||0) : (p.vegasLine||0))
+      ? (p.side === 'home' ? p.homeTeam.split(' ').pop() : p.awayTeam.split(' ').pop()) + ' ' + fmtSpread(p.side==='home' ? (p.vegasLine||0) : (p.vegasLine||0))
       : p.team + ' ' + (p.vegasLine != null ? p.vegasLine : '');
     var lineInfo = p.betType === 'spread'
       ? 'Model: ' + fmtSpread(-p.modelSpread) + ' · Edge: +' + (p.edge||0).toFixed(1)
@@ -390,8 +390,6 @@ function clearAll() {
 }
 
 window.onAutoPicksReady = function(picks) { refresh(picks); };
-
-refresh();
 </script>
 <script src="../js/data.js"></script>
 <script src="../js/data-fbs-stubs.js"></script>

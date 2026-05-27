@@ -9,10 +9,10 @@ on:
   schedule:
     - cron: "0 */6 * * 1-5"        # weekdays: every 6 h
     - cron: "*/10 14-23 * * 6"     # Saturday evening UTC (10am–7pm ET)
-    - cron: "*/10 0-4 * * 0"      # Saturday night UTC (7pm–midnight ET, carries into Sun)
+    - cron: "*/10 0-4 * * 0"      # Sunday 00:00-04:59 UTC (= Sat 7pm-midnight ET)
     - cron: "*/30 14-23 * * 0"    # Sunday evening UTC (10am–7pm ET)
     - cron: "*/30 0-4 * * 1"      # Sunday night UTC (7pm–midnight ET, carries into Mon)
-    - cron: "0 */2 * * 0"          # Sunday: every 2 h outside game window
+    - cron: "0 0-13/2 * * 0"       # Sunday: every 2 h outside game window
   workflow_dispatch:
     inputs:
       force:
@@ -77,7 +77,7 @@ jobs:
             GAME_COUNT=$(node -e "const d=require('./data/games-2026.json');console.log(d.games.length)" 2>/dev/null || echo "?")
             LINES_COUNT=$(node -e "const d=require('./data/games-2026.json');console.log(d.games.filter(g=>g.bettingLines).length)" 2>/dev/null || echo "?")
             SOURCES=$(node -e "const d=require('./data/metadata.json');console.log((d.dataSourcesActive||[]).length+' sources')" 2>/dev/null || echo "")
-            git commit -m "data: refresh $(date -u '+%Y-%m-%d %H:%M UTC') — ${GAME_COUNT} games, ${LINES_COUNT} with lines, ${SOURCES}"
+            git commit -m "data: refresh $(date -u '+%Y-%m-%d %H:%M UTC') — ${GAME_COUNT} games, ${LINES_COUNT} with lines, ${SOURCES} [skip ci]"
             CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
             if [ "$CURRENT_BRANCH" = "main" ]; then
               # Pull+rebase in case another run pushed while we were fetching, then push

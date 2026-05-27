@@ -11,6 +11,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy Twitter Proxy Worker
+    permissions: {}
 
     steps:
       - uses: actions/checkout@v4
@@ -51,5 +52,5 @@ jobs:
       - name: Print Worker URL
         run: |
           echo "========================================"
-          echo "Worker URL: https://the-bet-proxy.${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.workers.dev"
+          echo "Worker URL: https://the-bet-proxy.robertcfisher3.workers.dev"
           echo "========================================"
