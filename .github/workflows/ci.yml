@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: scripts/package-lock.json
+      - name: Install dependencies
+        run: npm install
+        working-directory: scripts
+      - name: Validate JSON data files
+        run: |
+          for f in data/*.json; do
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" && echo "✅ $f" || { echo "❌ $f is invalid JSON"; exit 1; }
+          done
+      - name: Run test suite
+        run: node scripts/run-tests.js
