@@ -52,7 +52,7 @@
     ["wake_forest",       "Wake Forest",       "WAKE", "ACC",     "#9E7E38","Demon Deacons",    71,  0.5, "Dave Clawson"],
     // ── Big 12 ───────────────────────────────────────────────────────────
     // 2025: Iowa State 11-2, Arizona State 11-2, BYU 10-2, Colorado 9-3
-    ["arizona",           "Arizona",           "ARIZ", "Big 12",  "#AB0520","Wildcats",         72,  2.1, "Brent Brennan"],
+    ["arizona",           "Arizona",           "ARIZ", "Big 12",  "#AB0520","Wildcats",         72,  2.1, "Jedd Fisch"],
     ["arizona_state",     "Arizona State",     "ASU",  "Big 12",  "#8C1D40","Sun Devils",       81, 10.7, "Kenny Dillingham"],
     ["baylor",            "Baylor",            "BAY",  "Big 12",  "#003015","Bears",            73,  3.1, "Dave Aranda"],
     ["byu",               "BYU",               "BYU",  "Big 12",  "#002E5D","Cougars",          80, 10.1, "Kalani Sitake"],
@@ -63,7 +63,7 @@
     ["kansas",            "Kansas",            "KU",   "Big 12",  "#0051A5","Jayhawks",         73,  2.6, "Lance Leipold"],
     ["kansas_state",      "Kansas State",      "KSU",  "Big 12",  "#512888","Wildcats",         79,  9.1, "Chris Klieman"],
     ["oklahoma_state",    "Oklahoma State",    "OKST", "Big 12",  "#FF6600","Cowboys",          74,  3.6, "Mike Gundy"],
-    ["tcu",               "TCU",               "TCU",  "Big 12",  "#4D1979","Horned Frogs",     74,  3.5, "Sonny Dykes"],
+    ["tcu",               "TCU",               "TCU",  "Big 12",  "#4D1979","Horned Frogs",     74,  3.5, "Eric Morris"],
     ["texas_tech",        "Texas Tech",        "TTU",  "Big 12",  "#CC0000","Red Raiders",      73,  2.7, "Joey McGuire"],
     ["ucf",               "UCF",               "UCF",  "Big 12",  "#FFC904","Knights",          73,  3.0, "Gus Malzahn"],
     ["utah",              "Utah",              "UTAH", "Big 12",  "#CC0000","Utes",             75,  4.6, "Morgan Scalley"],
