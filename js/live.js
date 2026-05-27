@@ -165,6 +165,18 @@
     .catch(function() {});
 }());
 
+// Load pre-generated injury data
+(function _loadInjuries() {
+  var base = window.location.pathname.includes("/pages/") ? "../" : "./";
+  fetch(base + "data/injuries.json", { cache: "no-cache" })
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !Array.isArray(d.injuries)) return;
+      window.__teamInjuries = d.injuries;
+    })
+    .catch(function() {}); // non-critical — fails silently
+})();
+
 const LIVE = (() => {
   const CFBD      = "https://api.collegefootballdata.com";
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";

@@ -568,7 +568,7 @@ function renderCard(team, rank) {
             ${proj ? `<div class="projected-record">Projected: ${proj}</div>` : ""}
           </div>
           <div style="display:flex;align-items:center;gap:6px">
-            <button class="compare-chip" onclick="event.stopPropagation();location.href='compare.html?a=${encodeURIComponent(team.id)}'">⇄ Compare</button>
+            <button class="compare-chip" onclick="(function(e){e.stopPropagation();location.href='compare.html?a=${encodeURIComponent(team.id)}'})(event)">⇄ Compare</button>
             <div style="font-size:.65rem;color:var(--primary);font-weight:700">${gameCount} game${gameCount!==1?"s":""} →</div>
           </div>
         </div>
@@ -641,7 +641,7 @@ function renderListRow(team, rank) {
           <div style="font-size:.82rem;font-weight:900;color:${listAtsColor}">${listAts}</div>
           <div style="font-size:.52rem;color:var(--muted);font-weight:700;text-transform:uppercase">${listAtsStreak >= 3 ? `🔥${listAtsStreak}` : 'ATS'}</div>
         </div>
-        <button class="compare-chip" onclick="event.stopPropagation();location.href='compare.html?a=${encodeURIComponent(team.id)}'">⇄</button>
+        <button class="compare-chip" onclick="(function(e){e.stopPropagation();location.href='compare.html?a=${encodeURIComponent(team.id)}'})(event)">⇄</button>
         <div style="font-size:.72rem;color:var(--primary);font-weight:700">→</div>
       </div>
     </div>`;
@@ -696,7 +696,7 @@ function render() {
     case "sp":       teams.sort((a,b) => (b.spRating||b.rating*0.5||0) - (a.spRating||a.rating*0.5||0)); break;
     case "ats":      teams.sort((a,b) => ((b.atsRecord?.pct||0) - (a.atsRecord?.pct||0))); break;
     case "sos":      teams.sort((a,b) => calcSOS(b) - calcSOS(a)); break;
-    case "projWins": teams.sort((a,b) => (parseFloat(projectedRecord(b)||"0-0")||0) - (parseFloat(projectedRecord(a)||"0-0")||0)); break;
+    case "projWins": teams.sort((a,b) => (parseInt((projectedRecord(b)||'0-0').split('-')[0]||'0')) - (parseInt((projectedRecord(a)||'0-0').split('-')[0]||'0'))); break;
     default:         teams.sort((a,b) => b.rating - a.rating);
   }
 
