@@ -316,7 +316,7 @@ async function fetchESPNInjuries() {
     akron:2006,ball_state:2050,bowling_green:189,buffalo:2084,
     central_michigan:2117,eastern_michigan:2199,kent_state:2307,miami_oh:193,
     northern_illinois:2459,ohio:195,toledo:2649,western_michigan:2711,
-    uconn:41,umass:113,tulsa:202,navy:2426,army:349,
+    uconn:41,umass:113,tulsa:202,
   };
   const injuries = {};
   const entries = Object.entries(ESPN_TEAM_IDS);
@@ -979,7 +979,7 @@ async function main() {
     }
   }
 
-  const weatherCount = games.filter(g => g.weather && !g.weather.dome).length;
+  const weatherCount = games.filter(g => g.weather && !g.weather.indoors).length;
   console.log(`  Weather fetched for ${weatherCount} outdoor games`);
 
   const now = new Date().toISOString();

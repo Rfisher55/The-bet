@@ -30,6 +30,13 @@ addEventListener("fetch", function(event) {
 });
 
 async function handleRequest(request) {
+  if (typeof TWITTER_BEARER_TOKEN === "undefined") {
+    return new Response(JSON.stringify({ error: "Worker misconfigured — secret not set" }), {
+      status: 503,
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+    });
+  }
+
   var origin = request.headers.get("Origin") || "";
   var headers = corsHeaders(origin);
 

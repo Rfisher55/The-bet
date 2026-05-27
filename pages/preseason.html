@@ -235,18 +235,22 @@
   // ── Hot Takes ────────────────────────────────────────────────────────────
   const takes = [];
 
+  // Compute actual rank from sorted array instead of a fabricated formula
+  var sortedByRating = Object.values(TEAMS).filter(t=>t.rating).sort((a,b)=>b.rating-a.rating);
+  function ratingToRank(teamId) { var idx = sortedByRating.findIndex(t=>t.id===teamId); return idx >= 0 ? idx+1 : 130; }
+
   // Find the biggest model vs AP discrepancy (underrated)
   const underrated = [...teams]
     .filter(t => t.apRank)
     .sort((a, b) => {
-      const aImplied = Math.max(1, Math.round((100 - a.rating) * 1.5) + 1);
-      const bImplied = Math.max(1, Math.round((100 - b.rating) * 1.5) + 1);
+      const aImplied = ratingToRank(a.id);
+      const bImplied = ratingToRank(b.id);
       return (a.apRank - aImplied) - (b.apRank - bImplied);
     });
 
   if (underrated.length) {
     const t = underrated[0];
-    const impliedRank = Math.max(1, Math.round((100 - t.rating) * 1.5) + 1);
+    const impliedRank = ratingToRank(t.id);
     takes.push({
       icon: '🔥',
       title: `${t.name} is slept on by the AP voters`,
@@ -325,35 +329,34 @@
 
   // ── Sleepers & Fades ─────────────────────────────────────────────────────
   const sfGrid = document.getElementById('sf-grid');
-  const ratingToRank = r => Math.max(1, Math.round((100 - r) * 1.5) + 1);
 
   const sleepers = [...teams]
     .filter(t => {
-      const impliedRank = ratingToRank(t.rating);
+      const impliedRank = ratingToRank(t.id);
       const apR = t.apRank || 99;
       return t.rating >= 82 && (apR - impliedRank) >= 6;
     })
     .sort((a, b) => {
-      const aGap = (a.apRank || 99) - ratingToRank(a.rating);
-      const bGap = (b.apRank || 99) - ratingToRank(b.rating);
+      const aGap = (a.apRank || 99) - ratingToRank(a.id);
+      const bGap = (b.apRank || 99) - ratingToRank(b.id);
       return bGap - aGap;
     })
     .slice(0, 3);
 
   const fades = [...teams]
     .filter(t => {
-      const impliedRank = ratingToRank(t.rating);
+      const impliedRank = ratingToRank(t.id);
       return t.apRank && (impliedRank - t.apRank) >= 5;
     })
     .sort((a, b) => {
-      const aGap = ratingToRank(a.rating) - (a.apRank || 99);
-      const bGap = ratingToRank(b.rating) - (b.apRank || 99);
+      const aGap = ratingToRank(a.id) - (a.apRank || 99);
+      const bGap = ratingToRank(b.id) - (b.apRank || 99);
       return bGap - aGap;
     })
     .slice(0, 3);
 
   sleepers.forEach(t => {
-    const impliedRank = ratingToRank(t.rating);
+    const impliedRank = ratingToRank(t.id);
     const card = document.createElement('div');
     card.className = 'sf-card sleeper';
     card.innerHTML = `
