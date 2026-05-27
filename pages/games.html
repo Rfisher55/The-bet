@@ -77,6 +77,12 @@
     .bp-btn:hover { opacity:.88; }
     @media (max-width:640px) { .bp-btn { width:100%; } }
 
+    /* ── No-games preseason state ── */
+    .no-games-state { text-align:center; padding:60px 20px; color:var(--text-muted,#8899aa); }
+    .no-games-state .no-games-icon { font-size:3rem; margin-bottom:16px; }
+    .no-games-state h2 { color:var(--text,#e2e8f0); margin-bottom:12px; }
+    .no-games-sub { font-size:0.85rem; margin-top:8px; }
+
     /* ── Empty state ── */
     .empty-state { grid-column:1/-1;padding:48px 24px;text-align:center; }
     .empty-state-icon { font-size:2.2rem;margin-bottom:10px; }
@@ -964,6 +970,21 @@ function renderGameCard(game, pred) {
 
 // Main render
 function render() {
+  // Preseason: no games loaded yet
+  if (!allPredictions || allPredictions.length === 0) {
+    document.getElementById("game-grid").innerHTML =
+      '<div class="no-games-state" style="grid-column:1/-1">' +
+        '<div class="no-games-icon">🏈</div>' +
+        '<h2>2026 Season Schedule</h2>' +
+        '<p>Game schedules are loading. CFBD publishes full schedules in July — check back soon.</p>' +
+        '<p class="no-games-sub">Team ratings, rankings, and preseason analysis are available now.</p>' +
+      '</div>';
+    document.getElementById("best-pick-card").style.display = "none";
+    document.getElementById("value-board-section").style.display = "none";
+    document.getElementById("result-count").innerHTML = "";
+    return;
+  }
+
   let list = [...allPredictions];
 
   // Team schedule search

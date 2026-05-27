@@ -1271,6 +1271,19 @@ rebuildPredictions();
 // ── Hero Top Pick of the Week ────────────────────────────────────
 function renderHeroPick() {
   var container = document.getElementById("hero-top-pick");
+  if (!allPredictions || !allPredictions.length) {
+    // Preseason: no games yet — replace skeleton with a coming-soon message
+    container.innerHTML =
+      '<div class="top-pick-card-label">' +
+        '<span class="top-pick-card-pulse"></span>Top Pick of the Week' +
+      '</div>' +
+      '<div style="text-align:center;padding:24px 12px 16px">' +
+        '<div style="font-size:2rem;margin-bottom:10px">🏈</div>' +
+        '<div style="font-size:.88rem;font-weight:800;color:var(--text);margin-bottom:6px">2026 Schedule Coming Soon</div>' +
+        '<div style="font-size:.72rem;color:var(--muted);line-height:1.55">CFBD publishes full schedules in July. Check back then for picks and analysis.</div>' +
+      '</div>';
+    return;
+  }
   var wk1 = allPredictions.filter(function(p) { return p.game.week === 1; });
   if (!wk1.length) {
     // Use all predictions if no week 1 games
@@ -1393,6 +1406,19 @@ renderHeroPick();
 
 // ── Top picks grid ───────────────────────────────────────────────
 function renderTopPicks() {
+  if (!allPredictions || !allPredictions.length) {
+    document.getElementById("top-picks").innerHTML =
+      '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--muted)">' +
+        '<div style="font-size:1.8rem;margin-bottom:10px">🏈</div>' +
+        '<div style="font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:6px">2026 Schedule Coming Soon</div>' +
+        '<div style="font-size:.78rem;line-height:1.6">CFBD publishes full schedules in July. Team ratings, rankings, and preseason analysis are available now.</div>' +
+        '<div style="margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
+          '<a href="pages/teams.html" class="btn btn-primary" style="font-size:.8rem">Team Rankings →</a>' +
+          '<a href="pages/learn.html" class="btn btn-outline" style="font-size:.8rem">How It Works</a>' +
+        '</div>' +
+      '</div>';
+    return;
+  }
   var confWeights = { ELITE: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
 
   // Score each prediction: curated analyst picks get priority, then model edge
@@ -2754,6 +2780,12 @@ renderPowerRankings();
 
 // ── Featured games (elite + high confidence, earliest week first) ──
 function renderFeaturedGames() {
+  if (!allPredictions || !allPredictions.length) {
+    // No games yet — hide this section cleanly
+    var sec = document.getElementById("all-picks-section");
+    if (sec) sec.style.display = "none";
+    return;
+  }
   // Determine earliest week so we show the next upcoming week's picks
   var weeks = allPredictions.map(function(p) { return p.game.week; }).filter(Boolean);
   var minWeek = weeks.length ? Math.min.apply(null, weeks) : null;
