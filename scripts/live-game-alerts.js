@@ -26,7 +26,9 @@ function loadJSON(file) {
   try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; }
 }
 function saveState(s) {
-  fs.writeFileSync(STATE_FILE, JSON.stringify(s, null, 2));
+  const tmp = STATE_FILE + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(s, null, 2));
+  fs.renameSync(tmp, STATE_FILE);
 }
 function loadState() {
   return loadJSON(STATE_FILE) || { posted: [], lastScores: {} };
@@ -40,7 +42,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 // ── Check if our pick is covering based on current score ──────────────────────
 function isCovering(game, pickIsHome) {
   const { homeScore, awayScore, bettingLines } = game;
-  if (homeScore == null || awayScore == null || !bettingLines?.spread) return null;
+  if (homeScore == null || awayScore == null || bettingLines?.spread == null) return null;
   const spread = bettingLines.spread; // negative = home favored
   const margin = homeScore - awayScore;
   // Pick covers if: home pick → margin > -spread; away pick → margin < -spread
@@ -215,7 +217,7 @@ async function main() {
     const combackKey = `comeback|${gid}`;
     const peakDeficit = Math.max(
       prev.peakDeficit ?? 0,
-      Math.abs((prev.homeScore ?? 0) - (prev.awayScore ?? 0))
+      margin
     );
     if (!state.posted.includes(combackKey) && game.status === 'in_progress') {
       if (peakDeficit >= 17 && margin <= 10) {

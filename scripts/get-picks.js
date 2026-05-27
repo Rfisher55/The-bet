@@ -59,7 +59,7 @@ function formatSpread(n) {
 
 function upcomingWeek(predictions) {
   const today = new Date().toISOString().slice(0, 10);
-  const weeks = predictions.filter(p => p.game.date >= today).map(p => p.game.week).filter(Boolean);
+  const weeks = predictions.filter(p => p.game.date >= today).map(p => p.game.week).filter(w => w != null);
   return weeks.length ? Math.min(...weeks) : null;
 }
 
@@ -93,6 +93,7 @@ function americanToDecimal(american) {
 
 // Decimal multiplier → American odds
 function decimalToAmerican(decimal) {
+  if (!decimal || decimal <= 1) return -99999;
   if (decimal >= 2) return Math.round((decimal - 1) * 100);
   return Math.round(-100 / (decimal - 1));
 }

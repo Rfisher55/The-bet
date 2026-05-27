@@ -106,7 +106,6 @@ const SCHOOL_TO_ID = {
   "Southern Miss":"southern_miss","La Tech":"la_tech","Louisiana Tech":"la_tech",
   UTEP:"utep","Western Kentucky":"western_kentucky",
   "Jacksonville State":"jacksonville_state","Kennesaw State":"kennesaw_state",
-  "La Tech":"la_tech",
 };
 
 function schoolToId(name) {
@@ -618,8 +617,8 @@ async function main() {
     fetchESPNInjuries(),
   ]);
 
-  // Phase 2: fallback to 2025 when 2026 season data not available yet (pre-season)
-  const statYear = 2025;
+  // Phase 2: fallback to prior season when current season data not available yet (pre-season)
+  const statYear = SEASON - 1;
   let passingData = [...(passingRaw || []), ...(passingFcsRaw || [])];
   let rushingData = [...(rushingRaw || []), ...(rushingFcsRaw || [])];
   let receivingData = [...(receivingRaw || []), ...(receivingFcsRaw || [])];

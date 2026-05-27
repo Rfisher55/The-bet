@@ -92,7 +92,7 @@
     ["north_texas",       "North Texas",       "UNT",  "American Athletic","#00853E","Mean Green",67,-3.1,"Eric Morris"],
     ["rice",              "Rice",              "RICE", "American Athletic","#002469","Owls",     66, -4.1, "Mike Bloomgren"],
     ["south_florida",     "South Florida",     "USF",  "American Athletic","#006747","Bulls",    68, -2.0, "Alex Golesh"],
-    ["tulane",            "Tulane",            "TUL",  "American Athletic","#006341","Green Wave",72, 2.1, "Willie Fritz"],
+    ["tulane",            "Tulane",            "TUL",  "American Athletic","#006341","Green Wave",72, 2.1, "Jon Sumrall"],
     ["tulsa",             "Tulsa",             "TU",   "American Athletic","#002D62","Golden Hurricane",67,-3.2,"Kevin Wilson"],
     ["utsa",              "UTSA",              "UTSA", "American Athletic","#F15A22","Roadrunners",68,-2.0,"Jeff Traylor"],
     ["temple",            "Temple",            "TEMP", "American Athletic","#9D2235","Owls",     63, -7.1, "Stan Drayton"],

@@ -229,7 +229,10 @@ function calcPlayerImpactAdjustment(team, isHome) {
     }
 
     // ── NIL Satisfaction ─────────────────────────
-    const nilSatisfaction = safeGet(player, "personalFlags.nilSatisfaction", 5);
+    var NIL_MAP = { low: 2, medium: 5, high: 8, none: 5 };
+    var PORTAL_MAP = { low: 2, medium: 5, high: 8, none: 5 };
+    const nilSatisfactionRaw = safeGet(player, "personalFlags.nilSatisfaction", 5);
+    const nilSatisfaction = NIL_MAP[nilSatisfactionRaw] !== undefined ? NIL_MAP[nilSatisfactionRaw] : (nilSatisfactionRaw || 5);
     let nilAdj = 0;
     if (nilSatisfaction <= 3) {
       nilAdj = -0.3; // unhappy player, checked out
@@ -238,7 +241,8 @@ function calcPlayerImpactAdjustment(team, isHome) {
     }
 
     // ── Transfer portal risk (current mood) ──────
-    const portalRisk = safeGet(player, "personalFlags.transferPortalRisk", 0);
+    const portalRiskRaw = safeGet(player, "personalFlags.transferPortalRisk", 0);
+    const portalRisk = PORTAL_MAP[portalRiskRaw] !== undefined ? PORTAL_MAP[portalRiskRaw] : (portalRiskRaw || 0);
     let portalAdj = 0;
     if (portalRisk >= 7) {
       portalAdj = -0.4; // one foot out the door
@@ -436,6 +440,12 @@ function calcSituationalAdjustment(game, isHomeTeam, team, opponent) {
     // Home (warm) team hosting away (cold-climate) team in warm weather early season
     adj += 1.2; // warm-weather home team has acclimatization edge
   }
+  // Add after the existing isHomeTeam check:
+  if (!isHomeTeam && awayColdWeather && !homeColdWeather) {
+    // Cold-climate away team playing in cold weather — this is actually an advantage for away
+    // (they're used to it; home team is warm-climate)
+    adj += 1.5;
+  }
 
   return clamp(adj, -4, 4);
 }
@@ -474,8 +484,10 @@ function calcWeatherImpact(game, home, away) {
     // Pass-heavy teams take extra hit in cold weather
     const homePassHeavy = (home.stats.passingYardsPerGame || 0) > 280;
     const awayPassHeavy = (away.stats.passingYardsPerGame || 0) > 280;
-    const homeColdBonus = safeGet(home, "weatherProfile.coldWeatherAdvantage", false) ? 0.6 : 1.0;
-    const awayColdBonus = safeGet(away, "weatherProfile.coldWeatherAdvantage", false) ? 0.6 : 1.0;
+    const homeAdapted = (safeGet(home, "weatherProfile.coldWeatherAdvantage", 0) || 0) >= 6;
+    const homeColdBonus = homeAdapted ? 0.6 : 1.0;
+    const awayAdapted = (safeGet(away, "weatherProfile.coldWeatherAdvantage", 0) || 0) >= 6;
+    const awayColdBonus = awayAdapted ? 0.6 : 1.0;
 
     homeAdj  -= coldPenalty * (homePassHeavy ? 1.15 : 0.85) * homeColdBonus;
     awayAdj  -= coldPenalty * (awayPassHeavy ? 1.15 : 0.85) * awayColdBonus;
@@ -483,8 +495,8 @@ function calcWeatherImpact(game, home, away) {
     notes.push(`Frigid conditions (${temp}°F) — passing game suppressed ~${(coldPenalty * 1.15).toFixed(1)} pts for pass-heavy attacks.`);
   } else if (temp < 50) {
     const coldPenalty = 1.2;
-    homeAdj  -= coldPenalty * (safeGet(home, "weatherProfile.coldWeatherAdvantage", false) ? 0.5 : 1.0);
-    awayAdj  -= coldPenalty * (safeGet(away, "weatherProfile.coldWeatherAdvantage", false) ? 0.5 : 1.0);
+    homeAdj  -= coldPenalty * ((safeGet(home, "weatherProfile.coldWeatherAdvantage", 0) || 0) >= 6 ? 0.5 : 1.0);
+    awayAdj  -= coldPenalty * ((safeGet(away, "weatherProfile.coldWeatherAdvantage", 0) || 0) >= 6 ? 0.5 : 1.0);
     totalAdj -= 2.0;
     notes.push(`Cold weather (${temp}°F) — minor scoring suppression expected.`);
   }
@@ -513,7 +525,7 @@ function calcWeatherImpact(game, home, away) {
   const isSleet   = condition.includes("sleet") || condition.includes("freezing");
 
   // Normalize precipitation level (0-10 scale or inches)
-  const precipLevel = precip > 1 ? Math.min(precip / 2, 5) : precip * 5;
+  const precipLevel = Math.min((precip / 4) * 5, 5);
 
   if (isSnow || isSleet) {
     const snowPenalty = 3.5 + precipLevel * 0.6;
@@ -566,6 +578,15 @@ function calcWeatherImpact(game, home, away) {
  * Analyzes scheme matchups, adjustments, situational coaching, and tendencies.
  * Returns { winner: "home"/"away"/"neutral", pts, note, breakdown }
  */
+function parseRecord(val) {
+  if (!val) return { wins: 0, losses: 0, total: 0 };
+  if (typeof val === 'object' && val.wins !== undefined) return val; // already an object
+  var m = String(val).match(/^(\d+)-(\d+)/);
+  if (!m) return { wins: 0, losses: 0, total: 0 };
+  var w = parseInt(m[1], 10), l = parseInt(m[2], 10);
+  return { wins: w, losses: l, total: w + l };
+}
+
 function calcCoachingEdge(home, away) {
   const hCoach = home.coachingProfile || {};
   const aCoach = away.coachingProfile || {};
@@ -583,12 +604,12 @@ function calcCoachingEdge(home, away) {
   }
 
   // ── Close Game Record ─────────────────────────
-  const hClose = hCoach.closeGameRecord || {};
-  const aClose = aCoach.closeGameRecord || {};
-  const hCloseW = hClose.wins || 0;
-  const hCloseT = (hClose.wins || 0) + (hClose.losses || 0);
-  const aCloseW = aClose.wins || 0;
-  const aCloseT = (aClose.wins || 0) + (aClose.losses || 0);
+  const hClose = parseRecord(hCoach.closeGameRecord);
+  const aClose = parseRecord(aCoach.closeGameRecord);
+  const hCloseW = hClose.wins;
+  const hCloseT = hClose.total;
+  const aCloseW = aClose.wins;
+  const aCloseT = aClose.total;
   const hClosePct = hCloseT > 0 ? hCloseW / hCloseT : 0.5;
   const aClosePct = aCloseT > 0 ? aCloseW / aCloseT : 0.5;
   const closeEdge = (hClosePct - aClosePct) * 2.5;
@@ -598,12 +619,12 @@ function calcCoachingEdge(home, away) {
   }
 
   // ── Big Spot Record ───────────────────────────
-  const hBig = hCoach.bigSpotRecord || {};
-  const aBig = aCoach.bigSpotRecord || {};
-  const hBigW = hBig.wins || 0;
-  const hBigT = (hBig.wins || 0) + (hBig.losses || 0);
-  const aBigW = aBig.wins || 0;
-  const aBigT = (aBig.wins || 0) + (aBig.losses || 0);
+  const hBig = parseRecord(hCoach.bigSpotRecord);
+  const aBig = parseRecord(aCoach.bigSpotRecord);
+  const hBigW = hBig.wins;
+  const hBigT = hBig.total;
+  const aBigW = aBig.wins;
+  const aBigT = aBig.total;
   const hBigPct = hBigT > 0 ? hBigW / hBigT : 0.5;
   const aBigPct = aBigT > 0 ? aBigW / aBigT : 0.5;
   const bigEdge = (hBigPct - aBigPct) * 1.8;
@@ -613,12 +634,12 @@ function calcCoachingEdge(home, away) {
   }
 
   // ── ATS Record as Favorite / Underdog ─────────
-  const hATS = hCoach.atsRecord || {};
-  const aATS = aCoach.atsRecord || {};
-  const hAtsW = hATS.wins || 0;
-  const hAtsT = (hATS.wins || 0) + (hATS.losses || 0);
-  const aAtsW = aATS.wins || 0;
-  const aAtsT = (aATS.wins || 0) + (aATS.losses || 0);
+  const hATS = parseRecord(hCoach.atsRecord);
+  const aATS = parseRecord(aCoach.atsRecord);
+  const hAtsW = hATS.wins;
+  const hAtsT = hATS.total;
+  const aAtsW = aATS.wins;
+  const aAtsT = aATS.total;
   const hAtsPct = hAtsT > 0 ? hAtsW / hAtsT : 0.5;
   const aAtsPct = aAtsT > 0 ? aAtsW / aAtsT : 0.5;
   const atsEdge = (hAtsPct - aAtsPct) * 1.5;
@@ -1197,14 +1218,18 @@ function getPlayerGameIntel(player, isHome, game) {
   }
 
   // ── NIL Satisfaction ──────────────────────────
-  const nilSat = pf.nilSatisfaction || 5;
+  var NIL_MAP2 = { low: 2, medium: 5, high: 8, none: 5 };
+  var PORTAL_MAP2 = { low: 2, medium: 5, high: 8, none: 5 };
+  const nilSatRaw = pf.nilSatisfaction;
+  const nilSat = NIL_MAP2[nilSatRaw] !== undefined ? NIL_MAP2[nilSatRaw] : (nilSatRaw || 5);
   if (nilSat <= 3) {
     notes.push(`NIL dissatisfaction (${nilSat}/10) — may be exploring options.`);
     flags.push("NIL_UNHAPPY");
   }
 
   // ── Transfer Portal Risk ──────────────────────
-  const portalRisk = pf.transferPortalRisk || 0;
+  const portalRiskRaw2 = pf.transferPortalRisk;
+  const portalRisk = PORTAL_MAP2[portalRiskRaw2] !== undefined ? PORTAL_MAP2[portalRiskRaw2] : (portalRiskRaw2 || 0);
   if (portalRisk >= 7) {
     notes.push(`High transfer portal risk (${portalRisk}/10) — commitment to program questionable.`);
     flags.push("PORTAL_RISK");
@@ -1546,7 +1571,7 @@ function generateSocialBuzz(home, away, game) {
   }
 
   // Trending topics driven by game context
-  const topics = [`#${home.abbreviation}vs${away.abbreviation}`, "#CFB2026"];
+  const topics = [`#${home.abbreviation}vs${away.abbreviation}`, "#CFB" + (typeof SEASON !== 'undefined' ? SEASON : new Date().getFullYear())];
   if (game && game.isRivalryGame) topics.push(`#${home.abbreviation}${away.abbreviation}Rivalry`);
   if (game && game.situational && game.situational.primeTimeGame) topics.push("#PrimeTimeCFB");
   const homeLastName = (home.coachName || "").split(" ").pop();
@@ -1762,7 +1787,7 @@ function predictGame(game) {
     // Key number proximity: 3 and 7 are the most common CFB winning margins.
     // When the Vegas spread lands within 0.5 of a key number, crossing it is harder → reduce confidence slightly.
     const KEY_NUMBERS = [3, 7, 10, 14];
-    const nearestKey = KEY_NUMBERS.reduce((best, k) => Math.abs(vegasSpread) - k < Math.abs(Math.abs(vegasSpread) - best) ? k : best, Infinity);
+    const nearestKey = KEY_NUMBERS.reduce((best, k) => Math.abs(Math.abs(vegasSpread) - k) < Math.abs(Math.abs(vegasSpread) - best) ? k : best, Infinity);
     const keyNumDist = Math.abs(Math.abs(vegasSpread) - nearestKey);
     const keyNumPenalty = keyNumDist <= 0.5 ? 4 : keyNumDist <= 1.0 ? 2 : 0;
 

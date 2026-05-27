@@ -5,6 +5,8 @@
    Pre-generated data: data/games-2026.json (refreshed by GitHub Actions)
    ═══════════════════════════════════════════════════════════════ */
 
+const SEASON = 2026;
+
 /* ── Pre-gen quickstart: load GitHub-Actions-generated game file ─────────────
    Runs immediately on page load, before the CFBD API fetch.
    Merges all ~800+ real FBS games into window.GAMES and fires liveDataReady
@@ -12,7 +14,7 @@
    The CFBD/ESPN API fetch still runs in the background for live scores/odds. */
 (function _pregenQuickstart() {
   const base = window.location.pathname.includes("/pages/") ? "../" : "./";
-  const url  = base + "data/games-2026.json";
+  const url  = base + `data/games-${SEASON}.json`;
 
   fetch(url, { cache: "no-cache" })
     .then(function(r) { return r.ok ? r.json() : null; })
@@ -88,7 +90,7 @@
    Completely new players (non-curated teams) are appended. ─────────────────── */
 (function _loadPlayerData() {
   var base = window.location.pathname.includes("/pages/") ? "../" : "./";
-  var url  = base + "data/players-2026.json";
+  var url  = base + `data/players-${SEASON}.json`;
 
   fetch(url, { cache: "no-cache" })
     .then(function(r) { return r.ok ? r.json() : null; })
@@ -180,7 +182,7 @@
 const LIVE = (() => {
   const CFBD      = "https://api.collegefootballdata.com";
   const ESPN_BASE = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
-  const SEASON    = 2026;
+  // SEASON is defined at module scope (top of file)
   const KEY_STORE   = "theBet_cfbdKey";
   const CACHE_STORE = "theBet_liveCache_v11";  // v11 = ESPN rosters/injuries/team news/stats/live scores for all 16 curated teams
   const CACHE_TTL   = 30 * 60 * 1000;          // 30 minutes
@@ -565,9 +567,9 @@ const LIVE = (() => {
         status:   e.status?.type?.name || "pre",
         clock:    e.status?.displayClock || "",
         period:   e.status?.period || 0,
-        homeId:   e.competitions?.[0]?.competitors?.find(c => c.homeAway === "home")?.team?.location,
+        homeTeam: e.competitions?.[0]?.competitors?.find(c => c.homeAway === "home")?.team?.location,
         homeScore:e.competitions?.[0]?.competitors?.find(c => c.homeAway === "home")?.score,
-        awayId:   e.competitions?.[0]?.competitors?.find(c => c.homeAway === "away")?.team?.location,
+        awayTeam: e.competitions?.[0]?.competitors?.find(c => c.homeAway === "away")?.team?.location,
         awayScore:e.competitions?.[0]?.competitors?.find(c => c.homeAway === "away")?.score,
       }));
     } catch { return []; }
@@ -1023,7 +1025,7 @@ const LIVE = (() => {
     if (_pregenRefreshInterval) return;
     _pregenRefreshInterval = setInterval(() => {
       const base = window.location.pathname.includes("/pages/") ? "../" : "./";
-      fetch(base + "data/games-2026.json", { cache: "no-cache" })
+      fetch(base + `data/games-${SEASON}.json`, { cache: "no-cache" })
         .then(r => r.ok ? r.json() : null)
         .then(d => {
           if (!d || !Array.isArray(d.games) || d.games.length < 50) return;
@@ -1342,7 +1344,7 @@ const LIVE = (() => {
       const awayId = schoolToId(g.away_team);
       const isNight = (() => {
         if (!g.start_date) return false;
-        try { const h = new Date(g.start_date).getUTCHours(); return h >= 22; } catch { return false; }
+        try { const h = new Date(g.start_date).getUTCHours(); return h >= 22 || h < 6; } catch { return false; }
       })();
       const base = {
         week: g.week || 0, gameId: g.id, isNight, isConf: g.conference_game || false,
