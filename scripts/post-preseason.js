@@ -452,10 +452,13 @@ async function main() {
     await authClient.refreshOAuth2Token(process.env.X_OAUTH2_REFRESH_TOKEN);
 
   // Save new refresh token for the workflow to update in GitHub secrets
-  require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
+  if (newRefresh && typeof newRefresh === 'string') {
+    require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
+  }
 
   let prevId = null;
-  for (const text of tweets) {
+  for (let text of tweets) {
+    if (text.length > 280) text = text.slice(0, 277) + '...';
     const payload = { text };
     if (prevId) payload.reply = { in_reply_to_tweet_id: prevId };
     const { data } = await client.v2.tweet(payload);

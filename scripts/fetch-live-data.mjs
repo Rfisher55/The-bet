@@ -214,6 +214,7 @@ async function cfbdFetch(endpoint) {
   try {
     const r = await fetch(`${CFBD_BASE}${endpoint}`, {
       headers: { Authorization: `Bearer ${CFBD_KEY}` },
+      signal: AbortSignal.timeout(15000),
     });
     if (r.status === 401 || r.status === 403) {
       // Auth failure — bail immediately so the workflow log shows a clear error
@@ -230,7 +231,7 @@ async function cfbdFetch(endpoint) {
 
 async function espnFetch(endpoint) {
   try {
-    const r = await fetch(`${ESPN_BASE}${endpoint}`, { headers:{ "User-Agent": UA } });
+    const r = await fetch(`${ESPN_BASE}${endpoint}`, { headers:{ "User-Agent": UA }, signal: AbortSignal.timeout(15000) });
     if (!r.ok) { console.warn(`  ESPN ${r.status}: ${endpoint}`); return null; }
     return await r.json();
   } catch (e) { console.warn(`  ESPN fail: ${endpoint} — ${e.message}`); return null; }
@@ -238,7 +239,7 @@ async function espnFetch(endpoint) {
 
 async function safeFetch(url, opts = {}) {
   try {
-    const r = await fetch(url, { headers: { "User-Agent": UA, ...opts.headers }, ...opts });
+    const r = await fetch(url, { headers: { "User-Agent": UA, ...opts.headers }, signal: AbortSignal.timeout(15000), ...opts });
     if (!r.ok) return null;
     return opts.text ? await r.text() : await r.json();
   } catch { return null; }
@@ -309,7 +310,7 @@ async function fetchESPNInjuries() {
     washington_state:265,georgia_tech:59,nc_state:152,
     app_state:2026,coastal_carolina:324,liberty:2335,marshall:276,
     old_dominion:295,james_madison:2259,western_kentucky:98,utsa:2636,
-    uab:2629,fau:2226,fiu:2296,charlotte:2429,southern_miss:238,
+    uab:2629,fau:2226,fiu:2296,charlotte:2429,southern_miss:2572,
     troy:2653,south_alabama:6,louisiana:309,ul_monroe:2433,arkansas_state:2032,
     georgia_southern:290,georgia_state:2247,texas_state:326,middle_tennessee:2393,
     new_mexico_state:166,la_tech:2348,sam_houston:2534,utep:2638,
@@ -869,7 +870,7 @@ async function main() {
         const divergence = pinnacle.pinnacleSpread - line.spread;
         if (Math.abs(divergence) >= 1) {
           // Pinnacle giving fewer points to home than public = sharp on home (public inflated away)
-          sharpSignal = divergence < 0 ? "away" : "home";
+          sharpSignal = divergence < 0 ? "home" : "away";
         }
       } else if (odds?.sharpSignal) {
         sharpSignal = odds.sharpSignal; // multi-book divergence fallback

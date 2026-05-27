@@ -77,6 +77,7 @@ function detectPickAlerts(currentGames, prevPicks, postedAlerts) {
   for (const game of currentGames) {
     if (game.status !== 'scheduled') continue;
     const tp = game.gamePreview?.thePick;
+    // TODO: thePick.team is not populated here — pick-flip alerts always skipped
     if (!tp?.team) continue;
 
     const gameKey = game.id;
@@ -106,7 +107,7 @@ function detectLineAlerts(currentGames, prevLines, postedAlerts) {
   for (const game of currentGames) {
     if (game.status !== 'scheduled') continue;
     const bl = game.bettingLines;
-    if (!bl?.spread) continue;
+    if (bl?.spread == null) continue;
 
     const gameKey   = game.id;
     const prevSpread = prevLines[gameKey];
