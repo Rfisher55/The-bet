@@ -111,19 +111,6 @@
       font-size:.68rem;color:var(--muted-l);font-style:italic;margin-top:3px;
     }
 
-    /* ── Table header row ── */
-    .ledger-header {
-      display:grid;grid-template-columns:90px 1fr 1fr 80px 80px 90px 130px 120px;
-      gap:10px;padding:0 18px 8px;
-    }
-    @media (max-width:1100px) {
-      .ledger-header { grid-template-columns:80px 1fr 1fr 70px 70px 80px 110px; }
-      .ledger-header .pick-col-potwn { display:none; }
-    }
-    @media (max-width:800px) { .ledger-header { display:none; } }
-    .ledger-header-cell {
-      font-size:.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
-    }
 
     /* ── Empty state ── */
     .picks-empty {
@@ -174,11 +161,6 @@
     /* ── Potential win color ── */
     .potwn-val { color:var(--gold);font-weight:800; }
 
-    /* ── Export btn area ── */
-    .ledger-controls {
-      display:flex;align-items:center;justify-content:space-between;
-      flex-wrap:wrap;gap:10px;margin-bottom:16px;
-    }
 
     /* ── Game picker selector (in form) ── */
     .gp-selector {
@@ -251,8 +233,6 @@
     .gp-btn-line { font-size:.74rem;font-weight:900;color:var(--text);line-height:1.2; }
     .gp-btn-odds { font-size:.58rem;font-weight:700;color:var(--muted);line-height:1.2; }
 
-    /* ── Auto-grade indicators ── */
-    .ag-badge { font-size:.55rem;padding:2px 7px;border-radius:10px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:var(--accent);font-weight:700; }
     .score-result { font-size:.7rem;color:var(--muted);margin-top:4px; }
   </style>
 </head>
@@ -369,31 +349,6 @@
         <button class="btn btn-primary" id="log-btn">Log Pick</button>
       </div>
     </div>
-  </div>
-
-  <!-- Ledger controls -->
-  <div class="ledger-controls">
-    <div class="section-label" style="margin:0" id="ledger-count">0 Picks</div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button class="btn btn-outline" id="auto-grade-btn" style="font-size:.8rem;padding:8px 16px" title="Fetch final scores from CFBD and auto-grade pending picks">
-        &#128200; Auto-Grade
-      </button>
-      <button class="btn btn-outline" id="export-btn" style="font-size:.8rem;padding:8px 16px">
-        Export Picks
-      </button>
-    </div>
-  </div>
-
-  <!-- Column headers (desktop) -->
-  <div class="ledger-header" id="ledger-header" style="display:none">
-    <div class="ledger-header-cell">Date</div>
-    <div class="ledger-header-cell">Game</div>
-    <div class="ledger-header-cell">Pick</div>
-    <div class="ledger-header-cell">Odds</div>
-    <div class="ledger-header-cell">Wager</div>
-    <div class="ledger-header-cell pick-col-potwn">Pot. Win</div>
-    <div class="ledger-header-cell">Result</div>
-    <div class="ledger-header-cell">Actions</div>
   </div>
 
   <!-- Picks ledger -->
@@ -1005,11 +960,6 @@
         + '</div>';
     }
 
-    // Auto-grade badge for pending picks that can be auto-graded
-    var agBadge = (pick.result === 'pending' && pick.gameId && pick.pickType)
-      ? ' <span class="ag-badge">auto-gradeable</span>'
-      : '';
-
     // Bet quality grade
     var grade = calcBetGrade(pick);
     var gradeBadge = pick.confidence
@@ -1026,7 +976,7 @@
       + '</div>'
       + '<div class="pick-col pick-col-full">'
         + '<div class="pick-col-label">My Pick</div>'
-        + '<div class="pick-col-value">' + escHtml(pick.pick) + agBadge + gradeBadge + '</div>'
+        + '<div class="pick-col-value">' + escHtml(pick.pick) + gradeBadge + '</div>'
         + (pick.notes ? '<div class="pick-notes-inline">' + escHtml(pick.notes) + '</div>' : '')
       + '</div>'
       + '<div class="pick-col">'
@@ -1109,19 +1059,12 @@
     });
 
     var ledger = document.getElementById('picks-ledger');
-    var header = document.getElementById('ledger-header');
-    var countEl = document.getElementById('ledger-count');
-
-    countEl.textContent = filtered.length + ' Pick' + (filtered.length !== 1 ? 's' : '')
-      + (currentFilter !== 'all' ? ' (' + currentFilter + ')' : '');
 
     if (!filtered.length) {
-      header.style.display = 'none';
       ledger.innerHTML = emptyStateHtml(currentFilter);
       return;
     }
 
-    header.style.display = 'grid';
     ledger.innerHTML = filtered.map(buildPickRow).join('');
   }
 
@@ -1281,60 +1224,6 @@
   /* ────────────────────────────────────────────────
      Export picks
   ──────────────────────────────────────────────── */
-  document.getElementById('export-btn').addEventListener('click', function () {
-    var picks = loadPicks();
-    if (!picks.length) { showToast('No picks to export.'); return; }
-
-    var lines = picks.map(function (p) {
-      var win = potentialWin(p.wager, p.odds);
-      var net;
-      if (p.result === 'win') net = '+' + fmtMoney(win);
-      else if (p.result === 'loss') net = '-' + fmtMoney(p.wager);
-      else if (p.result === 'push') net = '$0.00';
-      else net = 'pending';
-
-      return [p.date, p.game, p.pick, fmtOdds(p.odds), fmtMoney(p.wager), p.result.toUpperCase(), net]
-        .join(' | ');
-    });
-
-    var header = 'Date | Game | Pick | Odds | Wager | Result | Net\n'
-      + '─'.repeat(80) + '\n';
-    var text = header + lines.join('\n');
-
-    // Stats footer
-    var s = computeStats(picks);
-    text += '\n' + '─'.repeat(80) + '\n'
-      + 'Record: ' + s.wins + '-' + s.losses + '-' + s.pushes + ' | '
-      + 'Win Rate: ' + (s.winRate !== null ? s.winRate + '%' : '—') + ' | '
-      + 'ROI: ' + (s.roi !== null ? (s.roi >= 0 ? '+' : '') + s.roi.toFixed(1) + '%' : '—') + ' | '
-      + 'Net: ' + (s.totalNet >= 0 ? '+' : '') + fmtMoney(s.totalNet);
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () {
-        showToast('Picks copied to clipboard!');
-      }).catch(function () {
-        fallbackCopy(text);
-      });
-    } else {
-      fallbackCopy(text);
-    }
-  });
-
-  function fallbackCopy(text) {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    try {
-      document.execCommand('copy');
-      showToast('Picks copied to clipboard!');
-    } catch (e) {
-      showToast('Copy failed — try a modern browser.');
-    }
-    document.body.removeChild(ta);
-  }
 
   /* ────────────────────────────────────────────────
      Handle incoming "track this pick" URL params
@@ -1710,109 +1599,7 @@
     renderGPGames();
   });
 
-  /* ────────────────────────────────────────────────
-     Auto-Grade
-  ──────────────────────────────────────────────── */
-  function normalizeTeamName(name) {
-    return (name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-  }
 
-  function gradeResult(pick, homeScore, awayScore) {
-    var type = pick.pickType;
-    var side = pick.pickSide;
-    var line = parseFloat(pick.pickLine);
-
-    if (type === 'moneyline') {
-      if (homeScore === awayScore) return 'push';
-      var homeWon = homeScore > awayScore;
-      return (side === 'home-ml') ? (homeWon ? 'win' : 'loss') : (homeWon ? 'loss' : 'win');
-    }
-    if (type === 'spread') {
-      // line = home spread (negative = home favored). Home covers if (homeScore - awayScore) + line > 0
-      var coverMargin = (homeScore - awayScore) + line;
-      if (coverMargin === 0) return 'push';
-      if (side === 'home') return coverMargin > 0 ? 'win' : 'loss';
-      if (side === 'away') return coverMargin < 0 ? 'win' : 'loss';
-    }
-    if (type === 'total') {
-      var combined = homeScore + awayScore;
-      if (combined === line) return 'push';
-      if (side === 'over')  return combined > line ? 'win' : 'loss';
-      if (side === 'under') return combined < line ? 'win' : 'loss';
-    }
-    return null;
-  }
-
-  document.getElementById('auto-grade-btn').addEventListener('click', function () {
-    var allPicks = loadPicks();
-    var pending = allPicks.filter(function (p) {
-      return p.result === 'pending' && p.gameId && p.homeTeam && p.awayTeam && p.gameWeek && p.pickType && p.pickSide;
-    });
-
-    if (!pending.length) {
-      showToast('No auto-gradeable picks — log picks using the game finder.');
-      return;
-    }
-
-    var apiKey = window.CFBD_DEFAULT_KEY;
-    if (!apiKey) { showToast('API key not configured.'); return; }
-
-    var btn = document.getElementById('auto-grade-btn');
-    btn.textContent = 'Checking...';
-    btn.disabled = true;
-
-    // Unique weeks to fetch
-    var weeks = [];
-    pending.forEach(function (p) { if (weeks.indexOf(p.gameWeek) === -1) weeks.push(p.gameWeek); });
-
-    var graded = 0;
-    var done   = 0;
-
-    function finish() {
-      btn.textContent = '📈 Auto-Grade';
-      btn.disabled = false;
-      if (graded > 0) {
-        savePicks(allPicks);
-        showToast(graded + ' pick' + (graded !== 1 ? 's' : '') + ' auto-graded!');
-        render();
-      } else {
-        showToast('No completed games found yet for your pending picks.');
-      }
-    }
-
-    weeks.forEach(function (week) {
-      fetch('https://api.collegefootballdata.com/games?year=2026&week=' + week + '&seasonType=regular', {
-        headers: { 'Authorization': 'Bearer ' + apiKey }
-      })
-      .then(function (r) { return r.json(); })
-      .then(function (cfbdGames) {
-        pending.filter(function (p) { return p.gameWeek === week; }).forEach(function (pick) {
-          var match = cfbdGames.find(function (cg) {
-            return cg.home_points != null
-              && cg.away_points != null
-              && normalizeTeamName(cg.home_team) === normalizeTeamName(pick.homeTeam)
-              && normalizeTeamName(cg.away_team) === normalizeTeamName(pick.awayTeam);
-          });
-          if (!match) return;
-          var result = gradeResult(pick, match.home_points, match.away_points);
-          if (!result) return;
-          var idx = allPicks.findIndex(function (p) { return p.id === pick.id; });
-          if (idx !== -1) {
-            allPicks[idx].result    = result;
-            allPicks[idx].homeScore = match.home_points;
-            allPicks[idx].awayScore = match.away_points;
-            graded++;
-          }
-        });
-        done++;
-        if (done === weeks.length) finish();
-      })
-      .catch(function () {
-        done++;
-        if (done === weeks.length) finish();
-      });
-    });
-  });
 
   // Expose picker + grade functions globally (needed by inline onclick handlers)
   window.openGamePicker    = openGamePicker;
