@@ -39,6 +39,11 @@ jobs:
         run: npm install
         working-directory: scripts
 
+      - name: Mask sensitive output
+        run: |
+          # Pre-declare mask so any token that appears in subsequent logs is redacted
+          echo "::add-mask::${{ secrets.X_OAUTH2_CLIENT_SECRET }}"
+
       - name: Run OAuth2 setup
         env:
           X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}

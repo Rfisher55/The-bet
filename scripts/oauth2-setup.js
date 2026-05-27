@@ -65,6 +65,10 @@ async function main() {
       redirectUri: CALLBACK,
     });
 
+    // Mask both tokens before any logging so they are redacted in GitHub Actions logs
+    process.stdout.write('::add-mask::' + refreshToken + '\n');
+    process.stdout.write('::add-mask::' + accessToken + '\n');
+
     console.log('\n════════════════════════════════════════');
     console.log('   ✅ SUCCESS — Add this to GitHub secrets');
     console.log('════════════════════════════════════════\n');
