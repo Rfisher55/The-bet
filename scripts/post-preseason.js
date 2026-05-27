@@ -23,7 +23,7 @@
 const vm   = require('vm');
 const fs   = require('fs');
 const path = require('path');
-const { TwitterApi } = require('twitter-api-v2');
+// twitter-api-v2 loaded lazily below (only when not dry-run)
 
 const ROOT = path.join(__dirname, '..');
 const JS   = f => fs.readFileSync(path.join(ROOT, 'js', f), 'utf8');
@@ -444,6 +444,7 @@ async function main() {
   if (dryRun) return;
 
   // Refresh OAuth 2.0 token
+  const { TwitterApi } = require('twitter-api-v2');
   const authClient = new TwitterApi({
     clientId:     process.env.X_OAUTH2_CLIENT_ID,
     clientSecret: process.env.X_OAUTH2_CLIENT_SECRET,
