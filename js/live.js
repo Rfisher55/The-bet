@@ -19,7 +19,10 @@ const SEASON = 2026;
   fetch(url, { cache: "no-cache" })
     .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(d) {
-      if (!d || !Array.isArray(d.games) || d.games.length < 50) return;
+      // Accept any non-empty games array; the automated pipeline fills it with
+      // 800+ games once CFBD publishes the full season schedule (July/August).
+      // During the preseason, a curated seed of marquee matchups is served instead.
+      if (!d || !Array.isArray(d.games) || d.games.length < 1) return;
 
       // Ignore the stub file (generated before GitHub Actions ran)
       if (d.generated === "2026-01-01T00:00:00.000Z") return;

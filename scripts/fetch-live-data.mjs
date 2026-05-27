@@ -1261,7 +1261,11 @@ async function main() {
   }
 
   if (games.length === 0) {
-    console.log("  No game data from CFBD or ESPN — skipping games-2026.json");
+    // Don't overwrite the curated seed — games-2026.json already has 21 marquee
+    // matchups that live.js uses until the full schedule is available from CFBD/ESPN.
+    // Once CFBD publishes the 2026 season data (July/August) this block will be skipped
+    // and the full 800+ game schedule will be written to games-2026.json.
+    console.log("  No game data from CFBD or ESPN yet — preserving curated seed in games-2026.json");
     return;
   }
 
