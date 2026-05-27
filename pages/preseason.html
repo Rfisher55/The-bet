@@ -374,7 +374,7 @@
   });
 
   fades.forEach(t => {
-    const impliedRank = ratingToRank(t.rating);
+    const impliedRank = ratingToRank(t.id);
     const card = document.createElement('div');
     card.className = 'sf-card fade';
     card.innerHTML = `
