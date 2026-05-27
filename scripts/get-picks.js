@@ -283,7 +283,13 @@ function getLocks() {
       if (minWeek && p.game.week !== minWeek) return false;
       if (p.game.date < today) return false;
       const conf = pickConf(p);
-      return conf === 'elite' || conf === 'high';
+      if (conf !== 'elite' && conf !== 'high') return false;
+      // Must have genuine edge — cover prob ≥ 55% AND at least 1pt model edge.
+      // A 50%/0-edge pick is a coin flip; calling it a "lock" is misleading.
+      const sp = p.prediction.spreadPick || {};
+      const prob = modelProb(p, sp.side || 'home') * 100;
+      const edge = sp.edge || 0;
+      return prob >= 55 && edge >= 1;
     })
     .sort((a, b) => {
       // Sort by win prob first, then edge

@@ -215,6 +215,14 @@ async function cfbdFetch(endpoint) {
     const r = await fetch(`${CFBD_BASE}${endpoint}`, {
       headers: { Authorization: `Bearer ${CFBD_KEY}` },
     });
+    if (r.status === 401 || r.status === 403) {
+      // Auth failure — bail immediately so the workflow log shows a clear error
+      // instead of silently returning 0 games after dozens of failed requests.
+      const body = await r.text().catch(() => '');
+      console.error(`❌ CFBD auth error ${r.status} on ${endpoint}: ${body.slice(0,120)}`);
+      console.error('   → Rotate CFBD_API_KEY at collegefootballdata.com and update the GitHub secret.');
+      process.exit(1);
+    }
     if (!r.ok) { console.warn(`  CFBD ${r.status}: ${endpoint}`); return null; }
     return await r.json();
   } catch (e) { console.warn(`  CFBD fail: ${endpoint} — ${e.message}`); return null; }
