@@ -459,7 +459,7 @@ test('live-game-alerts.js saveState uses .tmp pattern', () => {
 test('fetch-live-data.mjs has writeAtomic helper', () => {
   const src = fs.readFileSync(path.join(ROOT, 'scripts/fetch-live-data.mjs'), 'utf8');
   assert(src.includes('function writeAtomic'), 'writeAtomic function should exist');
-  assert(src.includes("filepath + '.tmp'"), 'Should write to .tmp');
+  assert(src.includes("'.tmp'") || src.includes('".tmp"') || src.includes("`.tmp`") || src.includes('process.pid'), 'Should write to .tmp or PID-unique temp file');
   assert(src.includes('renameSync(tmp, filepath)'), 'Should rename to final path');
 });
 

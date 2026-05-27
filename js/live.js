@@ -305,7 +305,7 @@ const LIVE = (() => {
   const ENDPOINT_COUNT = 32; // 28 CFBD + 1 ESPN schedule + 1 ESPN news + 1 Reddit + 1 spare
 
   function getKey() { return localStorage.getItem(KEY_STORE) || window.CFBD_DEFAULT_KEY || null; }
-  function setKey(k) { if (k) localStorage.setItem(KEY_STORE, k.trim()); else localStorage.removeItem(KEY_STORE); }
+  function setKey(k) { if (k) { try { localStorage.setItem(KEY_STORE, k.trim()); } catch {} } else localStorage.removeItem(KEY_STORE); }
   function clearKey() { localStorage.removeItem(KEY_STORE); }
 
   // ── Per-endpoint fetch with one automatic retry after 2 s ───
@@ -965,7 +965,7 @@ const LIVE = (() => {
       // For any other network failure, try stale cache as graceful fallback
       if (errType !== "invalid_key") {
         const stale = loadCache(false);
-        if (stale && stale._stale) {
+        if (stale) {  // use any cache (stale or not) when all API calls fail
           applyData(stale);
           const cacheDate = stale._cacheTs ? new Date(stale._cacheTs).toLocaleDateString() : "earlier";
           state = { ...state, status: "stale", lastUpdated: stale.fetchedAt,
@@ -2496,7 +2496,7 @@ const LIVE = (() => {
       updateModalStatus();
       setTimeout(() => window.location.reload(), 1200);
     } catch (err) {
-      if (statusEl) statusEl.innerHTML = `<span style="color:var(--danger)">${err.message}</span>`;
+      if (statusEl) { statusEl.innerHTML = '<span style="color:var(--danger)"></span>'; statusEl.firstChild.textContent = err.message; }
       updateModalStatus();
     }
   }

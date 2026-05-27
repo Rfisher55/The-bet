@@ -1686,7 +1686,7 @@ function predictGame(game) {
     homeBaseExp                                    // base (already weighted internally)
     + homePlayerAdj   * (WEIGHTS.playerImpact   / WEIGHTS.baseModel * 1.2)
     + homeSitAdj      * (WEIGHTS.situational    / WEIGHTS.baseModel * 1.1)
-    + weatherImpact.homeAdj
+    + weatherImpact.homeAdj * (WEIGHTS.weather / WEIGHTS.baseModel)
     + homeCoachAdj    * (WEIGHTS.coachingEdge   / WEIGHTS.baseModel * 1.0)
     + homeMomentumAdj * (WEIGHTS.programMomentum/ WEIGHTS.baseModel * 0.9)
     + homeSharpAdj    * (WEIGHTS.sharpMoney     / WEIGHTS.baseModel * 1.0)
@@ -1697,7 +1697,7 @@ function predictGame(game) {
     awayBaseExp
     + awayPlayerAdj   * (WEIGHTS.playerImpact   / WEIGHTS.baseModel * 1.2)
     + awaySitAdj      * (WEIGHTS.situational    / WEIGHTS.baseModel * 1.1)
-    + weatherImpact.awayAdj
+    + weatherImpact.awayAdj * (WEIGHTS.weather / WEIGHTS.baseModel)
     + awayCoachAdj    * (WEIGHTS.coachingEdge   / WEIGHTS.baseModel * 1.0)
     + awayMomentumAdj * (WEIGHTS.programMomentum/ WEIGHTS.baseModel * 0.9)
     + awaySharpAdj    * (WEIGHTS.sharpMoney     / WEIGHTS.baseModel * 1.0)

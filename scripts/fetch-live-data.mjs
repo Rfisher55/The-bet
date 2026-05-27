@@ -26,10 +26,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR  = join(__dirname, "..", "data");
 const SEASON    = 2026;
 
-// Atomic write: write to .tmp then rename so a mid-write crash can't corrupt data files.
-// The rename is a single OS operation — either it completes or it doesn't, no partial state.
+// Atomic write: write to a PID-unique .tmp then rename so neither a mid-write crash nor
+// two concurrent script runs can corrupt data files.
 function writeAtomic(filepath, content) {
-  const tmp = filepath + '.tmp';
+  const tmp = `${filepath}.${process.pid}.tmp`;
   writeFileSync(tmp, content);
   renameSync(tmp, filepath);
 }
@@ -1034,8 +1034,8 @@ async function main() {
       const socialBuzz = {
         homeTeamBuzz: Math.min(100, (homeBuzz?.score||0) + (apRanks[homeId] ? Math.max(0, 25-apRanks[homeId]) : 0)),
         awayTeamBuzz: Math.min(100, (awayBuzz?.score||0) + (apRanks[awayId] ? Math.max(0, 25-apRanks[awayId]) : 0)),
-        sentimentHome: homeBuzz?.sentiment === "positive" ? "0.65" : homeBuzz?.sentiment === "negative" ? "0.35" : "0.50",
-        sentimentAway: awayBuzz?.sentiment === "positive" ? "0.65" : awayBuzz?.sentiment === "negative" ? "0.35" : "0.50",
+        sentimentHome: homeBuzz?.sentiment === "positive" ? 0.65 : homeBuzz?.sentiment === "negative" ? 0.35 : 0.50,
+        sentimentAway: awayBuzz?.sentiment === "positive" ? 0.65 : awayBuzz?.sentiment === "negative" ? 0.35 : 0.50,
         trendingTopics: [...new Set([
           weather?.windMph > 20 ? `💨 Wind ${weather.windMph}mph` : null,
           weather?.precipitation > 0.5 ? `🌧 Rain ${Math.round(weather.precipitation * 100)}%` : null,
@@ -1175,8 +1175,8 @@ async function main() {
       const socialBuzz = {
         homeTeamBuzz: Math.min(100, (redditBuzz[homeId]?.score||0) + (apRanks[homeId] ? Math.max(0, 25-apRanks[homeId]) : 0)),
         awayTeamBuzz: Math.min(100, (redditBuzz[awayId]?.score||0) + (apRanks[awayId] ? Math.max(0, 25-apRanks[awayId]) : 0)),
-        sentimentHome: redditBuzz[homeId]?.sentiment === "positive" ? "0.65" : redditBuzz[homeId]?.sentiment === "negative" ? "0.35" : "0.50",
-        sentimentAway: redditBuzz[awayId]?.sentiment === "positive" ? "0.65" : redditBuzz[awayId]?.sentiment === "negative" ? "0.35" : "0.50",
+        sentimentHome: redditBuzz[homeId]?.sentiment === "positive" ? 0.65 : redditBuzz[homeId]?.sentiment === "negative" ? 0.35 : 0.50,
+        sentimentAway: redditBuzz[awayId]?.sentiment === "positive" ? 0.65 : redditBuzz[awayId]?.sentiment === "negative" ? 0.35 : 0.50,
         trendingTopics: [
           weather?.windMph > 20 ? `💨 Wind ${weather.windMph}mph` : null,
           weather?.precipitation > 0.5 ? `🌧 Rain ${Math.round(weather.precipitation * 100)}%` : null,
@@ -1262,12 +1262,17 @@ async function main() {
     console.log(`  Social/team data written — Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, SP+: ${cfbdExtras.spRatings.length}, injuries: ${Object.values(injuries).flat().length}`);
   }
 
+  // Guard 1: no data at all — preserve curated seed
   if (games.length === 0) {
-    // Don't overwrite the curated seed — games-2026.json already has 21 marquee
-    // matchups that live.js uses until the full schedule is available from CFBD/ESPN.
-    // Once CFBD publishes the 2026 season data (July/August) this block will be skipped
-    // and the full 800+ game schedule will be written to games-2026.json.
     console.log("  No game data from CFBD or ESPN yet — preserving curated seed in games-2026.json");
+    return;
+  }
+  // Guard 2: partial data (CFBD sometimes publishes a handful of games before the full
+  // schedule) — require at least 100 games before overwriting the curated seed so we
+  // don't replace 21 well-curated marquee matchups with 15 skeleton stubs.
+  const MIN_SCHEDULE_GAMES = 100;
+  if (games.length < MIN_SCHEDULE_GAMES) {
+    console.log(`  Only ${games.length} games found (threshold: ${MIN_SCHEDULE_GAMES}) — preserving curated seed until full schedule is available`);
     return;
   }
 
