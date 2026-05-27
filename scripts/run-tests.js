@@ -614,13 +614,26 @@ console.log('\n── 15. GitHub workflow checks ──────────�
 test('x-auto-post.yml has concurrency block', () => {
   const src = fs.readFileSync(path.join(ROOT, '.github/workflows/x-auto-post.yml'), 'utf8');
   assert(src.includes('concurrency:'), 'concurrency block missing');
-  assert(src.includes('cancel-in-progress: true'), 'cancel-in-progress missing');
+  assert(src.includes('cancel-in-progress:'), 'cancel-in-progress missing'); // false: queues new runs instead of cancelling live threads mid-post
 });
 
 test('x-preseason-post.yml has season gate (skips when games exist)', () => {
   const src = fs.readFileSync(path.join(ROOT, '.github/workflows/x-preseason-post.yml'), 'utf8');
   assert(src.includes('totalGames'), 'Season gate check for totalGames missing');
   assert(src.includes('skip=true'), 'skip output variable missing');
+});
+
+test('x-auto-post.yml has season gate (skips during preseason)', () => {
+  const src = fs.readFileSync(path.join(ROOT, '.github/workflows/x-auto-post.yml'), 'utf8');
+  assert(src.includes('totalGames'), 'Season gate check for totalGames missing');
+  assert(src.includes('skip=true'), 'skip output variable missing');
+  assert(src.includes('-le "100"'), 'Preseason threshold check missing');
+});
+
+test('refresh-data.yml passes rotated token to game alerts', () => {
+  const src = fs.readFileSync(path.join(ROOT, '.github/workflows/refresh-data.yml'), 'utf8');
+  assert(src.includes('Pass rotated token'), 'Token pass-through step missing');
+  assert(src.includes('GITHUB_ENV'), 'GITHUB_ENV token update missing');
 });
 
 test('deploy-worker.yml permissions set to {}', () => {

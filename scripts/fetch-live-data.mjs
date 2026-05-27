@@ -294,16 +294,32 @@ function parseESPNEvent(ev, byKey) {
   };
 }
 
-// CFB Fridays + Saturdays for 2026 regular season + conference championship weekend
+// CFB dates for 2026: Week 0 Saturday, then Thu/Fri/Sat every week,
+// Thanksgiving week, conference championship weekend, and Army-Navy.
 const CFB_DATES_2026 = [
-  "20260828","20260829",
-  "20260904","20260905","20260911","20260912",
-  "20260918","20260919","20260925","20260926",
-  "20261002","20261003","20261009","20261010",
-  "20261016","20261017","20261023","20261024",
-  "20261030","20261031","20261106","20261107",
-  "20261113","20261114","20261120","20261121",
-  "20261127","20261128","20261204","20261205","20261206",
+  // Week 0
+  "20260822",
+  // Week 1
+  "20260827","20260828","20260829",
+  // Weeks 2-13: Thursday + Friday + Saturday
+  "20260903","20260904","20260905",
+  "20260910","20260911","20260912",
+  "20260917","20260918","20260919",
+  "20260924","20260925","20260926",
+  "20261001","20261002","20261003",
+  "20261008","20261009","20261010",
+  "20261015","20261016","20261017",
+  "20261022","20261023","20261024",
+  "20261029","20261030","20261031",
+  "20261105","20261106","20261107",
+  "20261112","20261113","20261114",
+  "20261119","20261120","20261121",
+  // Thanksgiving week
+  "20261124","20261125","20261126","20261127","20261128",
+  // Conference championship weekend
+  "20261203","20261204","20261205","20261206",
+  // Army-Navy
+  "20261212",
 ];
 
 // ── ESPN: scoreboard using site.web.api.espn.com with specific YYYYMMDD dates ─
@@ -1113,7 +1129,7 @@ async function main() {
     }
 
     for (const [key, espn] of Object.entries(espnByKey)) {
-      if (!espn.date || !espn.week) continue;
+      if (!espn.date || espn.week == null) continue; // keep week:0 (Week 0 games)
 
       const homeId = schoolToId(espn.homeLocation);
       const awayId = schoolToId(espn.awayLocation);

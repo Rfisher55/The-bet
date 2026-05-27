@@ -393,7 +393,7 @@ async function main() {
     const { getPastPicks } = require('./get-picks');
     const allPicksWithPast = getPastPicks();
     console.log('Fetching ESPN scores...');
-    const { record, newResults } = await updateResults(allPicksWithPast.length ? allPicksWithPast : allPicks);
+    const { record, newResults } = await updateResults(allPicksWithPast.length ? allPicksWithPast : []);
     if (!newResults.length) {
       console.log('No new results to post (either off-season or already recorded).');
       return;
