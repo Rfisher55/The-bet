@@ -15,6 +15,7 @@
 const fs   = require('fs');
 const path = require('path');
 const { TwitterApi } = require('twitter-api-v2');
+const { getPastPicks } = require('./get-picks');
 
 const ROOT       = path.join(__dirname, '..');
 const DATA       = p => path.join(ROOT, 'data', p);
@@ -40,7 +41,10 @@ function loadState() {
 }
 
 function saveState(state) {
-  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
+  // Atomic write: write to .tmp then rename so a mid-write crash can't corrupt state
+  const tmp = STATE_FILE + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(state, null, 2));
+  fs.renameSync(tmp, STATE_FILE);
 }
 
 // ── Alert detection ───────────────────────────────────────────────────────────
@@ -70,31 +74,40 @@ function detectInjuryAlerts(currentInjuries, prevInjuries, postedAlerts) {
   return alerts;
 }
 
-function detectPickAlerts(currentGames, prevPicks, postedAlerts) {
+// modelPicksMap: { [gameId]: { team, conf, homeTeam, awayTeam, week, spread } }
+// Built from get-picks.js getPastPicks() — the actual model output, not thePick stubs.
+function detectPickAlerts(modelPicksMap, currentGames, prevPicks, postedAlerts) {
   const alerts = [];
-  if (!currentGames?.length) return alerts;
+  if (!modelPicksMap) return alerts;
 
-  for (const game of currentGames) {
-    if (game.status !== 'scheduled') continue;
-    const tp = game.gamePreview?.thePick;
-    // TODO: thePick.team is not populated here — pick-flip alerts always skipped
-    if (!tp?.team) continue;
+  // Build a lookup for game details (spread, team names) from currentGames
+  const gameDetails = {};
+  for (const g of (currentGames || [])) {
+    gameDetails[g.id] = g;
+  }
 
-    const gameKey = game.id;
-    const prevPick = prevPicks[gameKey];
-    const alertKey = `pick-flip|${gameKey}|${tp.team}`;
+  for (const [gameId, pick] of Object.entries(modelPicksMap)) {
+    const prevPick = prevPicks[gameId];
+    const alertKey = `pick-flip|${gameId}|${pick.team}`;
 
     if (postedAlerts.includes(alertKey)) continue;
-    if (!prevPick) { /* first time seeing this game — just record, no alert */ continue; }
-    if (prevPick.team === tp.team) continue;
+    if (!prevPick) continue; // first time seeing this game — record only, no alert
+    if (prevPick.team === pick.team) continue; // no change
 
+    const game = gameDetails[gameId] || {};
     alerts.push({
-      type: 'pick-flip',
-      game,
+      type:    'pick-flip',
+      game: {
+        id:          gameId,
+        week:        pick.week,
+        homeTeamName: pick.homeTeam,
+        awayTeamName: pick.awayTeam,
+        bettingLines: game.bettingLines,
+      },
       oldTeam: prevPick.team,
-      newTeam: tp.team,
-      spread:  game.bettingLines?.spread,
-      key: alertKey,
+      newTeam: pick.team,
+      spread:  pick.vegasSpread,
+      key:     alertKey,
     });
   }
   return alerts;
@@ -232,18 +245,37 @@ async function main() {
   const prevLines       = state.lines    || {};
   const postedAlerts    = state.postedAlerts || [];
 
+  // Build model picks map from get-picks.js (real predictor output, not stub thePick fields)
+  let modelPicksMap = null;
+  try {
+    const allPicks = getPastPicks();
+    modelPicksMap = {};
+    for (const pick of allPicks) {
+      modelPicksMap[pick.gameId] = {
+        team:     pick.pickTeam,
+        conf:     pick.conf,
+        week:     pick.week,
+        homeTeam: pick.homeTeam,
+        awayTeam: pick.awayTeam,
+        vegasSpread: pick.vegasSpread,
+      };
+    }
+    console.log(`  Model picks loaded: ${Object.keys(modelPicksMap).length} games`);
+  } catch (e) {
+    console.warn('  Could not load model picks (off-season or sandbox error):', e.message);
+  }
+
   // Build current picks/lines snapshot for state
-  const newPicks = {};
+  // Picks come from real model output; lines from games-2026.json
+  const newPicks = modelPicksMap || {};
   const newLines = {};
   for (const game of currentGames) {
-    const tp = game.gamePreview?.thePick;
-    if (tp?.team) newPicks[game.id] = { team: tp.team, conf: tp.confidence };
     if (game.bettingLines?.spread != null) newLines[game.id] = game.bettingLines.spread;
   }
 
   // Detect alerts
   const injuryAlerts = detectInjuryAlerts(currentInjuries, prevInjuries, postedAlerts);
-  const pickAlerts   = detectPickAlerts(currentGames, prevPicks, postedAlerts);
+  const pickAlerts   = detectPickAlerts(modelPicksMap, currentGames, prevPicks, postedAlerts);
   const lineAlerts   = detectLineAlerts(currentGames, prevLines, postedAlerts);
 
   const allAlerts = [...injuryAlerts, ...pickAlerts, ...lineAlerts];

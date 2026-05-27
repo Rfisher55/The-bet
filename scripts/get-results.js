@@ -97,7 +97,9 @@ function loadRecord() {
 
 function saveRecord(record) {
   record.lastUpdated = new Date().toISOString();
-  fs.writeFileSync(RECORD_FILE, JSON.stringify(record, null, 2));
+  const tmp = RECORD_FILE + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(record, null, 2));
+  fs.renameSync(tmp, RECORD_FILE);
 }
 
 // ── Main: fetch + match + update ──────────────────────────────────

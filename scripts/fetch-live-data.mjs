@@ -18,13 +18,21 @@
  *   ODDSPAPI_KEY    — optional free at oddspapi.io (250 req/month, includes Pinnacle = sharp reference)
  */
 
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, renameSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR  = join(__dirname, "..", "data");
 const SEASON    = 2026;
+
+// Atomic write: write to .tmp then rename so a mid-write crash can't corrupt data files.
+// The rename is a single OS operation — either it completes or it doesn't, no partial state.
+function writeAtomic(filepath, content) {
+  const tmp = filepath + '.tmp';
+  writeFileSync(tmp, content);
+  renameSync(tmp, filepath);
+}
 
 const CFBD_BASE     = "https://api.collegefootballdata.com";
 const ESPN_BASE     = "https://site.api.espn.com/apis/site/v2/sports/football/college-football";
@@ -993,9 +1001,9 @@ async function main() {
 
   const hasNews    = Object.keys(teamNews).length > 0;
   if (hasReddit || hasSP || hasInjury || hasNews) {
-    writeFileSync(join(DATA_DIR,"team-extras.json"),
+    writeAtomic(join(DATA_DIR,"team-extras.json"),
       JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz, teamNews }, null, 2));
-    writeFileSync(join(DATA_DIR,"injuries.json"),
+    writeAtomic(join(DATA_DIR,"injuries.json"),
       JSON.stringify({ generated: now, injuries }, null, 2));
     console.log(`  Social/team data written — Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, SP+: ${cfbdExtras.spRatings.length}, injuries: ${Object.values(injuries).flat().length}`);
   }
@@ -1038,10 +1046,10 @@ async function main() {
     fetchDurationMs: Date.now() - startTime,
   };
 
-  writeFileSync(join(DATA_DIR,"games-2026.json"),
+  writeAtomic(join(DATA_DIR,"games-2026.json"),
     JSON.stringify({ ...metadata, apRanks, games }, null, 2));
 
-  writeFileSync(join(DATA_DIR,"metadata.json"),
+  writeAtomic(join(DATA_DIR,"metadata.json"),
     JSON.stringify(metadata, null, 2));
 
   console.log(`\n✅ Done in ${((Date.now()-startTime)/1000).toFixed(1)}s`);
