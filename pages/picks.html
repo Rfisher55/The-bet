@@ -141,6 +141,11 @@
       .pick-col-full { min-width:100%; }
       .pick-col-actions { min-width:100%; }
     }
+    /* ── Phone: fully stacked, no side-by-side cramping ── */
+    @media (max-width:500px) {
+      .pick-row-top { display:flex;flex-direction:column;gap:8px; }
+      .pick-col, .pick-col-full, .pick-col-actions { min-width:100%;width:100%; }
+    }
 
     /* ── Toast notification ── */
     .toast {
@@ -1013,14 +1018,10 @@
 
     return '<div class="pick-row ' + resultCls + '" data-id="' + escHtml(pick.id) + '">'
       + '<div class="pick-row-top">'
-      + '<div class="pick-col">'
-        + '<div class="pick-col-label">Date</div>'
-        + '<div class="pick-col-value">' + fmtDate(pick.date) + '</div>'
-        + '<div class="pick-col-sub">' + pick.date + '</div>'
-      + '</div>'
-      + '<div class="pick-col">'
+      + '<div class="pick-col pick-col-full">'
         + '<div class="pick-col-label">Game</div>'
         + '<div class="pick-col-value">' + escHtml(pick.game) + '</div>'
+        + '<div class="pick-col-sub">' + fmtDate(pick.date) + ' · ' + pick.date + '</div>'
         + scoreHtml
       + '</div>'
       + '<div class="pick-col pick-col-full">'
