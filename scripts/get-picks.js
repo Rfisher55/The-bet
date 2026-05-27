@@ -240,7 +240,8 @@ function getBiggestMatchups() {
       if (bl.spread != null) score += Math.max(0, 14 - Math.abs(bl.spread)) * 1.5; // closer = better
       if (pb.homePct) score += Math.abs(50 - pb.homePct) * 0.5; // public interest
       if (game.isConferenceGame) score += 8;
-      if (game.neutralSite) score += 5;
+      // neutralSite is top-level in live data; nested in stub data — check both
+      if (game.neutralSite || game.situational?.neutralSite) score += 5;
 
       const tp = game.gamePreview?.thePick;
       return {

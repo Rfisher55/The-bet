@@ -135,6 +135,10 @@ async function updateResults(ourPicks) {
       const pickIsHome = pick.pickTeam.toLowerCase() === pick.homeTeam.toLowerCase();
       // vegasSpread is always from home team's perspective (negative = home favored).
       // calcATS uses pickIsHome to determine which side wins — never negate the spread.
+      if (pick.vegasSpread == null || isNaN(pick.vegasSpread)) {
+        console.log(`  No betting line for ${pick.awayTeam} @ ${pick.homeTeam} — skipping (can't grade without spread)`);
+        continue;
+      }
       const result = calcATS(eg.homeScore, eg.awayScore, pick.vegasSpread, pickIsHome);
 
       const entry = {

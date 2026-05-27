@@ -83,16 +83,13 @@ function buildUpsetTweet(game) {
   const score     = scoreLine(game);
   const isFinal   = game.status === 'final';
 
-  // Determine who's pulling the upset
+  // Determine who's pulling the upset (only called when exactly one team is ranked)
   const homeWin = game.homeScore > game.awayScore;
   let upsetTeam, rankedTeam;
   if (homeWin && awayRank && !homeRank) {
     upsetTeam = game.homeTeamName; rankedTeam = `#${awayRank} ${game.awayTeamName}`;
-  } else if (!homeWin && homeRank && !awayRank) {
-    upsetTeam = game.awayTeamName; rankedTeam = `#${homeRank} ${game.homeTeamName}`;
   } else {
-    upsetTeam = homeWin ? game.homeTeamName : game.awayTeamName;
-    rankedTeam = homeWin ? `#${awayRank} ${game.awayTeamName}` : `#${homeRank} ${game.homeTeamName}`;
+    upsetTeam = game.awayTeamName; rankedTeam = `#${homeRank} ${game.homeTeamName}`;
   }
 
   const verb = isFinal ? 'UPSETS' : 'LEADING';
@@ -139,11 +136,15 @@ async function main() {
     return;
   }
 
-  // Reset state on Sundays (clear stale Saturday game data)
-  const dayOfWeek = new Date().getDay(); // 0=Sun
+  // Reset state on Sunday afternoon (not midnight) so late-night Saturday
+  // games (finishing after midnight) still get their final-result tweet.
+  // Reset at 14:00 UTC Sunday (10am ET) — all games will be long done by then.
+  const nowUtc = new Date();
+  const dayOfWeek = nowUtc.getUTCDay(); // 0=Sun
+  const hourUtc   = nowUtc.getUTCHours();
   let state = loadState();
-  if (dayOfWeek === 0 && state.posted?.length > 0) {
-    console.log('Sunday reset — clearing live-state.json');
+  if (dayOfWeek === 0 && hourUtc >= 14 && state.posted?.length > 0) {
+    console.log('Sunday 14 UTC reset — clearing live-state.json');
     state = { posted: [], lastScores: {} };
   }
   const ourPicks  = getOurPicks();
@@ -160,13 +161,19 @@ async function main() {
     const aS    = game.awayScore ?? 0;
     const margin = Math.abs(hS - aS);
 
-    // ── Halftime check (score changed and we crossed the half)
+    // ── Halftime check
+    // We can't read the actual period from the current data pipeline, so use a
+    // conservative heuristic: combined score ≥ 21 AND score is unchanged from
+    // the last 10-min check (scoring has paused → likely halftime or late Q4,
+    // neither of which we want to miss). Gate on pick so we don't spam.
+    // False-positive risk (regulation tie/late-game stall) is low given the
+    // unchanged-score requirement; we accept it until period data is available.
     const halfKey = `half|${gid}`;
     if (!state.posted.includes(halfKey) && game.status === 'in_progress') {
-      // Treat as halftime if: we have scores, game was previously 0-0 or no score
-      const hadScore = (prev.homeScore ?? 0) + (prev.awayScore ?? 0) > 0;
-      const hasScore = hS + aS > 0;
-      if (pick && hasScore && hadScore && hS + aS >= 14) {
+      const prevTotal = (prev.homeScore ?? -1) + (prev.awayScore ?? -1);
+      const currTotal = hS + aS;
+      const scoreUnchanged = prevTotal >= 0 && prevTotal === currTotal;
+      if (pick && currTotal >= 21 && scoreUnchanged) {
         alerts.push({ key: halfKey, text: buildHalftimeTweet(game, pick) });
       }
     }
@@ -193,23 +200,31 @@ async function main() {
     }
 
     // ── Overtime
+    // Heuristic: tied AND score was also tied last check AND enough points to
+    // suggest late-game (≥28 combined). Two consecutive tied readings at high
+    // scores makes a mid-game pause far less likely than OT/end of regulation.
     const otKey = `ot|${gid}`;
-    if (!state.posted.includes(otKey) && game.status === 'in_progress' && hS === aS && hS > 0 && prev.homeScore === hS && prev.awayScore === aS) {
+    const prevTied = prev.homeScore != null && prev.homeScore === prev.awayScore;
+    if (!state.posted.includes(otKey) && game.status === 'in_progress'
+        && hS === aS && hS > 0 && hS + aS >= 28 && prevTied) {
       alerts.push({ key: otKey, text: buildOvertimeTweet(game, pick) });
     }
 
-    // ── Comeback (team down 17+ and closing gap from last check)
+    // ── Comeback (team down 17+ at peak and now within 10)
+    // Track peak deficit across all intervals so a slow comeback isn't undersold.
     const combackKey = `comeback|${gid}`;
+    const peakDeficit = Math.max(
+      prev.peakDeficit ?? 0,
+      Math.abs((prev.homeScore ?? 0) - (prev.awayScore ?? 0))
+    );
     if (!state.posted.includes(combackKey) && game.status === 'in_progress') {
-      const prevMargin = Math.abs((prev.homeScore ?? 0) - (prev.awayScore ?? 0));
-      if (prevMargin >= 17 && margin < prevMargin && margin <= 10) {
-        const deficit = prevMargin;
-        alerts.push({ key: combackKey, text: buildComebackTweet(game, deficit) });
+      if (peakDeficit >= 17 && margin <= 10) {
+        alerts.push({ key: combackKey, text: buildComebackTweet(game, peakDeficit) });
       }
     }
 
-    // Update last known score
-    state.lastScores[gid] = { homeScore: hS, awayScore: aS, status: game.status };
+    // Update last known score (persist peakDeficit for accurate comeback tracking)
+    state.lastScores[gid] = { homeScore: hS, awayScore: aS, status: game.status, peakDeficit };
   }
 
   console.log(`\n🏈 Live alert check: ${alerts.length} alert(s) to post`);

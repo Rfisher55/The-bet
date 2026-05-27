@@ -266,9 +266,19 @@ async function main() {
     else if (alert.type === 'line') text = buildLineTweet(alert);
 
     if (!text) continue;
+    // If over 280 chars, trim the detail excerpt rather than dropping the alert entirely.
+    // A missed QB injury alert is worse than a slightly shorter tweet.
     if (text.length > 280) {
-      console.warn(`⚠️  Alert tweet too long (${text.length} chars) — skipping ${alert.key}`);
-      continue;
+      const over = text.length - 280;
+      // detail excerpt is always in quotes; shorten it first
+      text = text.replace(/"([^"]{20,})"/, (match, inner) => {
+        const trimmed = inner.slice(0, Math.max(20, inner.length - over - 1));
+        return `"${trimmed}…"`;
+      });
+      if (text.length > 280) {
+        console.warn(`⚠️  Alert tweet still too long (${text.length} chars) after trim — skipping ${alert.key}`);
+        continue;
+      }
     }
     await postTweet(client, text, dryRun);
     newPosted.push(alert.key);
