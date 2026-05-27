@@ -291,19 +291,54 @@ function parseESPNEvent(ev, byKey) {
   };
 }
 
-// ── ESPN: full scoreboard (current/in-season games) ──────────────────────
+// ── ESPN: full scoreboard — date-specific queries ───────────────────────
+// ESPN's scoreboard with year-format dates (dates=YEAR) silently returns 0
+// games for seasons that haven't started yet. Querying with specific
+// YYYYMMDD dates (e.g. dates=20260905) returns whatever ESPN has published
+// for that day — including pre-published future-season schedules.
+// We cover every key CFB date: Week 0 late-August, all regular-season Fri/Sat
+// through Thanksgiving weekend, and the conference-championship weekend.
 async function fetchESPNScoreboard() {
-  const WEEKS = Array.from({ length:16 }, (_,i) => i+1);
-  const results = await Promise.allSettled([
-    ...WEEKS.map(w => espnFetch(`/scoreboard?groups=80&limit=200&seasontype=2&week=${w}&dates=${SEASON}`)),
-    espnFetch(`/scoreboard?groups=80&limit=100&seasontype=3&dates=${SEASON}`),
-  ]);
+  const SEASON_DATES = [
+    // Week 0 — late August
+    "20260828","20260829",
+    // Weeks 1-4
+    "20260904","20260905",
+    "20260911","20260912",
+    "20260918","20260919",
+    "20260925","20260926",
+    // Weeks 5-8
+    "20261002","20261003",
+    "20261009","20261010",
+    "20261016","20261017",
+    "20261023","20261024",
+    // Weeks 9-12
+    "20261030","20261031",
+    "20261106","20261107",
+    "20261113","20261114",
+    "20261120","20261121",
+    // Thanksgiving / rivalry weekend
+    "20261127","20261128",
+    // Conference championship weekend
+    "20261204","20261205","20261206",
+  ];
+
   const byKey = {};
-  for (const r of results) {
-    const events = r.status === "fulfilled" ? r.value?.events : null;
-    if (!events) continue;
-    for (const ev of events) parseESPNEvent(ev, byKey);
+  // Batch 8 dates at a time with a short pause to be a good API citizen
+  const BATCH = 8;
+  for (let i = 0; i < SEASON_DATES.length; i += BATCH) {
+    const batch = SEASON_DATES.slice(i, i + BATCH);
+    const results = await Promise.allSettled(
+      batch.map(d => espnFetch(`/scoreboard?groups=80&limit=200&dates=${d}`))
+    );
+    for (const r of results) {
+      const events = r.status === "fulfilled" ? r.value?.events : null;
+      if (!events) continue;
+      for (const ev of events) parseESPNEvent(ev, byKey);
+    }
+    if (i + BATCH < SEASON_DATES.length) await new Promise(r => setTimeout(r, 300));
   }
+  console.log(`  ESPN scoreboard (date-specific, ${SEASON_DATES.length} dates): ${Object.keys(byKey).length} games found`);
   return byKey;
 }
 
@@ -827,15 +862,12 @@ async function main() {
     fetchCFBDExtras(),
   ]);
 
-  // If the scoreboard returned no games (future season), use team schedule endpoints instead.
-  // ESPN's scoreboard API only covers current/recent games; the team schedule endpoint
-  // returns the full published schedule including future seasons.
+  // If date-specific scoreboard queries still return 0 games, fall back to per-team
+  // schedule endpoints — each team's full schedule for the season.
   let espnByKey = espnScoreboard;
   if (Object.keys(espnScoreboard).length === 0) {
-    console.log("  ESPN scoreboard empty — fetching via team schedule endpoints...");
+    console.log("  ESPN scoreboard returned 0 games — trying per-team schedule endpoints...");
     espnByKey = await fetchESPNTeamSchedules();
-  } else {
-    console.log(`  ESPN scoreboard: ${Object.keys(espnScoreboard).length} games`);
   }
 
   // ── Phase 2: Betting intel (parallel) ────────────────────────────────
