@@ -48,7 +48,12 @@ const ALL_TEAMS = Object.values(sandbox.TEAMS || {}).filter(t => t.conference !=
     const apRanks = gamesData.apRanks || {};
     if (Object.keys(apRanks).length) {
       ALL_TEAMS.forEach(t => {
-        if (t.id) t.apRank = apRanks[t.id] != null ? apRanks[t.id] : null;
+        // Only override teams that ARE in the live list.
+        // Teams absent from the list keep their data.js value — games-2026.json
+        // may be a partial poll (curated subset) rather than the full 25-team AP poll.
+        // When CFBD publishes the full poll (25+ entries), all ranked teams will be
+        // in the list and unranked teams will simply not appear (keeping null from data.js).
+        if (t.id && apRanks[t.id] != null) t.apRank = apRanks[t.id];
       });
       console.log(`[LIVE] AP ranks loaded from games-2026.json (${Object.keys(apRanks).length} ranked)`);
     }
@@ -207,19 +212,29 @@ function tweetIntro() {
 function tweetSleepers(count = 5) {
   return sorted
     .filter(t => {
-      const ap = t.apRank || 99;
-      return t.rating >= 78 && (ap - modelRank(t)) >= 4;
+      const mr = modelRank(t);
+      // AP-ranked teams: model has them meaningfully higher than AP does
+      if (t.apRank) return (t.apRank - mr) >= 4;
+      // Unranked teams: model has them in the top 25 (should be on AP radar)
+      return t.rating >= 78 && mr <= 25;
     })
     .sort((a, b) => {
-      const ag = (a.apRank || 99) - modelRank(a);
-      const bg = (b.apRank || 99) - modelRank(b);
-      return bg - ag;
+      // Ranked sleepers first (by gap size), then unranked by model rank
+      const ag = a.apRank ? (a.apRank - modelRank(a)) : 0;
+      const bg = b.apRank ? (b.apRank - modelRank(b)) : 0;
+      if (ag !== bg) return bg - ag;
+      return modelRank(a) - modelRank(b);
     })
     .slice(0, count)
     .map(t => {
-      const gap = (t.apRank || 99) - modelRank(t);
+      const mr        = modelRank(t);
+      const hasRank   = t.apRank != null;
+      const apDisplay = hasRank ? '#' + t.apRank : 'unranked';
+      const gapLine   = hasRank
+        ? `\nHidden by ${t.apRank - mr} spots in the AP poll.`
+        : `\nNot in the AP Top 25 — but should be.`;
       return fit(
-        `🔍 SLEEPER: ${t.name}\n\nModel rank: #${modelRank(t)} | AP: ${t.apRank ? '#' + t.apRank : 'unranked'}\nHidden by ${gap} spots.\n\nRating: ${t.rating}/100 · Momentum: ${t.programHealth?.programMomentum || 'stable'}`,
+        `🔍 SLEEPER: ${t.name}\n\nModel rank: #${mr} | AP: ${apDisplay}${gapLine}\n\nRating: ${t.rating}/100 · Momentum: ${t.programHealth?.programMomentum || 'stable'}`,
         [
           `\nPortal: ${t.programHealth?.transferPortalRating || 'N/A'}/100`,
           `\nProjected wins: ${winProjFromRating(t.rating)}`,
@@ -330,7 +345,9 @@ function tweetATSValue() {
 function tweetConference(confFilter, count = 1) {
   const confs = confFilter
     ? [confFilter]
-    : ['SEC', 'Big Ten', 'Big 12', 'ACC', 'Mountain West', 'Sun Belt', 'MAC', 'C-USA', 'American', 'Independent'];
+    // Names must match exactly what data.js / data-fbs-stubs.js store in t.conference
+    : ['SEC', 'Big Ten', 'Big 12', 'ACC', 'Mountain West', 'Sun Belt', 'MAC',
+       'Conference USA', 'American Athletic', 'FBS Independents', 'Independent', 'Pac-2'];
 
   return confs.flatMap(conf => {
     const confTeams = [...ALL_TEAMS]
@@ -342,12 +359,13 @@ function tweetConference(confFilter, count = 1) {
 
     const top = confTeams[0];
     const sleeper = confTeams.find(t => {
-      const gap = (t.apRank || 99) - modelRank(t);
-      return gap >= 3 && t !== top;
+      if (t === top) return false;
+      if (t.apRank) return (t.apRank - modelRank(t)) >= 3;
+      return modelRank(t) <= 30; // unranked but model has them high nationally
     });
     const fade = confTeams.find(t => {
-      const gap = modelRank(t) - (t.apRank || 99);
-      return gap >= 3 && t !== top && t.apRank;
+      if (t === top || !t.apRank) return false;
+      return (modelRank(t) - t.apRank) >= 3;
     });
 
     const ranked = confTeams.slice(0, 6).map((t, i) =>
