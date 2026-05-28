@@ -151,8 +151,8 @@ const pct  = n  => `${Math.round(n * 100)}%`;
 const rank = n  => { const s = ['th','st','nd','rd']; return `${n}${s[(n%100-10)*(n%100-10)<9?0:(n%10<4?n%10:0)]||'th'}`; };
 const impliedRank = r => Math.max(1, Math.round((100 - r) * 1.5) + 1);
 const winProjFromRating = (r, games = 12) => {
-  // Same logistic formula used in pages/teams.html projectedRecord()
-  // Uses an average FBS opponent (rating 70) since we don't have the full schedule yet.
+  // Preseason projection: average FBS opponent (rating 70) since full schedule isn't published.
+  // teams.html uses the same formula when < 10 scheduled games are loaded, ensuring consistency.
   const prob = 1 / (1 + Math.exp(-(r - 70) / 10));
   const wins = Math.round(prob * games);
   const losses = games - wins;

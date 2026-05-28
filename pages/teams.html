@@ -452,14 +452,21 @@ function nextGameLabel(team) {
 function projectedRecord(team) {
   if (!window.GAMES) return null;
   const teamGames = GAMES.filter(g => g.homeTeamId === team.id || g.awayTeamId === team.id);
-  if (!teamGames.length) return null;
+  // Preseason: schedule has < 10 games — use same average-opponent formula as tweet scripts
+  // so website and tweets show consistent projected records.
+  if (teamGames.length < 10) {
+    if (!teamGames.length) return null;
+    const prob = 1 / (1 + Math.exp(-(team.rating - 70) / 10));
+    const wins = Math.round(prob * 12);
+    return `${wins}-${12 - wins}`;
+  }
+  // Full schedule: use actual opponent ratings for accuracy
   let projWins = 0;
   teamGames.forEach(g => {
     const oppId = g.homeTeamId === team.id ? g.awayTeamId : g.homeTeamId;
     const opp = window.TEAMS && TEAMS[oppId];
     const oppRating = opp ? opp.rating : 70;
     const diff = team.rating - oppRating;
-    // Logistic win probability: 50% at diff=0, ~85% at diff=15, ~15% at diff=-15
     const prob = 1 / (1 + Math.exp(-diff / 10));
     projWins += prob;
   });
