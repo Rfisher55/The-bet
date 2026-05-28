@@ -42,22 +42,37 @@ const ALL_TEAMS = Object.values(sandbox.TEAMS || {}).filter(t => t.conference !=
 // Load AP ranks from games-2026.json and SP+/momentum from team-extras.json
 // so tweets always show the same values as the website.
 (function applyLiveOverrides() {
-  // 1. AP ranks — games-2026.json is the authoritative live source (refreshed daily)
+  // 1a. AP ranks — team-extras.json has the full Top 25 (all 25 teams from CFBD).
+  //     games-2026.json is used as fallback (may only cover teams in curated games).
+  let liveApRanks = {};
   try {
-    const gamesData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'games-2026.json'), 'utf8'));
-    const apRanks = gamesData.apRanks || {};
-    if (Object.keys(apRanks).length) {
-      ALL_TEAMS.forEach(t => {
-        // Only override teams that ARE in the live list.
-        // Teams absent from the list keep their data.js value — games-2026.json
-        // may be a partial poll (curated subset) rather than the full 25-team AP poll.
-        // When CFBD publishes the full poll (25+ entries), all ranked teams will be
-        // in the list and unranked teams will simply not appear (keeping null from data.js).
-        if (t.id && apRanks[t.id] != null) t.apRank = apRanks[t.id];
-      });
-      console.log(`[LIVE] AP ranks loaded from games-2026.json (${Object.keys(apRanks).length} ranked)`);
+    const extras = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'team-extras.json'), 'utf8'));
+    if (extras.apRanks && Object.keys(extras.apRanks).length >= 5) {
+      liveApRanks = extras.apRanks;
     }
-  } catch (_) { /* file missing — use data.js apRank fallback */ }
+  } catch (_) { /* team-extras.json missing — fall through to games-2026.json */ }
+
+  // 1b. Fallback: games-2026.json (may be a partial poll — only teams in curated games)
+  if (!Object.keys(liveApRanks).length) {
+    try {
+      const gamesData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'games-2026.json'), 'utf8'));
+      liveApRanks = gamesData.apRanks || {};
+    } catch (_) { /* file missing — use data.js apRank fallback */ }
+  }
+
+  if (Object.keys(liveApRanks).length) {
+    ALL_TEAMS.forEach(t => {
+      if (!t.id) return;
+      if (liveApRanks[t.id] != null) {
+        t.apRank = liveApRanks[t.id];
+      } else if (Object.keys(liveApRanks).length >= 25) {
+        // Full 25-team poll loaded — absent teams are definitively unranked
+        t.apRank = null;
+      }
+      // If partial poll (< 25 teams), keep stub's hardcoded rank for teams not in list
+    });
+    console.log(`[LIVE] AP ranks loaded from ${Object.keys(liveApRanks).length >= 25 ? 'team-extras (full poll)' : 'games-2026.json (partial)'} (${Object.keys(liveApRanks).length} ranked)`);
+  }
 
   // 2. SP+ ratings, Reddit momentum, coach records, ATS records — from team-extras.json
   try {

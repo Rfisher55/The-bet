@@ -1397,9 +1397,11 @@ async function main() {
   // Always write social/team data — Reddit buzz, SP+, injuries don't need game data.
   // Always write team-extras.json so the timestamp stays fresh and downstream
   // scripts can tell when the pipeline last ran, even if CFBD has no 2026 data yet.
+  // Include the full AP Top 25 (all 25 teams, not just teams in curated games)
+  // so post-preseason.js and get-picks.js can apply correct ranks to stub teams.
   writeAtomic(join(DATA_DIR,"team-extras.json"),
-    JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz, teamNews }, null, 2));
-  console.log(`  Team extras written — SP+: ${cfbdExtras.spRatings.length}, coaches: ${Object.keys(cfbdExtras.coachMap).length}, ATS: ${Object.keys(cfbdExtras.atsRecords).length} teams, Reddit: ${Object.keys(redditBuzz).length} teams`);
+    JSON.stringify({ generated: now, ...cfbdExtras, apRanks, redditBuzz, teamNews }, null, 2));
+  console.log(`  Team extras written — SP+: ${cfbdExtras.spRatings.length}, coaches: ${Object.keys(cfbdExtras.coachMap).length}, ATS: ${Object.keys(cfbdExtras.atsRecords).length} teams, AP ranks: ${Object.keys(apRanks).length}, Reddit: ${Object.keys(redditBuzz).length} teams`);
 
   const hasInjury  = Object.values(injuries).flat().length > 0;
   const hasReddit  = Object.keys(redditBuzz).length > 0;
