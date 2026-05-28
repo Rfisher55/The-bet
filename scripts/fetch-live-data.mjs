@@ -853,10 +853,12 @@ async function fetchAllTeamNews() {
 // ── CFBD: additional data endpoints ─────────────────────────────────────
 async function fetchCFBDExtras() {
   console.log("  Fetching CFBD extras (SP+, ELO, stats, recruiting, PPA, coaches, ATS)...");
-  const [spRatings, eloRatings, teamStats, recruiting, ppa, transfers, coaches,
+  const [sp2026, sp2025, elo2026, elo2025, teamStats, recruiting, ppa, transfers, coaches,
          lines25, games25] = await Promise.all([
     cfbdFetch(`/ratings/sp?year=${SEASON}`),
+    cfbdFetch(`/ratings/sp?year=${SEASON - 1}`),
     cfbdFetch(`/ratings/elo?year=${SEASON}&week=1`),
+    cfbdFetch(`/ratings/elo?year=${SEASON - 1}`),
     cfbdFetch(`/stats/season?year=${SEASON}&seasonType=regular`),
     cfbdFetch(`/recruiting/teams?year=${SEASON}`),
     cfbdFetch(`/ppa/teams?year=${SEASON}&excludeGarbageTime=true`),
@@ -865,6 +867,11 @@ async function fetchCFBDExtras() {
     cfbdFetch(`/lines?year=${SEASON - 1}`),         // prior-year lines for ATS computation
     cfbdFetch(`/games?year=${SEASON - 1}&seasonType=regular&classification=fbs`),
   ]);
+  // Use current-season ratings if published, otherwise fall back to prior year
+  const spRatings  = sp2026?.length  ? sp2026  : (sp2025  || []);
+  const eloRatings = elo2026?.length ? elo2026 : (elo2025 || []);
+  if (!sp2026?.length  && sp2025?.length)  console.log(`  SP+: ${SEASON} not published yet — using ${SEASON-1} fallback (${spRatings.length} teams)`);
+  if (!elo2026?.length && elo2025?.length) console.log(`  ELO: ${SEASON} not published yet — using ${SEASON-1} fallback (${eloRatings.length} teams)`);
   // Also get prior years recruiting for trend
   const [rec25, rec24] = await Promise.all([
     cfbdFetch(`/recruiting/teams?year=2025`),
@@ -1055,6 +1062,29 @@ async function main() {
       const id = schoolToId(r.school);
       if (id) apRanks[id] = r.rank;
     }
+  }
+  // Preseason fallback: CFBD doesn't publish rankings until week 1 — use ESPN live poll
+  if (Object.keys(apRanks).length === 0) {
+    try {
+      const espnR = await fetch("https://site.api.espn.com/apis/site/v2/sports/football/college-football/rankings");
+      if (espnR.ok) {
+        const espnD = await espnR.json();
+        const polls = espnD.rankings || [];
+        const apPoll = polls.find(p => p.name?.includes("AP") || p.shortName?.includes("AP")) || polls[0];
+        if (apPoll?.ranks) {
+          apPoll.ranks.forEach(entry => {
+            const teamName = entry.team?.displayName || entry.team?.name || "";
+            const teamId   = (entry.team?.slug || "").replace(/-/g, "_");
+            const rank     = entry.current;
+            if (!rank) return;
+            const id = SCHOOL_TO_ID[teamName] || teamId;
+            if (id) apRanks[id] = rank;
+          });
+          if (Object.keys(apRanks).length)
+            console.log(`  AP ranks: CFBD empty — ESPN fallback (${Object.keys(apRanks).length} teams ranked)`);
+        }
+      }
+    } catch {}
   }
 
   // ── Merge betting % sources (Action Network > Covers) ────────────────

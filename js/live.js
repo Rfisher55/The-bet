@@ -1150,7 +1150,13 @@ const LIVE = (() => {
             GAMES.push(g); added++;
           });
           if (d.apRanks && window.TEAMS) {
+            const fullPoll = Object.keys(d.apRanks).length >= 25;
             Object.keys(d.apRanks).forEach(id => { if (TEAMS[id]) TEAMS[id].apRank = d.apRanks[id]; });
+            if (fullPoll) {
+              Object.values(TEAMS).forEach(t => {
+                if (t.id && d.apRanks[t.id] == null && t.apRank) t.apRank = null;
+              });
+            }
           }
           if (updated > 0 || added > 0) {
             console.log(`[PREGEN REFRESH] +${added} games, ${updated} updated — from Actions commit ${new Date(d.generated).toLocaleTimeString()}`);
