@@ -35,7 +35,7 @@ If yes, make it dynamic.
 - Public betting percentages → Action Network (mark `source: "default"` if estimated, never tweet as real)
 
 ### Automation Schedule
-- **Weekdays** — data refresh every 6 hours
+- **Weekdays** — data refresh every 4 hours
 - **Saturday** — data refresh every 10 minutes (live game day)
 - **Saturday night / Sunday morning** — every 10 minutes through midnight
 - **Sunday** — every 30 minutes
