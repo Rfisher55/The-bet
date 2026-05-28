@@ -29,9 +29,11 @@ function loadSandbox() {
     const extras = JSON.parse(
       fs.readFileSync(path.join(ROOT, 'data', 'team-extras.json'), 'utf8')
     );
+    const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    // SP+ ratings
     const spList = extras.spRatings || [];
     if (spList.length && sandbox.TEAMS) {
-      const norm  = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
       const spMap = Object.fromEntries(spList.map(e => [norm(e.team), e.rating]));
       Object.values(sandbox.TEAMS).forEach(t => {
         const key = norm(t.name || '');
@@ -39,7 +41,31 @@ function loadSandbox() {
       });
       console.log(`[LIVE] SP+ enriched for ${spList.length} teams in predictor sandbox`);
     }
-  } catch (_) { /* team-extras.json missing or empty — use data.js spRating fallback */ }
+
+    // Coach names + career records from prior-year CFBD
+    const cmap = extras.coachMap || {};
+    if (Object.keys(cmap).length && sandbox.TEAMS) {
+      Object.values(sandbox.TEAMS).forEach(t => {
+        const entry = cmap[t.name] || cmap[Object.keys(cmap).find(k => norm(k) === norm(t.name || '')) || ''];
+        if (entry) {
+          if (entry.name) t.coachName = entry.name;
+          if (entry.record) t.coachRecord = entry.record;
+        }
+      });
+    }
+
+    // Historical ATS records from prior-year lines
+    const atsMap = extras.atsRecords || {};
+    if (Object.keys(atsMap).length && sandbox.TEAMS) {
+      Object.values(sandbox.TEAMS).forEach(t => {
+        const entry = atsMap[t.name] || atsMap[Object.keys(atsMap).find(k => norm(k) === norm(t.name || '')) || ''];
+        if (entry && entry.wins + entry.losses >= 4) {
+          t.atsRecord = entry;
+        }
+      });
+      if (Object.keys(atsMap).length) console.log(`[LIVE] ATS records loaded for ${Object.keys(atsMap).length} teams from team-extras.json`);
+    }
+  } catch (_) { /* team-extras.json missing or empty — use data.js fallback */ }
 
   // Merge live player stats/injury updates from players-2026.json (mirrors live.js pattern).
   // During preseason the file is empty — no-op. During season: updates stats + injury status

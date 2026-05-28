@@ -59,20 +59,45 @@ const ALL_TEAMS = Object.values(sandbox.TEAMS || {}).filter(t => t.conference !=
     }
   } catch (_) { /* file missing — use data.js apRank fallback */ }
 
-  // 2. SP+ ratings and Reddit momentum — from team-extras.json (populated in-season)
+  // 2. SP+ ratings, Reddit momentum, coach records, ATS records — from team-extras.json
   try {
     const extras = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'team-extras.json'), 'utf8'));
+    const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-    // SP+ ratings (in-season only; array is empty during preseason)
+    // SP+ ratings
     const spList = extras.spRatings || [];
     if (spList.length) {
-      const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
       const spMap = Object.fromEntries(spList.map(e => [norm(e.team), e.rating]));
       ALL_TEAMS.forEach(t => {
         const key = norm(t.name || '');
         if (spMap[key] != null) t.spRating = spMap[key];
       });
       console.log(`[LIVE] SP+ ratings loaded from team-extras.json (${spList.length} teams)`);
+    }
+
+    // Coach names + career records from prior-year CFBD
+    const cmap = extras.coachMap || {};
+    if (Object.keys(cmap).length) {
+      ALL_TEAMS.forEach(t => {
+        const entry = cmap[t.name] || cmap[Object.keys(cmap).find(k => norm(k) === norm(t.name || '')) || ''];
+        if (entry) {
+          if (entry.name) t.coachName = entry.name;
+          if (entry.record) t.coachRecord = entry.record;
+        }
+      });
+      console.log(`[LIVE] Coach data loaded from team-extras.json (${Object.keys(cmap).length} coaches)`);
+    }
+
+    // Historical ATS records from prior-year lines
+    const atsMap = extras.atsRecords || {};
+    if (Object.keys(atsMap).length) {
+      ALL_TEAMS.forEach(t => {
+        const entry = atsMap[t.name] || atsMap[Object.keys(atsMap).find(k => norm(k) === norm(t.name || '')) || ''];
+        if (entry && entry.wins + entry.losses >= 4) {
+          t.atsRecord = entry;
+        }
+      });
+      console.log(`[LIVE] ATS records loaded from team-extras.json (${Object.keys(atsMap).length} teams)`);
     }
 
     // Reddit momentum — maps sentiment → programMomentum

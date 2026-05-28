@@ -852,20 +852,76 @@ async function fetchAllTeamNews() {
 
 // ── CFBD: additional data endpoints ─────────────────────────────────────
 async function fetchCFBDExtras() {
-  console.log("  Fetching CFBD extras (SP+, ELO, stats, recruiting, PPA)...");
-  const [spRatings, eloRatings, teamStats, recruiting, ppa, transfers] = await Promise.all([
+  console.log("  Fetching CFBD extras (SP+, ELO, stats, recruiting, PPA, coaches, ATS)...");
+  const [spRatings, eloRatings, teamStats, recruiting, ppa, transfers, coaches,
+         lines25, games25] = await Promise.all([
     cfbdFetch(`/ratings/sp?year=${SEASON}`),
     cfbdFetch(`/ratings/elo?year=${SEASON}&week=1`),
     cfbdFetch(`/stats/season?year=${SEASON}&seasonType=regular`),
     cfbdFetch(`/recruiting/teams?year=${SEASON}`),
     cfbdFetch(`/ppa/teams?year=${SEASON}&excludeGarbageTime=true`),
     cfbdFetch(`/player/transfer-portal?year=${SEASON}`),
+    cfbdFetch(`/coaches?year=${SEASON - 1}`),      // prior-year coaches for career records
+    cfbdFetch(`/lines?year=${SEASON - 1}`),         // prior-year lines for ATS computation
+    cfbdFetch(`/games?year=${SEASON - 1}&seasonType=regular&classification=fbs`),
   ]);
   // Also get prior years recruiting for trend
   const [rec25, rec24] = await Promise.all([
     cfbdFetch(`/recruiting/teams?year=2025`),
     cfbdFetch(`/recruiting/teams?year=2024`),
   ]);
+
+  // Build coach name + career record map (keyed by school name)
+  const coachMap = {};
+  (coaches || []).forEach(c => {
+    if (!Array.isArray(c.schools) || !c.schools.length) return;
+    const cur = c.schools.find(s => s.year === SEASON - 1) ||
+                c.schools.sort((a, b) => b.year - a.year)[0];
+    if (!cur?.school) return;
+    const name = `${c.firstName} ${c.lastName}`;
+    const totalW = c.schools.reduce((s, sc) => s + (sc.wins  || 0), 0);
+    const totalL = c.schools.reduce((s, sc) => s + (sc.losses || 0), 0);
+    coachMap[cur.school] = {
+      name,
+      record: totalW + totalL > 0 ? `${totalW}-${totalL}` : null,
+    };
+  });
+
+  // Build overall ATS record per team from prior-year lines + game results
+  const atsRecords = {};
+  if ((lines25 || []).length && (games25 || []).length) {
+    const spreadsById = {};
+    (lines25 || []).forEach(g => {
+      if (!g.lines?.length) return;
+      const best = g.lines.find(l => l.provider === "consensus") || g.lines[0];
+      const spread = parseFloat(best?.spread);
+      if (!isNaN(spread)) spreadsById[g.id] = spread;
+    });
+    (games25 || []).forEach(g => {
+      if (g.home_points == null || g.away_points == null) return;
+      const spread = spreadsById[g.id];
+      if (spread == null) return;
+      // spread is from home team perspective (negative = home favored)
+      const homeMargin = g.home_points - g.away_points;
+      const adj = homeMargin + spread;
+      const isPush = Math.abs(adj) <= 0.5;
+      const homeCovered = !isPush && adj > 0;
+      const awayCovered = !isPush && adj < 0;
+      [[g.home_team, homeCovered], [g.away_team, awayCovered]].forEach(([school, covered]) => {
+        if (!school) return;
+        if (!atsRecords[school]) atsRecords[school] = { wins: 0, losses: 0, pushes: 0 };
+        if (isPush) atsRecords[school].pushes++;
+        else if (covered) atsRecords[school].wins++;
+        else atsRecords[school].losses++;
+      });
+    });
+    // Add pct field
+    Object.values(atsRecords).forEach(r => {
+      const total = r.wins + r.losses;
+      r.pct = total > 0 ? Math.round((r.wins / total) * 1000) / 1000 : null;
+    });
+  }
+
   return {
     spRatings:   spRatings || [],
     eloRatings:  eloRatings || [],
@@ -875,6 +931,8 @@ async function fetchCFBDExtras() {
     rec24:       rec24 || [],
     ppa:         ppa || [],
     transfers:   transfers || [],
+    coachMap,
+    atsRecords,
   };
 }
 
@@ -1341,7 +1399,7 @@ async function main() {
   // scripts can tell when the pipeline last ran, even if CFBD has no 2026 data yet.
   writeAtomic(join(DATA_DIR,"team-extras.json"),
     JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz, teamNews }, null, 2));
-  console.log(`  Team extras written — SP+: ${cfbdExtras.spRatings.length}, Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, injuries: ${Object.values(injuries).flat().length}`);
+  console.log(`  Team extras written — SP+: ${cfbdExtras.spRatings.length}, coaches: ${Object.keys(cfbdExtras.coachMap).length}, ATS: ${Object.keys(cfbdExtras.atsRecords).length} teams, Reddit: ${Object.keys(redditBuzz).length} teams`);
 
   const hasInjury  = Object.values(injuries).flat().length > 0;
   const hasReddit  = Object.keys(redditBuzz).length > 0;
