@@ -106,13 +106,21 @@ const ALL_TEAMS = Object.values(sandbox.TEAMS || {}).filter(t => t.conference !=
       console.log(`[LIVE] Coach data loaded from team-extras.json (${Object.keys(cmap).length} coaches)`);
     }
 
-    // Historical ATS records from prior-year lines
+    // Historical ATS records from prior-year lines — overall + situational breakdowns
     const atsMap = extras.atsRecords || {};
     if (Object.keys(atsMap).length) {
       ALL_TEAMS.forEach(t => {
         const entry = atsMap[t.id] || atsMap[t.name] || atsMap[Object.keys(atsMap).find(k => norm(k) === norm(t.name || '')) || ''];
         if (entry && entry.wins + entry.losses >= 4) {
           t.atsRecord = entry;
+          // Apply live situational breakdowns so tweets show 2025-data values, not stale data.js estimates
+          if (entry.home || entry.away || entry.fav || entry.dog) {
+            if (!t.situational) t.situational = {};
+            if (entry.home && entry.home.wins + entry.home.losses >= 3) t.situational.atsHome      = entry.home;
+            if (entry.away && entry.away.wins + entry.away.losses >= 3) t.situational.atsAway      = entry.away;
+            if (entry.fav  && entry.fav.wins  + entry.fav.losses  >= 3) t.situational.atsFavorite  = entry.fav;
+            if (entry.dog  && entry.dog.wins  + entry.dog.losses  >= 3) t.situational.atsUnderdog  = entry.dog;
+          }
         }
       });
       console.log(`[LIVE] ATS records loaded from team-extras.json (${Object.keys(atsMap).length} teams)`);

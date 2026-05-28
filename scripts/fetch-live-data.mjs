@@ -898,7 +898,7 @@ async function fetchCFBDExtras() {
     if (tid) coachMap[tid] = entry;
   });
 
-  // Build overall ATS record per team from prior-year lines + game results
+  // Build overall + situational ATS records per team from prior-year lines + game results
   const atsRecords = {};
   if ((lines25 || []).length && (games25 || []).length) {
     const spreadsById = {};
@@ -918,24 +918,51 @@ async function fetchCFBDExtras() {
       const isPush = Math.abs(adj) <= 0.5;
       const homeCovered = !isPush && adj > 0;
       const awayCovered = !isPush && adj < 0;
-      [[g.home_team, homeCovered], [g.away_team, awayCovered]].forEach(([school, covered]) => {
+      const homeFavored = spread < -0.5;  // home giving points
+      const awayFavored = spread > 0.5;   // away giving points
+
+      [[g.home_team, homeCovered, true, homeFavored],
+       [g.away_team, awayCovered, false, awayFavored]].forEach(([school, covered, isHome, isFav]) => {
         if (!school) return;
         const id = schoolToId(school);
         // Key by both CFBD school name AND our internal ID for name-mismatch teams
         const keys = [school];
         if (id) keys.push(id);
         keys.forEach(k => {
-          if (!atsRecords[k]) atsRecords[k] = { wins: 0, losses: 0, pushes: 0 };
-          if (isPush) atsRecords[k].pushes++;
-          else if (covered) atsRecords[k].wins++;
-          else atsRecords[k].losses++;
+          if (!atsRecords[k]) atsRecords[k] = {
+            wins: 0, losses: 0, pushes: 0,
+            home:   { wins: 0, losses: 0, pushes: 0 },
+            away:   { wins: 0, losses: 0, pushes: 0 },
+            fav:    { wins: 0, losses: 0, pushes: 0 },
+            dog:    { wins: 0, losses: 0, pushes: 0 },
+          };
+          const r = atsRecords[k];
+          if (isPush) { r.pushes++; }
+          else if (covered) r.wins++;
+          else r.losses++;
+          // Situational buckets
+          const bucket = isHome ? r.home : r.away;
+          if (isPush) bucket.pushes++;
+          else if (covered) bucket.wins++;
+          else bucket.losses++;
+          const sitBucket = isFav ? r.fav : r.dog;
+          if (isPush) sitBucket.pushes++;
+          else if (covered) sitBucket.wins++;
+          else sitBucket.losses++;
         });
       });
     });
-    // Add pct field (compute once per entry, avoiding double-counting from alias keys)
-    Object.values(atsRecords).forEach(r => {
+    // Add pct field to every record and sub-bucket
+    const addPct = r => {
       const total = r.wins + r.losses;
       r.pct = total > 0 ? Math.round((r.wins / total) * 1000) / 1000 : null;
+    };
+    Object.values(atsRecords).forEach(r => {
+      addPct(r);
+      if (r.home) addPct(r.home);
+      if (r.away) addPct(r.away);
+      if (r.fav)  addPct(r.fav);
+      if (r.dog)  addPct(r.dog);
     });
   }
 
