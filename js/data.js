@@ -2608,7 +2608,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -3.5, total: 55.5, note: "Total ticked down half-point — books shading under on high-temperature night game" },
         { time: "Pre-Season Estimate", spread: -4.0, total: 55.0, note: "Line moved to -4 after Clemson's starting center listed limited on Thursday injury report" }
       ],
-      publicBetting: { homePct: 58, awayPct: 42, overPct: 54, underPct: 46 },
+      publicBetting: { source: "default", homePct: 58, awayPct: 42, overPct: 54, underPct: 46 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "LSU ran their crowd-noise drill for the third straight day — Lane Kiffin clearly wants zero mental errors in his debut as Tigers head coach. The secondary looks elite and two freshmen WRs are drawing rave reviews from scouts in camp.", team: "lsu", sentiment: "positive", daysAgo: 2 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Clemson's starting center was limited in Thursday practice with an undisclosed lower-body issue. Dabo held an extended film session specifically on LSU's defensive stunts and twists. QB reps look sharp but the OL depth is a real concern heading into Death Valley.", team: "clemson", sentiment: "negative", daysAgo: 1 }
@@ -2648,7 +2648,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -7.0, total: 48.5, note: "Total eased half-point on Wisconsin defensive film review; no spread movement" },
         { time: "Pre-Season Estimate", spread: -7.5, total: 48.5, note: "Line crept to -7.5 after sharp ticket count confirms Irish money dominating the window" }
       ],
-      publicBetting: { homePct: 62, awayPct: 38, overPct: 48, underPct: 52 },
+      publicBetting: { source: "default", homePct: 62, awayPct: 38, overPct: 48, underPct: 52 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Marcus Freeman held a full-pads walkthrough at Lambeau on Friday morning. The Irish travel party was unusually relaxed — players hit the field with genuine excitement. Freeman's logistics team handled every detail and the program looks completely dialed in.", team: "notre_dame", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Wisconsin's offensive line had its lowest-graded practice of camp on Wednesday. Luke Fickell is leaning on the defense to set the tone but privately the offensive staff is wrestling with scheme adjustments needed to counter Notre Dame's front seven.", team: "wisconsin", sentiment: "negative", daysAgo: 2 }
@@ -2691,7 +2691,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -4.0, total: 58.0, note: "Line moved to -4 as local Texas money flooded the market; total edged down" },
         { time: "Pre-Season Estimate", spread: -3.5, total: 57.5, note: "Line reverse-moved back to -3.5 as Ohio State sharp money arrived Thursday evening" }
       ],
-      publicBetting: { homePct: 55, awayPct: 45, overPct: 61, underPct: 39 },
+      publicBetting: { source: "default", homePct: 55, awayPct: 45, overPct: 61, underPct: 39 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Texas held a spirited closed practice Thursday — camp sources say the energy on the defensive side is at a season-high after film review of Ohio State's tendencies. Sarkisian is installing two new red-zone packages specifically for this game.", team: "texas", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Ryan Day confirmed Ohio State's starting QB is fully healthy and running the full playbook after a minor camp shoulder issue. The Buckeyes practiced in heat simulation for three consecutive days to prepare for Austin conditions in September.", team: "ohio_state", sentiment: "positive", daysAgo: 2 }
@@ -2734,7 +2734,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -14.0, total: 56.5, note: "Line inflated to -14 on Tide ticket volume; total slid on heat weather forecast" },
         { time: "Pre-Season Estimate", spread: -13.5, total: 56.5, note: "Sharp fade-the-public money trimmed the line back to -13.5 by Friday afternoon" }
       ],
-      publicBetting: { homePct: 71, awayPct: 29, overPct: 52, underPct: 48 },
+      publicBetting: { source: "default", homePct: 71, awayPct: 29, overPct: 52, underPct: 48 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Alabama's depth chart is set and Kalen DeBoer appears fully comfortable calling plays in Bryant-Denny after two full years in Tuscaloosa. Practice tempo was the highest of fall camp this week with pads coming out Thursday.", team: "alabama", sentiment: "positive", daysAgo: 2 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Florida State's offensive coordinator confirmed the starting QB will play despite a minor knee scope in July. The Seminoles arrived in Tuscaloosa Friday morning and held a walkthrough but sideline sources note the defense looks thin at linebacker depth.", team: "florida_state", sentiment: "negative", daysAgo: 1 }
@@ -2777,7 +2777,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -4.5, total: 61.0, note: "Texas money pushed spread to -4.5; total climbed as sharp over-bettors targeted both QBs in this shootout spot" },
         { time: "Pre-Season Estimate", spread: -4.5, total: 61.5, note: "Line holds at Texas -4.5; total continued upward — sharps confirmed over plays on Friday" }
       ],
-      publicBetting: { homePct: 54, awayPct: 46, overPct: 66, underPct: 34 },
+      publicBetting: { source: "default", homePct: 54, awayPct: 46, overPct: 66, underPct: 34 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Texas's offense produced its best red-zone efficiency of fall camp in Thursday's inside-run period. The Longhorns appear to have sorted their OL rotation and Sarkisian's tempo package looks ready to deploy against Tennessee's fast defensive substitution scheme.", team: "texas", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Tennessee's defensive backfield has been the most-discussed unit in Knoxville all week. Josh Heupel held extra film sessions on Texas's slot receiver tendencies and the Vols are expected to play nickel-heavy to counter the Longhorns' speed.", team: "tennessee", sentiment: "neutral", daysAgo: 2 }
@@ -2820,7 +2820,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -3.5, total: 55.0, note: "Spread moved to -3.5 as Miami home money dominated; total slid on Clemson defensive film" },
         { time: "Pre-Season Estimate", spread: -3.5, total: 55.0, note: "Line holds at Miami -3.5 — sharp Clemson money attempted to move it but books held firm" }
       ],
-      publicBetting: { homePct: 60, awayPct: 40, overPct: 51, underPct: 49 },
+      publicBetting: { source: "default", homePct: 60, awayPct: 40, overPct: 51, underPct: 49 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Miami's pass rush group had its most impressive practice of the year on Thursday. Mario Cristobal is stressing execution fundamentals this week — the Hurricanes have won eight of their last nine home games against ranked opponents.", team: "miami", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Clemson installed significant new run-game wrinkles this week specifically designed to attack Miami's edge defenders. Dabo Swinney confirmed both starting tackles are healthy after recent camp concerns. The Tigers' bye-week preparation appears focused and disciplined.", team: "clemson", sentiment: "positive", daysAgo: 2 }
@@ -2863,7 +2863,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -3.5, total: 48.0, note: "Spread pushed to -3.5 on Alabama home money; total dropped as sharp under-bettors targeted the defensive matchup" },
         { time: "Pre-Season Estimate", spread: -3.5, total: 47.5, note: "Total crept further down — both Vegas and sharp books fading the over in this defensive identity game" }
       ],
-      publicBetting: { homePct: 52, awayPct: 48, overPct: 44, underPct: 56 },
+      publicBetting: { source: "default", homePct: 52, awayPct: 48, overPct: 44, underPct: 56 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Alabama's defensive preparation this week has been the most elaborate of the DeBoer era. The Tide held a full-speed, live-tackling session Thursday focused entirely on stopping Georgia's power run game. Camp buzz is that the linebacker rotation has finally found its depth.", team: "alabama", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Kirby Smart has been characteristically tight-lipped but Georgia's practice tempo this week was notably intense. The Bulldogs' offensive line had its sharpest week of camp and camp sources indicate Carson Beck has been locked in during film sessions.", team: "georgia", sentiment: "positive", daysAgo: 2 }
@@ -2906,7 +2906,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: 3.5, total: 51.5, note: "Line moved to Alabama -3.5 by mid-week as action continued on Tide; total edged down on expected cold-weather forecast" },
         { time: "Pre-Season Estimate", spread: 3.5, total: 51.5, note: "Alabama -3.5 holds firm Friday; public taking Tennessee at home but sharp money remains on the Tide" }
       ],
-      publicBetting: { homePct: 58, awayPct: 42, overPct: 49, underPct: 51 },
+      publicBetting: { source: "default", homePct: 58, awayPct: 42, overPct: 49, underPct: 51 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Neyland Stadium's walkthrough was electric Friday morning — Vol fans have been camped outside the stadium since Thursday evening. Josh Heupel's offense installed new quarterback scramble packages this week specifically to attack Alabama's contain assignments.", team: "tennessee", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Alabama arrived in Knoxville with full health on their two-deep and DeBoer confirmed no injury news Friday. The Tide appeared focused in a brief media availability — notable that the secondary coach held an extra session on Tennessee's deep ball routes Thursday afternoon.", team: "alabama", sentiment: "neutral", daysAgo: 1 }
@@ -2946,7 +2946,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -3.5, total: 47.0, note: "Spread bumped to -3.5 on Michigan home volume; under money drove the total down" },
         { time: "Pre-Season Estimate", spread: -3.0, total: 47.0, note: "Reverse line movement back to -3 — sharp Penn State money arrived Thursday night" }
       ],
-      publicBetting: { homePct: 55, awayPct: 45, overPct: 46, underPct: 54 },
+      publicBetting: { source: "default", homePct: 55, awayPct: 45, overPct: 46, underPct: 54 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Kyle Whittingham confirmed Michigan's starting quarterback is fully healthy after early-camp concerns. The Wolverines held an unusually spirited closed practice Thursday — Big House sellout energy is building in Ann Arbor with over 110,000 expected.", team: "michigan", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Matt Campbell confirmed Penn State's starting safety will miss this game with an ankle injury — a potential game-changer against Michigan's power run game. The Nittany Lions installed a new defensive front rotation Thursday to compensate.", team: "penn_state", sentiment: "negative", daysAgo: 1 }
@@ -2989,7 +2989,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -9.0, total: 49.0, note: "Line surged to -9 on Georgia money and Florida injury news; total ticked down on strong defensive film from both programs" },
         { time: "Pre-Season Estimate", spread: -9.0, total: 49.0, note: "Georgia -9 holds firm — sharp money backed the Bulldogs after Florida practice reports showed limited availability at WR" }
       ],
-      publicBetting: { homePct: 53, awayPct: 47, overPct: 50, underPct: 50 },
+      publicBetting: { source: "default", homePct: 53, awayPct: 47, overPct: 50, underPct: 50 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Georgia has had an unusual amount of energy in Jacksonville week practices — Kirby Smart credited the senior class for raising the intensity. The Bulldogs' defensive line rotation is at full strength with no injury concerns heading into the World's Largest Outdoor Cocktail Party.", team: "georgia", sentiment: "positive", daysAgo: 2 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Jon Sumrall confirmed Florida's starting quarterback will play despite a mid-week shoulder issue that limited Wednesday practice. The Gators held an extensive film session on Georgia's press-coverage tendencies — their receivers coach noted specific route adjustments for this matchup.", team: "florida", sentiment: "neutral", daysAgo: 1 }
@@ -3029,7 +3029,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -3.0, total: 53.5, note: "Spread moved to -3 on FSU home advantage money; total slid slightly" },
         { time: "Pre-Season Estimate", spread: -3.0, total: 54.0, note: "Total reversed upward after both QBs listed full practice Friday — sharp over-money confirmed" }
       ],
-      publicBetting: { homePct: 56, awayPct: 44, overPct: 55, underPct: 45 },
+      publicBetting: { source: "default", homePct: 56, awayPct: 44, overPct: 55, underPct: 45 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Florida State's home atmosphere preparations are at an all-time high — Doak Campbell Stadium is expected to be at full capacity with an early tailgate crowd. The Seminoles defense held its best practice of the season Thursday against a scout team simulating Clemson's RPO package.", team: "florida_state", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Clemson's quarterback had his sharpest week of practice, completing a reported 14 of 16 in Friday's two-minute drill period. Dabo Swinney indicated the Tigers are treating this as a statement game — the locker room energy reportedly higher than normal heading into Tallahassee.", team: "clemson", sentiment: "positive", daysAgo: 1 }
@@ -3072,7 +3072,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -6.0, total: 56.0, note: "Spread jumped to -6 on heavy OSU home money; Oregon injury news leaked Wednesday afternoon moved the line further" },
         { time: "Pre-Season Estimate", spread: -6.0, total: 55.5, note: "Line holds at Ohio State -6 Friday; sharp Oregon money noted but not enough to move the number back" }
       ],
-      publicBetting: { homePct: 64, awayPct: 36, overPct: 57, underPct: 43 },
+      publicBetting: { source: "default", homePct: 64, awayPct: 36, overPct: 57, underPct: 43 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Ohio Stadium is expected to be its loudest since the 2024 Michigan game. Ryan Day confirmed a new no-huddle package was installed this week specifically targeting Oregon's defensive substitution tendencies. The Buckeyes' pass rush group looks completely healthy after recent camp concerns.", team: "ohio_state", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Oregon's starting wide receiver was limited Thursday with a lower-leg contusion and is listed questionable for Saturday. Dan Lanning held an extended special teams session Friday morning — the Ducks are treating a potential late-season road trip to Columbus with championship-level preparation.", team: "oregon", sentiment: "negative", daysAgo: 1 }
@@ -3112,7 +3112,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: 1.5, total: 59.5, note: "Line dropped to Alabama -1.5 on heavy LSU Death Valley money; total rose as sharp over-bettors targeted both high-powered offenses" },
         { time: "Pre-Season Estimate", spread: 1.5, total: 59.0, note: "LSU +1.5 holds through Friday — Tiger Stadium environment drawing significant public money on the home dog" }
       ],
-      publicBetting: { homePct: 57, awayPct: 43, overPct: 59, underPct: 41 },
+      publicBetting: { source: "default", homePct: 57, awayPct: 43, overPct: 59, underPct: 41 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Death Valley is expected to break the decibel record for a regular-season game Saturday night. Lane Kiffin held a rare joint offensive and defensive practice Thursday with full sound pumped at practice — LSU's veterans looked completely unfazed. Kiffin called the atmosphere 'unlike anything I've experienced anywhere else.'", team: "lsu", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "DeBoer called LSU's stadium 'the most difficult road environment in America' on Wednesday's presser. Alabama confirmed both starting cornerbacks are healthy but travel party sources note the Tide will deploy a new two-high safety shell specifically to limit LSU's deep-shot passing game.", team: "alabama", sentiment: "neutral", daysAgo: 2 }
@@ -3152,7 +3152,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -7.0, total: 56.0, note: "Notre Dame home money moved the spread to -7; total eased on defensive preparation reports" },
         { time: "Pre-Season Estimate", spread: -7.0, total: 56.0, note: "Stable line heading into game week — sharp books respect the number as fair" }
       ],
-      publicBetting: { homePct: 63, awayPct: 37, overPct: 53, underPct: 47 },
+      publicBetting: { source: "default", homePct: 63, awayPct: 37, overPct: 53, underPct: 47 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Notre Dame Stadium's sellout energy this week is the highest since the USC rivalry game last year. Freeman held a Friday walkthrough that sources describe as 'locked in' — the Irish defensive staff has been studying Miami's option-route concepts all week.", team: "notre_dame", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Mario Cristobal confirmed Miami's offensive line rotation is at full health — no injury concerns heading into South Bend. The Hurricanes practiced indoors Thursday due to travel logistics but film study reports suggest their defensive secondary is specifically prepared for Notre Dame's red-zone passing game.", team: "miami", sentiment: "neutral", daysAgo: 2 }
@@ -3195,7 +3195,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -4.0, total: 61.5, note: "Line moved to -4 on heavy LSU home money and Texas injury news mid-week; total pushed up on both offenses" },
         { time: "Pre-Season Estimate", spread: -4.0, total: 61.0, note: "LSU -4 holds Friday — sharp Texas money attempted reverse line move but couldn't budge the number" }
       ],
-      publicBetting: { homePct: 53, awayPct: 47, overPct: 64, underPct: 36 },
+      publicBetting: { source: "default", homePct: 53, awayPct: 47, overPct: 64, underPct: 36 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "LSU's wide receiver corps looked exceptional in Thursday's practice — Lane Kiffin confirmed two freshmen WRs are firmly in the two-deep and delivering on their recruiting profiles. The Tigers' preparation this week has centered on stopping Texas's quick-passing game before the Longhorns get into rhythm.", team: "lsu", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Texas's offensive coordinator held an extra session Thursday installing new motion concepts specifically for LSU's defensive alignment tendencies. Sarkisian confirmed the team is healthy and the Longhorns are treating the Baton Rouge trip as a legitimate championship audition.", team: "texas", sentiment: "positive", daysAgo: 2 }
@@ -3235,7 +3235,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -7.5, total: 52.0, note: "Spread moved to -7.5 on Oregon home volume; total dropped on Michigan's running game struggles" },
         { time: "Pre-Season Estimate", spread: -7.0, total: 52.0, note: "Reverse line movement back to -7 — sharp Michigan money worth noting as contrarian signal" }
       ],
-      publicBetting: { homePct: 67, awayPct: 33, overPct: 48, underPct: 52 },
+      publicBetting: { source: "default", homePct: 67, awayPct: 33, overPct: 48, underPct: 52 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Autzen Stadium is sold out and the Duck Walk preparation this week has extra electricity after last year's Big Ten title run. Dan Lanning confirmed Oregon's entire starting lineup is healthy and the Ducks are treating this Michigan game as a statement for New York Six consideration.", team: "oregon", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Michigan's offensive staff is installing new run-blocking concepts specifically for Oregon's 3-3-5 defensive alignment — a scheme Michigan has limited experience facing. Kyle Whittingham confirmed no injury issues but noted the long road trip to Eugene adds preparation complexity for a Wolverines team still learning his system.", team: "michigan", sentiment: "negative", daysAgo: 2 }
@@ -3278,7 +3278,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -3.0, total: 57.0, note: "Line moved to -3 on Vol home money; total edged down on short-week defensive preparation concerns" },
         { time: "Pre-Season Estimate", spread: -3.0, total: 57.5, note: "Tennessee -3 holds Friday — total reversed upward on sharp over-money for primetime Thursday showdown" }
       ],
-      publicBetting: { homePct: 57, awayPct: 43, overPct: 60, underPct: 40 },
+      publicBetting: { source: "default", homePct: 57, awayPct: 43, overPct: 60, underPct: 40 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Neyland under the lights on a Thursday night is the most underrated atmosphere in the SEC. Heupel confirmed this week's short-week preparation is no concern — Tennessee does it every year and the routine is perfected. The defensive staff specifically designed a new 3-down look for LSU's perimeter passing game.", team: "tennessee", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "LSU faces a short week after a physical Saturday game and Lane Kiffin acknowledged the recovery challenge. The Tigers arrived in Knoxville by charter Friday evening and held a brief walkthrough. Kiffin confirmed his starting QB is healthy but declined to detail the overall injury report ahead of the Thursday game.", team: "lsu", sentiment: "negative", daysAgo: 1 }
@@ -3321,7 +3321,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -8.5, total: 55.0, note: "Line surged to -8.5 as massive OSU ticket volume pushed the spread; under-money pressed the total down" },
         { time: "Pre-Season Estimate", spread: -8.5, total: 54.5, note: "Ohio State -8.5 holds firm — sharp Michigan money couldn't move the number, confirming books respect OSU's home-field edge in THE GAME" }
       ],
-      publicBetting: { homePct: 68, awayPct: 32, overPct: 52, underPct: 48 },
+      publicBetting: { source: "default", homePct: 68, awayPct: 32, overPct: 52, underPct: 48 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Ryan Day has been preparing for THE GAME since the first week of September. Ohio Stadium will host the loudest home crowd since 2019 — media access was restricted Thursday as Day implemented final game-plan installations. Sources inside the program say the Buckeyes are operating at the highest focus level of the season.", team: "ohio_state", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Kyle Whittingham delivered a fiery team address Thursday night — Michigan's locker room motivation to prove itself in Year 1 under Whittingham against Ohio State is significant. The Wolverines confirm full health on their defensive two-deep and installed two new wrinkles specifically for Ohio State's interior RPO packages.", team: "michigan", sentiment: "positive", daysAgo: 1 }
@@ -3361,7 +3361,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -16.0, total: 54.0, note: "Spread ballooned to -16 on massive Alabama public support and Auburn injury news mid-week; total ticked down on defensive rivalry expectations" },
         { time: "Pre-Season Estimate", spread: -16.0, total: 54.0, note: "Line holds at Alabama -16 Friday; sharp Auburn reverse line movement noted — Iron Bowl historically defies large spreads" }
       ],
-      publicBetting: { homePct: 74, awayPct: 26, overPct: 50, underPct: 50 },
+      publicBetting: { source: "default", homePct: 74, awayPct: 26, overPct: 50, underPct: 50 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Alabama practiced with unusual emotion this week — the rivalry factor is real regardless of records. DeBoer held a Friday walkthrough that sources called 'dialed in' with zero complacency allowed. The Tide's two-deep is at full health heading into the Iron Bowl.", team: "alabama", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Alex Golesh rallied Auburn with an extended team meeting Thursday, reportedly invoking past Iron Bowl upsets including the Kick Six and the 2010 national championship run. The Tigers arrive in Tuscaloosa as heavy underdogs but confirmed their starting quarterback is healthy and the team's attitude in practice has been feisty all week.", team: "auburn", sentiment: "positive", daysAgo: 2 }
@@ -3404,7 +3404,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -3.5, total: 48.0, note: "Spread grew to -3.5 on Georgia ticket volume; total dropped as sharp under-money targeted the defensive showcase" },
         { time: "Pre-Season Estimate", spread: -3.0, total: 47.5, note: "Reverse line movement back to -3 as Alabama sharp money confirmed Friday; total continued under trend" }
       ],
-      publicBetting: { homePct: 54, awayPct: 46, overPct: 43, underPct: 57 },
+      publicBetting: { source: "default", homePct: 54, awayPct: 46, overPct: 43, underPct: 57 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Georgia arrived in Atlanta Thursday for early preparation — Kirby Smart runs the most meticulous championship-week program in college football. Smart confirmed full health across both lines and indicated the Bulldogs have prepared two new defensive fronts not previously used this season.", team: "georgia", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Alabama is treating this SEC Championship as the first step in a national title run. DeBoer held Alabama's most intense week of practice since early September with full-contact periods Tuesday and Wednesday. The Tide's offensive coordinator confirmed a new play-action package specifically designed to attack Georgia's Cover 2 shell.", team: "alabama", sentiment: "positive", daysAgo: 2 }
@@ -3447,7 +3447,7 @@ var GAMES = [
         { time: "Pre-Season Update", spread: -5.0, total: 53.0, note: "Spread moved to -5 on OSU championship experience premium; total dipped on sharp under-bettors" },
         { time: "Pre-Season Estimate", spread: -4.5, total: 52.5, note: "Reverse line movement to -4.5 as sharp Oregon money arrived — rematch motivation pricing in" }
       ],
-      publicBetting: { homePct: 61, awayPct: 39, overPct: 50, underPct: 50 },
+      publicBetting: { source: "default", homePct: 61, awayPct: 39, overPct: 50, underPct: 50 },
       beatWriter: [
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Ryan Day held Ohio State's most secretive practice week of the season — media access was completely blocked Thursday and Friday. Sources inside the program indicate Day installed an entirely new offensive package never deployed against Oregon in the regular season game. The Buckeyes' focus level is described as 'championship-caliber' all week.", team: "ohio_state", sentiment: "positive", daysAgo: 1 },
         { reporter: "The Bet Analysis", outlet: "TheBetCFB", report: "Dan Lanning delivered an emotional address to the team Wednesday evening specifically addressing the November loss to Ohio State. Oregon practiced with an edge not seen since the regular season game at Columbus — Lanning confirmed the Ducks installed significant new defensive concepts to counter Day's rematch adjustments.", team: "oregon", sentiment: "positive", daysAgo: 2 }

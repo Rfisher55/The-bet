@@ -1335,11 +1335,16 @@ function renderHeroPick() {
     var effectiveSpread = spread || predSpread || 0;
     return Math.abs(effectiveSpread) <= 28;
   });
-  var pickPool = competitive.length ? competitive : wk1;
+  // Prefer curated games (have gamePreview.thePick with analyst pick) over raw API games.
+  // API-fetched stub games can have artificially high model edges from rating mismatches.
+  var curatedPool = competitive.filter(function(p) { return p.game.gamePreview && p.game.gamePreview.thePick; });
+  var pickPool = curatedPool.length ? curatedPool : (competitive.length ? competitive : wk1);
   var best = pickPool.map(function(p) {
+    var tp   = p.game.gamePreview && p.game.gamePreview.thePick;
     var sp   = p.prediction.spreadPick;
     var edge = sp && sp.side !== "no-bet" ? (sp.edge || 0) : 0;
-    return { game: p.game, pred: p.prediction, score: (confW[p.prediction.confidence] || 1) * 3 + edge };
+    var curatedBonus = tp ? (confW[tp.confidence ? tp.confidence.toLowerCase() : ''] || 0) * 3 : 0;
+    return { game: p.game, pred: p.prediction, score: curatedBonus + (confW[p.prediction.confidence] || 1) * 2 + edge };
   }).sort(function(a, b) { return b.score - a.score; })[0];
   if (!best) return;
 
@@ -1488,7 +1493,12 @@ function renderTopPicks() {
   });
   if (weekPredsComp.length >= 3) weekPreds = weekPredsComp;
 
-  var scored = weekPreds.map(function(p) {
+  // Prefer curated picks (gamePreview.thePick) over raw API stub games.
+  // Stub predictions can have artificially high edges from team-rating mismatches.
+  var curatedWeekPreds = weekPreds.filter(function(p) { return p.game.gamePreview && p.game.gamePreview.thePick; });
+  var scoringPool = curatedWeekPreds.length > 0 ? curatedWeekPreds : weekPreds;
+
+  var scored = scoringPool.map(function(p) {
     var tp = p.game.gamePreview && p.game.gamePreview.thePick;
     var curatedConf = tp && tp.confidence ? confWeights[tp.confidence.toUpperCase()] || 0 : 0;
     var sp = p.prediction.spreadPick || {};
