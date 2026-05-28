@@ -945,10 +945,13 @@ async function fetchCFBDExtras() {
           if (isPush) bucket.pushes++;
           else if (covered) bucket.wins++;
           else bucket.losses++;
-          const sitBucket = isFav ? r.fav : r.dog;
-          if (isPush) sitBucket.pushes++;
-          else if (covered) sitBucket.wins++;
-          else sitBucket.losses++;
+          // Skip fav/dog bucket for pick-em lines (within 0.5 pts of 0)
+          if (Math.abs(spread) > 0.5) {
+            const sitBucket = isFav ? r.fav : r.dog;
+            if (isPush) sitBucket.pushes++;
+            else if (covered) sitBucket.wins++;
+            else sitBucket.losses++;
+          }
         });
       });
     });
