@@ -61,7 +61,7 @@ function loadSandbox() {
     const atsMap = extras.atsRecords || {};
     if (Object.keys(atsMap).length && sandbox.TEAMS) {
       Object.values(sandbox.TEAMS).forEach(t => {
-        const entry = atsMap[t.name] || atsMap[Object.keys(atsMap).find(k => norm(k) === norm(t.name || '')) || ''];
+        const entry = atsMap[t.id] || atsMap[t.name] || atsMap[Object.keys(atsMap).find(k => norm(k) === norm(t.name || '')) || ''];
         if (entry && entry.wins + entry.losses >= 4) {
           t.atsRecord = entry;
         }
