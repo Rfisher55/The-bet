@@ -2010,16 +2010,31 @@ function renderSystemAlerts() {
     checkTeam(awayTeamData, away, false);
   });
 
-  // Deduplicate: keep one per game (highest pct)
-  var seen = {};
+  // Deduplicate: one alert per team (best pct trigger), then one per trigger type across teams
+  var seenTeam = {};
   alerts = alerts.filter(function(a) {
-    var key = a.game.id + "|" + a.team.id;
-    if (seen[key] && seen[key].pct >= a.pct) return false;
-    seen[key] = a;
+    var key = a.team.id + "|" + a.trigger;
+    if (seenTeam[key] && seenTeam[key].pct >= a.pct) return false;
+    seenTeam[key] = a;
     return true;
   });
 
   alerts.sort(function(a, b) { return b.pct - a.pct; });
+
+  // Ensure variety: cap each team at 1 slot in the top 5
+  var seenInTop = {};
+  var diverse = [];
+  for (var ai = 0; ai < alerts.length && diverse.length < 5; ai++) {
+    var tid = alerts[ai].team.id;
+    if (!seenInTop[tid]) { seenInTop[tid] = true; diverse.push(alerts[ai]); }
+  }
+  // If fewer than 5 unique teams, fill remaining slots from overflow
+  if (diverse.length < 5) {
+    for (var aj = 0; aj < alerts.length && diverse.length < 5; aj++) {
+      if (diverse.indexOf(alerts[aj]) === -1) diverse.push(alerts[aj]);
+    }
+  }
+  alerts = diverse;
 
   var section = document.getElementById("system-alerts-section");
   var container = document.getElementById("system-alerts");
