@@ -170,6 +170,7 @@ const SEASON = 2026;
       if (d.redditBuzz) window.__teamRedditBuzz = d.redditBuzz;
       if (d.spRatings)  window.__spRatings     = d.spRatings;
       if (d.injuries)   window.__teamInjuries  = d.injuries;
+      if (d.coachMap)   window.__coachMap      = d.coachMap;
       window.dispatchEvent(new CustomEvent("teamExtrasReady", { detail: d }));
       console.log("[EXTRAS] Team news: " + Object.keys(d.teamNews||{}).length + " teams, SP+: " + (d.spRatings||[]).length + " teams");
     })
@@ -1351,6 +1352,13 @@ const LIVE = (() => {
       const totalL = c.schools.reduce((s, sc) => s + (sc.losses|| 0), 0);
       if (totalW + totalL > 0) coachRecordMap[cur.school] = `${totalW}-${totalL}`;
     });
+    // If CFBD coaches API returned nothing, use cached team-extras.json coachMap
+    if (!Object.keys(coachMap).length && window.__coachMap) {
+      Object.entries(window.__coachMap).forEach(([k, v]) => {
+        if (v?.name) { coachMap[k] = v.name; if (v.record) coachRecordMap[k] = v.record; }
+      });
+      if (Object.keys(coachMap).length) console.log("[LIVE] Coach fallback: using cached team-extras.json (" + Object.keys(coachMap).length + " entries)");
+    }
 
     const recruitMap = {};
     (data.recruiting  || []).forEach(r => { if (r.team) recruitMap[r.team]  = r.rank; });
@@ -1814,7 +1822,7 @@ const LIVE = (() => {
         if (isDome) ex.weatherProfile = { ...(ex.weatherProfile || {}), isDome: true };
         if (capacity && !ex.stadiumCapacity) ex.stadiumCapacity = capacity;
         if (timezone && !ex.timezone) ex.timezone = timezone;
-        if (coach && (!ex.coachName || ex.coachName === "Unknown" || ex.fromStub)) ex.coachName = coach;
+        if (coach) ex.coachName = coach; // CFBD is authoritative — always overwrite stale fallback
         if (coachRec) ex.coachRecord = coachRec;
 
         // Ratings — real data wins over estimates
