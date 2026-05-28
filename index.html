@@ -1286,7 +1286,7 @@ rebuildPredictions();
       var sharpEl  = document.getElementById('stat-sharp-sub');
       if (recEl)   recEl.textContent = r.wins + '-' + r.losses + (r.pushes ? '-' + r.pushes : '');
       if (subEl)   subEl.textContent = pct + '% win rate · 2026 season';
-      if (eliteEl) eliteEl.textContent = r.eliteWins + '-' + r.eliteLosses + ' ATS · 2026 season';
+      if (eliteEl) eliteEl.textContent = (r.eliteWins || 0) + '-' + (r.eliteLosses || 0) + ' ATS · 2026 season';
       if (sharpEl) sharpEl.textContent = 'When sharps agree · 2026';
       var atsLabelEl = document.getElementById('stat-ats-label');
       if (atsLabelEl) atsLabelEl.textContent = '2026 ATS Record';
