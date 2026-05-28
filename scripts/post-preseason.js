@@ -37,7 +37,56 @@ vm.runInNewContext(JS('data.js'), sandbox);
 vm.runInNewContext(JS('data-fbs-stubs.js'), sandbox);
 
 const ALL_TEAMS = Object.values(sandbox.TEAMS || {}).filter(t => t.conference !== 'FCS');
-const sorted    = [...ALL_TEAMS].sort((a, b) => b.rating - a.rating);
+
+// ── Apply live data overrides ────────────────────────────────────────────────
+// Load AP ranks from games-2026.json and SP+/momentum from team-extras.json
+// so tweets always show the same values as the website.
+(function applyLiveOverrides() {
+  // 1. AP ranks — games-2026.json is the authoritative live source (refreshed daily)
+  try {
+    const gamesData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'games-2026.json'), 'utf8'));
+    const apRanks = gamesData.apRanks || {};
+    if (Object.keys(apRanks).length) {
+      ALL_TEAMS.forEach(t => {
+        if (t.id) t.apRank = apRanks[t.id] != null ? apRanks[t.id] : null;
+      });
+      console.log(`[LIVE] AP ranks loaded from games-2026.json (${Object.keys(apRanks).length} ranked)`);
+    }
+  } catch (_) { /* file missing — use data.js apRank fallback */ }
+
+  // 2. SP+ ratings and Reddit momentum — from team-extras.json (populated in-season)
+  try {
+    const extras = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'team-extras.json'), 'utf8'));
+
+    // SP+ ratings (in-season only; array is empty during preseason)
+    const spList = extras.spRatings || [];
+    if (spList.length) {
+      const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const spMap = Object.fromEntries(spList.map(e => [norm(e.team), e.rating]));
+      ALL_TEAMS.forEach(t => {
+        const key = norm(t.name || '');
+        if (spMap[key] != null) t.spRating = spMap[key];
+      });
+      console.log(`[LIVE] SP+ ratings loaded from team-extras.json (${spList.length} teams)`);
+    }
+
+    // Reddit momentum — maps sentiment → programMomentum
+    const buzz = extras.redditBuzz || {};
+    if (Object.keys(buzz).length) {
+      ALL_TEAMS.forEach(t => {
+        if (!t.id || !buzz[t.id]) return;
+        const s = buzz[t.id].sentiment;
+        if (s && t.programHealth) {
+          t.programHealth.programMomentum =
+            s === 'positive' ? 'rising' : s === 'negative' ? 'declining' : 'stable';
+        }
+      });
+      console.log(`[LIVE] Momentum loaded from Reddit buzz (${Object.keys(buzz).length} teams)`);
+    }
+  } catch (_) { /* file missing — use data.js values */ }
+}());
+
+const sorted   = [...ALL_TEAMS].sort((a, b) => b.rating - a.rating);
 
 // Actual sorted position (matches what the website shows)
 const _rankMap  = new Map(sorted.map((t, i) => [t.id, i + 1]));

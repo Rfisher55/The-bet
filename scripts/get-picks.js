@@ -8,7 +8,8 @@ const vm   = require('vm');
 const fs   = require('fs');
 const path = require('path');
 
-const JS = (...f) => fs.readFileSync(path.resolve(__dirname, '..', 'js', ...f), 'utf8');
+const JS   = (...f) => fs.readFileSync(path.resolve(__dirname, '..', 'js', ...f), 'utf8');
+const ROOT = path.resolve(__dirname, '..');
 
 // ── Load sandbox (runs once per process invocation) ───────────────
 let _cache = null;
@@ -21,6 +22,25 @@ function loadSandbox() {
   vm.runInNewContext(JS('data.js'),             sandbox);
   vm.runInNewContext(JS('data-fbs-stubs.js'),   sandbox);
   vm.runInNewContext(JS('players-extended.js'), sandbox);
+
+  // Enrich TEAMS with live SP+ from team-extras.json before predictor runs,
+  // so the script model uses the same inputs as the website.
+  try {
+    const extras = JSON.parse(
+      fs.readFileSync(path.join(ROOT, 'data', 'team-extras.json'), 'utf8')
+    );
+    const spList = extras.spRatings || [];
+    if (spList.length && sandbox.TEAMS) {
+      const norm  = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const spMap = Object.fromEntries(spList.map(e => [norm(e.team), e.rating]));
+      Object.values(sandbox.TEAMS).forEach(t => {
+        const key = norm(t.name || '');
+        if (spMap[key] != null) t.spRating = spMap[key];
+      });
+      console.log(`[LIVE] SP+ enriched for ${spList.length} teams in predictor sandbox`);
+    }
+  } catch (_) { /* team-extras.json missing or empty — use data.js spRating fallback */ }
+
   vm.runInNewContext(JS('predictor.js'),        sandbox);
   _cache = sandbox;
   return sandbox;
