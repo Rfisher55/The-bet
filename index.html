@@ -1337,7 +1337,7 @@ function renderHeroPick() {
   });
   // Prefer curated games (have gamePreview.thePick with analyst pick) over raw API games.
   // API-fetched stub games can have artificially high model edges from rating mismatches.
-  var curatedPool = competitive.filter(function(p) { return p.game.gamePreview && p.game.gamePreview.thePick; });
+  var curatedPool = competitive.filter(function(p) { var tp = p.game.gamePreview && p.game.gamePreview.thePick; return tp && tp.team; });
   var pickPool = curatedPool.length ? curatedPool : (competitive.length ? competitive : wk1);
   var best = pickPool.map(function(p) {
     var tp   = p.game.gamePreview && p.game.gamePreview.thePick;
@@ -1495,7 +1495,7 @@ function renderTopPicks() {
 
   // Prefer curated picks (gamePreview.thePick) over raw API stub games.
   // Stub predictions can have artificially high edges from team-rating mismatches.
-  var curatedWeekPreds = weekPreds.filter(function(p) { return p.game.gamePreview && p.game.gamePreview.thePick; });
+  var curatedWeekPreds = weekPreds.filter(function(p) { var tp = p.game.gamePreview && p.game.gamePreview.thePick; return tp && tp.team; });
   var scoringPool = curatedWeekPreds.length > 0 ? curatedWeekPreds : weekPreds;
 
   var scored = scoringPool.map(function(p) {

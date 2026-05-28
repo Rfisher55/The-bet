@@ -1573,6 +1573,38 @@ async function main() {
     fetchDurationMs: Date.now() - startTime,
   };
 
+  // Preserve curated analyst picks — merge from curated-picks.json into fresh CFBD games.
+  // When CFBD publishes the full schedule it replaces the curated seed, wiping analyst picks.
+  // curated-picks.json is the permanent store that survives schedule refreshes.
+  try {
+    const curatedPicksPath = join(DATA_DIR, "curated-picks.json");
+    const curatedPicks = JSON.parse(readFileSync(curatedPicksPath, "utf8"));
+    const norm = s => (s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const pickMap = new Map();
+    for (const cp of curatedPicks) {
+      if (!cp.thePick || !cp.thePick.team) continue;
+      // Index by both orderings — neutral site games may flip home/away in CFBD
+      const key1 = `${norm(cp.homeTeam)}|${norm(cp.awayTeam)}|${cp.week}`;
+      const key2 = `${norm(cp.awayTeam)}|${norm(cp.homeTeam)}|${cp.week}`;
+      pickMap.set(key1, cp.thePick);
+      pickMap.set(key2, cp.thePick);
+    }
+    let merged = 0;
+    games = games.map(g => {
+      // CFBD/ESPN games use homeTeamId (e.g. "lsu", "north_carolina") not homeTeam.name
+      const h = norm(g.homeTeamId || g.homeTeam?.name || g.homeTeamName || "");
+      const a = norm(g.awayTeamId || g.awayTeam?.name || g.awayTeamName || "");
+      const key = `${h}|${a}|${g.week}`;
+      const pick = pickMap.get(key);
+      if (pick && g.gamePreview) {
+        merged++;
+        return { ...g, gamePreview: { ...g.gamePreview, thePick: pick } };
+      }
+      return g;
+    });
+    if (merged > 0) console.log(`  Merged ${merged} curated analyst picks from curated-picks.json`);
+  } catch (_) { /* curated-picks.json missing or invalid — stub thePick kept */ }
+
   writeAtomic(join(DATA_DIR,"games-2026.json"),
     JSON.stringify({ ...metadata, apRanks, games }, null, 2));
 

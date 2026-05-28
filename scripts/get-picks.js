@@ -169,6 +169,18 @@ function allPredictions() {
 }
 
 // ── Helpers ───────────────────────────────────────────────────────
+
+// Returns true if any games in the live data file have betting lines.
+// Used to gate post types that require real edge/probability calculations.
+function hasLines() {
+  try {
+    const d = JSON.parse(
+      require('fs').readFileSync(require('path').resolve(__dirname, '..', 'data', 'games-2026.json'), 'utf8')
+    );
+    return (d.games || []).some(g => g.bettingLines && g.bettingLines.spread != null);
+  } catch { return false; }
+}
+
 function pickConf(p) {
   const tp = p.game.gamePreview && p.game.gamePreview.thePick;
   return (tp && tp.confidence ? tp.confidence.toLowerCase() : null) || p.prediction.confidence;
@@ -227,6 +239,7 @@ function calcParlayOdds(legOdds) {
 
 // ── getPicks ──────────────────────────────────────────────────────
 function getPicks(type = 'all') {
+  if (!hasLines()) return []; // no lines → no real edges; don't post garbage picks
   const today = new Date().toISOString().slice(0, 10);
   const predictions = allPredictions();
   const minWeek = upcomingWeek(predictions);
@@ -283,6 +296,7 @@ function getPicks(type = 'all') {
 // ── getTop5 ───────────────────────────────────────────────────────
 // Returns top 5 picks for the week ranked by conf tier then edge.
 function getTop5() {
+  if (!hasLines()) return []; // no lines → edge/prob are meaningless; don't post garbage
   const today = new Date().toISOString().slice(0, 10);
   const predictions = allPredictions();
   const minWeek = upcomingWeek(predictions);
@@ -465,6 +479,7 @@ function getLocks() {
 // ── getParlays ────────────────────────────────────────────────────
 // Returns top 3 optimal parlay combos (mirrors parlay.html logic).
 function getParlays(legCount = 3) {
+  if (!hasLines()) return []; // parlay odds require real spread lines
   const today = new Date().toISOString().slice(0, 10);
   const predictions = allPredictions();
   const minWeek = upcomingWeek(predictions);
