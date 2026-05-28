@@ -1,6 +1,10 @@
 name: X Preseason Post
 
 on:
+  push:
+    paths:
+      - '.trigger-post'
+
   # Auto-schedule: once per day at 10:07am ET (14:07 UTC), Mon-Sat
   # Note: GitHub recommends avoiding exact :00 times — high-load start-of-hour causes
   # frequent delays and dropped runs. Off-minute times are far more reliable.
