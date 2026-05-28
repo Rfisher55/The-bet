@@ -4,20 +4,22 @@ on:
   schedule:
     # All times UTC — CFB season runs Aug–Nov (EDT=UTC-4), late bowl season (EST=UTC-5)
     # Times set for EDT (primary season). Nov DST switch makes these 1h early — acceptable.
-    # Tuesday 10am ET  — Top 5 biggest matchups thread
-    - cron: '0 14 * * 2'
-    # Wednesday 11am ET — Top 5 picks thread
-    - cron: '0 15 * * 3'
-    # Thursday 10am ET  — Parlay card thread
-    - cron: '0 14 * * 4'
-    # Friday 10am ET    — 5 highest-confidence locks
-    - cron: '0 14 * * 5'
-    # Saturday 9am ET   — "Who covers?" polls
-    - cron: '0 13 * * 6'
-    # Saturday 11am ET  — Game day hype tweets
-    - cron: '0 15 * * 6'
-    # Sunday 11am ET    — Results thread + update season record
-    - cron: '0 15 * * 0'
+    # Note: off-minute (:07) avoids GitHub's high-load start-of-hour window which
+    # frequently drops or delays :00 scheduled runs.
+    # Tuesday 10:07am ET  — Top 5 biggest matchups thread
+    - cron: '7 14 * * 2'
+    # Wednesday 11:07am ET — Top 5 picks thread
+    - cron: '7 15 * * 3'
+    # Thursday 10:07am ET  — Parlay card thread
+    - cron: '7 14 * * 4'
+    # Friday 10:07am ET    — 5 highest-confidence locks
+    - cron: '7 14 * * 5'
+    # Saturday 9:07am ET   — "Who covers?" polls
+    - cron: '7 13 * * 6'
+    # Saturday 11:07am ET  — Game day hype tweets
+    - cron: '7 15 * * 6'
+    # Sunday 11:07am ET    — Results thread + update season record
+    - cron: '7 15 * * 0'
 
   workflow_dispatch:
     inputs:
@@ -111,6 +113,24 @@ jobs:
             echo "dry=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Verify X credentials
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
+        run: |
+          MISSING=""
+          [ -z "$X_OAUTH2_CLIENT_ID" ]     && MISSING="$MISSING X_OAUTH2_CLIENT_ID"
+          [ -z "$X_OAUTH2_CLIENT_SECRET" ] && MISSING="$MISSING X_OAUTH2_CLIENT_SECRET"
+          [ -z "$X_OAUTH2_REFRESH_TOKEN" ] && MISSING="$MISSING X_OAUTH2_REFRESH_TOKEN"
+          if [ -n "$MISSING" ]; then
+            echo "❌ Missing secrets:$MISSING"
+            echo "Run x-oauth2-setup workflow to generate a refresh token."
+            exit 1
+          fi
+          echo "✅ All X credentials present"
+
       - name: Post to X
         if: steps.gate.outputs.skip != 'true'
         id: post
@@ -128,14 +148,17 @@ jobs:
 
       - name: Rotate refresh token
         if: always() && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
             gh secret set X_OAUTH2_REFRESH_TOKEN -R ${{ github.repository }} < /tmp/new_refresh_token
             echo "✅ Refresh token rotated"
+          elif [ -z "$GH_TOKEN" ]; then
+            echo "⚠️ GH_PAT secret not set — token not rotated. Add GH_PAT (repo scope) to keep the refresh token fresh."
           else
-            echo "ℹ️ No new refresh token (dry run or pre-auth failure)"
+            echo "ℹ️ No new refresh token written (post may have failed before auth)"
           fi
 
       # On Sundays, commit the updated season-record.json back to the repo

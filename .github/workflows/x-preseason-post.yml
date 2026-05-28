@@ -223,13 +223,16 @@ jobs:
 
       - name: Rotate refresh token
         if: always() && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
             gh secret set X_OAUTH2_REFRESH_TOKEN -R ${{ github.repository }} < /tmp/new_refresh_token
             echo "✅ Refresh token rotated"
+          elif [ -z "$GH_TOKEN" ]; then
+            echo "⚠️ GH_PAT secret not set — token not rotated. Add GH_PAT (repo scope) to keep the refresh token fresh."
           else
-            echo "ℹ️ No new refresh token (dry run or pre-auth failure)"
+            echo "ℹ️ No new refresh token written (post may have failed before auth)"
           fi
 
