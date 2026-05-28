@@ -388,8 +388,10 @@ function tweetMomentum() {
   const rising = [...ALL_TEAMS]
     .filter(t => t.programHealth?.programMomentum === 'rising')
     .sort((a, b) => b.rating - a.rating);
+  // Only flag notable declining programs (rating >= 72) — lower-rated G5 programs
+  // perpetually have negative SP+ and aren't meaningful "overvalued" calls.
   const declining = [...ALL_TEAMS]
-    .filter(t => t.programHealth?.programMomentum === 'declining')
+    .filter(t => t.programHealth?.programMomentum === 'declining' && (t.rating || 0) >= 72)
     .sort((a, b) => b.rating - a.rating);
 
   const tweets = [];
@@ -415,8 +417,22 @@ function tweetMomentum() {
 }
 
 function tweetHotTakes(count = 5) {
-  const shuffled = [...ALL_TEAMS].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count).map(buildHotTake);
+  // Score each team by how "spicy" their take is — prioritize AP discrepancies,
+  // hot seats, and momentum trends over generic teams that produce filler text.
+  const scored = [...ALL_TEAMS].map(t => {
+    const iRank = modelRank(t);
+    const r = t.rating || 70;
+    const m = t.programHealth?.programMomentum || 'stable';
+    const hs = t.programHealth?.coachHotSeat || 0;
+    let score = Math.random() * 0.5; // small random jitter to avoid identical ordering each run
+    if (t.apRank && Math.abs(iRank - t.apRank) >= 3) score += 3;
+    if (m === 'rising' && r < 80) score += 2;
+    if (m === 'declining' && r >= 75) score += 2;
+    if (hs >= 7) score += 2;
+    return { t, score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, count).map(({ t }) => buildHotTake(t));
 }
 
 function tweetRotate(offset = 0, count = 5) {
