@@ -462,6 +462,72 @@ async function fetchESPNInjuries() {
   return injuries;
 }
 
+// ── ESPN: fetch rosters for ALL FBS teams ─────────────────────────────────
+async function fetchESPNRosters() {
+  const ESPN_TEAM_IDS = {
+    alabama:333,auburn:2,florida:57,georgia:61,lsu:99,ohio_state:194,
+    michigan:130,penn_state:213,clemson:228,notre_dame:87,texas:251,
+    oregon:2483,texas_am:245,tennessee:2633,miami:2390,baylor:239,
+    iowa:2294,wisconsin:275,oklahoma_state:197,kansas_state:2306,
+    utah:254,byu:252,cincinnati:2132,ucf:2116,florida_state:52,
+    north_carolina:153,pittsburgh:221,virginia_tech:259,louisville:97,
+    wake_forest:154,boston_college:103,duke:150,syracuse:183,virginia:258,
+    stanford:24,cal:25,smu:2567,arizona_state:9,arizona:12,
+    colorado:38,west_virginia:277,iowa_state:66,kansas:2305,texas_tech:2641,
+    tcu:2628,houston:248,north_texas:249,memphis:235,tulane:2655,navy:2426,
+    army:349,south_florida:58,east_carolina:151,rice:242,boise_state:68,
+    fresno_state:278,san_diego_state:21,nevada:2440,unlv:2439,wyoming:2751,
+    air_force:2005,utah_state:328,new_mexico:167,hawaii:62,colorado_state:36,
+    kentucky:96,arkansas:8,south_carolina:2579,vanderbilt:238,ole_miss:145,
+    mississippi_state:344,missouri:142,nebraska:158,minnesota:135,maryland:120,
+    indiana:84,purdue:2509,illinois:356,northwestern:77,rutgers:164,
+    michigan_state:127,usc:30,ucla:26,washington:264,oregon_state:204,
+    washington_state:265,georgia_tech:59,nc_state:152,
+    app_state:2026,coastal_carolina:324,liberty:2335,marshall:276,
+    old_dominion:295,james_madison:2259,western_kentucky:98,utsa:2636,
+    uab:2629,fau:2226,fiu:2296,charlotte:2429,southern_miss:2572,
+    troy:2653,south_alabama:6,louisiana:309,ul_monroe:2433,arkansas_state:2032,
+    georgia_southern:290,georgia_state:2247,texas_state:326,middle_tennessee:2393,
+    new_mexico_state:166,la_tech:2348,sam_houston:2534,utep:2638,
+    akron:2006,ball_state:2050,bowling_green:189,buffalo:2084,
+    central_michigan:2117,eastern_michigan:2199,kent_state:2307,miami_oh:193,
+    northern_illinois:2459,ohio:195,toledo:2649,western_michigan:2711,
+    uconn:41,umass:113,tulsa:202,
+  };
+  const SKILL_POSITIONS = new Set(["QB","RB","WR","TE","EDGE","DE","DT","LB","OLB","ILB","CB","S","DB","FS","SS"]);
+  const rosters = {};
+  const entries = Object.entries(ESPN_TEAM_IDS);
+  for (let i = 0; i < entries.length; i += 8) {
+    await Promise.all(entries.slice(i, i + 8).map(async ([teamId, espnId]) => {
+      try {
+        const d = await espnFetch(`/teams/${espnId}/roster?limit=150`);
+        const players = [];
+        for (const group of (d?.athletes || [])) {
+          for (const athlete of (group.items || group.athletes || [])) {
+            const pos = athlete.position?.abbreviation || "";
+            if (!SKILL_POSITIONS.has(pos)) continue;
+            players.push({
+              name:        (athlete.displayName || athlete.fullName || "").trim(),
+              number:      (athlete.jersey || "").toString(),
+              position:    pos,
+              year:        athlete.experience?.displayValue || "",
+              heightWeight:(athlete.displayHeight && athlete.displayWeight)
+                ? `${athlete.displayHeight} / ${athlete.displayWeight}` : "",
+              status:      (athlete.injuries?.[0]?.status || athlete.status?.type || "active").toLowerCase(),
+              injuryType:  athlete.injuries?.[0]?.longComment || athlete.injuries?.[0]?.type || null,
+            });
+          }
+        }
+        if (players.length) rosters[teamId] = players;
+      } catch {}
+    }));
+    if (i + 8 < entries.length) await new Promise(r => setTimeout(r, 300));
+  }
+  const total = Object.values(rosters).reduce((s, r) => s + r.length, 0);
+  console.log(`  ESPN rosters: ${Object.keys(rosters).length} teams, ${total} skill-position players`);
+  return rosters;
+}
+
 // ── The Odds API — multi-book line comparison ───────────────────────────
 async function fetchOddsAPI() {
   if (!ODDS_KEY) { console.log("  Odds API: no key — skipping (add ODDS_API_KEY secret for 20+ book comparison)"); return {}; }
@@ -896,12 +962,13 @@ async function main() {
     fetchCoversBetting(),
   ]);
 
-  // ── Phase 3: Social signals (parallel) ───────────────────────────────
-  console.log("Phase 3: Social signals (Reddit + ESPN injuries + team news)...");
-  const [redditBuzz, injuries, teamNews] = await Promise.all([
+  // ── Phase 3: Social signals + rosters (parallel) ─────────────────────
+  console.log("Phase 3: Social signals + ESPN rosters (Reddit + injuries + rosters + team news)...");
+  const [redditBuzz, injuries, teamNews, rosters] = await Promise.all([
     fetchRedditSentiment(),
     fetchESPNInjuries(),
     fetchAllTeamNews(),   // year-round: arrests, spring injuries, transfers, coaching
+    fetchESPNRosters(),   // skill-position players for all ~130 FBS teams
   ]);
 
   // ── Build betting-lines lookup ────────────────────────────────────────
@@ -1275,12 +1342,19 @@ async function main() {
   const hasInjury  = Object.values(injuries).flat().length > 0;
 
   const hasNews    = Object.keys(teamNews).length > 0;
+  const hasRosters = Object.keys(rosters).length > 0;
   if (hasReddit || hasSP || hasInjury || hasNews) {
     writeAtomic(join(DATA_DIR,"team-extras.json"),
       JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz, teamNews }, null, 2));
     writeAtomic(join(DATA_DIR,"injuries.json"),
       JSON.stringify({ generated: now, injuries }, null, 2));
     console.log(`  Social/team data written — Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, SP+: ${cfbdExtras.spRatings.length}, injuries: ${Object.values(injuries).flat().length}`);
+  }
+  if (hasRosters) {
+    const totalPlayers = Object.values(rosters).reduce((s, r) => s + r.length, 0);
+    writeAtomic(join(DATA_DIR,"rosters.json"),
+      JSON.stringify({ generated: now, totalTeams: Object.keys(rosters).length, totalPlayers, rosters }, null, 2));
+    console.log(`  Rosters written — ${Object.keys(rosters).length} teams, ${totalPlayers} players`);
   }
 
   // Guard 1: no data at all — preserve curated seed
