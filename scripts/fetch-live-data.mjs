@@ -881,10 +881,14 @@ async function fetchCFBDExtras() {
     const name = `${c.firstName} ${c.lastName}`;
     const totalW = c.schools.reduce((s, sc) => s + (sc.wins  || 0), 0);
     const totalL = c.schools.reduce((s, sc) => s + (sc.losses || 0), 0);
-    coachMap[cur.school] = {
+    const entry = {
       name,
       record: totalW + totalL > 0 ? `${totalW}-${totalL}` : null,
     };
+    coachMap[cur.school] = entry;
+    // Also key by internal team ID so tweet scripts can match Ole Miss/Mississippi, FIU, etc.
+    const tid = schoolToId(cur.school);
+    if (tid) coachMap[tid] = entry;
   });
 
   // Build overall ATS record per team from prior-year lines + game results
@@ -909,13 +913,19 @@ async function fetchCFBDExtras() {
       const awayCovered = !isPush && adj < 0;
       [[g.home_team, homeCovered], [g.away_team, awayCovered]].forEach(([school, covered]) => {
         if (!school) return;
-        if (!atsRecords[school]) atsRecords[school] = { wins: 0, losses: 0, pushes: 0 };
-        if (isPush) atsRecords[school].pushes++;
-        else if (covered) atsRecords[school].wins++;
-        else atsRecords[school].losses++;
+        const id = schoolToId(school);
+        // Key by both CFBD school name AND our internal ID for name-mismatch teams
+        const keys = [school];
+        if (id) keys.push(id);
+        keys.forEach(k => {
+          if (!atsRecords[k]) atsRecords[k] = { wins: 0, losses: 0, pushes: 0 };
+          if (isPush) atsRecords[k].pushes++;
+          else if (covered) atsRecords[k].wins++;
+          else atsRecords[k].losses++;
+        });
       });
     });
-    // Add pct field
+    // Add pct field (compute once per entry, avoiding double-counting from alias keys)
     Object.values(atsRecords).forEach(r => {
       const total = r.wins + r.losses;
       r.pct = total > 0 ? Math.round((r.wins / total) * 1000) / 1000 : null;

@@ -45,10 +45,11 @@ function loadSandbox() {
     }
 
     // Coach names + career records from prior-year CFBD
+    // coachMap is keyed by both CFBD school name AND team ID for name-mismatch teams.
     const cmap = extras.coachMap || {};
     if (Object.keys(cmap).length && sandbox.TEAMS) {
       Object.values(sandbox.TEAMS).forEach(t => {
-        const entry = cmap[t.name] || cmap[Object.keys(cmap).find(k => norm(k) === norm(t.name || '')) || ''];
+        const entry = cmap[t.id] || cmap[t.name] || cmap[Object.keys(cmap).find(k => norm(k) === norm(t.name || '')) || ''];
         if (entry) {
           if (entry.name) t.coachName = entry.name;
           if (entry.record) t.coachRecord = entry.record;
