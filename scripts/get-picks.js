@@ -181,6 +181,15 @@ function hasLines() {
   } catch { return false; }
 }
 
+// Normalize team name for use as a Twitter hashtag:
+// decompose Unicode (é → e + combining accent), strip combining marks, strip non-letters.
+function toHashtag(name) {
+  return '#' + (name || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-zA-Z]/g, '');
+}
+
 function pickConf(p) {
   const tp = p.game.gamePreview && p.game.gamePreview.thePick;
   return (tp && tp.confidence ? tp.confidence.toLowerCase() : null) || p.prediction.confidence;
@@ -286,8 +295,8 @@ function getPicks(type = 'all') {
         // Only include publicPct when source is real data (not the 50/50 default estimate)
         publicPct:  pb.source !== 'default' && (pickIsHome ? pb.homePct : pb.awayPct) != null
                       ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
-        hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
-        hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
+        hashHome:   toHashtag(game.homeTeam.name),
+        hashAway:   toHashtag(game.awayTeam.name),
         reasoning:  tp && tp.reasoning ? tp.reasoning : null,
       };
     });
@@ -344,8 +353,8 @@ function getTop5() {
         conf,
         publicPct:  pb.source !== 'default' && (pickIsHome ? pb.homePct : pb.awayPct) != null
                       ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
-        hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
-        hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
+        hashHome:   toHashtag(game.homeTeam.name),
+        hashAway:   toHashtag(game.awayTeam.name),
         reasoning:  tp && tp.reasoning ? tp.reasoning : null,
         total:      bl.total,
         totalPick:  pred.totalPick,
@@ -401,8 +410,8 @@ function getBiggestMatchups() {
         ourConf:   tp?.confidence || null,
         isConf:    game.isConferenceGame,
         excitementScore: score,
-        hashHome:  '#' + (game.homeTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
-        hashAway:  '#' + (game.awayTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
+        hashHome:  toHashtag(game.homeTeam?.name),
+        hashAway:  toHashtag(game.awayTeam?.name),
       };
     })
     .sort((a, b) => b.excitementScore - a.excitementScore)
@@ -470,8 +479,8 @@ function getLocks() {
         publicPct:  pb.source !== 'default' && (pickIsHome ? pb.homePct : pb.awayPct) != null
                       ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
         reasoning:  tp?.reasoning || null,
-        hashHome:   '#' + (game.homeTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
-        hashAway:   '#' + (game.awayTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
+        hashHome:   toHashtag(game.homeTeam?.name),
+        hashAway:   toHashtag(game.awayTeam?.name),
       };
     });
 }
@@ -609,8 +618,8 @@ function getPastPicks() {
         vegasSpread: vegasLine,
         conf,
         sharpAligns: !!(smSig.side && smSig.side !== 'neutral' && ((smSig.side === 'home') === pickIsHome)),
-        hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
-        hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
+        hashHome:   toHashtag(game.homeTeam.name),
+        hashAway:   toHashtag(game.awayTeam.name),
         reasoning:  tp && tp.reasoning ? tp.reasoning : null,
       };
     });
