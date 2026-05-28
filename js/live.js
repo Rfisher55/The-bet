@@ -81,10 +81,14 @@ const SEASON = 2026;
 
       console.log("[PREGEN] " + added + " games loaded instantly (" + d.totalGames + " in file, updated " + new Date(d.generated).toLocaleTimeString() + ")");
 
-      // Fire liveDataReady so all pages render immediately with real data
-      if (!window.__liveDataReady) {
-        window.__liveDataReady = true;
-        window.__pregenLoaded  = true;
+      // Fire liveDataReady so all pages render immediately with real data.
+      // Always fire when games were added, even if __liveDataReady is already set
+      // (cache path can set it before pregen completes, silencing pregen games).
+      if (added > 0 || !window.__liveDataReady) {
+        if (!window.__liveDataReady) {
+          window.__liveDataReady = true;
+          window.__pregenLoaded  = true;
+        }
         window.dispatchEvent(new CustomEvent("liveDataReady", { detail: { _fromPregen: true, fetchedAt: d.generated } }));
       }
     })

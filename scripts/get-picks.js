@@ -270,7 +270,8 @@ function getPicks(type = 'all') {
         winProb:    Math.round(sp.confidence || pred.winProbability || 0),
         conf,
         sharpAligns: smSig.side && smSig.side !== 'neutral' && ((smSig.side === 'home') === pickIsHome),
-        publicPct:  (pickIsHome ? pb.homePct : pb.awayPct) != null
+        // Only include publicPct when source is real data (not the 50/50 default estimate)
+        publicPct:  pb.source !== 'default' && (pickIsHome ? pb.homePct : pb.awayPct) != null
                       ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
         hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
         hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
@@ -327,7 +328,7 @@ function getTop5() {
         edge:       parseFloat((sp.edge || 0).toFixed(1)),
         winProb:    Math.round(sp.confidence || pred.winProbability || 0),
         conf,
-        publicPct:  (pickIsHome ? pb.homePct : pb.awayPct) != null
+        publicPct:  pb.source !== 'default' && (pickIsHome ? pb.homePct : pb.awayPct) != null
                       ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
         hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
         hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
