@@ -31,13 +31,15 @@ function loadSandbox() {
     );
     const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-    // SP+ ratings
+    // SP+ ratings — match by team ID first (handles Ole Miss/Mississippi, FIU, etc.),
+    // fall back to normalized name for entries without an id field.
     const spList = extras.spRatings || [];
     if (spList.length && sandbox.TEAMS) {
-      const spMap = Object.fromEntries(spList.map(e => [norm(e.team), e.rating]));
+      const spById   = Object.fromEntries(spList.filter(e => e.id).map(e => [e.id, e.rating]));
+      const spByName = Object.fromEntries(spList.map(e => [norm(e.team), e.rating]));
       Object.values(sandbox.TEAMS).forEach(t => {
-        const key = norm(t.name || '');
-        if (spMap[key] != null) t.spRating = spMap[key];
+        const rating = spById[t.id] ?? spByName[norm(t.name || '')];
+        if (rating != null) t.spRating = rating;
       });
       console.log(`[LIVE] SP+ enriched for ${spList.length} teams in predictor sandbox`);
     }

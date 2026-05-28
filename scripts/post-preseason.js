@@ -79,13 +79,15 @@ const ALL_TEAMS = Object.values(sandbox.TEAMS || {}).filter(t => t.conference !=
     const extras = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'team-extras.json'), 'utf8'));
     const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-    // SP+ ratings
+    // SP+ ratings — match by team ID first (handles Ole Miss/Mississippi, FIU, etc.),
+    // fall back to normalized name comparison for entries without an id field.
     const spList = extras.spRatings || [];
     if (spList.length) {
-      const spMap = Object.fromEntries(spList.map(e => [norm(e.team), e.rating]));
+      const spById   = Object.fromEntries(spList.filter(e => e.id).map(e => [e.id, e.rating]));
+      const spByName = Object.fromEntries(spList.map(e => [norm(e.team), e.rating]));
       ALL_TEAMS.forEach(t => {
-        const key = norm(t.name || '');
-        if (spMap[key] != null) t.spRating = spMap[key];
+        const rating = spById[t.id] ?? spByName[norm(t.name || '')];
+        if (rating != null) t.spRating = rating;
       });
       console.log(`[LIVE] SP+ ratings loaded from team-extras.json (${spList.length} teams)`);
     }
