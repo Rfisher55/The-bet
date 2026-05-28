@@ -3443,10 +3443,14 @@ function _teamFallback(id, name) {
     abbreviation: (name || id || "UNK").toUpperCase().slice(0,4),
     mascot: "", conference: "FCS", color: "#555566", altColor: "#333344",
     wins: 0, losses: 0, lastSeasonRecord: "FCS",
-    rating: 52, offensiveRating: 50, defensiveRating: 50,
-    spRating: -10, spRank: 90, recruitingRank: 90,
+    rating: 38, offensiveRating: 40, defensiveRating: 40,
+    // spRating null = not tracked by CFBD = FCS or FCS-level program
+    // detectMismatch() uses SP+ asymmetry: if opponent has SP+ and this team doesn't → FCS flag
+    spRating: null, spRank: 110, recruitingRank: 110,
     coachName: "Unknown", coachRecord: "0-0",
     stats: {
+      // These are placeholder estimates — flagged so position group grades are suppressed
+      _statsEstimated: true,
       pointsPerGame: 20, pointsAllowedPerGame: 30,
       yardsPerGame: 300, yardsAllowedPerGame: 400,
       passingYardsPerGame: 175, rushingYardsPerGame: 125,
