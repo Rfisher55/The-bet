@@ -160,12 +160,54 @@ const SEASON = 2026;
     .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(d) {
       if (!d) return;
-      if (d.teamNews)   window.__teamNews      = d.teamNews;   // { [teamId]: [{report,sentiment,daysAgo,isCritical},...] }
-      if (d.redditBuzz) window.__teamRedditBuzz = d.redditBuzz; // { [teamId]: {score, sentiment} }
+      if (d.teamNews)   window.__teamNews      = d.teamNews;
+      if (d.redditBuzz) window.__teamRedditBuzz = d.redditBuzz;
       if (d.spRatings)  window.__spRatings     = d.spRatings;
       if (d.injuries)   window.__teamInjuries  = d.injuries;
       window.dispatchEvent(new CustomEvent("teamExtrasReady", { detail: d }));
       console.log("[EXTRAS] Team news: " + Object.keys(d.teamNews||{}).length + " teams, SP+: " + (d.spRatings||[]).length + " teams");
+    })
+    .catch(function() {});
+}());
+
+/* ── Web intel loader — loads web-intel.json (scraped betting %, ATS trends, news) ──
+   Updated every 20–120 min by scrape-web.yml. Supplements team-extras with
+   TeamRankings ATS records, public betting %, Reddit sentiment, and critical alerts. */
+(function _loadWebIntel() {
+  var base = window.location.pathname.includes("/pages/") ? "../" : "./";
+  fetch(base + "data/web-intel.json", { cache: "no-cache" })
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d) return;
+      window.__webIntel = d;
+      // Merge Reddit sentiment into __teamRedditBuzz (web-intel has richer data)
+      if (d.redditSentiment) {
+        window.__teamRedditBuzz = window.__teamRedditBuzz || {};
+        Object.assign(window.__teamRedditBuzz, d.redditSentiment);
+      }
+      // Merge team news (web-intel news supplements team-extras news)
+      if (d.newsByTeam) {
+        window.__teamNews = window.__teamNews || {};
+        for (var tid in d.newsByTeam) {
+          if (!window.__teamNews[tid]) window.__teamNews[tid] = [];
+          // Prepend critical alerts from web-intel to the front of the news list
+          var newItems = d.newsByTeam[tid].filter(function(n) {
+            return !window.__teamNews[tid].some(function(e) { return e.title === n.title; });
+          });
+          window.__teamNews[tid] = newItems.concat(window.__teamNews[tid]).slice(0, 6);
+        }
+      }
+      // Store ATS trends for use in predictor signal display
+      if (d.atsRankings)  window.__atsRankings  = d.atsRankings;
+      if (d.bettingPcts)  window.__bettingPcts  = d.bettingPcts;
+      if (d.expertPicks)  window.__expertPicks  = d.expertPicks;
+      if (d.criticalAlerts && d.criticalAlerts.length > 0) {
+        window.__criticalAlerts = d.criticalAlerts;
+        console.warn("[WEB-INTEL] " + d.criticalAlerts.length + " critical alert(s):", d.criticalAlerts.map(function(a){return a.title;}).join(" | "));
+      }
+      window.dispatchEvent(new CustomEvent("webIntelReady", { detail: d }));
+      var age = d.generatedAt ? Math.round((Date.now() - new Date(d.generatedAt).getTime()) / 60000) : "?";
+      console.log("[WEB-INTEL] Loaded — ATS: " + Object.keys(d.atsRankings||{}).length + " teams, Reddit: " + Object.keys(d.redditSentiment||{}).length + " teams, age: " + age + "min");
     })
     .catch(function() {});
 }());

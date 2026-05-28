@@ -1926,7 +1926,7 @@ function predictGame(game) {
   };
 
   /* ── X-Factors (needs pred partial for weather note) ── */
-  const predPartial = { weatherImpact, sharpMoneySignal };
+  const predPartial = { weatherImpact, sharpMoneySignal, predictedSpread: homeFinal - awayFinal };
   const xFactors = buildXFactors(game, home, away, predPartial);
 
   /* ── Model Breakdown (backward-compatible) ────── */

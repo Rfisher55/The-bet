@@ -3867,7 +3867,7 @@ function renderGamePage(gData) {
           <div style="font-size:1.3rem;flex-shrink:0">⚠️</div>
           <div style="flex:1;min-width:0">
             <div style="font-size:.62rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#ef4444;margin-bottom:4px">FCS OPPONENT — SCHEDULE STRENGTH MISMATCH</div>
-            <div style="font-size:.76rem;color:var(--text-soft);line-height:1.6"><strong style="color:var(--text)">${fcsTeam.name}</strong> is an FCS or FCS-level program. Their statistics were compiled against significantly weaker competition. Model discounts their inflated stats (×${sos[homeFCS ? "homeStatMult" : "awayStatMult"].toFixed(2)}) and applies SOS-adjusted recent form (${sos[homeFCS ? "homeSOSForm" : "awaySOSForm"]}/100 vs ${sos[homeFCS ? "awaySOSForm" : "homeSOSForm"]}/100 for <strong style="color:var(--text)">${fbsTeam.name}</strong>).</div>
+            <div style="font-size:.76rem;color:var(--text-soft);line-height:1.6"><strong style="color:var(--text)">${fcsTeam.name}</strong> is an FCS or FCS-level program. Their statistics were compiled against significantly weaker competition. Model discounts their inflated stats (×${((sos[homeFCS ? "homeStatMult" : "awayStatMult"]) || 1).toFixed(2)}) and applies SOS-adjusted recent form (${(sos[homeFCS ? "homeSOSForm" : "awaySOSForm"]) || 0}/100 vs ${(sos[homeFCS ? "awaySOSForm" : "homeSOSForm"]) || 0}/100 for <strong style="color:var(--text)">${fbsTeam.name}</strong>).</div>
           </div>
         </div>`;
       }

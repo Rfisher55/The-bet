@@ -2099,7 +2099,8 @@ function copyWeekPicks() {
       var game = p.game;
       var pred = p.prediction;
       var tp = game.gamePreview && game.gamePreview.thePick;
-      var pickTeam = (tp && tp.team) ? tp.team : pred.spreadPick.team;
+      var pickTeam = (tp && tp.team) ? tp.team : (pred.spreadPick && pred.spreadPick.team) ? pred.spreadPick.team : null;
+      if (!pickTeam) return "";  // skip games with no pick
       var conf = x.conf || pred.confidence.toUpperCase();
       var units = confUnits[conf] || "1u";
       var bl = game.bettingLines;
