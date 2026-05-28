@@ -1631,6 +1631,218 @@ function renderGamePage(gData) {
       </div>`;
   }
 
+  /* 3d-i — Position Group Matchup Analysis (z-score grade table) */
+  function renderPositionMatchup() {
+    const hs = home.stats || {};
+    const as_ = away.stats || {};
+
+    // ── Z-score → letter grade (A+ through F) ──────────────────────────
+    function zScore(val, avg, sd) {
+      if (!sd || sd === 0) return 0;
+      return (val - avg) / sd;
+    }
+
+    // Map z-score to grade index 0=F … 11=A+
+    function zToGradeIdx(z) {
+      if (z >=  2.0) return 11; // A+
+      if (z >=  1.5) return 10; // A
+      if (z >=  1.0) return  9; // A-
+      if (z >=  0.7) return  8; // B+
+      if (z >=  0.3) return  7; // B
+      if (z >= -0.1) return  6; // B-
+      if (z >= -0.5) return  5; // C+
+      if (z >= -0.9) return  4; // C
+      if (z >= -1.3) return  3; // C-
+      if (z >= -1.7) return  2; // D+
+      if (z >= -2.0) return  1; // D
+      return 0;                  // F
+    }
+
+    const GRADE_LABELS = ["F","D","D+","C-","C","C+","B-","B","B+","A-","A","A+"];
+
+    function gradeColor(label) {
+      if (label === "A+" || label === "A" || label === "A-") return "var(--primary)";
+      if (label === "B+" || label === "B" || label === "B-") return "var(--gold)";
+      if (label === "C+" || label === "C" || label === "C-") return "#f97316";
+      return "var(--danger)";
+    }
+
+    // SP+ blending helper — returns adjusted grade index (60% stats, 40% SP+)
+    function blendedGradeIdx(statZ, spRating, spAvg, spSd) {
+      const statIdx = zToGradeIdx(statZ);
+      const spZ = zScore(spRating || spAvg, spAvg, spSd);
+      const spIdx = zToGradeIdx(spZ);
+      return Math.round(statIdx * 0.6 + spIdx * 0.4);
+    }
+
+    // ── SP+ constants (FBS averages) ──────────────────────────────────
+    const SP_OFF_AVG = 25, SP_OFF_SD = 12;
+    const SP_DEF_AVG = 25, SP_DEF_SD = 12;
+
+    // ── Grade computation per team per category ────────────────────────
+    function computeGrades(team, stats) {
+      const s = stats || {};
+
+      // Passing Game (offense): passingYardsPerGame
+      const passOff = safe(() => s.passingYardsPerGame, 240);
+      const passOffZ = zScore(passOff, 240, 45);
+      const passOffIdx = blendedGradeIdx(passOffZ, safe(() => team.offensiveRating, SP_OFF_AVG), SP_OFF_AVG, SP_OFF_SD);
+
+      // Pass Defense: yardsAllowedPerGame * 0.62 (inverted — lower is better)
+      const passDefRaw = safe(() => s.yardsAllowedPerGame, 363) * 0.62;
+      const passDefZ = zScore(225, passDefRaw, 45); // invert: avg=225 minus actual (lower allowed = higher z)
+      const passDefIdx = blendedGradeIdx(passDefZ, safe(() => team.defensiveRating, SP_DEF_AVG), SP_DEF_AVG, SP_DEF_SD);
+
+      // Run Game (offense): rushingYardsPerGame
+      const rushOff = safe(() => s.rushingYardsPerGame, 175);
+      const rushOffZ = zScore(rushOff, 175, 35);
+      const rushOffIdx = blendedGradeIdx(rushOffZ, safe(() => team.offensiveRating, SP_OFF_AVG), SP_OFF_AVG, SP_OFF_SD);
+
+      // Run Defense: yardsAllowedPerGame * 0.38 (inverted)
+      const runDefRaw = safe(() => s.yardsAllowedPerGame, 395) * 0.38;
+      const runDefZ = zScore(150, runDefRaw, 35); // invert
+      const runDefIdx = blendedGradeIdx(runDefZ, safe(() => team.defensiveRating, SP_DEF_AVG), SP_DEF_AVG, SP_DEF_SD);
+
+      // Pass Rush: sacks per game (higher = better)
+      const sacksVal = safe(() => s.sacks, 2.3);
+      const passRushZ = zScore(sacksVal, 2.3, 0.7);
+      const passRushIdx = blendedGradeIdx(passRushZ, safe(() => team.defensiveRating, SP_DEF_AVG), SP_DEF_AVG, SP_DEF_SD);
+
+      // Pass Protection: sacksAllowed per game (lower = better, so invert)
+      const sacksAllowedVal = safe(() => s.sacksAllowed, 2.0);
+      const passProZ = zScore(2.0, sacksAllowedVal, 0.6); // invert
+      const passProIdx = blendedGradeIdx(passProZ, safe(() => team.offensiveRating, SP_OFF_AVG), SP_OFF_AVG, SP_OFF_SD);
+
+      // Ball Control: composite of thirdDownPct + turnoversPerGame (inverted)
+      const tdPct = safe(() => s.thirdDownPct, 0.41);
+      const toPerGame = safe(() => s.turnoversPerGame, 1.1);
+      const tdZ = zScore(tdPct, 0.41, 0.05);
+      const toZ = zScore(1.1, toPerGame, 0.4); // invert: lower turnovers = better
+      const ballCtrlZ = (tdZ + toZ) / 2;
+      const ballCtrlIdx = zToGradeIdx(ballCtrlZ);
+
+      // Overall (SP+ offensiveRating vs defensiveRating combined)
+      const overallOff = safe(() => team.offensiveRating, SP_OFF_AVG);
+      const overallDef = safe(() => team.defensiveRating, SP_DEF_AVG);
+      const overallSpZ = zScore((overallOff + overallDef) / 2, (SP_OFF_AVG + SP_DEF_AVG) / 2, (SP_OFF_SD + SP_DEF_SD) / 2);
+      const overallIdx = zToGradeIdx(overallSpZ);
+
+      return {
+        passOff:  Math.max(0, Math.min(11, passOffIdx)),
+        passDef:  Math.max(0, Math.min(11, passDefIdx)),
+        rushOff:  Math.max(0, Math.min(11, rushOffIdx)),
+        runDef:   Math.max(0, Math.min(11, runDefIdx)),
+        passRush: Math.max(0, Math.min(11, passRushIdx)),
+        passPro:  Math.max(0, Math.min(11, passProIdx)),
+        ballCtrl: Math.max(0, Math.min(11, ballCtrlIdx)),
+        overall:  Math.max(0, Math.min(11, overallIdx)),
+      };
+    }
+
+    const hg = computeGrades(home, hs);
+    const ag = computeGrades(away, as_);
+
+    // ── Edge determination: 1+ grade levels difference ────────────────
+    function edge(homeIdx, awayIdx) {
+      const diff = homeIdx - awayIdx;
+      if (diff >= 1) return "HOME";
+      if (diff <= -1) return "AWAY";
+      return "EVEN";
+    }
+
+    function edgeColor(e) {
+      if (e === "HOME") return "var(--primary)";
+      if (e === "AWAY") return "var(--danger)";
+      return "var(--muted)";
+    }
+
+    // ── 5 matchup rows ─────────────────────────────────────────────────
+    //   Each row: { label, homeIdx, awayIdx } where homeIdx/awayIdx are
+    //   the RELEVANT grade for each side of this matchup.
+    //
+    //   Row layout: Home column (home side) | Center (grade·EDGE·grade) | Away column (away side)
+    //   Row 1: Passing Attack  — home passOff vs away passDef
+    //   Row 2: Run Game        — home rushOff vs away runDef
+    //   Row 3: Pass Rush       — away passRush vs home passPro
+    //   Row 4: Ball Control    — home ballCtrl vs away ballCtrl
+    //   Row 5: Overall O vs D  — home overall  vs away overall
+
+    const rows = [
+      { label: "Passing Attack",  homeIdx: hg.passOff,  awayIdx: ag.passDef,  homeRole: "Passing Off.", awayRole: "Pass Defense" },
+      { label: "Run Game",        homeIdx: hg.rushOff,  awayIdx: ag.runDef,   homeRole: "Run Offense",  awayRole: "Run Defense"  },
+      { label: "Pass Rush",       homeIdx: hg.passPro,  awayIdx: ag.passRush, homeRole: "Pass Protect.", awayRole: "Pass Rush"    },
+      { label: "Ball Control",    homeIdx: hg.ballCtrl, awayIdx: ag.ballCtrl, homeRole: "Ball Control",  awayRole: "Ball Control" },
+      { label: "Overall O vs D",  homeIdx: hg.overall,  awayIdx: ag.overall,  homeRole: "Overall",       awayRole: "Overall"      },
+    ];
+
+    const homeEdges = rows.filter(r => edge(r.homeIdx, r.awayIdx) === "HOME").length;
+    const awayEdges = rows.filter(r => edge(r.homeIdx, r.awayIdx) === "AWAY").length;
+
+    // ── 2-sentence summary ─────────────────────────────────────────────
+    const edgeLeader = homeEdges > awayEdges ? home.name : awayEdges > homeEdges ? away.name : null;
+    const biggestRow = rows.reduce((best, r) => {
+      const diff = Math.abs(r.homeIdx - r.awayIdx);
+      return diff > Math.abs(best.homeIdx - best.awayIdx) ? r : best;
+    }, rows[0]);
+    const biggestEdgeTeam = biggestRow.homeIdx > biggestRow.awayIdx ? home.name : biggestRow.homeIdx < biggestRow.awayIdx ? away.name : null;
+
+    const sent1 = edgeLeader
+      ? `${edgeLeader} wins ${edgeLeader === home.name ? homeEdges : awayEdges} of ${rows.length} position group matchups, led by an advantage in <strong style="color:var(--text)">${biggestRow.label}</strong>.`
+      : `The teams are evenly matched across position groups — neither side holds a clear structural edge.`;
+
+    const modelFav = pred.predictedSpread >= 0 ? home.name : away.name;
+    const sent2 = edgeLeader && edgeLeader === modelFav
+      ? `Position-group grades align with the model's pick of <strong style="color:var(--primary)">${modelFav}</strong> — structural matchup edge reinforces the projection.`
+      : edgeLeader
+        ? `The position-group edge favors <strong style="color:var(--gold)">${edgeLeader}</strong> but the model picks <strong style="color:var(--primary)">${modelFav}</strong> — scheme, home field, and situational factors tip the final call.`
+        : `Execution, coaching adjustments, and situational factors will determine which team converts statistical parity into points.`;
+
+    // ── HTML ───────────────────────────────────────────────────────────
+    const rowsHtml = rows.map(r => {
+      const e = edge(r.homeIdx, r.awayIdx);
+      const ec = edgeColor(e);
+      const hLabel = GRADE_LABELS[r.homeIdx];
+      const aLabel = GRADE_LABELS[r.awayIdx];
+      const hc = gradeColor(hLabel);
+      const ac = gradeColor(aLabel);
+      return `
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <!-- Home side -->
+          <div style="display:flex;flex-direction:column;align-items:flex-start;gap:2px">
+            <span style="font-size:1.15rem;font-weight:900;color:${hc};line-height:1">${hLabel}</span>
+            <span style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">${r.homeRole}</span>
+          </div>
+          <!-- Center: row label + edge badge -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:3px;min-width:110px;padding:0 8px">
+            <span style="font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted-l);text-align:center">${r.label}</span>
+            <span style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;padding:2px 9px;border-radius:10px;border:1px solid ${ec}50;color:${ec};background:${ec}12">${e}</span>
+          </div>
+          <!-- Away side -->
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+            <span style="font-size:1.15rem;font-weight:900;color:${ac};line-height:1">${aLabel}</span>
+            <span style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">${r.awayRole}</span>
+          </div>
+        </div>`;
+    }).join("");
+
+    return `
+      <div class="card card-p mb-5" id="sec-pos-matchup">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div class="section-label mb-4">Position Group Matchup</div>
+          <span style="font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:2px 8px">Updates with live stats</span>
+        </div>
+        <!-- Column headers -->
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;padding:0 0 8px;margin-bottom:4px;border-bottom:2px solid var(--border)">
+          <div style="font-size:.62rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary)">${home.abbreviation} (HOME)</div>
+          <div style="min-width:110px;padding:0 8px"></div>
+          <div style="font-size:.62rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--danger);text-align:right">${away.abbreviation} (AWAY)</div>
+        </div>
+        ${rowsHtml}
+        <!-- Remove bottom border from last row via JS-free approach -->
+        <p style="margin-top:14px;font-size:.78rem;color:var(--text-soft);line-height:1.65">${sent1} ${sent2}</p>
+      </div>`;
+  }
+
   /* 3d — Position Group Matchup Analysis */
   function renderPositionMatchups() {
     function letter(score) {
