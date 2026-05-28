@@ -453,7 +453,7 @@ function getLocks() {
         conf:       pickConf(p),
         sharpAligns: (pred.sharpMoneySignal?.side && pred.sharpMoneySignal.side !== 'neutral' &&
                      (pred.sharpMoneySignal.side === 'home') === pickIsHome),
-        publicPct:  (pickIsHome ? pb.homePct : pb.awayPct) != null
+        publicPct:  pb.source !== 'default' && (pickIsHome ? pb.homePct : pb.awayPct) != null
                       ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
         reasoning:  tp?.reasoning || null,
         hashHome:   '#' + (game.homeTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
