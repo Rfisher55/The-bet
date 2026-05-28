@@ -41,6 +41,37 @@ function loadSandbox() {
     }
   } catch (_) { /* team-extras.json missing or empty — use data.js spRating fallback */ }
 
+  // Merge live player stats/injury updates from players-2026.json (mirrors live.js pattern).
+  // During preseason the file is empty — no-op. During season: updates stats + injury status
+  // so tweet predictions use the same player inputs as the website.
+  try {
+    const pd = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'players-2026.json'), 'utf8'));
+    const livePlayers = pd.players || [];
+    if (livePlayers.length && sandbox.KEY_PLAYERS) {
+      const byId  = {};
+      const byKey = {};
+      sandbox.KEY_PLAYERS.forEach(p => {
+        byId[p.id] = p;
+        byKey[p.teamId + '|' + p.position + '|' + (p.name || '').toLowerCase()] = p;
+      });
+      let added = 0, updated = 0;
+      livePlayers.forEach(p => {
+        if (!p || !p.id || !p.teamId) return;
+        const k = p.teamId + '|' + p.position + '|' + (p.name || '').toLowerCase();
+        const curated = byId[p.id] || byKey[k];
+        if (curated) {
+          if (p.stats)        curated.stats        = p.stats;
+          if (p.injuryStatus) curated.injuryStatus = p.injuryStatus;
+          updated++;
+        } else {
+          sandbox.KEY_PLAYERS.push(p);
+          added++;
+        }
+      });
+      console.log(`[LIVE] Players merged: ${updated} updated, ${added} added from players-2026.json`);
+    }
+  } catch (_) { /* players-2026.json missing or empty — players-extended.js fallback */ }
+
   vm.runInNewContext(JS('predictor.js'),        sandbox);
   _cache = sandbox;
   return sandbox;
