@@ -1323,7 +1323,9 @@ function renderHeroPick() {
   // Exclude blowout mismatches (spread >28) — those are warmup games, not interesting picks
   var competitive = wk1.filter(function(p) {
     var spread = p.game.bettingLines && p.game.bettingLines.spread;
-    return !spread || Math.abs(spread) <= 28;
+    var predSpread = p.prediction && p.prediction.predictedSpread;
+    var effectiveSpread = spread || predSpread || 0;
+    return Math.abs(effectiveSpread) <= 28;
   });
   var pickPool = competitive.length ? competitive : wk1;
   var best = pickPool.map(function(p) {
@@ -1472,7 +1474,9 @@ function renderTopPicks() {
   // Filter out blowout mismatches — not interesting featured picks
   var weekPredsComp = weekPreds.filter(function(p) {
     var spread = p.game.bettingLines && p.game.bettingLines.spread;
-    return !spread || Math.abs(spread) <= 28;
+    var predSpread = p.prediction && p.prediction.predictedSpread;
+    var effectiveSpread = spread || predSpread || 0;
+    return Math.abs(effectiveSpread) <= 28;
   });
   if (weekPredsComp.length >= 3) weekPreds = weekPredsComp;
 
