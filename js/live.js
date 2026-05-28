@@ -173,7 +173,6 @@ const SEASON = 2026;
       if (d.teamNews)   window.__teamNews      = d.teamNews;
       if (d.redditBuzz) window.__teamRedditBuzz = d.redditBuzz;
       if (d.spRatings)  window.__spRatings     = d.spRatings;
-      if (d.injuries)   window.__teamInjuries  = d.injuries;
       if (d.coachMap)   window.__coachMap      = d.coachMap;
       window.dispatchEvent(new CustomEvent("teamExtrasReady", { detail: d }));
       console.log("[EXTRAS] Team news: " + Object.keys(d.teamNews||{}).length + " teams, SP+: " + (d.spRatings||[]).length + " teams");
@@ -253,18 +252,6 @@ const SEASON = 2026;
     })
     .catch(function() {});
 }());
-
-// Load pre-generated injury data
-(function _loadInjuries() {
-  var base = window.location.pathname.includes("/pages/") ? "../" : "./";
-  fetch(base + "data/injuries.json", { cache: "no-cache" })
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !Array.isArray(d.injuries)) return;
-      window.__teamInjuries = d.injuries;
-    })
-    .catch(function() {}); // non-critical — fails silently
-})();
 
 const LIVE = (() => {
   const CFBD      = "https://api.collegefootballdata.com";
