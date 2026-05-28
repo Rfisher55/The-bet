@@ -1636,15 +1636,28 @@ function renderGamePage(gData) {
     const hs = home.stats || {};
     const as_ = away.stats || {};
 
-    // ── FCS/Major Mismatch override ────────────────────────────────────
-    // FCS team stats are compiled against far weaker competition — letter grade
-    // comparisons are meaningless and misleading. Show talent gap card instead.
+    // ── Mismatch override ──────────────────────────────────────────────
+    // When one team plays at a significantly lower level (FCS, non-Power FBS),
+    // their stats are inflated by weak schedule — grades are misleading.
+    // detectMismatch() in predictor.js uses rating gap + predicted spread,
+    // NOT just SP+ — catches teams with no CFBD data (ESPN-sourced stubs).
     const sosI = pred && pred.sosInfo;
-    const homeFCS = sosI && sosI.homeIsFCS;
-    const awayFCS = sosI && sosI.awayIsFCS;
-    if (homeFCS || awayFCS) {
-      const fcsTeam = homeFCS ? home : away;
-      const fbsTeam = homeFCS ? away : home;
+    const mml  = sosI && sosI.mismatchLevel;   // "fcs" | "major" | "significant" | null
+    const mws  = sosI && sosI.weakTeamSide;    // "home" | "away"
+    // Show suppressed grades for FCS + major mismatches
+    const homeFCS = sosI && (sosI.homeIsFCS || (mml === "fcs" && mws === "home") || (mml === "major" && mws === "home"));
+    const awayFCS = sosI && (sosI.awayIsFCS || (mml === "fcs" && mws === "away") || (mml === "major" && mws === "away"));
+    // Fallback: use raw rating gap if sosInfo is missing (old predictions)
+    const ratingGap = Math.abs((home.rating || 50) - (away.rating || 50));
+    const spreadGap = Math.abs(pred && pred.predictedSpread || 0);
+    const homeFCSfallback = !sosI && ratingGap >= 28 && (home.rating || 50) < (away.rating || 50);
+    const awayFCSfallback = !sosI && ratingGap >= 28 && (away.rating || 50) < (home.rating || 50);
+    const effectiveHomeFCS = homeFCS || homeFCSfallback;
+    const effectiveAwayFCS = awayFCS || awayFCSfallback;
+
+    if (effectiveHomeFCS || effectiveAwayFCS) {
+      const fcsTeam = effectiveHomeFCS ? home : away;
+      const fbsTeam = effectiveHomeFCS ? away : home;
       const rows = [
         { label: "Passing Attack",  matchup: `${fbsTeam.name} passing attack vs FCS secondary` },
         { label: "Run Game",        matchup: `${fbsTeam.name} ground game dominates FCS front` },
@@ -1890,7 +1903,15 @@ function renderGamePage(gData) {
     // FCS matchup: renderPositionMatchup() (no 's') already shows the FCS notice card —
     // skip this second grid entirely to avoid misleading grade cards.
     const sosI = pred && pred.sosInfo;
-    if (sosI && (sosI.homeIsFCS || sosI.awayIsFCS)) return "";
+    const _mml  = sosI && sosI.mismatchLevel;
+    const _mws  = sosI && sosI.weakTeamSide;
+    const _isFCS = sosI && (
+      sosI.homeIsFCS || sosI.awayIsFCS ||
+      _mml === "fcs" || _mml === "major"
+    );
+    // Fallback: raw rating gap when sosInfo is missing
+    const _ratingGap = Math.abs((home.rating || 50) - (away.rating || 50));
+    if (_isFCS || (!sosI && _ratingGap >= 28)) return "";
 
     // Stat quality multipliers for weak-schedule teams (same as predictor)
     const hSqm = (sosI && sosI.homeStatMult) || 1.0;
@@ -3857,7 +3878,10 @@ function renderGamePage(gData) {
       // ── FCS / Major Mismatch Banner ─────────────────────────
       if (!pred || !pred.sosInfo) return "";
       const sos = pred.sosInfo;
-      const homeFCS = sos.homeIsFCS, awayFCS = sos.awayIsFCS;
+      const _mm  = sos.mismatchLevel;
+      const _mws = sos.weakTeamSide;
+      const homeFCS = sos.homeIsFCS || (_mm === "fcs" && _mws === "home") || (_mm === "major" && _mws === "home");
+      const awayFCS = sos.awayIsFCS || (_mm === "fcs" && _mws === "away") || (_mm === "major" && _mws === "away");
       if (!homeFCS && !awayFCS && !sos.majorMismatch) return "";
 
       if (homeFCS || awayFCS) {

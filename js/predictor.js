@@ -20,31 +20,100 @@ function calcHomeFieldIntensity(team, neutralSite) {
   return clamp(hfi, 1.5, 4.5);
 }
 
-/* ─── FCS / SOS DETECTION ────────────────────────── */
+/* ─── FCS / SOS / MISMATCH DETECTION ────────────────── */
 
 /**
- * Returns true if a team appears to be FCS-level.
- * FCS programs won't have CFBD SP+ data; their rating and SP+ will be very low.
- * SP+ below -25 = clearly FCS; low overall rating with no SP+ = FCS-likely.
+ * Returns true if a team is clearly FCS or FCS-level based on its own data.
+ * NOTE: This catches obvious cases but misses teams with missing SP+ data.
+ * Use detectMismatch() for the full relative-talent comparison.
  */
 function isFCSLevel(team) {
   const sp = team.spRating != null ? team.spRating : null;
-  if (sp != null && sp < -25) return true;
-  if (sp == null && (team.rating || 50) < 25) return true;
+  if (sp != null && sp < -20) return true;
+  // No SP+ data and very low rating → likely FCS or a data stub
+  if (sp == null && (team.rating || 50) < 30) return true;
   return false;
 }
 
 /**
- * Stat quality multiplier — discounts inflated stats for teams with weak schedules.
- * An FCS team posting 35 PPG against FCS opponents is NOT comparable to a Power team's 35.
- * Multiplier applied to the team's PPG before expected-score calculation.
+ * Detect talent mismatch between two teams using both absolute and relative signals.
+ *
+ * Priority order:
+ *   1. SP+ rating absolute (FCS teams: < -20)
+ *   2. Rating gap between the two teams (Power team 88 vs stub 50 = gap 38)
+ *   3. Predicted spread (already computed from the model)
+ *
+ * Returns { level: "fcs"|"major"|"significant"|null, weakSide: "home"|"away"|null }
+ *
+ * "fcs"         — one team is FCS or clearly FCS-level
+ * "major"       — Power vs weak FBS (e.g. Alabama vs New Mexico State)
+ * "significant" — notable talent gap but both teams are competitive FBS programs
  */
-function statQualityMultiplier(team) {
-  const sp = team.spRating != null ? team.spRating : null;
-  if (sp == null) return (team.rating || 50) < 25 ? 0.65 : 0.88;
-  if (sp < -25) return 0.65;   // FCS — stats heavily inflated by weak schedule
-  if (sp < -15) return 0.80;   // Bottom-tier FBS
-  if (sp < -5)  return 0.92;   // Below-average FBS
+function detectMismatch(home, away, predSpread) {
+  const homeRating = home.rating || 50;
+  const awayRating = away.rating || 50;
+  const homeSP  = home.spRating != null ? home.spRating : null;
+  const awaySP  = away.spRating != null ? away.spRating : null;
+  const ratingGap = Math.abs(homeRating - awayRating);
+  const spreadGap = Math.abs(predSpread || 0);
+  const weakSide  = homeRating <= awayRating ? "home" : "away";
+  const weakTeam  = weakSide === "home" ? home : away;
+
+  // FCS by SP+ (clear signal even without rating gap)
+  if (isFCSLevel(home)) return { level: "fcs", weakSide: "home" };
+  if (isFCSLevel(away)) return { level: "fcs", weakSide: "away" };
+
+  // Rating gap ≥ 30 OR spread ≥ 28 → major mismatch even if both teams are "FBS"
+  // e.g. Florida State (82) vs New Mexico State (50 default) = gap 32
+  // e.g. Alabama (92) vs The Citadel (50 default) = gap 42
+  if (ratingGap >= 30 || spreadGap >= 28) {
+    // Extra check: if weaker team has no SP+ data (ESPN stub) treat as FCS-level
+    const level = (weakTeam.spRating == null || isFCSLevel(weakTeam)) ? "fcs" : "major";
+    return { level, weakSide };
+  }
+
+  // Significant gap — still worth flagging but grades still shown
+  if (ratingGap >= 20 || spreadGap >= 18) {
+    return { level: "significant", weakSide };
+  }
+
+  return { level: null, weakSide: null };
+}
+
+/**
+ * Stat quality multiplier — discounts inflated stats for weak-schedule teams.
+ * Now accepts the opponent so relative talent gap drives the discount, not just
+ * the team's absolute SP+ rating. This is what was missing:
+ * The Citadel vs FCS opponents looks like 35 PPG — pass that into a Texas A&M
+ * matchup and the model gave The Citadel credit for it. No more.
+ */
+function statQualityMultiplier(team, opponent) {
+  const sp  = team.spRating != null ? team.spRating : null;
+  const opp = opponent || null;
+
+  // Absolute SP+ quality
+  if (sp != null) {
+    if (sp < -20) return 0.58;   // FCS level
+    if (sp < -10) return 0.72;   // Bottom FBS
+    if (sp < -3)  return 0.87;   // Below-average FBS
+    if (sp < 5)   return 0.95;   // Average FBS
+    return 1.0;
+  }
+
+  // No SP+ data — use relative rating gap vs opponent
+  if (opp) {
+    const gap = (opp.rating || 50) - (team.rating || 50);
+    if (gap >= 35) return 0.55;  // Huge underdog (FCS-like with no SP+ data)
+    if (gap >= 25) return 0.68;  // Major underdog
+    if (gap >= 15) return 0.82;  // Significant underdog
+    if (gap >= 8)  return 0.92;  // Moderate underdog
+  }
+
+  // Fallback: use absolute rating
+  const r = team.rating || 50;
+  if (r < 30) return 0.60;
+  if (r < 40) return 0.75;
+  if (r < 48) return 0.88;
   return 1.0;
 }
 
@@ -52,15 +121,23 @@ function statQualityMultiplier(team) {
  * SOS-adjusted recent form score (0–100).
  * Raw win% is unreliable for teams on easy schedules.
  * SP+ (which already accounts for opponent quality) drives 75% of this score.
+ * When no SP+ exists, the rating relative to a Power-conference average is used.
  */
-function calcSOSAdjustedForm(team) {
+function calcSOSAdjustedForm(team, opponent) {
   const rawWinPct = team.wins / Math.max(1, team.wins + team.losses);
   const sp = team.spRating != null ? team.spRating : null;
-  if (sp == null) return Math.round(rawWinPct * 100);
-  // Map SP+ (−30 to +30) → 0–100 quality score
-  const spScore = clamp(55 + sp * 1.33, 5, 95);
-  // 25% raw record, 75% SP+-adjusted quality
-  return Math.round(rawWinPct * 25 + spScore * 0.75);
+
+  if (sp != null) {
+    const spScore = clamp(55 + sp * 1.33, 5, 95);
+    return Math.round(rawWinPct * 25 + spScore * 0.75);
+  }
+
+  // No SP+ — estimate from rating and opponent context
+  const r = team.rating || 50;
+  // Average FBS team = ~50 rating = ~55 score; Power team = ~80 = ~80 score
+  const rScore = clamp(10 + r * 1.4, 5, 95);
+  // Weight raw record more when opponent context is absent
+  return Math.round(rawWinPct * 40 + rScore * 0.60);
 }
 
 /* ─── WEIGHT CONSTANTS ────────────────────────────── */
@@ -143,8 +220,8 @@ function readableOnDark(hex) {
  * Returns 7-70.
  */
 function calcExpectedScore(team, opponent, isHome, neutralSite) {
-  // Discount inflated stats for teams on weak/FCS schedules
-  const sqm = statQualityMultiplier(team);
+  // Discount inflated stats — now relative to the opponent's quality level
+  const sqm = statQualityMultiplier(team, opponent);
   const base = (team.stats.pointsPerGame * sqm) * 0.58 + opponent.stats.pointsAllowedPerGame * 0.42;
   // Dynamic HFA — scales with fan atmosphere, momentum, and NIL strength (1.5–4.5 pts)
   const homeAdj = isHome ? calcHomeFieldIntensity(team, neutralSite) : 0;
@@ -1135,27 +1212,20 @@ function buildXFactors(game, home, away, pred) {
   }
 
   // ── FCS / Major Talent Mismatch ───────────────
-  const homeFCS = isFCSLevel(home);
-  const awayFCS = isFCSLevel(away);
-  if (homeFCS || awayFCS) {
-    const fcsTeam = homeFCS ? home : away;
+  // Use detectMismatch for relative-talent detection (catches teams with no SP+ data)
+  const mismatch = detectMismatch(home, away, pred ? (pred.predictedSpread || 0) : 0);
+  if (mismatch.level === "fcs" || mismatch.level === "major") {
+    const weakTeam  = mismatch.weakSide === "home" ? home : away;
+    const strongTeam = mismatch.weakSide === "home" ? away : home;
+    const isFCS = mismatch.level === "fcs";
     xFactors.push({
-      title:           "FCS Opponent — Major Mismatch",
-      description:     `${fcsTeam.name} is an FCS or FCS-level program. Their stats were compiled against significantly weaker competition — wins in this game carry minimal predictive value for future SOS calculations. A large margin of victory is expected.`,
-      severity:        9,
-      impactTeam:      homeFCS ? "away" : "home",
+      title:           isFCS ? "FCS / Non-Power Opponent — Major Mismatch" : "Major Talent Gap",
+      description:     isFCS
+        ? `${weakTeam.name} competes at a significantly lower level. Their stats were compiled against weaker competition — position group grades and recent form are not comparable to ${strongTeam.name}'s Power conference performance. A large margin is expected.`
+        : `Substantial talent disparity. ${weakTeam.name}'s schedule does not prepare them for a team of ${strongTeam.name}'s caliber — raw stats are misleading without SOS context.`,
+      severity:        isFCS ? 9 : 8,
+      impactTeam:      mismatch.weakSide === "home" ? "away" : "home",
       impactDirection: "positive",
-      category:        "matchup",
-    });
-  } else if (pred && Math.abs(pred.predictedSpread || 0) >= 28) {
-    const weakSide = (pred.predictedSpread || 0) > 0 ? "away" : "home";
-    const weakTeam = weakSide === "away" ? away : home;
-    xFactors.push({
-      title:           "Major Talent Gap",
-      description:     `Model projects a ~${Math.abs(Math.round(pred.predictedSpread || 0))}-point margin. Significant talent disparity — the weaker program's schedule strength does not indicate FBS-competitive performance at this level.`,
-      severity:        8,
-      impactTeam:      weakSide,
-      impactDirection: "negative",
       category:        "matchup",
     });
   }
@@ -2048,15 +2118,23 @@ function predictGame(game) {
     intelAlert,
 
     // Schedule strength / opponent quality context
-    sosInfo: {
-      homeIsFCS:    isFCSLevel(home),
-      awayIsFCS:    isFCSLevel(away),
-      homeSOSForm:  calcSOSAdjustedForm(home),
-      awaySOSForm:  calcSOSAdjustedForm(away),
-      homeStatMult: parseFloat(statQualityMultiplier(home).toFixed(2)),
-      awayStatMult: parseFloat(statQualityMultiplier(away).toFixed(2)),
-      majorMismatch: Math.abs(predSpread) >= 28,
-    },
+    // detectMismatch uses relative rating gap + predicted spread, not just SP+ alone.
+    // This catches ESPN-sourced teams (The Citadel, New Mexico State) that have no
+    // SP+ data and default to rating ~50 — a 30+ point gap vs Alabama (92) is caught.
+    sosInfo: (function() {
+      const mm = detectMismatch(home, away, predSpread);
+      return {
+        homeIsFCS:     isFCSLevel(home) || (mm.level === "fcs" && mm.weakSide === "home"),
+        awayIsFCS:     isFCSLevel(away) || (mm.level === "fcs" && mm.weakSide === "away"),
+        mismatchLevel: mm.level,
+        weakTeamSide:  mm.weakSide,
+        homeSOSForm:   calcSOSAdjustedForm(home, away),
+        awaySOSForm:   calcSOSAdjustedForm(away, home),
+        homeStatMult:  parseFloat(statQualityMultiplier(home, away).toFixed(2)),
+        awayStatMult:  parseFloat(statQualityMultiplier(away, home).toFixed(2)),
+        majorMismatch: mm.level === "fcs" || mm.level === "major" || Math.abs(predSpread) >= 28,
+      };
+    })(),
 
     // Factors & social
     factors,
