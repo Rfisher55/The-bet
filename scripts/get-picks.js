@@ -38,6 +38,40 @@ function allPredictions() {
     if (liveData.games && liveData.games.length > 0) games = liveData.games;
   } catch { /* no live file yet — use data.js stubs */ }
 
+  // Merge scraped public betting % from web-intel.json into game socialIntel
+  // web-intel is keyed by team name (lowercase). games-2026.json uses homeTeam.name.
+  let webIntelBetting = {};
+  try {
+    const wi = JSON.parse(
+      fs.readFileSync(path.resolve(__dirname, '..', 'data', 'web-intel.json'), 'utf8')
+    );
+    webIntelBetting = wi.bettingPcts || {};
+  } catch {}
+
+  games = games.map(g => {
+    const homeKey = (g.homeTeam?.name || g.home_team || "").toLowerCase();
+    const awayKey = (g.awayTeam?.name || g.away_team || "").toLowerCase();
+    const wib = webIntelBetting[homeKey] || webIntelBetting[awayKey];
+    // Only override if current source is "default" and we have real data
+    const currentSource = g.socialIntel?.publicBetting?.source;
+    if (wib && wib.spreadBetPct != null && currentSource === "default") {
+      const homePct = webIntelBetting[homeKey]?.spreadBetPct ?? (100 - (webIntelBetting[awayKey]?.spreadBetPct ?? 50));
+      return {
+        ...g,
+        socialIntel: {
+          ...(g.socialIntel || {}),
+          publicBetting: {
+            ...(g.socialIntel?.publicBetting || {}),
+            homePct,
+            awayPct: 100 - homePct,
+            source: "teamrankings",
+          },
+        },
+      };
+    }
+    return g;
+  });
+
   return games.map(g => {
     try {
       const game = resolveGame(g);
