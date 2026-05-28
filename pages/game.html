@@ -1887,6 +1887,15 @@ function renderGamePage(gData) {
 
   /* 3d — Position Group Matchup Analysis */
   function renderPositionMatchups() {
+    // FCS matchup: renderPositionMatchup() (no 's') already shows the FCS notice card —
+    // skip this second grid entirely to avoid misleading grade cards.
+    const sosI = pred && pred.sosInfo;
+    if (sosI && (sosI.homeIsFCS || sosI.awayIsFCS)) return "";
+
+    // Stat quality multipliers for weak-schedule teams (same as predictor)
+    const hSqm = (sosI && sosI.homeStatMult) || 1.0;
+    const aSqm = (sosI && sosI.awayStatMult) || 1.0;
+
     function letter(score) {
       const a = Math.abs(score);
       if (a >= 18) return "A+"; if (a >= 12) return "A"; if (a >= 7) return "B+";
@@ -1899,21 +1908,24 @@ function renderGamePage(gData) {
     }
     const hs = home.stats || {}, as_ = away.stats || {};
     // Matchup edge scores — positive = home advantage, negative = away advantage
+    // Offensive stats multiplied by team's sqm; defensive stats adjusted inversely.
     const matchups = [
       {
         icon: "⚡", label: "OFFENSIVE LINE vs D-LINE",
-        // Measures home run game vs away run defense, and home pass protection vs away pass rush
-        score: (hs.rushingYardsPerGame - as_.yardsAllowedPerGame * 0.4) * 0.35 + (hs.sacks - as_.sacksAllowed) * 1.8,
+        // Home rushing offense (discounted by hSqm) vs away run defense (inflated by 1/aSqm for weak schedules)
+        score: (hs.rushingYardsPerGame * hSqm - (as_.yardsAllowedPerGame / aSqm) * 0.4) * 0.35
+             + (hs.sacks * hSqm - as_.sacksAllowed / aSqm) * 1.8,
         home_lbl: `${home.abbreviation} OL / Run Game`,
         away_lbl: `${away.abbreviation} Defensive Line`,
         gen: (w, s) => s > 0
           ? `${home.name} wins the trenches — ${hs.rushingYardsPerGame} rush yds/gm vs ${away.name}'s ${(as_.yardsAllowedPerGame * 0.4).toFixed(0)} run yds allowed/gm. Pass pro holds up.`
-          : `${away.name} front four controls the line of scrimmage — ${as_.sacks} sacks/gm disrupts ${home.name}'s run blocking and creates negative plays.`
+          : `${away.name} front four controls the line of scrimmage — ${(as_.sacks || 0).toFixed(1)} sacks/gm disrupts ${home.name}'s run blocking and creates negative plays.`
       },
       {
         icon: "🎯", label: "QB vs SECONDARY",
-        // Measures home passing offense vs away pass defense
-        score: (hs.passingYardsPerGame - as_.yardsAllowedPerGame * 0.58) * 0.28 + (home.offensiveRating - away.defensiveRating) * 0.4,
+        // Home passing offense (discounted) vs away pass defense (inflated for weak schedules)
+        score: (hs.passingYardsPerGame * hSqm - (as_.yardsAllowedPerGame / aSqm) * 0.58) * 0.28
+             + (home.offensiveRating - away.defensiveRating) * 0.4,
         home_lbl: `${home.abbreviation} Passing Game`,
         away_lbl: `${away.abbreviation} Secondary`,
         gen: (w, s) => s > 0
@@ -1922,8 +1934,9 @@ function renderGamePage(gData) {
       },
       {
         icon: "🛡️", label: "RUN DEFENSE",
-        // Measures home run defense vs away ground game
-        score: (as_.rushingYardsPerGame - hs.yardsAllowedPerGame * 0.4) * -0.3 + (home.defensiveRating - away.offensiveRating) * 0.45,
+        // Away rushing offense (discounted by aSqm) vs home run defense (inflated by 1/hSqm)
+        score: ((as_.rushingYardsPerGame * aSqm) - (hs.yardsAllowedPerGame / hSqm) * 0.4) * -0.3
+             + (home.defensiveRating - away.offensiveRating) * 0.45,
         home_lbl: `${home.abbreviation} Run Defense`,
         away_lbl: `${away.abbreviation} Ground Game`,
         gen: (w, s) => s > 0
@@ -1932,8 +1945,9 @@ function renderGamePage(gData) {
       },
       {
         icon: "🔒", label: "AWAY QB vs HOME SECONDARY",
-        // Measures away passing offense vs home pass defense
-        score: (as_.passingYardsPerGame - hs.yardsAllowedPerGame * 0.58) * -0.28 + (home.defensiveRating - away.offensiveRating) * 0.35,
+        // Away passing offense (discounted by aSqm) vs home pass defense (inflated by 1/hSqm)
+        score: ((as_.passingYardsPerGame * aSqm) - (hs.yardsAllowedPerGame / hSqm) * 0.58) * -0.28
+             + (home.defensiveRating - away.offensiveRating) * 0.35,
         home_lbl: `${home.abbreviation} Secondary`,
         away_lbl: `${away.abbreviation} Passing Game`,
         gen: (w, s) => s >= 0
