@@ -20,6 +20,49 @@ function calcHomeFieldIntensity(team, neutralSite) {
   return clamp(hfi, 1.5, 4.5);
 }
 
+/* ─── FCS / SOS DETECTION ────────────────────────── */
+
+/**
+ * Returns true if a team appears to be FCS-level.
+ * FCS programs won't have CFBD SP+ data; their rating and SP+ will be very low.
+ * SP+ below -25 = clearly FCS; low overall rating with no SP+ = FCS-likely.
+ */
+function isFCSLevel(team) {
+  const sp = team.spRating != null ? team.spRating : null;
+  if (sp != null && sp < -25) return true;
+  if (sp == null && (team.rating || 50) < 25) return true;
+  return false;
+}
+
+/**
+ * Stat quality multiplier — discounts inflated stats for teams with weak schedules.
+ * An FCS team posting 35 PPG against FCS opponents is NOT comparable to a Power team's 35.
+ * Multiplier applied to the team's PPG before expected-score calculation.
+ */
+function statQualityMultiplier(team) {
+  const sp = team.spRating != null ? team.spRating : null;
+  if (sp == null) return (team.rating || 50) < 25 ? 0.65 : 0.88;
+  if (sp < -25) return 0.65;   // FCS — stats heavily inflated by weak schedule
+  if (sp < -15) return 0.80;   // Bottom-tier FBS
+  if (sp < -5)  return 0.92;   // Below-average FBS
+  return 1.0;
+}
+
+/**
+ * SOS-adjusted recent form score (0–100).
+ * Raw win% is unreliable for teams on easy schedules.
+ * SP+ (which already accounts for opponent quality) drives 75% of this score.
+ */
+function calcSOSAdjustedForm(team) {
+  const rawWinPct = team.wins / Math.max(1, team.wins + team.losses);
+  const sp = team.spRating != null ? team.spRating : null;
+  if (sp == null) return Math.round(rawWinPct * 100);
+  // Map SP+ (−30 to +30) → 0–100 quality score
+  const spScore = clamp(55 + sp * 1.33, 5, 95);
+  // 25% raw record, 75% SP+-adjusted quality
+  return Math.round(rawWinPct * 25 + spScore * 0.75);
+}
+
 /* ─── WEIGHT CONSTANTS ────────────────────────────── */
 const WEIGHTS = {
   baseModel:          0.30,
@@ -100,7 +143,9 @@ function readableOnDark(hex) {
  * Returns 7-70.
  */
 function calcExpectedScore(team, opponent, isHome, neutralSite) {
-  const base = team.stats.pointsPerGame * 0.58 + opponent.stats.pointsAllowedPerGame * 0.42;
+  // Discount inflated stats for teams on weak/FCS schedules
+  const sqm = statQualityMultiplier(team);
+  const base = (team.stats.pointsPerGame * sqm) * 0.58 + opponent.stats.pointsAllowedPerGame * 0.42;
   // Dynamic HFA — scales with fan atmosphere, momentum, and NIL strength (1.5–4.5 pts)
   const homeAdj = isHome ? calcHomeFieldIntensity(team, neutralSite) : 0;
   const ratingAdj = (team.rating - opponent.rating) * 0.08;
@@ -1089,6 +1134,32 @@ function buildXFactors(game, home, away, pred) {
     });
   }
 
+  // ── FCS / Major Talent Mismatch ───────────────
+  const homeFCS = isFCSLevel(home);
+  const awayFCS = isFCSLevel(away);
+  if (homeFCS || awayFCS) {
+    const fcsTeam = homeFCS ? home : away;
+    xFactors.push({
+      title:           "FCS Opponent — Major Mismatch",
+      description:     `${fcsTeam.name} is an FCS or FCS-level program. Their stats were compiled against significantly weaker competition — wins in this game carry minimal predictive value for future SOS calculations. A large margin of victory is expected.`,
+      severity:        9,
+      impactTeam:      homeFCS ? "away" : "home",
+      impactDirection: "positive",
+      category:        "matchup",
+    });
+  } else if (pred && Math.abs(pred.predictedSpread || 0) >= 28) {
+    const weakSide = (pred.predictedSpread || 0) > 0 ? "away" : "home";
+    const weakTeam = weakSide === "away" ? away : home;
+    xFactors.push({
+      title:           "Major Talent Gap",
+      description:     `Model projects a ~${Math.abs(Math.round(pred.predictedSpread || 0))}-point margin. Significant talent disparity — the weaker program's schedule strength does not indicate FBS-competitive performance at this level.`,
+      severity:        8,
+      impactTeam:      weakSide,
+      impactDirection: "negative",
+      category:        "matchup",
+    });
+  }
+
   // Sort by severity descending
   xFactors.sort((a, b) => b.severity - a.severity);
 
@@ -1859,13 +1930,12 @@ function predictGame(game) {
   const xFactors = buildXFactors(game, home, away, predPartial);
 
   /* ── Model Breakdown (backward-compatible) ────── */
-  const homeW  = (home.wins / Math.max(1, home.wins + home.losses) * 100) | 0;
   const hCoachW = parseInt((home.coachRecord || "0-0").split("-")[0]) || 0;
   const hCoachT = hCoachW + (parseInt((home.coachRecord || "0-0").split("-")[1]) || 0);
 
   const modelBreakdown = {
     offenseVsDefense:   Math.round((home.offensiveRating + away.defensiveRating) / 2),
-    recentForm:         homeW,
+    recentForm:         calcSOSAdjustedForm(home),  // SOS-adjusted: SP+ drives 75%, raw W-L 25%
     homeFieldAdvantage: neutral ? 0 : 65,
     headToHead:         52,
     coachingEdge:       hCoachT > 0 ? Math.round(hCoachW / hCoachT * 100) : 60,
@@ -1976,6 +2046,17 @@ function predictGame(game) {
     injuryAlert,
     sharpAlert,
     intelAlert,
+
+    // Schedule strength / opponent quality context
+    sosInfo: {
+      homeIsFCS:    isFCSLevel(home),
+      awayIsFCS:    isFCSLevel(away),
+      homeSOSForm:  calcSOSAdjustedForm(home),
+      awaySOSForm:  calcSOSAdjustedForm(away),
+      homeStatMult: parseFloat(statQualityMultiplier(home).toFixed(2)),
+      awayStatMult: parseFloat(statQualityMultiplier(away).toFixed(2)),
+      majorMismatch: Math.abs(predSpread) >= 28,
+    },
 
     // Factors & social
     factors,
