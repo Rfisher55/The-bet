@@ -1309,6 +1309,11 @@ const LIVE = (() => {
     // ── Build all lookup maps ────────────────────────────────
     const spMap = {};
     (data.spRatings || []).forEach(r => { if (r.team) spMap[r.team] = r; });
+    // If CFBD SP+ is unavailable, use team-extras.json cache loaded at startup
+    if (!Object.keys(spMap).length && window.__spRatings) {
+      (window.__spRatings || []).forEach(r => { if (r.team) spMap[r.team] = r; });
+      if (Object.keys(spMap).length) console.log("[LIVE] SP+ fallback: using cached team-extras.json (" + Object.keys(spMap).length + " teams)");
+    }
 
     const talentMap = {};
     (data.talent || []).forEach(t => { if (t.school) talentMap[t.school] = t.talent; });
