@@ -570,6 +570,7 @@ function getPastPicks() {
       const pickTeam   = (tp && tp.team) ? tp.team : (sp.side === 'home' ? game.homeTeam.name : game.awayTeam.name);
       const pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name || '').toLowerCase();
       const vegasLine  = bl.spread != null ? (pickIsHome ? bl.spread : -bl.spread) : null;
+      const smSig      = pred.sharpMoneySignal || {};
       return {
         gameId:     game.id,
         week:       game.week,
@@ -583,6 +584,7 @@ function getPastPicks() {
         pickTeam,
         vegasSpread: vegasLine,
         conf,
+        sharpAligns: !!(smSig.side && smSig.side !== 'neutral' && ((smSig.side === 'home') === pickIsHome)),
         hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
         hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
         reasoning:  tp && tp.reasoning ? tp.reasoning : null,
