@@ -388,7 +388,7 @@ function tweetConference(confFilter, count = 1) {
     ? [confFilter]
     // Names must match exactly what data.js / data-fbs-stubs.js store in t.conference
     : ['SEC', 'Big Ten', 'Big 12', 'ACC', 'Mountain West', 'Sun Belt', 'MAC',
-       'Conference USA', 'American Athletic', 'FBS Independents', 'Independent', 'Pac-2'];
+       'Conference USA', 'American Athletic', 'FBS Independents', 'Pac-2'];
 
   return confs.flatMap(conf => {
     const confTeams = [...ALL_TEAMS]

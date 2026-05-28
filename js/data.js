@@ -353,7 +353,7 @@ var TEAMS = {
     name: "Notre Dame",
     abbreviation: "ND",
     mascot: "Fighting Irish",
-    conference: "Independent",
+    conference: "FBS Independents",
     color: "#0C2340",
     wins: 0, losses: 0, lastSeasonRecord: "13-2 (2025 CFP Runner-Up)",
     rating: 91, offensiveRating: 88, defensiveRating: 93, spRating: 23.6,
