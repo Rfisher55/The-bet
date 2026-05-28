@@ -39,6 +39,10 @@ vm.runInNewContext(JS('data-fbs-stubs.js'), sandbox);
 const ALL_TEAMS = Object.values(sandbox.TEAMS || {}).filter(t => t.conference !== 'FCS');
 const sorted    = [...ALL_TEAMS].sort((a, b) => b.rating - a.rating);
 
+// Actual sorted position (matches what the website shows)
+const _rankMap  = new Map(sorted.map((t, i) => [t.id, i + 1]));
+const modelRank = t => _rankMap.get(t.id) || Math.max(1, Math.round((100 - t.rating) * 1.5) + 1);
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 const fit = (core, extras, max = 280) => {
   let t = core;
@@ -114,15 +118,15 @@ function buildHotTake(t) {
   const m     = t.programHealth?.programMomentum || 'stable';
   const coach = t.coachName || 'their staff';
   const wins  = winProjFromRating(r);
-  const iRank = impliedRank(r);
+  const iRank = modelRank(t);
 
   // Pick the spiciest take based on the data
   const takes = [];
 
-  if (ap && iRank < ap - 5)
+  if (ap && iRank < ap - 3)
     takes.push(`🔥 HOT TAKE: ${t.name} is more dangerous than their AP ranking suggests.\n\nAP: #${ap} | Our model: #${iRank}\n\nThe gap doesn't lie. ${t.name} is being underpriced by the market going into 2026.\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`);
 
-  if (ap && iRank > ap + 5)
+  if (ap && iRank > ap + 3)
     takes.push(`⚠️ FADE ALERT: ${t.name} is overrated.\n\nAP: #${ap} | Our model: #${iRank}\n\nThe hype is ahead of the production. Be careful laying juice on this program early in the season.\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`);
 
   if (m === 'rising' && r < 80)
@@ -155,18 +159,18 @@ function tweetSleepers(count = 5) {
   return sorted
     .filter(t => {
       const ap = t.apRank || 99;
-      return t.rating >= 78 && (ap - impliedRank(t.rating)) >= 6;
+      return t.rating >= 78 && (ap - modelRank(t)) >= 4;
     })
     .sort((a, b) => {
-      const ag = (a.apRank || 99) - impliedRank(a.rating);
-      const bg = (b.apRank || 99) - impliedRank(b.rating);
+      const ag = (a.apRank || 99) - modelRank(a);
+      const bg = (b.apRank || 99) - modelRank(b);
       return bg - ag;
     })
     .slice(0, count)
     .map(t => {
-      const gap = (t.apRank || 99) - impliedRank(t.rating);
+      const gap = (t.apRank || 99) - modelRank(t);
       return fit(
-        `🔍 SLEEPER: ${t.name}\n\nModel rank: #${impliedRank(t.rating)} | AP: ${t.apRank ? '#' + t.apRank : 'unranked'}\nHidden by ${gap} spots.\n\nRating: ${t.rating}/100 · Momentum: ${t.programHealth?.programMomentum || 'stable'}`,
+        `🔍 SLEEPER: ${t.name}\n\nModel rank: #${modelRank(t)} | AP: ${t.apRank ? '#' + t.apRank : 'unranked'}\nHidden by ${gap} spots.\n\nRating: ${t.rating}/100 · Momentum: ${t.programHealth?.programMomentum || 'stable'}`,
         [
           `\nPortal: ${t.programHealth?.transferPortalRating || 'N/A'}/100`,
           `\nProjected wins: ${winProjFromRating(t.rating)}`,
@@ -179,20 +183,20 @@ function tweetSleepers(count = 5) {
 function tweetFades(count = 5) {
   return sorted
     .filter(t => {
-      const iR = impliedRank(t.rating);
-      return t.apRank && (iR - t.apRank) >= 5;
+      const iR = modelRank(t);
+      return t.apRank && (iR - t.apRank) >= 3;
     })
     .sort((a, b) => {
-      const ag = impliedRank(a.rating) - (a.apRank || 99);
-      const bg = impliedRank(b.rating) - (b.apRank || 99);
+      const ag = modelRank(a) - (a.apRank || 99);
+      const bg = modelRank(b) - (b.apRank || 99);
       return bg - ag;
     })
     .slice(0, count)
     .map(t => {
-      const gap = impliedRank(t.rating) - t.apRank;
+      const gap = modelRank(t) - t.apRank;
       const m   = t.programHealth?.programMomentum || 'stable';
       return fit(
-        `⚠️ FADE: ${t.name} (AP #${t.apRank})\n\nModel rank: #${impliedRank(t.rating)}\nOvervalued by ${gap} spots.`,
+        `⚠️ FADE: ${t.name} (AP #${t.apRank})\n\nModel rank: #${modelRank(t)}\nOvervalued by ${gap} spots.`,
         [
           m === 'declining' ? `\n📉 Program momentum: DECLINING` : '',
           `\nCoach hot seat: ${t.programHealth?.coachHotSeat || 0}/10`,
@@ -289,12 +293,12 @@ function tweetConference(confFilter, count = 1) {
 
     const top = confTeams[0];
     const sleeper = confTeams.find(t => {
-      const gap = (t.apRank || 99) - impliedRank(t.rating);
-      return gap >= 5 && t !== top;
+      const gap = (t.apRank || 99) - modelRank(t);
+      return gap >= 3 && t !== top;
     });
     const fade = confTeams.find(t => {
-      const gap = impliedRank(t.rating) - (t.apRank || 99);
-      return gap >= 5 && t !== top && t.apRank;
+      const gap = modelRank(t) - (t.apRank || 99);
+      return gap >= 3 && t !== top && t.apRank;
     });
 
     const ranked = confTeams.slice(0, 6).map((t, i) =>
