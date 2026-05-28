@@ -1791,7 +1791,7 @@ const LIVE = (() => {
         if (isDome) ex.weatherProfile = { ...(ex.weatherProfile || {}), isDome: true };
         if (capacity && !ex.stadiumCapacity) ex.stadiumCapacity = capacity;
         if (timezone && !ex.timezone) ex.timezone = timezone;
-        if (!ex.coachName || ex.coachName === "Unknown") ex.coachName = coach;
+        if (coach && (!ex.coachName || ex.coachName === "Unknown" || ex.fromStub)) ex.coachName = coach;
         if (coachRec) ex.coachRecord = coachRec;
 
         // Ratings — real data wins over estimates

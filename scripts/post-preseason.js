@@ -107,14 +107,13 @@ const fit = (core, extras, max = 280) => {
 const pct  = n  => `${Math.round(n * 100)}%`;
 const rank = n  => { const s = ['th','st','nd','rd']; return `${n}${s[(n%100-10)*(n%100-10)<9?0:(n%10<4?n%10:0)]||'th'}`; };
 const impliedRank = r => Math.max(1, Math.round((100 - r) * 1.5) + 1);
-const winProjFromRating = r => {
-  if (r >= 93) return '12-13';
-  if (r >= 88) return '10-11';
-  if (r >= 83) return '9-10';
-  if (r >= 78) return '8-9';
-  if (r >= 73) return '7-8';
-  if (r >= 68) return '5-7';
-  return '4-6';
+const winProjFromRating = (r, games = 12) => {
+  // Same logistic formula used in pages/teams.html projectedRecord()
+  // Uses an average FBS opponent (rating 70) since we don't have the full schedule yet.
+  const prob = 1 / (1 + Math.exp(-(r - 70) / 10));
+  const wins = Math.round(prob * games);
+  const losses = games - wins;
+  return `${wins}-${losses}`;
 };
 
 // Opinion phrases keyed by momentum/rating tier
