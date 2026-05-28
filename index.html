@@ -1320,7 +1320,13 @@ function renderHeroPick() {
   if (!wk1.length) return; // leave skeleton
 
   var confW = { elite: 4, high: 3, medium: 2, low: 1 };
-  var best = wk1.map(function(p) {
+  // Exclude blowout mismatches (spread >28) — those are warmup games, not interesting picks
+  var competitive = wk1.filter(function(p) {
+    var spread = p.game.bettingLines && p.game.bettingLines.spread;
+    return !spread || Math.abs(spread) <= 28;
+  });
+  var pickPool = competitive.length ? competitive : wk1;
+  var best = pickPool.map(function(p) {
     var sp   = p.prediction.spreadPick;
     var edge = sp && sp.side !== "no-bet" ? (sp.edge || 0) : 0;
     return { game: p.game, pred: p.prediction, score: (confW[p.prediction.confidence] || 1) * 3 + edge };
@@ -1463,6 +1469,12 @@ function renderTopPicks() {
   // Filter to current week only, then score by confidence + model edge
   var weekPreds = allPredictions.filter(function(p) { return p.game.week === currentWeek; });
   if (!weekPreds.length) weekPreds = allPredictions; // fallback: all games
+  // Filter out blowout mismatches — not interesting featured picks
+  var weekPredsComp = weekPreds.filter(function(p) {
+    var spread = p.game.bettingLines && p.game.bettingLines.spread;
+    return !spread || Math.abs(spread) <= 28;
+  });
+  if (weekPredsComp.length >= 3) weekPreds = weekPredsComp;
 
   var scored = weekPreds.map(function(p) {
     var tp = p.game.gamePreview && p.game.gamePreview.thePick;
