@@ -180,10 +180,25 @@ const SEASON = 2026;
     .then(function(d) {
       if (!d) return;
       window.__webIntel = d;
-      // Merge Reddit sentiment into __teamRedditBuzz (web-intel has richer data)
+      // Merge Reddit sentiment into __teamRedditBuzz AND push it back into TEAMS
       if (d.redditSentiment) {
         window.__teamRedditBuzz = window.__teamRedditBuzz || {};
         Object.assign(window.__teamRedditBuzz, d.redditSentiment);
+        // Update fanMorale and programMomentum from Reddit buzz so the predictor uses live sentiment
+        Object.entries(d.redditSentiment).forEach(function(entry) {
+          var teamId = entry[0], buzz = entry[1];
+          var team = window.TEAMS && window.TEAMS[teamId];
+          if (!team || !team.programHealth) return;
+          var buzzScore  = (typeof buzz === "object" ? (buzz.buzz || 50) : 50);
+          var sentiment  = (typeof buzz === "object" ? (buzz.avgSentiment || 0) : 0);
+          // Blend: 65% existing data, 35% Reddit signal (Reddit is noisy but directionally useful)
+          var existing = team.programHealth.fanMorale || 60;
+          team.programHealth.fanMorale = Math.round(existing * 0.65 + buzzScore * 0.35);
+          // Update programMomentum direction from sentiment
+          if      (sentiment >  0.3) team.programHealth.programMomentum = "rising";
+          else if (sentiment < -0.3) team.programHealth.programMomentum = "declining";
+          team.programHealth._redditUpdated = true;
+        });
       }
       // Merge team news (web-intel news supplements team-extras news)
       if (d.newsByTeam) {

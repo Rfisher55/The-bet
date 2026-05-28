@@ -614,6 +614,11 @@ function calcWeatherImpact(game, home, away) {
   const condition  = (wx.condition  || "clear").toLowerCase();
   const humidity   = wx.humidity    ?? 50;    // percent
 
+  // Historical weather ATS records are 2025 estimates — reduce their edge contribution
+  // until the model has tracked enough 2026 games in each condition to be reliable.
+  const homeWxScale = safeGet(home, "weatherProfile._recordsEstimated", false) ? 0.5 : 1.0;
+  const awayWxScale = safeGet(away, "weatherProfile._recordsEstimated", false) ? 0.5 : 1.0;
+
   let homeAdj  = 0;
   let awayAdj  = 0;
   let totalAdj = 0;
@@ -626,9 +631,9 @@ function calcWeatherImpact(game, home, away) {
     const homePassHeavy = (home.stats.passingYardsPerGame || 0) > 280;
     const awayPassHeavy = (away.stats.passingYardsPerGame || 0) > 280;
     const homeAdapted = (safeGet(home, "weatherProfile.coldWeatherAdvantage", 0) || 0) >= 6;
-    const homeColdBonus = homeAdapted ? 0.6 : 1.0;
+    const homeColdBonus = homeAdapted ? 0.6 * homeWxScale : 1.0;
     const awayAdapted = (safeGet(away, "weatherProfile.coldWeatherAdvantage", 0) || 0) >= 6;
-    const awayColdBonus = awayAdapted ? 0.6 : 1.0;
+    const awayColdBonus = awayAdapted ? 0.6 * awayWxScale : 1.0;
 
     homeAdj  -= coldPenalty * (homePassHeavy ? 1.15 : 0.85) * homeColdBonus;
     awayAdj  -= coldPenalty * (awayPassHeavy ? 1.15 : 0.85) * awayColdBonus;
@@ -732,6 +737,13 @@ function calcCoachingEdge(home, away) {
   const hCoach = home.coachingProfile || {};
   const aCoach = away.coachingProfile || {};
 
+  // Coaching scheme tendencies are 2025 hardcoded data — reduce their influence until
+  // live 2026 coaching data (new OC/DC hires, scheme shifts) is available via CFBD.
+  // Records (closeGame, bigSpot, ATS) are also 2025 data but still directionally useful.
+  const hTendScale = hCoach._tendenciesEstimated ? 0.6 : 1.0;
+  const aTendScale = aCoach._tendenciesEstimated ? 0.6 : 1.0;
+  const tendScale  = Math.min(hTendScale, aTendScale);
+
   let homeEdge = 0;
   let notes    = [];
 
@@ -786,43 +798,39 @@ function calcCoachingEdge(home, away) {
   const atsEdge = (hAtsPct - aAtsPct) * 1.5;
   homeEdge += atsEdge;
 
-  // ── Scheme Matchup ────────────────────────────
+  // ── Scheme Matchup (discounted when tendencies are 2025 estimates) ──
   const hTend = hCoach.tendencies || {};
   const aTend = aCoach.tendencies || {};
 
   // Aggressive offense vs soft defense
   const hAgg = hTend.aggressiveness || 5;
   const aAgg = aTend.aggressiveness || 5;
-  const aggEdge = (hAgg - aAgg) * 0.12;
-  homeEdge += aggEdge;
+  homeEdge += (hAgg - aAgg) * 0.12 * tendScale;
 
   // Tempo mismatch — high-tempo offense vs slow defense
   const hTempo = hTend.tempoPreference || "moderate";
   const aTempo = aTend.tempoPreference || "moderate";
   if (hTempo === "hurry-up" && aTend.defensiveScheme === "complex") {
-    homeEdge += 0.5; // fast offense exploits complex scheme
+    homeEdge += 0.5 * tendScale;
     notes.push(`${home.coachName}'s hurry-up tempo creates problems for ${away.coachName}'s complex defensive scheme.`);
   }
   if (aTempo === "hurry-up" && hTend.defensiveScheme === "complex") {
-    homeEdge -= 0.5;
+    homeEdge -= 0.5 * tendScale;
     notes.push(`${away.coachName}'s hurry-up tempo creates problems for ${home.coachName}'s complex defensive scheme.`);
   }
 
   // Blitz-heavy vs good protection
   const hBlitz = hTend.blitzRate || 5;
-  const aBlitz = aTend.blitzRate || 5;
-  // If home team blitzes more against away team with good protection
   if (hBlitz >= 7 && (away.stats.sacksAllowed || 2.0) <= 1.5) {
-    homeEdge -= 0.4; // blitzing into good protection backfires
+    homeEdge -= 0.4 * tendScale;
   } else if (hBlitz >= 7 && (away.stats.sacksAllowed || 2.0) >= 2.5) {
-    homeEdge += 0.5; // blitzing vs leaky OL works
+    homeEdge += 0.5 * tendScale;
   }
 
   // ── Staff Stability ───────────────────────────
   const hStability = hCoach.staffStability || 7;
   const aStability = aCoach.staffStability || 7;
-  const stabilityEdge = (hStability - aStability) * 0.15;
-  homeEdge += stabilityEdge;
+  homeEdge += (hStability - aStability) * 0.15 * tendScale;
 
   // ── Hot Seat Penalty ──────────────────────────
   const hHotSeat = safeGet(home, "programHealth.coachHotSeat", false);
@@ -1012,28 +1020,37 @@ function calcProgramMomentumAdj(team) {
   const ph = team.programHealth || {};
   let adj = 0;
 
+  // If program health data is hardcoded 2025 estimates (not yet updated by live APIs),
+  // reduce the adjustment strength — stale data shouldn't swing predictions as hard.
+  // fanMorale/programMomentum are exempt when Reddit has updated them (_redditUpdated).
+  const isEstimated = ph._estimated && !ph._redditUpdated;
+  const estimatedScale = isEstimated ? 0.55 : 1.0;
+
   // Normalize 0-100 scale fields to 0-10 midpoint-5 scale
   const nil    = (ph.nilStrength    != null ? ph.nilStrength    / 10 : 5);
   const portal = (ph.transferPortalRating != null ? ph.transferPortalRating / 10 : 5);
-  adj += (nil    - 5) * 0.15;
-  adj += (portal - 5) * 0.12;
+  adj += (nil    - 5) * 0.15 * estimatedScale;
+  adj += (portal - 5) * 0.12 * estimatedScale;
 
   // coachHotSeat is 1-10; threshold >= 7 = significant distraction
-  if ((ph.coachHotSeat || 1) >= 7) adj -= 0.5;
+  if ((ph.coachHotSeat || 1) >= 7) adj -= 0.5 * estimatedScale;
 
   // programMomentum is a string; map to numeric
-  const momentumMap = { rising: 7, stable: 5, declining: 3 };
+  // Reddit updates this field directly, so don't scale it down even when estimated
+  const momentumMap = { rising: 7, stable: 5, declining: 3, rebuilding: 2 };
   const momentum = momentumMap[ph.programMomentum] ?? 5;
   adj += (momentum - 5) * 0.20;
 
   // Normalize 0-100 scale fields
+  // fanMorale is updated from Reddit buzz — use full weight if live, reduced if static
+  const fanMoraleScale = (isEstimated && !ph._redditUpdated) ? 0.6 : 1.0;
   const fanMorale      = (ph.fanMorale       != null ? ph.fanMorale       / 10 : 5);
   const cohesion       = (ph.lockerRoomCohesion != null ? ph.lockerRoomCohesion / 10 : 7);
   const depthStability = (ph.depthChartStability != null ? ph.depthChartStability / 10 : 7);
-  adj += (fanMorale - 5) * 0.08;
-  adj += (cohesion  - 5) * 0.14;
-  if (depthStability <= 4)      adj -= 0.4;
-  else if (depthStability >= 8) adj += 0.2;
+  adj += (fanMorale - 5) * 0.08 * fanMoraleScale;
+  adj += (cohesion  - 5) * 0.14 * estimatedScale;
+  if (depthStability <= 4)      adj -= 0.4 * estimatedScale;
+  else if (depthStability >= 8) adj += 0.2 * estimatedScale;
 
   return clamp(adj, -2, 2);
 }
