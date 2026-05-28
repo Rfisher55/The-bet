@@ -883,10 +883,11 @@ function renderGameCard(game, pred) {
           chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.5);color:#f87171" title="${snippet.replace(/"/g,"'")}">🚨 INSIDER</span>`);
         }
 
-        // Public betting
+        // Public betting — only real data; source:"default" = estimated 50/50, not live
         const pub = bl?.homePublicPct ?? bl?.publicBettingHome;
         const pbSI = game.socialIntel && game.socialIntel.publicBetting;
-        const pubHome2 = pub != null ? pub : (pbSI && pbSI.homePct != null ? pbSI.homePct : null);
+        const pbSIReal = (pbSI && pbSI.source !== 'default') ? pbSI : null;
+        const pubHome2 = pub != null ? pub : (pbSIReal && pbSIReal.homePct != null ? pbSIReal.homePct : null);
         let publicFadesOurPick = false;
         if (pubHome2 != null) {
           const favTeam = pubHome2 > 50 ? home.abbreviation : away.abbreviation;
@@ -947,8 +948,10 @@ function renderGameCard(game, pred) {
             const sharpAligned3 = sm3.side && ((pickIsHome3b && sm3.side === "home") || (!pickIsHome3b && sm3.side === "away"))
               && (sm3.strength >= 5);
             const pbSI3 = game.socialIntel && game.socialIntel.publicBetting;
-            if (sharpAligned3 && pbSI3 && pbSI3.homePct != null) {
-              const pubOnPick3 = pickIsHome3b ? pbSI3.homePct : (100 - pbSI3.homePct);
+            // Triple lock requires REAL public betting data — reject default 50/50 estimates
+            const pbSI3Real = (pbSI3 && pbSI3.source !== 'default') ? pbSI3 : null;
+            if (sharpAligned3 && pbSI3Real && pbSI3Real.homePct != null) {
+              const pubOnPick3 = pickIsHome3b ? pbSI3Real.homePct : (100 - pbSI3Real.homePct);
               if (pubOnPick3 <= 42) {
                 chips.push(`<span style="font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.5);color:var(--primary)">🔒 TRIPLE LOCK</span>`);
               }
@@ -1071,14 +1074,17 @@ function render() {
   } else if (typeFilter === "fade") {
     // Fade the public: model pick opposes public majority (>=55%)
     list = list.filter(({ game, prediction: pred }) => {
-      const pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
+      // Only use real public betting data for fade filter
+      const _pbFade = game.socialIntel && game.socialIntel.publicBetting;
+      const pb = (_pbFade && _pbFade.source !== 'default') ? _pbFade : null;
+      if (!pb || pb.homePct == null) return false;
       const sp = pred.spreadPick || {};
       const tp = game.gamePreview && game.gamePreview.thePick;
       const pickTeam = (tp && tp.team) ? tp.team : sp.team;
       if (!pickTeam) return false;
       const pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name||"").toLowerCase() ||
                          pickTeam.toLowerCase() === (game.homeTeam.abbreviation||"").toLowerCase();
-      const homePct = pb.homePct || 50;
+      const homePct = pb.homePct;
       const pubOnHome = homePct >= 55;
       const pubOnAway = (100 - homePct) >= 55;
       return (pickIsHome && pubOnAway) || (!pickIsHome && pubOnHome);
@@ -1105,8 +1111,11 @@ function render() {
       const sharpAligned = sm.side && ((pickIsHome && sm.side === "home") || (!pickIsHome && sm.side === "away"))
         && sm.strength >= 5;
       if (!sharpAligned) return false;
-      const pb = (game.socialIntel && game.socialIntel.publicBetting) || {};
-      const pubOnPick = pickIsHome ? (pb.homePct || 50) : (100 - (pb.homePct || 50));
+      // Triple lock requires real public betting data
+      const _pbTl = game.socialIntel && game.socialIntel.publicBetting;
+      const pb = (_pbTl && _pbTl.source !== 'default') ? _pbTl : null;
+      if (!pb || pb.homePct == null) return false;
+      const pubOnPick = pickIsHome ? pb.homePct : (100 - pb.homePct);
       return pubOnPick <= 42;
     });
   } else if (typeFilter === "streak") {

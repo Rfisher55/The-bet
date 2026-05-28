@@ -1230,9 +1230,11 @@ function buildActionPlan(a, b, effPred, gameCtx) {
   if (sm && sm.strength >= 5 && sm.side === sp.side)
     proBullets.push('Sharp money aligned with this pick');
   var si = (gameCtx && gameCtx.socialIntel) || {};
-  var pb = si.publicBetting || {};
-  var ourPubPct = sp.side === 'home' ? (pb.homePct || 50) : (pb.awayPct || (100 - (pb.homePct || 50)));
-  if (ourPubPct <= 40) proBullets.push('Only ' + Math.round(ourPubPct) + '% of public on this side — contrarian value');
+  var _pbRawCmp = si.publicBetting;
+  // Only use real public betting data — reject default estimates
+  var pb = (_pbRawCmp && _pbRawCmp.source !== 'default') ? _pbRawCmp : null;
+  var ourPubPct = pb ? (sp.side === 'home' ? (pb.homePct || 50) : (pb.awayPct || (100 - (pb.homePct || 50)))) : 50;
+  if (pb && ourPubPct <= 40) proBullets.push('Only ' + Math.round(ourPubPct) + '% of public on this side — contrarian value');
 
   // Caution bullets
   var cautionBullets = [];

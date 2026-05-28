@@ -513,12 +513,15 @@ function buildLineMoveDash() {
     var absMove = Math.abs(movement);
     if (absMove < 0.5) return;
 
-    var pb = (si.publicBetting) || {};
-    var homePct = pb.homePct || 50;
-    var awayPct = pb.awayPct || 50;
+    // Only use real public betting data for RLM detection
+    var _pbRaw = si.publicBetting;
+    var pb = (_pbRaw && _pbRaw.source !== 'default') ? _pbRaw : {};
+    var homePct = pb.homePct != null ? pb.homePct : null;
+    var awayPct = pb.awayPct != null ? pb.awayPct : null;
 
-    // RLM: majority bets one side but line moves the other
-    var isRLM = (homePct >= 58 && movement > 0) || (awayPct >= 58 && movement < 0);
+    // RLM: majority bets one side but line moves the other (requires real data)
+    var isRLM = homePct != null && awayPct != null &&
+                ((homePct >= 58 && movement > 0) || (awayPct >= 58 && movement < 0));
     var isSteam = absMove >= 1.5;
 
     var homeTeam = window.TEAMS && window.TEAMS[game.homeTeamId];
@@ -845,8 +848,9 @@ function buildValuePlays() {
       if (!sp.side || sp.side === "no-bet" || (sp.edge || 0) < 1.5) return;
 
       var si = (game.socialIntel) || {};
-      var pb = si.publicBetting || {};
-      var homePct = pb.homePct || 50;
+      var _pbRaw2 = si.publicBetting;
+      var pb = (_pbRaw2 && _pbRaw2.source !== 'default') ? _pbRaw2 : {};
+      var homePct = pb.homePct != null ? pb.homePct : 50;
       var ourPubPct = sp.side === "home" ? homePct : (100 - homePct);
 
       var sm = pred.sharpMoneySignal;
@@ -930,12 +934,13 @@ function buildSharpSummary() {
     var g = window.resolveGame ? resolveGame(game) : game;
     var pred = window.predictGame ? predictGame(g) : null;
     var si = g.socialIntel || {};
-    var pb = si.publicBetting || {};
+    var _pbRaw3 = si.publicBetting;
+    var pb = (_pbRaw3 && _pbRaw3.source !== 'default') ? _pbRaw3 : null;
     var lm = si.lineMovement || [];
     var sm = pred && pred.sharpMoneySignal ? pred.sharpMoneySignal : null;
 
-    var homePct = pb.homePct || 50;
-    var awayPct = pb.awayPct || (100 - homePct);
+    var homePct = pb && pb.homePct != null ? pb.homePct : 50;
+    var awayPct = pb && pb.awayPct != null ? pb.awayPct : (100 - homePct);
 
     // Determine public favorite
     var pubSide   = homePct > awayPct ? "home" : "away";
@@ -1034,8 +1039,10 @@ function buildPublicOverload() {
       var g = window.resolveGame ? resolveGame(game) : game;
       var pred = window.predictGame ? predictGame(g) : null;
       var si = g.socialIntel || {};
-      var pb = si.publicBetting || {};
-      var homePct = pb.homePct != null ? pb.homePct : null;
+      var _pbRaw4 = si.publicBetting;
+      // Only use real public betting — reject default 50/50 estimates
+      var pb = (_pbRaw4 && _pbRaw4.source !== 'default') ? _pbRaw4 : null;
+      var homePct = pb && pb.homePct != null ? pb.homePct : null;
       if (homePct == null) return;
       var awayPct = 100 - homePct;
       var heavySide = homePct >= 75 ? "home" : awayPct >= 75 ? "away" : null;
@@ -1210,10 +1217,11 @@ function buildTripleLockIntel() {
       var pickedTeamObj = pickIsHome ? g.homeTeam : g.awayTeam;
       var teamData = window.TEAMS && TEAMS[pickedTeamObj.id];
       var atsStreak = teamData && (teamData.atsCurrentStreak || 0);
-      // Score: streak bonus + model edge + public fade bonus
-      var pb = (g.socialIntel && g.socialIntel.publicBetting) || {};
-      var pubOnPick = pickIsHome ? (pb.homePct || 50) : (100 - (pb.homePct || 50));
-      var fadingPublic = pubOnPick <= 45;
+      // Score: streak bonus + model edge + public fade bonus (real data only)
+      var _pbRaw5 = g.socialIntel && g.socialIntel.publicBetting;
+      var pb = (_pbRaw5 && _pbRaw5.source !== 'default') ? _pbRaw5 : null;
+      var pubOnPick = pb && pb.homePct != null ? (pickIsHome ? pb.homePct : (100 - pb.homePct)) : 50;
+      var fadingPublic = pb != null && pubOnPick <= 45;
       var score = (pickConf === "elite" ? 30 : 20) + (atsStreak >= 3 ? atsStreak * 3 : 0) + (fadingPublic ? 15 : 0) + (sp.edge || 0);
       locks.push({ g: g, pred: pred, pickConf: pickConf, pickTeam: pickTeam, pickIsHome: pickIsHome, pickedTeamObj: pickedTeamObj, atsStreak: atsStreak, fadingPublic: fadingPublic, pubOnPick: pubOnPick, score: score, smStrength: sm.strength });
     } catch(e) {}

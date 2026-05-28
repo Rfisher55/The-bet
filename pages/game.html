@@ -575,8 +575,10 @@ function renderGamePage(gData) {
     // spread < 0 = home favored (home gives points); spread > 0 = away favored; 0 = pick-em (no favourite)
     const vegasFav = bl && bl.spread != null && bl.spread !== 0 ? (bl.spread < 0 ? home.name : away.name) : null;
     const _pb = game.socialIntel && game.socialIntel.publicBetting;
-    const pubHome = (_pb && _pb.homePct != null) ? Number(_pb.homePct) : null;
-    const pubAway = (_pb && _pb.awayPct  != null) ? Number(_pb.awayPct)  : null;
+    // Only show real public betting data — source:"default" means 50/50 estimate, not real data
+    const _pbReal = (_pb && _pb.source !== 'default') ? _pb : null;
+    const pubHome = (_pbReal && _pbReal.homePct != null) ? Number(_pbReal.homePct) : null;
+    const pubAway = (_pbReal && _pbReal.awayPct  != null) ? Number(_pbReal.awayPct)  : null;
     const publicFav = (pubHome != null && pubAway != null) ? (pubHome >= pubAway ? home.name : away.name) : null;
     const publicPct = (pubHome != null && pubAway != null) ? Math.round(pubHome >= pubAway ? pubHome : pubAway) : null;
 
@@ -1197,8 +1199,8 @@ function renderGamePage(gData) {
       kickoffTxt = h < 24 ? `${h}h to kickoff` : `${Math.floor(h/24)}d ${h%24}h`;
     }
 
-    // Public betting — data lives in socialIntel.publicBetting, not bettingLines
-    const _pbr = si.publicBetting;
+    // Public betting — only show real data; source:"default" = 50/50 estimate, not real
+    const _pbr = (si.publicBetting && si.publicBetting.source !== 'default') ? si.publicBetting : null;
     const pubHome = _pbr?.homePct != null ? Number(_pbr.homePct) : null;
     const pubAway = _pbr?.awayPct  != null ? Number(_pbr.awayPct)  : (pubHome != null ? 100 - pubHome : null);
 
@@ -2091,7 +2093,8 @@ function renderGamePage(gData) {
   function renderSocialHub() {
     const si = game.socialIntel || {};
     const lm = si.lineMovement || [];
-    const pb = si.publicBetting || {};
+    // Only use real public betting data — source:"default" = estimated 50/50, not live
+    const pb = (si.publicBetting && si.publicBetting.source !== 'default') ? si.publicBetting : {};
     const bw = si.beatWriter || [];
     const xf = game.xFactors || [];
     const smSig = pred.sharpMoneySignal || {};
