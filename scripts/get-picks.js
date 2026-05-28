@@ -233,7 +233,7 @@ function getPicks(type = 'all') {
 
   return predictions
     .filter(p => {
-      if (minWeek && p.game.week !== minWeek) return false;
+      if (minWeek != null && p.game.week !== minWeek) return false;
       if (p.game.date < today) return false;
       const conf = pickConf(p);
       if (type === 'elite') return conf === 'elite';
@@ -290,7 +290,7 @@ function getTop5() {
 
   return predictions
     .filter(p => {
-      if (minWeek && p.game.week !== minWeek) return false;
+      if (minWeek != null && p.game.week !== minWeek) return false;
       return p.game.date >= today;
     })
     .sort((a, b) => {
@@ -349,7 +349,7 @@ function getBiggestMatchups() {
 
   return predictions
     .filter(p => {
-      if (minWeek && p.game.week !== minWeek) return false;
+      if (minWeek != null && p.game.week !== minWeek) return false;
       return p.game.date >= today;
     })
     .map(p => {
@@ -405,7 +405,7 @@ function getLocks() {
 
   return predictions
     .filter(p => {
-      if (minWeek && p.game.week !== minWeek) return false;
+      if (minWeek != null && p.game.week !== minWeek) return false;
       if (p.game.date < today) return false;
       const conf = pickConf(p);
       if (conf !== 'elite' && conf !== 'high') return false;
@@ -474,7 +474,7 @@ function getParlays(legCount = 3) {
   const confWeights = { elite: 4, high: 3 };
 
   predictions
-    .filter(p => minWeek ? p.game.week === minWeek : true)
+    .filter(p => minWeek != null ? p.game.week === minWeek : true)
     .filter(p => p.game.date >= today)
     .forEach(p => {
       const { game, prediction: pred } = p;
