@@ -41,6 +41,7 @@ var TEAMS = {
       neutral:       { wins: 3,  losses: 1,  pct: 0.750 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 96,
       transferPortalRating: 88,
       coachHotSeat: 2,
@@ -50,6 +51,7 @@ var TEAMS = {
       depthChartStability: 91,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 9,
       coldWeatherRecord: "18-4 ATS below 40F",
@@ -66,6 +68,7 @@ var TEAMS = {
       travelBurdenRating: 1,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "28-16-2",
       atsAsFavorite: "22-14",
       atsAsUnderdog: "6-2",
@@ -124,6 +127,7 @@ var TEAMS = {
       neutral:       { wins: 4,  losses: 1,  pct: 0.800 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 92,
       transferPortalRating: 84,
       coachHotSeat: 1,
@@ -133,6 +137,7 @@ var TEAMS = {
       depthChartStability: 88,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 6,
       coldWeatherRecord: "11-7 ATS below 40F",
@@ -149,6 +154,7 @@ var TEAMS = {
       travelBurdenRating: 2,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "27-17-2",
       atsAsFavorite: "21-14",
       atsAsUnderdog: "6-3",
@@ -207,6 +213,7 @@ var TEAMS = {
       neutral:       { wins: 2,  losses: 2,  pct: 0.500 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 88,
       transferPortalRating: 80,
       coachHotSeat: 5,
@@ -216,6 +223,7 @@ var TEAMS = {
       depthChartStability: 78,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 4,
       coldWeatherRecord: "8-10 ATS below 40F",
@@ -232,6 +240,7 @@ var TEAMS = {
       travelBurdenRating: 3,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "24-20-2",
       atsAsFavorite: "18-16",
       atsAsUnderdog: "6-4",
@@ -290,6 +299,7 @@ var TEAMS = {
       neutral:       { wins: 2,  losses: 2,  pct: 0.500 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 95,
       transferPortalRating: 80,
       coachHotSeat: 5,
@@ -299,6 +309,7 @@ var TEAMS = {
       depthChartStability: 80,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 3,
       coldWeatherRecord: "6-12 ATS below 40F",
@@ -315,6 +326,7 @@ var TEAMS = {
       travelBurdenRating: 5,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "22-21-3",
       atsAsFavorite: "16-16",
       atsAsUnderdog: "6-5",
@@ -373,6 +385,7 @@ var TEAMS = {
       neutral:       { wins: 3,  losses: 2,  pct: 0.600 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 85,
       transferPortalRating: 75,
       coachHotSeat: 2,
@@ -382,6 +395,7 @@ var TEAMS = {
       depthChartStability: 83,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 8,
       coldWeatherRecord: "15-7 ATS below 40F",
@@ -398,6 +412,7 @@ var TEAMS = {
       travelBurdenRating: 6,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "25-19-2",
       atsAsFavorite: "16-12",
       atsAsUnderdog: "9-7",
@@ -456,6 +471,7 @@ var TEAMS = {
       neutral:       { wins: 2,  losses: 2,  pct: 0.500 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 80,
       transferPortalRating: 74,
       coachHotSeat: 4,
@@ -465,6 +481,7 @@ var TEAMS = {
       depthChartStability: 82,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 8,
       coldWeatherRecord: "14-8 ATS below 40F",
@@ -481,6 +498,7 @@ var TEAMS = {
       travelBurdenRating: 7,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "23-20-3",
       atsAsFavorite: "15-13",
       atsAsUnderdog: "8-7",
@@ -539,6 +557,7 @@ var TEAMS = {
       neutral:       { wins: 1,  losses: 2,  pct: 0.333 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 74,
       transferPortalRating: 68,
       coachHotSeat: 7,
@@ -548,6 +567,7 @@ var TEAMS = {
       depthChartStability: 70,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 9,
       coldWeatherRecord: "16-6 ATS below 40F",
@@ -564,6 +584,7 @@ var TEAMS = {
       travelBurdenRating: 6,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "20-23-3",
       atsAsFavorite: "12-15",
       atsAsUnderdog: "8-8",
@@ -622,6 +643,7 @@ var TEAMS = {
       neutral:       { wins: 2,  losses: 2,  pct: 0.500 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 72,
       transferPortalRating: 65,
       coachHotSeat: 6,
@@ -631,6 +653,7 @@ var TEAMS = {
       depthChartStability: 78,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 5,
       coldWeatherRecord: "9-9 ATS below 40F",
@@ -647,6 +670,7 @@ var TEAMS = {
       travelBurdenRating: 5,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "22-22-2",
       atsAsFavorite: "16-16",
       atsAsUnderdog: "6-6",
@@ -705,6 +729,7 @@ var TEAMS = {
       neutral:       { wins: 2,  losses: 2,  pct: 0.500 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 88,
       transferPortalRating: 86,
       coachHotSeat: 4,
@@ -714,6 +739,7 @@ var TEAMS = {
       depthChartStability: 72,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 2,
       coldWeatherRecord: "5-13 ATS below 40F",
@@ -730,6 +756,7 @@ var TEAMS = {
       travelBurdenRating: 2,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "21-22-3",
       atsAsFavorite: "13-14",
       atsAsUnderdog: "8-8",
@@ -788,6 +815,7 @@ var TEAMS = {
       neutral:       { wins: 3,  losses: 1,  pct: 0.750 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 91,
       transferPortalRating: 87,
       coachHotSeat: 1,
@@ -797,6 +825,7 @@ var TEAMS = {
       depthChartStability: 86,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 7,
       coldWeatherRecord: "13-7 ATS below 40F",
@@ -813,6 +842,7 @@ var TEAMS = {
       travelBurdenRating: 1,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "26-18-2",
       atsAsFavorite: "19-13",
       atsAsUnderdog: "7-5",
@@ -871,6 +901,7 @@ var TEAMS = {
       neutral:       { wins: 1,  losses: 2,  pct: 0.333 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 82,
       transferPortalRating: 78,
       coachHotSeat: 4,
@@ -880,6 +911,7 @@ var TEAMS = {
       depthChartStability: 76,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 5,
       coldWeatherRecord: "8-10 ATS below 40F",
@@ -896,6 +928,7 @@ var TEAMS = {
       travelBurdenRating: 5,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "20-22-4",
       atsAsFavorite: "12-14",
       atsAsUnderdog: "8-8",
@@ -954,6 +987,7 @@ var TEAMS = {
       neutral:       { wins: 2,  losses: 2,  pct: 0.500 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 86,
       transferPortalRating: 82,
       coachHotSeat: 4,
@@ -963,6 +997,7 @@ var TEAMS = {
       depthChartStability: 74,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 1,
       coldWeatherRecord: "3-13 ATS below 40F",
@@ -979,6 +1014,7 @@ var TEAMS = {
       travelBurdenRating: 2,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "24-18-2",
       atsAsFavorite: "16-12",
       atsAsUnderdog: "8-6",
@@ -1030,11 +1066,13 @@ var TEAMS = {
       neutral:       { wins: 0,  losses: 0,  pct: 0.500 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 72, transferPortalRating: 74, coachHotSeat: 5,
       programMomentum: "stable", fanMorale: 68,
       lockerRoomCohesion: 72, depthChartStability: 74,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: -2,
       coldWeatherRecord: "3-8 ATS below 40F",
@@ -1051,6 +1089,7 @@ var TEAMS = {
       travelBurdenRating: 2,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "19-21-2",
       atsAsFavorite: "8-10",
       atsAsUnderdog: "11-11",
@@ -1101,11 +1140,13 @@ var TEAMS = {
       neutral:       { wins: 1,  losses: 1,  pct: 0.500 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 74, transferPortalRating: 72, coachHotSeat: 8,
       programMomentum: "declining", fanMorale: 58,
       lockerRoomCohesion: 64, depthChartStability: 68,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: -3,
       coldWeatherRecord: "2-9 ATS below 40F",
@@ -1122,6 +1163,7 @@ var TEAMS = {
       travelBurdenRating: 3,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "17-22-1",
       atsAsFavorite: "7-10",
       atsAsUnderdog: "10-12",
@@ -1173,11 +1215,13 @@ var TEAMS = {
       neutral:       { wins: 2,  losses: 1,  pct: 0.667 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 78, transferPortalRating: 76, coachHotSeat: 3,
       programMomentum: "rising", fanMorale: 76,
       lockerRoomCohesion: 78, depthChartStability: 80,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: -2,
       coldWeatherRecord: "4-8 ATS below 40F",
@@ -1194,6 +1238,7 @@ var TEAMS = {
       travelBurdenRating: 2,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "22-18-2",
       atsAsFavorite: "12-8",
       atsAsUnderdog: "10-10",
@@ -1244,11 +1289,13 @@ var TEAMS = {
       neutral:       { wins: 2,  losses: 0,  pct: 1.000 },
     },
     programHealth: {
+      _estimated: true,
       nilStrength: 66, transferPortalRating: 68, coachHotSeat: 3,
       programMomentum: "stable", fanMorale: 70,
       lockerRoomCohesion: 76, depthChartStability: 78,
     },
     weatherProfile: {
+      _recordsEstimated: true,
       isDome: false,
       coldWeatherAdvantage: 7,
       coldWeatherRecord: "14-6 ATS below 40F",
@@ -1265,6 +1312,7 @@ var TEAMS = {
       travelBurdenRating: 3,
     },
     coachingProfile: {
+      _tendenciesEstimated: true,
       atsRecord: "20-18-2",
       atsAsFavorite: "10-8",
       atsAsUnderdog: "10-10",
@@ -3409,31 +3457,29 @@ var GAMES = [
 ];
 
 const MODEL_RECORD = {
-  straightUp: { wins: 87, losses: 38, pct: 0.696 },
-  atsRecord:  { wins: 71, losses: 54, pct: 0.568 },
-  totalRecord:{ wins: 68, losses: 57, pct: 0.544 },
-  roi: 11.4,
-  byConference: {
-    SEC:       { wins: 22, losses: 9, pct: 0.710 },
-    "Big Ten": { wins: 19, losses: 8, pct: 0.703 },
-    ACC:       { wins: 16, losses: 11, pct: 0.593 },
-    Independent:{ wins: 11, losses: 5, pct: 0.688 }
+  season: 2026,
+  // 2025 reference season — final results
+  prior: {
+    straightUp: { wins: 87, losses: 38, pct: 0.696 },
+    atsRecord:  { wins: 71, losses: 54, pct: 0.568 },
+    totalRecord:{ wins: 68, losses: 57, pct: 0.544 },
+    roi: 11.4,
+    highConfidenceOnly: { wins: 38, losses: 9,  pct: 0.808, games: 47 },
+    eliteOnly:          { wins: 17, losses: 2,  pct: 0.895, games: 19 },
+    sharpAlignedPicks:  { wins: 29, losses: 8,  pct: 0.784, games: 37 },
   },
-  byWeek: {
-    week1: { wins: 8, losses: 4, pct: 0.667 },
-    week2: { wins: 9, losses: 3, pct: 0.750 },
-    week3: { wins: 10, losses: 4, pct: 0.714 },
-    week4: { wins: 12, losses: 4, pct: 0.750 },
-    week5: { wins: 11, losses: 5, pct: 0.688 },
-    week6: { wins: 13, losses: 5, pct: 0.722 },
-    week7: { wins: 11, losses: 6, pct: 0.647 },
-    bowlGames: { wins: 13, losses: 7, pct: 0.650 }
-  },
-  highConfidenceOnly: { wins: 38, losses: 9, pct: 0.808, games: 47 },
-  eliteOnly:          { wins: 17, losses: 2, pct: 0.895, games: 19 },
-  sharpAlignedPicks:  { wins: 29, losses: 8, pct: 0.784, games: 37 },
-  weatherAdjusted:    { wins: 24, losses: 7, pct: 0.774, games: 31 },
-  seasonNote: "Historical record from 2025 season, predicting 2026 games. Team stats & player data reflect 2025 performance + 2026 offseason changes. Model uses 7-signal weighted approach: base stats (30%), player impact (20%), situational (15%), weather (10%), coaching edge (10%), program momentum (8%), sharp money (7%)."
+  // 2026 season — resets to 0 at season start, updates as games complete
+  straightUp:  { wins: 0, losses: 0, pct: 0.000 },
+  atsRecord:   { wins: 0, losses: 0, pct: 0.000 },
+  totalRecord: { wins: 0, losses: 0, pct: 0.000 },
+  roi: 0,
+  byConference: {},
+  byWeek: {},
+  highConfidenceOnly: { wins: 0, losses: 0, pct: 0.000, games: 0 },
+  eliteOnly:          { wins: 0, losses: 0, pct: 0.000, games: 0 },
+  sharpAlignedPicks:  { wins: 0, losses: 0, pct: 0.000, games: 0 },
+  weatherAdjusted:    { wins: 0, losses: 0, pct: 0.000, games: 0 },
+  seasonNote: "2026 season — record tracking begins Week 1. Model: base stats (30%), player impact (20%), situational (15%), weather (10%), coaching edge (10%), program momentum (8%), sharp money (7%)."
 };
 
 // ── Helper: resolve teamId references to full team objects
