@@ -1280,14 +1280,18 @@ rebuildPredictions();
       if (total === 0) return; // season hasn't started — keep 2025 display
       var decided = r.wins + r.losses;
       var pct = decided > 0 ? (r.wins / decided * 100).toFixed(1) : '0.0';
-      var recEl    = document.getElementById('stat-ats-record');
-      var subEl    = document.getElementById('stat-ats-sub');
-      var eliteEl  = document.getElementById('stat-elite-sub');
-      var sharpEl  = document.getElementById('stat-sharp-sub');
-      if (recEl)   recEl.textContent = r.wins + '-' + r.losses + (r.pushes ? '-' + r.pushes : '');
-      if (subEl)   subEl.textContent = pct + '% win rate · 2026 season';
-      if (eliteEl) eliteEl.textContent = (r.eliteWins || 0) + '-' + (r.eliteLosses || 0) + ' ATS · 2026 season';
-      if (sharpEl) sharpEl.textContent = 'When sharps agree · 2026';
+      var recEl      = document.getElementById('stat-ats-record');
+      var subEl      = document.getElementById('stat-ats-sub');
+      var eliteEl    = document.getElementById('stat-elite-sub');
+      var sharpEl    = document.getElementById('stat-sharp-sub');
+      var sharpBigEl = document.getElementById('stat-sharp');
+      if (recEl)      recEl.textContent = r.wins + '-' + r.losses + (r.pushes ? '-' + r.pushes : '');
+      if (subEl)      subEl.textContent = pct + '% win rate · 2026 season';
+      if (eliteEl)    eliteEl.textContent = (r.eliteWins || 0) + '-' + (r.eliteLosses || 0) + ' ATS · 2026 season';
+      var sharpDecided = (r.sharpWins || 0) + (r.sharpLosses || 0);
+      var sharpPct = sharpDecided > 0 ? (r.sharpWins / sharpDecided * 100).toFixed(1) + '%' : '—';
+      if (sharpBigEl) sharpBigEl.textContent = sharpPct;
+      if (sharpEl)    sharpEl.textContent = 'When sharps agree · 2026';
       var atsLabelEl = document.getElementById('stat-ats-label');
       if (atsLabelEl) atsLabelEl.textContent = '2026 ATS Record';
     })

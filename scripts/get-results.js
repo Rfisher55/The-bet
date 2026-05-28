@@ -92,7 +92,7 @@ function calcATS(homeScore, awayScore, vegasSpread, pickIsHome) {
 // ── Load / save record ────────────────────────────────────────────
 function loadRecord() {
   try { return JSON.parse(fs.readFileSync(RECORD_FILE, 'utf8')); }
-  catch { return { season: 2026, record: { wins: 0, losses: 0, pushes: 0, eliteWins: 0, eliteLosses: 0 }, picks: [] }; }
+  catch { return { season: 2026, record: { wins: 0, losses: 0, pushes: 0, eliteWins: 0, eliteLosses: 0, sharpWins: 0, sharpLosses: 0 }, picks: [] }; }
 }
 
 function saveRecord(record) {
@@ -145,16 +145,17 @@ async function updateResults(ourPicks) {
       const result = calcATS(eg.homeScore, eg.awayScore, homeSpread, pickIsHome);
 
       const entry = {
-        gameId:    pick.gameId,
-        week:      pick.week,
-        date:      pick.date,
-        matchup:   `${pick.awayAbbr} @ ${pick.homeAbbr}`,
-        pickTeam:  pick.pickTeam,
-        spread:    pick.vegasSpread,
-        conf:      pick.conf,
+        gameId:     pick.gameId,
+        week:       pick.week,
+        date:       pick.date,
+        matchup:    `${pick.awayAbbr} @ ${pick.homeAbbr}`,
+        pickTeam:   pick.pickTeam,
+        spread:     pick.vegasSpread,
+        conf:       pick.conf,
+        sharpAligns: pick.sharpAligns || false,
         result,
-        homeScore: eg.homeScore,
-        awayScore: eg.awayScore,
+        homeScore:  eg.homeScore,
+        awayScore:  eg.awayScore,
       };
 
       record.picks.push(entry);
@@ -165,11 +166,17 @@ async function updateResults(ourPicks) {
 
   // Recalculate running record from all picks
   record.record = record.picks.reduce((acc, p) => {
-    if (p.result === 'W') { acc.wins++; if (p.conf === 'elite') acc.eliteWins++; }
-    else if (p.result === 'L') { acc.losses++; if (p.conf === 'elite') acc.eliteLosses++; }
-    else if (p.result === 'P') acc.pushes++;
+    if (p.result === 'W') {
+      acc.wins++;
+      if (p.conf === 'elite')   acc.eliteWins++;
+      if (p.sharpAligns)        acc.sharpWins++;
+    } else if (p.result === 'L') {
+      acc.losses++;
+      if (p.conf === 'elite')   acc.eliteLosses++;
+      if (p.sharpAligns)        acc.sharpLosses++;
+    } else if (p.result === 'P') acc.pushes++;
     return acc;
-  }, { wins: 0, losses: 0, pushes: 0, eliteWins: 0, eliteLosses: 0 });
+  }, { wins: 0, losses: 0, pushes: 0, eliteWins: 0, eliteLosses: 0, sharpWins: 0, sharpLosses: 0 });
 
   saveRecord(record);
   return { record, newResults };
