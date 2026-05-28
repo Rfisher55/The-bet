@@ -805,7 +805,8 @@ function calcCoachingEdge(home, away) {
   // Aggressive offense vs soft defense
   const hAgg = hTend.aggressiveness || 5;
   const aAgg = aTend.aggressiveness || 5;
-  homeEdge += (hAgg - aAgg) * 0.12 * tendScale;
+  const aggEdge = (hAgg - aAgg) * 0.12 * tendScale;
+  homeEdge += aggEdge;
 
   // Tempo mismatch — high-tempo offense vs slow defense
   const hTempo = hTend.tempoPreference || "moderate";
