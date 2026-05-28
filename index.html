@@ -2582,7 +2582,7 @@ renderTripleLock();
 // ── Conference ATS Records ────────────────────────────────────────
 function renderConferenceATS() {
   if (!window.TEAMS) return;
-  var confOrder = ["SEC","Big Ten","Big 12","ACC","AAC","MWC","Sun Belt","MAC"];
+  var confOrder = ["SEC","Big Ten","Big 12","ACC","American Athletic","Mountain West","Sun Belt","MAC"];
   var confData = {};
   Object.values(TEAMS).forEach(function(t) {
     var c = t.conference;

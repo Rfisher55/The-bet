@@ -432,7 +432,7 @@
 
   // ── Conference Breakdowns ────────────────────────────────────────────────
   const confGrid = document.getElementById('conf-grid');
-  const majorConfs = ['SEC', 'Big Ten', 'Big 12', 'ACC', 'Mountain West', 'Sun Belt', 'MAC', 'American', 'Independent'];
+  const majorConfs = ['SEC', 'Big Ten', 'Big 12', 'ACC', 'Mountain West', 'Sun Belt', 'MAC', 'American Athletic', 'FBS Independents', 'Independent'];
   majorConfs.forEach(conf => {
     const confTeams = [...sorted]
       .filter(t => t.conference === conf)
