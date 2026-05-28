@@ -18,7 +18,7 @@
  *   ODDSPAPI_KEY    — optional free at oddspapi.io (250 req/month, includes Pinnacle = sharp reference)
  */
 
-import { writeFileSync, renameSync, mkdirSync } from "fs";
+import { writeFileSync, readFileSync, renameSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -1337,24 +1337,40 @@ async function main() {
   console.log("\nPhase 5: Writing output files...");
 
   // Always write social/team data — Reddit buzz, SP+, injuries don't need game data.
-  const hasReddit  = Object.keys(redditBuzz).length > 0;
-  const hasSP      = cfbdExtras.spRatings.length > 0;
-  const hasInjury  = Object.values(injuries).flat().length > 0;
+  // Always write team-extras.json so the timestamp stays fresh and downstream
+  // scripts can tell when the pipeline last ran, even if CFBD has no 2026 data yet.
+  writeAtomic(join(DATA_DIR,"team-extras.json"),
+    JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz, teamNews }, null, 2));
+  console.log(`  Team extras written — SP+: ${cfbdExtras.spRatings.length}, Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, injuries: ${Object.values(injuries).flat().length}`);
 
-  const hasNews    = Object.keys(teamNews).length > 0;
-  const hasRosters = Object.keys(rosters).length > 0;
-  if (hasReddit || hasSP || hasInjury || hasNews) {
-    writeAtomic(join(DATA_DIR,"team-extras.json"),
-      JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz, teamNews }, null, 2));
+  const hasInjury  = Object.values(injuries).flat().length > 0;
+  if (hasInjury) {
     writeAtomic(join(DATA_DIR,"injuries.json"),
       JSON.stringify({ generated: now, injuries }, null, 2));
-    console.log(`  Social/team data written — Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, SP+: ${cfbdExtras.spRatings.length}, injuries: ${Object.values(injuries).flat().length}`);
   }
+
+  const hasRosters = Object.keys(rosters).length > 0;
   if (hasRosters) {
     const totalPlayers = Object.values(rosters).reduce((s, r) => s + r.length, 0);
     writeAtomic(join(DATA_DIR,"rosters.json"),
       JSON.stringify({ generated: now, totalTeams: Object.keys(rosters).length, totalPlayers, rosters }, null, 2));
     console.log(`  Rosters written — ${Object.keys(rosters).length} teams, ${totalPlayers} players`);
+  }
+
+  // Patch AP ranks into games-2026.json even in preseason so tweets and website
+  // always show the latest AP poll — the curated game seed is preserved, only
+  // apRanks and rankedTeams fields are overwritten.
+  if (Object.keys(apRanks).length > 0) {
+    try {
+      const gamesPath = join(DATA_DIR, "games-2026.json");
+      const existing  = JSON.parse(readFileSync(gamesPath, "utf8"));
+      existing.apRanks    = apRanks;
+      existing.rankedTeams = Object.keys(apRanks).length;
+      writeAtomic(gamesPath, JSON.stringify(existing, null, 2));
+      console.log(`  AP ranks patched into games-2026.json (${Object.keys(apRanks).length} teams ranked)`);
+    } catch (e) {
+      console.warn(`  Warning: could not patch AP ranks into games-2026.json: ${e.message}`);
+    }
   }
 
   // Guard 1: no data at all — preserve curated seed

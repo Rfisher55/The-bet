@@ -236,7 +236,9 @@ function tweetSleepers(count = 5) {
       return fit(
         `🔍 SLEEPER: ${t.name}\n\nModel rank: #${mr} | AP: ${apDisplay}${gapLine}\n\nRating: ${t.rating}/100 · Momentum: ${t.programHealth?.programMomentum || 'stable'}`,
         [
-          `\nPortal: ${t.programHealth?.transferPortalRating || 'N/A'}/100`,
+          // Only show portal grade when it's real data (curated teams > 45; stub default is 45)
+          t.programHealth?.transferPortalRating > 45
+            ? `\nPortal: ${t.programHealth.transferPortalRating}/100` : null,
           `\nProjected wins: ${winProjFromRating(t.rating)}`,
           `\n\nThe market hasn't caught up yet. Book it.\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`,
         ]
@@ -516,16 +518,27 @@ async function main() {
 
   // Refresh OAuth 2.0 token
   const { TwitterApi } = require('twitter-api-v2');
+  if (!process.env.X_OAUTH2_CLIENT_ID || !process.env.X_OAUTH2_CLIENT_SECRET || !process.env.X_OAUTH2_REFRESH_TOKEN) {
+    console.error('❌ Missing OAuth env vars. Run x-oauth2-setup workflow to regenerate credentials.');
+    process.exit(1);
+  }
   const authClient = new TwitterApi({
     clientId:     process.env.X_OAUTH2_CLIENT_ID,
     clientSecret: process.env.X_OAUTH2_CLIENT_SECRET,
   });
-  const { client, refreshToken: newRefresh } =
-    await authClient.refreshOAuth2Token(process.env.X_OAUTH2_REFRESH_TOKEN);
-
-  // Save new refresh token for the workflow to update in GitHub secrets
-  if (newRefresh && typeof newRefresh === 'string') {
-    require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
+  let client;
+  try {
+    const { client: xClient, refreshToken: newRefresh } =
+      await authClient.refreshOAuth2Token(process.env.X_OAUTH2_REFRESH_TOKEN);
+    client = xClient;
+    // Save new refresh token for the workflow to update in GitHub secrets
+    if (newRefresh && typeof newRefresh === 'string') {
+      require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
+    }
+  } catch (err) {
+    console.error(`❌ OAuth token refresh failed: ${err.message}`);
+    console.error('The refresh token may be expired or revoked. Run x-oauth2-setup workflow to regenerate.');
+    process.exit(1);
   }
 
   let prevId = null;
