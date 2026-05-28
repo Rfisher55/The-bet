@@ -109,9 +109,9 @@ jobs:
             WEEK=$(date +%V)      # ISO week number (1-52)
             DAY_OF_YEAR=$(date +%j)
 
-            # Conference rotation (10 conferences, rotate by week)
-            CONFS=("SEC" "Big Ten" "Big 12" "ACC" "Mountain West" "Sun Belt" "MAC" "American Athletic" "Conference USA" "FBS Independents")
-            CONF_IDX=$(( (WEEK - 1) % 10 ))
+            # Conference rotation (11 conferences, rotate by week)
+            CONFS=("SEC" "Big Ten" "Big 12" "ACC" "Mountain West" "Sun Belt" "MAC" "American Athletic" "Conference USA" "FBS Independents" "Pac-2")
+            CONF_IDX=$(( (WEEK - 1) % 11 ))
             CONF="${CONFS[$CONF_IDX]}"
 
             # Team rotate offset: advances by 5 every day
