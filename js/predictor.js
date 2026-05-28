@@ -52,30 +52,35 @@ function isFCSLevel(team) {
 function detectMismatch(home, away, predSpread) {
   const homeRating = home.rating || 50;
   const awayRating = away.rating || 50;
-  const homeSP  = home.spRating != null ? home.spRating : null;
-  const awaySP  = away.spRating != null ? away.spRating : null;
-  const ratingGap = Math.abs(homeRating - awayRating);
-  const spreadGap = Math.abs(predSpread || 0);
-  const weakSide  = homeRating <= awayRating ? "home" : "away";
-  const weakTeam  = weakSide === "home" ? home : away;
+  const homeSP     = home.spRating != null ? home.spRating : null;
+  const awaySP     = away.spRating != null ? away.spRating : null;
+  const ratingGap  = Math.abs(homeRating - awayRating);
+  const spreadGap  = Math.abs(predSpread || 0);
+  const weakSide   = homeRating <= awayRating ? "home" : "away";
+  const weakTeam   = weakSide === "home" ? home : away;
+  const weakHasSP  = weakSide === "home" ? homeSP != null : awaySP != null;
+  const strongHasSP= weakSide === "home" ? awaySP != null : homeSP != null;
 
-  // FCS by SP+ (clear signal even without rating gap)
+  // 1. Absolute FCS by SP+ rating
   if (isFCSLevel(home)) return { level: "fcs", weakSide: "home" };
   if (isFCSLevel(away)) return { level: "fcs", weakSide: "away" };
 
-  // Rating gap ≥ 30 OR spread ≥ 28 → major mismatch even if both teams are "FBS"
-  // e.g. Florida State (82) vs New Mexico State (50 default) = gap 32
-  // e.g. Alabama (92) vs The Citadel (50 default) = gap 42
-  if (ratingGap >= 30 || spreadGap >= 28) {
-    // Extra check: if weaker team has no SP+ data (ESPN stub) treat as FCS-level
-    const level = (weakTeam.spRating == null || isFCSLevel(weakTeam)) ? "fcs" : "major";
-    return { level, weakSide };
+  // 2. SP+ asymmetry — strong team has CFBD data, weak team doesn't.
+  //    Every Power/major FBS program is in CFBD and has SP+.
+  //    A team without SP+ data (ESPN stub only) is FCS or FCS-level (SWAC, MEAC, etc.)
+  //    e.g. Missouri (SP+: +12) vs Arkansas-Pine Bluff (SP+: null, rating: 50 default)
+  //    e.g. Florida State vs New Mexico State, Texas A&M vs The Citadel
+  if (strongHasSP && !weakHasSP) {
+    if (spreadGap >= 12 || ratingGap >= 10) return { level: "fcs",   weakSide };
+    return { level: "major", weakSide };
   }
 
-  // Significant gap — still worth flagging but grades still shown
-  if (ratingGap >= 20 || spreadGap >= 18) {
-    return { level: "significant", weakSide };
+  // 3. Both teams have SP+ (or neither does) — use rating/spread gap
+  if (ratingGap >= 30 || spreadGap >= 28) {
+    const level = (!weakHasSP || isFCSLevel(weakTeam)) ? "fcs" : "major";
+    return { level, weakSide };
   }
+  if (ratingGap >= 20 || spreadGap >= 18) return { level: "significant", weakSide };
 
   return { level: null, weakSide: null };
 }
@@ -100,13 +105,21 @@ function statQualityMultiplier(team, opponent) {
     return 1.0;
   }
 
-  // No SP+ data — use relative rating gap vs opponent
+  // No SP+ data — opponent has SP+ = this team is FCS-likely (SWAC/MEAC/FCS stub)
   if (opp) {
+    const oppHasSP = opp.spRating != null;
     const gap = (opp.rating || 50) - (team.rating || 50);
-    if (gap >= 35) return 0.55;  // Huge underdog (FCS-like with no SP+ data)
-    if (gap >= 25) return 0.68;  // Major underdog
-    if (gap >= 15) return 0.82;  // Significant underdog
-    if (gap >= 8)  return 0.92;  // Moderate underdog
+    if (oppHasSP) {
+      // Strong signal: opponent is a tracked FBS program, this team is not
+      if (gap >= 15) return 0.50;
+      if (gap >= 8)  return 0.62;
+      return 0.72;  // even near-equal rating: no SP+ vs SP+ team = suspicious
+    }
+    // Both lack SP+ — use gap alone
+    if (gap >= 35) return 0.55;
+    if (gap >= 25) return 0.68;
+    if (gap >= 15) return 0.82;
+    if (gap >= 8)  return 0.92;
   }
 
   // Fallback: use absolute rating
