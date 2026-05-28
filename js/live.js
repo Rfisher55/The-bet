@@ -62,11 +62,17 @@ const SEASON = 2026;
         added++;
       });
 
-      // Inject AP rankings into TEAMS
+      // Inject AP rankings into TEAMS; clear stale ranks if full poll is present
       if (d.apRanks && window.TEAMS) {
+        const fullPoll = Object.keys(d.apRanks).length >= 25;
         Object.keys(d.apRanks).forEach(function(id) {
           if (TEAMS[id]) TEAMS[id].apRank = d.apRanks[id];
         });
+        if (fullPoll) {
+          Object.values(TEAMS).forEach(function(t) {
+            if (t.id && d.apRanks[t.id] == null && t.apRank) t.apRank = null;
+          });
+        }
       }
 
       if (added === 0 && !window.__liveDataReady) {
@@ -930,9 +936,15 @@ const LIVE = (() => {
 
       // Apply ESPN rankings to all TEAMS immediately (no CFBD key needed)
       if (Object.keys(espnRankings).length && window.TEAMS) {
+        const fullPoll = Object.keys(espnRankings).length >= 25;
         Object.values(TEAMS).forEach(t => {
           const rank = espnRankings[t.name] || espnRankings[t.id] || espnRankings[t.abbreviation];
-          if (rank) t.apRank = rank;
+          if (rank) {
+            t.apRank = rank;
+          } else if (fullPoll && t.apRank) {
+            // Full poll loaded and team is absent — definitively unranked, clear stale rank
+            t.apRank = null;
+          }
         });
       }
       // Apply current season records to all TEAMS immediately
