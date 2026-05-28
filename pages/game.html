@@ -1636,6 +1636,46 @@ function renderGamePage(gData) {
     const hs = home.stats || {};
     const as_ = away.stats || {};
 
+    // ── FCS/Major Mismatch override ────────────────────────────────────
+    // FCS team stats are compiled against far weaker competition — letter grade
+    // comparisons are meaningless and misleading. Show talent gap card instead.
+    const sosI = pred && pred.sosInfo;
+    const homeFCS = sosI && sosI.homeIsFCS;
+    const awayFCS = sosI && sosI.awayIsFCS;
+    if (homeFCS || awayFCS) {
+      const fcsTeam = homeFCS ? home : away;
+      const fbsTeam = homeFCS ? away : home;
+      const rows = [
+        { label: "Passing Attack",  matchup: `${fbsTeam.name} passing attack vs FCS secondary` },
+        { label: "Run Game",        matchup: `${fbsTeam.name} ground game dominates FCS front` },
+        { label: "Pass Rush",       matchup: `${fbsTeam.name} d-line vs FCS offensive line` },
+        { label: "Ball Control",    matchup: `${fbsTeam.name} turnover margin advantage expected` },
+        { label: "Overall O vs D",  matchup: `${fbsTeam.name} overwhelmingly superior in every phase` },
+      ];
+      return `
+        <div class="card card-p mb-5" id="sec-pos-matchup">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <div class="section-label mb-0">Position Group Matchup</div>
+            <span style="font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#ef4444;border:1px solid rgba(239,68,68,.4);border-radius:20px;padding:2px 8px">FCS OPPONENT</span>
+          </div>
+          <div style="padding:12px 14px;border-radius:var(--radius);background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);margin-bottom:14px;font-size:.76rem;color:var(--text-soft);line-height:1.65">
+            <strong style="color:#ef4444">Statistics Unreliable — FCS vs FBS Matchup.</strong> <strong style="color:var(--text)">${fcsTeam.name}</strong>'s stats were compiled against FCS-level competition. Letter grade comparisons would be misleading — the talent gap across every position group heavily favors <strong style="color:var(--primary)">${fbsTeam.name}</strong>.
+          </div>
+          ${rows.map(r => `
+            <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)">
+              <span style="font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted-l);min-width:90px">${r.label}</span>
+              <span style="font-size:.72rem;color:var(--text-soft)">${r.matchup}</span>
+              <span style="font-size:.62rem;font-weight:900;letter-spacing:1.2px;padding:2px 10px;border-radius:10px;border:1px solid rgba(16,185,129,.4);color:var(--primary);background:rgba(16,185,129,.1);white-space:nowrap">${fbsTeam.abbreviation} EDGE</span>
+            </div>`).join("")}
+          <p style="margin-top:12px;font-size:.76rem;color:var(--text-soft);line-height:1.6">Grade analysis is suppressed for FCS matchups. <strong style="color:var(--text)">${fbsTeam.name}</strong> holds a significant structural advantage in every phase — model applies a ×${(sosI[homeFCS ? "awayStatMult" : "homeStatMult"] || 1).toFixed(2)} stat-quality multiplier for ${fbsTeam.name} and discounts ${fcsTeam.name}'s inflated FCS statistics.</p>
+        </div>`;
+    }
+
+    // ── Stat quality multipliers (SOS-aware) ──────────────────────────
+    // Teams on weak schedules have inflated stats — scale them before z-scores.
+    const hSqm = (sosI && sosI.homeStatMult) || 1.0;
+    const aSqm = (sosI && sosI.awayStatMult) || 1.0;
+
     // ── Z-score → letter grade (A+ through F) ──────────────────────────
     function zScore(val, avg, sd) {
       if (!sd || sd === 0) return 0;
@@ -1680,36 +1720,38 @@ function renderGamePage(gData) {
     const SP_DEF_AVG = 25, SP_DEF_SD = 12;
 
     // ── Grade computation per team per category ────────────────────────
-    function computeGrades(team, stats) {
+    function computeGrades(team, stats, sqm) {
       const s = stats || {};
+      const q = sqm || 1.0;  // stat quality multiplier — discounts inflated weak-schedule stats
 
       // Passing Game (offense): passingYardsPerGame
-      const passOff = safe(() => s.passingYardsPerGame, 240);
+      const passOff = safe(() => s.passingYardsPerGame, 240) * q;
       const passOffZ = zScore(passOff, 240, 45);
       const passOffIdx = blendedGradeIdx(passOffZ, safe(() => team.offensiveRating, SP_OFF_AVG), SP_OFF_AVG, SP_OFF_SD);
 
       // Pass Defense: yardsAllowedPerGame * 0.62 (inverted — lower is better)
-      const passDefRaw = safe(() => s.yardsAllowedPerGame, 363) * 0.62;
+      // Defensive stats: invert the multiplier — weaker opponents inflate allowed yards too (q applied inversely)
+      const passDefRaw = safe(() => s.yardsAllowedPerGame, 363) * 0.62 / q;
       const passDefZ = zScore(225, passDefRaw, 45); // invert: avg=225 minus actual (lower allowed = higher z)
       const passDefIdx = blendedGradeIdx(passDefZ, safe(() => team.defensiveRating, SP_DEF_AVG), SP_DEF_AVG, SP_DEF_SD);
 
       // Run Game (offense): rushingYardsPerGame
-      const rushOff = safe(() => s.rushingYardsPerGame, 175);
+      const rushOff = safe(() => s.rushingYardsPerGame, 175) * q;
       const rushOffZ = zScore(rushOff, 175, 35);
       const rushOffIdx = blendedGradeIdx(rushOffZ, safe(() => team.offensiveRating, SP_OFF_AVG), SP_OFF_AVG, SP_OFF_SD);
 
       // Run Defense: yardsAllowedPerGame * 0.38 (inverted)
-      const runDefRaw = safe(() => s.yardsAllowedPerGame, 395) * 0.38;
+      const runDefRaw = safe(() => s.yardsAllowedPerGame, 395) * 0.38 / q;
       const runDefZ = zScore(150, runDefRaw, 35); // invert
       const runDefIdx = blendedGradeIdx(runDefZ, safe(() => team.defensiveRating, SP_DEF_AVG), SP_DEF_AVG, SP_DEF_SD);
 
-      // Pass Rush: sacks per game (higher = better)
-      const sacksVal = safe(() => s.sacks, 2.3);
+      // Pass Rush: sacks per game (higher = better) — discount for weak-schedule inflation
+      const sacksVal = safe(() => s.sacks, 2.3) * q;
       const passRushZ = zScore(sacksVal, 2.3, 0.7);
       const passRushIdx = blendedGradeIdx(passRushZ, safe(() => team.defensiveRating, SP_DEF_AVG), SP_DEF_AVG, SP_DEF_SD);
 
       // Pass Protection: sacksAllowed per game (lower = better, so invert)
-      const sacksAllowedVal = safe(() => s.sacksAllowed, 2.0);
+      const sacksAllowedVal = safe(() => s.sacksAllowed, 2.0) / q;
       const passProZ = zScore(2.0, sacksAllowedVal, 0.6); // invert
       const passProIdx = blendedGradeIdx(passProZ, safe(() => team.offensiveRating, SP_OFF_AVG), SP_OFF_AVG, SP_OFF_SD);
 
@@ -1739,8 +1781,8 @@ function renderGamePage(gData) {
       };
     }
 
-    const hg = computeGrades(home, hs);
-    const ag = computeGrades(away, as_);
+    const hg = computeGrades(home, hs, hSqm);
+    const ag = computeGrades(away, as_, aSqm);
 
     // ── Edge determination: 1+ grade levels difference ────────────────
     function edge(homeIdx, awayIdx) {
