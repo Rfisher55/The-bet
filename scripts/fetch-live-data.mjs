@@ -534,19 +534,33 @@ async function fetchOddsPapi() {
 }
 
 // ── Action Network (unofficial) — public betting % ──────────────────────
+// Tries multiple endpoint patterns; Action Network frequently changes their API paths.
 async function fetchActionNetworkBetting() {
-  const today = new Date().toISOString().slice(0,10);
-  const weekOut = new Date(Date.now() + 7*86400000).toISOString().slice(0,10);
   const results = {};
-  for (const date of [today, weekOut]) {
-    const data = await safeFetch(`${ACTION_BASE}/games?sport=ncaaf&date=${date}`, {
-      headers: {
-        "Origin":  "https://www.actionnetwork.com",
-        "Referer": "https://www.actionnetwork.com/",
-        "Accept":  "application/json",
-      },
-    });
-    if (!data?.games) continue;
+  const headers = {
+    "User-Agent":      UA,
+    "Origin":          "https://www.actionnetwork.com",
+    "Referer":         "https://www.actionnetwork.com/ncaaf/picks",
+    "Accept":          "application/json",
+    "Accept-Language": "en-US,en;q=0.9",
+  };
+
+  // Try multiple date windows (today + next 7 days)
+  const dates = [];
+  for (let i = 0; i <= 7; i++) {
+    dates.push(new Date(Date.now() + i*86400000).toISOString().slice(0,10));
+  }
+
+  // Try current endpoint patterns — AN rotates these occasionally
+  const endpoints = [
+    `${ACTION_BASE}/games?sport=ncaaf&include=odds,betting_percentages`,
+    `${ACTION_BASE}/games?sport=ncaaf&date=${dates[0]}`,
+    `${ACTION_BASE}/scoreboard?sport=ncaaf`,
+  ];
+
+  for (const url of endpoints) {
+    const data = await safeFetch(url, { headers });
+    if (!data?.games?.length) continue;
     for (const g of data.games) {
       const home = g.teams?.find(t => t.designation === "home");
       const away = g.teams?.find(t => t.designation === "away");
@@ -554,23 +568,24 @@ async function fetchActionNetworkBetting() {
       const hn = home.full_name || home.name || "";
       const an = away.full_name || away.name || "";
       const key = `${hn}|${an}`;
-      // Betting % from action network
-      const bp = g.game_detail?.betting_percentages;
-      const sp = g.game_detail?.spread_percentage;
+      const bp = g.game_detail?.betting_percentages || g.odds?.betting_percentages;
+      const sp = g.game_detail?.spread_percentage   || g.odds?.spread_percentage;
       if (bp || sp) {
         results[key] = {
-          homeBetPct:  bp?.home_spread || sp?.home || null,
-          awayBetPct:  bp?.away_spread || sp?.away || null,
-          overBetPct:  bp?.over || null,
-          underBetPct: bp?.under || null,
-          homeMoneyPct: bp?.home_ml || null,
-          totalHandles: g.game_detail?.total_bets || null,
+          homeBetPct:   bp?.home_spread ?? sp?.home ?? null,
+          awayBetPct:   bp?.away_spread ?? sp?.away ?? null,
+          overBetPct:   bp?.over ?? null,
+          underBetPct:  bp?.under ?? null,
+          homeMoneyPct: bp?.home_ml ?? null,
+          totalHandles: g.game_detail?.total_bets ?? null,
         };
       }
     }
+    if (Object.keys(results).length > 0) break; // got data — stop trying
   }
+
   const count = Object.keys(results).length;
-  console.log(`  Action Network: ${count} games with public betting % ${count === 0 ? "(API may require auth — trying Covers fallback)" : ""}`);
+  console.log(`  Action Network: ${count} games with public betting %${count === 0 ? " (no auth — Covers fallback will run)" : ""}`);
   return results;
 }
 
@@ -945,15 +960,21 @@ async function main() {
     return weatherCache[key];
   }
 
-  // Fetch news for top games (limit to avoid rate limits: ~20 games)
+  // Fetch news for top games — increased to 50 (top 25 by combined AP rank + all ranked-vs-ranked)
   const TOP_GAME_KEYS = new Set();
   const sortedGames = [...fbsGames].sort((a,b) => {
     const ar = (apRanks[schoolToId(a.home_team)]||99) + (apRanks[schoolToId(a.away_team)]||99);
     const br = (apRanks[schoolToId(b.home_team)]||99) + (apRanks[schoolToId(b.away_team)]||99);
     return ar - br;
   });
-  for (const g of sortedGames.slice(0,20)) {
+  for (const g of sortedGames.slice(0,50)) {
     TOP_GAME_KEYS.add(`${g.home_team}|${g.away_team}`);
+  }
+  // Always include games where both teams are ranked (marquee matchups)
+  for (const g of fbsGames) {
+    const hRank = apRanks[schoolToId(g.home_team)];
+    const aRank = apRanks[schoolToId(g.away_team)];
+    if (hRank && aRank) TOP_GAME_KEYS.add(`${g.home_team}|${g.away_team}`);
   }
 
   // Process games in batches with weather + news
