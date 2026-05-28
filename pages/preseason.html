@@ -452,6 +452,42 @@
   });
 
 })();
+
+// ── Live data overlay: update AP ranks from team-extras.json after render ──
+// The main render above uses stub AP rank estimates. This fetch replaces them
+// with live values from the last GitHub Actions run without requiring live.js.
+fetch('../data/team-extras.json', { cache: 'no-cache' })
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d || !window.TEAMS) return;
+    var ranks = d.apRanks || {};
+    if (!Object.keys(ranks).length) return;
+    var fullPoll = Object.keys(ranks).length >= 25;
+    // Update TEAMS object
+    Object.keys(ranks).forEach(function(id) { if (TEAMS[id]) TEAMS[id].apRank = ranks[id]; });
+    if (fullPoll) { Object.values(TEAMS).forEach(function(t) { if (t.id && ranks[t.id] == null) t.apRank = null; }); }
+    // Patch DOM: .ap-badge elements
+    document.querySelectorAll('.ap-badge').forEach(function(el) {
+      var row = el.closest('.rank-row');
+      if (!row) return;
+      var nameEl = row.querySelector('.team-name');
+      if (!nameEl) return;
+      var teamName = nameEl.textContent;
+      var team = Object.values(TEAMS).find(function(t) { return t.name === teamName; });
+      if (team) el.textContent = team.apRank ? '#' + team.apRank + ' AP' : '—';
+    });
+    // Patch DOM: .mtc-conf lines that contain 'AP #'
+    document.querySelectorAll('.mtc-conf').forEach(function(el) {
+      var card = el.closest('.mini-team-card');
+      if (!card) return;
+      var nameEl = card.querySelector('.mtc-name');
+      if (!nameEl) return;
+      var team = Object.values(TEAMS).find(function(t) { return t.name === nameEl.textContent; });
+      if (!team) return;
+      el.textContent = team.conference + (team.apRank ? ' · AP #' + team.apRank : '');
+    });
+  })
+  .catch(function() {});
 </script>
 </body>
 </html>
