@@ -163,10 +163,11 @@ jobs:
 
       # On Sundays, commit the updated season-record.json back to the repo
       - name: Save season record
-        if: steps.cfg.outputs.type == 'results' && steps.cfg.outputs.dry == 'false' && github.ref == 'refs/heads/main'
+        if: steps.cfg.outputs.type == 'results' && steps.cfg.outputs.dry == 'false'
         run: |
           git config user.name  "TheBet Bot"
           git config user.email "bot@thebetcfb.com"
-          git pull --rebase origin main || { echo "Rebase failed — aborting push"; exit 1; }
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          git pull --rebase origin "$CURRENT_BRANCH" || { echo "Rebase failed — aborting push"; exit 1; }
           git add data/season-record.json
-          git diff --staged --quiet || { git commit -m "Update season record [skip ci]" && git push; }
+          git diff --staged --quiet || { git commit -m "Update season record [skip ci]" && git push origin HEAD:"$CURRENT_BRANCH"; }

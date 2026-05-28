@@ -83,12 +83,8 @@ jobs:
             SOURCES=$(node -e "const d=require('./data/metadata.json');console.log((d.dataSourcesActive||[]).length+' sources')" 2>/dev/null || echo "")
             git commit -m "data: refresh $(date -u '+%Y-%m-%d %H:%M UTC') — ${GAME_COUNT} games, ${LINES_COUNT} with lines, ${SOURCES} [skip ci]"
             CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-            if [ "$CURRENT_BRANCH" = "main" ]; then
-              git pull --rebase origin main 2>/dev/null || { echo "⚠️ Rebase failed — skipping push to avoid overwriting concurrent data commit"; exit 1; }
-              git push origin HEAD:main
-            else
-              echo "Running on '$CURRENT_BRANCH' — data committed locally but push skipped (only main pushes to origin)"
-            fi
+            git pull --rebase origin "$CURRENT_BRANCH" 2>/dev/null || { echo "⚠️ Rebase failed — skipping push to avoid overwriting concurrent data commit"; exit 1; }
+            git push origin HEAD:"$CURRENT_BRANCH"
           fi
 
       - name: Check and post breaking alerts
@@ -133,10 +129,8 @@ jobs:
           else
             git commit -m "data: update alert state [skip ci]"
             CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-            if [ "$CURRENT_BRANCH" = "main" ]; then
-              git pull --rebase origin main 2>/dev/null || { echo "⚠️ Rebase failed — skipping alert state push"; exit 1; }
-              git push origin HEAD:main
-            fi
+            git pull --rebase origin "$CURRENT_BRANCH" 2>/dev/null || { echo "⚠️ Rebase failed — skipping alert state push"; exit 1; }
+            git push origin HEAD:"$CURRENT_BRANCH"
           fi
 
       - name: Rotate refresh token after alerts

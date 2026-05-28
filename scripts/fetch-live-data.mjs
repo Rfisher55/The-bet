@@ -1344,6 +1344,7 @@ async function main() {
   console.log(`  Team extras written — SP+: ${cfbdExtras.spRatings.length}, Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, injuries: ${Object.values(injuries).flat().length}`);
 
   const hasInjury  = Object.values(injuries).flat().length > 0;
+  const hasReddit  = Object.keys(redditBuzz).length > 0;
   if (hasInjury) {
     writeAtomic(join(DATA_DIR,"injuries.json"),
       JSON.stringify({ generated: now, injuries }, null, 2));
@@ -1384,6 +1385,21 @@ async function main() {
   const MIN_SCHEDULE_GAMES = 100;
   if (games.length < MIN_SCHEDULE_GAMES) {
     console.log(`  Only ${games.length} games found (threshold: ${MIN_SCHEDULE_GAMES}) — preserving curated seed until full schedule is available`);
+    writeAtomic(join(DATA_DIR, "metadata.json"), JSON.stringify({
+      generated:      now,
+      season:         SEASON,
+      preseason:      true,
+      totalGames:     games.length,
+      spTeams:        cfbdExtras.spRatings.length,
+      rankedTeams:    Object.keys(apRanks).length,
+      injuredPlayers: Object.values(injuries).flat().length,
+      dataSourcesActive: [
+        cfbdExtras.spRatings.length > 0 ? "CFBD (SP+ ratings)" : null,
+        hasReddit ? "Reddit CFB+sportsbook (sentiment)" : null,
+        "GoogleNews (game headlines)",
+      ].filter(Boolean),
+      fetchDurationMs: Date.now() - startTime,
+    }, null, 2));
     return;
   }
 
