@@ -80,6 +80,12 @@ function detectMismatch(home, away, predSpread) {
     const level = (!weakHasSP || isFCSLevel(weakTeam)) ? "fcs" : "major";
     return { level, weakSide };
   }
+  // Both have real SP+ data but gap >= 20: suppress misleading grade cards.
+  // Mid-major vs Power (Ohio vs Nebraska, North Texas vs Indiana) with a ~20-pt spread
+  // produces nonsense "A EDGE" grades for the weaker team due to formula limitations.
+  if (weakHasSP && strongHasSP && (ratingGap >= 20 || spreadGap >= 18)) {
+    return { level: "major", weakSide };
+  }
   if (ratingGap >= 20 || spreadGap >= 18) return { level: "significant", weakSide };
 
   return { level: null, weakSide: null };

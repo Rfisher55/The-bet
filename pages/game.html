@@ -1913,6 +1913,9 @@ function renderGamePage(gData) {
     const _ratingGap = Math.abs((home.rating || 50) - (away.rating || 50));
     if (_isFCS || (!sosI && _ratingGap >= 28)) return "";
 
+    // Never show grade cards when either team has no real stats (ESPN/fallback stubs)
+    if ((home.stats || {})._statsEstimated || (away.stats || {})._statsEstimated) return "";
+
     // Stat quality multipliers for weak-schedule teams (same as predictor)
     const hSqm = (sosI && sosI.homeStatMult) || 1.0;
     const aSqm = (sosI && sosI.awayStatMult) || 1.0;
@@ -1928,52 +1931,59 @@ function renderGamePage(gData) {
       if (a >= 4) return "#94a3b8"; return "var(--danger)";
     }
     const hs = home.stats || {}, as_ = away.stats || {};
-    // Matchup edge scores — positive = home advantage, negative = away advantage
-    // Offensive stats multiplied by team's sqm; defensive stats adjusted inversely.
+    // Primary score driver: offensiveRating / defensiveRating (calibrated from SP+ and PPA data).
+    // Stats are secondary adjustments only. sqm multiplied (not divided) for both offense and
+    // defense so weak-schedule teams are discounted in both directions.
+    // Positive score = home advantage. Negative = away advantage.
+    const hOff = (home.offensiveRating || 65) * hSqm;
+    const hDef = (home.defensiveRating  || 65) * hSqm;
+    const aOff = (away.offensiveRating  || 65) * aSqm;
+    const aDef = (away.defensiveRating  || 65) * aSqm;
     const matchups = [
       {
         icon: "⚡", label: "OFFENSIVE LINE vs D-LINE",
-        // Home rushing offense (discounted by hSqm) vs away run defense (inflated by 1/aSqm for weak schedules)
-        score: (hs.rushingYardsPerGame * hSqm - (as_.yardsAllowedPerGame / aSqm) * 0.4) * 0.35
-             + (hs.sacks * hSqm - as_.sacksAllowed / aSqm) * 1.8,
+        // Home OL (offensive rating) vs Away D-Line (defensive rating)
+        score: (hOff - aDef) * 0.75
+             + (hs.rushingYardsPerGame ? (hs.rushingYardsPerGame * hSqm - 145) * 0.07 : 0)
+             + (as_.sacks && hs.sacksAllowed ? (hs.sacksAllowed / hSqm - as_.sacks * aSqm) * -0.6 : 0),
         home_lbl: `${home.abbreviation} OL / Run Game`,
         away_lbl: `${away.abbreviation} Defensive Line`,
         gen: (w, s) => s > 0
-          ? `${home.name} wins the trenches — ${hs.rushingYardsPerGame} rush yds/gm vs ${away.name}'s ${(as_.yardsAllowedPerGame * 0.4).toFixed(0)} run yds allowed/gm. Pass pro holds up.`
-          : `${away.name} front four controls the line of scrimmage — ${(as_.sacks || 0).toFixed(1)} sacks/gm disrupts ${home.name}'s run blocking and creates negative plays.`
+          ? `${home.name} wins the trenches — offensive line and run-game quality (${Math.round(hOff)}) outmatches ${away.name}'s defensive front (${Math.round(aDef)}). Pass protection holds up.`
+          : `${away.name} defensive front controls the line of scrimmage — their run-stopping and pass-rush ability (${Math.round(aDef)}) edges ${home.name}'s OL unit (${Math.round(hOff)}).`
       },
       {
         icon: "🎯", label: "QB vs SECONDARY",
-        // Home passing offense (discounted) vs away pass defense (inflated for weak schedules)
-        score: (hs.passingYardsPerGame * hSqm - (as_.yardsAllowedPerGame / aSqm) * 0.58) * 0.28
-             + (home.offensiveRating - away.defensiveRating) * 0.4,
+        // Home passing offense vs Away secondary (defensive rating)
+        score: (hOff - aDef) * 0.70
+             + (hs.passingYardsPerGame ? (hs.passingYardsPerGame * hSqm - 225) * 0.05 : 0),
         home_lbl: `${home.abbreviation} Passing Game`,
         away_lbl: `${away.abbreviation} Secondary`,
         gen: (w, s) => s > 0
-          ? `${home.name} passing attack has the edge — ${hs.passingYardsPerGame} pass yds/gm vs ${away.name}'s secondary that allows ${(as_.yardsAllowedPerGame * 0.58).toFixed(0)} through the air.`
-          : `${away.name} secondary wins this matchup — their coverage limits opponents and ${home.name}'s passing game (${hs.passingYardsPerGame} yds/gm) will face pressure.`
+          ? `${home.name} passing attack has the edge — QB efficiency and receiver talent (${Math.round(hOff)}) outmatches ${away.name}'s secondary coverage ability (${Math.round(aDef)}).`
+          : `${away.name} secondary wins this matchup — coverage unit rating (${Math.round(aDef)}) limits ${home.name}'s passing attack (${Math.round(hOff)}) and disrupts rhythm.`
       },
       {
         icon: "🛡️", label: "RUN DEFENSE",
-        // Away rushing offense (discounted by aSqm) vs home run defense (inflated by 1/hSqm)
-        score: ((as_.rushingYardsPerGame * aSqm) - (hs.yardsAllowedPerGame / hSqm) * 0.4) * -0.3
-             + (home.defensiveRating - away.offensiveRating) * 0.45,
+        // Home run defense (defensive rating) vs Away rushing offense
+        score: (hDef - aOff) * 0.75
+             + (as_.rushingYardsPerGame ? (145 - as_.rushingYardsPerGame * aSqm) * 0.07 : 0),
         home_lbl: `${home.abbreviation} Run Defense`,
         away_lbl: `${away.abbreviation} Ground Game`,
         gen: (w, s) => s > 0
-          ? `${home.name} stuffs the run — holds opponents to ${(hs.yardsAllowedPerGame * 0.4).toFixed(0)} rush yds/gm. Forces ${away.name} into passing downs.`
-          : `${away.name} ground game is too physical — ${as_.rushingYardsPerGame} rush yds/gm will wear down ${home.name}'s defense over 60 minutes.`
+          ? `${home.name} stuffs the run — defensive rating (${Math.round(hDef)}) contains ${away.name}'s ground game (${Math.round(aOff)}). Forces passing downs.`
+          : `${away.name} ground game is the strength here — rushing attack quality (${Math.round(aOff)}) creates problems for ${home.name}'s run defense (${Math.round(hDef)}).`
       },
       {
         icon: "🔒", label: "AWAY QB vs HOME SECONDARY",
-        // Away passing offense (discounted by aSqm) vs home pass defense (inflated by 1/hSqm)
-        score: ((as_.passingYardsPerGame * aSqm) - (hs.yardsAllowedPerGame / hSqm) * 0.58) * -0.28
-             + (home.defensiveRating - away.offensiveRating) * 0.35,
+        // Home secondary (defensive rating) vs Away passing offense
+        score: (hDef - aOff) * 0.70
+             + (as_.passingYardsPerGame ? (225 - as_.passingYardsPerGame * aSqm) * 0.05 : 0),
         home_lbl: `${home.abbreviation} Secondary`,
         away_lbl: `${away.abbreviation} Passing Game`,
         gen: (w, s) => s >= 0
-          ? `${home.name} secondary holds the edge — limits opponents to ${(hs.yardsAllowedPerGame * 0.58).toFixed(0)} pass yds/gm. Wins coverage battles against ${away.name}'s passing attack.`
-          : `${away.name} passing game has the advantage — ${as_.passingYardsPerGame} pass yds/gm against a ${home.name} secondary that gives up ${(hs.yardsAllowedPerGame * 0.58).toFixed(0)}.`
+          ? `${home.name} secondary holds the edge — coverage rating (${Math.round(hDef)}) limits ${away.name}'s passing options (${Math.round(aOff)}).`
+          : `${away.name} passing game has the advantage — QB and receiver quality (${Math.round(aOff)}) challenges ${home.name}'s secondary (${Math.round(hDef)}).`
       },
       {
         icon: "⭐", label: "OVERALL TALENT EDGE",

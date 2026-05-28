@@ -1584,7 +1584,9 @@ const LIVE = (() => {
       if (!t.school) return;
       const id        = schoolToId(t.school);
       const sp        = spMap[t.school] || {};
-      const spOverall = sp.rating  || 0;
+      // Use ?? null so teams without SP+ (FCS programs, untracked schools) get null,
+      // not 0. detectMismatch() uses SP+ asymmetry to flag these as FCS-level.
+      const spOverall = sp.rating  ?? null;
       const spRank    = sp.ranking || 80;
       const recruitRk = recruitMap[t.school] || spRank;
       const coach     = coachMap[t.school]  || "Unknown";
