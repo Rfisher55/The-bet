@@ -939,7 +939,11 @@ const LIVE = (() => {
       if (Object.keys(espnAllRecords).length && window.TEAMS) {
         Object.values(TEAMS).forEach(t => {
           const rec = espnAllRecords[t.id] || espnAllRecords[(t.abbreviation||"").toLowerCase()];
-          if (rec) t.currentRecord = rec;
+          if (rec) {
+            t.currentRecord = rec;
+            const m = rec.match(/^(\d+)-(\d+)/);
+            if (m) { t.wins = +m[1]; t.losses = +m[2]; }
+          }
         });
       }
 

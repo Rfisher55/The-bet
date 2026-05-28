@@ -61,6 +61,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Pull latest data
+        run: git pull origin ${{ github.ref_name }}
+
       # Gate: skip once the FULL schedule is published (100+ games from CFBD).
       # The curated seed has 21 games — that's still preseason.
       # Once CFBD publishes the schedule (~July/August), totalGames hits 500+

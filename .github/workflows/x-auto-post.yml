@@ -55,6 +55,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Pull latest data
+        run: git pull origin ${{ github.ref_name }}
+
       # Gate: only run when the full season schedule is live (100+ games from CFBD).
       # During preseason (21 curated games), x-preseason-post.yml handles all posting.
       # Manual workflow_dispatch always bypasses the gate for testing.
