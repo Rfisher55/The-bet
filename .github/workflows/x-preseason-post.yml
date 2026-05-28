@@ -1,9 +1,11 @@
 name: X Preseason Post
 
 on:
-  # Auto-schedule: once per day at 10am ET (14:00 UTC), Mon-Sat
+  # Auto-schedule: once per day at 10:07am ET (14:07 UTC), Mon-Sat
+  # Note: GitHub recommends avoiding exact :00 times — high-load start-of-hour causes
+  # frequent delays and dropped runs. Off-minute times are far more reliable.
   schedule:
-    - cron: '0 14 * * 1-6'
+    - cron: '7 14 * * 1-6'
 
   workflow_dispatch:
     inputs:
@@ -166,6 +168,29 @@ jobs:
             esac
             echo "dry=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Verify X credentials
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
+        run: |
+          MISSING=""
+          [ -z "$X_OAUTH2_CLIENT_ID" ]     && MISSING="$MISSING X_OAUTH2_CLIENT_ID"
+          [ -z "$X_OAUTH2_CLIENT_SECRET" ] && MISSING="$MISSING X_OAUTH2_CLIENT_SECRET"
+          [ -z "$X_OAUTH2_REFRESH_TOKEN" ] && MISSING="$MISSING X_OAUTH2_REFRESH_TOKEN"
+          if [ -n "$MISSING" ]; then
+            echo "❌ Missing secrets:$MISSING"
+            echo ""
+            echo "Run the x-oauth2-setup workflow to generate your refresh token:"
+            echo "  1. Actions → X OAuth2 Setup → Run workflow → action=generate"
+            echo "  2. Visit the printed URL on your phone and authorize the app"
+            echo "  3. Run workflow again → action=exchange → paste the code"
+            echo "  4. Add the printed token as secret X_OAUTH2_REFRESH_TOKEN"
+            exit 1
+          fi
+          echo "✅ All X credentials present"
 
       - name: Post to X
         if: steps.gate.outputs.skip != 'true'
