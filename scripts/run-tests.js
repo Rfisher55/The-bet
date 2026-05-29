@@ -648,6 +648,19 @@ test('x-auto-post.yml has git pull before season-record commit', () => {
   assert(src.includes('git pull --rebase'), 'git pull --rebase before commit missing');
 });
 
+test('post-watchdog.yml exists and checks token date', () => {
+  const src = fs.readFileSync(path.join(ROOT, '.github/workflows/post-watchdog.yml'), 'utf8');
+  assert(src.includes('needs_post'), 'Watchdog must set needs_post output');
+  assert(src.includes('updatedAt'), 'Watchdog must check x-auth.json updatedAt to detect missed posts');
+  assert(src.includes('America/New_York'), 'Watchdog must use ET timezone');
+});
+
+test('keepalive.yml exists', () => {
+  const src = fs.readFileSync(path.join(ROOT, '.github/workflows/keepalive.yml'), 'utf8');
+  assert(src.includes('liskin/gh-workflow-keepalive'), 'Keepalive must use liskin action');
+  assert(src.includes('actions: write'), 'Keepalive needs actions: write permission');
+});
+
 // ─────────────────────────────────────────────────────────────────────────────
 console.log('\n══════════════════════════════════════════════');
 console.log(`  RESULTS: ${passed} passed, ${failed} failed`);
