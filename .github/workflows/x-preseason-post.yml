@@ -1,10 +1,6 @@
 name: X Preseason Post
 
 on:
-  push:
-    paths:
-      - '.trigger-post'
-
   # Auto-schedule: once per day at 10:07am ET (14:07 UTC), Mon-Sat
   schedule:
     - cron: '7 14 * * 1-6'
