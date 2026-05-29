@@ -1,0 +1,190 @@
+name: Post Watchdog
+
+# Backup safety net: runs at 3:07 PM ET every day the main post is scheduled.
+# Checks if x-auth.json was updated today (proof a post ran).
+# If not, runs the preseason post script directly — same logic as x-preseason-post.yml.
+#
+# This catches: GitHub scheduler drops, token errors, or any silent failure
+# in x-preseason-post.yml that didn't produce a token rotation commit.
+
+on:
+  schedule:
+    - cron: '7 19 * * 1-6'
+      timezone: 'America/New_York'    # 3:07 PM ET, auto-handles EDT/EST
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — preview without posting'
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: post-watchdog-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pull latest data
+        run: git pull origin ${{ github.ref_name }}
+
+      - name: Check if post already ran today
+        id: check
+        run: |
+          TOKEN_DATE=$(node -e "
+            try {
+              const d = require('./data/x-auth.json');
+              process.stdout.write(d.updatedAt || '');
+            } catch { process.stdout.write(''); }
+          " 2>/dev/null || echo "")
+          TODAY=$(date -u '+%Y-%m-%d')
+          echo "token_date=$TOKEN_DATE"
+          echo "today=$TODAY"
+          if [[ "$TOKEN_DATE" == "$TODAY"* ]]; then
+            echo "✅ Post already ran today ($TOKEN_DATE) — nothing to do"
+            echo "needs_post=false" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️  No post today (last: ${TOKEN_DATE:-never}) — firing backup post"
+            echo "needs_post=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check season gate
+        if: steps.check.outputs.needs_post == 'true'
+        id: gate
+        run: |
+          TOTAL=$(node -e "try{const d=require('./data/games-2026.json');console.log(d.totalGames||0)}catch{console.log(0)}")
+          HAS_LINES=$(node -e "try{const d=require('./data/games-2026.json');const n=(d.games||[]).filter(g=>g.bettingLines&&g.bettingLines.spread!=null).length;console.log(n)}catch{console.log(0)}")
+          echo "total_games=$TOTAL"
+          echo "games_with_lines=$HAS_LINES"
+          if [ "$TOTAL" -gt "100" ] && [ "$HAS_LINES" -gt "0" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            echo "Season live with lines — x-auto-post.yml handles in-season posts"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Preseason mode — backup post needed"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        if: steps.check.outputs.needs_post == 'true' && steps.gate.outputs.skip != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        if: steps.check.outputs.needs_post == 'true' && steps.gate.outputs.skip != 'true'
+        run: npm install
+        working-directory: scripts
+
+      - name: Resolve today's angle
+        if: steps.check.outputs.needs_post == 'true' && steps.gate.outputs.skip != 'true'
+        id: cfg
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # Manual dispatch: use same auto-schedule logic
+            echo "dry=${{ inputs.dry_run }}" >> $GITHUB_OUTPUT
+          else
+            echo "dry=false" >> $GITHUB_OUTPUT
+          fi
+
+          DOW=$(date +%u)
+          WEEK=$(date +%V)
+          DAY_OF_YEAR=$(date +%j)
+          CONFS=("SEC" "Big Ten" "Big 12" "ACC" "Mountain West" "Sun Belt" "MAC" "American Athletic" "Conference USA" "FBS Independents" "Pac-2")
+          CONF_IDX=$(( (WEEK - 1) % 11 ))
+          CONF="${CONFS[$CONF_IDX]}"
+          OFFSET=$(( (DAY_OF_YEAR * 5) % 130 ))
+
+          case "$DOW" in
+            1) echo "angle=hot-takes" >> $GITHUB_OUTPUT; echo "count=2" >> $GITHUB_OUTPUT; echo "offset=0" >> $GITHUB_OUTPUT; echo "conf=" >> $GITHUB_OUTPUT; echo "team=" >> $GITHUB_OUTPUT ;;
+            2) echo "angle=conference" >> $GITHUB_OUTPUT; echo "count=1" >> $GITHUB_OUTPUT; echo "offset=0" >> $GITHUB_OUTPUT; echo "conf=${CONF}" >> $GITHUB_OUTPUT; echo "team=" >> $GITHUB_OUTPUT ;;
+            3) echo "angle=rotate" >> $GITHUB_OUTPUT; echo "count=3" >> $GITHUB_OUTPUT; echo "offset=${OFFSET}" >> $GITHUB_OUTPUT; echo "conf=" >> $GITHUB_OUTPUT; echo "team=" >> $GITHUB_OUTPUT ;;
+            4)
+              if [ $(( WEEK % 2 )) -eq 1 ]; then echo "angle=sleepers" >> $GITHUB_OUTPUT
+              else echo "angle=fades" >> $GITHUB_OUTPUT; fi
+              echo "count=3" >> $GITHUB_OUTPUT; echo "offset=0" >> $GITHUB_OUTPUT; echo "conf=" >> $GITHUB_OUTPUT; echo "team=" >> $GITHUB_OUTPUT ;;
+            5)
+              if [ $(( WEEK % 2 )) -eq 1 ]; then echo "angle=ats-value" >> $GITHUB_OUTPUT
+              else echo "angle=portal" >> $GITHUB_OUTPUT; fi
+              echo "count=3" >> $GITHUB_OUTPUT; echo "offset=0" >> $GITHUB_OUTPUT; echo "conf=" >> $GITHUB_OUTPUT; echo "team=" >> $GITHUB_OUTPUT ;;
+            6) echo "angle=momentum" >> $GITHUB_OUTPUT; echo "count=2" >> $GITHUB_OUTPUT; echo "offset=0" >> $GITHUB_OUTPUT; echo "conf=" >> $GITHUB_OUTPUT; echo "team=" >> $GITHUB_OUTPUT ;;
+          esac
+
+      - name: Verify X credentials
+        if: steps.check.outputs.needs_post == 'true' && steps.gate.outputs.skip != 'true'
+        env:
+          X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
+        run: |
+          MISSING=""
+          [ -z "$X_OAUTH2_CLIENT_ID" ]     && MISSING="$MISSING X_OAUTH2_CLIENT_ID"
+          [ -z "$X_OAUTH2_CLIENT_SECRET" ] && MISSING="$MISSING X_OAUTH2_CLIENT_SECRET"
+          FILE_TOKEN=$(node -e "try{const d=require('./data/x-auth.json');process.stdout.write(d.refreshToken||'')}catch{}" 2>/dev/null || true)
+          EFFECTIVE_TOKEN="${FILE_TOKEN:-$X_OAUTH2_REFRESH_TOKEN}"
+          [ -z "$EFFECTIVE_TOKEN" ] && MISSING="$MISSING X_OAUTH2_REFRESH_TOKEN"
+          if [ -n "$MISSING" ]; then
+            echo "❌ Missing secrets:$MISSING"
+            exit 1
+          fi
+          echo "✅ All X credentials present"
+
+      - name: Post to X (backup)
+        if: steps.check.outputs.needs_post == 'true' && steps.gate.outputs.skip != 'true'
+        id: post
+        env:
+          X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
+          X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
+          X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
+        run: |
+          DRY=""
+          [ "${{ steps.cfg.outputs.dry }}" = "true" ] && DRY="--dry-run"
+
+          TEAM_ARG=""
+          [ -n "${{ steps.cfg.outputs.team }}" ] && TEAM_ARG="--team \"${{ steps.cfg.outputs.team }}\""
+
+          CONF_ARG=""
+          [ -n "${{ steps.cfg.outputs.conf }}" ] && CONF_ARG="--conf \"${{ steps.cfg.outputs.conf }}\""
+
+          echo "🔁 WATCHDOG firing backup post"
+          echo "Angle: ${{ steps.cfg.outputs.angle }}"
+          echo "Count: ${{ steps.cfg.outputs.count }}"
+
+          node scripts/post-preseason.js \
+            --angle "${{ steps.cfg.outputs.angle }}" \
+            --count "${{ steps.cfg.outputs.count }}" \
+            --offset "${{ steps.cfg.outputs.offset }}" \
+            $TEAM_ARG \
+            $CONF_ARG \
+            $DRY
+
+      - name: Rotate refresh token
+        if: always() && steps.check.outputs.needs_post == 'true' && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
+        run: |
+          if [ -s /tmp/new_refresh_token ]; then
+            NEW_TOKEN=$(cat /tmp/new_refresh_token)
+            node -e "
+              const fs = require('fs');
+              const p = 'data/x-auth.json';
+              const s = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p,'utf8')) : {};
+              s.refreshToken = process.argv[1];
+              s.updatedAt = new Date().toISOString();
+              fs.writeFileSync(p, JSON.stringify(s, null, 2));
+            " "$NEW_TOKEN"
+            git config user.name  "TheBet Bot"
+            git config user.email "bot@thebetcfb.com"
+            git add data/x-auth.json
+            git diff --staged --quiet || git commit -m "auth: rotate X OAuth2 refresh token [skip ci]"
+            BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            git pull --rebase origin "$BRANCH" 2>/dev/null || true
+            git push origin HEAD:"$BRANCH" || true
+            echo "✅ Token rotated after watchdog post"
+          fi
