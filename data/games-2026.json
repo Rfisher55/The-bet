@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-28T21:48:29.938Z",
+  "generated": "2026-05-29T07:52:58.297Z",
   "season": 2026,
   "totalGames": 857,
   "scheduledGames": 857,
@@ -21,7 +21,7 @@
     "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 36336,
+  "fetchDurationMs": 34817,
   "apRanks": {},
   "games": [
     {
@@ -84,11 +84,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "North Carolina",
-          "line": "+2.5",
-          "confidence": "MEDIUM",
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
           "unit": 1,
-          "reasoning": "ACC edge in overseas preparation + better transatlantic fan support"
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -153,11 +153,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "San José State",
-          "line": "+21.5",
-          "confidence": "MEDIUM",
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
           "unit": 1,
-          "reasoning": "Backdoor cover when USC pulls starters — take the points"
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -222,11 +222,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "NC State",
-          "line": "+4",
-          "confidence": "MEDIUM",
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
           "unit": 1,
-          "reasoning": "Depth advantage + conditioning edge in Rio humidity"
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -498,11 +498,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "New Mexico State",
-          "line": "+28.5",
+          "team": "",
+          "line": "",
           "confidence": "LOW",
           "unit": 1,
-          "reasoning": "Large spread vulnerable to backdoor cover in garbage time"
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -1119,11 +1119,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Georgia Tech",
-          "line": "+2.5",
-          "confidence": "MEDIUM",
-          "unit": 1.5,
-          "reasoning": "Home dog in trap game — Colorado's media hype overblown for road opener"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -1319,7 +1319,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 2
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "UAB Blazers at Illinois Fighting Illini",
@@ -1888,75 +1888,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401858207",
-      "espnId": "401858207",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "12:00 PM ET",
-      "homeTeamId": "pittsburgh",
-      "awayTeamId": "miami_oh",
-      "homeTeamName": "Pittsburgh Panthers",
-      "awayTeamName": "Miami (OH) RedHawks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "The CW Network",
-      "venue": "Acrisure Stadium",
-      "venueCity": "Pittsburgh",
-      "venueState": "PA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 4
-      },
-      "gamePreview": {
-        "headline": "Miami (OH) RedHawks at Pittsburgh Panthers",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401861962",
       "espnId": "401861962",
       "week": 1,
@@ -2026,22 +1957,22 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401862696",
-      "espnId": "401862696",
+      "id": "espn_401858207",
+      "espnId": "401858207",
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "3:30 PM ET",
-      "homeTeamId": "navy",
-      "awayTeamId": "towson",
-      "homeTeamName": "Navy Midshipmen",
-      "awayTeamName": "Towson Tigers",
+      "time": "12:00 PM ET",
+      "homeTeamId": "pittsburgh",
+      "awayTeamId": "miami_oh",
+      "homeTeamName": "Pittsburgh Panthers",
+      "awayTeamName": "Miami (OH) RedHawks",
       "homeConference": "",
       "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Navy-Marine Corps Memorial Stadium",
-      "venueCity": "Annapolis",
-      "venueState": "MD",
+      "network": "The CW Network",
+      "venue": "Acrisure Stadium",
+      "venueCity": "Pittsburgh",
+      "venueState": "PA",
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "scheduled",
@@ -2078,10 +2009,10 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 4
       },
       "gamePreview": {
-        "headline": "Towson Tigers at Navy Midshipmen",
+        "headline": "Miami (OH) RedHawks at Pittsburgh Panthers",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -2164,144 +2095,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401864497",
-      "espnId": "401864497",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-06",
-      "time": "10:00 PM ET",
-      "homeTeamId": "hawai_i",
-      "awayTeamId": "unlv",
-      "homeTeamName": "Hawai'i Rainbow Warriors",
-      "awayTeamName": "UNLV Rebels",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "The CW Network",
-      "venue": "Clarence T.C. Ching Athletics Complex",
-      "venueCity": "Honolulu",
-      "venueState": "HI",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "UNLV Rebels at Hawai'i Rainbow Warriors",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401864499",
-      "espnId": "401864499",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "3:30 PM ET",
-      "homeTeamId": "north_dakota_state",
-      "awayTeamId": "fordham",
-      "homeTeamName": "North Dakota State Bison",
-      "awayTeamName": "Fordham Rams",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "The CW Network",
-      "venue": "Fargodome",
-      "venueCity": "Fargo",
-      "venueState": "ND",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Fordham Rams at North Dakota State Bison",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401856634",
       "espnId": "401856634",
       "week": 1,
@@ -2361,11 +2154,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "East Carolina",
-          "line": "+35.5",
-          "confidence": "MEDIUM",
-          "unit": 1.5,
-          "reasoning": "Massive spread + Alabama pulling starters = ECU backdoor cover"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -3349,6 +3142,144 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401862696",
+      "espnId": "401862696",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "3:30 PM ET",
+      "homeTeamId": "navy",
+      "awayTeamId": "towson",
+      "homeTeamName": "Navy Midshipmen",
+      "awayTeamName": "Towson Tigers",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Navy-Marine Corps Memorial Stadium",
+      "venueCity": "Annapolis",
+      "venueState": "MD",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Towson Tigers at Navy Midshipmen",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401864499",
+      "espnId": "401864499",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "3:30 PM ET",
+      "homeTeamId": "north_dakota_state",
+      "awayTeamId": "fordham",
+      "homeTeamName": "North Dakota State Bison",
+      "awayTeamName": "Fordham Rams",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "The CW Network",
+      "venue": "Fargodome",
+      "venueCity": "Fargo",
+      "venueState": "ND",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Fordham Rams at North Dakota State Bison",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401856636",
       "espnId": "401856636",
       "week": 1,
@@ -3408,11 +3339,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Auburn",
-          "line": "-3.5",
-          "confidence": "MEDIUM",
-          "unit": 1.5,
-          "reasoning": "SEC home night game advantage + conference talent edge"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -3684,11 +3615,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Tulane",
-          "line": "+3",
+          "team": "",
+          "line": "",
           "confidence": "LOW",
           "unit": 1,
-          "reasoning": "Tulane's offensive system creates matchup problems — take the points"
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -3822,11 +3753,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Marshall",
-          "line": "+28.5",
+          "team": "",
+          "line": "",
           "confidence": "LOW",
           "unit": 1,
-          "reasoning": "Massive spread vulnerable to backdoor cover in garbage time"
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -5409,11 +5340,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "LSU",
-          "line": "-3.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Death Valley night game + Clemson QB questions + Brian Kelly home opener energy = LSU cover"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -5616,11 +5547,11 @@
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Western Michigan",
-          "line": "+24.5",
-          "confidence": "MEDIUM",
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
           "unit": 1,
-          "reasoning": "Michigan pulls starters late — WMU covers with garbage time scoring"
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -6247,6 +6178,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401864497",
+      "espnId": "401864497",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-06",
+      "time": "10:00 PM ET",
+      "homeTeamId": "hawai_i",
+      "awayTeamId": "unlv",
+      "homeTeamName": "Hawai'i Rainbow Warriors",
+      "awayTeamName": "UNLV Rebels",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "The CW Network",
+      "venue": "Clarence T.C. Ching Athletics Complex",
+      "venueCity": "Honolulu",
+      "venueState": "HI",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "UNLV Rebels at Hawai'i Rainbow Warriors",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401856774",
       "espnId": "401856774",
       "week": 1,
@@ -6368,7 +6368,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 4
+        "oddsBookCount": 3
       },
       "gamePreview": {
         "headline": "Central Michigan Chippewas at New Mexico Lobos",
@@ -7081,144 +7081,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401858221",
-      "espnId": "401858221",
-      "week": 2,
-      "seasonType": "regular",
-      "date": "2026-09-12",
-      "time": "12:00 PM ET",
-      "homeTeamId": "virginia_tech",
-      "awayTeamId": "old_dominion",
-      "homeTeamName": "Virginia Tech Hokies",
-      "awayTeamName": "Old Dominion Monarchs",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "The CW Network",
-      "venue": "Lane Stadium",
-      "venueCity": "Blacksburg",
-      "venueState": "VA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Old Dominion Monarchs at Virginia Tech Hokies",
-        "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401862702",
-      "espnId": "401862702",
-      "week": 2,
-      "seasonType": "regular",
-      "date": "2026-09-12",
-      "time": "12:00 PM ET",
-      "homeTeamId": "army",
-      "awayTeamId": "south_florida",
-      "homeTeamName": "Army Black Knights",
-      "awayTeamName": "South Florida Bulls",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Michie Stadium",
-      "venueCity": "West Point",
-      "venueState": "NY",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "South Florida Bulls at Army Black Knights",
-        "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401864504",
       "espnId": "401864504",
       "week": 2,
@@ -7426,6 +7288,144 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401858221",
+      "espnId": "401858221",
+      "week": 2,
+      "seasonType": "regular",
+      "date": "2026-09-12",
+      "time": "12:00 PM ET",
+      "homeTeamId": "virginia_tech",
+      "awayTeamId": "old_dominion",
+      "homeTeamName": "Virginia Tech Hokies",
+      "awayTeamName": "Old Dominion Monarchs",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "The CW Network",
+      "venue": "Lane Stadium",
+      "venueCity": "Blacksburg",
+      "venueState": "VA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Old Dominion Monarchs at Virginia Tech Hokies",
+        "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401862702",
+      "espnId": "401862702",
+      "week": 2,
+      "seasonType": "regular",
+      "date": "2026-09-12",
+      "time": "12:00 PM ET",
+      "homeTeamId": "army",
+      "awayTeamId": "south_florida",
+      "homeTeamName": "Army Black Knights",
+      "awayTeamName": "South Florida Bulls",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Michie Stadium",
+      "venueCity": "West Point",
+      "venueState": "NY",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "South Florida Bulls at Army Black Knights",
+        "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401856679",
       "espnId": "401856679",
       "week": 2,
@@ -7485,11 +7485,11 @@
         "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Oklahoma",
-          "line": "+3.5",
-          "confidence": "MEDIUM",
-          "unit": 2,
-          "reasoning": "SEC talent on road vs Big Ten — Oklahoma's roster can steal this in Ann Arbor"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -9218,11 +9218,11 @@
         "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Rice",
-          "line": "+27.5",
-          "confidence": "MEDIUM",
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
           "unit": 1,
-          "reasoning": "ND pulls starters in fourth — backdoor cover is real at this spread"
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -11507,11 +11507,11 @@
         "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Texas",
-          "line": "-3.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "DKR night game advantage + Texas home fortress record + Ohio State road struggles at 100K venues"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -12830,144 +12830,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401858231",
-      "espnId": "401858231",
-      "week": 3,
-      "seasonType": "regular",
-      "date": "2026-09-19",
-      "time": "4:00 PM ET",
-      "homeTeamId": "duke",
-      "awayTeamId": "stanford",
-      "homeTeamName": "Duke Blue Devils",
-      "awayTeamName": "Stanford Cardinal",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "The CW Network",
-      "venue": "Wallace Wade Stadium",
-      "venueCity": "Durham",
-      "venueState": "NC",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Stanford Cardinal at Duke Blue Devils",
-        "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401862774",
-      "espnId": "401862774",
-      "week": 3,
-      "seasonType": "regular",
-      "date": "2026-09-19",
-      "time": "3:00 PM ET",
-      "homeTeamId": "toledo",
-      "awayTeamId": "temple",
-      "homeTeamName": "Toledo Rockets",
-      "awayTeamName": "Temple Owls",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Glass Bowl",
-      "venueCity": "Toledo",
-      "venueState": "OH",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Temple Owls at Toledo Rockets",
-        "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401869940",
       "espnId": "401869940",
       "week": 3,
@@ -13024,75 +12886,6 @@
       },
       "gamePreview": {
         "headline": "Coastal Carolina Chanticleers at Delaware Blue Hens",
-        "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401871047",
-      "espnId": "401871047",
-      "week": 3,
-      "seasonType": "regular",
-      "date": "2026-09-19",
-      "time": "6:30 PM ET",
-      "homeTeamId": "missouri_state",
-      "awayTeamId": "marshall",
-      "homeTeamName": "Missouri State Bears",
-      "awayTeamName": "Marshall Thundering Herd",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Robert W. Plaster Stadium",
-      "venueCity": "Springfield",
-      "venueState": "MO",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Marshall Thundering Herd at Missouri State Bears",
         "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -13648,11 +13441,11 @@
         "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Kent State",
-          "line": "+38.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "OSU pulls starters after 35-0 lead — Kent State covers in garbage time easily"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -14210,6 +14003,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401862774",
+      "espnId": "401862774",
+      "week": 3,
+      "seasonType": "regular",
+      "date": "2026-09-19",
+      "time": "3:00 PM ET",
+      "homeTeamId": "toledo",
+      "awayTeamId": "temple",
+      "homeTeamName": "Toledo Rockets",
+      "awayTeamName": "Temple Owls",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Glass Bowl",
+      "venueCity": "Toledo",
+      "venueState": "OH",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Temple Owls at Toledo Rockets",
+        "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401856685",
       "espnId": "401856685",
       "week": 3,
@@ -14269,11 +14131,11 @@
         "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Alabama",
-          "line": "-13.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Alabama talent depth overwhelming + home fortress + FSU still in rebuild = Tide cover convincingly"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -14818,6 +14680,75 @@
       },
       "gamePreview": {
         "headline": "Stonehill Skyhawks at Massachusetts Minutemen",
+        "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401858231",
+      "espnId": "401858231",
+      "week": 3,
+      "seasonType": "regular",
+      "date": "2026-09-19",
+      "time": "4:00 PM ET",
+      "homeTeamId": "duke",
+      "awayTeamId": "stanford",
+      "homeTeamName": "Duke Blue Devils",
+      "awayTeamName": "Stanford Cardinal",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "The CW Network",
+      "venue": "Wallace Wade Stadium",
+      "venueCity": "Durham",
+      "venueState": "NC",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Stanford Cardinal at Duke Blue Devils",
         "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -15439,6 +15370,75 @@
       },
       "gamePreview": {
         "headline": "Charlotte 49ers at App State Mountaineers",
+        "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401871047",
+      "espnId": "401871047",
+      "week": 3,
+      "seasonType": "regular",
+      "date": "2026-09-19",
+      "time": "6:30 PM ET",
+      "homeTeamId": "missouri_state",
+      "awayTeamId": "marshall",
+      "homeTeamName": "Missouri State Bears",
+      "awayTeamName": "Marshall Thundering Herd",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Robert W. Plaster Stadium",
+      "venueCity": "Springfield",
+      "venueState": "MO",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Marshall Thundering Herd at Missouri State Bears",
         "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -16408,11 +16408,11 @@
         "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Ole Miss",
-          "line": "+3",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "LSU's road struggles in Oxford + Grove atmosphere = prime home-dog spot"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -16822,11 +16822,11 @@
         "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Michigan State",
-          "line": "+10.5",
-          "confidence": "MEDIUM",
-          "unit": 1.5,
-          "reasoning": "Rivalry energy keeps MSU in it — 10.5 is too many points in this matchup"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -18685,11 +18685,11 @@
         "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Tennessee",
-          "line": "+4.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Heupel tempo impossible to simulate + Aguilar mobility creates third dimension + underdog value"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -19234,81 +19234,6 @@
       },
       "gamePreview": {
         "headline": "Central Arkansas Bears at Florida State Seminoles",
-        "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858238",
-      "espnId": "401858238",
-      "week": 4,
-      "seasonType": "regular",
-      "date": "2026-09-26",
-      "time": "6:30 PM ET",
-      "homeTeamId": "miami",
-      "awayTeamId": "central_michigan",
-      "homeTeamName": "Miami Hurricanes",
-      "awayTeamName": "Central Michigan Chippewas",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "The CW Network",
-      "venue": "Hard Rock Stadium",
-      "venueCity": "Miami Gardens",
-      "venueState": "FL",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": {
-        "condition": "Dome",
-        "tempF": 72,
-        "windMph": 0,
-        "precipitation": 0,
-        "indoors": true
-      },
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Central Michigan Chippewas at Miami Hurricanes",
         "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -22088,6 +22013,81 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401858238",
+      "espnId": "401858238",
+      "week": 4,
+      "seasonType": "regular",
+      "date": "2026-09-26",
+      "time": "6:30 PM ET",
+      "homeTeamId": "miami",
+      "awayTeamId": "central_michigan",
+      "homeTeamName": "Miami Hurricanes",
+      "awayTeamName": "Central Michigan Chippewas",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "The CW Network",
+      "venue": "Hard Rock Stadium",
+      "venueCity": "Miami Gardens",
+      "venueState": "FL",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": {
+        "condition": "Dome",
+        "tempF": 72,
+        "windMph": 0,
+        "precipitation": 0,
+        "indoors": true
+      },
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Central Michigan Chippewas at Miami Hurricanes",
+        "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401870745",
       "espnId": "401870745",
       "week": 4,
@@ -24154,11 +24154,11 @@
         "synopsis": "Week 5 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Miami",
-          "line": "-3.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Miami ascending trajectory + Clemson offensive transition + South Florida home game"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -24289,75 +24289,6 @@
       },
       "gamePreview": {
         "headline": "Stanford Cardinal at Wake Forest Demon Deacons",
-        "synopsis": "Week 5 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858252",
-      "espnId": "401858252",
-      "week": 5,
-      "seasonType": "regular",
-      "date": "2026-10-03",
-      "time": "12:00 PM ET",
-      "homeTeamId": "uconn",
-      "awayTeamId": "syracuse",
-      "homeTeamName": "UConn Huskies",
-      "awayTeamName": "Syracuse Orange",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Pratt & Whitney Stadium",
-      "venueCity": "East Hartford",
-      "venueState": "CT",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Syracuse Orange at UConn Huskies",
         "synopsis": "Week 5 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -26027,6 +25958,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401858252",
+      "espnId": "401858252",
+      "week": 5,
+      "seasonType": "regular",
+      "date": "2026-10-03",
+      "time": "12:00 PM ET",
+      "homeTeamId": "uconn",
+      "awayTeamId": "syracuse",
+      "homeTeamName": "UConn Huskies",
+      "awayTeamName": "Syracuse Orange",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Pratt & Whitney Stadium",
+      "venueCity": "East Hartford",
+      "venueState": "CT",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Syracuse Orange at UConn Huskies",
+        "synopsis": "Week 5 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401862791",
       "espnId": "401862791",
       "week": 5,
@@ -27397,11 +27397,11 @@
         "synopsis": "Week 6 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Alabama",
-          "line": "-3.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Bryant-Denny home fortress + Smart 2-4 in Tuscaloosa + night game October advantage"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -27742,11 +27742,11 @@
         "synopsis": "Week 6 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Oklahoma",
-          "line": "+2.5",
-          "confidence": "HIGH",
-          "unit": 2.5,
-          "reasoning": "Rivalry neutralizes talent gap + Sooner Magic revenge motivation — coin flip, take the points"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -29063,75 +29063,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401862795",
-      "espnId": "401862795",
-      "week": 6,
-      "seasonType": "regular",
-      "date": "2026-10-10",
-      "time": "12:00 PM ET",
-      "homeTeamId": "army",
-      "awayTeamId": "tulane",
-      "homeTeamName": "Army Black Knights",
-      "awayTeamName": "Tulane Green Wave",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Michie Stadium",
-      "venueCity": "West Point",
-      "venueState": "NY",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Tulane Green Wave at Army Black Knights",
-        "synopsis": "Week 6 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401862796",
       "espnId": "401862796",
       "week": 6,
@@ -29326,75 +29257,6 @@
       },
       "gamePreview": {
         "headline": "UAB Blazers at Memphis Tigers",
-        "synopsis": "Week 6 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401862799",
-      "espnId": "401862799",
-      "week": 6,
-      "seasonType": "regular",
-      "date": "2026-10-10",
-      "time": "3:30 PM ET",
-      "homeTeamId": "navy",
-      "awayTeamId": "tulsa",
-      "homeTeamName": "Navy Midshipmen",
-      "awayTeamName": "Tulsa Golden Hurricane",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Navy-Marine Corps Memorial Stadium",
-      "venueCity": "Annapolis",
-      "venueState": "MD",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Tulsa Golden Hurricane at Navy Midshipmen",
         "synopsis": "Week 6 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -30154,6 +30016,144 @@
       },
       "gamePreview": {
         "headline": "Louisiana Ragin' Cajuns at Louisiana Tech Bulldogs",
+        "synopsis": "Week 6 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401862795",
+      "espnId": "401862795",
+      "week": 6,
+      "seasonType": "regular",
+      "date": "2026-10-10",
+      "time": "12:00 PM ET",
+      "homeTeamId": "army",
+      "awayTeamId": "tulane",
+      "homeTeamName": "Army Black Knights",
+      "awayTeamName": "Tulane Green Wave",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Michie Stadium",
+      "venueCity": "West Point",
+      "venueState": "NY",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Tulane Green Wave at Army Black Knights",
+        "synopsis": "Week 6 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401862799",
+      "espnId": "401862799",
+      "week": 6,
+      "seasonType": "regular",
+      "date": "2026-10-10",
+      "time": "3:30 PM ET",
+      "homeTeamId": "navy",
+      "awayTeamId": "tulsa",
+      "homeTeamName": "Navy Midshipmen",
+      "awayTeamName": "Tulsa Golden Hurricane",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Navy-Marine Corps Memorial Stadium",
+      "venueCity": "Annapolis",
+      "venueState": "MD",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Tulsa Golden Hurricane at Navy Midshipmen",
         "synopsis": "Week 6 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -31267,11 +31267,11 @@
         "synopsis": "Week 7 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Tennessee",
-          "line": "+3.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Neyland home advantage worth 4-5 points + Pearce motivated + Alabama road struggles vs elite venues"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -32803,11 +32803,11 @@
         "synopsis": "Week 7 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Michigan",
-          "line": "-3.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Big House home advantage + Sherrone Moore 21-year coaching experience + Campbell Year 1 road variance"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -33007,75 +33007,6 @@
       },
       "gamePreview": {
         "headline": "Wisconsin Badgers at UCLA Bruins",
-        "synopsis": "Week 7 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401862802",
-      "espnId": "401862802",
-      "week": 7,
-      "seasonType": "regular",
-      "date": "2026-10-17",
-      "time": "12:00 PM ET",
-      "homeTeamId": "army",
-      "awayTeamId": "fau",
-      "homeTeamName": "Army Black Knights",
-      "awayTeamName": "Florida Atlantic Owls",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Michie Stadium",
-      "venueCity": "West Point",
-      "venueState": "NY",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Florida Atlantic Owls at Army Black Knights",
         "synopsis": "Week 7 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -34193,6 +34124,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401862802",
+      "espnId": "401862802",
+      "week": 7,
+      "seasonType": "regular",
+      "date": "2026-10-17",
+      "time": "12:00 PM ET",
+      "homeTeamId": "army",
+      "awayTeamId": "fau",
+      "homeTeamName": "Army Black Knights",
+      "awayTeamName": "Florida Atlantic Owls",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Michie Stadium",
+      "venueCity": "West Point",
+      "venueState": "NY",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Florida Atlantic Owls at Army Black Knights",
+        "synopsis": "Week 7 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401864522",
       "espnId": "401864522",
       "week": 7,
@@ -34939,6 +34939,75 @@
       },
       "gamePreview": {
         "headline": "NC State Wolfpack at Stanford Cardinal",
+        "synopsis": "Week 8 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401861965",
+      "espnId": "401861965",
+      "week": 8,
+      "seasonType": "regular",
+      "date": "2026-10-23",
+      "time": "6:00 PM ET",
+      "homeTeamId": "uconn",
+      "awayTeamId": "umass",
+      "homeTeamName": "UConn Huskies",
+      "awayTeamName": "Massachusetts Minutemen",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Pratt & Whitney Stadium",
+      "venueCity": "East Hartford",
+      "venueState": "CT",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Massachusetts Minutemen at UConn Huskies",
         "synopsis": "Week 8 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -36683,75 +36752,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401861965",
-      "espnId": "401861965",
-      "week": 8,
-      "seasonType": "regular",
-      "date": "2026-10-23",
-      "time": "6:00 PM ET",
-      "homeTeamId": "uconn",
-      "awayTeamId": "umass",
-      "homeTeamName": "UConn Huskies",
-      "awayTeamName": "Massachusetts Minutemen",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Pratt & Whitney Stadium",
-      "venueCity": "East Hartford",
-      "venueState": "CT",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Massachusetts Minutemen at UConn Huskies",
-        "synopsis": "Week 8 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401862809",
       "espnId": "401862809",
       "week": 8,
@@ -36808,75 +36808,6 @@
       },
       "gamePreview": {
         "headline": "Rice Owls at Florida Atlantic Owls",
-        "synopsis": "Week 8 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401862810",
-      "espnId": "401862810",
-      "week": 8,
-      "seasonType": "regular",
-      "date": "2026-10-24",
-      "time": "3:30 PM ET",
-      "homeTeamId": "navy",
-      "awayTeamId": "north_texas",
-      "homeTeamName": "Navy Midshipmen",
-      "awayTeamName": "North Texas Mean Green",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Navy-Marine Corps Memorial Stadium",
-      "venueCity": "Annapolis",
-      "venueState": "MD",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "North Texas Mean Green at Navy Midshipmen",
         "synopsis": "Week 8 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -37862,6 +37793,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401862810",
+      "espnId": "401862810",
+      "week": 8,
+      "seasonType": "regular",
+      "date": "2026-10-24",
+      "time": "3:30 PM ET",
+      "homeTeamId": "navy",
+      "awayTeamId": "north_texas",
+      "homeTeamName": "Navy Midshipmen",
+      "awayTeamName": "North Texas Mean Green",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Navy-Marine Corps Memorial Stadium",
+      "venueCity": "Annapolis",
+      "venueState": "MD",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "North Texas Mean Green at Navy Midshipmen",
+        "synopsis": "Week 8 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401860907",
       "espnId": "401860907",
       "week": 8,
@@ -38542,11 +38542,11 @@
         "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Georgia",
-          "line": "-9",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Georgia dominates series 5-of-6 + massive talent gap over rebuilding Florida + Smart rivalry preparation"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -39445,11 +39445,11 @@
         "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Clemson",
-          "line": "+3.5",
-          "confidence": "MEDIUM",
-          "unit": 1.5,
-          "reasoning": "Clemson elite defense + Swinney 14-4 ATS as underdog + one-score game expected"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -40697,75 +40697,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401866452",
-      "espnId": "401866452",
-      "week": 9,
-      "seasonType": "regular",
-      "date": "2026-10-31",
-      "time": "12:00 PM ET",
-      "homeTeamId": "western_michigan",
-      "awayTeamId": "bowling_green",
-      "homeTeamName": "Western Michigan Broncos",
-      "awayTeamName": "Bowling Green Falcons",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Waldo Stadium",
-      "venueCity": "Kalamazoo",
-      "venueState": "MI",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Bowling Green Falcons at Western Michigan Broncos",
-        "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401869846",
       "espnId": "401869846",
       "week": 9,
@@ -40891,75 +40822,6 @@
       },
       "gamePreview": {
         "headline": "Coastal Carolina Chanticleers at Georgia State Panthers",
-        "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401871059",
-      "espnId": "401871059",
-      "week": 9,
-      "seasonType": "regular",
-      "date": "2026-10-31",
-      "time": "3:30 PM ET",
-      "homeTeamId": "liberty",
-      "awayTeamId": "fiu",
-      "homeTeamName": "Liberty Flames",
-      "awayTeamName": "Florida International Panthers",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Williams Stadium (VA)",
-      "venueCity": "Lynchburg",
-      "venueState": "VA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Florida International Panthers at Liberty Flames",
         "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -41180,6 +41042,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401866452",
+      "espnId": "401866452",
+      "week": 9,
+      "seasonType": "regular",
+      "date": "2026-10-31",
+      "time": "12:00 PM ET",
+      "homeTeamId": "western_michigan",
+      "awayTeamId": "bowling_green",
+      "homeTeamName": "Western Michigan Broncos",
+      "awayTeamName": "Bowling Green Falcons",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Waldo Stadium",
+      "venueCity": "Kalamazoo",
+      "venueState": "MI",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Bowling Green Falcons at Western Michigan Broncos",
+        "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401859185",
       "espnId": "401859185",
       "week": 9,
@@ -41305,6 +41236,75 @@
       },
       "gamePreview": {
         "headline": "UConn Huskies at Air Force Falcons",
+        "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401871059",
+      "espnId": "401871059",
+      "week": 9,
+      "seasonType": "regular",
+      "date": "2026-10-31",
+      "time": "3:30 PM ET",
+      "homeTeamId": "liberty",
+      "awayTeamId": "fiu",
+      "homeTeamName": "Liberty Flames",
+      "awayTeamName": "Florida International Panthers",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Williams Stadium (VA)",
+      "venueCity": "Lynchburg",
+      "venueState": "VA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Florida International Panthers at Liberty Flames",
         "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -42343,11 +42343,11 @@
         "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "LSU",
-          "line": "+1.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Tiger Stadium night game = 3-4 point advantage not priced into 1.5-point line"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -43538,75 +43538,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401858292",
-      "espnId": "401858292",
-      "week": 10,
-      "seasonType": "regular",
-      "date": "2026-11-07",
-      "time": "12:00 PM ET",
-      "homeTeamId": "uconn",
-      "awayTeamId": "north_carolina",
-      "homeTeamName": "UConn Huskies",
-      "awayTeamName": "North Carolina Tar Heels",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Pratt & Whitney Stadium",
-      "venueCity": "East Hartford",
-      "venueState": "CT",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "North Carolina Tar Heels at UConn Huskies",
-        "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401858511",
       "espnId": "401858511",
       "week": 10,
@@ -43873,11 +43804,11 @@
         "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Ohio State",
-          "line": "-6",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Horseshoe home advantage + November cold hurts Oregon + OSU depth dominance"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -44146,75 +44077,6 @@
       },
       "gamePreview": {
         "headline": "Charlotte 49ers at UAB Blazers",
-        "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401862820",
-      "espnId": "401862820",
-      "week": 10,
-      "seasonType": "regular",
-      "date": "2026-11-07",
-      "time": "3:30 PM ET",
-      "homeTeamId": "navy",
-      "awayTeamId": "temple",
-      "homeTeamName": "Navy Midshipmen",
-      "awayTeamName": "Temple Owls",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Navy-Marine Corps Memorial Stadium",
-      "venueCity": "Annapolis",
-      "venueState": "MD",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Temple Owls at Navy Midshipmen",
         "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -45062,75 +44924,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401871075",
-      "espnId": "401871075",
-      "week": 10,
-      "seasonType": "regular",
-      "date": "2026-11-08",
-      "time": "7:00 PM ET",
-      "homeTeamId": "jacksonville_state",
-      "awayTeamId": "sam_houston",
-      "homeTeamName": "Jacksonville State Gamecocks",
-      "awayTeamName": "Sam Houston Bearkats",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "AmFirst Stadium",
-      "venueCity": "Jacksonville",
-      "venueState": "AL",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Sam Houston Bearkats at Jacksonville State Gamecocks",
-        "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401871076",
       "espnId": "401871076",
       "week": 10,
@@ -45269,6 +45062,144 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401858292",
+      "espnId": "401858292",
+      "week": 10,
+      "seasonType": "regular",
+      "date": "2026-11-07",
+      "time": "12:00 PM ET",
+      "homeTeamId": "uconn",
+      "awayTeamId": "north_carolina",
+      "homeTeamName": "UConn Huskies",
+      "awayTeamName": "North Carolina Tar Heels",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Pratt & Whitney Stadium",
+      "venueCity": "East Hartford",
+      "venueState": "CT",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "North Carolina Tar Heels at UConn Huskies",
+        "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401862820",
+      "espnId": "401862820",
+      "week": 10,
+      "seasonType": "regular",
+      "date": "2026-11-07",
+      "time": "3:30 PM ET",
+      "homeTeamId": "navy",
+      "awayTeamId": "temple",
+      "homeTeamName": "Navy Midshipmen",
+      "awayTeamName": "Temple Owls",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Navy-Marine Corps Memorial Stadium",
+      "venueCity": "Annapolis",
+      "venueState": "MD",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Temple Owls at Navy Midshipmen",
+        "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401860911",
       "espnId": "401860911",
       "week": 10,
@@ -45325,6 +45256,75 @@
       },
       "gamePreview": {
         "headline": "Boise State Broncos at Colorado State Rams",
+        "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401871075",
+      "espnId": "401871075",
+      "week": 10,
+      "seasonType": "regular",
+      "date": "2026-11-08",
+      "time": "7:00 PM ET",
+      "homeTeamId": "jacksonville_state",
+      "awayTeamId": "sam_houston",
+      "homeTeamName": "Jacksonville State Gamecocks",
+      "awayTeamName": "Sam Houston Bearkats",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "AmFirst Stadium",
+      "venueCity": "Jacksonville",
+      "venueState": "AL",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Sam Houston Bearkats at Jacksonville State Gamecocks",
         "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -45397,11 +45397,11 @@
         "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Notre Dame",
-          "line": "-7.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Notre Dame home fortress + Miami 2-5 ATS at hostile venues + cold weather eliminates Miami vertical game"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -46777,11 +46777,11 @@
         "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Texas",
-          "line": "+4",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Classic letdown spot — LSU 4-9 ATS post-Alabama + Texas full week fresh prep + speed mismatch"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -47956,11 +47956,11 @@
         "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Oregon",
-          "line": "-7",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Autzen home advantage + Oregon receiver speed mismatches + Michigan 4-8 ATS on West Coast road games"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -48091,75 +48091,6 @@
       },
       "gamePreview": {
         "headline": "Nebraska Cornhuskers at Rutgers Scarlet Knights",
-        "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401861967",
-      "espnId": "401861967",
-      "week": 11,
-      "seasonType": "regular",
-      "date": "2026-11-14",
-      "time": "12:00 PM ET",
-      "homeTeamId": "uconn",
-      "awayTeamId": "james_madison",
-      "homeTeamName": "UConn Huskies",
-      "awayTeamName": "James Madison Dukes",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Pratt & Whitney Stadium",
-      "venueCity": "East Hartford",
-      "venueState": "CT",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "James Madison Dukes at UConn Huskies",
         "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -48574,75 +48505,6 @@
       },
       "gamePreview": {
         "headline": "Nevada Wolf Pack at Northern Illinois Huskies",
-        "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401864537",
-      "espnId": "401864537",
-      "week": 11,
-      "seasonType": "regular",
-      "date": "2026-11-15",
-      "time": "11:00 PM ET",
-      "homeTeamId": "hawai_i",
-      "awayTeamId": "north_dakota_state",
-      "homeTeamName": "Hawai'i Rainbow Warriors",
-      "awayTeamName": "North Dakota State Bison",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "The CW Network",
-      "venue": "Clarence T.C. Ching Athletics Complex",
-      "venueCity": "Honolulu",
-      "venueState": "HI",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "North Dakota State Bison at Hawai'i Rainbow Warriors",
         "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -49208,75 +49070,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401871061",
-      "espnId": "401871061",
-      "week": 11,
-      "seasonType": "regular",
-      "date": "2026-11-14",
-      "time": "3:30 PM ET",
-      "homeTeamId": "liberty",
-      "awayTeamId": "middle_tennessee",
-      "homeTeamName": "Liberty Flames",
-      "awayTeamName": "Middle Tennessee Blue Raiders",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Williams Stadium (VA)",
-      "venueCity": "Lynchburg",
-      "venueState": "VA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Middle Tennessee Blue Raiders at Liberty Flames",
-        "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401871099",
       "espnId": "401871099",
       "week": 11,
@@ -49402,6 +49195,144 @@
       },
       "gamePreview": {
         "headline": "Troy Trojans at South Alabama Jaguars",
+        "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401861967",
+      "espnId": "401861967",
+      "week": 11,
+      "seasonType": "regular",
+      "date": "2026-11-14",
+      "time": "12:00 PM ET",
+      "homeTeamId": "uconn",
+      "awayTeamId": "james_madison",
+      "homeTeamName": "UConn Huskies",
+      "awayTeamName": "James Madison Dukes",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Pratt & Whitney Stadium",
+      "venueCity": "East Hartford",
+      "venueState": "CT",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "James Madison Dukes at UConn Huskies",
+        "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401871061",
+      "espnId": "401871061",
+      "week": 11,
+      "seasonType": "regular",
+      "date": "2026-11-14",
+      "time": "3:30 PM ET",
+      "homeTeamId": "liberty",
+      "awayTeamId": "middle_tennessee",
+      "homeTeamName": "Liberty Flames",
+      "awayTeamName": "Middle Tennessee Blue Raiders",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Williams Stadium (VA)",
+      "venueCity": "Lynchburg",
+      "venueState": "VA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Middle Tennessee Blue Raiders at Liberty Flames",
         "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -49885,6 +49816,75 @@
       },
       "gamePreview": {
         "headline": "Colorado State Rams at Washington State Cougars",
+        "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401864537",
+      "espnId": "401864537",
+      "week": 11,
+      "seasonType": "regular",
+      "date": "2026-11-15",
+      "time": "11:00 PM ET",
+      "homeTeamId": "hawai_i",
+      "awayTeamId": "north_dakota_state",
+      "homeTeamName": "Hawai'i Rainbow Warriors",
+      "awayTeamName": "North Dakota State Bison",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "The CW Network",
+      "venue": "Clarence T.C. Ching Athletics Complex",
+      "venueCity": "Honolulu",
+      "venueState": "HI",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "North Dakota State Bison at Hawai'i Rainbow Warriors",
         "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -50992,11 +50992,11 @@
         "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Tennessee",
-          "line": "-3",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Neyland Thursday advantage + Heupel tempo thrives on short prep weeks + LSU post-Alabama-Texas fatigue"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -52595,144 +52595,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401861968",
-      "espnId": "401861968",
-      "week": 12,
-      "seasonType": "regular",
-      "date": "2026-11-21",
-      "time": "3:30 PM ET",
-      "homeTeamId": "uconn",
-      "awayTeamId": "old_dominion",
-      "homeTeamName": "UConn Huskies",
-      "awayTeamName": "Old Dominion Monarchs",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Pratt & Whitney Stadium",
-      "venueCity": "East Hartford",
-      "venueState": "CT",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Old Dominion Monarchs at UConn Huskies",
-        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401862831",
-      "espnId": "401862831",
-      "week": 12,
-      "seasonType": "regular",
-      "date": "2026-11-21",
-      "time": "12:00 PM ET",
-      "homeTeamId": "army",
-      "awayTeamId": "east_carolina",
-      "homeTeamName": "Army Black Knights",
-      "awayTeamName": "East Carolina Pirates",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Michie Stadium",
-      "venueCity": "West Point",
-      "venueState": "NY",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "East Carolina Pirates at Army Black Knights",
-        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401862832",
       "espnId": "401862832",
       "week": 12,
@@ -53774,6 +53636,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401862831",
+      "espnId": "401862831",
+      "week": 12,
+      "seasonType": "regular",
+      "date": "2026-11-21",
+      "time": "12:00 PM ET",
+      "homeTeamId": "army",
+      "awayTeamId": "east_carolina",
+      "homeTeamName": "Army Black Knights",
+      "awayTeamName": "East Carolina Pirates",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Michie Stadium",
+      "venueCity": "West Point",
+      "venueState": "NY",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "East Carolina Pirates at Army Black Knights",
+        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401862834",
       "espnId": "401862834",
       "week": 12,
@@ -53830,6 +53761,75 @@
       },
       "gamePreview": {
         "headline": "Memphis Tigers at Navy Midshipmen",
+        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401861968",
+      "espnId": "401861968",
+      "week": 12,
+      "seasonType": "regular",
+      "date": "2026-11-21",
+      "time": "3:30 PM ET",
+      "homeTeamId": "uconn",
+      "awayTeamId": "old_dominion",
+      "homeTeamName": "UConn Huskies",
+      "awayTeamName": "Old Dominion Monarchs",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Pratt & Whitney Stadium",
+      "venueCity": "East Hartford",
+      "venueState": "CT",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Old Dominion Monarchs at UConn Huskies",
         "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -53981,75 +53981,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401864544",
-      "espnId": "401864544",
-      "week": 12,
-      "seasonType": "regular",
-      "date": "2026-11-22",
-      "time": "8:00 PM ET",
-      "homeTeamId": "san_jos_state",
-      "awayTeamId": "unlv",
-      "homeTeamName": "San José State Spartans",
-      "awayTeamName": "UNLV Rebels",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "CEFCU Stadium",
-      "venueCity": "San Jose",
-      "venueState": "CA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "UNLV Rebels at San José State Spartans",
-        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401858307",
       "espnId": "401858307",
       "week": 12,
@@ -54175,6 +54106,75 @@
       },
       "gamePreview": {
         "headline": "Colorado State Rams at Fresno State Bulldogs",
+        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401864544",
+      "espnId": "401864544",
+      "week": 12,
+      "seasonType": "regular",
+      "date": "2026-11-22",
+      "time": "8:00 PM ET",
+      "homeTeamId": "san_jos_state",
+      "awayTeamId": "unlv",
+      "homeTeamName": "San José State Spartans",
+      "awayTeamName": "UNLV Rebels",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "CEFCU Stadium",
+      "venueCity": "San Jose",
+      "venueState": "CA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "UNLV Rebels at San José State Spartans",
         "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -55558,11 +55558,11 @@
         "synopsis": "Week 13 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Auburn",
-          "line": "+16",
-          "confidence": "MEDIUM",
-          "unit": 1.5,
-          "reasoning": "Iron Bowl underdog cover history 6-of-9 + 16 points too many in any rivalry game + Golesh debut motivation"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -58553,75 +58553,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401871062",
-      "espnId": "401871062",
-      "week": 13,
-      "seasonType": "regular",
-      "date": "2026-11-28",
-      "time": "3:30 PM ET",
-      "homeTeamId": "delaware",
-      "awayTeamId": "jacksonville_state",
-      "homeTeamName": "Delaware Blue Hens",
-      "awayTeamName": "Jacksonville State Gamecocks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Delaware Stadium",
-      "venueCity": "Newark",
-      "venueState": "DE",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Jacksonville State Gamecocks at Delaware Blue Hens",
-        "synopsis": "Week 13 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401871063",
       "espnId": "401871063",
       "week": 13,
@@ -59026,11 +58957,80 @@
         "synopsis": "Week 13 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Ohio State",
-          "line": "-8.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Buckeyes 18-6 ATS at home vs Michigan + roster depth overwhelming + Day's year-round preparation"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401871062",
+      "espnId": "401871062",
+      "week": 13,
+      "seasonType": "regular",
+      "date": "2026-11-28",
+      "time": "3:30 PM ET",
+      "homeTeamId": "delaware",
+      "awayTeamId": "jacksonville_state",
+      "homeTeamName": "Delaware Blue Hens",
+      "awayTeamName": "Jacksonville State Gamecocks",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Delaware Stadium",
+      "venueCity": "Newark",
+      "venueState": "DE",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Jacksonville State Gamecocks at Delaware Blue Hens",
+        "synopsis": "Week 13 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
@@ -59302,11 +59302,11 @@
         "synopsis": "Week 15 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
-          "team": "Under",
-          "line": "38.5",
-          "confidence": "HIGH",
-          "unit": 2,
-          "reasoning": "Cold MetLife + option football + rivalry = classic under spot"
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
         }
       },
       "fromESPN": true
