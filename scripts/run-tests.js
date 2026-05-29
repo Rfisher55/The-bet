@@ -627,7 +627,9 @@ test('x-auto-post.yml has season gate (skips during preseason)', () => {
   const src = fs.readFileSync(path.join(ROOT, '.github/workflows/x-auto-post.yml'), 'utf8');
   assert(src.includes('totalGames'), 'Season gate check for totalGames missing');
   assert(src.includes('skip=true'), 'skip output variable missing');
-  assert(src.includes('-le "100"'), 'Preseason threshold check missing');
+  // Gate must require BOTH game count AND betting lines — checking only totalGames caused
+  // token collision with x-preseason-post.yml (both fired simultaneously during preseason).
+  assert(src.includes('HAS_LINES') && src.includes('games_with_lines'), 'Gate must check for betting lines (not just game count) to prevent OAuth token collision');
 });
 
 test('refresh-data.yml passes rotated token to game alerts', () => {
