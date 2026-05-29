@@ -58,20 +58,27 @@ jobs:
       - name: Pull latest data
         run: git pull origin ${{ github.ref_name }}
 
-      # Gate: only run when the full season schedule is live (100+ games from CFBD).
-      # During preseason (21 curated games), x-preseason-post.yml handles all posting.
+      # Gate: only run when BOTH (a) full schedule is published (100+ games) AND (b) betting lines exist.
+      # Rationale: CFBD publishes 800+ games months before lines are available.
+      # Until lines exist, picks-based posts produce zero-edge garbage and collide with
+      # x-preseason-post.yml (both use the same OAuth refresh token simultaneously).
       # Manual workflow_dispatch always bypasses the gate for testing.
       - name: Check season gate
         id: gate
         run: |
           TOTAL=$(node -e "try{const d=require('./data/games-2026.json');console.log(d.totalGames||0)}catch{console.log(0)}")
+          HAS_LINES=$(node -e "try{const d=require('./data/games-2026.json');const n=(d.games||[]).filter(g=>g.bettingLines&&g.bettingLines.spread!=null).length;console.log(n)}catch{console.log(0)}")
           echo "total_games=$TOTAL" >> $GITHUB_OUTPUT
-          if [ "$TOTAL" -le "100" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
-            echo "Preseason ($TOTAL games ≤ 100) — x-preseason-post.yml handles posting until CFBD publishes full schedule"
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "Season live ($TOTAL games) — running in-season post"
+          echo "games_with_lines=$HAS_LINES" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual dispatch — bypassing gate"
             echo "skip=false" >> $GITHUB_OUTPUT
+          elif [ "$TOTAL" -gt "100" ] && [ "$HAS_LINES" -gt "0" ]; then
+            echo "Season live with lines ($TOTAL games, $HAS_LINES with lines) — running in-season post"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          else
+            echo "Preseason or no lines yet ($TOTAL games, $HAS_LINES with lines) — x-preseason-post.yml handles posting"
+            echo "skip=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Setup Node.js
@@ -126,7 +133,10 @@ jobs:
           MISSING=""
           [ -z "$X_OAUTH2_CLIENT_ID" ]     && MISSING="$MISSING X_OAUTH2_CLIENT_ID"
           [ -z "$X_OAUTH2_CLIENT_SECRET" ] && MISSING="$MISSING X_OAUTH2_CLIENT_SECRET"
-          [ -z "$X_OAUTH2_REFRESH_TOKEN" ] && MISSING="$MISSING X_OAUTH2_REFRESH_TOKEN"
+          # Token can come from env var OR data/x-auth.json (file-based rotation)
+          FILE_TOKEN=$(node -e "try{const d=require('./data/x-auth.json');process.stdout.write(d.refreshToken||'')}catch{}" 2>/dev/null || true)
+          EFFECTIVE_TOKEN="${FILE_TOKEN:-$X_OAUTH2_REFRESH_TOKEN}"
+          [ -z "$EFFECTIVE_TOKEN" ] && MISSING="$MISSING X_OAUTH2_REFRESH_TOKEN"
           if [ -n "$MISSING" ]; then
             echo "❌ Missing secrets:$MISSING"
             echo "Run x-oauth2-setup workflow to generate a refresh token."
