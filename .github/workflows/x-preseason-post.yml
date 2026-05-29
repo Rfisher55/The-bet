@@ -54,6 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      secrets: write
 
     steps:
       - name: Checkout
@@ -232,19 +233,11 @@ jobs:
       - name: Rotate refresh token
         if: always() && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
-            if [ -z "$GH_TOKEN" ]; then
-              echo "❌ CRITICAL: New X refresh token obtained but GH_PAT secret is not set."
-              echo "The new token cannot be saved — future posts WILL FAIL."
-              echo "Fix: add GH_PAT (repo scope) secret, then re-run x-oauth2-setup to regenerate a fresh token."
-              exit 1
-            fi
             gh secret set X_OAUTH2_REFRESH_TOKEN -R ${{ github.repository }} < /tmp/new_refresh_token
             echo "✅ Refresh token rotated"
-          elif [ -z "$GH_TOKEN" ]; then
-            echo "⚠️ GH_PAT not set — add it to enable automatic token rotation (token not yet consumed this run)"
           else
             echo "ℹ️ No new refresh token written (post may have failed before token exchange)"
           fi

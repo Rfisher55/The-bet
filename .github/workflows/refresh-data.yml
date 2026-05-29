@@ -30,6 +30,7 @@ on:
 
 permissions:
   contents: write   # needed to commit data/ back to the current branch
+  secrets: write
 
 # Prevent concurrent runs on the same branch from colliding on git push.
 # Branch-scoped so a manual dev-branch run doesn't cancel a scheduled main run.
@@ -139,7 +140,7 @@ jobs:
       - name: Rotate refresh token after alerts
         if: always()
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
             gh secret set X_OAUTH2_REFRESH_TOKEN -R ${{ github.repository }} < /tmp/new_refresh_token
