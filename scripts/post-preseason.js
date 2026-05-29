@@ -155,6 +155,11 @@ const fit = (core, extras, max = 280) => {
   return t.trim();
 };
 
+// NFD-normalize before stripping so é→e, ñ→n, etc. (handles San José State, FIU, etc.)
+const toHashtag = name => '#' + (name || '')
+  .normalize('NFD').replace(/[̀-ͯ]/g, '')
+  .replace(/[^a-zA-Z0-9]/g, '');
+
 const pct  = n  => `${Math.round(n * 100)}%`;
 const rank = n  => { const s = ['th','st','nd','rd']; return `${n}${s[(n%100-10)*(n%100-10)<9?0:(n%10<4?n%10:0)]||'th'}`; };
 const impliedRank = r => Math.max(1, Math.round((100 - r) * 1.5) + 1);
@@ -211,7 +216,7 @@ function buildTeamSpotlight(t) {
       portalLine,
       atsLine,
       coach ? `\n${coach}` : '',
-      `\n\n#CFB #${t.name.replace(/\s/g,'').replace(/[^a-zA-Z0-9]/g,'')} #TheBet`,
+      `\n\n#CFB ${toHashtag(t.name)} #TheBet`,
     ]
   );
 }
@@ -228,23 +233,23 @@ function buildHotTake(t) {
   const takes = [];
 
   if (ap && iRank < ap - 3)
-    takes.push(`🔥 HOT TAKE: ${t.name} is more dangerous than their AP ranking suggests.\n\nAP: #${ap} | Our model: #${iRank}\n\nThe gap doesn't lie. ${t.name} is being underpriced by the market going into 2026.\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`);
+    takes.push(`🔥 HOT TAKE: ${t.name} is more dangerous than their AP ranking suggests.\n\nAP: #${ap} | Our model: #${iRank}\n\nThe gap doesn't lie. ${t.name} is being underpriced by the market going into 2026.\n\n#CFB ${toHashtag(t.name)} #TheBet`);
 
   if (ap && iRank > ap + 3)
-    takes.push(`⚠️ FADE ALERT: ${t.name} is overrated.\n\nAP: #${ap} | Our model: #${iRank}\n\nThe hype is ahead of the production. Be careful laying juice on this program early in the season.\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`);
+    takes.push(`⚠️ FADE ALERT: ${t.name} is overrated.\n\nAP: #${ap} | Our model: #${iRank}\n\nThe hype is ahead of the production. Be careful laying juice on this program early in the season.\n\n#CFB ${toHashtag(t.name)} #TheBet`);
 
   if (m === 'rising' && r < 80)
-    takes.push(`📈 ${t.name} is this year's "where did they come from?"\n\nModel rating: ${r}/100 and trending UP.\n${coach} has quietly built something here. Don't sleep on them.\n\nProjected wins: ${wins}\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`);
+    takes.push(`📈 ${t.name} is this year's "where did they come from?"\n\nModel rating: ${r}/100 and trending UP.\n${coach} has quietly built something here. Don't sleep on them.\n\nProjected wins: ${wins}\n\n#CFB ${toHashtag(t.name)} #TheBet`);
 
   if (m === 'declining' && r >= 75)
-    takes.push(`📉 ${t.name} — the fall is coming.\n\nProgram momentum: DECLINING. Rating: ${r}/100.\nThey'll still have wins, but ATS they're a trap every week.\n\nFade them as a heavy favorite.\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`);
+    takes.push(`📉 ${t.name} — the fall is coming.\n\nProgram momentum: DECLINING. Rating: ${r}/100.\nThey'll still have wins, but ATS they're a trap every week.\n\nFade them as a heavy favorite.\n\n#CFB ${toHashtag(t.name)} #TheBet`);
 
   const hs = t.programHealth?.coachHotSeat || 0;
   if (hs >= 7)
-    takes.push(`🔥 ${t.name} is a powder keg.\n\n${coach} is on the hottest seat in ${t.conference}.\nCoach hot seat: ${hs}/10.\n\nA slow start and this program is in chaos. Bet accordingly.\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`);
+    takes.push(`🔥 ${t.name} is a powder keg.\n\n${coach} is on the hottest seat in ${t.conference}.\nCoach hot seat: ${hs}/10.\n\nA slow start and this program is in chaos. Bet accordingly.\n\n#CFB ${toHashtag(t.name)} #TheBet`);
 
   if (!takes.length)
-    takes.push(`📊 The model on ${t.name}:\n\nRating: ${r}/100 · ${t.conference}\nMomentum: ${m}\nProjected wins: ${wins}\n\n${r >= 78 ? "There's real value here if the line is right." : 'Bet the talent, not the brand.'}\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`);
+    takes.push(`📊 The model on ${t.name}:\n\nRating: ${r}/100 · ${t.conference}\nMomentum: ${m}\nProjected wins: ${wins}\n\n${r >= 78 ? "There's real value here if the line is right." : 'Bet the talent, not the brand.'}\n\n#CFB ${toHashtag(t.name)} #TheBet`);
 
   return takes[0];
 }
@@ -290,7 +295,7 @@ function tweetSleepers(count = 5) {
           t.programHealth?.transferPortalRating > 45
             ? `\nPortal: ${t.programHealth.transferPortalRating}/100` : null,
           `\nProjected wins: ${winProjFromRating(t.rating)}`,
-          `\n\nThe market hasn't caught up yet. Book it.\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`,
+          `\n\nThe market hasn't caught up yet. Book it.\n\n#CFB ${toHashtag(t.name)} #TheBet`,
         ]
       );
     });
@@ -317,7 +322,7 @@ function tweetFades(count = 5) {
           m === 'declining' ? `\n📉 Program momentum: DECLINING` : '',
           `\nCoach hot seat: ${t.programHealth?.coachHotSeat || 0}/10`,
           `\nATS as favorite: ${t.situational?.atsFavorite ? pct(t.situational.atsFavorite.pct) : 'limited data'}`,
-          `\n\nThe AP ballot is wrong. The model is not.\n\n#CFB #${t.name.replace(/\s/g,'')} #TheBet`,
+          `\n\nThe AP ballot is wrong. The model is not.\n\n#CFB ${toHashtag(t.name)} #TheBet`,
         ]
       );
     });
@@ -337,7 +342,7 @@ function tweetPortal(count = 6) {
         [
           `\nRating: ${t.rating}/100`,
           `\nProjected wins: ${winProjFromRating(t.rating)}`,
-          `\n\nThey won the offseason. Now let's see if they win the season.\n\n#CFB #TransferPortal #${t.name.replace(/\s/g,'')} #TheBet`,
+          `\n\nThey won the offseason. Now let's see if they win the season.\n\n#CFB #TransferPortal ${toHashtag(t.name)} #TheBet`,
         ]
       );
     });
@@ -429,7 +434,7 @@ function tweetConference(confFilter, count = 1) {
       [
         sleeper ? `\n\n🔍 Sleeper: ${sleeper.name}` : '',
         fade ? `\n⚠️ Fade: ${fade.name}` : '',
-        `\n\nFull breakdown: rfisher55.github.io/The-bet\n\n#CFB #${conf.replace(/\s/g,'')} #TheBet`,
+        `\n\nFull breakdown: rfisher55.github.io/The-bet\n\n#CFB ${toHashtag(conf)} #TheBet`,
       ]
     )];
   });
