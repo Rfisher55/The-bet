@@ -6,6 +6,12 @@ on:
     - cron: '7 10 * * 1-6'
       timezone: 'America/New_York'
 
+  # Push trigger — used by the background monitor as a backup if the schedule misses.
+  # Fires whenever .trigger-post is updated with a new timestamp.
+  push:
+    paths:
+      - '.trigger-post'
+
   workflow_dispatch:
     inputs:
       angle:
