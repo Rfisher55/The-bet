@@ -1,0 +1,5 @@
+{
+  "refreshToken": null,
+  "updatedAt": null,
+  "note": "Refresh token auto-rotated here after each post. Falls back to X_OAUTH2_REFRESH_TOKEN env var if null."
+}

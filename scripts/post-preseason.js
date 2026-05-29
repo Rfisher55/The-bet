@@ -583,9 +583,17 @@ async function main() {
   if (dryRun) return;
 
   // Refresh OAuth 2.0 token
+  // Read from data/x-auth.json first (auto-rotated), fall back to env var
   const { TwitterApi } = require('twitter-api-v2');
-  if (!process.env.X_OAUTH2_CLIENT_ID || !process.env.X_OAUTH2_CLIENT_SECRET || !process.env.X_OAUTH2_REFRESH_TOKEN) {
-    console.error('❌ Missing OAuth env vars. Run x-oauth2-setup workflow to regenerate credentials.');
+  let refreshToken = process.env.X_OAUTH2_REFRESH_TOKEN;
+  try {
+    const xauth = JSON.parse(require('fs').readFileSync(
+      require('path').join(ROOT, 'data', 'x-auth.json'), 'utf8'
+    ));
+    if (xauth.refreshToken) refreshToken = xauth.refreshToken;
+  } catch {}
+  if (!process.env.X_OAUTH2_CLIENT_ID || !process.env.X_OAUTH2_CLIENT_SECRET || !refreshToken) {
+    console.error('❌ Missing OAuth credentials. Run x-oauth2-setup workflow to regenerate.');
     process.exit(1);
   }
   const authClient = new TwitterApi({
@@ -595,7 +603,7 @@ async function main() {
   let client;
   try {
     const { client: xClient, refreshToken: newRefresh } =
-      await authClient.refreshOAuth2Token(process.env.X_OAUTH2_REFRESH_TOKEN);
+      await authClient.refreshOAuth2Token(refreshToken);
     client = xClient;
     // Save new refresh token for the workflow to update in GitHub secrets
     if (newRefresh && typeof newRefresh === 'string') {

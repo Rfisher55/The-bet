@@ -53,8 +53,7 @@ jobs:
   preseason-post:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      secrets: write
+      contents: write
 
     steps:
       - name: Checkout
@@ -232,13 +231,26 @@ jobs:
 
       - name: Rotate refresh token
         if: always() && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
-            gh secret set X_OAUTH2_REFRESH_TOKEN -R ${{ github.repository }} < /tmp/new_refresh_token
-            echo "✅ Refresh token rotated"
+            NEW_TOKEN=$(cat /tmp/new_refresh_token)
+            node -e "
+              const fs = require('fs');
+              const p = 'data/x-auth.json';
+              const s = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p,'utf8')) : {};
+              s.refreshToken = process.argv[1];
+              s.updatedAt = new Date().toISOString();
+              fs.writeFileSync(p, JSON.stringify(s, null, 2));
+            " "$NEW_TOKEN"
+            git config user.name  "TheBet Bot"
+            git config user.email "bot@thebetcfb.com"
+            git add data/x-auth.json
+            git diff --staged --quiet || git commit -m "auth: rotate X OAuth2 refresh token [skip ci]"
+            BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            git pull --rebase origin "$BRANCH" 2>/dev/null || true
+            git push origin HEAD:"$BRANCH" || true
+            echo "✅ Refresh token saved to data/x-auth.json"
           else
-            echo "ℹ️ No new refresh token written (post may have failed before token exchange)"
+            echo "ℹ️ No new refresh token (X may use non-rotating tokens)"
           fi
 
