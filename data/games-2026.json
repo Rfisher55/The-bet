@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-30T20:54:06.984Z",
+  "generated": "2026-05-30T22:00:11.577Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -21,7 +21,7 @@
     "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 35497,
+  "fetchDurationMs": 35465,
   "apRanks": {},
   "games": [
     {
@@ -77,7 +77,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 6
       },
       "gamePreview": {
         "headline": "North Carolina Tar Heels at TCU Horned Frogs",
@@ -215,7 +215,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 6
       },
       "gamePreview": {
         "headline": "NC State Wolfpack at Virginia Cavaliers",
@@ -1319,7 +1319,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 3
       },
       "gamePreview": {
         "headline": "UAB Blazers at Illinois Fighting Illini",
@@ -3194,7 +3194,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 6
       },
       "gamePreview": {
         "headline": "Baylor Bears at Auburn Tigers",
@@ -5333,7 +5333,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 6
       },
       "gamePreview": {
         "headline": "Clemson Tigers at LSU Tigers",
@@ -6493,7 +6493,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -6505,8 +6507,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 6
+        "sharpSignal": "away",
+        "oddsBookCount": 5
       },
       "gamePreview": {
         "headline": "UCLA Bruins at California Golden Bears",
@@ -6995,7 +6997,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 2
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Missouri Tigers at Kansas Jayhawks",
@@ -7340,7 +7342,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Oklahoma Sooners at Michigan Wolverines",
@@ -7534,9 +7536,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -7548,8 +7548,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "away",
-        "oddsBookCount": 2
+        "sharpSignal": null,
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Oregon Ducks at Oklahoma State Cowboys",
@@ -11500,7 +11500,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Ohio State Buckeyes at Texas Longhorns",
@@ -11638,7 +11638,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 2
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Iowa State Cyclones at Iowa Hawkeyes",
@@ -12729,9 +12729,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -12743,8 +12741,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 2
+        "sharpSignal": null,
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Houston Cougars at Texas Tech Red Raiders",
