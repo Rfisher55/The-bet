@@ -2879,15 +2879,63 @@ function renderFeaturedGames() {
     return;
   }
   // Determine earliest week so we show the next upcoming week's picks
-  var weeks = allPredictions.map(function(p) { return p.game.week; }).filter(Boolean);
-  var minWeek = weeks.length ? Math.min.apply(null, weeks) : null;
+  var today3 = new Date();
+  var upcomingWeeks = allPredictions
+    .filter(function(p) { return p.game.week && new Date(p.game.date) >= today3; })
+    .map(function(p) { return p.game.week; });
+  var minWeek = upcomingWeeks.length ? Math.min.apply(null, upcomingWeeks) : null;
+  if (!minWeek) {
+    var allWeeks = allPredictions.map(function(p) { return p.game.week; }).filter(Boolean);
+    minWeek = allWeeks.length ? Math.min.apply(null, allWeeks) : null;
+  }
 
-  var featured = allPredictions
-    .filter(function(p) {
-      var weekOk = minWeek ? p.game.week === minWeek : true;
-      return weekOk && (p.prediction.confidence === "elite" || p.prediction.confidence === "high");
-    })
-    .slice(0, 6);
+  var weekPool = allPredictions.filter(function(p) {
+    return minWeek ? p.game.week === minWeek : true;
+  });
+
+  // Filter out FCS-level blowout mismatches — spread > 28 = cupcake game
+  var competitive = weekPool.filter(function(p) {
+    var spread = p.game.bettingLines && p.game.bettingLines.spread;
+    var predSpread = p.prediction && p.prediction.predictedSpread;
+    var eff = spread || predSpread || 0;
+    return Math.abs(eff) <= 28;
+  });
+  if (competitive.length >= 2) weekPool = competitive;
+
+  // Prefer curated picks (gamePreview.thePick) over raw API stub games
+  var curated = weekPool.filter(function(p) {
+    var tp = p.game.gamePreview && p.game.gamePreview.thePick;
+    return tp && tp.team;
+  });
+
+  var featured;
+  if (curated.length >= 6) {
+    featured = curated.slice(0, 6);
+  } else if (curated.length > 0) {
+    // Fill remaining slots with competitive, high-confidence API games
+    var curatedIds = new Set(curated.map(function(p) { return p.game.id; }));
+    var filler = weekPool
+      .filter(function(p) {
+        return !curatedIds.has(p.game.id) &&
+               (p.prediction.confidence === "elite" || p.prediction.confidence === "high");
+      })
+      .sort(function(a, b) {
+        var w = { elite: 2, high: 1 };
+        return (w[b.prediction.confidence] || 0) - (w[a.prediction.confidence] || 0);
+      });
+    featured = curated.concat(filler).slice(0, 6);
+  } else {
+    // No curated games — show high-confidence picks sorted by model confidence
+    featured = weekPool
+      .filter(function(p) {
+        return p.prediction.confidence === "elite" || p.prediction.confidence === "high";
+      })
+      .sort(function(a, b) {
+        var w = { elite: 2, high: 1 };
+        return (w[b.prediction.confidence] || 0) - (w[a.prediction.confidence] || 0);
+      })
+      .slice(0, 6);
+  }
 
   // Update label to show which week
   var lbl = document.getElementById("featured-week-label");
