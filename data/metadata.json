@@ -1,8 +1,8 @@
 {
-  "generated": "2026-05-31T23:55:06.071Z",
+  "generated": "2026-06-01T03:40:00.234Z",
   "season": 2026,
-  "totalGames": 858,
-  "scheduledGames": 858,
+  "totalGames": 802,
+  "scheduledGames": 802,
   "completedGames": 0,
   "liveGames": 0,
   "gamesWithLines": 0,
@@ -11,15 +11,16 @@
   "gamesWithOdds": 0,
   "rankedTeams": 0,
   "injuredPlayers": 0,
-  "spTeams": 0,
+  "spTeams": 137,
   "ppaTeams": 0,
   "recruitingTeams": 0,
   "transferCount": 0,
   "espnFallback": true,
   "dataSourcesActive": [
     "ESPN (schedule — CFBD preseason fallback)",
+    "CFBD (SP++ELO+recruiting+PPA)",
     "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 38136
+  "fetchDurationMs": 40491
 }
