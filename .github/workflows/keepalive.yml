@@ -13,6 +13,7 @@ jobs:
   keepalive:
     runs-on: ubuntu-latest
     permissions:
+      contents: read   # required for actions/checkout
       actions: write   # required to re-enable workflows via API
     steps:
       - uses: actions/checkout@v4
