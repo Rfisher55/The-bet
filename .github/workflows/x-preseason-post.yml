@@ -37,7 +37,6 @@ on:
         default: false
         type: boolean
 
-# Queue mode: second trigger waits for first to finish, then sees postedAt and skips
 concurrency:
   group: x-post-${{ github.ref }}
   cancel-in-progress: false
@@ -90,7 +89,7 @@ jobs:
             DOW=$(date +%u)
             WEEK=$(date +%V)
             DAY_OF_YEAR=$(date +%j)
-            echo "DOW=$DOW WEEK=$WEEK DAY_OF_YEAR=$DAY_OF_YEAR" # debug
+            echo "DOW=$DOW WEEK=$WEEK DAY_OF_YEAR=$DAY_OF_YEAR"
             CONFS=("SEC" "Big Ten" "Big 12" "ACC" "Mountain West" "Sun Belt" "MAC" "American Athletic" "Conference USA" "FBS Independents" "Pac-2")
             CONF_IDX=$(( (WEEK - 1) % 11 ))
             CONF="${CONFS[$CONF_IDX]}"
@@ -102,17 +101,16 @@ jobs:
               4) [ $(( WEEK % 2 )) -eq 1 ] && ANGLE="sleepers" || ANGLE="fades"; COUNT=3; OFFSET=0; CONF=""; TEAM="" ;;
               5) [ $(( WEEK % 2 )) -eq 1 ] && ANGLE="ats-value" || ANGLE="portal"; COUNT=3; OFFSET=0; CONF=""; TEAM="" ;;
               6) ANGLE="momentum"; COUNT=2; OFFSET=0; CONF=""; TEAM="" ;;
-              *) echo "❌ Unexpected DOW=$DOW — cannot determine angle"; exit 1 ;;
+              *) echo "❌ Unexpected DOW=$DOW"; exit 1 ;;
             esac
-            # Fail loudly if angle is empty — never silently fall back to intro
-            if [ -z "$ANGLE" ]; then echo "❌ ANGLE is empty — aborting"; exit 1; fi
+            if [ -z "$ANGLE" ]; then echo "❌ ANGLE empty — aborting"; exit 1; fi
+            echo "Resolved: angle=$ANGLE count=$COUNT conf=$CONF"
             echo "angle=$ANGLE"   >> $GITHUB_OUTPUT
             echo "count=$COUNT"   >> $GITHUB_OUTPUT
             echo "offset=$OFFSET" >> $GITHUB_OUTPUT
             echo "team=$TEAM"     >> $GITHUB_OUTPUT
             echo "conf=$CONF"     >> $GITHUB_OUTPUT
             echo "dry=false"      >> $GITHUB_OUTPUT
-            echo "Resolved: angle=$ANGLE count=$COUNT conf=$CONF"
           fi
 
       - name: Skip if already posted today
@@ -122,7 +120,7 @@ jobs:
           TODAY=$(date -u +%Y-%m-%d)
           POSTED=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('data/x-auth.json','utf8'));console.log(d.postedAt||'')}catch{console.log('')}")
           if echo "$POSTED" | grep -q "^$TODAY"; then
-            echo "✅ Already posted today ($POSTED) — skipping duplicate"
+            echo "✅ Already posted today ($POSTED) — skipping"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "No successful post yet for $TODAY (last: ${POSTED:-never}) — proceeding"
@@ -151,15 +149,13 @@ jobs:
           X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
           X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
         run: |
-          DRY=""; [ "${{ steps.cfg.outputs.dry }}" = "true" ] && DRY="--dry-run"
-          TEAM_ARG=""; [ -n "${{ steps.cfg.outputs.team }}" ] && TEAM_ARG="--team \"${{ steps.cfg.outputs.team }}\""
-          CONF_ARG=""; [ -n "${{ steps.cfg.outputs.conf }}" ] && CONF_ARG="--conf \"${{ steps.cfg.outputs.conf }}\""
+          # Build args as an array to correctly handle conference names with spaces ("Big Ten", etc.)
+          ARGS=(--angle "${{ steps.cfg.outputs.angle }}" --count "${{ steps.cfg.outputs.count }}" --offset "${{ steps.cfg.outputs.offset }}")
+          [ -n "${{ steps.cfg.outputs.conf }}" ] && ARGS+=(--conf "${{ steps.cfg.outputs.conf }}")
+          [ -n "${{ steps.cfg.outputs.team }}" ] && ARGS+=(--team "${{ steps.cfg.outputs.team }}")
+          [ "${{ steps.cfg.outputs.dry }}" = "true" ] && ARGS+=(--dry-run)
           echo "Posting: angle=${{ steps.cfg.outputs.angle }} count=${{ steps.cfg.outputs.count }} conf=${{ steps.cfg.outputs.conf }}"
-          node scripts/post-preseason.js \
-            --angle "${{ steps.cfg.outputs.angle }}" \
-            --count "${{ steps.cfg.outputs.count }}" \
-            --offset "${{ steps.cfg.outputs.offset }}" \
-            $TEAM_ARG $CONF_ARG $DRY
+          node scripts/post-preseason.js "${ARGS[@]}"
 
       - name: Save token and mark post
         if: always() && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
@@ -174,7 +170,6 @@ jobs:
               const s = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p,'utf8')) : {};
               s.refreshToken = process.argv[1];
               s.updatedAt = new Date().toISOString();
-              // postedAt only set on success — this is the real proof-of-post signal
               if (process.env.POST_OUTCOME === 'success' && fs.existsSync('/tmp/post_succeeded')) {
                 s.postedAt = fs.readFileSync('/tmp/post_succeeded','utf8').trim();
               }
