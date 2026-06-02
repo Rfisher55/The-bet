@@ -1,17 +1,12 @@
 name: X Preseason Post
 
 on:
-  # 10:07 AM Eastern Time, Mon–Sat. timezone: field handles EDT/EST automatically.
   schedule:
     - cron: '7 10 * * 1-6'
       timezone: 'America/New_York'
-
-  # Push trigger — used by the background monitor as a backup if the schedule misses.
-  # Fires whenever .trigger-post is updated with a new timestamp.
   push:
     paths:
       - '.trigger-post'
-
   workflow_dispatch:
     inputs:
       angle:
@@ -19,42 +14,30 @@ on:
         required: true
         default: 'hot-takes'
         type: choice
-        options:
-          - intro
-          - hot-takes
-          - sleepers
-          - fades
-          - ats-value
-          - portal
-          - momentum
-          - conference
-          - team
-          - rotate
+        options: [intro, hot-takes, sleepers, fades, ats-value, portal, momentum, conference, team, rotate]
       team:
-        description: 'Team name (only for angle=team, e.g. "Boise State")'
+        description: 'Team name (angle=team only)'
         required: false
         default: ''
       conf:
-        description: 'Conference (only for angle=conference, e.g. "Big Ten")'
+        description: 'Conference (angle=conference only)'
         required: false
         default: ''
       count:
-        description: 'Number of tweets (1=single post, 3-5=thread)'
+        description: 'Number of tweets'
         required: false
         default: '1'
       offset:
-        description: 'Team offset for rotate angle (0, 5, 10, 15…)'
+        description: 'Team offset for rotate'
         required: false
         default: '0'
       dry_run:
-        description: 'Dry run — preview without posting'
+        description: 'Dry run — preview only'
         required: false
         default: false
         type: boolean
 
-# Queue instead of cancel: if two triggers fire at once (schedule + push backup),
-# the second job waits for the first to finish. The already-posted guard below
-# then sees today's date in x-auth.json and skips the duplicate.
+# Queue mode: second trigger waits for first to finish, then sees postedAt and skips
 concurrency:
   group: x-post-${{ github.ref }}
   cancel-in-progress: false
@@ -66,41 +49,26 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Pull latest data
         run: git pull origin ${{ github.ref_name }}
 
-      # Gate: skip only when both (a) the full schedule is published AND (b) betting lines exist.
-      # Rationale: CFBD publishes the schedule months before lines are available.
-      # Until lines exist, x-auto-post.yml's pick-based posts produce zero-edge garbage.
-      # Preseason analysis posts (sleepers, fades, team spotlights) remain valid until
-      # real lines give the model something meaningful to work with.
       - name: Check season gate
         id: gate
         run: |
           TOTAL=$(node -e "try{const d=require('./data/games-2026.json');console.log(d.totalGames||0)}catch{console.log(0)}")
           HAS_LINES=$(node -e "try{const d=require('./data/games-2026.json');const n=(d.games||[]).filter(g=>g.bettingLines&&g.bettingLines.spread!=null).length;console.log(n)}catch{console.log(0)}")
-          echo "total_games=$TOTAL" >> $GITHUB_OUTPUT
-          echo "games_with_lines=$HAS_LINES" >> $GITHUB_OUTPUT
           if [ "$TOTAL" -gt "100" ] && [ "$HAS_LINES" -gt "0" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
-            echo "Season live with lines ($TOTAL games, $HAS_LINES with lines) — x-auto-post.yml handles pick posts"
+            echo "Season live with lines — x-auto-post.yml handles posts"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            if [ "$TOTAL" -gt "100" ] && [ "$HAS_LINES" -eq "0" ]; then
-              echo "Schedule published ($TOTAL games) but no lines yet — continuing preseason analysis posts"
-            else
-              echo "Preseason mode ($TOTAL games ≤ 100) — running preseason post"
-            fi
+            echo "Preseason mode ($TOTAL games) — running"
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Setup Node.js
+      - uses: actions/setup-node@v4
         if: steps.gate.outputs.skip != 'true'
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
+        with: { node-version: '24' }
 
       - name: Install dependencies
         if: steps.gate.outputs.skip != 'true'
@@ -119,72 +87,32 @@ jobs:
             echo "conf=${{ inputs.conf }}"     >> $GITHUB_OUTPUT
             echo "dry=${{ inputs.dry_run }}"   >> $GITHUB_OUTPUT
           else
-            # Auto-schedule: rotate angles by day of week + week number
-            DOW=$(date +%u)       # 1=Mon … 6=Sat
-            WEEK=$(date +%V)      # ISO week number (1-52)
+            DOW=$(date +%u)
+            WEEK=$(date +%V)
             DAY_OF_YEAR=$(date +%j)
-
-            # Conference rotation (11 conferences, rotate by week)
+            echo "DOW=$DOW WEEK=$WEEK DAY_OF_YEAR=$DAY_OF_YEAR" # debug
             CONFS=("SEC" "Big Ten" "Big 12" "ACC" "Mountain West" "Sun Belt" "MAC" "American Athletic" "Conference USA" "FBS Independents" "Pac-2")
             CONF_IDX=$(( (WEEK - 1) % 11 ))
             CONF="${CONFS[$CONF_IDX]}"
-
-            # Team rotate offset: advances by 5 every day
             OFFSET=$(( (DAY_OF_YEAR * 5) % 130 ))
-
             case "$DOW" in
-              1) # Monday — Bold hot takes
-                echo "angle=hot-takes" >> $GITHUB_OUTPUT
-                echo "count=2"         >> $GITHUB_OUTPUT
-                echo "offset=0"        >> $GITHUB_OUTPUT
-                echo "conf="           >> $GITHUB_OUTPUT
-                echo "team="           >> $GITHUB_OUTPUT
-                ;;
-              2) # Tuesday — Conference power rankings
-                echo "angle=conference" >> $GITHUB_OUTPUT
-                echo "count=1"          >> $GITHUB_OUTPUT
-                echo "offset=0"         >> $GITHUB_OUTPUT
-                echo "conf=${CONF}"     >> $GITHUB_OUTPUT
-                echo "team="            >> $GITHUB_OUTPUT
-                ;;
-              3) # Wednesday — Team spotlight rotation (covers all 133 teams)
-                echo "angle=rotate"    >> $GITHUB_OUTPUT
-                echo "count=3"         >> $GITHUB_OUTPUT
-                echo "offset=${OFFSET}" >> $GITHUB_OUTPUT
-                echo "conf="           >> $GITHUB_OUTPUT
-                echo "team="           >> $GITHUB_OUTPUT
-                ;;
-              4) # Thursday — Sleepers (odd weeks) or Fades (even weeks)
-                if [ $(( WEEK % 2 )) -eq 1 ]; then
-                  echo "angle=sleepers" >> $GITHUB_OUTPUT
-                else
-                  echo "angle=fades"    >> $GITHUB_OUTPUT
-                fi
-                echo "count=3"  >> $GITHUB_OUTPUT
-                echo "offset=0" >> $GITHUB_OUTPUT
-                echo "conf="    >> $GITHUB_OUTPUT
-                echo "team="    >> $GITHUB_OUTPUT
-                ;;
-              5) # Friday — ATS value (odd weeks) or Transfer portal (even weeks)
-                if [ $(( WEEK % 2 )) -eq 1 ]; then
-                  echo "angle=ats-value" >> $GITHUB_OUTPUT
-                else
-                  echo "angle=portal"    >> $GITHUB_OUTPUT
-                fi
-                echo "count=3"  >> $GITHUB_OUTPUT
-                echo "offset=0" >> $GITHUB_OUTPUT
-                echo "conf="    >> $GITHUB_OUTPUT
-                echo "team="    >> $GITHUB_OUTPUT
-                ;;
-              6) # Saturday — Program momentum
-                echo "angle=momentum" >> $GITHUB_OUTPUT
-                echo "count=2"        >> $GITHUB_OUTPUT
-                echo "offset=0"       >> $GITHUB_OUTPUT
-                echo "conf="          >> $GITHUB_OUTPUT
-                echo "team="          >> $GITHUB_OUTPUT
-                ;;
+              1) ANGLE="hot-takes"; COUNT=2; OFFSET=0; CONF=""; TEAM="" ;;
+              2) ANGLE="conference"; COUNT=1; OFFSET=0; TEAM="" ;;
+              3) ANGLE="rotate"; COUNT=3; CONF=""; TEAM="" ;;
+              4) [ $(( WEEK % 2 )) -eq 1 ] && ANGLE="sleepers" || ANGLE="fades"; COUNT=3; OFFSET=0; CONF=""; TEAM="" ;;
+              5) [ $(( WEEK % 2 )) -eq 1 ] && ANGLE="ats-value" || ANGLE="portal"; COUNT=3; OFFSET=0; CONF=""; TEAM="" ;;
+              6) ANGLE="momentum"; COUNT=2; OFFSET=0; CONF=""; TEAM="" ;;
+              *) echo "❌ Unexpected DOW=$DOW — cannot determine angle"; exit 1 ;;
             esac
-            echo "dry=false" >> $GITHUB_OUTPUT
+            # Fail loudly if angle is empty — never silently fall back to intro
+            if [ -z "$ANGLE" ]; then echo "❌ ANGLE is empty — aborting"; exit 1; fi
+            echo "angle=$ANGLE"   >> $GITHUB_OUTPUT
+            echo "count=$COUNT"   >> $GITHUB_OUTPUT
+            echo "offset=$OFFSET" >> $GITHUB_OUTPUT
+            echo "team=$TEAM"     >> $GITHUB_OUTPUT
+            echo "conf=$CONF"     >> $GITHUB_OUTPUT
+            echo "dry=false"      >> $GITHUB_OUTPUT
+            echo "Resolved: angle=$ANGLE count=$COUNT conf=$CONF"
           fi
 
       - name: Skip if already posted today
@@ -192,12 +120,12 @@ jobs:
         id: already_posted
         run: |
           TODAY=$(date -u +%Y-%m-%d)
-          UPDATED=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('data/x-auth.json','utf8'));console.log(d.updatedAt||'')}catch{console.log('')}")
-          if echo "$UPDATED" | grep -q "^$TODAY"; then
-            echo "✅ Already posted today ($UPDATED) — skipping duplicate"
+          POSTED=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('data/x-auth.json','utf8'));console.log(d.postedAt||'')}catch{console.log('')}")
+          if echo "$POSTED" | grep -q "^$TODAY"; then
+            echo "✅ Already posted today ($POSTED) — skipping duplicate"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "No post yet for $TODAY — proceeding"
+            echo "No successful post yet for $TODAY (last: ${POSTED:-never}) — proceeding"
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
@@ -212,17 +140,8 @@ jobs:
           [ -z "$X_OAUTH2_CLIENT_ID" ]     && MISSING="$MISSING X_OAUTH2_CLIENT_ID"
           [ -z "$X_OAUTH2_CLIENT_SECRET" ] && MISSING="$MISSING X_OAUTH2_CLIENT_SECRET"
           [ -z "$X_OAUTH2_REFRESH_TOKEN" ] && MISSING="$MISSING X_OAUTH2_REFRESH_TOKEN"
-          if [ -n "$MISSING" ]; then
-            echo "❌ Missing secrets:$MISSING"
-            echo ""
-            echo "Run the x-oauth2-setup workflow to generate your refresh token:"
-            echo "  1. Actions → X OAuth2 Setup → Run workflow → action=generate"
-            echo "  2. Visit the printed URL on your phone and authorize the app"
-            echo "  3. Run workflow again → action=exchange → paste the code"
-            echo "  4. Add the printed token as secret X_OAUTH2_REFRESH_TOKEN"
-            exit 1
-          fi
-          echo "✅ All X credentials present"
+          if [ -n "$MISSING" ]; then echo "❌ Missing:$MISSING"; exit 1; fi
+          echo "✅ Credentials present"
 
       - name: Post to X
         if: steps.gate.outputs.skip != 'true' && steps.already_posted.outputs.skip != 'true'
@@ -232,29 +151,20 @@ jobs:
           X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
           X_OAUTH2_REFRESH_TOKEN: ${{ secrets.X_OAUTH2_REFRESH_TOKEN }}
         run: |
-          DRY=""
-          [ "${{ steps.cfg.outputs.dry }}" = "true" ] && DRY="--dry-run"
+          DRY=""; [ "${{ steps.cfg.outputs.dry }}" = "true" ] && DRY="--dry-run"
+          TEAM_ARG=""; [ -n "${{ steps.cfg.outputs.team }}" ] && TEAM_ARG="--team \"${{ steps.cfg.outputs.team }}\""
+          CONF_ARG=""; [ -n "${{ steps.cfg.outputs.conf }}" ] && CONF_ARG="--conf \"${{ steps.cfg.outputs.conf }}\""
+          echo "Posting: angle=${{ steps.cfg.outputs.angle }} count=${{ steps.cfg.outputs.count }} conf=${{ steps.cfg.outputs.conf }}"
+          node scripts/post-preseason.js \
+            --angle "${{ steps.cfg.outputs.angle }}" \
+            --count "${{ steps.cfg.outputs.count }}" \
+            --offset "${{ steps.cfg.outputs.offset }}" \
+            $TEAM_ARG $CONF_ARG $DRY
 
-          TEAM_ARG=""
-          [ -n "${{ steps.cfg.outputs.team }}" ] && TEAM_ARG="--team \"${{ steps.cfg.outputs.team }}\""
-
-          CONF_ARG=""
-          [ -n "${{ steps.cfg.outputs.conf }}" ] && CONF_ARG="--conf \"${{ steps.cfg.outputs.conf }}\""
-
-          echo "Angle: ${{ steps.cfg.outputs.angle }}"
-          echo "Count: ${{ steps.cfg.outputs.count }}"
-          echo "Offset: ${{ steps.cfg.outputs.offset }}"
-
-          node scripts/post-preseason.js \\
-            --angle "${{ steps.cfg.outputs.angle }}" \\
-            --count "${{ steps.cfg.outputs.count }}" \\
-            --offset "${{ steps.cfg.outputs.offset }}" \\
-            $TEAM_ARG \\
-            $CONF_ARG \\
-            $DRY
-
-      - name: Rotate refresh token
+      - name: Save token and mark post
         if: always() && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
+        env:
+          POST_OUTCOME: ${{ steps.post.outcome }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
             NEW_TOKEN=$(cat /tmp/new_refresh_token)
@@ -264,6 +174,10 @@ jobs:
               const s = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p,'utf8')) : {};
               s.refreshToken = process.argv[1];
               s.updatedAt = new Date().toISOString();
+              // postedAt only set on success — this is the real proof-of-post signal
+              if (process.env.POST_OUTCOME === 'success' && fs.existsSync('/tmp/post_succeeded')) {
+                s.postedAt = fs.readFileSync('/tmp/post_succeeded','utf8').trim();
+              }
               fs.writeFileSync(p, JSON.stringify(s, null, 2));
             " "$NEW_TOKEN"
             git config user.name  "TheBet Bot"
@@ -273,7 +187,7 @@ jobs:
             BRANCH=$(git rev-parse --abbrev-ref HEAD)
             git pull --rebase origin "$BRANCH" 2>/dev/null || true
             git push origin HEAD:"$BRANCH" || true
-            echo "✅ Refresh token saved to data/x-auth.json"
+            echo "✅ Token saved. Post outcome: $POST_OUTCOME"
           else
-            echo "ℹ️ No new refresh token (X may use non-rotating tokens)"
+            echo "ℹ️ No new refresh token"
           fi

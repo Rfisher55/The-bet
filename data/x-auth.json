@@ -1,5 +1,6 @@
 {
   "refreshToken": "U2J2Y0xkSVh0clN1MnZENGVIYmcwejl2aEZqYXpBcmpOaGRfaHhYdkU1dDZqOjE3ODA0MTEwNDIyMjE6MToxOnJ0OjE",
+  "postedAt": "2026-06-01T16:51:22.644Z",
   "updatedAt": "2026-06-02T14:37:26.015Z",
-  "note": "Refresh token auto-rotated here after each post. Falls back to X_OAUTH2_REFRESH_TOKEN env var if null."
+  "note": "refreshToken rotates on every OAuth flow. postedAt = last SUCCESSFUL post. updatedAt = last token rotation (may differ)."
 }
