@@ -1,0 +1,47 @@
+flowchart TD
+    subgraph Sources["📡  Data Sources"]
+        S1["CFBD API\nSchedules · SP+ · ATS history"]
+        S2["ESPN API\nRosters · Injuries · Live scores"]
+        S3["Odds API\nMarket lines · Sharp money"]
+        S4["Open-Meteo\nGame-day weather"]
+        S5["Reddit / RSS\nSentiment · News"]
+    end
+
+    subgraph Pipeline["⚙️  Feature Engineering  (GitHub Actions · 4-hr refresh)"]
+        P1["Team Quality\nSP+ · Recruiting · Portal grade"]
+        P2["Situational\nRest · Travel · Rivalry · Time zone"]
+        P3["Market Signals\nLine movement · Sharp %"]
+        P4["Momentum\nCoach seat · Program trajectory"]
+        P5["Game Context\nWeather · Home field · Neutral site"]
+        P6["Player Layer\nKey injuries · Depth chart delta"]
+    end
+
+    subgraph Model["🤖  7-Signal Prediction Model  (predictor.js)"]
+        M1["Base Model · 30%\nSP+ composite matchup"]
+        M2["Player Impact · 20%\nInjury-adjusted talent delta"]
+        M3["Situational · 15%\nATS historical edges"]
+        M4["Weather · 10%\nO/U & pace adjustment"]
+        M5["Coaching · 10%\nSeat pressure · momentum"]
+        M6["Momentum · 8%\nProgram trajectory signals"]
+        M7["Sharp Money · 7%\nPinnacle line deviation"]
+        PRED["Win Probability\n& Edge Score"]
+        M1 & M2 & M3 & M4 & M5 & M6 & M7 --> PRED
+    end
+
+    subgraph Output["📊  Output Layer"]
+        O1["Weekly Picks\nConfidence tier · Unit size"]
+        O2["Game Breakdowns\nFull factor attribution"]
+        O3["Power Rankings\n133 FBS teams"]
+        O4["X / Social Posts\nAuto-generated daily"]
+        O5["Track Record\nTimestamped · Auto-graded"]
+    end
+
+    S1 & S2 & S3 & S4 & S5 --> P1 & P2 & P3 & P4 & P5 & P6
+    P1 & P2 & P3 & P4 & P5 & P6 --> M1 & M2 & M3 & M4 & M5 & M6 & M7
+    PRED --> O1 & O2 & O3 & O4 & O5
+
+    style Sources fill:#0f172a,stroke:#334155,color:#94a3b8
+    style Pipeline fill:#0f172a,stroke:#334155,color:#94a3b8
+    style Model fill:#0f172a,stroke:#334155,color:#94a3b8
+    style Output fill:#0f172a,stroke:#334155,color:#94a3b8
+    style PRED fill:#10b981,stroke:#059669,color:#fff
