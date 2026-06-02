@@ -52,9 +52,12 @@ on:
         default: false
         type: boolean
 
+# Queue instead of cancel: if two triggers fire at once (schedule + push backup),
+# the second job waits for the first to finish. The already-posted guard below
+# then sees today's date in x-auth.json and skips the duplicate.
 concurrency:
   group: x-post-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   preseason-post:
@@ -184,8 +187,22 @@ jobs:
             echo "dry=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Skip if already posted today
+        if: steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
+        id: already_posted
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          UPDATED=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('data/x-auth.json','utf8'));console.log(d.updatedAt||'')}catch{console.log('')}")
+          if echo "$UPDATED" | grep -q "^$TODAY"; then
+            echo "✅ Already posted today ($UPDATED) — skipping duplicate"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "No post yet for $TODAY — proceeding"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Verify X credentials
-        if: steps.gate.outputs.skip != 'true'
+        if: steps.gate.outputs.skip != 'true' && steps.already_posted.outputs.skip != 'true'
         env:
           X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
           X_OAUTH2_CLIENT_SECRET: ${{ secrets.X_OAUTH2_CLIENT_SECRET }}
@@ -208,7 +225,7 @@ jobs:
           echo "✅ All X credentials present"
 
       - name: Post to X
-        if: steps.gate.outputs.skip != 'true'
+        if: steps.gate.outputs.skip != 'true' && steps.already_posted.outputs.skip != 'true'
         id: post
         env:
           X_OAUTH2_CLIENT_ID:     ${{ secrets.X_OAUTH2_CLIENT_ID }}
@@ -228,12 +245,12 @@ jobs:
           echo "Count: ${{ steps.cfg.outputs.count }}"
           echo "Offset: ${{ steps.cfg.outputs.offset }}"
 
-          node scripts/post-preseason.js \
-            --angle "${{ steps.cfg.outputs.angle }}" \
-            --count "${{ steps.cfg.outputs.count }}" \
-            --offset "${{ steps.cfg.outputs.offset }}" \
-            $TEAM_ARG \
-            $CONF_ARG \
+          node scripts/post-preseason.js \\
+            --angle "${{ steps.cfg.outputs.angle }}" \\
+            --count "${{ steps.cfg.outputs.count }}" \\
+            --offset "${{ steps.cfg.outputs.offset }}" \\
+            $TEAM_ARG \\
+            $CONF_ARG \\
             $DRY
 
       - name: Rotate refresh token
@@ -260,4 +277,3 @@ jobs:
           else
             echo "ℹ️ No new refresh token (X may use non-rotating tokens)"
           fi
-

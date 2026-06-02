@@ -148,6 +148,15 @@ const sorted   = [...ALL_TEAMS].sort((a, b) => b.rating - a.rating);
 const _rankMap  = new Map(sorted.map((t, i) => [t.id, i + 1]));
 const modelRank = t => _rankMap.get(t.id) || Math.max(1, Math.round((100 - t.rating) * 1.5) + 1);
 
+// ── Deterministic daily RNG ──────────────────────────────────────────────────
+// Same-day runs (schedule + push backup) produce identical team selections.
+// Seeded by YYYYMMDD so each day picks different teams.
+const _daySeed = (() => {
+  const d = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  let s = parseInt(d, 10) % 2147483647 || 1;
+  return () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+})();
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 const fit = (core, extras, max = 280) => {
   let t = core;
@@ -475,12 +484,13 @@ function tweetMomentum() {
 function tweetHotTakes(count = 5) {
   // Score each team by how "spicy" their take is — prioritize AP discrepancies,
   // hot seats, and momentum trends over generic teams that produce filler text.
+  // Uses date-seeded RNG so same-day runs always pick the same teams.
   const scored = [...ALL_TEAMS].map(t => {
     const iRank = modelRank(t);
     const r = t.rating || 70;
     const m = t.programHealth?.programMomentum || 'stable';
     const hs = t.programHealth?.coachHotSeat || 0;
-    let score = Math.random() * 0.5; // small random jitter to avoid identical ordering each run
+    let score = _daySeed() * 0.5; // deterministic daily jitter (no cross-day repeats)
     if (t.apRank && Math.abs(iRank - t.apRank) >= 3) score += 3;
     if (m === 'rising' && r < 80) score += 2;
     if (m === 'declining' && r >= 75) score += 2;
