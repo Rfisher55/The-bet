@@ -31,13 +31,14 @@ jobs:
         id: check
         run: |
           POSTED=$(node -e "try{const d=require('./data/x-auth.json');process.stdout.write(d.postedAt||'')}catch{process.stdout.write('')}" 2>/dev/null || echo "")
-          TODAY=$(date -u '+%Y-%m-%d')
-          echo "postedAt=$POSTED today=$TODAY"
-          if [[ "$POSTED" == "$TODAY"* ]]; then
-            echo "✅ Post confirmed ($POSTED) — watchdog not needed"
+          TODAY=$(TZ='America/New_York' date +%Y-%m-%d)
+          POSTED_ET=$(node -e "try{const ts=process.env.POSTED;if(!ts){console.log('');process.exit(0);}console.log(new Date(ts).toLocaleDateString('en-CA',{timeZone:'America/New_York'}))}catch{console.log('')}" 2>/dev/null || echo "")
+          echo "postedAt=$POSTED posted_ET=$POSTED_ET today_ET=$TODAY"
+          if [ "$POSTED_ET" = "$TODAY" ]; then
+            echo "✅ Post confirmed for ET date $TODAY ($POSTED) — watchdog not needed"
             echo "needs_post=false" >> $GITHUB_OUTPUT
           else
-            echo "⚠️ No confirmed post for $TODAY (last: ${POSTED:-never}) — firing backup"
+            echo "⚠️ No confirmed post for $TODAY ET (last ET: ${POSTED_ET:-never}) — firing backup"
             echo "needs_post=true" >> $GITHUB_OUTPUT
           fi
 

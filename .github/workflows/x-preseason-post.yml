@@ -117,13 +117,14 @@ jobs:
         if: steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
         id: already_posted
         run: |
-          TODAY=$(date -u +%Y-%m-%d)
+          TODAY=$(TZ='America/New_York' date +%Y-%m-%d)
           POSTED=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('data/x-auth.json','utf8'));console.log(d.postedAt||'')}catch{console.log('')}")
-          if echo "$POSTED" | grep -q "^$TODAY"; then
-            echo "✅ Already posted today ($POSTED) — skipping"
+          POSTED_ET=$(node -e "try{const ts=process.env.POSTED;if(!ts){console.log('');process.exit(0);}console.log(new Date(ts).toLocaleDateString('en-CA',{timeZone:'America/New_York'}))}catch{console.log('')}" 2>/dev/null || echo "")
+          if [ "$POSTED_ET" = "$TODAY" ]; then
+            echo "✅ Already posted today ET ($POSTED_ET) — skipping"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "No successful post yet for $TODAY (last: ${POSTED:-never}) — proceeding"
+            echo "No successful post yet for $TODAY ET (last ET: ${POSTED_ET:-never}) — proceeding"
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
