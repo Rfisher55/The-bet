@@ -118,8 +118,14 @@ jobs:
         id: already_posted
         run: |
           TODAY=$(TZ='America/New_York' date +%Y-%m-%d)
-          POSTED=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('data/x-auth.json','utf8'));console.log(d.postedAt||'')}catch{console.log('')}")
-          POSTED_ET=$(node -e "try{const ts=process.env.POSTED;if(!ts){console.log('');process.exit(0);}console.log(new Date(ts).toLocaleDateString('en-CA',{timeZone:'America/New_York'}))}catch{console.log('')}" 2>/dev/null || echo "")
+          POSTED_ET=$(node -e "
+            try {
+              const d = JSON.parse(require('fs').readFileSync('data/x-auth.json','utf8'));
+              const ts = d.postedAt || '';
+              if (!ts) { console.log(''); process.exit(0); }
+              console.log(new Date(ts).toLocaleDateString('en-CA', {timeZone:'America/New_York'}));
+            } catch { console.log(''); }
+          ")
           if [ "$POSTED_ET" = "$TODAY" ]; then
             echo "✅ Already posted today ET ($POSTED_ET) — skipping"
             echo "skip=true" >> $GITHUB_OUTPUT
