@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-09T02:52:16.972Z",
+  "generated": "2026-06-09T21:52:41.892Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -21,7 +21,7 @@
     "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 35672,
+  "fetchDurationMs": 35819,
   "apRanks": {},
   "games": [
     {
@@ -478,7 +478,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -490,7 +492,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "home",
         "oddsBookCount": 6
       },
       "gamePreview": {
@@ -2209,9 +2211,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2223,7 +2223,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
+        "sharpSignal": null,
         "oddsBookCount": 5
       },
       "gamePreview": {
@@ -6370,7 +6370,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 4
       },
       "gamePreview": {
         "headline": "Central Michigan Chippewas at New Mexico Lobos",
@@ -12744,7 +12744,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Houston Cougars at Texas Tech Red Raiders",
@@ -31743,7 +31743,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Kansas Jayhawks at Kansas State Wildcats",
