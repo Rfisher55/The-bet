@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-11T17:49:24.690Z",
+  "generated": "2026-06-11T18:02:32.215Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -21,7 +21,7 @@
     "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 35507,
+  "fetchDurationMs": 102324,
   "apRanks": {},
   "games": [
     {
@@ -14005,75 +14005,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401856694",
-      "espnId": "401856694",
-      "week": 3,
-      "seasonType": "regular",
-      "date": "2026-09-19",
-      "time": "3:30 PM ET",
-      "homeTeamId": "texas_am",
-      "awayTeamId": "kentucky",
-      "homeTeamName": "Texas A&M Aggies",
-      "awayTeamName": "Kentucky Wildcats",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "TBD",
-      "venue": "Kyle Field",
-      "venueCity": "College Station",
-      "venueState": "TX",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Kentucky Wildcats at Texas A&M Aggies",
-        "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401856685",
       "espnId": "401856685",
       "week": 3,
@@ -14130,6 +14061,75 @@
       },
       "gamePreview": {
         "headline": "Florida State Seminoles at Alabama Crimson Tide",
+        "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401856694",
+      "espnId": "401856694",
+      "week": 3,
+      "seasonType": "regular",
+      "date": "2026-09-19",
+      "time": "3:30 PM ET",
+      "homeTeamId": "texas_am",
+      "awayTeamId": "kentucky",
+      "homeTeamName": "Texas A&M Aggies",
+      "awayTeamName": "Kentucky Wildcats",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "TBD",
+      "venue": "Kyle Field",
+      "venueCity": "College Station",
+      "venueState": "TX",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Kentucky Wildcats at Texas A&M Aggies",
         "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
