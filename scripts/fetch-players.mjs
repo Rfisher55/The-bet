@@ -30,11 +30,36 @@ const UA = "TheBet/2.0 (cfb-predictor; contact rfisher55@github.com)";
 
 // ── HTTP helpers ─────────────────────────────────────────────────────────────
 
-async function cfbdFetch(endpoint) {
+// CFBD rate-limits parallel bursts (429s) — serialize calls through a queue
+// with spacing, and retry 429s with exponential backoff.
+let _cfbdQueue = Promise.resolve();
+const CFBD_SPACING_MS = 350;
+const CFBD_RETRIES = [2000, 5000, 12000];
+
+function cfbdFetch(endpoint) {
+  const run = _cfbdQueue.then(() => _cfbdFetchRaw(endpoint));
+  _cfbdQueue = run.then(
+    () => new Promise(res => setTimeout(res, CFBD_SPACING_MS)),
+    () => new Promise(res => setTimeout(res, CFBD_SPACING_MS)),
+  );
+  return run;
+}
+
+async function _cfbdFetchRaw(endpoint, attempt = 0) {
   try {
     const r = await fetch(`${CFBD_BASE}${endpoint}`, {
       headers: { Authorization: `Bearer ${CFBD_KEY}` },
     });
+    if (r.status === 429) {
+      if (attempt < CFBD_RETRIES.length) {
+        const wait = CFBD_RETRIES[attempt];
+        console.warn(`  CFBD 429: ${endpoint} — retrying in ${wait / 1000}s (${attempt + 1}/${CFBD_RETRIES.length})`);
+        await new Promise(res => setTimeout(res, wait));
+        return _cfbdFetchRaw(endpoint, attempt + 1);
+      }
+      console.warn(`  CFBD 429: ${endpoint} — gave up after ${CFBD_RETRIES.length} retries`);
+      return null;
+    }
     if (!r.ok) { console.warn(`  CFBD ${r.status}: ${endpoint}`); return null; }
     return await r.json();
   } catch (e) { console.warn(`  CFBD fail: ${endpoint} — ${e.message}`); return null; }
