@@ -12,7 +12,7 @@
  * GitHub Secrets: CFBD_API_KEY (required)
  */
 
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, readFileSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -655,6 +655,15 @@ async function main() {
   ]);
 
   // Phase 2: fallback to prior season when current season data not available yet (pre-season)
+  // Guard: if Phase 1 returned nothing (CFBD quota exceeded) and committed players-2026.json
+  // already has good data, skip the 8+ fallback API calls — they'll 429 too and only burn
+  // more quota.  The write-guard at Phase 5 will preserve the committed file automatically.
+  let existingPlayerCount = 0;
+  try {
+    const ex = JSON.parse(readFileSync(join(DATA_DIR, "players-2026.json"), "utf8"));
+    existingPlayerCount = ex.players?.length || 0;
+  } catch {}
+
   const statYear = SEASON - 1;
   let passingData = [...(passingRaw || []), ...(passingFcsRaw || [])];
   let rushingData = [...(rushingRaw || []), ...(rushingFcsRaw || [])];
@@ -662,22 +671,28 @@ async function main() {
   let defensiveData = [...(defensiveRaw || []), ...(defensiveFcsRaw || [])];
 
   if (!passingData.length && !rushingData.length) {
-    console.log(`  No ${SEASON} stats found — falling back to ${statYear} season stats...`);
-    const [fp, fr, frec, fd, fcp, fcr, fcrec, fcd] = await Promise.all([
-      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=passing`),
-      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=rushing`),
-      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=receiving`),
-      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=defensive`),
-      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=passing`),
-      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=rushing`),
-      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=receiving`),
-      cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=defensive`),
-    ]);
-    passingData   = [...(fp  || []), ...(fcp  || [])];
-    rushingData   = [...(fr  || []), ...(fcr  || [])];
-    receivingData = [...(frec || []), ...(fcrec || [])];
-    defensiveData = [...(fd  || []), ...(fcd  || [])];
-    console.log(`  Fallback stats (FBS+FCS): P:${passingData.length} R:${rushingData.length} Rec:${receivingData.length} D:${defensiveData.length}`);
+    if (existingPlayerCount >= 500) {
+      // Committed data is usable — don't burn quota on fallback calls that will also 429.
+      // The Phase 5 write-guard (players.length === 0) preserves the committed file.
+      console.log(`  No ${SEASON} stats (CFBD unavailable) — ${existingPlayerCount} profiles in committed players-2026.json preserved`);
+    } else {
+      console.log(`  No ${SEASON} stats found — falling back to ${statYear} season stats...`);
+      const [fp, fr, frec, fd, fcp, fcr, fcrec, fcd] = await Promise.all([
+        cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=passing`),
+        cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=rushing`),
+        cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=receiving`),
+        cfbdFetch(`/stats/player/season?year=${statYear}&classification=fbs&category=defensive`),
+        cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=passing`),
+        cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=rushing`),
+        cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=receiving`),
+        cfbdFetch(`/stats/player/season?year=${statYear}&classification=fcs&category=defensive`),
+      ]);
+      passingData   = [...(fp  || []), ...(fcp  || [])];
+      rushingData   = [...(fr  || []), ...(fcr  || [])];
+      receivingData = [...(frec || []), ...(fcrec || [])];
+      defensiveData = [...(fd  || []), ...(fcd  || [])];
+      console.log(`  Fallback stats (FBS+FCS): P:${passingData.length} R:${rushingData.length} Rec:${receivingData.length} D:${defensiveData.length}`);
+    }
   }
 
   // Phase 3: build lookups
@@ -687,19 +702,28 @@ async function main() {
   const receivingMap = pivotStats(receivingData);
   const defensiveMap = pivotStats(defensiveData);
 
-  // Roster: FBS + FCS combined; fall back to prior year if current year is thin
+  // Roster: FBS + FCS combined; fall back to prior year if current year is thin.
+  // Skip fallback API calls when committed player data is available (same quota guard).
   let rosterRaw2 = rosterRaw;
   if (!rosterRaw2 || rosterRaw2.length < 100) {
-    console.log(`  Thin/missing ${SEASON} FBS roster (${rosterRaw2?.length || 0}) — falling back to ${statYear}...`);
-    rosterRaw2 = await cfbdFetch(`/roster?year=${statYear}`) || [];
-    console.log(`  Fallback FBS roster: ${rosterRaw2.length} players`);
+    if (existingPlayerCount >= 500) {
+      console.log(`  Thin/missing ${SEASON} FBS roster — committed players-2026.json has ${existingPlayerCount} profiles, skipping roster fallback`);
+    } else {
+      console.log(`  Thin/missing ${SEASON} FBS roster (${rosterRaw2?.length || 0}) — falling back to ${statYear}...`);
+      rosterRaw2 = await cfbdFetch(`/roster?year=${statYear}`) || [];
+      console.log(`  Fallback FBS roster: ${rosterRaw2.length} players`);
+    }
   }
 
   let fcsRosterRaw2 = fcsRosterRaw;
   if (!fcsRosterRaw2 || fcsRosterRaw2.length < 50) {
-    console.log(`  Thin/missing ${SEASON} FCS roster (${fcsRosterRaw2?.length || 0}) — falling back to ${statYear}...`);
-    fcsRosterRaw2 = await cfbdFetch(`/roster?year=${statYear}&classification=fcs`) || [];
-    console.log(`  Fallback FCS roster: ${fcsRosterRaw2.length} players`);
+    if (existingPlayerCount >= 500) {
+      // Skip FCS roster fallback too — profiles already committed
+    } else {
+      console.log(`  Thin/missing ${SEASON} FCS roster (${fcsRosterRaw2?.length || 0}) — falling back to ${statYear}...`);
+      fcsRosterRaw2 = await cfbdFetch(`/roster?year=${statYear}&classification=fcs`) || [];
+      console.log(`  Fallback FCS roster: ${fcsRosterRaw2.length} players`);
+    }
   }
 
   const rosterByTeam = {};

@@ -890,30 +890,42 @@ async function fetchAllTeamNews() {
 // ── CFBD: additional data endpoints ─────────────────────────────────────
 async function fetchCFBDExtras() {
   console.log("  Fetching CFBD extras (SP+, ELO, stats, recruiting, PPA, coaches, ATS)...");
-  const [sp2026, sp2025, elo2026, elo2025, teamStats, recruiting, ppa, transfers, coaches,
-         lines25, games25] = await Promise.all([
+
+  // Load static prior-season data from cache (written by scripts/cache-cfbd-static.mjs).
+  // This avoids re-fetching 7 CFBD endpoints whose data never changes after season end,
+  // cutting monthly quota usage by ~3,500 calls.  Cache refreshes annually each February.
+  let cache25 = null;
+  try {
+    cache25 = JSON.parse(readFileSync(join(DATA_DIR, "cfbd-cache-2025.json"), "utf8"));
+    if (cache25?.sp?.length) {
+      console.log(`  Cache: 2025 static data (${cache25.sp.length} SP+ teams, ${cache25.coaches?.length || 0} coaches, ${cache25.games?.length || 0} games for ATS)`);
+    }
+  } catch {}
+
+  // Fetch only current-season endpoints — 6 calls instead of 13
+  const [sp2026, elo2026, teamStats, recruiting, ppa, transfers] = await Promise.all([
     cfbdFetch(`/ratings/sp?year=${SEASON}`),
-    cfbdFetch(`/ratings/sp?year=${SEASON - 1}`),
     cfbdFetch(`/ratings/elo?year=${SEASON}&week=1`),
-    cfbdFetch(`/ratings/elo?year=${SEASON - 1}`),
     cfbdFetch(`/stats/season?year=${SEASON}&seasonType=regular`),
     cfbdFetch(`/recruiting/teams?year=${SEASON}`),
     cfbdFetch(`/ppa/teams?year=${SEASON}&excludeGarbageTime=true`),
     cfbdFetch(`/player/transfer-portal?year=${SEASON}`),
-    cfbdFetch(`/coaches?year=${SEASON - 1}`),      // prior-year coaches for career records
-    cfbdFetch(`/lines?year=${SEASON - 1}`),         // prior-year lines for ATS computation
-    cfbdFetch(`/games?year=${SEASON - 1}&seasonType=regular&classification=fbs`),
   ]);
+
+  // 2025 static data: use cache (free, instant) or fall back to live API
+  const sp2025  = cache25?.sp?.length       ? cache25.sp      : await cfbdFetch(`/ratings/sp?year=${SEASON - 1}`);
+  const elo2025 = cache25?.elo?.length      ? cache25.elo     : await cfbdFetch(`/ratings/elo?year=${SEASON - 1}`);
+  const coaches = cache25?.coaches?.length  ? cache25.coaches : await cfbdFetch(`/coaches?year=${SEASON - 1}`);
+  const lines25 = cache25?.lines?.length    ? cache25.lines   : await cfbdFetch(`/lines?year=${SEASON - 1}`);
+  const games25 = cache25?.games?.length    ? cache25.games   : await cfbdFetch(`/games?year=${SEASON - 1}&seasonType=regular&classification=fbs`);
+  const rec25   = cache25?.recruiting?.["2025"]?.length ? cache25.recruiting["2025"] : await cfbdFetch(`/recruiting/teams?year=2025`);
+  const rec24   = cache25?.recruiting?.["2024"]?.length ? cache25.recruiting["2024"] : await cfbdFetch(`/recruiting/teams?year=2024`);
+
   // Use current-season ratings if published, otherwise fall back to prior year
   const spRatings  = sp2026?.length  ? sp2026  : (sp2025  || []);
   const eloRatings = elo2026?.length ? elo2026 : (elo2025 || []);
   if (!sp2026?.length  && sp2025?.length)  console.log(`  SP+: ${SEASON} not published yet — using ${SEASON-1} fallback (${spRatings.length} teams)`);
   if (!elo2026?.length && elo2025?.length) console.log(`  ELO: ${SEASON} not published yet — using ${SEASON-1} fallback (${eloRatings.length} teams)`);
-  // Also get prior years recruiting for trend
-  const [rec25, rec24] = await Promise.all([
-    cfbdFetch(`/recruiting/teams?year=2025`),
-    cfbdFetch(`/recruiting/teams?year=2024`),
-  ]);
 
   // Build coach name + career record map (keyed by school name)
   const coachMap = {};

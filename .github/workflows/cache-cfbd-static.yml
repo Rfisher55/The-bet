@@ -1,0 +1,58 @@
+name: Cache CFBD Static Data
+
+# Run once at end of each football season to cache data that never changes:
+#   SP+, ELO, coaches, prior-year lines + game results (for ATS), recruiting classes.
+# After this runs, daily refreshes skip those 7 CFBD endpoints — saves ~3,500 calls/month.
+
+on:
+  schedule:
+    - cron: "0 6 1 2 *"   # Feb 1 at 6am UTC — well after bowl season, before recruiting signing day
+  workflow_dispatch:        # also run manually via GitHub UI or API
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cache-cfbd-static-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cache-static:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull latest
+        run: git pull origin ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: scripts
+
+      - name: Fetch and cache static CFBD data
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+        run: node scripts/cache-cfbd-static.mjs
+
+      - name: Commit cache file
+        run: |
+          git config user.name  "CFB Data Bot"
+          git config user.email "bot@thebetcfb.com"
+          git add data/cfbd-cache-2025.json
+          if git diff --staged --quiet; then
+            echo "Cache unchanged — skipping commit"
+          else
+            LINES=$(node -e "const d=require('./data/cfbd-cache-2025.json');console.log(d.sp.length+' SP+ teams, '+d.coaches.length+' coaches, '+d.games.length+' games')" 2>/dev/null || echo "")
+            git commit -m "data: cache 2025 static CFBD data (${LINES}) [skip ci]"
+            BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            git pull --rebase origin "$BRANCH" 2>/dev/null || true
+            git push origin HEAD:"$BRANCH"
+          fi
