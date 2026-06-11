@@ -222,10 +222,16 @@ const TEAM_ALIASES = {
 const UA = "TheBet/2.0 (cfb-predictor; contact rfisher55@github.com)";
 
 // CFBD rate-limits parallel bursts (429s) — serialize calls through a queue
-// with spacing, and retry 429s with exponential backoff.
+// with spacing, and retry 429s with exponential backoff. If several endpoints
+// in a row exhaust their retries the quota is gone for the month, not just
+// the burst window — trip a circuit breaker and stop retrying entirely so the
+// run finishes fast on fallback sources instead of burning 19s per endpoint.
 let _cfbdQueue = Promise.resolve();
 const CFBD_SPACING_MS = 350;
 const CFBD_RETRIES = [2000, 5000, 12000];
+const CFBD_BREAKER_THRESHOLD = 3;
+let _cfbd429Streak = 0;
+let _cfbdQuotaExhausted = false;
 
 function cfbdFetch(endpoint) {
   const run = _cfbdQueue.then(() => _cfbdFetchRaw(endpoint));
@@ -251,15 +257,21 @@ async function _cfbdFetchRaw(endpoint, attempt = 0) {
       process.exit(1);
     }
     if (r.status === 429) {
-      if (attempt < CFBD_RETRIES.length) {
+      if (!_cfbdQuotaExhausted && attempt < CFBD_RETRIES.length) {
         const wait = CFBD_RETRIES[attempt];
         console.warn(`  CFBD 429: ${endpoint} — retrying in ${wait / 1000}s (${attempt + 1}/${CFBD_RETRIES.length})`);
         await new Promise(res => setTimeout(res, wait));
         return _cfbdFetchRaw(endpoint, attempt + 1);
       }
-      console.warn(`  CFBD 429: ${endpoint} — gave up after ${CFBD_RETRIES.length} retries`);
+      _cfbd429Streak++;
+      if (!_cfbdQuotaExhausted && _cfbd429Streak >= CFBD_BREAKER_THRESHOLD) {
+        _cfbdQuotaExhausted = true;
+        console.warn(`  ⚠️ CFBD quota appears exhausted (${_cfbd429Streak} endpoints 429'd through all retries) — skipping retries for remaining calls`);
+      }
+      if (!_cfbdQuotaExhausted) console.warn(`  CFBD 429: ${endpoint} — gave up after ${CFBD_RETRIES.length} retries`);
       return null;
     }
+    _cfbd429Streak = 0;
     if (!r.ok) { console.warn(`  CFBD ${r.status}: ${endpoint}`); return null; }
     return await r.json();
   } catch (e) { console.warn(`  CFBD fail: ${endpoint} — ${e.message}`); return null; }
