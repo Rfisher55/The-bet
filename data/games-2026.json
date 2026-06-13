@@ -1,8 +1,8 @@
 {
-  "generated": "2026-06-13T21:42:33.812Z",
+  "generated": "2026-06-13T22:50:42.258Z",
   "season": 2026,
-  "totalGames": 858,
-  "scheduledGames": 858,
+  "totalGames": 853,
+  "scheduledGames": 853,
   "completedGames": 0,
   "liveGames": 0,
   "gamesWithLines": 0,
@@ -18,10 +18,9 @@
   "espnFallback": true,
   "dataSourcesActive": [
     "ESPN (schedule — CFBD preseason fallback)",
-    "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 97426,
+  "fetchDurationMs": 102028,
   "apRanks": {},
   "games": [
     {
@@ -77,7 +76,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "North Carolina Tar Heels at TCU Horned Frogs",
@@ -215,7 +214,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "NC State Wolfpack at Virginia Cavaliers",
@@ -284,7 +283,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Jacksonville State Gamecocks at North Dakota State Bison",
@@ -353,7 +352,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Sacramento State Hornets at Eastern Michigan Eagles",
@@ -478,9 +477,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -492,8 +489,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 6
+        "sharpSignal": null,
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "New Mexico State Aggies at Florida State Seminoles",
@@ -562,7 +559,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Memphis Tigers at UNLV Rebels",
@@ -769,7 +766,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Akron Zips at Wake Forest Demon Deacons",
@@ -1114,7 +1111,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Colorado Buffaloes at Georgia Tech Yellow Jackets",
@@ -1321,7 +1318,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "UAB Blazers at Illinois Fighting Illini",
@@ -1666,7 +1663,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Toledo Rockets at Michigan State Spartans",
@@ -1722,9 +1719,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -1736,8 +1731,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "away",
-        "oddsBookCount": 5
+        "sharpSignal": null,
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Miami Hurricanes at Stanford Cardinal",
@@ -1806,7 +1801,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Fresno State Bulldogs at USC Trojans",
@@ -1875,7 +1870,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "UTEP Miners at Oklahoma Sooners",
@@ -2013,7 +2008,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "East Carolina Pirates at Alabama Crimson Tide",
@@ -2088,7 +2083,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Oregon State Beavers at Houston Cougars",
@@ -2157,7 +2152,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Coastal Carolina Chanticleers at West Virginia Mountaineers",
@@ -2226,7 +2221,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Miami (OH) RedHawks at Pittsburgh Panthers",
@@ -2370,7 +2365,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "North Texas Mean Green at Indiana Hoosiers",
@@ -2439,7 +2434,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Ohio Bobcats at Nebraska Cornhuskers",
@@ -2715,7 +2710,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Liberty Flames at James Madison Dukes",
@@ -2784,7 +2779,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Ball State Cardinals at Ohio State Buckeyes",
@@ -2853,7 +2848,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Kent State Golden Flashes at South Carolina Gamecocks",
@@ -3198,7 +3193,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Baylor Bears at Auburn Tigers",
@@ -3336,7 +3331,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Texas State Bobcats at Texas Longhorns",
@@ -3405,7 +3400,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Boston College Eagles at Cincinnati Bearcats",
@@ -3474,7 +3469,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Tulane Green Wave at Duke Blue Devils",
@@ -3543,7 +3538,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Boise State Broncos at Oregon Ducks",
@@ -3612,7 +3607,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Marshall Thundering Herd at Penn State Nittany Lions",
@@ -4026,7 +4021,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Oklahoma State Cowboys at Tulsa Golden Hurricane",
@@ -4164,7 +4159,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Northern Illinois Huskies at Iowa Hawkeyes",
@@ -4302,7 +4297,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Wyoming Cowboys at Colorado State Rams",
@@ -4440,7 +4435,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Missouri State Bears at Texas A&M Aggies",
@@ -4785,7 +4780,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Arkansas State Red Wolves at Memphis Tigers",
@@ -4923,7 +4918,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Florida International Panthers at South Florida Bulls",
@@ -5337,7 +5332,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Clemson Tigers at LSU Tigers",
@@ -5406,7 +5401,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "UL Monroe Warhawks at Mississippi State Bulldogs",
@@ -5544,7 +5539,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Western Michigan Broncos at Michigan Wolverines",
@@ -5682,7 +5677,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Florida Atlantic Owls at Florida Gators",
@@ -6372,7 +6367,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 4
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Central Michigan Chippewas at New Mexico Lobos",
@@ -6497,9 +6492,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -6511,8 +6504,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "away",
-        "oddsBookCount": 6
+        "sharpSignal": null,
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "UCLA Bruins at California Golden Bears",
@@ -6581,7 +6574,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Western Kentucky Hilltoppers at Nevada Wolf Pack",
@@ -7001,7 +6994,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 2
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Missouri Tigers at Kansas Jayhawks",
@@ -7346,7 +7339,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Oklahoma Sooners at Michigan Wolverines",
@@ -7415,7 +7408,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Arizona State Sun Devils at Texas A&M Aggies",
@@ -7553,7 +7546,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 2
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Oregon Ducks at Oklahoma State Cowboys",
@@ -11504,7 +11497,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Ohio State Buckeyes at Texas Longhorns",
@@ -11642,7 +11635,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 2
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Iowa State Cyclones at Iowa Hawkeyes",
@@ -12332,7 +12325,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Arkansas Razorbacks at Utah Utes",
@@ -14057,7 +14050,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Florida State Seminoles at Alabama Crimson Tide",
@@ -14333,7 +14326,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "SMU Mustangs at Louisville Cardinals",
@@ -15506,7 +15499,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Florida Gators at Auburn Tigers",
@@ -16403,7 +16396,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "LSU Tigers at Ole Miss Rebels",
@@ -17800,351 +17793,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401862779",
-      "espnId": "401862779",
-      "week": 4,
-      "seasonType": "regular",
-      "date": "2026-09-25",
-      "time": "4:00 PM ET",
-      "homeTeamId": "temple",
-      "awayTeamId": "army",
-      "homeTeamName": "Temple Owls",
-      "awayTeamName": "Army Black Knights",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN",
-      "venue": "Lincoln Financial Field",
-      "venueCity": "Philadelphia",
-      "venueState": "PA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Army Black Knights at Temple Owls",
-        "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858468",
-      "espnId": "401858468",
-      "week": 4,
-      "seasonType": "regular",
-      "date": "2026-09-25",
-      "time": "7:00 PM ET",
-      "homeTeamId": "rutgers",
-      "awayTeamId": "howard",
-      "homeTeamName": "Rutgers Scarlet Knights",
-      "awayTeamName": "Howard Bison",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "BTN",
-      "venue": "SHI Stadium",
-      "venueCity": "Piscataway",
-      "venueState": "NJ",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Howard Bison at Rutgers Scarlet Knights",
-        "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401862778",
-      "espnId": "401862778",
-      "week": 4,
-      "seasonType": "regular",
-      "date": "2026-09-25",
-      "time": "7:00 PM ET",
-      "homeTeamId": "uab",
-      "awayTeamId": "navy",
-      "homeTeamName": "UAB Blazers",
-      "awayTeamName": "Navy Midshipmen",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN",
-      "venue": "Protective Stadium",
-      "venueCity": "Birmingham",
-      "venueState": "AL",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Navy Midshipmen at UAB Blazers",
-        "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858461",
-      "espnId": "401858461",
-      "week": 4,
-      "seasonType": "regular",
-      "date": "2026-09-26",
-      "time": "8:00 PM ET",
-      "homeTeamId": "indiana",
-      "awayTeamId": "northwestern",
-      "homeTeamName": "Indiana Hoosiers",
-      "awayTeamName": "Northwestern Wildcats",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "FOX",
-      "venue": "Memorial Stadium (Bloomington, IN)",
-      "venueCity": "Bloomington",
-      "venueState": "IN",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Northwestern Wildcats at Indiana Hoosiers",
-        "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858234",
-      "espnId": "401858234",
-      "week": 4,
-      "seasonType": "regular",
-      "date": "2026-09-26",
-      "time": "10:30 PM ET",
-      "homeTeamId": "cal",
-      "awayTeamId": "clemson",
-      "homeTeamName": "California Golden Bears",
-      "awayTeamName": "Clemson Tigers",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN",
-      "venue": "California Memorial Stadium",
-      "venueCity": "Berkeley",
-      "venueState": "CA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Clemson Tigers at California Golden Bears",
-        "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401856696",
       "espnId": "401856696",
       "week": 4,
@@ -18404,7 +18052,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Oklahoma Sooners at Georgia Bulldogs",
@@ -18473,7 +18121,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Texas A&M Aggies at LSU Tigers",
@@ -19853,7 +19501,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Oregon Ducks at USC Trojans",
@@ -21101,7 +20749,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Texas Longhorns at Tennessee Volunteers",
@@ -24080,7 +23728,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 2
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Miami Hurricanes at Clemson Tigers",
@@ -24149,7 +23797,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Notre Dame Fighting Irish at North Carolina Tar Heels",
@@ -27392,7 +27040,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Georgia Bulldogs at Alabama Crimson Tide",
@@ -28841,7 +28489,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "USC Trojans at Penn State Nittany Lions",
@@ -30083,7 +29731,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Texas Longhorns at Oklahoma Sooners",
@@ -30986,7 +30634,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Auburn Tigers at Georgia Bulldogs",
@@ -31262,7 +30910,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Alabama Crimson Tide at Tennessee Volunteers",
@@ -31469,7 +31117,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Notre Dame Fighting Irish at BYU Cougars",
@@ -31676,7 +31324,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Kansas Jayhawks at Kansas State Wildcats",
@@ -32591,7 +32239,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 2
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Ohio State Buckeyes at Indiana Hoosiers",
@@ -45461,7 +45109,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Miami Hurricanes at Notre Dame Fighting Irish",
@@ -59021,7 +58669,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Michigan Wolverines at Ohio State Buckeyes",
