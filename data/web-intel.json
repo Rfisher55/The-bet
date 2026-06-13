@@ -1,7 +1,960 @@
 {
-  "generatedAt": "2026-06-13T22:51:49.777Z",
-  "elapsedMs": 3435,
-  "atsRankings": {},
+  "generatedAt": "2026-06-13T23:42:49.535Z",
+  "elapsedMs": 3842,
+  "atsRankings": {
+    "texas tech": {
+      "atsW": 12,
+      "atsL": 2,
+      "atsPct": 86,
+      "streak": "85.7%",
+      "last5": "27.6"
+    },
+    "w michigan": {
+      "atsW": 10,
+      "atsL": 3,
+      "atsPct": 77,
+      "streak": "76.9%",
+      "last5": "7.5"
+    },
+    "ohio st": {
+      "atsW": 10,
+      "atsL": 3,
+      "atsPct": 77,
+      "streak": "76.9%",
+      "last5": "24.1"
+    },
+    "utah st": {
+      "atsW": 10,
+      "atsL": 3,
+      "atsPct": 77,
+      "streak": "76.9%",
+      "last5": "2.2"
+    },
+    "san diego st": {
+      "atsW": 10,
+      "atsL": 3,
+      "atsPct": 77,
+      "streak": "76.9%",
+      "last5": "11.0"
+    },
+    "w kentucky": {
+      "atsW": 10,
+      "atsL": 3,
+      "atsPct": 77,
+      "streak": "76.9%",
+      "last5": "6.7"
+    },
+    "hawai&#039;i": {
+      "atsW": 9,
+      "atsL": 3,
+      "atsPct": 75,
+      "streak": "75.0%",
+      "last5": "4.9"
+    },
+    "vanderbilt": {
+      "atsW": 9,
+      "atsL": 3,
+      "atsPct": 75,
+      "streak": "75.0%",
+      "last5": "15.6"
+    },
+    "iowa": {
+      "atsW": 9,
+      "atsL": 3,
+      "atsPct": 75,
+      "streak": "75.0%",
+      "last5": "13.2"
+    },
+    "n texas": {
+      "atsW": 10,
+      "atsL": 4,
+      "atsPct": 71,
+      "streak": "71.4%",
+      "last5": "18.6"
+    },
+    "byu": {
+      "atsW": 10,
+      "atsL": 4,
+      "atsPct": 71,
+      "streak": "71.4%",
+      "last5": "12.3"
+    },
+    "toledo": {
+      "atsW": 9,
+      "atsL": 4,
+      "atsPct": 69,
+      "streak": "69.2%",
+      "last5": "17.5"
+    },
+    "houston": {
+      "atsW": 9,
+      "atsL": 4,
+      "atsPct": 69,
+      "streak": "69.2%",
+      "last5": "6.2"
+    },
+    "arkansas st": {
+      "atsW": 9,
+      "atsL": 4,
+      "atsPct": 69,
+      "streak": "69.2%",
+      "last5": "-2.2"
+    },
+    "utah": {
+      "atsW": 9,
+      "atsL": 4,
+      "atsPct": 69,
+      "streak": "69.2%",
+      "last5": "22.4"
+    },
+    "washington st": {
+      "atsW": 9,
+      "atsL": 4,
+      "atsPct": 69,
+      "streak": "69.2%",
+      "last5": "2.3"
+    },
+    "wake forest": {
+      "atsW": 9,
+      "atsL": 4,
+      "atsPct": 69,
+      "streak": "69.2%",
+      "last5": "6.0"
+    },
+    "miami": {
+      "atsW": 11,
+      "atsL": 5,
+      "atsPct": 69,
+      "streak": "68.8%",
+      "last5": "16.1"
+    },
+    "illinois": {
+      "atsW": 8,
+      "atsL": 4,
+      "atsPct": 67,
+      "streak": "66.7%",
+      "last5": "5.8"
+    },
+    "e carolina": {
+      "atsW": 8,
+      "atsL": 4,
+      "atsPct": 67,
+      "streak": "66.7%",
+      "last5": "12.6"
+    },
+    "s florida": {
+      "atsW": 8,
+      "atsL": 4,
+      "atsPct": 67,
+      "streak": "66.7%",
+      "last5": "17.1"
+    },
+    "alabama": {
+      "atsW": 9,
+      "atsL": 5,
+      "atsPct": 64,
+      "streak": "64.3%",
+      "last5": "10.3"
+    },
+    "troy": {
+      "atsW": 9,
+      "atsL": 5,
+      "atsPct": 64,
+      "streak": "64.3%",
+      "last5": "-0.4"
+    },
+    "virginia": {
+      "atsW": 9,
+      "atsL": 5,
+      "atsPct": 64,
+      "streak": "64.3%",
+      "last5": "11.2"
+    },
+    "j madison": {
+      "atsW": 9,
+      "atsL": 5,
+      "atsPct": 64,
+      "streak": "64.3%",
+      "last5": "18.7"
+    },
+    "kennesaw st": {
+      "atsW": 9,
+      "atsL": 5,
+      "atsPct": 64,
+      "streak": "64.3%",
+      "last5": "1.2"
+    },
+    "e michigan": {
+      "atsW": 7,
+      "atsL": 4,
+      "atsPct": 64,
+      "streak": "63.6%",
+      "last5": "-5.7"
+    },
+    "northwestern": {
+      "atsW": 7,
+      "atsL": 4,
+      "atsPct": 64,
+      "streak": "63.6%",
+      "last5": "3.5"
+    },
+    "indiana": {
+      "atsW": 10,
+      "atsL": 6,
+      "atsPct": 63,
+      "streak": "62.5%",
+      "last5": "29.9"
+    },
+    "c michigan": {
+      "atsW": 8,
+      "atsL": 5,
+      "atsPct": 62,
+      "streak": "61.5%",
+      "last5": "-1.0"
+    },
+    "boise st": {
+      "atsW": 8,
+      "atsL": 5,
+      "atsPct": 62,
+      "streak": "61.5%",
+      "last5": "5.8"
+    },
+    "louisiana tech": {
+      "atsW": 8,
+      "atsL": 5,
+      "atsPct": 62,
+      "streak": "61.5%",
+      "last5": "6.5"
+    },
+    "mississippi st": {
+      "atsW": 8,
+      "atsL": 5,
+      "atsPct": 62,
+      "streak": "61.5%",
+      "last5": "0.2"
+    },
+    "memphis": {
+      "atsW": 8,
+      "atsL": 5,
+      "atsPct": 62,
+      "streak": "61.5%",
+      "last5": "9.3"
+    },
+    "arizona": {
+      "atsW": 8,
+      "atsL": 5,
+      "atsPct": 62,
+      "streak": "61.5%",
+      "last5": "12.2"
+    },
+    "pittsburgh": {
+      "atsW": 8,
+      "atsL": 5,
+      "atsPct": 62,
+      "streak": "61.5%",
+      "last5": "8.9"
+    },
+    "florida intl": {
+      "atsW": 8,
+      "atsL": 5,
+      "atsPct": 62,
+      "streak": "61.5%",
+      "last5": "-1.5"
+    },
+    "old dominion": {
+      "atsW": 8,
+      "atsL": 5,
+      "atsPct": 62,
+      "streak": "61.5%",
+      "last5": "13.5"
+    },
+    "mississippi": {
+      "atsW": 9,
+      "atsL": 6,
+      "atsPct": 60,
+      "streak": "60.0%",
+      "last5": "15.9"
+    },
+    "oregon": {
+      "atsW": 9,
+      "atsL": 6,
+      "atsPct": 60,
+      "streak": "60.0%",
+      "last5": "19.1"
+    },
+    "ball st": {
+      "atsW": 7,
+      "atsL": 5,
+      "atsPct": 58,
+      "streak": "58.3%",
+      "last5": "-14.0"
+    },
+    "marshall": {
+      "atsW": 7,
+      "atsL": 5,
+      "atsPct": 58,
+      "streak": "58.3%",
+      "last5": "0.5"
+    },
+    "michigan st": {
+      "atsW": 7,
+      "atsL": 5,
+      "atsPct": 58,
+      "streak": "58.3%",
+      "last5": "-5.3"
+    },
+    "tcu": {
+      "atsW": 7,
+      "atsL": 5,
+      "atsPct": 58,
+      "streak": "58.3%",
+      "last5": "5.4"
+    },
+    "army": {
+      "atsW": 7,
+      "atsL": 5,
+      "atsPct": 58,
+      "streak": "58.3%",
+      "last5": "2.2"
+    },
+    "temple": {
+      "atsW": 7,
+      "atsL": 5,
+      "atsPct": 58,
+      "streak": "58.3%",
+      "last5": "-1.8"
+    },
+    "west virginia": {
+      "atsW": 7,
+      "atsL": 5,
+      "atsPct": 58,
+      "streak": "58.3%",
+      "last5": "-9.1"
+    },
+    "florida atlantic": {
+      "atsW": 7,
+      "atsL": 5,
+      "atsPct": 58,
+      "streak": "58.3%",
+      "last5": "-6.8"
+    },
+    "georgia so": {
+      "atsW": 7,
+      "atsL": 5,
+      "atsPct": 58,
+      "streak": "58.3%",
+      "last5": "-4.4"
+    },
+    "miami oh": {
+      "atsW": 8,
+      "atsL": 6,
+      "atsPct": 57,
+      "streak": "57.1%",
+      "last5": "1.8"
+    },
+    "fresno st": {
+      "atsW": 7,
+      "atsL": 6,
+      "atsPct": 54,
+      "streak": "53.9%",
+      "last5": "7.0"
+    },
+    "new mexico": {
+      "atsW": 7,
+      "atsL": 6,
+      "atsPct": 54,
+      "streak": "53.9%",
+      "last5": "4.8"
+    },
+    "washington": {
+      "atsW": 7,
+      "atsL": 6,
+      "atsPct": 54,
+      "streak": "53.9%",
+      "last5": "15.4"
+    },
+    "nc state": {
+      "atsW": 7,
+      "atsL": 6,
+      "atsPct": 54,
+      "streak": "53.9%",
+      "last5": "3.1"
+    },
+    "georgia tech": {
+      "atsW": 7,
+      "atsL": 6,
+      "atsPct": 54,
+      "streak": "53.9%",
+      "last5": "7.2"
+    },
+    "missouri st": {
+      "atsW": 7,
+      "atsL": 6,
+      "atsPct": 54,
+      "streak": "53.9%",
+      "last5": "-3.2"
+    },
+    "utsa": {
+      "atsW": 7,
+      "atsL": 6,
+      "atsPct": 54,
+      "streak": "53.9%",
+      "last5": "6.7"
+    },
+    "ohio": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "5.8"
+    },
+    "akron": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-5.2"
+    },
+    "kent st": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-12.3"
+    },
+    "tulsa": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-5.8"
+    },
+    "notre dame": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "24.4"
+    },
+    "south carolina": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "0.6"
+    },
+    "wisconsin": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-8.8"
+    },
+    "missouri": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "11.3"
+    },
+    "oklahoma": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "10.8"
+    },
+    "middle tenn": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-8.5"
+    },
+    "new mexico st": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-6.0"
+    },
+    "unlv": {
+      "atsW": 7,
+      "atsL": 7,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "6.1"
+    },
+    "arizona st": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "1.3"
+    },
+    "boston college": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-7.3"
+    },
+    "rutgers": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-3.2"
+    },
+    "uconn": {
+      "atsW": 6,
+      "atsL": 6,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "8.3"
+    },
+    "jacksonville st": {
+      "atsW": 7,
+      "atsL": 7,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "2.9"
+    },
+    "smu": {
+      "atsW": 6,
+      "atsL": 7,
+      "atsPct": 46,
+      "streak": "46.2%",
+      "last5": "11.7"
+    },
+    "cincinnati": {
+      "atsW": 6,
+      "atsL": 7,
+      "atsPct": 46,
+      "streak": "46.2%",
+      "last5": "4.7"
+    },
+    "tulane": {
+      "atsW": 6,
+      "atsL": 7,
+      "atsPct": 46,
+      "streak": "46.2%",
+      "last5": "3.8"
+    },
+    "louisiana": {
+      "atsW": 6,
+      "atsL": 7,
+      "atsPct": 46,
+      "streak": "46.2%",
+      "last5": "-3.2"
+    },
+    "duke": {
+      "atsW": 6,
+      "atsL": 7,
+      "atsPct": 46,
+      "streak": "46.2%",
+      "last5": "5.1"
+    },
+    "coastal car": {
+      "atsW": 6,
+      "atsL": 7,
+      "atsPct": 46,
+      "streak": "46.2%",
+      "last5": "-10.9"
+    },
+    "nevada": {
+      "atsW": 5,
+      "atsL": 6,
+      "atsPct": 45,
+      "streak": "45.5%",
+      "last5": "-9.9"
+    },
+    "iowa st": {
+      "atsW": 5,
+      "atsL": 6,
+      "atsPct": 45,
+      "streak": "45.5%",
+      "last5": "7.3"
+    },
+    "north carolina": {
+      "atsW": 5,
+      "atsL": 6,
+      "atsPct": 45,
+      "streak": "45.5%",
+      "last5": "-5.3"
+    },
+    "georgia": {
+      "atsW": 6,
+      "atsL": 8,
+      "atsPct": 43,
+      "streak": "42.9%",
+      "last5": "14.5"
+    },
+    "bowling green": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-3.8"
+    },
+    "buffalo": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "0.5"
+    },
+    "florida": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-2.4"
+    },
+    "kentucky": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-3.4"
+    },
+    "minnesota": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "0.1"
+    },
+    "kansas st": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "2.8"
+    },
+    "kansas": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "1.3"
+    },
+    "texas": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "10.2"
+    },
+    "oklahoma st": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-19.2"
+    },
+    "southern miss": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "1.4"
+    },
+    "air force": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-0.5"
+    },
+    "wyoming": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-4.5"
+    },
+    "stanford": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-10.3"
+    },
+    "florida st": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "11.0"
+    },
+    "maryland": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-3.0"
+    },
+    "delaware": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-2.0"
+    },
+    "s alabama": {
+      "atsW": 5,
+      "atsL": 7,
+      "atsPct": 42,
+      "streak": "41.7%",
+      "last5": "-3.9"
+    },
+    "charlotte": {
+      "atsW": 4,
+      "atsL": 6,
+      "atsPct": 40,
+      "streak": "40.0%",
+      "last5": "-22.0"
+    },
+    "rice": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "-13.8"
+    },
+    "navy": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "6.5"
+    },
+    "tennessee": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "10.9"
+    },
+    "penn st": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "10.5"
+    },
+    "texas a&amp;m": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "12.8"
+    },
+    "california": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "-1.8"
+    },
+    "usc": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "12.8"
+    },
+    "clemson": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "6.7"
+    },
+    "app state": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "-5.6"
+    },
+    "texas st": {
+      "atsW": 5,
+      "atsL": 8,
+      "atsPct": 38,
+      "streak": "38.5%",
+      "last5": "7.5"
+    },
+    "auburn": {
+      "atsW": 4,
+      "atsL": 7,
+      "atsPct": 36,
+      "streak": "36.4%",
+      "last5": "6.1"
+    },
+    "purdue": {
+      "atsW": 4,
+      "atsL": 7,
+      "atsPct": 36,
+      "streak": "36.4%",
+      "last5": "-13.1"
+    },
+    "colorado": {
+      "atsW": 4,
+      "atsL": 7,
+      "atsPct": 36,
+      "streak": "36.4%",
+      "last5": "-9.6"
+    },
+    "syracuse": {
+      "atsW": 4,
+      "atsL": 7,
+      "atsPct": 36,
+      "streak": "36.4%",
+      "last5": "-14.8"
+    },
+    "san jose st": {
+      "atsW": 4,
+      "atsL": 8,
+      "atsPct": 33,
+      "streak": "33.3%",
+      "last5": "-11.1"
+    },
+    "arkansas": {
+      "atsW": 4,
+      "atsL": 8,
+      "atsPct": 33,
+      "streak": "33.3%",
+      "last5": "-0.9"
+    },
+    "nebraska": {
+      "atsW": 4,
+      "atsL": 8,
+      "atsPct": 33,
+      "streak": "33.3%",
+      "last5": "4.1"
+    },
+    "uab": {
+      "atsW": 4,
+      "atsL": 8,
+      "atsPct": 33,
+      "streak": "33.3%",
+      "last5": "-11.8"
+    },
+    "ul monroe": {
+      "atsW": 4,
+      "atsL": 8,
+      "atsPct": 33,
+      "streak": "33.3%",
+      "last5": "-15.3"
+    },
+    "colorado st": {
+      "atsW": 4,
+      "atsL": 8,
+      "atsPct": 33,
+      "streak": "33.3%",
+      "last5": "-12.3"
+    },
+    "ucla": {
+      "atsW": 4,
+      "atsL": 8,
+      "atsPct": 33,
+      "streak": "33.3%",
+      "last5": "-15.3"
+    },
+    "lsu": {
+      "atsW": 4,
+      "atsL": 9,
+      "atsPct": 31,
+      "streak": "30.8%",
+      "last5": "3.0"
+    },
+    "michigan": {
+      "atsW": 4,
+      "atsL": 9,
+      "atsPct": 31,
+      "streak": "30.8%",
+      "last5": "7.2"
+    },
+    "louisville": {
+      "atsW": 4,
+      "atsL": 9,
+      "atsPct": 31,
+      "streak": "30.8%",
+      "last5": "8.8"
+    },
+    "ucf": {
+      "atsW": 3,
+      "atsL": 8,
+      "atsPct": 27,
+      "streak": "27.3%",
+      "last5": "0.8"
+    },
+    "n illinois": {
+      "atsW": 3,
+      "atsL": 9,
+      "atsPct": 25,
+      "streak": "25.0%",
+      "last5": "-7.3"
+    },
+    "utep": {
+      "atsW": 3,
+      "atsL": 9,
+      "atsPct": 25,
+      "streak": "25.0%",
+      "last5": "-7.1"
+    },
+    "oregon st": {
+      "atsW": 3,
+      "atsL": 9,
+      "atsPct": 25,
+      "streak": "25.0%",
+      "last5": "-11.3"
+    },
+    "virginia tech": {
+      "atsW": 3,
+      "atsL": 9,
+      "atsPct": 25,
+      "streak": "25.0%",
+      "last5": "-8.8"
+    },
+    "umass": {
+      "atsW": 3,
+      "atsL": 9,
+      "atsPct": 25,
+      "streak": "25.0%",
+      "last5": "-27.5"
+    },
+    "liberty": {
+      "atsW": 3,
+      "atsL": 9,
+      "atsPct": 25,
+      "streak": "25.0%",
+      "last5": "-0.9"
+    },
+    "sam houston": {
+      "atsW": 3,
+      "atsL": 9,
+      "atsPct": 25,
+      "streak": "25.0%",
+      "last5": "-20.1"
+    },
+    "baylor": {
+      "atsW": 2,
+      "atsL": 10,
+      "atsPct": 17,
+      "streak": "16.7%",
+      "last5": "-1.5"
+    },
+    "georgia st": {
+      "atsW": 2,
+      "atsL": 10,
+      "atsPct": 17,
+      "streak": "16.7%",
+      "last5": "-18.1"
+    }
+  },
   "bettingPcts": {},
   "oddsShark": {},
   "expertPicks": [],
@@ -140,10 +1093,20 @@
         "source": "247Sports",
         "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxONzVvOUxRYnEyRjZuR3ZhV3J4T1hxN2RlQ05ibjl4TVgtLTB0NTZLcHp2SFMtWkNHUHkwVWtZVFJpMHNUMFFUX01Hdzhfczc2enhOOTJvUEIwc0lUZjV6dlR6bEJqeV9BRU9sSWo1XzBxNG9pUVNlUDZQMXpkcVUtNlp6R1MwWmw5QktadWEzVGotZ01iNGRoZHQwbmd3U2RHakhhZTRjT09URjlPaF9Qc0ZIZTVOb0FwUlF5Q1ZteDVSWGUwRU5Xdk81ajdmRlRueFNOalhpTWVLUQ?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Fri, 12 Jun 2026 15:46:00 GMT",
+        "pubDate": "Sat, 13 Jun 2026 16:52:08 GMT",
         "searchQuery": "college football depth chart"
+      },
+      {
+        "title": "College football odds, picks, predictions for Championship Week, 2025: Computer backs Indiana, Duke - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPdjBnVXVPWnhwZGNIdUYyZTREQ0FfWTdGR2FTWUc3QTZuZ29Mc0lYUmIwcWhOTUJtRnBlOW5vTGMwV2Q3QXBPZnZxeEZTZFplSDhoZ21JWk5tRlczSGJaVFlLWC1uR21CYlp3SVo2XzhJckVSVVNVQU51ZFhRWTNwLUtNQVY2UTM4R3dPX3hrQkVhc1NtZlc3enZHUGIzMVprZ29iMHNTUGRWSndnV3dTalBaY2JUWFA1SlpNWUtab1hSSzc5akZKdy1zYXlIWUppUVg3M3dn?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 190,
+        "isCritical": false,
+        "pubDate": "Sat, 06 Dec 2025 08:00:00 GMT",
+        "searchQuery": "college football spread odds"
       }
     ],
     "texas": [
@@ -212,16 +1175,6 @@
         "isCritical": false,
         "pubDate": "Wed, 10 Jun 2026 14:01:59 GMT",
         "searchQuery": "college football transfer portal"
-      },
-      {
-        "title": "Georgia Bulldogs Nab Former Florida Commit Kennedee Jackson - Add to 2027 Class - Sports Illustrated",
-        "source": "Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQMDMtVVo5dC0xOUtyNWh6dlVQYmZKMUthaVF5Mnh6TXZCcW5YSGMyOTd5T1RTVC1QZzRGVDR3UFpuSksxYTVndkY1QUpfNEZUZ3BCVmM0Z05IdlJwVmZMSXFDYUxaTGRlM19BVkJLc0k4QjdvRk9jeks4UXF5X1hhZzBNQzJqWmZFSHFPcGVIa1BuVzlMV1RoRTRvelMtSmlIVE5SNFhwblEwS2NBRW9ELUQtODRGQWxlaHJEZW0wbTM4Z3FHRUt1V0NFMkNXYVE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 13 Jun 2026 18:32:43 GMT",
-        "searchQuery": "NCAA college football"
       }
     ],
     "south_carolina": [
@@ -246,6 +1199,16 @@
         "isCritical": false,
         "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
         "searchQuery": "college football coaching change"
+      },
+      {
+        "title": "Gordon Monson: Powers that be, please don’t let greed kill BYU and Utah football - The Salt Lake Tribune",
+        "source": "The Salt Lake Tribune",
+        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQemZWX1NkLWlLZGRaVnVzajFSY1RLWmZvQmZNdHBURzRlbjVCWktSNFc3bzg0T1cwTmY4aXg5RTJfNTltZkpFZVJ1QlFHUmsxcVk1YVFMM0FFZXNGX2tEYWljY0ZhckZ5eHdNWVBqUWtZTDhmQ2xhekpaVW14c3FrRDhhYnNPOGpvUEd0Vg?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 13 Jun 2026 12:01:04 GMT",
+        "searchQuery": "NCAA college football"
       }
     ],
     "nc_state": [
@@ -258,30 +1221,6 @@
         "isCritical": false,
         "pubDate": "Mon, 02 Feb 2026 08:00:00 GMT",
         "searchQuery": "college football coaching change"
-      }
-    ],
-    "georgia": [
-      {
-        "title": "Georgia Bulldogs Nab Former Florida Commit Kennedee Jackson - Add to 2027 Class - Sports Illustrated",
-        "source": "Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQMDMtVVo5dC0xOUtyNWh6dlVQYmZKMUthaVF5Mnh6TXZCcW5YSGMyOTd5T1RTVC1QZzRGVDR3UFpuSksxYTVndkY1QUpfNEZUZ3BCVmM0Z05IdlJwVmZMSXFDYUxaTGRlM19BVkJLc0k4QjdvRk9jeks4UXF5X1hhZzBNQzJqWmZFSHFPcGVIa1BuVzlMV1RoRTRvelMtSmlIVE5SNFhwblEwS2NBRW9ELUQtODRGQWxlaHJEZW0wbTM4Z3FHRUt1V0NFMkNXYVE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 13 Jun 2026 18:32:43 GMT",
-        "searchQuery": "NCAA college football"
-      }
-    ],
-    "clemson": [
-      {
-        "title": "Clemson WR Tristan Smith cleared by judge for 2026 season - ESPN",
-        "source": "ESPN",
-        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNOVpobHVPUklMeUt6QWhOVU9FcDM2S0lKTjdudlB1TUFybHI5TnRDcnZVbW1BY3RCSUZ0bVgwYlFVdmJIdlZkTmVkRkdWSlpGdjV6U3JBeUlELWl2b0FzZlVvVE85LUdROWJ3R1VjZ1ZKV0M2TG5zUHpuZ0FSclZQU2JuaDhTSWJSWUNMWWNQa3RQQlVGT2dkaDdmZ182eEp2R0M3WFNXNURwZW1l?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Fri, 12 Jun 2026 16:44:00 GMT",
-        "searchQuery": "NCAA college football"
       }
     ],
     "iowa_state": [
@@ -306,6 +1245,42 @@
         "isCritical": false,
         "pubDate": "Mon, 29 Dec 2025 08:00:00 GMT",
         "searchQuery": "college football depth chart"
+      }
+    ],
+    "clemson": [
+      {
+        "title": "Clemson WR Tristan Smith cleared by judge for 2026 season - ESPN",
+        "source": "ESPN",
+        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNOVpobHVPUklMeUt6QWhOVU9FcDM2S0lKTjdudlB1TUFybHI5TnRDcnZVbW1BY3RCSUZ0bVgwYlFVdmJIdlZkTmVkRkdWSlpGdjV6U3JBeUlELWl2b0FzZlVvVE85LUdROWJ3R1VjZ1ZKV0M2TG5zUHpuZ0FSclZQU2JuaDhTSWJSWUNMWWNQa3RQQlVGT2dkaDdmZ182eEp2R0M3WFNXNURwZW1l?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Fri, 12 Jun 2026 16:44:00 GMT",
+        "searchQuery": "NCAA college football"
+      }
+    ],
+    "byu": [
+      {
+        "title": "Gordon Monson: Powers that be, please don’t let greed kill BYU and Utah football - The Salt Lake Tribune",
+        "source": "The Salt Lake Tribune",
+        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQemZWX1NkLWlLZGRaVnVzajFSY1RLWmZvQmZNdHBURzRlbjVCWktSNFc3bzg0T1cwTmY4aXg5RTJfNTltZkpFZVJ1QlFHUmsxcVk1YVFMM0FFZXNGX2tEYWljY0ZhckZ5eHdNWVBqUWtZTDhmQ2xhekpaVW14c3FrRDhhYnNPOGpvUEd0Vg?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 13 Jun 2026 12:01:04 GMT",
+        "searchQuery": "NCAA college football"
+      }
+    ],
+    "duke": [
+      {
+        "title": "College football odds, picks, predictions for Championship Week, 2025: Computer backs Indiana, Duke - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPdjBnVXVPWnhwZGNIdUYyZTREQ0FfWTdGR2FTWUc3QTZuZ29Mc0lYUmIwcWhOTUJtRnBlOW5vTGMwV2Q3QXBPZnZxeEZTZFplSDhoZ21JWk5tRlczSGJaVFlLWC1uR21CYlp3SVo2XzhJckVSVVNVQU51ZFhRWTNwLUtNQVY2UTM4R3dPX3hrQkVhc1NtZlc3enZHUGIzMVprZ29iMHNTUGRWSndnV3dTalBaY2JUWFA1SlpNWUtab1hSSzc5akZKdy1zYXlIWUppUVg3M3dn?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 190,
+        "isCritical": false,
+        "pubDate": "Sat, 06 Dec 2025 08:00:00 GMT",
+        "searchQuery": "college football spread odds"
       }
     ]
   },
@@ -441,16 +1416,6 @@
       "searchQuery": "college football coaching change"
     },
     {
-      "title": "Coastal Carolina University Announces Head Coaching Change in Football - Coastal Carolina University Athletics",
-      "source": "Coastal Carolina University Athletics",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOeUVaNnEyT1FwM2JiNDFlZDlwR3RVN0FCOG9HOVhPY0M3Q0lDeWJrbHNBUzFKUVo0NElYRGc0MFRtbmkyVU95UDBDWTVkR0ZVWlExQ3Z1ak9pSHFmR29aOEdzdmxsN2Zjd3FMaWpyS2REcnJReWp2aWxWUnJLb2VMaTd5T2oxeGJjZzIzcTQyVnM2M0s0TVl2d19RTUV3eUo4OUt3bGM4T0NsdXNHcGtrV3RySG43Zw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 196,
-      "isCritical": false,
-      "pubDate": "Sun, 30 Nov 2025 08:00:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
       "title": "Dave Doeren Announces Coaching Changes - NC State University Athletics",
       "source": "NC State University Athletics",
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOak5Pek13cThBN2FBWExGZVBPbGFhZVA0OThueE1kOXpGVnZUMklhUFdpM0lTUy1oOGxjMEk4TWJHN0JLWkxGV2xXVllMV2lCdnoyellkXzVDX0VMSHRGelU0UFJkWU1WbDhWd1I0ZW1QbVFNU2c0WW92cFBuZkxHMjBXcWxsczQ?oc=5",
@@ -458,6 +1423,16 @@
       "daysAgo": 132,
       "isCritical": false,
       "pubDate": "Mon, 02 Feb 2026 08:00:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "Coastal Carolina University Announces Head Coaching Change in Football - Coastal Carolina University Athletics",
+      "source": "Coastal Carolina University Athletics",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOeUVaNnEyT1FwM2JiNDFlZDlwR3RVN0FCOG9HOVhPY0M3Q0lDeWJrbHNBUzFKUVo0NElYRGc0MFRtbmkyVU95UDBDWTVkR0ZVWlExQ3Z1ak9pSHFmR29aOEdzdmxsN2Zjd3FMaWpyS2REcnJReWp2aWxWUnJLb2VMaTd5T2oxeGJjZzIzcTQyVnM2M0s0TVl2d19RTUV3eUo4OUt3bGM4T0NsdXNHcGtrV3RySG43Zw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 196,
+      "isCritical": false,
+      "pubDate": "Sun, 30 Nov 2025 08:00:00 GMT",
       "searchQuery": "college football coaching change"
     },
     {
@@ -511,6 +1486,56 @@
       "searchQuery": "college football suspended"
     },
     {
+      "title": "Indiana football: Phil Steele projects IU's starting lineup, depth chart for 2026 season - 247Sports",
+      "source": "247Sports",
+      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxONzVvOUxRYnEyRjZuR3ZhV3J4T1hxN2RlQ05ibjl4TVgtLTB0NTZLcHp2SFMtWkNHUHkwVWtZVFJpMHNUMFFUX01Hdzhfczc2enhOOTJvUEIwc0lUZjV6dlR6bEJqeV9BRU9sSWo1XzBxNG9pUVNlUDZQMXpkcVUtNlp6R1MwWmw5QktadWEzVGotZ01iNGRoZHQwbmd3U2RHakhhZTRjT09URjlPaF9Qc0ZIZTVOb0FwUlF5Q1ZteDVSWGUwRU5Xdk81ajdmRlRueFNOalhpTWVLUQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 13 Jun 2026 16:52:08 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "National Powerhouse Turns Heads After Remarkable College Football Roster Rebuild - Sports Illustrated",
+      "source": "Sports Illustrated",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOU2w0eW5idFZkbm02S1AzZWh6NWtUOUxzU1ZLUmlxYmp5b0tSSXRrN0pZdG9yc01MNGZuNkRENVFaSFM1NkJwQ1hBVGlIdUt3RkJRSlcweXlkWmR4U3pLczFyQlp5N2NmUFRnZno1Umthb3FSSm5OeHVFd0hrZllvSzdPVVZESk9WQmNVZGE5cU5kMUtLWmVmQW1QSWE0TDJsb2xRODFOYmw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 5,
+      "isCritical": false,
+      "pubDate": "Mon, 08 Jun 2026 16:14:37 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "Cal Depth Chart Discussion and Projections - QB + Skill Players - Write For California",
+      "source": "Write For California",
+      "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPMmVZbmU3dTM4TUl3Nld6eldnVUhubDZsYVJfWlBzc2ZQYU9icElnUlFLd1BnZ3RMeFJ3dHktNzZSbExIM2ZUNnB6dDg3Sm1SWG5DSXh6cHFJdHkybXhqZW5kc3ZvWlNOVjRCbFVDNnVkOFFocHZPcy1qMFU1YjB2TQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Thu, 11 Jun 2026 16:15:57 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "CBS Sports Ranks the Top 10 Rosters in College Football for 2026 - SportsGrid",
+      "source": "SportsGrid",
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPNGtrYTdmX0VSZnA5ZUlmVFpjRUlfVlZaQzRGczcwN0E1WHotSUl5R2h6b1lrdVB5OGpNbmhKUnplZkszVl9hOVV1ZkNOcGFieGlQeWcxSjhncEpZcDR0dzg4S1NXSkhBYXpEMUxHZGUtdUQwSW9CcmljbTFSRDlIQVh0TlhjSE9ETi05N1dST05rN082WTU4UnRhNlB1Nk9xWlZ6NFVORDdIS1E?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 4,
+      "isCritical": false,
+      "pubDate": "Wed, 10 Jun 2026 10:30:55 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "PETERSON: Start with blaming the NCAA, for Iowa State’s current football roster turnover - Cyclone Fanatic",
+      "source": "Cyclone Fanatic",
+      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQcTNnVFVyMWdzV092a0tNUTE2RFJ3M09kdjBqUUswejlJdjQxbXlqX0hyWG1VREh5eE1rUk5QdWw4LWpOVHhJTWlSN0txakk1dTY0eXRxUGFnQU0xdWtucTJTd3RMTmp3emRpN0NSUjZJbGlKTW8ydk1iTUhtODEtamtITUJKRnRzeE1VcXNQdmJhdFdOUEhrdGlkajd3YWViNEdyeEotckdfcGxsV2h6ekZEd2lHZncyd053QWR3?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 167,
+      "isCritical": false,
+      "pubDate": "Mon, 29 Dec 2025 08:00:00 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
       "title": "Why the revamped Pac-12 immediately moves to the front of the Group of Six hierarchy - CBS Sports",
       "source": "CBS Sports",
       "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQZXN4Umg5bjBJbmZzOE5yMGNqbnJQVFhoZHpBZXdqNGpCbW5WVEVMb25zTm5sd2JzNmp5SHhQNHd5NndCdjUwTEt1ejd5SGpCSGFYRUtZLWxnV2JJeG9BclJIWmZBZzJzWUQyYmFHSngtNWY4M2dyVGduVnJremtXNG1KNjVZVk1WUWJjeHF2LWM4NURtU0diZnVR?oc=5",
@@ -528,16 +1553,6 @@
       "daysAgo": 1,
       "isCritical": false,
       "pubDate": "Fri, 12 Jun 2026 23:22:33 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "Georgia Bulldogs Nab Former Florida Commit Kennedee Jackson - Add to 2027 Class - Sports Illustrated",
-      "source": "Sports Illustrated",
-      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQMDMtVVo5dC0xOUtyNWh6dlVQYmZKMUthaVF5Mnh6TXZCcW5YSGMyOTd5T1RTVC1QZzRGVDR3UFpuSksxYTVndkY1QUpfNEZUZ3BCVmM0Z05IdlJwVmZMSXFDYUxaTGRlM19BVkJLc0k4QjdvRk9jeks4UXF5X1hhZzBNQzJqWmZFSHFPcGVIa1BuVzlMV1RoRTRvelMtSmlIVE5SNFhwblEwS2NBRW9ELUQtODRGQWxlaHJEZW0wbTM4Z3FHRUt1V0NFMkNXYVE?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 13 Jun 2026 18:32:43 GMT",
       "searchQuery": "NCAA college football"
     },
     {
@@ -561,54 +1576,64 @@
       "searchQuery": "NCAA college football"
     },
     {
-      "title": "National Powerhouse Turns Heads After Remarkable College Football Roster Rebuild - Sports Illustrated",
-      "source": "Sports Illustrated",
-      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOU2w0eW5idFZkbm02S1AzZWh6NWtUOUxzU1ZLUmlxYmp5b0tSSXRrN0pZdG9yc01MNGZuNkRENVFaSFM1NkJwQ1hBVGlIdUt3RkJRSlcweXlkWmR4U3pLczFyQlp5N2NmUFRnZno1Umthb3FSSm5OeHVFd0hrZllvSzdPVVZESk9WQmNVZGE5cU5kMUtLWmVmQW1QSWE0TDJsb2xRODFOYmw?oc=5",
+      "title": "Gordon Monson: Powers that be, please don’t let greed kill BYU and Utah football - The Salt Lake Tribune",
+      "source": "The Salt Lake Tribune",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQemZWX1NkLWlLZGRaVnVzajFSY1RLWmZvQmZNdHBURzRlbjVCWktSNFc3bzg0T1cwTmY4aXg5RTJfNTltZkpFZVJ1QlFHUmsxcVk1YVFMM0FFZXNGX2tEYWljY0ZhckZ5eHdNWVBqUWtZTDhmQ2xhekpaVW14c3FrRDhhYnNPOGpvUEd0Vg?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 5,
+      "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Mon, 08 Jun 2026 16:14:37 GMT",
-      "searchQuery": "college football depth chart"
+      "pubDate": "Sat, 13 Jun 2026 12:01:04 GMT",
+      "searchQuery": "NCAA college football"
     },
     {
-      "title": "Cal Depth Chart Discussion and Projections - QB + Skill Players - Write For California",
-      "source": "Write For California",
-      "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPMmVZbmU3dTM4TUl3Nld6eldnVUhubDZsYVJfWlBzc2ZQYU9icElnUlFLd1BnZ3RMeFJ3dHktNzZSbExIM2ZUNnB6dDg3Sm1SWG5DSXh6cHFJdHkybXhqZW5kc3ZvWlNOVjRCbFVDNnVkOFFocHZPcy1qMFU1YjB2TQ?oc=5",
+      "title": "2025 CFP Odds: Lines, Spreads for Each Quarterfinal Game - FOX Sports",
+      "source": "FOX Sports",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNeW81ODNZcUdpUFJ2c0NhYWVoVUdhOUtsdEs3MUFwUTRWaWVxNHBhbjRpR3I4TTY2Y1JTVWNwNlNRM0xrOXU4d2gxdXY3WXBZREVpcHlDNElVS05rVnAxQXFaUWh5SnczYXNfRkFYNVc0VjBDblJyNnVMWDBVM0FNSmdjSHJNREQ2cE0tUEowZWl1Nkx4eHFQMzBycmlBY1BVelVj0gGjAUFVX3lxTFBMdTExX1BCTFZ2QURhdG1MN2lXQlM1UVgxQkxNYzlKaDIzR1JISm9uSjZkMS1BTzU3dkNmdmRSb2lfTUxnUWdNNFJjTUtEWkpkTEhOQ1ROakJCSUpfUDJqeFZpMFBvQkVxSnlxeFpONHlnbkc2eEZYMFA0VnRaaEtDcVNWUHhFVndaRVAxRDRxd1RYczhUN0ZtNWNYU1BESFBvZWM?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 2,
+      "daysAgo": 164,
       "isCritical": false,
-      "pubDate": "Thu, 11 Jun 2026 16:15:57 GMT",
-      "searchQuery": "college football depth chart"
+      "pubDate": "Thu, 01 Jan 2026 08:00:00 GMT",
+      "searchQuery": "college football spread odds"
     },
     {
-      "title": "Indiana football: Phil Steele projects IU's starting lineup, depth chart for 2026 season - 247Sports",
-      "source": "247Sports",
-      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxONzVvOUxRYnEyRjZuR3ZhV3J4T1hxN2RlQ05ibjl4TVgtLTB0NTZLcHp2SFMtWkNHUHkwVWtZVFJpMHNUMFFUX01Hdzhfczc2enhOOTJvUEIwc0lUZjV6dlR6bEJqeV9BRU9sSWo1XzBxNG9pUVNlUDZQMXpkcVUtNlp6R1MwWmw5QktadWEzVGotZ01iNGRoZHQwbmd3U2RHakhhZTRjT09URjlPaF9Qc0ZIZTVOb0FwUlF5Q1ZteDVSWGUwRU5Xdk81ajdmRlRueFNOalhpTWVLUQ?oc=5",
+      "title": "College Football Playoff National Championship odds, money line, spreads and totals - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPRmo4QktQMmVFVmlrYVk3NUlrVlY0bEM0WXd0R1hFdHBxSEpfeXFTNzQxTEhlOEY4WUZEV2hOSk45OVpTZG02YV9yU3NNN3M5dmFfUTVrM0V2TFBjeUZQZzV6bm9UeUcwaTdaUWN4YmhsUTVGbzdUVVMySjNEcDAycHNSaVNheVBNMTdlV3p6WVdFclU0VllmSVNjVUtuLVdsNGtEc0ExMGJPMW1kaHJBTHd2SW81LS1wS3plcg?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 1,
+      "daysAgo": 155,
       "isCritical": false,
-      "pubDate": "Fri, 12 Jun 2026 15:46:00 GMT",
-      "searchQuery": "college football depth chart"
+      "pubDate": "Sat, 10 Jan 2026 08:00:00 GMT",
+      "searchQuery": "college football spread odds"
     },
     {
-      "title": "CBS Sports Ranks the Top 10 Rosters in College Football for 2026 - SportsGrid",
-      "source": "SportsGrid",
-      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPNGtrYTdmX0VSZnA5ZUlmVFpjRUlfVlZaQzRGczcwN0E1WHotSUl5R2h6b1lrdVB5OGpNbmhKUnplZkszVl9hOVV1ZkNOcGFieGlQeWcxSjhncEpZcDR0dzg4S1NXSkhBYXpEMUxHZGUtdUQwSW9CcmljbTFSRDlIQVh0TlhjSE9ETi05N1dST05rN082WTU4UnRhNlB1Nk9xWlZ6NFVORDdIS1E?oc=5",
+      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 13 - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOcmNsWlhTQUNuZk1qM1FlMXB3cEx0T2VPVmpWb3U0Q1BJQmF5ZjV6Z2szaFV6NUlwX2k0SmxEQzJfaG0zVjY4YmNmbTZab0ZVTDZlUzVmd0VyQ2tLek54cWZ3R1RISW56Znhrd0ZqSzhtTkU1eUwxZXJYMktqUHJndkNZbTJCVWtTNENNSTJWanFmalRmWDBuZk5ybGJSa25IQ2dpbEl3azB5djgxRVE?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 4,
+      "daysAgo": 204,
       "isCritical": false,
-      "pubDate": "Wed, 10 Jun 2026 10:30:55 GMT",
-      "searchQuery": "college football depth chart"
+      "pubDate": "Sat, 22 Nov 2025 08:00:00 GMT",
+      "searchQuery": "college football spread odds"
     },
     {
-      "title": "PETERSON: Start with blaming the NCAA, for Iowa State’s current football roster turnover - Cyclone Fanatic",
-      "source": "Cyclone Fanatic",
-      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQcTNnVFVyMWdzV092a0tNUTE2RFJ3M09kdjBqUUswejlJdjQxbXlqX0hyWG1VREh5eE1rUk5QdWw4LWpOVHhJTWlSN0txakk1dTY0eXRxUGFnQU0xdWtucTJTd3RMTmp3emRpN0NSUjZJbGlKTW8ydk1iTUhtODEtamtITUJKRnRzeE1VcXNQdmJhdFdOUEhrdGlkajd3YWViNEdyeEotckdfcGxsV2h6ekZEd2lHZncyd053QWR3?oc=5",
+      "title": "2025 CFP Odds: Lines, Spreads for Each Semifinal Game - FOX Sports",
+      "source": "FOX Sports",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPajc3U2VrZjhDdk1xMFV5NHpKNVVhZkIwMm1EcEpTUTk5X3hjekk1Z0RJWEVPVXlCMjQ0elFpNmpnckw3YTdMLUlCMDNSRFVHSlY0ZTBKZGJ0dE9YaDNncldmS0dudUwtdWdEYk1zYnJFcHZzbjFSdTYtczlVMC1DNjNsY1lJMkVNWWFIdTBWTVp4NHM3MlRtdjRIazFYOEXSAZ8BQVVfeXFMTVhKb0VXR0RiOXRRXzFscUlZYi1mZGxqcWhnMXhjejY5T3EwNXYxSjlsaW5qVDlzTWlOTGg5VDhEaU42REplSHhHQ09VdE9hWFhvTG5jcTdFV3hLM1B2dVU2cXdUZXM2bklNY05sTUxIanNEMWxONnpWRUFSVi1GTkx5Qndmd0RLSFBsZlhzSTZLNFAwenBvOEVLdHJ2N3NN?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 167,
+      "daysAgo": 156,
       "isCritical": false,
-      "pubDate": "Mon, 29 Dec 2025 08:00:00 GMT",
-      "searchQuery": "college football depth chart"
+      "pubDate": "Fri, 09 Jan 2026 08:00:00 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "College football odds, picks, predictions for Championship Week, 2025: Computer backs Indiana, Duke - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPdjBnVXVPWnhwZGNIdUYyZTREQ0FfWTdGR2FTWUc3QTZuZ29Mc0lYUmIwcWhOTUJtRnBlOW5vTGMwV2Q3QXBPZnZxeEZTZFplSDhoZ21JWk5tRlczSGJaVFlLWC1uR21CYlp3SVo2XzhJckVSVVNVQU51ZFhRWTNwLUtNQVY2UTM4R3dPX3hrQkVhc1NtZlc3enZHUGIzMVprZ29iMHNTUGRWSndnV3dTalBaY2JUWFA1SlpNWUtab1hSSzc5akZKdy1zYXlIWUppUVg3M3dn?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 190,
+      "isCritical": false,
+      "pubDate": "Sat, 06 Dec 2025 08:00:00 GMT",
+      "searchQuery": "college football spread odds"
     },
     {
       "title": "College Football Week 0 &amp; Week 1 Early Predictions, Picks &amp; Analysis - Yahoo Sports",
@@ -659,56 +1684,6 @@
       "isCritical": false,
       "pubDate": "Mon, 08 Dec 2025 13:09:28 GMT",
       "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "2025 CFP Odds: Lines, Spreads for Each Quarterfinal Game - FOX Sports",
-      "source": "FOX Sports",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNeW81ODNZcUdpUFJ2c0NhYWVoVUdhOUtsdEs3MUFwUTRWaWVxNHBhbjRpR3I4TTY2Y1JTVWNwNlNRM0xrOXU4d2gxdXY3WXBZREVpcHlDNElVS05rVnAxQXFaUWh5SnczYXNfRkFYNVc0VjBDblJyNnVMWDBVM0FNSmdjSHJNREQ2cE0tUEowZWl1Nkx4eHFQMzBycmlBY1BVelVj0gGjAUFVX3lxTFBMdTExX1BCTFZ2QURhdG1MN2lXQlM1UVgxQkxNYzlKaDIzR1JISm9uSjZkMS1BTzU3dkNmdmRSb2lfTUxnUWdNNFJjTUtEWkpkTEhOQ1ROakJCSUpfUDJqeFZpMFBvQkVxSnlxeFpONHlnbkc2eEZYMFA0VnRaaEtDcVNWUHhFVndaRVAxRDRxd1RYczhUN0ZtNWNYU1BESFBvZWM?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 164,
-      "isCritical": false,
-      "pubDate": "Thu, 01 Jan 2026 08:00:00 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College Football Playoff National Championship odds, money line, spreads and totals - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPRmo4QktQMmVFVmlrYVk3NUlrVlY0bEM0WXd0R1hFdHBxSEpfeXFTNzQxTEhlOEY4WUZEV2hOSk45OVpTZG02YV9yU3NNN3M5dmFfUTVrM0V2TFBjeUZQZzV6bm9UeUcwaTdaUWN4YmhsUTVGbzdUVVMySjNEcDAycHNSaVNheVBNMTdlV3p6WVdFclU0VllmSVNjVUtuLVdsNGtEc0ExMGJPMW1kaHJBTHd2SW81LS1wS3plcg?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 155,
-      "isCritical": false,
-      "pubDate": "Sat, 10 Jan 2026 08:00:00 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 13 - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOcmNsWlhTQUNuZk1qM1FlMXB3cEx0T2VPVmpWb3U0Q1BJQmF5ZjV6Z2szaFV6NUlwX2k0SmxEQzJfaG0zVjY4YmNmbTZab0ZVTDZlUzVmd0VyQ2tLek54cWZ3R1RISW56Znhrd0ZqSzhtTkU1eUwxZXJYMktqUHJndkNZbTJCVWtTNENNSTJWanFmalRmWDBuZk5ybGJSa25IQ2dpbEl3azB5djgxRVE?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 204,
-      "isCritical": false,
-      "pubDate": "Sat, 22 Nov 2025 08:00:00 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "2025 CFP Odds: Lines, Spreads for Each Semifinal Game - FOX Sports",
-      "source": "FOX Sports",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPajc3U2VrZjhDdk1xMFV5NHpKNVVhZkIwMm1EcEpTUTk5X3hjekk1Z0RJWEVPVXlCMjQ0elFpNmpnckw3YTdMLUlCMDNSRFVHSlY0ZTBKZGJ0dE9YaDNncldmS0dudUwtdWdEYk1zYnJFcHZzbjFSdTYtczlVMC1DNjNsY1lJMkVNWWFIdTBWTVp4NHM3MlRtdjRIazFYOEXSAZ8BQVVfeXFMTVhKb0VXR0RiOXRRXzFscUlZYi1mZGxqcWhnMXhjejY5T3EwNXYxSjlsaW5qVDlzTWlOTGg5VDhEaU42REplSHhHQ09VdE9hWFhvTG5jcTdFV3hLM1B2dVU2cXdUZXM2bklNY05sTUxIanNEMWxONnpWRUFSVi1GTkx5Qndmd0RLSFBsZlhzSTZLNFAwenBvOEVLdHJ2N3NN?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 156,
-      "isCritical": false,
-      "pubDate": "Fri, 09 Jan 2026 08:00:00 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College Football Playoff picks: Predictions against the spread, odds, betting lines for quarterfinal bowls - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNZi13TWJxbHhpLTlSakVjc1hFOVpPcUtMRUZMazJKZkI2VEt5UkhMWUxxQzlobTZqWVZqVkhLYi1XR0c5aVBDeEh5TjNycE1XVmJiTlM5ZW5RTlJ5OGxCdjRfMDNMOGtpREdWN0w5MmNFVUtNSnQyLXZidUpRTG8wam05VDZueDVJQTczS0NhYi1aOEtlT1F1LU13dFE3SW04eU0yZXVzTDNHakxYZDdnNDFmUnROa3JwUzltaC16ajhXb0tlUWpr?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 165,
-      "isCritical": false,
-      "pubDate": "Wed, 31 Dec 2025 08:00:00 GMT",
-      "searchQuery": "college football spread odds"
     }
   ],
   "criticalAlerts": []
