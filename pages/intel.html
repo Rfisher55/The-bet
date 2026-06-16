@@ -35,7 +35,7 @@
     .badge-insider  { background:rgba(239,68,68,.18); border:1px solid rgba(239,68,68,.5); color:#f87171; }
     .badge-injury   { background:rgba(239,68,68,.1);  border:1px solid rgba(239,68,68,.3); color:var(--danger); }
     .badge-twitter  { background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.3);color:#38bdf8; }
-    .badge-espn     { background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.3);color:var(--primary); }
+    .badge-espn     { background:rgba(251,146,60,.1); border:1px solid rgba(251,146,60,.3);color:var(--primary); }
     .badge-coaching { background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);color:#a78bfa; }
     .badge-portal   { background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3); color:var(--gold); }
 
@@ -47,7 +47,7 @@
     .intel-impact   { font-size:.62rem; font-weight:700; padding:2px 8px; border-radius:6px; }
     .impact-high    { background:rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.3); color:var(--danger); }
     .impact-med     { background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.3); color:var(--gold); }
-    .impact-low     { background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2); color:var(--primary); }
+    .impact-low     { background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.2); color:var(--primary); }
 
     .injury-table { width:100%; border-collapse:collapse; margin-top:10px; }
     .injury-table th { font-size:.6rem; font-weight:800; letter-spacing:.05em; color:var(--muted); padding:4px 8px; text-align:left; border-bottom:1px solid var(--border); }
@@ -71,11 +71,11 @@
     .lm-row { display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;
       border:1px solid var(--border);background:var(--surface);margin-bottom:8px;
       text-decoration:none;color:var(--text);transition:border-color .15s;flex-wrap:wrap; }
-    .lm-row:hover { border-color:rgba(16,185,129,.4); }
+    .lm-row:hover { border-color:rgba(251,146,60,.4); }
     .lm-badge { font-size:.52rem;font-weight:900;padding:2px 7px;border-radius:5px;white-space:nowrap;flex-shrink:0; }
     .lm-steam  { background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.4);color:#7c3aed; }
     .lm-rlm    { background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);color:#f87171; }
-    .lm-sharp  { background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);color:var(--primary); }
+    .lm-sharp  { background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.3);color:var(--primary); }
 
     /* ── Beat Writer section ── */
     .bw-card { padding:14px 16px;border-radius:12px;border:1px solid var(--border);
@@ -87,12 +87,12 @@
     /* ── Sharp Money Summary ── */
     .sm-row { display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;
       border:1px solid var(--border);background:var(--surface);margin-bottom:7px;flex-wrap:wrap; }
-    .sm-row.sm-aligned  { border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.03); }
+    .sm-row.sm-aligned  { border-color:rgba(251,146,60,.25);background:rgba(251,146,60,.03); }
     .sm-row.sm-conflict { border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.02); }
     .sm-pct-bar { height:6px;border-radius:3px;background:rgba(255,255,255,.06);flex:1;min-width:80px;overflow:hidden;position:relative; }
     .sm-pct-fill { height:100%;border-radius:3px;background:var(--primary); }
     .sm-tag { font-size:.52rem;font-weight:900;padding:2px 7px;border-radius:5px;white-space:nowrap; }
-    .sm-align { background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary); }
+    .sm-align { background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--primary); }
     .sm-conflict-tag { background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--gold); }
     .sm-fade  { background:rgba(239,68,68,.10);border:1px solid rgba(239,68,68,.25);color:var(--danger); }
   </style>
@@ -544,7 +544,7 @@ function buildLineMoveDash() {
   // Check if all games are in the future (pre-season snapshot)
   var allFuture = rows.every(function(r) { return r.game.date && r.game.date > new Date().toISOString().slice(0,10); });
   var lmFreshnessNote = allFuture
-    ? '<div style="margin-bottom:10px;padding:8px 12px;border-radius:8px;background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.2);font-size:.68rem;color:#a5b4fc;display:flex;align-items:center;gap:8px">'
+    ? '<div style="margin-bottom:10px;padding:8px 12px;border-radius:8px;background:rgba(129,140,248,.07);border:1px solid rgba(129,140,248,.2);font-size:.68rem;color:#a5b4fc;display:flex;align-items:center;gap:8px">'
       + '<span>📅</span>'
       + '<span><strong>Pre-season line snapshot</strong> — these are projected opening lines and early movement based on offseason intel. Live lines will replace this data once the CFBD API is connected.</span>'
       + '</div>'
@@ -674,7 +674,7 @@ function buildBeatWriterDash() {
       +   '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
       +     '<span style="font-size:.72rem;font-weight:900;color:var(--text)">' + r.reporter + '</span>'
       +     '<span style="font-size:.62rem;color:var(--muted)">· ' + r.outlet + '</span>'
-      +     '<span style="font-size:.55rem;font-weight:900;padding:1px 6px;border-radius:4px;background:rgba(16,185,129,.08);border:1px solid ' + sentColor + '30;color:' + sentColor + '">' + sentLabel + '</span>'
+      +     '<span style="font-size:.55rem;font-weight:900;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.08);border:1px solid ' + sentColor + '30;color:' + sentColor + '">' + sentLabel + '</span>'
       +   '</div>'
       +   '<div style="display:flex;align-items:center;gap:8px">'
       +     '<a href="game.html?id=' + r.game.id + '" style="font-size:.6rem;color:var(--primary);font-weight:700;text-decoration:none">' + aAbbr + ' @ ' + hAbbr + ' →</a>'
@@ -900,12 +900,12 @@ function buildValuePlays() {
     var evStr = (p.ev >= 0 ? "+" : "") + p.ev.toFixed(1);
 
     var tags = [];
-    if (p.sharpAligned) tags.push('<span style="font-size:.52rem;font-weight:900;padding:2px 6px;border-radius:4px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary)">&#128176; SHARP</span>');
+    if (p.sharpAligned) tags.push('<span style="font-size:.52rem;font-weight:900;padding:2px 6px;border-radius:4px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--primary)">&#128176; SHARP</span>');
     if (p.ourPubPct <= 42) tags.push('<span style="font-size:.52rem;font-weight:900;padding:2px 6px;border-radius:4px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.3);color:#a78bfa">CONTRARIAN</span>');
-    var rankColors = ["var(--primary)", "#34d399", "var(--gold)", "var(--gold)", "var(--muted-l)"];
+    var rankColors = ["var(--primary)", "var(--primary-l)", "var(--gold)", "var(--gold)", "var(--muted-l)"];
     var rankLabels = ["#1 PLAY", "#2 PLAY", "#3 PLAY", "#4 PLAY", "#5 PLAY"];
 
-    return '<a href="game.html?id=' + g.id + '" style="display:block;text-decoration:none;padding:12px 14px;border-radius:12px;border:1px solid ' + (idx === 0 ? 'rgba(16,185,129,.4)' : 'rgba(16,185,129,.2)') + ';background:' + (idx === 0 ? 'rgba(16,185,129,.04)' : 'var(--surface)') + ';margin-bottom:8px;transition:all .15s">'
+    return '<a href="game.html?id=' + g.id + '" style="display:block;text-decoration:none;padding:12px 14px;border-radius:12px;border:1px solid ' + (idx === 0 ? 'rgba(251,146,60,.4)' : 'rgba(251,146,60,.2)') + ';background:' + (idx === 0 ? 'rgba(251,146,60,.04)' : 'var(--surface)') + ';margin-bottom:8px;transition:all .15s">'
       + '<div style="display:flex;align-items:center;gap:10px">'
       +   '<div style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:900;flex-shrink:0;background:' + rankColors[idx] + '18;border:2px solid ' + rankColors[idx] + '60;color:' + rankColors[idx] + '">' + (idx+1) + '</div>'
       +   '<div style="flex:1;min-width:0">'
@@ -1076,7 +1076,7 @@ function buildPublicOverload() {
     var heavyAbbr = (r.heavyTeam.abbreviation || r.heavyTeam.name.slice(0,4)).toUpperCase();
     var spreadStr = r.spread != null ? (r.spread >= 0 ? '+' + r.spread.toFixed(1) : r.spread.toFixed(1)) : '';
     var tags = [];
-    if (r.modelFades) tags.push('<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);color:var(--primary);font-weight:800">✅ Model fades</span>');
+    if (r.modelFades) tags.push('<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.25);color:var(--primary);font-weight:800">✅ Model fades</span>');
     if (r.sharpFades) tags.push('<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);color:#a78bfa;font-weight:800">⚡ Sharp fades</span>');
     return '<a href="game.html?id=' + g.id + '" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:var(--card);border:1px solid rgba(244,114,182,.25);margin-bottom:8px;transition:border-color .15s">'
       + '<div style="flex-shrink:0;text-align:center">'
@@ -1099,7 +1099,7 @@ function buildSituationalRadar() {
 
   var sitMap = {
     revenge:      { label:"Revenge Game",   icon:"🔥", color:"#f87171",  bg:"rgba(239,68,68,.08)",  border:"rgba(239,68,68,.25)",  desc:"Team looking to settle a score from a previous loss" },
-    bounce_back:  { label:"Bounce-Back Spot",icon:"⚡", color:"#34d399",  bg:"rgba(16,185,129,.08)", border:"rgba(16,185,129,.25)", desc:"Team coming off a tough loss — historically covers ATS" },
+    bounce_back:  { label:"Bounce-Back Spot",icon:"⚡", color:"var(--primary-l)",  bg:"rgba(251,146,60,.08)", border:"rgba(251,146,60,.25)", desc:"Team coming off a tough loss — historically covers ATS" },
     letdown:      { label:"Letdown Alert",   icon:"📉", color:"var(--gold)",bg:"rgba(245,158,11,.07)",border:"rgba(245,158,11,.25)", desc:"Team coming off a big win — motivation may be lacking" },
     lookahead:    { label:"Lookahead Risk",  icon:"👀", color:"#fb923c",  bg:"rgba(251,146,60,.08)", border:"rgba(251,146,60,.25)", desc:"Team looking past this week to next week's bigger game" },
     rivalry_hate: { label:"Rivalry Surge",  icon:"⚔️", color:"#c084fc",  bg:"rgba(192,132,252,.08)",border:"rgba(192,132,252,.25)",desc:"Rivalry game — expect elevated intensity and variance" },
@@ -1148,7 +1148,7 @@ function buildSituationalRadar() {
         var restTeam = rest === "home" ? home : away;
         spots.push({ game: g, home: home, away: away, side: rest, spotKey: "rest",
           label: "Rest Edge", icon: "😴",
-          color: "var(--primary)", bg: "rgba(16,185,129,.06)", border: "rgba(16,185,129,.2)",
+          color: "var(--primary)", bg: "rgba(251,146,60,.06)", border: "rgba(251,146,60,.2)",
           desc: (restTeam.abbreviation || restTeam.name) + " has a significant rest advantage this week",
           severity: 4 });
       }
@@ -1239,14 +1239,14 @@ function buildTripleLockIntel() {
     var hAbbr = (g.homeTeam.abbreviation || g.homeTeam.name.slice(0,4)).toUpperCase();
     var aAbbr = (g.awayTeam.abbreviation || g.awayTeam.name.slice(0,4)).toUpperCase();
     var pickAbbr = (lk.pickedTeamObj.abbreviation || lk.pickedTeamObj.name.slice(0,4)).toUpperCase();
-    var confBg = lk.pickConf === "elite" ? "rgba(16,185,129,.12)" : "rgba(99,102,241,.12)";
+    var confBg = lk.pickConf === "elite" ? "rgba(251,146,60,.12)" : "rgba(129,140,248,.12)";
     var confColor = lk.pickConf === "elite" ? "var(--primary)" : "var(--accent)";
     var smBadge = '<span style="font-size:.52rem;padding:1px 6px;border-radius:4px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);color:#a78bfa;font-weight:800">⚡ ' + lk.smStrength.toUpperCase() + ' SHARP</span>';
     var confBadge = '<span style="font-size:.52rem;padding:1px 6px;border-radius:4px;background:' + confBg + ';border:1px solid ' + confColor + '40;color:' + confColor + ';font-weight:800">' + lk.pickConf.toUpperCase() + '</span>';
     var streakBadge = lk.atsStreak >= 3 ? '<span style="font-size:.52rem;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);color:#fb923c;font-weight:800">🔥 ' + lk.atsStreak + '-0 ATS</span>' : '';
     var fadeBadge = lk.fadingPublic ? '<span style="font-size:.52rem;padding:1px 6px;border-radius:4px;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.25);color:#f472b6;font-weight:800">🔄 FADE ' + Math.round(100 - lk.pubOnPick) + '% PUBLIC</span>' : '';
-    return '<a href="game.html?id=' + g.id + '" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:12px;background:var(--card);border:1px solid rgba(16,185,129,.3);margin-bottom:8px;transition:border-color .15s">'
-      + '<div style="width:44px;height:44px;border-radius:50%;background:rgba(16,185,129,.12);border:2px solid rgba(16,185,129,.35);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:var(--primary);flex-shrink:0">🔒</div>'
+    return '<a href="game.html?id=' + g.id + '" style="text-decoration:none;display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:12px;background:var(--card);border:1px solid rgba(251,146,60,.3);margin-bottom:8px;transition:border-color .15s">'
+      + '<div style="width:44px;height:44px;border-radius:50%;background:rgba(251,146,60,.12);border:2px solid rgba(251,146,60,.35);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:var(--primary);flex-shrink:0">🔒</div>'
       + '<div style="flex:1;min-width:0">'
         + '<div style="font-size:.8rem;font-weight:800;color:var(--text);margin-bottom:4px">' + aAbbr + ' @ ' + hAbbr + ' · Wk ' + (g.week || '?') + ' — Back <span style="color:var(--primary)">' + pickAbbr + '</span></div>'
         + '<div style="display:flex;gap:4px;flex-wrap:wrap">' + confBadge + ' ' + smBadge + (streakBadge ? ' ' + streakBadge : '') + (fadeBadge ? ' ' + fadeBadge : '') + '</div>'

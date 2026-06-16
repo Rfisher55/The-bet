@@ -37,7 +37,7 @@
     .pick-row { display:grid; grid-template-columns:auto 1fr auto auto auto; gap:8px 12px; align-items:center; padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--surface); margin-bottom:6px; }
     @media(max-width:600px) { .pick-row { grid-template-columns:auto 1fr auto; } .pick-hide { display:none; } }
     .pick-result { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:900; flex-shrink:0; }
-    .res-W  { background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.4); color:var(--primary); }
+    .res-W  { background:rgba(251,146,60,.15); border:1px solid rgba(251,146,60,.4); color:var(--primary); }
     .res-L  { background:rgba(239,68,68,.12);  border:1px solid rgba(239,68,68,.4);  color:var(--danger); }
     .res-P  { background:rgba(245,158,11,.1);  border:1px solid rgba(245,158,11,.3); color:var(--gold); }
     .res-null { background:var(--border); border:1px solid var(--border); color:var(--muted); }
@@ -48,7 +48,7 @@
     .clv-pos { color:var(--primary); }
     .clv-neg { color:var(--danger); }
 
-    .conf-elite  { background:rgba(16,185,129,.12); border-color:rgba(16,185,129,.4); color:var(--primary); }
+    .conf-elite  { background:rgba(251,146,60,.12); border-color:rgba(251,146,60,.4); color:var(--primary); }
     .conf-high   { background:rgba(139,92,246,.12); border-color:rgba(139,92,246,.4); color:#a78bfa; }
     .conf-medium { background:rgba(245,158,11,.1);  border-color:rgba(245,158,11,.3); color:var(--gold); }
     .conf-low    { background:rgba(255,255,255,.05);border-color:var(--border);       color:var(--muted); }
@@ -57,7 +57,7 @@
     .rec-chip { padding:6px 14px; border-radius:20px; font-size:.72rem; font-weight:700; border:1px solid var(--border); background:var(--surface); color:var(--muted-l); cursor:pointer; transition:all .15s; white-space:nowrap; }
     .rec-chip.active { background:var(--primary); border-color:var(--primary); color:#fff; }
 
-    .trust-banner { border:1px solid rgba(16,185,129,.3); border-radius:12px; padding:16px 20px; background:rgba(16,185,129,.04); margin-bottom:24px; }
+    .trust-banner { border:1px solid rgba(251,146,60,.3); border-radius:12px; padding:16px 20px; background:rgba(251,146,60,.04); margin-bottom:24px; }
     .trust-banner h3 { font-size:.85rem; font-weight:900; color:var(--primary); margin-bottom:8px; }
     .trust-banner p  { font-size:.76rem; color:var(--text-soft); line-height:1.55; margin:0; }
 
@@ -326,8 +326,8 @@ function renderRollingTrend(picks) {
   var wins10 = last10.filter(function(p) { return p.result === 'W'; }).length;
   var dotsHtml = last10.map(function(p) {
     var color = p.result === 'W' ? 'var(--primary)' : 'var(--danger)';
-    var bg = p.result === 'W' ? 'rgba(16,185,129,.15)' : 'rgba(239,68,68,.12)';
-    var border = p.result === 'W' ? 'rgba(16,185,129,.5)' : 'rgba(239,68,68,.4)';
+    var bg = p.result === 'W' ? 'rgba(251,146,60,.15)' : 'rgba(239,68,68,.12)';
+    var border = p.result === 'W' ? 'rgba(251,146,60,.5)' : 'rgba(239,68,68,.4)';
     return '<div style="width:32px;height:32px;border-radius:50%;background:' + bg + ';border:2px solid ' + border + ';display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;color:' + color + '" title="' + fmtDate(p.gameDate) + '">' + p.result + '</div>';
   }).join('');
   var streakDir = last10[last10.length-1].result;
@@ -363,8 +363,8 @@ function renderWeeklyPnL(picks) {
     var pct = total ? Math.round(d.wins / total * 100) : 0;
     var unitsStr = (d.units >= 0 ? '+' : '') + d.units.toFixed(1) + 'u';
     var color = d.units >= 0 ? 'var(--primary)' : 'var(--danger)';
-    var bg = d.units >= 0 ? 'rgba(16,185,129,.05)' : 'rgba(239,68,68,.05)';
-    var border = d.units >= 0 ? 'rgba(16,185,129,.2)' : 'rgba(239,68,68,.2)';
+    var bg = d.units >= 0 ? 'rgba(251,146,60,.05)' : 'rgba(239,68,68,.05)';
+    var border = d.units >= 0 ? 'rgba(251,146,60,.2)' : 'rgba(239,68,68,.2)';
     return '<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;border:1px solid ' + border + ';background:' + bg + ';margin-bottom:6px">'
       + '<div style="min-width:44px;font-size:.72rem;font-weight:800;color:var(--muted)">Wk ' + wk + '</div>'
       + '<div style="flex:1;font-size:.78rem;font-weight:700;color:var(--text)">' + d.wins + '-' + d.losses + ' (' + pct + '%)</div>'

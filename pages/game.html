@@ -20,9 +20,9 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 2.4rem; font-weight: 900; flex-shrink: 0;
     }
-    .grade-a-plus { background: rgba(16,185,129,.15); border: 3px solid var(--primary); color: var(--primary); box-shadow: var(--glow-green); }
-    .grade-a      { background: rgba(16,185,129,.12); border: 3px solid #34d399; color: #34d399; }
-    .grade-b      { background: rgba(99,102,241,.12); border: 3px solid var(--accent); color: var(--accent); }
+    .grade-a-plus { background: rgba(251,146,60,.15); border: 3px solid var(--primary); color: var(--primary); box-shadow: var(--glow-green); }
+    .grade-a      { background: rgba(251,146,60,.12); border: 3px solid var(--primary-l); color: var(--primary-l); }
+    .grade-b      { background: rgba(129,140,248,.12); border: 3px solid var(--accent); color: var(--accent); }
     .grade-c      { background: rgba(245,158,11,.12); border: 3px solid var(--gold); color: var(--gold); }
     .grade-d      { background: rgba(239,68,68,.12); border: 3px solid var(--danger); color: var(--danger); }
     /* ── Distraction meter colors ── */
@@ -43,7 +43,7 @@
     }
     .alert-trap { border-color: rgba(245,158,11,.5); background: rgba(245,158,11,.08); }
     .alert-injury { border-color: rgba(239,68,68,.5); background: rgba(239,68,68,.08); }
-    .alert-sharp { border-color: rgba(16,185,129,.5); background: rgba(16,185,129,.08); }
+    .alert-sharp { border-color: rgba(251,146,60,.5); background: rgba(251,146,60,.08); }
     /* ── Pulse dot ── */
     .pulse-dot {
       width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 3px;
@@ -77,22 +77,22 @@
     /* ── Key Insight Box ── */
     .key-insight-box {
       border-radius: var(--radius-lg); padding: 18px 20px; margin-bottom: 20px;
-      border: 1px solid rgba(16,185,129,.2);
+      border: 1px solid rgba(251,146,60,.2);
       border-left-width: 4px;
-      background: linear-gradient(135deg, rgba(16,185,129,.07) 0%, var(--card) 100%);
+      background: linear-gradient(135deg, rgba(251,146,60,.07) 0%, var(--card) 100%);
       position: relative;
     }
     .key-insight-badge {
       font-size: .6rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
       color: var(--primary); background: var(--card); padding: 0 8px;
       position: absolute; top: -1px; left: 14px; transform: translateY(-50%);
-      border: 1px solid rgba(16,185,129,.3); border-radius: 10px;
+      border: 1px solid rgba(251,146,60,.3); border-radius: 10px;
     }
     .key-insight-pick {
       font-size: 1.25rem; font-weight: 900; color: var(--text); line-height: 1.2;
     }
     .key-insight-conf-elite  { color: var(--primary); }
-    .key-insight-conf-high   { color: #34d399; }
+    .key-insight-conf-high   { color: var(--primary-l); }
     .key-insight-conf-medium { color: var(--gold); }
     .key-insight-conf-low    { color: var(--muted-l); }
     /* ── Win Gauge (SVG circle) ── */
@@ -113,7 +113,7 @@
       transition: background .15s, color .15s, border-color .15s;
     }
     .share-pick-btn:hover { background: var(--card); color: var(--text); border-color: var(--primary); }
-    .share-pick-btn.copied { background: rgba(16,185,129,.12); color: var(--primary); border-color: var(--primary); }
+    .share-pick-btn.copied { background: rgba(251,146,60,.12); color: var(--primary); border-color: var(--primary); }
     /* ── 7-signal icon circles ── */
     .sig-icon-circle {
       width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
@@ -157,8 +157,8 @@
     @media (max-width: 800px) { .player-exp-grid { grid-template-columns: 1fr; } }
     /* ── Insider intel box ── */
     .insider-intel-box {
-      border: 1px solid rgba(16,185,129,.35);
-      background: rgba(16,185,129,.05);
+      border: 1px solid rgba(251,146,60,.35);
+      background: rgba(251,146,60,.05);
       border-radius: var(--radius); padding: 12px;
       position: relative;
     }
@@ -519,7 +519,7 @@ function renderGamePage(gData) {
   const bdItems = [
     { label: "Offense vs Defense Matchup", value: bd.offenseVsDefense    || 0, color: "var(--accent)" },
     { label: "Recent Form",                value: bd.recentForm           || 0, color: "var(--primary)" },
-    { label: "Home Field Advantage",       value: bd.homeFieldAdvantage   || 0, color: "#34d399" },
+    { label: "Home Field Advantage",       value: bd.homeFieldAdvantage   || 0, color: "var(--primary-l)" },
     { label: "Head-to-Head History",       value: bd.headToHead           || 0, color: "var(--gold)" },
     { label: "Coaching Edge",              value: bd.coachingEdge         || 0, color: "#c084fc" },
     { label: "Recruiting / Talent",        value: bd.recruitingEdge       || 0, color: "#38bdf8" },
@@ -670,7 +670,7 @@ function renderGamePage(gData) {
             if (spSide === "no-bet" || spEdge < 0.5) return "";
             const edgeColor = spEdge >= 4 ? "var(--primary)" : spEdge >= 2 ? "var(--gold)" : "var(--muted-l)";
             const edgeLabel = spEdge >= 5 ? "🔥 Huge Edge" : spEdge >= 3 ? "Strong Edge" : "Slight Edge";
-            return `<div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.3)">
+            return `<div style="flex:1;min-width:110px;padding:8px 12px;border-radius:var(--radius);background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.3)">
               <div style="font-size:.55rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:3px">📐 Model Edge</div>
               <div style="font-size:.85rem;font-weight:800;color:${edgeColor}">+${spEdge.toFixed(1)} pts</div>
               <div style="font-size:.65rem;color:var(--muted-l)">${edgeLabel} vs Vegas</div>
@@ -734,7 +734,7 @@ function renderGamePage(gData) {
 
           if (!actionLines.length) return "";
           return `
-          <div style="margin-top:10px;padding:10px 14px;border-radius:var(--radius);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.2)">
+          <div style="margin-top:10px;padding:10px 14px;border-radius:var(--radius);background:rgba(251,146,60,.04);border:1px solid rgba(251,146,60,.2)">
             <div style="font-size:.55rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:8px">🎯 RECOMMENDED ACTION</div>
             <div style="display:flex;flex-direction:column;gap:7px">
               ${actionLines.map(l => `<div style="font-size:.78rem;color:var(--text-soft);line-height:1.55">${l}</div>`).join("")}
@@ -953,7 +953,7 @@ function renderGamePage(gData) {
             legGrade = "EXCELLENT LEG"; legColor = "var(--primary)";
             legMsg = "High-conviction pick with strong edge — ideal anchor for any parlay";
           } else if (legScore >= 55) {
-            legGrade = "SOLID LEG"; legColor = "#34d399";
+            legGrade = "SOLID LEG"; legColor = "var(--primary-l)";
             legMsg = "Good confidence and edge — suitable parlay leg, pairs well with high-conviction picks";
           } else if (legScore >= 38) {
             legGrade = "MARGINAL LEG"; legColor = "var(--gold)";
@@ -999,8 +999,8 @@ function renderGamePage(gData) {
           ];
           const chips = sigs.map(s => {
             const pos = s.val > 0.3, neg = s.val < -0.3;
-            const bg = pos ? 'rgba(16,185,129,.1)' : neg ? 'rgba(239,68,68,.08)' : 'rgba(255,255,255,.03)';
-            const bc = pos ? 'rgba(16,185,129,.3)' : neg ? 'rgba(239,68,68,.2)' : 'var(--border)';
+            const bg = pos ? 'rgba(251,146,60,.1)' : neg ? 'rgba(239,68,68,.08)' : 'rgba(255,255,255,.03)';
+            const bc = pos ? 'rgba(251,146,60,.3)' : neg ? 'rgba(239,68,68,.2)' : 'var(--border)';
             const vc = pos ? 'var(--primary)' : neg ? 'var(--danger)' : 'var(--muted)';
             const vStr = (s.val > 0 ? '+' : '') + s.val.toFixed(1);
             return `<div style="padding:4px 8px;border-radius:6px;background:${bg};border:1px solid ${bc};text-align:center">
@@ -1045,10 +1045,10 @@ function renderGamePage(gData) {
             : null;
           const mlBetterEV    = mlEVVal !== null && mlEVVal > evPer100 + 1;
           const mlSignStr     = mlEVVal !== null ? (mlEVVal >= 0 ? "+" : "") : "";
-          const bgEV          = evPositiveEV ? "rgba(16,185,129,.04)" : "rgba(239,68,68,.04)";
-          const bdrEV         = evPositiveEV ? "rgba(16,185,129,.2)"  : "rgba(239,68,68,.2)";
-          const innerBgEV     = evPositiveEV ? "rgba(16,185,129,.08)" : "rgba(239,68,68,.08)";
-          const innerBdrEV    = evPositiveEV ? "rgba(16,185,129,.3)"  : "rgba(239,68,68,.3)";
+          const bgEV          = evPositiveEV ? "rgba(251,146,60,.04)" : "rgba(239,68,68,.04)";
+          const bdrEV         = evPositiveEV ? "rgba(251,146,60,.2)"  : "rgba(239,68,68,.2)";
+          const innerBgEV     = evPositiveEV ? "rgba(251,146,60,.08)" : "rgba(239,68,68,.08)";
+          const innerBdrEV    = evPositiveEV ? "rgba(251,146,60,.3)"  : "rgba(239,68,68,.3)";
           const spreadOddsStr = (spreadOddsEV > 0 ? "+" : "") + spreadOddsEV;
           const edgeNoteEV    = probEdgeEV > 0
             ? "Model sees <strong>+" + probEdgeEV.toFixed(1) + "% probability edge</strong> vs. the " + breakevenPct.toFixed(1) + "% breakeven at " + spreadOddsStr + " juice. Long-run EV: <strong style=\"color:" + evColorEV + "\">" + evSignEV + "$" + Math.abs(evPer100).toFixed(2) + " per $100</strong>." + (mlBetterEV ? " The moneyline (" + mlSignStr + "$" + Math.abs(mlEVVal).toFixed(2) + "/100) may offer better raw value." : "")
@@ -1128,12 +1128,12 @@ function renderGamePage(gData) {
         var sgpLeg1 = sgpTeam.abbreviation + " covers " + sgpSprdFmt;
         var sgpLeg2 = sgpTotLabel + " (" + (sgpTotalOdds > 0 ? "+" : "") + sgpTotalOdds + ")";
         var sgpModelNote = sgpAgrees
-          ? '<span style="font-size:.58rem;padding:1px 6px;border-radius:4px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:var(--primary);font-weight:800;margin-left:5px">✅ Model agrees</span>'
+          ? '<span style="font-size:.58rem;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.25);color:var(--primary);font-weight:800;margin-left:5px">✅ Model agrees</span>'
           : '<span style="font-size:.58rem;padding:1px 6px;border-radius:4px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:var(--gold);font-weight:800;margin-left:5px">Model prefers ' + (sgpTP.side === "over" ? "OVER" : sgpTP.side === "under" ? "UNDER" : "—") + '</span>';
         return '<div style="margin-top:12px;padding:10px 14px;border-radius:var(--radius);background:rgba(124,58,237,.06);border:1px solid rgba(124,58,237,.25)">'
           + '<div style="font-size:.56rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#a78bfa;margin-bottom:7px">🎯 SAME-GAME PARLAY SUGGESTION</div>'
           + '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px">'
-            + '<div style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:7px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25)">'
+            + '<div style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:7px;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.25)">'
               + '<span style="font-size:.65rem;font-weight:900;color:var(--primary)">LEG 1: ' + sgpLeg1 + '</span>'
               + '<span style="font-size:.58rem;color:var(--muted)">(' + (sgpSprdOdds > 0 ? "+" : "") + sgpSprdOdds + ')</span>'
             + '</div>'
@@ -1154,7 +1154,7 @@ function renderGamePage(gData) {
       })()}
       <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button id="quick-add-btn" onclick="addCurrentPickToTracker()" style="padding:7px 16px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-size:.72rem;font-weight:800;cursor:pointer;transition:all .15s">📋 Track This Pick</button>
+          <button id="quick-add-btn" onclick="addCurrentPickToTracker()" style="padding:7px 16px;border-radius:8px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--primary);font-size:.72rem;font-weight:800;cursor:pointer;transition:all .15s">📋 Track This Pick</button>
           <button id="add-parlay-btn" onclick="addCurrentPickToParlay()" style="padding:7px 16px;border-radius:8px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);color:#a78bfa;font-size:.72rem;font-weight:800;cursor:pointer;transition:all .15s">🎯 Add to Parlay</button>
           <a href="compare.html?a=${home.id}&b=${away.id}" style="padding:7px 16px;border-radius:8px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);color:var(--gold);font-size:.72rem;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s">⚖️ Compare Teams</a>
         </div>
@@ -1236,13 +1236,13 @@ function renderGamePage(gData) {
     }).join("");
 
     return `
-      <div style="border:1px solid rgba(16,185,129,.25);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:20px;background:rgba(16,185,129,.04)">
+      <div style="border:1px solid rgba(251,146,60,.25);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:20px;background:rgba(251,146,60,.04)">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px">
           <div style="display:flex;align-items:center;gap:8px">
             <span style="width:8px;height:8px;border-radius:50%;background:var(--primary);animation:pulse 2s infinite;display:inline-block"></span>
             <span style="font-size:.62rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary)">Pre-Game Report</span>
           </div>
-          ${kickoffTxt ? `<span style="font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary)">${kickoffTxt}</span>` : ""}
+          ${kickoffTxt ? `<span style="font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:8px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--primary)">${kickoffTxt}</span>` : ""}
         </div>
 
         <!-- Win probability bar -->
@@ -1270,7 +1270,7 @@ function renderGamePage(gData) {
             <div style="font-size:.92rem;font-weight:900;color:var(--text)">${bl?.total != null ? `O/U ${bl.total}` : "TBD"}</div>
             ${pred.homeExpected != null ? `<div style="font-size:.58rem;color:var(--muted);margin-top:2px">Model: ${pred.homeExpected.toFixed(0)}-${pred.awayExpected.toFixed(0)}</div>` : ""}
           </div>
-          <div style="padding:10px 12px;border-radius:var(--radius);border:1px solid ${sharpTeam ? "rgba(16,185,129,.3)" : "var(--border)"};background:${sharpTeam ? "rgba(16,185,129,.06)" : "var(--surface)"}">
+          <div style="padding:10px 12px;border-radius:var(--radius);border:1px solid ${sharpTeam ? "rgba(251,146,60,.3)" : "var(--border)"};background:${sharpTeam ? "rgba(251,146,60,.06)" : "var(--surface)"}">
             <div style="font-size:.52rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Sharp $</div>
             <div style="font-size:.92rem;font-weight:900;color:${sharpTeam ? "var(--primary)" : "var(--muted)"}">${sharpTeam ? "▶ " + sharpTeam : "No signal"}</div>
             ${bl?.pinnacleSpread != null ? `<div style="font-size:.58rem;color:var(--muted);margin-top:2px">Pinnacle: ${fmtSpread(bl.pinnacleSpread)}</div>` : ""}
@@ -1316,7 +1316,7 @@ function renderGamePage(gData) {
               </div>
             </div>`;
           } else if (lineMovedForUs && Math.abs(diff) >= 0.5) {
-            return `<div style="padding:9px 12px;border-radius:8px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.25);display:flex;align-items:center;gap:8px">
+            return `<div style="padding:9px 12px;border-radius:8px;background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.25);display:flex;align-items:center;gap:8px">
               <span style="font-size:.9rem">⚡</span>
               <div>
                 <div style="font-size:.62rem;font-weight:900;color:var(--primary);letter-spacing:.5px">LINE MOVING OUR WAY (+${absDiff} pts favor)</div>
@@ -1413,16 +1413,16 @@ function renderGamePage(gData) {
         <p style="font-size:.875rem;color:var(--text-soft);line-height:1.75;margin:0">${a.text}</p>
       </div>`).join("");
     return `
-      <div class="card card-p mb-5" style="border-color:rgba(16,185,129,.25);background:linear-gradient(135deg,rgba(16,185,129,.04) 0%,var(--card) 60%)">
+      <div class="card card-p mb-5" style="border-color:rgba(251,146,60,.25);background:linear-gradient(135deg,rgba(251,146,60,.04) 0%,var(--card) 60%)">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
           <div class="section-label">Game Analysis &amp; Preview</div>
-          ${gp._autoGenerated ? `<span style="font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:2px 8px">Model Generated</span>` : `<span style="font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);border:1px solid rgba(16,185,129,.4);border-radius:20px;padding:2px 8px">Curated Analysis</span>`}
+          ${gp._autoGenerated ? `<span style="font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:2px 8px">Model Generated</span>` : `<span style="font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);border:1px solid rgba(251,146,60,.4);border-radius:20px;padding:2px 8px">Curated Analysis</span>`}
         </div>
         <h2 style="font-size:1.2rem;font-weight:900;color:var(--text);letter-spacing:.5px;margin-bottom:10px;line-height:1.35">${gp.headline || ""}</h2>
         <p style="font-size:.9rem;color:var(--text-soft);line-height:1.8;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)">${gp.synopsis || ""}</p>
         ${analysisHTML}
         ${pickTeam ? `
-        <div style="margin-top:20px;padding:16px 20px;border-radius:var(--radius-lg);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px">
+        <div style="margin-top:20px;padding:16px 20px;border-radius:var(--radius-lg);background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.3);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px">
           <div>
             <div style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted-l);margin-bottom:6px">The Bet Model Pick</div>
             <div style="font-size:1.3rem;font-weight:900;color:var(--primary)">Will cover spread</div>
@@ -1477,7 +1477,7 @@ function renderGamePage(gData) {
     ];
     function statusBadge(p) {
       const s = (p.injuryStatus || "healthy").toLowerCase();
-      if (s === "healthy") return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);font-weight:700">✓ ACTIVE</span>`;
+      if (s === "healthy") return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--primary);font-weight:700">✓ ACTIVE</span>`;
       const c = s === "out" ? ["rgba(239,68,68,.2)","rgba(239,68,68,.5)","var(--danger)"] : s === "doubtful" ? ["rgba(239,68,68,.1)","rgba(239,68,68,.3)","#f87171"] : ["rgba(148,163,184,.12)","rgba(148,163,184,.35)","var(--muted)"];
       const why = whyNotActive(p);
       return `<span style="font-size:.58rem;padding:1px 6px;border-radius:8px;background:${c[0]};border:1px solid ${c[1]};color:${c[2]};font-weight:700">${s.toUpperCase()}${why ? " · " + why : ""}</span>`;
@@ -1539,7 +1539,7 @@ function renderGamePage(gData) {
                 </div>`).join("")}
             </div>` : ""}
           ${pf ? `
-            <div style="margin-bottom:8px;padding:8px 10px;background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.18);border-radius:6px;position:relative">
+            <div style="margin-bottom:8px;padding:8px 10px;background:rgba(251,146,60,.04);border:1px solid rgba(251,146,60,.18);border-radius:6px;position:relative">
               <div style="font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:5px">INSIDER INTEL</div>
               ${pf.distractionNote ? `<div style="font-size:.76rem;color:var(--text-soft);font-style:italic;line-height:1.55;margin-bottom:5px">"${pf.distractionNote}"</div>` : ""}
               ${pf.socialMediaPattern ? `<div style="font-size:.7rem;color:var(--muted-l);margin-bottom:5px">🐦 Social: ${pf.socialMediaPattern}</div>` : ""}
@@ -1549,10 +1549,10 @@ function renderGamePage(gData) {
                   <div style="flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden"><div style="width:${pf.distractionLevel*10}%;height:100%;background:${pf.distractionLevel>=7?"var(--danger)":pf.distractionLevel>=5?"var(--gold)":"var(--primary)"}"></div></div>
                 </div>` : ""}
             </div>` : ""}
-          ${sr ? `<div style="margin-bottom:8px;padding:8px 10px;border-left:2px solid var(--accent);background:rgba(99,102,241,.05);border-radius:0 6px 6px 0"><div style="font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:4px">SCOUT REPORT</div><div style="font-size:.76rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${typeof sr==="string"?sr:sr.summary||""}"</div></div>` : ""}
+          ${sr ? `<div style="margin-bottom:8px;padding:8px 10px;border-left:2px solid var(--accent);background:rgba(129,140,248,.05);border-radius:0 6px 6px 0"><div style="font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:4px">SCOUT REPORT</div><div style="font-size:.76rem;color:var(--text-soft);font-style:italic;line-height:1.55">"${typeof sr==="string"?sr:sr.summary||""}"</div></div>` : ""}
           ${(p.strengths && p.strengths.length) || (p.weaknesses && p.weaknesses.length) ? `
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
-              ${p.strengths && p.strengths.length ? `<div style="padding:6px 8px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:6px"><div style="font-size:.55rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">STRENGTHS</div>${p.strengths.map(s=>`<div style="font-size:.7rem;color:var(--text-soft);margin-bottom:2px">+ ${s}</div>`).join("")}</div>` : ""}
+              ${p.strengths && p.strengths.length ? `<div style="padding:6px 8px;background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.2);border-radius:6px"><div style="font-size:.55rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">STRENGTHS</div>${p.strengths.map(s=>`<div style="font-size:.7rem;color:var(--text-soft);margin-bottom:2px">+ ${s}</div>`).join("")}</div>` : ""}
               ${p.weaknesses && p.weaknesses.length ? `<div style="padding:6px 8px;background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.18);border-radius:6px"><div style="font-size:.55rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--danger);margin-bottom:4px">WEAKNESSES</div>${p.weaknesses.map(w=>`<div style="font-size:.7rem;color:var(--text-soft);margin-bottom:2px">− ${w}</div>`).join("")}</div>` : ""}
             </div>` : ""}
           ${nil !== undefined && nil !== null ? `
@@ -1680,7 +1680,7 @@ function renderGamePage(gData) {
             <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)">
               <span style="font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted-l);min-width:90px">${r.label}</span>
               <span style="font-size:.72rem;color:var(--text-soft)">${r.matchup}</span>
-              <span style="font-size:.62rem;font-weight:900;letter-spacing:1.2px;padding:2px 10px;border-radius:10px;border:1px solid rgba(16,185,129,.4);color:var(--primary);background:rgba(16,185,129,.1);white-space:nowrap">${fbsTeam.abbreviation} EDGE</span>
+              <span style="font-size:.62rem;font-weight:900;letter-spacing:1.2px;padding:2px 10px;border-radius:10px;border:1px solid rgba(251,146,60,.4);color:var(--primary);background:rgba(251,146,60,.1);white-space:nowrap">${fbsTeam.abbreviation} EDGE</span>
             </div>`).join("")}
           <p style="margin-top:12px;font-size:.76rem;color:var(--text-soft);line-height:1.6">Grade analysis is suppressed for FCS matchups. <strong style="color:var(--text)">${fbsTeam.name}</strong> holds a significant structural advantage in every phase — model applies a ×${(sosI[homeFCS ? "awayStatMult" : "homeStatMult"] || 1).toFixed(2)} stat-quality multiplier for ${fbsTeam.name} and discounts ${fcsTeam.name}'s inflated FCS statistics.</p>
         </div>`;
@@ -1929,7 +1929,7 @@ function renderGamePage(gData) {
     }
     function lcolor(score) {
       const a = Math.abs(score);
-      if (a >= 18) return "var(--primary)"; if (a >= 12) return "#34d399"; if (a >= 7) return "var(--gold)";
+      if (a >= 18) return "var(--primary)"; if (a >= 12) return "var(--primary-l)"; if (a >= 7) return "var(--gold)";
       if (a >= 4) return "#94a3b8"; return "var(--danger)";
     }
     const hs = home.stats || {}, as_ = away.stats || {};
@@ -2075,7 +2075,7 @@ function renderGamePage(gData) {
     const hasLive = !!(window.__teamNews && (Object.keys(window.__teamNews).length > 0)) ||
                     !!(window.TEAM_INTEL && Object.keys(window.TEAM_INTEL).length > 0);
     if (hasLive) {
-      return `<span style="font-size:.55rem;font-weight:900;padding:2px 7px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--primary);letter-spacing:.5px">● LIVE</span>`;
+      return `<span style="font-size:.55rem;font-weight:900;padding:2px 7px;border-radius:10px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--primary);letter-spacing:.5px">● LIVE</span>`;
     }
     // Static pre-season data — show how old the scouting reports are
     const gameDate = game.date ? new Date(game.date + "T12:00:00") : null;
@@ -2321,7 +2321,7 @@ function renderGamePage(gData) {
             </div>
           </div>
           ${smSig && smSig.side ? `
-            <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)">
+            <div style="margin-top:10px;padding:10px 12px;border-radius:var(--radius);background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.2)">
               <div style="font-size:.65rem;font-weight:700;color:var(--primary);margin-bottom:3px">SHARP MONEY INDICATOR</div>
               <div style="font-size:.8rem;color:var(--text-soft)">Professionals are on <strong style="color:${smSig.side === "home" ? home.color : away.color}">${smSig.side === "home" ? home.name : away.name}</strong>${smSig.note ? " — " + smSig.note : "."}</div>
             </div>` : ""}
@@ -2342,8 +2342,8 @@ function renderGamePage(gData) {
             const divIcon        = !diverges ? "✅" : divergeNorm >= 20 ? "🔄" : "⚡";
             const pubClr         = readableOnDark(pubTeam.color);
             const mdlClr         = diverges ? "#f472b6" : "var(--primary)";
-            const bgDiv          = diverges ? "rgba(244,114,182,.05)" : "rgba(16,185,129,.05)";
-            const bdrDiv         = diverges ? "rgba(244,114,182,.3)"  : "rgba(16,185,129,.2)";
+            const bgDiv          = diverges ? "rgba(244,114,182,.05)" : "rgba(251,146,60,.05)";
+            const bdrDiv         = diverges ? "rgba(244,114,182,.3)"  : "rgba(251,146,60,.2)";
             const noteDiv        = !diverges
               ? "The Bet agrees with the public — both sides backing " + pubTeam.name + ". Look for edge on the total or moneyline rather than the spread."
               : "The Bet fades " + publicPctShow + "% of bettors to take " + mdlTeam.name + ". Models that diverge meaningfully from public consensus finish 58–62% ATS historically — treat this as a value signal.";
@@ -2565,8 +2565,8 @@ function renderGamePage(gData) {
               ? fmtSpread(pred.spreadPick.side === "home" ? game.bettingLines.spread : -game.bettingLines.spread) : "");
             const confColors = { HIGH: "var(--primary)", MEDIUM: "var(--gold)", LOW: "var(--muted-l)" };
             const dispConfColor = confColors[curatedConf] || (displaySide === "home" ? "var(--accent)" : "var(--gold)");
-            const borderColor = hasPick ? (displaySide === "home" ? "rgba(99,102,241,.5)" : "rgba(245,158,11,.5)") : "var(--border)";
-            const bgColor    = hasPick ? (displaySide === "home" ? "rgba(99,102,241,.1)" : "rgba(245,158,11,.1)") : "var(--surface)";
+            const borderColor = hasPick ? (displaySide === "home" ? "rgba(129,140,248,.5)" : "rgba(245,158,11,.5)") : "var(--border)";
+            const bgColor    = hasPick ? (displaySide === "home" ? "rgba(129,140,248,.1)" : "rgba(245,158,11,.1)") : "var(--surface)";
             return `<div style="border-radius:12px;padding:16px;text-align:center;border:2px solid ${borderColor};background:${bgColor}">
               <div class="text-xs text-muted mb-2" style="text-transform:uppercase;letter-spacing:.5px">Spread Pick</div>
               ${hasPick
@@ -2585,8 +2585,8 @@ function renderGamePage(gData) {
             const hasTotalPick = tp2.side && tp2.side !== "no-bet";
             const isOver = tp2.side === "over";
             const totalEdge = (tp2.edge || 0).toFixed(1);
-            const border2 = hasTotalPick ? (isOver ? "rgba(16,185,129,.5)" : "rgba(239,68,68,.5)") : "var(--border)";
-            const bg2    = hasTotalPick ? (isOver ? "rgba(16,185,129,.1)" : "rgba(239,68,68,.1)") : "var(--surface)";
+            const border2 = hasTotalPick ? (isOver ? "rgba(251,146,60,.5)" : "rgba(239,68,68,.5)") : "var(--border)";
+            const bg2    = hasTotalPick ? (isOver ? "rgba(251,146,60,.1)" : "rgba(239,68,68,.1)") : "var(--surface)";
             const c2     = hasTotalPick ? (isOver ? "var(--primary)" : "var(--danger)") : "var(--muted)";
             // O/U context
             const vegasTotal  = game.bettingLines && game.bettingLines.total;
@@ -2672,7 +2672,7 @@ function renderGamePage(gData) {
                 <div style="font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Model Projects</div>
                 <div style="font-size:1.1rem;font-weight:900;color:var(--primary)">${modelTotal.toFixed(1)}</div>
               </div>` : ""}
-              ${tDiff ? `<div style="padding:8px 12px;border-radius:var(--radius);background:${hasTotalPick ? (isOver ? "rgba(16,185,129,.08)" : "rgba(239,68,68,.08)") : "rgba(255,255,255,.02)"};border:1px solid ${hasTotalPick ? (isOver ? "rgba(16,185,129,.3)" : "rgba(239,68,68,.3)") : "var(--border)"};text-align:center">
+              ${tDiff ? `<div style="padding:8px 12px;border-radius:var(--radius);background:${hasTotalPick ? (isOver ? "rgba(251,146,60,.08)" : "rgba(239,68,68,.08)") : "rgba(255,255,255,.02)"};border:1px solid ${hasTotalPick ? (isOver ? "rgba(251,146,60,.3)" : "rgba(239,68,68,.3)") : "var(--border)"};text-align:center">
                 <div style="font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Difference</div>
                 <div style="font-size:1.1rem;font-weight:900;color:${hasTotalPick ? (isOver ? "var(--primary)" : "var(--danger)") : "var(--muted)"}">${isOver ? "+" : "-"}${tDiff}</div>
               </div>` : ""}
@@ -2684,7 +2684,7 @@ function renderGamePage(gData) {
             ${factors2.length ? `<div style="display:flex;flex-direction:column;gap:6px">
               ${factors2.map(f => {
                 const fc = f.impact === "OVER" ? "var(--primary)" : "var(--danger)";
-                const fb = f.impact === "OVER" ? "rgba(16,185,129,.06)" : "rgba(239,68,68,.06)";
+                const fb = f.impact === "OVER" ? "rgba(251,146,60,.06)" : "rgba(239,68,68,.06)";
                 return `<div style="display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;background:${fb}">
                   <span style="font-size:.85rem;flex-shrink:0">${f.icon}</span>
                   <span style="flex:1;font-size:.75rem;color:var(--text-soft)">${f.label} <span style="color:var(--muted)">${f.note}</span></span>
@@ -2692,7 +2692,7 @@ function renderGamePage(gData) {
                 </div>`;
               }).join("")}
             </div>` : ""}
-            ${hasTotalPick ? `<div style="margin-top:10px;padding:8px 12px;border-radius:var(--radius);background:${isOver ? "rgba(16,185,129,.08)" : "rgba(239,68,68,.08)"};border:1px solid ${isOver ? "rgba(16,185,129,.3)" : "rgba(239,68,68,.3)"};font-size:.73rem;color:var(--text-soft)">
+            ${hasTotalPick ? `<div style="margin-top:10px;padding:8px 12px;border-radius:var(--radius);background:${isOver ? "rgba(251,146,60,.08)" : "rgba(239,68,68,.08)"};border:1px solid ${isOver ? "rgba(251,146,60,.3)" : "rgba(239,68,68,.3)"};font-size:.73rem;color:var(--text-soft)">
               <strong style="color:${isOver ? "var(--primary)" : "var(--danger)"}">${isOver ? "▲ OVER" : "▼ UNDER"} ${vegasTotal || ""}:</strong>
               Model projects ${modelTotal ? modelTotal.toFixed(1) : "—"} — ${(tp2.edge || 0).toFixed(1)} pts ${isOver ? "above" : "below"} Vegas line.
               ${overCnt > underCnt ? "Multiple factors push toward a higher-scoring game." : underCnt > overCnt ? "Multiple factors favor defensive game." : "Mixed signals — edge is based primarily on scoring pace vs Vegas number."}
@@ -2795,7 +2795,7 @@ function renderGamePage(gData) {
             });
             const polyline = pts.join(" ");
             const trend = spreads[spreads.length-1] - spreads[0];
-            const trendColor = trend < -0.1 ? "#10b981" : trend > 0.1 ? "#6366f1" : "#555";
+            const trendColor = trend < -0.1 ? "#FB923C" : trend > 0.1 ? "#6366f1" : "#555";
             return `<div style="margin-bottom:10px;padding:8px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--border)">
               <div style="font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Spread Trend</div>
               <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="overflow:visible;display:block;width:100%;max-width:${W}px">
@@ -2849,7 +2849,7 @@ function renderGamePage(gData) {
         <!-- Smart money summary -->
         ${sm ? `
           <hr class="sec-divider" />
-          <div style="padding:10px;border-radius:var(--radius);background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)">
+          <div style="padding:10px;border-radius:var(--radius);background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.2)">
             <div class="text-xs text-muted mb-1" style="font-weight:700;letter-spacing:1px">SMART MONEY SAYS...</div>
             <div class="text-xs" style="color:var(--text-soft);line-height:1.55">
               Fade the public and follow the sharp action on <strong style="color:${sm.side === "home" ? home.color : away.color}">${sm.side === "home" ? home.name : sm.side === "away" ? away.name : "—"}</strong>.
@@ -2944,7 +2944,7 @@ function renderGamePage(gData) {
               </div>`;
             })()}
           </div>` : `
-          <div style="padding:10px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);border-radius:var(--radius);margin-bottom:10px">
+          <div style="padding:10px;background:rgba(251,146,60,.05);border:1px solid rgba(251,146,60,.15);border-radius:var(--radius);margin-bottom:10px">
             <div class="text-xs text-muted" style="font-style:italic">Weather conditions are favorable — no significant impact on scoring projections.</div>
           </div>`}
         ${(homeWp || awayWp) && !indoors ? `
@@ -3047,7 +3047,7 @@ function renderGamePage(gData) {
             return `<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border);margin-bottom:5px;flex-wrap:wrap">
               <span style="font-size:.68rem;font-weight:800;color:var(--text);min-width:40px">${team.abbreviation}</span>
               ${rec !== null ? `<span style="font-size:.72rem;font-weight:800;color:${recColor}">${rec} ATS (${pct}%)</span>` : ""}
-              ${pct !== null && pct >= 57 ? `<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);color:var(--primary);font-weight:800">🔥 HOT</span>` : ""}
+              ${pct !== null && pct >= 57 ? `<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.25);color:var(--primary);font-weight:800">🔥 HOT</span>` : ""}
               ${pct !== null && pct <= 43 ? `<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:var(--danger);font-weight:800">🚫 COLD</span>` : ""}
               ${streak >= 3 ? `<span style="font-size:.55rem;padding:1px 6px;border-radius:4px;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.3);color:#fb923c;font-weight:800">🔥 ${streak}-game ATS streak</span>` : ""}
               ${team.id === home.id
@@ -3173,7 +3173,7 @@ function renderGamePage(gData) {
 
           <!-- Scout report -->
           ${sr ? `
-            <div style="padding:10px 12px;border-radius:var(--radius);background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.2);position:relative;margin-bottom:10px">
+            <div style="padding:10px 12px;border-radius:var(--radius);background:rgba(129,140,248,.06);border:1px solid rgba(129,140,248,.2);position:relative;margin-bottom:10px">
               <div style="position:absolute;top:-1px;left:12px;font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:var(--surface);padding:0 6px;transform:translateY(-50%)">SCOUT REPORT</div>
               <div style="font-size:.78rem;color:var(--text-soft);line-height:1.6;margin-top:4px;font-style:italic">"${typeof sr === "string" ? sr : sr.summary || ""}"</div>
               ${sr.grade ? `<div class="text-xs text-muted mt-2">Grade: <strong style="color:var(--accent)">${sr.grade}</strong></div>` : ""}
@@ -3341,7 +3341,7 @@ function renderGamePage(gData) {
             return ctx.wins + "-" + ctx.losses + " (" + Math.round((ctx.pct || 0) * 100) + "%)";
           }
 
-          return `<div style="margin-top:14px;padding:12px;border-radius:var(--radius);background:rgba(99,102,241,.05);border:1px solid rgba(99,102,241,.2)">
+          return `<div style="margin-top:14px;padding:12px;border-radius:var(--radius);background:rgba(129,140,248,.05);border:1px solid rgba(129,140,248,.2)">
             <div style="font-size:.6rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px">ATS Team Tendencies — Relevant to This Game</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
               <div style="padding:10px;border-radius:8px;background:var(--surface);border:1px solid var(--border)">
@@ -3424,7 +3424,7 @@ function renderGamePage(gData) {
               </div>
             </div>` : ""}
           ${cp && cp.schemeMismatch ? `
-            <div style="margin-top:8px;padding:7px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:6px;font-size:.72rem;color:var(--text-soft);font-style:italic">${cp.schemeMismatch}</div>` : ""}
+            <div style="margin-top:8px;padding:7px;background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.2);border-radius:6px;font-size:.72rem;color:var(--text-soft);font-style:italic">${cp.schemeMismatch}</div>` : ""}
         </div>`;
     }
 
@@ -3432,7 +3432,7 @@ function renderGamePage(gData) {
       <div class="card card-p mb-5" id="section-coaching">
         <div class="section-label">Coaching Tendencies</div>
         ${ce && ce.winner !== "neutral" ? `
-          <div style="padding:8px 12px;border-radius:var(--radius);background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);margin-bottom:12px;font-size:.78rem">
+          <div style="padding:8px 12px;border-radius:var(--radius);background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.2);margin-bottom:12px;font-size:.78rem">
             <span class="text-muted">Coaching Edge: </span>
             <strong style="color:var(--accent)">${ce.winner === "home" ? home.name : away.name} +${ce.pts || ""} pts</strong>
             ${ce.note ? `<span class="text-muted"> — ${ce.note}</span>` : ""}
@@ -3641,7 +3641,7 @@ function renderGamePage(gData) {
         key: "situational", label: "Situational Analysis", icon: SIG_ICONS.situational, weight: WEIGHTS.situational,
         edge: eb ? eb.situationalEdge : null,
         desc: "Trap game risk, lookahead spots, travel burden, emotional momentum, rest advantage",
-        color: "#34d399",
+        color: "var(--primary-l)",
       },
       {
         key: "weather", label: "Weather Impact", icon: SIG_ICONS.weather, weight: WEIGHTS.weather,
@@ -3825,7 +3825,7 @@ function renderGamePage(gData) {
 
       if (!hasPick2 && !isNoBet) return "";
       return `
-      <div style="margin-bottom:16px;padding:12px 16px;border-radius:var(--radius-lg);background:${isNoBet ? "rgba(255,255,255,.02)" : isElite ? "rgba(16,185,129,.08)" : "rgba(255,255,255,.03)"};border:1px solid ${isNoBet ? "var(--border)" : isElite ? "rgba(16,185,129,.35)" : "rgba(255,255,255,.1)"};display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="margin-bottom:16px;padding:12px 16px;border-radius:var(--radius-lg);background:${isNoBet ? "rgba(255,255,255,.02)" : isElite ? "rgba(251,146,60,.08)" : "rgba(255,255,255,.03)"};border:1px solid ${isNoBet ? "var(--border)" : isElite ? "rgba(251,146,60,.35)" : "rgba(255,255,255,.1)"};display:flex;align-items:center;gap:12px;flex-wrap:wrap">
         <div style="font-size:.55rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:${isNoBet?"var(--muted)":"var(--primary)"};flex-shrink:0">${isNoBet ? "⏸ PASS" : "✅ BET"}</div>
         <div style="width:1px;height:24px;background:var(--border);flex-shrink:0"></div>
         ${hasPick2 && pickTeam2 ? `
@@ -3837,7 +3837,7 @@ function renderGamePage(gData) {
           ${pickConf2 ? `<span style="font-size:.6rem;font-weight:900;padding:3px 8px;border-radius:5px;background:${cColor2}20;border:1px solid ${cColor2}40;color:${cColor2}">${pickConf2}</span>` : ""}
           <span style="font-size:.6rem;font-weight:800;color:var(--muted-l)">${tp2Units}u</span>
           ${sp2.edge >= 1 ? `<span style="font-size:.6rem;font-weight:700;color:var(--primary)">+${sp2.edge} pts edge</span>` : ""}
-          ${spConf2 > 0 ? `<span style="font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:4px;background:${evPositive?"rgba(16,185,129,.1)":"rgba(239,68,68,.08)"};color:${evColor};border:1px solid ${evColor}40">EV ${evPct.startsWith("-")?"":"+"}${evPct}%</span>` : ""}
+          ${spConf2 > 0 ? `<span style="font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:4px;background:${evPositive?"rgba(251,146,60,.1)":"rgba(239,68,68,.08)"};color:${evColor};border:1px solid ${evColor}40">EV ${evPct.startsWith("-")?"":"+"}${evPct}%</span>` : ""}
           ${sharpAgrees ? `<span style="font-size:.6rem;font-weight:700;color:var(--primary)">💰 Sharps agree</span>` : ""}
           <div style="display:flex;align-items:center;gap:5px;padding:2px 8px;border-radius:6px;background:${betScoreColor}15;border:1px solid ${betScoreColor}35">
             <div style="font-size:.55rem;font-weight:900;color:var(--muted);letter-spacing:.5px">SCORE</div>
@@ -4011,7 +4011,7 @@ function renderGamePage(gData) {
         <div style="display:flex;flex-direction:column;gap:8px">
           ${props.slice(0, 6).map(pr => {
             const dc = pr.dir === "over" ? "var(--primary)" : pr.dir === "under" ? "var(--danger)" : "var(--gold)";
-            const db = pr.dir === "over" ? "rgba(16,185,129,.06)" : pr.dir === "under" ? "rgba(239,68,68,.06)" : "rgba(245,158,11,.06)";
+            const db = pr.dir === "over" ? "rgba(251,146,60,.06)" : pr.dir === "under" ? "rgba(239,68,68,.06)" : "rgba(245,158,11,.06)";
             return `<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius);background:${db};border:1px solid ${dc}20">
               <span style="font-size:1rem;flex-shrink:0">${pr.icon}</span>
               <div style="flex:1;min-width:0">
@@ -4031,7 +4031,7 @@ function renderGamePage(gData) {
     })()}
 
     <!-- DISCLAIMER -->
-    <div style="margin-top:24px;padding:16px 20px;border-radius:var(--radius-lg);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.15);display:flex;gap:14px;align-items:flex-start">
+    <div style="margin-top:24px;padding:16px 20px;border-radius:var(--radius-lg);background:rgba(251,146,60,.04);border:1px solid rgba(251,146,60,.15);display:flex;gap:14px;align-items:flex-start">
       <span style="color:var(--primary);font-size:1rem;flex-shrink:0;margin-top:2px">ℹ</span>
       <div>
         <div style="font-size:.875rem;font-weight:700;color:var(--text);margin-bottom:4px">Disclaimer</div>
@@ -4136,12 +4136,12 @@ window.addCurrentPickToTracker = function() {
   localStorage.setItem(LS_KEY, JSON.stringify(picks));
   if (btn) {
     btn.textContent = "✅ Added to My Picks!";
-    btn.style.background = "rgba(16,185,129,.25)";
+    btn.style.background = "rgba(251,146,60,.25)";
     btn.style.borderColor = "var(--primary)";
     setTimeout(function() {
       btn.textContent = "📋 Track This Pick";
-      btn.style.background = "rgba(16,185,129,.12)";
-      btn.style.borderColor = "rgba(16,185,129,.3)";
+      btn.style.background = "rgba(251,146,60,.12)";
+      btn.style.borderColor = "rgba(251,146,60,.3)";
     }, 2500);
   }
 };

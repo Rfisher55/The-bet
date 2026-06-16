@@ -57,7 +57,7 @@
       background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
       padding:16px 18px;transition:border-color .15s;
     }
-    .pick-row.pick-win   { border-left:3px solid var(--primary);background:linear-gradient(90deg,rgba(16,185,129,.05) 0%,var(--card) 40%); }
+    .pick-row.pick-win   { border-left:3px solid var(--primary);background:linear-gradient(90deg,rgba(251,146,60,.05) 0%,var(--card) 40%); }
     .pick-row.pick-loss  { border-left:3px solid var(--danger);background:linear-gradient(90deg,rgba(248,113,113,.05) 0%,var(--card) 40%); }
     .pick-row.pick-push  { border-left:3px solid var(--muted);background:linear-gradient(90deg,rgba(139,157,187,.05) 0%,var(--card) 40%); }
     .pick-row.pick-pending { border-left:3px solid var(--accent);background:linear-gradient(90deg,rgba(129,140,248,.04) 0%,var(--card) 40%); }
@@ -86,7 +86,7 @@
       display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;
       font-size:.7rem;font-weight:800;letter-spacing:.5px;border:1px solid;
     }
-    .result-win     { background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.5);color:var(--primary); }
+    .result-win     { background:rgba(251,146,60,.15);border-color:rgba(251,146,60,.5);color:var(--primary); }
     .result-loss    { background:rgba(248,113,113,.12);border-color:rgba(248,113,113,.4);color:var(--danger); }
     .result-push    { background:rgba(139,157,187,.1);border-color:rgba(139,157,187,.3);color:var(--muted-l); }
     .result-pending { background:rgba(129,140,248,.1);border-color:rgba(129,140,248,.3);color:var(--accent); }
@@ -98,7 +98,7 @@
       background:var(--surface);color:var(--text);font-size:.72rem;cursor:pointer;
       outline:none;
     }
-    .pick-actions select:focus { border-color:rgba(16,185,129,.6); }
+    .pick-actions select:focus { border-color:rgba(251,146,60,.6); }
     .btn-icon {
       width:30px;height:30px;border-radius:8px;border:1px solid var(--border);
       background:var(--surface);color:var(--muted);cursor:pointer;display:flex;
@@ -212,7 +212,7 @@
       transition:color .15s,border-color .15s,background .15s;
       -webkit-tap-highlight-color:transparent;
     }
-    .gp-wc:hover { color:var(--text);border-color:rgba(16,185,129,.4); }
+    .gp-wc:hover { color:var(--text);border-color:rgba(251,146,60,.4); }
     .gp-wc.active { background:var(--primary);border-color:var(--primary);color:#fff; }
     .gp-list { flex:1;overflow-y:auto;padding:0 16px 40px;-webkit-overflow-scrolling:touch; }
     .gp-game { padding:12px 0;border-bottom:1px solid var(--border); }
@@ -228,7 +228,7 @@
       margin-bottom:4px;transition:border-color .12s,background .12s;
     }
     .gp-btn:last-child { margin-bottom:0; }
-    .gp-btn:hover { border-color:var(--primary);background:rgba(16,185,129,.07); }
+    .gp-btn:hover { border-color:var(--primary);background:rgba(251,146,60,.07); }
     .gp-btn:active { transform:scale(.97); }
     .gp-btn-line { font-size:.74rem;font-weight:900;color:var(--text);line-height:1.2; }
     .gp-btn-odds { font-size:.58rem;font-weight:700;color:var(--muted);line-height:1.2; }
@@ -347,7 +347,7 @@
         <label for="f-notes">Notes (optional)</label>
         <textarea id="f-notes" class="field" placeholder="e.g. Line value, injuries, weather, model confidence..." rows="2"></textarea>
       </div>
-      <div id="model-pick-hint" style="display:none;padding:8px 12px;border-radius:8px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);margin-bottom:8px;align-items:center;gap:6px;flex-wrap:wrap"></div>
+      <div id="model-pick-hint" style="display:none;padding:8px 12px;border-radius:8px;background:rgba(251,146,60,.05);border:1px solid rgba(251,146,60,.2);margin-bottom:8px;align-items:center;gap:6px;flex-wrap:wrap"></div>
       <div class="form-footer">
         <p class="text-xs text-muted">Picks are saved locally to this browser. Clearing site data will erase them.</p>
         <button class="btn btn-primary" id="log-btn">Log Pick</button>
@@ -708,8 +708,8 @@
     var polyline = points.map(function(v, i) { return toX(i).toFixed(1) + ',' + toY(v).toFixed(1); }).join(' ');
     var lastVal = points[points.length - 1];
     var isPos = lastVal >= 0;
-    var lineColor = isPos ? '#10b981' : '#f87171';
-    var fillColor = isPos ? 'rgba(16,185,129,.13)' : 'rgba(248,113,113,.1)';
+    var lineColor = isPos ? '#FB923C' : '#f87171';
+    var fillColor = isPos ? 'rgba(251,146,60,.13)' : 'rgba(248,113,113,.1)';
     var baseY = toY(0);
     var fillPoly = toX(0).toFixed(1) + ',' + baseY.toFixed(1) + ' ' + polyline + ' ' + toX(points.length - 1).toFixed(1) + ',' + baseY.toFixed(1);
     var labelColor = isPos ? 'var(--primary)' : 'var(--danger)';
@@ -738,7 +738,7 @@
     // ── Confidence tier rows ──
     var tiers = ['elite', 'high', 'medium', 'low', ''];
     var tierLabels = { elite:'Elite', high:'High', medium:'Medium', low:'Low', '':'Unrated' };
-    var tierColors = { elite:'var(--primary)', high:'#34d399', medium:'var(--gold)', low:'var(--muted)', '':'var(--muted-l)' };
+    var tierColors = { elite:'var(--primary)', high:'var(--primary-l)', medium:'var(--gold)', low:'var(--muted)', '':'var(--muted-l)' };
     var confRows = [];
     tiers.forEach(function(t) {
       var group = t ? settled.filter(function(p) { return (p.confidence || '').toLowerCase() === t; })
@@ -850,7 +850,7 @@
 
     // Streak records
     html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px">';
-    html += '<div style="padding:8px 12px;border-radius:8px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);text-align:center">'
+    html += '<div style="padding:8px 12px;border-radius:8px;background:rgba(251,146,60,.07);border:1px solid rgba(251,146,60,.2);text-align:center">'
       + '<div style="font-size:.58rem;color:var(--muted);margin-bottom:2px">Best Win Streak</div>'
       + '<div style="font-size:1.2rem;font-weight:900;color:var(--primary)">' + maxWinStreak + 'W</div>'
       + '</div>';
@@ -884,7 +884,7 @@
     if (bestWin || worstLoss) {
       html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
       if (bestWin) {
-        html += '<div style="padding:8px 10px;border-radius:8px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)">'
+        html += '<div style="padding:8px 10px;border-radius:8px;background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.2)">'
           + '<div style="font-size:.55rem;color:var(--muted);margin-bottom:2px;font-weight:700;letter-spacing:1px">🏆 BEST WIN</div>'
           + '<div style="font-size:.78rem;font-weight:800;color:var(--primary)">+' + fmtMoney(bestWin.net) + '</div>'
           + '<div style="font-size:.62rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + escHtml(bestWin.pick.pick || '') + '">' + escHtml((bestWin.pick.pick || '').slice(0, 28)) + '</div>'
@@ -922,8 +922,8 @@
     var confWP = { elite: 0.67, high: 0.62, medium: 0.55, low: 0.52 };
     var estWP = confWP[(pick.confidence || '').toLowerCase()] || 0.525;
     var ev = estWP * (decOdds - 1) - (1 - estWP);
-    if (ev >= 0.15) return { label: 'A+', color: 'var(--primary)',   bg: 'rgba(16,185,129,.12)',  border: 'rgba(16,185,129,.4)'  };
-    if (ev >= 0.08) return { label: 'A',  color: '#34d399',          bg: 'rgba(52,211,153,.1)',   border: 'rgba(52,211,153,.35)' };
+    if (ev >= 0.15) return { label: 'A+', color: 'var(--primary)',   bg: 'rgba(251,146,60,.12)',  border: 'rgba(251,146,60,.4)'  };
+    if (ev >= 0.08) return { label: 'A',  color: 'var(--primary-l)',          bg: 'rgba(253,186,116,.1)',   border: 'rgba(253,186,116,.35)' };
     if (ev >= 0.02) return { label: 'B',  color: 'var(--gold)',      bg: 'rgba(245,158,11,.1)',   border: 'rgba(245,158,11,.35)' };
     if (ev >= -0.04)return { label: 'C',  color: 'var(--muted-l)',   bg: 'rgba(139,157,187,.08)', border: 'rgba(139,157,187,.25)' };
     return               { label: 'D',  color: 'var(--danger)',     bg: 'rgba(239,68,68,.08)',   border: 'rgba(239,68,68,.3)'   };
@@ -1455,8 +1455,8 @@
         var officialConf = gpCuratedConf || (gpModelConf ? gpModelConf.toUpperCase() : null);
         var modelBadge = function(side) {
           if (officialSide !== side) return '';
-          var confColor = (officialConf === 'ELITE' || officialConf === 'elite') ? '#10b981'
-            : (officialConf === 'HIGH' || officialConf === 'high') ? '#34d399' : '#f59e0b';
+          var confColor = (officialConf === 'ELITE' || officialConf === 'elite') ? '#FB923C'
+            : (officialConf === 'HIGH' || officialConf === 'high') ? 'var(--primary-l)' : '#f59e0b';
           var badgeTxt = gpCuratedSide === side ? 'THE BET' : 'MODEL';
           var edgeTxt = gpEdge >= 1 ? ' +' + gpEdge.toFixed(1) : '';
           return '<span style="font-size:.48rem;font-weight:900;background:' + confColor + '22;border:1px solid ' + confColor + '55;color:' + confColor + ';padding:1px 5px;border-radius:3px;margin-left:3px;letter-spacing:.3px">' + badgeTxt + edgeTxt + '</span>';
@@ -1576,7 +1576,7 @@
       var gpSpNow = gpPredNow && gpPredNow.spreadPick;
       var gpTPNow = game.gamePreview && game.gamePreview.thePick;
       var kellyMap = { ELITE: '2u (2% bankroll)', HIGH: '1.5u (1.5% bankroll)', MEDIUM: '1u (1% bankroll)', LOW: '0.5u — weak edge' };
-      var confColorMap = { ELITE: '#10b981', HIGH: '#34d399', MEDIUM: '#f59e0b', LOW: '#94a3b8' };
+      var confColorMap = { ELITE: '#FB923C', HIGH: 'var(--primary-l)', MEDIUM: '#f59e0b', LOW: '#94a3b8' };
       // Determine official pick side and confidence
       var officialPickTeam = gpTPNow && gpTPNow.team ? gpTPNow.team.toLowerCase() : null;
       var officialPickConf = gpTPNow && gpTPNow.confidence ? gpTPNow.confidence.toUpperCase() : (gpPredNow ? (gpPredNow.confidence || 'medium').toUpperCase() : null);
@@ -1598,8 +1598,8 @@
         var srcLabel = isCurated ? 'THE BET PICKS' : 'MODEL';
         if (pickSideMatch) {
           modelHint.style.display = 'flex';
-          modelHint.style.borderColor = 'rgba(16,185,129,.3)';
-          modelHint.style.background = 'rgba(16,185,129,.05)';
+          modelHint.style.borderColor = 'rgba(251,146,60,.3)';
+          modelHint.style.background = 'rgba(251,146,60,.05)';
           modelHint.innerHTML = '<span style="font-size:.6rem;font-weight:900;color:' + confColor2 + '">' + srcLabel + ' AGREES (' + conf2 + ')' + edgeStr2 + '</span>' +
             '<span style="font-size:.6rem;color:var(--muted);margin-left:6px">Bet size: <strong style="color:var(--text)">' + kelly2 + '</strong></span>';
         } else {
