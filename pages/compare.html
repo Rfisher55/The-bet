@@ -140,8 +140,8 @@
       font-size: .68rem; font-weight: 800; letter-spacing: .5px;
       border: 1px solid; margin-top: 4px;
     }
-    .conf-elite  { background: rgba(16,185,129,.15); border-color: rgba(16,185,129,.5); color: var(--primary); }
-    .conf-high   { background: rgba(52,211,153,.15); border-color: rgba(52,211,153,.5); color: #34d399; }
+    .conf-elite  { background: rgba(251,146,60,.15); border-color: rgba(251,146,60,.5); color: var(--primary); }
+    .conf-high   { background: rgba(253,186,116,.15); border-color: rgba(253,186,116,.5); color: var(--primary-l); }
     .conf-medium { background: rgba(245,158,11,.15); border-color: rgba(245,158,11,.5); color: var(--gold); }
     .conf-low    { background: rgba(100,116,139,.15); border-color: rgba(100,116,139,.5); color: var(--muted-l); }
 
@@ -301,8 +301,8 @@
       border: 1px solid var(--border); background: var(--surface);
       color: var(--muted); transition: all .15s;
     }
-    .share-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(16,185,129,.06); }
-    .share-btn.copied { border-color: var(--primary); color: var(--primary); background: rgba(16,185,129,.1); }
+    .share-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(251,146,60,.06); }
+    .share-btn.copied { border-color: var(--primary); color: var(--primary); background: rgba(251,146,60,.1); }
 
     /* ── Scroll margin for anchors ── */
     .comparison-content { scroll-margin-top: 80px; }
@@ -497,10 +497,10 @@ function pct(v) { return (v * 100).toFixed(1) + '%'; }
 function fix1(v) { return (+v).toFixed(1); }
 function fix0(v) { return Math.round(+v); }
 function ratingColor(v) {
-  return v >= 92 ? 'var(--primary)' : v >= 80 ? '#34d399' : v >= 68 ? 'var(--gold)' : 'var(--muted)';
+  return v >= 92 ? 'var(--primary)' : v >= 80 ? 'var(--primary-l)' : v >= 68 ? 'var(--gold)' : 'var(--muted)';
 }
 function healthColor(v) {
-  return v >= 85 ? 'var(--primary)' : v >= 70 ? '#34d399' : v >= 55 ? 'var(--gold)' : 'var(--danger)';
+  return v >= 85 ? 'var(--primary)' : v >= 70 ? 'var(--primary-l)' : v >= 55 ? 'var(--gold)' : 'var(--danger)';
 }
 function confColor(c) {
   return c === 'elite' ? 'conf-elite' : c === 'high' ? 'conf-high' : c === 'medium' ? 'conf-medium' : 'conf-low';
@@ -599,7 +599,7 @@ function buildRealGameBanner(a, b, game, pred) {
       valueTeam = sp.side === 'home' ? home.name : away.name;
       valueDir = 'strong value';
     } else if (modelEdge >= 1.5) {
-      edgeColor = '#34d399';
+      edgeColor = 'var(--primary-l)';
       valueTeam = sp.side === 'home' ? home.name : away.name;
       valueDir = 'value';
     } else {
@@ -621,7 +621,7 @@ function buildRealGameBanner(a, b, game, pred) {
   const confCls = pred ? ({ elite: 'badge-elite', high: 'badge-high', medium: 'badge-medium', low: 'badge-low' }[pred.confidence] || '') : '';
 
   return `
-    <div class="cmp-section" style="border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.04)">
+    <div class="cmp-section" style="border-color:rgba(251,146,60,.4);background:rgba(251,146,60,.04)">
       <div class="cmp-section-title" style="color:var(--primary)">
         <span style="background:var(--primary);color:#000;padding:1px 7px;border-radius:4px;font-size:.58rem">REAL GAME SCHEDULED</span>
         Actual Matchup — Week ${game.week}
@@ -667,7 +667,7 @@ function buildRealGameBanner(a, b, game, pred) {
           const dispColor = confColors[displayConf] || 'var(--primary)';
           const units = curatedUnit ? `${curatedUnit}u` : (displayConf === 'ELITE' ? '2u' : displayConf === 'HIGH' ? '1.5u' : '1u');
           return hasPick ? `
-          <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);border-radius:var(--radius);padding:12px;text-align:center">
+          <div style="background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.3);border-radius:var(--radius);padding:12px;text-align:center">
             <div style="font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">${curatedSide ? '⭐ THE BET PICKS' : '🤖 MODEL PICK'}</div>
             <div style="font-size:.85rem;font-weight:800;color:${dispColor}">${displayTeam} covers${curatedLine ? ' ' + curatedLine : ''}</div>
             <div style="font-size:.65rem;color:${edgeColor};margin-top:2px">${edgeText || (displayConf ? displayConf + ' · ' + units : '')}</div>
@@ -744,7 +744,7 @@ function buildWinProb(a, b, pred) {
         <div class="winner-dot" style="background:${winnerBorderColor}"></div>
         <div>
           <div class="winner-text">${winner} wins (${winnerIsA ? aWinPct : bWinPct}% chance)</div>
-          <div class="winner-sub">Predicted spread: ${spreadStr} &middot; Confidence: <span class="conf-badge ${confColor(conf)}">${confLabel(conf)}</span> &middot; Model Grade: <strong style="color:${grade === 'A+' ? 'var(--primary)' : grade === 'A' ? '#34d399' : grade === 'B' ? 'var(--accent)' : grade === 'C' ? 'var(--gold)' : 'var(--danger)'}">${grade}</strong></div>
+          <div class="winner-sub">Predicted spread: ${spreadStr} &middot; Confidence: <span class="conf-badge ${confColor(conf)}">${confLabel(conf)}</span> &middot; Model Grade: <strong style="color:${grade === 'A+' ? 'var(--primary)' : grade === 'A' ? 'var(--primary-l)' : grade === 'B' ? 'var(--accent)' : grade === 'C' ? 'var(--gold)' : 'var(--danger)'}">${grade}</strong></div>
         </div>
       </div>
       <!-- Probability bar -->
@@ -1036,7 +1036,7 @@ function buildAdvantages(a, b) {
     .map(c => {
       const winner = c.diff > 0 ? a : b;
       const margin = Math.abs(c.diff);
-      const color = c.diff > 0 ? (a.color || '#10b981') : (b.color || '#334155');
+      const color = c.diff > 0 ? (a.color || '#FB923C') : (b.color || '#334155');
       const dispMargin = margin < 1 ? margin.toFixed(1) : Math.round(margin);
       return `
         <div class="adv-chip" style="border-color:${color}40;background:${color}0a">
@@ -1078,7 +1078,7 @@ function buildATSComparison(a, b) {
     return { pct: Math.round(rec.wins / tot * 100), wins: rec.wins, losses: rec.losses };
   }
   function atsColor(pct) {
-    return pct >= 60 ? 'var(--primary)' : pct >= 53 ? '#34d399' : pct >= 47 ? 'var(--gold)' : 'var(--danger)';
+    return pct >= 60 ? 'var(--primary)' : pct >= 53 ? 'var(--primary-l)' : pct >= 47 ? 'var(--gold)' : 'var(--danger)';
   }
   function atsRow(recA, recB, label) {
     const pA = atsPct(recA), pB = atsPct(recB);
@@ -1177,7 +1177,7 @@ function buildBettingSignals(a, b, pred) {
       </div>
       ${signals.map(sigRow).join('')}
       ${pickedTeam ? `
-      <div style="margin-top:14px;padding:10px 12px;border-radius:var(--radius);background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)">
+      <div style="margin-top:14px;padding:10px 12px;border-radius:var(--radius);background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.2)">
         <div style="font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:4px">⭐ MODEL PICK (Neutral Site)</div>
         <div style="font-size:.85rem;font-weight:800;color:var(--text)">${pickedTeam} covers</div>
         <div style="font-size:.7rem;color:var(--muted-l);margin-top:2px">+${(sp.edge||0).toFixed(1)} pt edge · ${pred.winProbability}% win prob · ${pred.confidence.toUpperCase()} confidence</div>
@@ -1230,9 +1230,11 @@ function buildActionPlan(a, b, effPred, gameCtx) {
   if (sm && sm.strength >= 5 && sm.side === sp.side)
     proBullets.push('Sharp money aligned with this pick');
   var si = (gameCtx && gameCtx.socialIntel) || {};
-  var pb = si.publicBetting || {};
-  var ourPubPct = sp.side === 'home' ? (pb.homePct || 50) : (pb.awayPct || (100 - (pb.homePct || 50)));
-  if (ourPubPct <= 40) proBullets.push('Only ' + Math.round(ourPubPct) + '% of public on this side — contrarian value');
+  var _pbRawCmp = si.publicBetting;
+  // Only use real public betting data — reject default estimates
+  var pb = (_pbRawCmp && _pbRawCmp.source !== 'default') ? _pbRawCmp : null;
+  var ourPubPct = pb ? (sp.side === 'home' ? (pb.homePct || 50) : (pb.awayPct || (100 - (pb.homePct || 50)))) : 50;
+  if (pb && ourPubPct <= 40) proBullets.push('Only ' + Math.round(ourPubPct) + '% of public on this side — contrarian value');
 
   // Caution bullets
   var cautionBullets = [];

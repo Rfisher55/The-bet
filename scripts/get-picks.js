@@ -8,7 +8,8 @@ const vm   = require('vm');
 const fs   = require('fs');
 const path = require('path');
 
-const JS = (...f) => fs.readFileSync(path.resolve(__dirname, '..', 'js', ...f), 'utf8');
+const JS   = (...f) => fs.readFileSync(path.resolve(__dirname, '..', 'js', ...f), 'utf8');
+const ROOT = path.resolve(__dirname, '..');
 
 // ── Load sandbox (runs once per process invocation) ───────────────
 let _cache = null;
@@ -21,6 +22,93 @@ function loadSandbox() {
   vm.runInNewContext(JS('data.js'),             sandbox);
   vm.runInNewContext(JS('data-fbs-stubs.js'),   sandbox);
   vm.runInNewContext(JS('players-extended.js'), sandbox);
+
+  // Enrich TEAMS with live SP+ from team-extras.json before predictor runs,
+  // so the script model uses the same inputs as the website.
+  try {
+    const extras = JSON.parse(
+      fs.readFileSync(path.join(ROOT, 'data', 'team-extras.json'), 'utf8')
+    );
+    const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    // SP+ ratings — match by team ID first (handles Ole Miss/Mississippi, FIU, etc.),
+    // fall back to normalized name for entries without an id field.
+    const spList = extras.spRatings || [];
+    if (spList.length && sandbox.TEAMS) {
+      const spById   = Object.fromEntries(spList.filter(e => e.id).map(e => [e.id, e.rating]));
+      const spByName = Object.fromEntries(spList.map(e => [norm(e.team), e.rating]));
+      Object.values(sandbox.TEAMS).forEach(t => {
+        const rating = spById[t.id] ?? spByName[norm(t.name || '')];
+        if (rating != null) t.spRating = rating;
+      });
+      console.log(`[LIVE] SP+ enriched for ${spList.length} teams in predictor sandbox`);
+    }
+
+    // Coach names + career records from prior-year CFBD
+    // coachMap is keyed by both CFBD school name AND team ID for name-mismatch teams.
+    const cmap = extras.coachMap || {};
+    if (Object.keys(cmap).length && sandbox.TEAMS) {
+      Object.values(sandbox.TEAMS).forEach(t => {
+        const entry = cmap[t.id] || cmap[t.name] || cmap[Object.keys(cmap).find(k => norm(k) === norm(t.name || '')) || ''];
+        if (entry) {
+          if (entry.name) t.coachName = entry.name;
+          if (entry.record) t.coachRecord = entry.record;
+        }
+      });
+    }
+
+    // Historical ATS records from prior-year lines — overall + situational breakdowns
+    const atsMap = extras.atsRecords || {};
+    if (Object.keys(atsMap).length && sandbox.TEAMS) {
+      Object.values(sandbox.TEAMS).forEach(t => {
+        const entry = atsMap[t.id] || atsMap[t.name] || atsMap[Object.keys(atsMap).find(k => norm(k) === norm(t.name || '')) || ''];
+        if (entry && entry.wins + entry.losses >= 4) {
+          t.atsRecord = entry;
+          // Apply live situational breakdowns so predictor uses 2025 data, not stale data.js estimates
+          if (entry.home || entry.away || entry.fav || entry.dog) {
+            if (!t.situational) t.situational = {};
+            if (entry.home && entry.home.wins + entry.home.losses >= 3) t.situational.atsHome      = entry.home;
+            if (entry.away && entry.away.wins + entry.away.losses >= 3) t.situational.atsAway      = entry.away;
+            if (entry.fav  && entry.fav.wins  + entry.fav.losses  >= 3) t.situational.atsFavorite  = entry.fav;
+            if (entry.dog  && entry.dog.wins  + entry.dog.losses  >= 3) t.situational.atsUnderdog  = entry.dog;
+          }
+        }
+      });
+      if (Object.keys(atsMap).length) console.log(`[LIVE] ATS records loaded for ${Object.keys(atsMap).length} teams from team-extras.json`);
+    }
+  } catch (_) { /* team-extras.json missing or empty — use data.js fallback */ }
+
+  // Merge live player stats/injury updates from players-2026.json (mirrors live.js pattern).
+  // During preseason the file is empty — no-op. During season: updates stats + injury status
+  // so tweet predictions use the same player inputs as the website.
+  try {
+    const pd = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'players-2026.json'), 'utf8'));
+    const livePlayers = pd.players || [];
+    if (livePlayers.length && sandbox.KEY_PLAYERS) {
+      const byId  = {};
+      const byKey = {};
+      sandbox.KEY_PLAYERS.forEach(p => {
+        byId[p.id] = p;
+        byKey[p.teamId + '|' + p.position + '|' + (p.name || '').toLowerCase()] = p;
+      });
+      let added = 0, updated = 0;
+      livePlayers.forEach(p => {
+        if (!p || !p.id || !p.teamId) return;
+        const k = p.teamId + '|' + p.position + '|' + (p.name || '').toLowerCase();
+        const curated = byId[p.id] || byKey[k];
+        if (curated) {
+          if (p.stats)        curated.stats        = p.stats;
+          if (p.injuryStatus) curated.injuryStatus = p.injuryStatus;
+          updated++;
+        } else {
+          sandbox.KEY_PLAYERS.push(p);
+          added++;
+        }
+      });
+      console.log(`[LIVE] Players merged: ${updated} updated, ${added} added from players-2026.json`);
+    }
+  } catch (_) { /* players-2026.json missing or empty — players-extended.js fallback */ }
+
   vm.runInNewContext(JS('predictor.js'),        sandbox);
   _cache = sandbox;
   return sandbox;
@@ -81,6 +169,27 @@ function allPredictions() {
 }
 
 // ── Helpers ───────────────────────────────────────────────────────
+
+// Returns true if any games in the live data file have betting lines.
+// Used to gate post types that require real edge/probability calculations.
+function hasLines() {
+  try {
+    const d = JSON.parse(
+      require('fs').readFileSync(require('path').resolve(__dirname, '..', 'data', 'games-2026.json'), 'utf8')
+    );
+    return (d.games || []).some(g => g.bettingLines && g.bettingLines.spread != null);
+  } catch { return false; }
+}
+
+// Normalize team name for use as a Twitter hashtag:
+// decompose Unicode (é → e + combining accent), strip combining marks, strip non-letters.
+function toHashtag(name) {
+  return '#' + (name || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-zA-Z]/g, '');
+}
+
 function pickConf(p) {
   const tp = p.game.gamePreview && p.game.gamePreview.thePick;
   return (tp && tp.confidence ? tp.confidence.toLowerCase() : null) || p.prediction.confidence;
@@ -139,13 +248,14 @@ function calcParlayOdds(legOdds) {
 
 // ── getPicks ──────────────────────────────────────────────────────
 function getPicks(type = 'all') {
+  if (!hasLines()) return []; // no lines → no real edges; don't post garbage picks
   const today = new Date().toISOString().slice(0, 10);
   const predictions = allPredictions();
   const minWeek = upcomingWeek(predictions);
 
   return predictions
     .filter(p => {
-      if (minWeek && p.game.week !== minWeek) return false;
+      if (minWeek != null && p.game.week !== minWeek) return false;
       if (p.game.date < today) return false;
       const conf = pickConf(p);
       if (type === 'elite') return conf === 'elite';
@@ -182,10 +292,11 @@ function getPicks(type = 'all') {
         winProb:    Math.round(sp.confidence || pred.winProbability || 0),
         conf,
         sharpAligns: smSig.side && smSig.side !== 'neutral' && ((smSig.side === 'home') === pickIsHome),
-        publicPct:  (pickIsHome ? pb.homePct : pb.awayPct) != null
+        // Only include publicPct when source is real data (not the 50/50 default estimate)
+        publicPct:  pb.source !== 'default' && (pickIsHome ? pb.homePct : pb.awayPct) != null
                       ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
-        hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
-        hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
+        hashHome:   toHashtag(game.homeTeam.name),
+        hashAway:   toHashtag(game.awayTeam.name),
         reasoning:  tp && tp.reasoning ? tp.reasoning : null,
       };
     });
@@ -194,6 +305,7 @@ function getPicks(type = 'all') {
 // ── getTop5 ───────────────────────────────────────────────────────
 // Returns top 5 picks for the week ranked by conf tier then edge.
 function getTop5() {
+  if (!hasLines()) return []; // no lines → edge/prob are meaningless; don't post garbage
   const today = new Date().toISOString().slice(0, 10);
   const predictions = allPredictions();
   const minWeek = upcomingWeek(predictions);
@@ -201,7 +313,7 @@ function getTop5() {
 
   return predictions
     .filter(p => {
-      if (minWeek && p.game.week !== minWeek) return false;
+      if (minWeek != null && p.game.week !== minWeek) return false;
       return p.game.date >= today;
     })
     .sort((a, b) => {
@@ -239,10 +351,10 @@ function getTop5() {
         edge:       parseFloat((sp.edge || 0).toFixed(1)),
         winProb:    Math.round(sp.confidence || pred.winProbability || 0),
         conf,
-        publicPct:  (pickIsHome ? pb.homePct : pb.awayPct) != null
+        publicPct:  pb.source !== 'default' && (pickIsHome ? pb.homePct : pb.awayPct) != null
                       ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
-        hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
-        hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
+        hashHome:   toHashtag(game.homeTeam.name),
+        hashAway:   toHashtag(game.awayTeam.name),
         reasoning:  tp && tp.reasoning ? tp.reasoning : null,
         total:      bl.total,
         totalPick:  pred.totalPick,
@@ -260,7 +372,7 @@ function getBiggestMatchups() {
 
   return predictions
     .filter(p => {
-      if (minWeek && p.game.week !== minWeek) return false;
+      if (minWeek != null && p.game.week !== minWeek) return false;
       return p.game.date >= today;
     })
     .map(p => {
@@ -298,8 +410,8 @@ function getBiggestMatchups() {
         ourConf:   tp?.confidence || null,
         isConf:    game.isConferenceGame,
         excitementScore: score,
-        hashHome:  '#' + (game.homeTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
-        hashAway:  '#' + (game.awayTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
+        hashHome:  toHashtag(game.homeTeam?.name),
+        hashAway:  toHashtag(game.awayTeam?.name),
       };
     })
     .sort((a, b) => b.excitementScore - a.excitementScore)
@@ -316,7 +428,7 @@ function getLocks() {
 
   return predictions
     .filter(p => {
-      if (minWeek && p.game.week !== minWeek) return false;
+      if (minWeek != null && p.game.week !== minWeek) return false;
       if (p.game.date < today) return false;
       const conf = pickConf(p);
       if (conf !== 'elite' && conf !== 'high') return false;
@@ -364,11 +476,11 @@ function getLocks() {
         conf:       pickConf(p),
         sharpAligns: (pred.sharpMoneySignal?.side && pred.sharpMoneySignal.side !== 'neutral' &&
                      (pred.sharpMoneySignal.side === 'home') === pickIsHome),
-        publicPct:  (pickIsHome ? pb.homePct : pb.awayPct) != null
+        publicPct:  pb.source !== 'default' && (pickIsHome ? pb.homePct : pb.awayPct) != null
                       ? Math.round(pickIsHome ? pb.homePct : pb.awayPct) : null,
         reasoning:  tp?.reasoning || null,
-        hashHome:   '#' + (game.homeTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
-        hashAway:   '#' + (game.awayTeam?.name || '').replace(/[^a-zA-Z]/g, ''),
+        hashHome:   toHashtag(game.homeTeam?.name),
+        hashAway:   toHashtag(game.awayTeam?.name),
       };
     });
 }
@@ -376,6 +488,7 @@ function getLocks() {
 // ── getParlays ────────────────────────────────────────────────────
 // Returns top 3 optimal parlay combos (mirrors parlay.html logic).
 function getParlays(legCount = 3) {
+  if (!hasLines()) return []; // parlay odds require real spread lines
   const today = new Date().toISOString().slice(0, 10);
   const predictions = allPredictions();
   const minWeek = upcomingWeek(predictions);
@@ -385,7 +498,7 @@ function getParlays(legCount = 3) {
   const confWeights = { elite: 4, high: 3 };
 
   predictions
-    .filter(p => minWeek ? p.game.week === minWeek : true)
+    .filter(p => minWeek != null ? p.game.week === minWeek : true)
     .filter(p => p.game.date >= today)
     .forEach(p => {
       const { game, prediction: pred } = p;
@@ -490,6 +603,7 @@ function getPastPicks() {
       const pickTeam   = (tp && tp.team) ? tp.team : (sp.side === 'home' ? game.homeTeam.name : game.awayTeam.name);
       const pickIsHome = pickTeam.toLowerCase() === (game.homeTeam.name || '').toLowerCase();
       const vegasLine  = bl.spread != null ? (pickIsHome ? bl.spread : -bl.spread) : null;
+      const smSig      = pred.sharpMoneySignal || {};
       return {
         gameId:     game.id,
         week:       game.week,
@@ -503,8 +617,9 @@ function getPastPicks() {
         pickTeam,
         vegasSpread: vegasLine,
         conf,
-        hashHome:   '#' + game.homeTeam.name.replace(/[^a-zA-Z]/g, ''),
-        hashAway:   '#' + game.awayTeam.name.replace(/[^a-zA-Z]/g, ''),
+        sharpAligns: !!(smSig.side && smSig.side !== 'neutral' && ((smSig.side === 'home') === pickIsHome)),
+        hashHome:   toHashtag(game.homeTeam.name),
+        hashAway:   toHashtag(game.awayTeam.name),
         reasoning:  tp && tp.reasoning ? tp.reasoning : null,
       };
     });

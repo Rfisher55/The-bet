@@ -18,7 +18,7 @@
  *   ODDSPAPI_KEY    — optional free at oddspapi.io (250 req/month, includes Pinnacle = sharp reference)
  */
 
-import { writeFileSync, renameSync, mkdirSync } from "fs";
+import { writeFileSync, readFileSync, renameSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -221,7 +221,28 @@ const TEAM_ALIASES = {
 // ── HTTP helpers ──────────────────────────────────────────────────────────
 const UA = "TheBet/2.0 (cfb-predictor; contact rfisher55@github.com)";
 
-async function cfbdFetch(endpoint) {
+// CFBD rate-limits parallel bursts (429s) — serialize calls through a queue
+// with spacing, and retry 429s with exponential backoff. If several endpoints
+// in a row exhaust their retries the quota is gone for the month, not just
+// the burst window — trip a circuit breaker and stop retrying entirely so the
+// run finishes fast on fallback sources instead of burning 19s per endpoint.
+let _cfbdQueue = Promise.resolve();
+const CFBD_SPACING_MS = 350;
+const CFBD_RETRIES = [2000, 5000, 12000];
+const CFBD_BREAKER_THRESHOLD = 3;
+let _cfbd429Streak = 0;
+let _cfbdQuotaExhausted = false;
+
+function cfbdFetch(endpoint) {
+  const run = _cfbdQueue.then(() => _cfbdFetchRaw(endpoint));
+  _cfbdQueue = run.then(
+    () => new Promise(res => setTimeout(res, CFBD_SPACING_MS)),
+    () => new Promise(res => setTimeout(res, CFBD_SPACING_MS)),
+  );
+  return run;
+}
+
+async function _cfbdFetchRaw(endpoint, attempt = 0) {
   try {
     const r = await fetch(`${CFBD_BASE}${endpoint}`, {
       headers: { Authorization: `Bearer ${CFBD_KEY}` },
@@ -235,6 +256,22 @@ async function cfbdFetch(endpoint) {
       console.error('   → Rotate CFBD_API_KEY at collegefootballdata.com and update the GitHub secret.');
       process.exit(1);
     }
+    if (r.status === 429) {
+      if (!_cfbdQuotaExhausted && attempt < CFBD_RETRIES.length) {
+        const wait = CFBD_RETRIES[attempt];
+        console.warn(`  CFBD 429: ${endpoint} — retrying in ${wait / 1000}s (${attempt + 1}/${CFBD_RETRIES.length})`);
+        await new Promise(res => setTimeout(res, wait));
+        return _cfbdFetchRaw(endpoint, attempt + 1);
+      }
+      _cfbd429Streak++;
+      if (!_cfbdQuotaExhausted && _cfbd429Streak >= CFBD_BREAKER_THRESHOLD) {
+        _cfbdQuotaExhausted = true;
+        console.warn(`  ⚠️ CFBD quota appears exhausted (${_cfbd429Streak} endpoints 429'd through all retries) — skipping retries for remaining calls`);
+      }
+      if (!_cfbdQuotaExhausted) console.warn(`  CFBD 429: ${endpoint} — gave up after ${CFBD_RETRIES.length} retries`);
+      return null;
+    }
+    _cfbd429Streak = 0;
     if (!r.ok) { console.warn(`  CFBD ${r.status}: ${endpoint}`); return null; }
     return await r.json();
   } catch (e) { console.warn(`  CFBD fail: ${endpoint} — ${e.message}`); return null; }
@@ -460,6 +497,72 @@ async function fetchESPNInjuries() {
     }));
   }
   return injuries;
+}
+
+// ── ESPN: fetch rosters for ALL FBS teams ─────────────────────────────────
+async function fetchESPNRosters() {
+  const ESPN_TEAM_IDS = {
+    alabama:333,auburn:2,florida:57,georgia:61,lsu:99,ohio_state:194,
+    michigan:130,penn_state:213,clemson:228,notre_dame:87,texas:251,
+    oregon:2483,texas_am:245,tennessee:2633,miami:2390,baylor:239,
+    iowa:2294,wisconsin:275,oklahoma_state:197,kansas_state:2306,
+    utah:254,byu:252,cincinnati:2132,ucf:2116,florida_state:52,
+    north_carolina:153,pittsburgh:221,virginia_tech:259,louisville:97,
+    wake_forest:154,boston_college:103,duke:150,syracuse:183,virginia:258,
+    stanford:24,cal:25,smu:2567,arizona_state:9,arizona:12,
+    colorado:38,west_virginia:277,iowa_state:66,kansas:2305,texas_tech:2641,
+    tcu:2628,houston:248,north_texas:249,memphis:235,tulane:2655,navy:2426,
+    army:349,south_florida:58,east_carolina:151,rice:242,boise_state:68,
+    fresno_state:278,san_diego_state:21,nevada:2440,unlv:2439,wyoming:2751,
+    air_force:2005,utah_state:328,new_mexico:167,hawaii:62,colorado_state:36,
+    kentucky:96,arkansas:8,south_carolina:2579,vanderbilt:238,ole_miss:145,
+    mississippi_state:344,missouri:142,nebraska:158,minnesota:135,maryland:120,
+    indiana:84,purdue:2509,illinois:356,northwestern:77,rutgers:164,
+    michigan_state:127,usc:30,ucla:26,washington:264,oregon_state:204,
+    washington_state:265,georgia_tech:59,nc_state:152,
+    app_state:2026,coastal_carolina:324,liberty:2335,marshall:276,
+    old_dominion:295,james_madison:2259,western_kentucky:98,utsa:2636,
+    uab:2629,fau:2226,fiu:2296,charlotte:2429,southern_miss:2572,
+    troy:2653,south_alabama:6,louisiana:309,ul_monroe:2433,arkansas_state:2032,
+    georgia_southern:290,georgia_state:2247,texas_state:326,middle_tennessee:2393,
+    new_mexico_state:166,la_tech:2348,sam_houston:2534,utep:2638,
+    akron:2006,ball_state:2050,bowling_green:189,buffalo:2084,
+    central_michigan:2117,eastern_michigan:2199,kent_state:2307,miami_oh:193,
+    northern_illinois:2459,ohio:195,toledo:2649,western_michigan:2711,
+    uconn:41,umass:113,tulsa:202,
+  };
+  const SKILL_POSITIONS = new Set(["QB","RB","WR","TE","EDGE","DE","DT","LB","OLB","ILB","CB","S","DB","FS","SS"]);
+  const rosters = {};
+  const entries = Object.entries(ESPN_TEAM_IDS);
+  for (let i = 0; i < entries.length; i += 8) {
+    await Promise.all(entries.slice(i, i + 8).map(async ([teamId, espnId]) => {
+      try {
+        const d = await espnFetch(`/teams/${espnId}/roster?limit=150`);
+        const players = [];
+        for (const group of (d?.athletes || [])) {
+          for (const athlete of (group.items || group.athletes || [])) {
+            const pos = athlete.position?.abbreviation || "";
+            if (!SKILL_POSITIONS.has(pos)) continue;
+            players.push({
+              name:        (athlete.displayName || athlete.fullName || "").trim(),
+              number:      (athlete.jersey || "").toString(),
+              position:    pos,
+              year:        athlete.experience?.displayValue || "",
+              heightWeight:(athlete.displayHeight && athlete.displayWeight)
+                ? `${athlete.displayHeight} / ${athlete.displayWeight}` : "",
+              status:      (athlete.injuries?.[0]?.status || athlete.status?.type || "active").toLowerCase(),
+              injuryType:  athlete.injuries?.[0]?.longComment || athlete.injuries?.[0]?.type || null,
+            });
+          }
+        }
+        if (players.length) rosters[teamId] = players;
+      } catch {}
+    }));
+    if (i + 8 < entries.length) await new Promise(r => setTimeout(r, 300));
+  }
+  const total = Object.values(rosters).reduce((s, r) => s + r.length, 0);
+  console.log(`  ESPN rosters: ${Object.keys(rosters).length} teams, ${total} skill-position players`);
+  return rosters;
 }
 
 // ── The Odds API — multi-book line comparison ───────────────────────────
@@ -688,8 +791,8 @@ async function fetchRedditSentiment() {
 
 // ── Google News RSS — shared parser ─────────────────────────────────────
 const IMPACT_KEYWORDS = {
-  critical: ["arrested","charged","indicted","suspended indefinitely","dismissed from team","expelled","guilty"],
-  negative: ["injured","out for season","torn","surgery","suspended","dismissed","transfer portal","decommits","fired","resigned","investigation","allegations","banned"],
+  critical: ["arrested","charged","indicted","suspended indefinitely","dismissed from team","expelled","guilty","gambling"],
+  negative: ["injured","out for season","torn","surgery","suspended","dismissed","transfer portal","decommits","fired","resigned","investigation","allegations","banned","scandal","lawsuit","suspension","controversy","violation","misconduct","cancel","legal trouble","academic","eligibility"],
   positive: ["commits","enrolled","returns","promoted","extension","wins","ranked","signs","award","honor","drafted"],
 };
 function parseNewsXML(xml, maxItems = 5) {
@@ -709,7 +812,11 @@ function parseNewsXML(xml, maxItems = 5) {
     if (!title || title.length < 10) continue;
     const lower = title.toLowerCase();
     const isCritical = IMPACT_KEYWORDS.critical.some(w => lower.includes(w));
-    const isNegative = IMPACT_KEYWORDS.negative.some(w => lower.includes(w));
+    const isNegative = IMPACT_KEYWORDS.negative.some(w => {
+      if (!lower.includes(w)) return false;
+      if (w === 'fired' && lower.includes('fired up')) return false;
+      return true;
+    });
     const isPositive = IMPACT_KEYWORDS.positive.some(w => lower.includes(w));
     const sentiment  = isCritical ? "critical" : isNegative ? "negative" : isPositive ? "positive" : "neutral";
     const daysAgo    = pubDate ? Math.max(0, Math.round((Date.now() - new Date(pubDate).getTime()) / 86400000)) : 1;
@@ -786,8 +893,21 @@ async function fetchAllTeamNews() {
 
 // ── CFBD: additional data endpoints ─────────────────────────────────────
 async function fetchCFBDExtras() {
-  console.log("  Fetching CFBD extras (SP+, ELO, stats, recruiting, PPA)...");
-  const [spRatings, eloRatings, teamStats, recruiting, ppa, transfers] = await Promise.all([
+  console.log("  Fetching CFBD extras (SP+, ELO, stats, recruiting, PPA, coaches, ATS)...");
+
+  // Load static prior-season data from cache (written by scripts/cache-cfbd-static.mjs).
+  // This avoids re-fetching 7 CFBD endpoints whose data never changes after season end,
+  // cutting monthly quota usage by ~3,500 calls.  Cache refreshes annually each February.
+  let cache25 = null;
+  try {
+    cache25 = JSON.parse(readFileSync(join(DATA_DIR, "cfbd-cache-2025.json"), "utf8"));
+    if (cache25?.sp?.length) {
+      console.log(`  Cache: 2025 static data (${cache25.sp.length} SP+ teams, ${cache25.coaches?.length || 0} coaches, ${cache25.games?.length || 0} games for ATS)`);
+    }
+  } catch {}
+
+  // Fetch only current-season endpoints — 6 calls instead of 13
+  const [sp2026, elo2026, teamStats, recruiting, ppa, transfers] = await Promise.all([
     cfbdFetch(`/ratings/sp?year=${SEASON}`),
     cfbdFetch(`/ratings/elo?year=${SEASON}&week=1`),
     cfbdFetch(`/stats/season?year=${SEASON}&seasonType=regular`),
@@ -795,11 +915,113 @@ async function fetchCFBDExtras() {
     cfbdFetch(`/ppa/teams?year=${SEASON}&excludeGarbageTime=true`),
     cfbdFetch(`/player/transfer-portal?year=${SEASON}`),
   ]);
-  // Also get prior years recruiting for trend
-  const [rec25, rec24] = await Promise.all([
-    cfbdFetch(`/recruiting/teams?year=2025`),
-    cfbdFetch(`/recruiting/teams?year=2024`),
-  ]);
+
+  // 2025 static data: use cache (free, instant) or fall back to live API
+  const sp2025  = cache25?.sp?.length       ? cache25.sp      : await cfbdFetch(`/ratings/sp?year=${SEASON - 1}`);
+  const elo2025 = cache25?.elo?.length      ? cache25.elo     : await cfbdFetch(`/ratings/elo?year=${SEASON - 1}`);
+  const coaches = cache25?.coaches?.length  ? cache25.coaches : await cfbdFetch(`/coaches?year=${SEASON - 1}`);
+  const lines25 = cache25?.lines?.length    ? cache25.lines   : await cfbdFetch(`/lines?year=${SEASON - 1}`);
+  const games25 = cache25?.games?.length    ? cache25.games   : await cfbdFetch(`/games?year=${SEASON - 1}&seasonType=regular&classification=fbs`);
+  const rec25   = cache25?.recruiting?.["2025"]?.length ? cache25.recruiting["2025"] : await cfbdFetch(`/recruiting/teams?year=2025`);
+  const rec24   = cache25?.recruiting?.["2024"]?.length ? cache25.recruiting["2024"] : await cfbdFetch(`/recruiting/teams?year=2024`);
+
+  // Use current-season ratings if published, otherwise fall back to prior year
+  const spRatings  = sp2026?.length  ? sp2026  : (sp2025  || []);
+  const eloRatings = elo2026?.length ? elo2026 : (elo2025 || []);
+  if (!sp2026?.length  && sp2025?.length)  console.log(`  SP+: ${SEASON} not published yet — using ${SEASON-1} fallback (${spRatings.length} teams)`);
+  if (!elo2026?.length && elo2025?.length) console.log(`  ELO: ${SEASON} not published yet — using ${SEASON-1} fallback (${eloRatings.length} teams)`);
+
+  // Build coach name + career record map (keyed by school name)
+  const coachMap = {};
+  (coaches || []).forEach(c => {
+    if (!Array.isArray(c.schools) || !c.schools.length) return;
+    const cur = c.schools.find(s => s.year === SEASON - 1) ||
+                c.schools.sort((a, b) => b.year - a.year)[0];
+    if (!cur?.school) return;
+    const name = `${c.firstName} ${c.lastName}`;
+    const totalW = c.schools.reduce((s, sc) => s + (sc.wins  || 0), 0);
+    const totalL = c.schools.reduce((s, sc) => s + (sc.losses || 0), 0);
+    const entry = {
+      name,
+      record: totalW + totalL > 0 ? `${totalW}-${totalL}` : null,
+    };
+    coachMap[cur.school] = entry;
+    // Also key by internal team ID so tweet scripts can match Ole Miss/Mississippi, FIU, etc.
+    const tid = schoolToId(cur.school);
+    if (tid) coachMap[tid] = entry;
+  });
+
+  // Build overall + situational ATS records per team from prior-year lines + game results
+  const atsRecords = {};
+  if ((lines25 || []).length && (games25 || []).length) {
+    const spreadsById = {};
+    (lines25 || []).forEach(g => {
+      if (!g.lines?.length) return;
+      const best = g.lines.find(l => l.provider === "consensus") || g.lines[0];
+      const spread = parseFloat(best?.spread);
+      if (!isNaN(spread)) spreadsById[g.id] = spread;
+    });
+    (games25 || []).forEach(g => {
+      if (g.home_points == null || g.away_points == null) return;
+      const spread = spreadsById[g.id];
+      if (spread == null) return;
+      // spread is from home team perspective (negative = home favored)
+      const homeMargin = g.home_points - g.away_points;
+      const adj = homeMargin + spread;
+      const isPush = Math.abs(adj) <= 0.5;
+      const homeCovered = !isPush && adj > 0;
+      const awayCovered = !isPush && adj < 0;
+      const homeFavored = spread < -0.5;  // home giving points
+      const awayFavored = spread > 0.5;   // away giving points
+
+      [[g.home_team, homeCovered, true, homeFavored],
+       [g.away_team, awayCovered, false, awayFavored]].forEach(([school, covered, isHome, isFav]) => {
+        if (!school) return;
+        const id = schoolToId(school);
+        // Key by both CFBD school name AND our internal ID for name-mismatch teams
+        const keys = [school];
+        if (id) keys.push(id);
+        keys.forEach(k => {
+          if (!atsRecords[k]) atsRecords[k] = {
+            wins: 0, losses: 0, pushes: 0,
+            home:   { wins: 0, losses: 0, pushes: 0 },
+            away:   { wins: 0, losses: 0, pushes: 0 },
+            fav:    { wins: 0, losses: 0, pushes: 0 },
+            dog:    { wins: 0, losses: 0, pushes: 0 },
+          };
+          const r = atsRecords[k];
+          if (isPush) { r.pushes++; }
+          else if (covered) r.wins++;
+          else r.losses++;
+          // Situational buckets
+          const bucket = isHome ? r.home : r.away;
+          if (isPush) bucket.pushes++;
+          else if (covered) bucket.wins++;
+          else bucket.losses++;
+          // Skip fav/dog bucket for pick-em lines (within 0.5 pts of 0)
+          if (Math.abs(spread) > 0.5) {
+            const sitBucket = isFav ? r.fav : r.dog;
+            if (isPush) sitBucket.pushes++;
+            else if (covered) sitBucket.wins++;
+            else sitBucket.losses++;
+          }
+        });
+      });
+    });
+    // Add pct field to every record and sub-bucket
+    const addPct = r => {
+      const total = r.wins + r.losses;
+      r.pct = total > 0 ? Math.round((r.wins / total) * 1000) / 1000 : null;
+    };
+    Object.values(atsRecords).forEach(r => {
+      addPct(r);
+      if (r.home) addPct(r.home);
+      if (r.away) addPct(r.away);
+      if (r.fav)  addPct(r.fav);
+      if (r.dog)  addPct(r.dog);
+    });
+  }
+
   return {
     spRatings:   spRatings || [],
     eloRatings:  eloRatings || [],
@@ -809,6 +1031,8 @@ async function fetchCFBDExtras() {
     rec24:       rec24 || [],
     ppa:         ppa || [],
     transfers:   transfers || [],
+    coachMap,
+    atsRecords,
   };
 }
 
@@ -896,12 +1120,13 @@ async function main() {
     fetchCoversBetting(),
   ]);
 
-  // ── Phase 3: Social signals (parallel) ───────────────────────────────
-  console.log("Phase 3: Social signals (Reddit + ESPN injuries + team news)...");
-  const [redditBuzz, injuries, teamNews] = await Promise.all([
+  // ── Phase 3: Social signals + rosters (parallel) ─────────────────────
+  console.log("Phase 3: Social signals + ESPN rosters (Reddit + injuries + rosters + team news)...");
+  const [redditBuzz, injuries, teamNews, rosters] = await Promise.all([
     fetchRedditSentiment(),
     fetchESPNInjuries(),
     fetchAllTeamNews(),   // year-round: arrests, spring injuries, transfers, coaching
+    fetchESPNRosters(),   // skill-position players for all ~130 FBS teams
   ]);
 
   // ── Build betting-lines lookup ────────────────────────────────────────
@@ -920,6 +1145,29 @@ async function main() {
       const id = schoolToId(r.school);
       if (id) apRanks[id] = r.rank;
     }
+  }
+  // Preseason fallback: CFBD doesn't publish rankings until week 1 — use ESPN live poll
+  if (Object.keys(apRanks).length === 0) {
+    try {
+      const espnR = await fetch("https://site.api.espn.com/apis/site/v2/sports/football/college-football/rankings");
+      if (espnR.ok) {
+        const espnD = await espnR.json();
+        const polls = espnD.rankings || [];
+        const apPoll = polls.find(p => p.name?.includes("AP") || p.shortName?.includes("AP")) || polls[0];
+        if (apPoll?.ranks) {
+          apPoll.ranks.forEach(entry => {
+            const teamName = entry.team?.displayName || entry.team?.name || "";
+            const teamId   = (entry.team?.slug || "").replace(/-/g, "_");
+            const rank     = entry.current;
+            if (!rank) return;
+            const id = SCHOOL_TO_ID[teamName] || teamId;
+            if (id) apRanks[id] = rank;
+          });
+          if (Object.keys(apRanks).length)
+            console.log(`  AP ranks: CFBD empty — ESPN fallback (${Object.keys(apRanks).length} teams ranked)`);
+        }
+      }
+    } catch {}
   }
 
   // ── Merge betting % sources (Action Network > Covers) ────────────────
@@ -1270,17 +1518,50 @@ async function main() {
   console.log("\nPhase 5: Writing output files...");
 
   // Always write social/team data — Reddit buzz, SP+, injuries don't need game data.
-  const hasReddit  = Object.keys(redditBuzz).length > 0;
-  const hasSP      = cfbdExtras.spRatings.length > 0;
-  const hasInjury  = Object.values(injuries).flat().length > 0;
+  // Always write team-extras.json so the timestamp stays fresh and downstream
+  // scripts can tell when the pipeline last ran, even if CFBD has no 2026 data yet.
+  // Enrich SP+ entries with team IDs so tweet scripts can match by ID
+  // instead of by school name (handles Ole Miss/Mississippi, FIU/Florida International, etc.)
+  const enrichedSPRatings = (cfbdExtras.spRatings || []).map(r => {
+    const id = schoolToId(r.team);
+    return id ? { ...r, id } : r;
+  });
 
-  const hasNews    = Object.keys(teamNews).length > 0;
-  if (hasReddit || hasSP || hasInjury || hasNews) {
-    writeAtomic(join(DATA_DIR,"team-extras.json"),
-      JSON.stringify({ generated: now, ...cfbdExtras, redditBuzz, teamNews }, null, 2));
+  // Include the full AP Top 25 (all 25 teams, not just teams in curated games)
+  // so post-preseason.js and get-picks.js can apply correct ranks to stub teams.
+  writeAtomic(join(DATA_DIR,"team-extras.json"),
+    JSON.stringify({ generated: now, ...cfbdExtras, spRatings: enrichedSPRatings, apRanks, redditBuzz, teamNews }, null, 2));
+  console.log(`  Team extras written — SP+: ${cfbdExtras.spRatings.length}, coaches: ${Object.keys(cfbdExtras.coachMap).length}, ATS: ${Object.keys(cfbdExtras.atsRecords).length} teams, AP ranks: ${Object.keys(apRanks).length}, Reddit: ${Object.keys(redditBuzz).length} teams`);
+
+  const hasInjury  = Object.values(injuries).flat().length > 0;
+  const hasReddit  = Object.keys(redditBuzz).length > 0;
+  if (hasInjury) {
     writeAtomic(join(DATA_DIR,"injuries.json"),
       JSON.stringify({ generated: now, injuries }, null, 2));
-    console.log(`  Social/team data written — Reddit: ${Object.keys(redditBuzz).length} teams, news: ${Object.keys(teamNews).length} teams, SP+: ${cfbdExtras.spRatings.length}, injuries: ${Object.values(injuries).flat().length}`);
+  }
+
+  const hasRosters = Object.keys(rosters).length > 0;
+  if (hasRosters) {
+    const totalPlayers = Object.values(rosters).reduce((s, r) => s + r.length, 0);
+    writeAtomic(join(DATA_DIR,"rosters.json"),
+      JSON.stringify({ generated: now, totalTeams: Object.keys(rosters).length, totalPlayers, rosters }, null, 2));
+    console.log(`  Rosters written — ${Object.keys(rosters).length} teams, ${totalPlayers} players`);
+  }
+
+  // Patch AP ranks into games-2026.json even in preseason so tweets and website
+  // always show the latest AP poll — the curated game seed is preserved, only
+  // apRanks and rankedTeams fields are overwritten.
+  if (Object.keys(apRanks).length > 0) {
+    try {
+      const gamesPath = join(DATA_DIR, "games-2026.json");
+      const existing  = JSON.parse(readFileSync(gamesPath, "utf8"));
+      existing.apRanks    = apRanks;
+      existing.rankedTeams = Object.keys(apRanks).length;
+      writeAtomic(gamesPath, JSON.stringify(existing, null, 2));
+      console.log(`  AP ranks patched into games-2026.json (${Object.keys(apRanks).length} teams ranked)`);
+    } catch (e) {
+      console.warn(`  Warning: could not patch AP ranks into games-2026.json: ${e.message}`);
+    }
   }
 
   // Guard 1: no data at all — preserve curated seed
@@ -1294,6 +1575,21 @@ async function main() {
   const MIN_SCHEDULE_GAMES = 100;
   if (games.length < MIN_SCHEDULE_GAMES) {
     console.log(`  Only ${games.length} games found (threshold: ${MIN_SCHEDULE_GAMES}) — preserving curated seed until full schedule is available`);
+    writeAtomic(join(DATA_DIR, "metadata.json"), JSON.stringify({
+      generated:      now,
+      season:         SEASON,
+      preseason:      true,
+      totalGames:     games.length,
+      spTeams:        cfbdExtras.spRatings.length,
+      rankedTeams:    Object.keys(apRanks).length,
+      injuredPlayers: Object.values(injuries).flat().length,
+      dataSourcesActive: [
+        cfbdExtras.spRatings.length > 0 ? "CFBD (SP+ ratings)" : null,
+        hasReddit ? "Reddit CFB+sportsbook (sentiment)" : null,
+        "GoogleNews (game headlines)",
+      ].filter(Boolean),
+      fetchDurationMs: Date.now() - startTime,
+    }, null, 2));
     return;
   }
 
@@ -1329,6 +1625,38 @@ async function main() {
     ].filter(Boolean),
     fetchDurationMs: Date.now() - startTime,
   };
+
+  // Preserve curated analyst picks — merge from curated-picks.json into fresh CFBD games.
+  // When CFBD publishes the full schedule it replaces the curated seed, wiping analyst picks.
+  // curated-picks.json is the permanent store that survives schedule refreshes.
+  try {
+    const curatedPicksPath = join(DATA_DIR, "curated-picks.json");
+    const curatedPicks = JSON.parse(readFileSync(curatedPicksPath, "utf8"));
+    const norm = s => (s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const pickMap = new Map();
+    for (const cp of curatedPicks) {
+      if (!cp.thePick || !cp.thePick.team) continue;
+      // Index by both orderings — neutral site games may flip home/away in CFBD
+      const key1 = `${norm(cp.homeTeam)}|${norm(cp.awayTeam)}|${cp.week}`;
+      const key2 = `${norm(cp.awayTeam)}|${norm(cp.homeTeam)}|${cp.week}`;
+      pickMap.set(key1, cp.thePick);
+      pickMap.set(key2, cp.thePick);
+    }
+    let merged = 0;
+    games = games.map(g => {
+      // CFBD/ESPN games use homeTeamId (e.g. "lsu", "north_carolina") not homeTeam.name
+      const h = norm(g.homeTeamId || g.homeTeam?.name || g.homeTeamName || "");
+      const a = norm(g.awayTeamId || g.awayTeam?.name || g.awayTeamName || "");
+      const key = `${h}|${a}|${g.week}`;
+      const pick = pickMap.get(key);
+      if (pick && g.gamePreview) {
+        merged++;
+        return { ...g, gamePreview: { ...g.gamePreview, thePick: pick } };
+      }
+      return g;
+    });
+    if (merged > 0) console.log(`  Merged ${merged} curated analyst picks from curated-picks.json`);
+  } catch (_) { /* curated-picks.json missing or invalid — stub thePick kept */ }
 
   writeAtomic(join(DATA_DIR,"games-2026.json"),
     JSON.stringify({ ...metadata, apRanks, games }, null, 2));

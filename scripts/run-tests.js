@@ -627,7 +627,9 @@ test('x-auto-post.yml has season gate (skips during preseason)', () => {
   const src = fs.readFileSync(path.join(ROOT, '.github/workflows/x-auto-post.yml'), 'utf8');
   assert(src.includes('totalGames'), 'Season gate check for totalGames missing');
   assert(src.includes('skip=true'), 'skip output variable missing');
-  assert(src.includes('-le "100"'), 'Preseason threshold check missing');
+  // Gate must require BOTH game count AND betting lines — checking only totalGames caused
+  // token collision with x-preseason-post.yml (both fired simultaneously during preseason).
+  assert(src.includes('HAS_LINES') && src.includes('games_with_lines'), 'Gate must check for betting lines (not just game count) to prevent OAuth token collision');
 });
 
 test('refresh-data.yml passes rotated token to game alerts', () => {
@@ -644,6 +646,19 @@ test('deploy-worker.yml permissions set to {}', () => {
 test('x-auto-post.yml has git pull before season-record commit', () => {
   const src = fs.readFileSync(path.join(ROOT, '.github/workflows/x-auto-post.yml'), 'utf8');
   assert(src.includes('git pull --rebase'), 'git pull --rebase before commit missing');
+});
+
+test('post-watchdog.yml exists and checks token date', () => {
+  const src = fs.readFileSync(path.join(ROOT, '.github/workflows/post-watchdog.yml'), 'utf8');
+  assert(src.includes('needs_post'), 'Watchdog must set needs_post output');
+  assert(src.includes('updatedAt'), 'Watchdog must check x-auth.json updatedAt to detect missed posts');
+  assert(src.includes('America/New_York'), 'Watchdog must use ET timezone');
+});
+
+test('keepalive.yml exists', () => {
+  const src = fs.readFileSync(path.join(ROOT, '.github/workflows/keepalive.yml'), 'utf8');
+  assert(src.includes('liskin/gh-workflow-keepalive'), 'Keepalive must use liskin action');
+  assert(src.includes('actions: write'), 'Keepalive needs actions: write permission');
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

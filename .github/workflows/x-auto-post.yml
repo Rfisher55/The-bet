@@ -55,20 +55,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Gate: only run when the full season schedule is live (100+ games from CFBD).
-      # During preseason (21 curated games), x-preseason-post.yml handles all posting.
+      - name: Pull latest data
+        run: git pull origin ${{ github.ref_name }}
+
+      # Gate: only run when BOTH (a) full schedule is published (100+ games) AND (b) betting lines exist.
+      # Rationale: CFBD publishes 800+ games months before lines are available.
+      # Until lines exist, picks-based posts produce zero-edge garbage and collide with
+      # x-preseason-post.yml (both use the same OAuth refresh token simultaneously).
       # Manual workflow_dispatch always bypasses the gate for testing.
       - name: Check season gate
         id: gate
         run: |
           TOTAL=$(node -e "try{const d=require('./data/games-2026.json');console.log(d.totalGames||0)}catch{console.log(0)}")
+          HAS_LINES=$(node -e "try{const d=require('./data/games-2026.json');const n=(d.games||[]).filter(g=>g.bettingLines&&g.bettingLines.spread!=null).length;console.log(n)}catch{console.log(0)}")
           echo "total_games=$TOTAL" >> $GITHUB_OUTPUT
-          if [ "$TOTAL" -le "100" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
-            echo "Preseason ($TOTAL games ≤ 100) — x-preseason-post.yml handles posting until CFBD publishes full schedule"
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "Season live ($TOTAL games) — running in-season post"
+          echo "games_with_lines=$HAS_LINES" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual dispatch — bypassing gate"
             echo "skip=false" >> $GITHUB_OUTPUT
+          elif [ "$TOTAL" -gt "100" ] && [ "$HAS_LINES" -gt "0" ]; then
+            echo "Season live with lines ($TOTAL games, $HAS_LINES with lines) — running in-season post"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          else
+            echo "Preseason or no lines yet ($TOTAL games, $HAS_LINES with lines) — x-preseason-post.yml handles posting"
+            echo "skip=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Setup Node.js
@@ -123,7 +133,10 @@ jobs:
           MISSING=""
           [ -z "$X_OAUTH2_CLIENT_ID" ]     && MISSING="$MISSING X_OAUTH2_CLIENT_ID"
           [ -z "$X_OAUTH2_CLIENT_SECRET" ] && MISSING="$MISSING X_OAUTH2_CLIENT_SECRET"
-          [ -z "$X_OAUTH2_REFRESH_TOKEN" ] && MISSING="$MISSING X_OAUTH2_REFRESH_TOKEN"
+          # Token can come from env var OR data/x-auth.json (file-based rotation)
+          FILE_TOKEN=$(node -e "try{const d=require('./data/x-auth.json');process.stdout.write(d.refreshToken||'')}catch{}" 2>/dev/null || true)
+          EFFECTIVE_TOKEN="${FILE_TOKEN:-$X_OAUTH2_REFRESH_TOKEN}"
+          [ -z "$EFFECTIVE_TOKEN" ] && MISSING="$MISSING X_OAUTH2_REFRESH_TOKEN"
           if [ -n "$MISSING" ]; then
             echo "❌ Missing secrets:$MISSING"
             echo "Run x-oauth2-setup workflow to generate a refresh token."
@@ -148,25 +161,36 @@ jobs:
 
       - name: Rotate refresh token
         if: always() && steps.gate.outputs.skip != 'true' && steps.cfg.outputs.dry != 'true'
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
-            gh secret set X_OAUTH2_REFRESH_TOKEN -R ${{ github.repository }} < /tmp/new_refresh_token
-            echo "✅ Refresh token rotated"
-          elif [ -z "$GH_TOKEN" ]; then
-            echo "⚠️ GH_PAT secret not set — token not rotated. Add GH_PAT (repo scope) to keep the refresh token fresh."
+            NEW_TOKEN=$(cat /tmp/new_refresh_token)
+            node -e "
+              const fs = require('fs');
+              const p = 'data/x-auth.json';
+              const s = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p,'utf8')) : {};
+              s.refreshToken = process.argv[1];
+              s.updatedAt = new Date().toISOString();
+              fs.writeFileSync(p, JSON.stringify(s, null, 2));
+            " "$NEW_TOKEN"
+            git config user.name  "TheBet Bot"
+            git config user.email "bot@thebetcfb.com"
+            git add data/x-auth.json
+            git diff --staged --quiet || git commit -m "auth: rotate X OAuth2 refresh token [skip ci]"
+            BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            git pull --rebase origin "$BRANCH" 2>/dev/null || true
+            git push origin HEAD:"$BRANCH" || true
+            echo "✅ Refresh token saved to data/x-auth.json"
           else
-            echo "ℹ️ No new refresh token written (post may have failed before auth)"
+            echo "ℹ️ No new refresh token (X may use non-rotating tokens)"
           fi
 
       # On Sundays, commit the updated season-record.json back to the repo
       - name: Save season record
-        if: steps.cfg.outputs.type == 'results' && steps.cfg.outputs.dry == 'false' && github.ref == 'refs/heads/main'
+        if: steps.cfg.outputs.type == 'results' && steps.cfg.outputs.dry == 'false'
         run: |
           git config user.name  "TheBet Bot"
           git config user.email "bot@thebetcfb.com"
-          git pull --rebase origin main || { echo "Rebase failed — aborting push"; exit 1; }
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          git pull --rebase origin "$CURRENT_BRANCH" || { echo "Rebase failed — aborting push"; exit 1; }
           git add data/season-record.json
-          git diff --staged --quiet || { git commit -m "Update season record [skip ci]" && git push; }
+          git diff --staged --quiet || { git commit -m "Update season record [skip ci]" && git push origin HEAD:"$CURRENT_BRANCH"; }

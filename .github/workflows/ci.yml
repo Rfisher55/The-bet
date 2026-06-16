@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'claude/d1-football-predictor-rkApg']
   pull_request:
-    branches: [main]
+    branches: [main, 'claude/d1-football-predictor-rkApg']
 
 jobs:
   test:

@@ -356,8 +356,8 @@ async function scrapeBettingPros() {
 
 // ── RSS Parser (shared) ─────────────────────────────────────────────────
 const IMPACT_KEYWORDS = {
-  critical: ["arrested","charged","indicted","suspended indefinitely","dismissed from team","expelled","guilty","dui","assault"],
-  negative: ["injured","out for season","torn acl","torn","surgery","suspended","dismissed","transfer portal","decommits","fired","resigned","investigation","allegations","banned","out vs","will miss"],
+  critical: ["arrested","charged","indicted","suspended indefinitely","dismissed from team","expelled","guilty","dui","assault","gambling"],
+  negative: ["injured","out for season","torn acl","torn","surgery","suspended","dismissed","transfer portal","decommits","fired","resigned","investigation","allegations","banned","out vs","will miss","scandal","lawsuit","suspension","controversy","violation","misconduct","cancel","eligibility","academic"],
   positive: ["commits","enrolled","returns from","promoted","extension","ranked","honor","drafted","signed","award"],
 };
 
@@ -377,7 +377,11 @@ function parseRSS(xml, max = 10) {
     if (!title || title.length < 10) continue;
     const lower = title.toLowerCase();
     const isCritical = IMPACT_KEYWORDS.critical.some(w => lower.includes(w));
-    const isNegative = IMPACT_KEYWORDS.negative.some(w => lower.includes(w));
+    const isNegative = IMPACT_KEYWORDS.negative.some(w => {
+      if (!lower.includes(w)) return false;
+      if (w === 'fired' && lower.includes('fired up')) return false;
+      return true;
+    });
     const isPositive = IMPACT_KEYWORDS.positive.some(w => lower.includes(w));
     const sentiment  = isCritical ? "critical" : isNegative ? "negative" : isPositive ? "positive" : "neutral";
     const daysAgo    = pubDate ? Math.max(0, Math.round((Date.now() - new Date(pubDate).getTime()) / 86400000)) : 1;

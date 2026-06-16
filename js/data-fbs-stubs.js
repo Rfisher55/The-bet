@@ -184,7 +184,7 @@
         nilStrength: Math.round(rating * 0.55),
         transferPortalRating: 45,
         coachHotSeat: 3,
-        programMomentum: spRating > 5 ? "rising" : spRating < -3 ? "declining" : "stable",
+        programMomentum: spRating > 5 ? "rising" : spRating < -6 ? "declining" : "stable",
         fanMorale: Math.round(rating * 0.7),
         lockerRoomCohesion: 60,
         depthChartStability: 60,

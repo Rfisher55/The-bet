@@ -1,18 +1,21 @@
 name: Refresh CFB Data
 
-# When it runs:
-#   - Every 6 hours on weekdays (Mon–Fri)
-#   - Every 30 minutes on Saturdays 9 AM–midnight ET (game day)
-#   - Every 2 hours on Sundays (cleanup / final scores)
+# When it runs (all times UTC, EDT = UTC-4, EST = UTC-5):
+#   - Every 4 hours on weekdays (Mon–Fri)
+#   - Every 10 minutes on Saturdays 8am–7pm ET (early kickoffs through prime time)
+#   - Every 10 minutes Saturday night into Sunday early morning (late games / final scores)
+#   - Every 30 minutes Sunday 9am–7pm ET (bowl games, delayed finals)
+#   - Every 30 minutes Sunday night into Monday (cleanup)
+#   - Every 2 hours Sunday overnight/morning outside game windows
 #   - Manual trigger via GitHub UI or API
 on:
   schedule:
-    - cron: "0 */4 * * 1-5"        # weekdays: every 4 h (was 6h — more frequent updates)
-    - cron: "*/10 12-23 * * 6"     # Saturday UTC 8am–7pm ET (was 10am — catches early kickoffs)
-    - cron: "*/10 0-5 * * 0"       # Sat 7pm–midnight ET / Sun early (was 0-4)
-    - cron: "*/30 13-23 * * 0"     # Sunday 9am–7pm ET
-    - cron: "*/30 0-4 * * 1"       # Sunday night into Monday
-    - cron: "0 0-12/2 * * 0"       # Sunday: every 2 h outside game window
+    - cron: "0 */4 * * 1-5"        # weekdays: every 4h
+    - cron: "*/10 12-23 * * 6"     # Saturday UTC 12–23 (8am–7pm ET) — game day
+    - cron: "*/10 0-5 * * 0"       # Sunday UTC 0–5 (Sat 8pm–1am ET) — late games + finals
+    - cron: "*/30 13-23 * * 0"     # Sunday UTC 13–23 (9am–7pm ET) — bowl/final results
+    - cron: "*/30 0-4 * * 1"       # Monday UTC 0–4 (Sun 8pm–midnight ET) — cleanup
+    - cron: "0 0-12/2 * * 0"       # Sunday UTC 0–12 every 2h — overnight catchup
   workflow_dispatch:
     inputs:
       force:
@@ -26,7 +29,7 @@ on:
         type: boolean
 
 permissions:
-  contents: write   # needed to commit data/ back to main
+  contents: write   # needed to commit data/ back to the current branch
 
 # Prevent concurrent runs on the same branch from colliding on git push.
 # Branch-scoped so a manual dev-branch run doesn't cancel a scheduled main run.
@@ -37,6 +40,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout
@@ -83,12 +87,8 @@ jobs:
             SOURCES=$(node -e "const d=require('./data/metadata.json');console.log((d.dataSourcesActive||[]).length+' sources')" 2>/dev/null || echo "")
             git commit -m "data: refresh $(date -u '+%Y-%m-%d %H:%M UTC') — ${GAME_COUNT} games, ${LINES_COUNT} with lines, ${SOURCES} [skip ci]"
             CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-            if [ "$CURRENT_BRANCH" = "main" ]; then
-              git pull --rebase origin main 2>/dev/null || { echo "⚠️ Rebase failed — skipping push to avoid overwriting concurrent data commit"; exit 1; }
-              git push origin HEAD:main
-            else
-              echo "Running on '$CURRENT_BRANCH' — data committed locally but push skipped (only main pushes to origin)"
-            fi
+            git pull --rebase origin "$CURRENT_BRANCH" 2>/dev/null || { echo "⚠️ Rebase failed — skipping push to avoid overwriting concurrent data commit"; exit 1; }
+            git push origin HEAD:"$CURRENT_BRANCH"
           fi
 
       - name: Check and post breaking alerts
@@ -133,18 +133,29 @@ jobs:
           else
             git commit -m "data: update alert state [skip ci]"
             CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-            if [ "$CURRENT_BRANCH" = "main" ]; then
-              git pull --rebase origin main 2>/dev/null || { echo "⚠️ Rebase failed — skipping alert state push"; exit 1; }
-              git push origin HEAD:main
-            fi
+            git pull --rebase origin "$CURRENT_BRANCH" 2>/dev/null || { echo "⚠️ Rebase failed — skipping alert state push"; exit 1; }
+            git push origin HEAD:"$CURRENT_BRANCH"
           fi
 
       - name: Rotate refresh token after alerts
         if: always()
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           if [ -s /tmp/new_refresh_token ]; then
-            gh secret set X_OAUTH2_REFRESH_TOKEN -R ${{ github.repository }} < /tmp/new_refresh_token
-            echo "✅ Refresh token rotated"
+            NEW_TOKEN=$(cat /tmp/new_refresh_token)
+            node -e "
+              const fs = require('fs');
+              const p = 'data/x-auth.json';
+              const s = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p,'utf8')) : {};
+              s.refreshToken = process.argv[1];
+              s.updatedAt = new Date().toISOString();
+              fs.writeFileSync(p, JSON.stringify(s, null, 2));
+            " "$NEW_TOKEN"
+            git config user.name  "TheBet Bot"
+            git config user.email "bot@thebetcfb.com"
+            git add data/x-auth.json
+            git diff --staged --quiet || git commit -m "auth: rotate X OAuth2 refresh token [skip ci]"
+            BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            git pull --rebase origin "$BRANCH" 2>/dev/null || true
+            git push origin HEAD:"$BRANCH" || true
+            echo "✅ Refresh token saved"
           fi

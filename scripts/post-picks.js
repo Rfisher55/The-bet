@@ -337,19 +337,34 @@ function fmtResultsThread(newResults, fullRecord) {
 
 // ── X API client ──────────────────────────────────────────────────
 async function getClient() {
+  // Read token from data/x-auth.json first (auto-rotated), fall back to env var
+  let refreshToken = process.env.X_OAUTH2_REFRESH_TOKEN;
+  try {
+    const xauth = JSON.parse(
+      require('fs').readFileSync(require('path').resolve(__dirname, '..', 'data', 'x-auth.json'), 'utf8')
+    );
+    if (xauth.refreshToken) refreshToken = xauth.refreshToken;
+  } catch {}
+  if (!process.env.X_OAUTH2_CLIENT_ID || !process.env.X_OAUTH2_CLIENT_SECRET || !refreshToken) {
+    throw new Error('Missing OAuth credentials. Run x-oauth2-setup workflow.');
+  }
   const { TwitterApi } = require('twitter-api-v2');
   const authClient = new TwitterApi({
     clientId:     process.env.X_OAUTH2_CLIENT_ID,
     clientSecret: process.env.X_OAUTH2_CLIENT_SECRET,
   });
-  const { client, refreshToken: newRefresh } =
-    await authClient.refreshOAuth2Token(process.env.X_OAUTH2_REFRESH_TOKEN);
-  // Guard: only persist the token if it's a real non-empty string.
-  // Writing null/undefined would store "undefined" and permanently brick the secret.
-  if (newRefresh && typeof newRefresh === 'string') {
-    require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
+  try {
+    const { client, refreshToken: newRefresh } =
+      await authClient.refreshOAuth2Token(refreshToken);
+    // Guard: only persist the token if it's a real non-empty string.
+    // Writing null/undefined would store "undefined" and permanently brick the secret.
+    if (newRefresh && typeof newRefresh === 'string') {
+      require('fs').writeFileSync('/tmp/new_refresh_token', newRefresh, 'utf8');
+    }
+    return client;
+  } catch (err) {
+    throw new Error(`OAuth token refresh failed: ${err.message} — run x-oauth2-setup workflow to regenerate.`);
   }
-  return client;
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }

@@ -18,7 +18,7 @@
       text-decoration: none;
       color: var(--text);
     }
-    .team-card:hover { transform: translateY(-2px); border-color: rgba(16,185,129,.35); box-shadow: var(--glow-green); }
+    .team-card:hover { transform: translateY(-2px); border-color: rgba(251,146,60,.35); box-shadow: var(--glow-green); }
     .team-card-header {
       height: 6px;
       flex-shrink: 0;
@@ -55,7 +55,7 @@
       padding: 2px 8px; border-radius: 10px; font-size: .62rem; font-weight: 700;
       border: 1px solid;
     }
-    .mom-rising  { background: rgba(16,185,129,.1);  border-color: rgba(16,185,129,.3);  color: var(--primary); }
+    .mom-rising  { background: rgba(251,146,60,.1);  border-color: rgba(251,146,60,.3);  color: var(--primary); }
     .mom-stable  { background: rgba(245,158,11,.1);  border-color: rgba(245,158,11,.3);  color: var(--gold); }
     .mom-declining { background: rgba(239,68,68,.1); border-color: rgba(239,68,68,.3); color: var(--danger); }
     .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; align-items: start; }
@@ -69,7 +69,7 @@
       padding: 3px 10px; border-radius: 20px; font-size: .65rem; font-weight: 900;
       letter-spacing: .5px; text-transform: uppercase; border: 1.5px solid;
     }
-    .mom-badge.mom-rising   { background: rgba(16,185,129,.15);  border-color: rgba(16,185,129,.4);  color: var(--primary); }
+    .mom-badge.mom-rising   { background: rgba(251,146,60,.15);  border-color: rgba(251,146,60,.4);  color: var(--primary); }
     .mom-badge.mom-stable   { background: rgba(245,158,11,.15);  border-color: rgba(245,158,11,.4);  color: var(--gold); }
     .mom-badge.mom-declining{ background: rgba(239,68,68,.15);   border-color: rgba(239,68,68,.4);   color: var(--danger); }
     /* Compare chip */
@@ -81,7 +81,7 @@
       text-decoration: none; transition: border-color .15s, color .15s; cursor: pointer;
       outline: none; -webkit-appearance: none; appearance: none;
     }
-    .compare-chip:hover { border-color: rgba(16,185,129,.5); color: var(--primary); }
+    .compare-chip:hover { border-color: rgba(251,146,60,.5); color: var(--primary); }
     /* Next game line */
     .next-game-line {
       font-size: .62rem; color: var(--primary); font-weight: 700; margin-top: 2px;
@@ -97,7 +97,7 @@
       background: var(--card); text-decoration: none; color: var(--text);
       transition: border-color .15s, transform .15s; margin-bottom: 6px;
     }
-    .team-list-row:hover { border-color: rgba(16,185,129,.35); transform: translateX(3px); }
+    .team-list-row:hover { border-color: rgba(251,146,60,.35); transform: translateX(3px); }
     .tlr-rank { font-size: .85rem; font-weight: 900; color: var(--muted); text-align: center; }
     .tlr-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     @media (max-width: 480px) { .tlr-right .hide-xs { display: none; } }
@@ -296,7 +296,7 @@ function buildStatsStrip() {
   const cells = [
     { label: "Teams",        value: teams.length, color: "var(--text)",    action: "all" },
     { label: "Elite (90+)", value: elite,         color: "var(--primary)", action: "elite" },
-    { label: "Trending Up", value: rising,        color: "#34d399",        action: "rising" },
+    { label: "Trending Up", value: rising,        color: "var(--primary-l)",        action: "rising" },
     { label: "Avg NIL Score",value: avgNil,       color: "#c084fc",        action: "nil" },
     { label: "Power 4",     value: p4,            color: "var(--gold)",    action: "power4" },
     { label: "Group of 5",  value: g5,            color: "var(--accent)",  action: "g5" },
@@ -380,11 +380,11 @@ document.querySelector(".view-toggle").addEventListener("click", e => {
 function momClass(m) { return m==="rising"?"mom-rising":m==="declining"?"mom-declining":"mom-stable"; }
 function momLabel(m)  { return m==="rising"?"RISING":m==="declining"?"FALLING":"STABLE"; }
 function momIcon(m)   { return m==="rising"?"↑":m==="declining"?"↓":"→"; }
-function ratingColor(v) { return v>=92?"var(--primary)":v>=80?"#34d399":v>=68?"var(--gold)":"var(--muted)"; }
+function ratingColor(v) { return v>=92?"var(--primary)":v>=80?"var(--primary-l)":v>=68?"var(--gold)":"var(--muted)"; }
 function nilColor(v)    { return v>=85?"#c084fc":v>=70?"#a78bfa":v>=55?"var(--gold)":"var(--muted)"; }
 function portalGrade(v) {
   if (v>=85) return { grade:"A+", color:"var(--primary)" };
-  if (v>=75) return { grade:"A",  color:"#34d399" };
+  if (v>=75) return { grade:"A",  color:"var(--primary-l)" };
   if (v>=65) return { grade:"B+", color:"var(--gold)" };
   if (v>=55) return { grade:"B",  color:"var(--gold)" };
   if (v>=45) return { grade:"C",  color:"var(--muted)" };
@@ -452,14 +452,21 @@ function nextGameLabel(team) {
 function projectedRecord(team) {
   if (!window.GAMES) return null;
   const teamGames = GAMES.filter(g => g.homeTeamId === team.id || g.awayTeamId === team.id);
-  if (!teamGames.length) return null;
+  // Preseason: schedule has < 10 games — use same average-opponent formula as tweet scripts
+  // so website and tweets show consistent projected records.
+  if (teamGames.length < 10) {
+    if (!teamGames.length) return null;
+    const prob = 1 / (1 + Math.exp(-(team.rating - 70) / 10));
+    const wins = Math.round(prob * 12);
+    return `${wins}-${12 - wins}`;
+  }
+  // Full schedule: use actual opponent ratings for accuracy
   let projWins = 0;
   teamGames.forEach(g => {
     const oppId = g.homeTeamId === team.id ? g.awayTeamId : g.homeTeamId;
     const opp = window.TEAMS && TEAMS[oppId];
     const oppRating = opp ? opp.rating : 70;
     const diff = team.rating - oppRating;
-    // Logistic win probability: 50% at diff=0, ~85% at diff=15, ~15% at diff=-15
     const prob = 1 / (1 + Math.exp(-diff / 10));
     projWins += prob;
   });
@@ -554,7 +561,7 @@ function renderCard(team, rank) {
             <div class="pi-chip-lbl">ATS '25</div>
           </div>
         </div>
-        ${spot ? `<div style="margin-bottom:8px;padding:6px 10px;border-radius:8px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);display:flex;align-items:center;gap:6px">
+        ${spot ? `<div style="margin-bottom:8px;padding:6px 10px;border-radius:8px;background:rgba(251,146,60,.07);border:1px solid rgba(251,146,60,.2);display:flex;align-items:center;gap:6px">
           <span style="font-size:.6rem">🔥</span>
           <div style="flex:1;min-width:0">
             <span style="font-size:.6rem;font-weight:800;color:var(--primary)">Best Spot: </span>
