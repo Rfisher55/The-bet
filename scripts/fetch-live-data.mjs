@@ -812,7 +812,11 @@ function parseNewsXML(xml, maxItems = 5) {
     if (!title || title.length < 10) continue;
     const lower = title.toLowerCase();
     const isCritical = IMPACT_KEYWORDS.critical.some(w => lower.includes(w));
-    const isNegative = IMPACT_KEYWORDS.negative.some(w => lower.includes(w));
+    const isNegative = IMPACT_KEYWORDS.negative.some(w => {
+      if (!lower.includes(w)) return false;
+      if (w === 'fired' && lower.includes('fired up')) return false;
+      return true;
+    });
     const isPositive = IMPACT_KEYWORDS.positive.some(w => lower.includes(w));
     const sentiment  = isCritical ? "critical" : isNegative ? "negative" : isPositive ? "positive" : "neutral";
     const daysAgo    = pubDate ? Math.max(0, Math.round((Date.now() - new Date(pubDate).getTime()) / 86400000)) : 1;

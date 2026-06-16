@@ -134,7 +134,47 @@ const _daySeed = (() => {
   return () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
 })();
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Team news (from live Google News pipeline in team-extras.json) ───────────
+// Used to drive news-first hot takes and boost teams with active story lines.
+const _teamNews = {};
+try {
+  const extras = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'team-extras.json'), 'utf8'));
+  Object.assign(_teamNews, extras.teamNews || {});
+} catch {}
+
+function getNewsItems(teamId) {
+  return (_teamNews[teamId] || []).filter(n => n.sentiment === 'critical' || n.sentiment === 'negative');
+}
+
+// ── Post-history deduplication (21-day cooldown per team × angle) ────────────
+// Prevents the same team from appearing in the same angle within 3 weeks.
+// Stored in data/post-history.json and committed after each successful post.
+const HISTORY_FILE = path.join(ROOT, 'data', 'post-history.json');
+const HISTORY_MS   = 21 * 86400000;
+
+let _history = [];
+try {
+  const raw = JSON.parse(fs.readFileSync(HISTORY_FILE, 'utf8'));
+  const cutoff = Date.now() - HISTORY_MS;
+  _history = (raw.entries || []).filter(e => new Date(e.ts).getTime() > cutoff);
+} catch {}
+
+function wasPostedRecently(teamId, angle) {
+  return _history.some(e => e.id === teamId && e.a === angle);
+}
+
+// Call after posting — records team IDs + angle so next run skips them.
+// Written to file by main() on successful post.
+let _pendingHistory = [];
+function markPosted(teams, angle) {
+  const ts = new Date().toISOString();
+  _pendingHistory.push(...teams.filter(t => t?.id).map(t => ({ id: t.id, a: angle, ts })));
+}
+function flushHistory() {
+  if (!_pendingHistory.length) return;
+  const all = [..._history, ..._pendingHistory].slice(-1000);
+  try { fs.writeFileSync(HISTORY_FILE, JSON.stringify({ updated: new Date().toISOString(), entries: all })); } catch (e) { console.warn('post-history write failed:', e.message); }
+}
 const fit = (core, extras, max = 280) => {
   let t = core;
   for (const p of extras) if (p && (t + p).length <= max) t += p;
@@ -197,6 +237,26 @@ function buildHotTake(t) {
   const r = t.rating, ap = t.apRank, m = t.programHealth?.programMomentum || 'stable';
   const coach = t.coachName || 'their staff';
   const wins = winProjFromRating(r), iRank = modelRank(t);
+  const hs = t.programHealth?.coachHotSeat || 0;
+
+  // If the team has live news (gambling, suspension, controversy, injury, etc.) lead with that.
+  // This is the primary freshness driver — static data can't compete with real headlines.
+  const ni = getNewsItems(t.id || '');
+  if (ni.length) {
+    const top = ni[0];
+    const isBreaking = top.sentiment === 'critical';
+    const emoji = isBreaking ? '🚨' : '📰';
+    const headline = top.report.length > 100 ? top.report.slice(0, 97) + '…' : top.report;
+    const rankLine = ap ? `AP #${ap} | Model: #${iRank}` : `Model rank: #${iRank}`;
+    return fit(
+      `${emoji} ${t.name}: ${headline}\n\n`,
+      [`${rankLine} · Rating: ${r}/100`,
+       m !== 'stable' ? `\nMomentum: ${m.toUpperCase()}` : '',
+       hs >= 5 ? `\nCoach hot seat: ${hs}/10` : '',
+       `\n\n${isBreaking ? 'This changes the calculus on this program for 2026.' : 'Something to factor into your lines this season.'}\n\n#CFB ${toHashtag(t.name)} #TheBet`]
+    );
+  }
+
   const takes = [];
   if (ap && iRank < ap - 3)
     takes.push(`🔥 HOT TAKE: ${t.name} is more dangerous than their AP ranking suggests.\n\nAP: #${ap} | Our model: #${iRank}\n\nThe gap doesn't lie. ${t.name} is being underpriced by the market going into 2026.\n\n#CFB ${toHashtag(t.name)} #TheBet`);
@@ -206,7 +266,6 @@ function buildHotTake(t) {
     takes.push(`📈 ${t.name} is this year's "where did they come from?"\n\nModel rating: ${r}/100 and trending UP.\n${coach} has quietly built something here. Don't sleep on them.\n\nProjected wins: ${wins}\n\n#CFB ${toHashtag(t.name)} #TheBet`);
   if (m === 'declining' && r >= 75)
     takes.push(`📉 ${t.name} — the fall is coming.\n\nProgram momentum: DECLINING. Rating: ${r}/100.\nThey'll still have wins, but ATS they're a trap every week.\n\nFade them as a heavy favorite.\n\n#CFB ${toHashtag(t.name)} #TheBet`);
-  const hs = t.programHealth?.coachHotSeat || 0;
   if (hs >= 7)
     takes.push(`🔥 ${t.name} is a powder keg.\n\n${coach} is on the hottest seat in ${t.conference}.\nCoach hot seat: ${hs}/10.\n\nA slow start and this program is in chaos. Bet accordingly.\n\n#CFB ${toHashtag(t.name)} #TheBet`);
   if (!takes.length)
@@ -225,45 +284,52 @@ function tweetIntro() {
 }
 
 function tweetSleepers(count = 5) {
-  return sorted
+  const pool = sorted
     .filter(t => { const mr = modelRank(t); return t.apRank ? (t.apRank - mr) >= 4 : (t.rating >= 78 && mr <= 25); })
-    .sort((a, b) => { const ag = a.apRank ? (a.apRank - modelRank(a)) : 0, bg = b.apRank ? (b.apRank - modelRank(b)) : 0; return ag !== bg ? bg - ag : modelRank(a) - modelRank(b); })
-    .slice(0, count)
-    .map(t => {
-      const mr = modelRank(t), hasRank = t.apRank != null;
-      return fit(
-        `🔍 SLEEPER: ${t.name}\n\nModel rank: #${mr} | AP: ${hasRank ? '#' + t.apRank : 'unranked'}${hasRank ? `\nHidden by ${t.apRank - mr} spots in the AP poll.` : `\nNot in the AP Top 25 — but should be.`}\n\nRating: ${t.rating}/100 · Momentum: ${t.programHealth?.programMomentum || 'stable'}`,
-        [t.programHealth?.transferPortalRating > 45 ? `\nPortal: ${t.programHealth.transferPortalRating}/100` : null,
-         `\nProjected wins: ${winProjFromRating(t.rating)}`,
-         `\n\nThe market hasn't caught up yet. Book it.\n\n#CFB ${toHashtag(t.name)} #TheBet`]
-      );
-    });
+    .sort((a, b) => { const ag = a.apRank ? (a.apRank - modelRank(a)) : 0, bg = b.apRank ? (b.apRank - modelRank(b)) : 0; return ag !== bg ? bg - ag : modelRank(a) - modelRank(b); });
+  // Skip teams tweeted about in this angle within 21 days; fall back to full pool if too few remain
+  const eligible = pool.filter(t => !wasPostedRecently(t.id, 'sleepers'));
+  const list = (eligible.length >= count ? eligible : pool).slice(0, count);
+  markPosted(list, 'sleepers');
+  return list.map(t => {
+    const mr = modelRank(t), hasRank = t.apRank != null;
+    return fit(
+      `🔍 SLEEPER: ${t.name}\n\nModel rank: #${mr} | AP: ${hasRank ? '#' + t.apRank : 'unranked'}${hasRank ? `\nHidden by ${t.apRank - mr} spots in the AP poll.` : `\nNot in the AP Top 25 — but should be.`}\n\nRating: ${t.rating}/100 · Momentum: ${t.programHealth?.programMomentum || 'stable'}`,
+      [t.programHealth?.transferPortalRating > 45 ? `\nPortal: ${t.programHealth.transferPortalRating}/100` : null,
+       `\nProjected wins: ${winProjFromRating(t.rating)}`,
+       `\n\nThe market hasn't caught up yet. Book it.\n\n#CFB ${toHashtag(t.name)} #TheBet`]
+    );
+  });
 }
 
 function tweetFades(count = 5) {
-  return sorted
+  const pool = sorted
     .filter(t => t.apRank && (modelRank(t) - t.apRank) >= 3)
-    .sort((a, b) => (modelRank(b) - (b.apRank || 99)) - (modelRank(a) - (a.apRank || 99)))
-    .slice(0, count)
-    .map(t => fit(
-      `⚠️ FADE: ${t.name} (AP #${t.apRank})\n\nModel rank: #${modelRank(t)}\nOvervalued by ${modelRank(t) - t.apRank} spots.`,
-      [t.programHealth?.programMomentum === 'declining' ? `\n📉 Program momentum: DECLINING` : '',
-       `\nCoach hot seat: ${t.programHealth?.coachHotSeat || 0}/10`,
-       `\nATS as favorite: ${t.situational?.atsFavorite ? pct(t.situational.atsFavorite.pct) : 'limited data'}`,
-       `\n\nThe AP ballot is wrong. The model is not.\n\n#CFB ${toHashtag(t.name)} #TheBet`]
-    ));
+    .sort((a, b) => (modelRank(b) - (b.apRank || 99)) - (modelRank(a) - (a.apRank || 99)));
+  const eligible = pool.filter(t => !wasPostedRecently(t.id, 'fades'));
+  const list = (eligible.length >= count ? eligible : pool).slice(0, count);
+  markPosted(list, 'fades');
+  return list.map(t => fit(
+    `⚠️ FADE: ${t.name} (AP #${t.apRank})\n\nModel rank: #${modelRank(t)}\nOvervalued by ${modelRank(t) - t.apRank} spots.`,
+    [t.programHealth?.programMomentum === 'declining' ? `\n📉 Program momentum: DECLINING` : '',
+     `\nCoach hot seat: ${t.programHealth?.coachHotSeat || 0}/10`,
+     `\nATS as favorite: ${t.situational?.atsFavorite ? pct(t.situational.atsFavorite.pct) : 'limited data'}`,
+     `\n\nThe AP ballot is wrong. The model is not.\n\n#CFB ${toHashtag(t.name)} #TheBet`]
+  ));
 }
 
 function tweetPortal(count = 6) {
-  return [...ALL_TEAMS]
+  const pool = [...ALL_TEAMS]
     .filter(t => (t.programHealth?.transferPortalRating || 0) >= 80)
-    .sort((a, b) => (b.programHealth?.transferPortalRating || 0) - (a.programHealth?.transferPortalRating || 0))
-    .slice(0, count)
-    .map((t, i) => fit(
-      `${i === 0 ? '🏆' : i <= 2 ? '🔥' : '📈'} PORTAL WIN: ${t.name}\n\nTransfer grade: ${t.programHealth.transferPortalRating}/100\nNIL war chest: ${t.programHealth?.nilStrength || 0}/100\nMomentum: ${t.programHealth?.programMomentum || 'stable'}`,
-      [`\nRating: ${t.rating}/100`, `\nProjected wins: ${winProjFromRating(t.rating)}`,
-       `\n\nThey won the offseason. Now let's see if they win the season.\n\n#CFB #TransferPortal ${toHashtag(t.name)} #TheBet`]
-    ));
+    .sort((a, b) => (b.programHealth?.transferPortalRating || 0) - (a.programHealth?.transferPortalRating || 0));
+  const eligible = pool.filter(t => !wasPostedRecently(t.id, 'portal'));
+  const list = (eligible.length >= count ? eligible : pool).slice(0, count);
+  markPosted(list, 'portal');
+  return list.map((t, i) => fit(
+    `${i === 0 ? '🏆' : i <= 2 ? '🔥' : '📈'} PORTAL WIN: ${t.name}\n\nTransfer grade: ${t.programHealth.transferPortalRating}/100\nNIL war chest: ${t.programHealth?.nilStrength || 0}/100\nMomentum: ${t.programHealth?.programMomentum || 'stable'}`,
+    [`\nRating: ${t.rating}/100`, `\nProjected wins: ${winProjFromRating(t.rating)}`,
+     `\n\nThey won the offseason. Now let's see if they win the season.\n\n#CFB #TransferPortal ${toHashtag(t.name)} #TheBet`]
+  ));
 }
 
 function tweetATSValue() {
@@ -328,20 +394,34 @@ function tweetMomentum() {
 function tweetHotTakes(count = 5) {
   const scored = [...ALL_TEAMS].map(t => {
     const iRank = modelRank(t), r = t.rating || 70, m = t.programHealth?.programMomentum || 'stable', hs = t.programHealth?.coachHotSeat || 0;
+    const ni = getNewsItems(t.id || '');
+    // News-first: critical news (gambling, arrest, suspension) gets heavy boost so the account
+    // always covers breaking stories before generic model takes.
+    const newsBoost = ni.some(n => n.sentiment === 'critical') ? 10 : ni.length ? 4 : 0;
+    // Penalize teams already featured in this angle within 21 days.
+    const recentPenalty = wasPostedRecently(t.id, 'hot-takes') ? -6 : 0;
     let score = _daySeed() * 0.5;
     if (t.apRank && Math.abs(iRank - t.apRank) >= 3) score += 3;
     if (m === 'rising' && r < 80) score += 2;
     if (m === 'declining' && r >= 75) score += 2;
     if (hs >= 7) score += 2;
+    score += newsBoost + recentPenalty;
     return { t, score };
   });
   scored.sort((a, b) => b.score - a.score);
-  return scored.slice(0, count).map(({ t }) => buildHotTake(t));
+  const list = scored.slice(0, count).map(({ t }) => t);
+  markPosted(list, 'hot-takes');
+  return list.map(t => buildHotTake(t));
 }
 
 function tweetRotate(offset = 0, count = 5) {
-  const chunk = sorted.slice(offset, offset + count);
-  return (chunk.length ? chunk : sorted.slice(0, count)).map(buildTeamSpotlight);
+  // Start at offset, then skip any teams featured in this angle within 21 days.
+  // Wrap around the full sorted list if needed so we always get `count` tweets.
+  const base = [...sorted.slice(offset), ...sorted.slice(0, offset)]; // wrap-around rotation
+  const eligible = base.filter(t => !wasPostedRecently(t.id, 'rotate'));
+  const list = (eligible.length >= count ? eligible : base).slice(0, count);
+  markPosted(list, 'rotate');
+  return list.map(buildTeamSpotlight);
 }
 
 function tweetTeam(nameQuery) {
@@ -460,6 +540,9 @@ async function main() {
     console.log(`✅ Posted: https://x.com/TheBetCFB/status/${data.id}`);
     await new Promise(r => setTimeout(r, 1500));
   }
+
+  // Persist post-history so next run skips recently-used teams
+  flushHistory();
 
   // Write success marker — workflow reads this to set postedAt (not updatedAt)
   fs.writeFileSync('/tmp/post_succeeded', new Date().toISOString(), 'utf8');

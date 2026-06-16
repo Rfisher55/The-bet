@@ -184,12 +184,17 @@ jobs:
             " "$NEW_TOKEN"
             git config user.name  "TheBet Bot"
             git config user.email "bot@thebetcfb.com"
-            git add data/x-auth.json
+            git add data/x-auth.json data/post-history.json
             git diff --staged --quiet || git commit -m "auth: rotate X OAuth2 refresh token [skip ci]"
             BRANCH=$(git rev-parse --abbrev-ref HEAD)
             git pull --rebase origin "$BRANCH" 2>/dev/null || true
             git push origin HEAD:"$BRANCH" || true
             echo "✅ Token saved. Post outcome: $POST_OUTCOME"
           else
+            # Still commit post-history even if no new token (e.g. post succeeded but token unchanged)
+            git config user.name  "TheBet Bot"
+            git config user.email "bot@thebetcfb.com"
+            git add data/post-history.json 2>/dev/null || true
+            git diff --staged --quiet || { git commit -m "data: update post history [skip ci]" && BRANCH=$(git rev-parse --abbrev-ref HEAD) && git pull --rebase origin "$BRANCH" 2>/dev/null || true && git push origin HEAD:"$BRANCH" || true; }
             echo "ℹ️ No new refresh token"
           fi
