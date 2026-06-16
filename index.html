@@ -610,6 +610,150 @@
     .more-analysis-btn .ma-chev { transition: transform .2s; }
     .more-analysis-btn.open .ma-chev { transform: rotate(180deg); }
     #analysis-group { display: none; }
+
+    /* ══ Hero V3 — Dramatic full-screen ══════════════════════════════════ */
+    @keyframes heroFadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroPulse {
+      0%,100% { opacity: .55; transform: translateX(-50%) scale(1); }
+      50%      { opacity: .85; transform: translateX(-50%) scale(1.08); }
+    }
+
+    .hero-v3 {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      background: #000;
+    }
+    .hero-v3-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        radial-gradient(80% 55% at 50% 52%, rgba(251,146,60,.42) 0%, rgba(220,78,20,.44) 28%, rgba(80,40,20,.32) 50%, rgba(60,28,80,.38) 65%, rgba(8,8,12,.92) 80%, rgba(0,0,0,1) 92%),
+        radial-gradient(70% 52% at 10% 0%,  rgba(255,190,120,.62) 0%, rgba(220,100,30,.52) 30%, rgba(30,15,10,0) 65%),
+        radial-gradient(58% 44% at 90% 20%, rgba(129,140,248,.38) 0%, rgba(10,10,20,0) 55%);
+      background-color: #000;
+    }
+    .hero-v3-grid {
+      pointer-events: none; position: absolute; inset: 0; z-index: 1;
+      mix-blend-mode: screen; opacity: .28;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, transparent 1px 96px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 24px),
+        repeating-radial-gradient(80% 55% at 50% 52%, rgba(255,255,255,.06) 0 1px, transparent 1px 120px);
+    }
+    .hero-v3-vignette {
+      pointer-events: none; position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(140% 120% at 50% 0%, transparent 55%, rgba(0,0,0,.85));
+    }
+    .hero-v3-content {
+      position: relative; z-index: 10;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      max-width: 860px; margin: 0 auto;
+      padding: 120px 20px 240px;
+    }
+    .hero-v3-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 16px; border-radius: 99px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12);
+      font-size: .62rem; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: rgba(255,255,255,.7);
+      backdrop-filter: blur(8px);
+      margin-bottom: 28px; opacity: 0;
+    }
+    .hero-v3-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--primary); animation: pulse 2s infinite;
+    }
+    .hero-v3-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(3.2rem, 10vw, 7.5rem);
+      font-weight: 900; line-height: .98; letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 0 100px rgba(251,146,60,.35);
+      margin-bottom: 22px; opacity: 0;
+    }
+    .hero-v3-title span {
+      background: linear-gradient(135deg, var(--primary) 0%, #f472b6 60%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-v3-sub {
+      font-size: clamp(.95rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,.72); max-width: 520px;
+      line-height: 1.7; margin-bottom: 40px;
+      font-weight: 400; opacity: 0;
+    }
+    .hero-v3-ctas {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      justify-content: center; opacity: 0;
+    }
+    .btn-hero-primary {
+      display: inline-flex; align-items: center;
+      padding: 13px 30px; border-radius: 99px;
+      background: #fff; color: #000;
+      font-size: .9rem; font-weight: 700;
+      transition: all .2s; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(255,255,255,.15);
+    }
+    .btn-hero-primary:hover { background: rgba(255,255,255,.92); transform: translateY(-2px); }
+    .btn-hero-secondary {
+      display: inline-flex; align-items: center;
+      padding: 13px 30px; border-radius: 99px;
+      background: transparent; border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.85);
+      font-size: .9rem; font-weight: 600;
+      transition: all .2s; text-decoration: none;
+      backdrop-filter: blur(8px);
+    }
+    .btn-hero-secondary:hover { border-color: rgba(255,255,255,.45); color: #fff; transform: translateY(-2px); }
+
+    /* Center glow beacon */
+    .hero-v3-glow {
+      pointer-events: none;
+      position: absolute; bottom: 130px; left: 50%;
+      z-index: 3;
+      width: 56px; height: 140px;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom, rgba(255,255,255,.75) 0%, rgba(251,146,60,.55) 45%, transparent 100%);
+      border-radius: 8px;
+      animation: heroPulse 5s ease-in-out infinite;
+      filter: blur(1px);
+    }
+
+    /* Stepped pillars */
+    .hero-v3-pillars {
+      pointer-events: none;
+      position: absolute; inset-x: 0; bottom: 0;
+      z-index: 4; height: 52vh;
+    }
+    .hero-v3-pillars-fade {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, #000 35%, rgba(0,0,0,.88) 65%, transparent);
+    }
+    .hero-v3-pillars-bars {
+      position: absolute; inset-x: 0; bottom: 0;
+      display: flex; height: 100%;
+      align-items: flex-end; gap: 2px; padding: 0 2px;
+    }
+    .hero-v3-pillar {
+      flex: 1; background: #000;
+      transition: height 1.3s cubic-bezier(.34,1.2,.64,1);
+      height: 0;
+    }
+
+    /* Entrance animation classes (added via JS) */
+    .hero-v3-badge.hv3-in  { animation: heroFadeInUp .8s ease-out forwards; }
+    .hero-v3-title.hv3-in  { animation: heroFadeInUp .8s ease-out .15s forwards; }
+    .hero-v3-sub.hv3-in    { animation: heroFadeInUp .8s ease-out .3s forwards; }
+    .hero-v3-ctas.hv3-in   { animation: heroFadeInUp .8s ease-out .45s forwards; }
+
+    /* Remove top padding from page-content since hero is now full-screen above it */
+    .page-content { padding-top: 0; }
   </style>
 </head>
 <body>
@@ -647,40 +791,47 @@
   </div>
 </div>
 
+<!-- ── Hero ── -->
+<section class="hero-v3">
+  <div class="hero-v3-bg" aria-hidden="true"></div>
+  <div class="hero-v3-grid" aria-hidden="true"></div>
+  <div class="hero-v3-vignette" aria-hidden="true"></div>
+  <div class="hero-v3-content">
+    <div class="hero-v3-badge">
+      <span class="hero-v3-badge-dot"></span>
+      2026 CFB Season &middot; 7-Signal AI Model
+    </div>
+    <h1 class="hero-v3-title">WIN THE BET.<br><span>KNOW THE GAME.</span></h1>
+    <p class="hero-v3-sub">The 7-signal AI model tracking every D1 team. Sharp picks, live data, zero fluff.</p>
+    <div class="hero-v3-ctas">
+      <a href="pages/games.html" class="btn-hero-primary">All Games →</a>
+      <a href="pages/parlay.html" class="btn-hero-secondary">Parlay Builder</a>
+      <a href="pages/teams.html" class="btn-hero-secondary">Team Rankings</a>
+    </div>
+  </div>
+  <div class="hero-v3-glow" aria-hidden="true"></div>
+  <div class="hero-v3-pillars" aria-hidden="true">
+    <div class="hero-v3-pillars-fade"></div>
+    <div class="hero-v3-pillars-bars" id="hero-pillars-bars"></div>
+  </div>
+</section>
+
 <!-- ── Main ── -->
 <main class="container page-content">
 
-  <!-- Hero — compact 2-column -->
-  <section class="hero-v2 mb-5">
-    <div class="hero-v2-left">
-      <div class="hero-eyebrow">
-        <span class="hero-eyebrow-dot"></span>
-        2026 Season &middot; 7-Signal AI Model &middot; Independent Predictions
-      </div>
-      <h1 class="hero-title" style="font-size:clamp(2rem,5vw,2.6rem);margin-bottom:10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">
-        WIN THE BET.<br><span>KNOW THE GAME.</span>
-      </h1>
-      <div class="hero-ctas" style="margin-top:0">
-        <a class="btn btn-primary" href="pages/games.html">All Games →</a>
-        <a class="btn btn-outline" href="pages/parlay.html">Parlay Builder</a>
-        <a class="btn btn-outline" href="pages/teams.html">Team Rankings</a>
-      </div>
+  <!-- Top Pick of the Week -->
+  <div class="top-pick-card mb-5" id="hero-top-pick">
+    <div class="top-pick-card-label">
+      <span class="top-pick-card-pulse"></span>Top Pick of the Week
     </div>
-    <div class="hero-v2-right">
-      <div class="top-pick-card" id="hero-top-pick">
-        <div class="top-pick-card-label">
-          <span class="top-pick-card-pulse"></span>Top Pick of the Week
-        </div>
-        <div style="height:20px;margin-bottom:12px" class="skeleton"></div>
-        <div style="height:12px;width:65%;margin-bottom:12px" class="skeleton"></div>
-        <div style="display:flex;gap:8px;margin-bottom:12px">
-          <div style="flex:1;height:54px" class="skeleton"></div>
-          <div style="flex:1;height:54px" class="skeleton"></div>
-        </div>
-        <div style="height:34px" class="skeleton"></div>
-      </div>
+    <div style="height:20px;margin-bottom:12px" class="skeleton"></div>
+    <div style="height:12px;width:65%;margin-bottom:12px" class="skeleton"></div>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <div style="flex:1;height:54px" class="skeleton"></div>
+      <div style="flex:1;height:54px" class="skeleton"></div>
     </div>
-  </section>
+    <div style="height:34px" class="skeleton"></div>
+  </div>
 
   <!-- Model Performance Strip -->
   <section class="mb-5">
@@ -3264,5 +3415,33 @@ window.renderGameCard = renderGameCard;
 <script src="js/config.js"></script>
 <script src="js/autopicks.js"></script>
 <script src="js/live.js"></script>
+
+<script>
+// ── Hero V3: pillar silhouette + staggered fade-in ──────────────────────
+(function() {
+  var pillarHeights = [92, 84, 78, 70, 62, 54, 46, 34, 18, 34, 46, 54, 62, 70, 78, 84, 92];
+  var center = Math.floor(pillarHeights.length / 2);
+  var bars = document.getElementById('hero-pillars-bars');
+  if (bars) {
+    pillarHeights.forEach(function(h, i) {
+      var b = document.createElement('div');
+      b.className = 'hero-v3-pillar';
+      b.style.transitionDelay = (Math.abs(i - center) * 60) + 'ms';
+      bars.appendChild(b);
+    });
+  }
+  setTimeout(function() {
+    if (bars) {
+      bars.querySelectorAll('.hero-v3-pillar').forEach(function(b, i) {
+        b.style.height = pillarHeights[i] + '%';
+      });
+    }
+    ['hero-v3-badge','hero-v3-title','hero-v3-sub','hero-v3-ctas'].forEach(function(cls) {
+      var el = document.querySelector('.' + cls);
+      if (el) el.classList.add('hv3-in');
+    });
+  }, 120);
+})();
+</script>
 </body>
 </html>
