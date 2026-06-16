@@ -356,8 +356,8 @@ async function scrapeBettingPros() {
 
 // ── RSS Parser (shared) ─────────────────────────────────────────────────
 const IMPACT_KEYWORDS = {
-  critical: ["arrested","charged","indicted","suspended indefinitely","dismissed from team","expelled","guilty","dui","assault"],
-  negative: ["injured","out for season","torn acl","torn","surgery","suspended","dismissed","transfer portal","decommits","fired","resigned","investigation","allegations","banned","out vs","will miss"],
+  critical: ["arrested","charged","indicted","suspended indefinitely","dismissed from team","expelled","guilty","dui","assault","gambling"],
+  negative: ["injured","out for season","torn acl","torn","surgery","suspended","dismissed","transfer portal","decommits","fired","resigned","investigation","allegations","banned","out vs","will miss","scandal","lawsuit","suspension","controversy","violation","misconduct","cancel","eligibility","academic"],
   positive: ["commits","enrolled","returns from","promoted","extension","ranked","honor","drafted","signed","award"],
 };
 

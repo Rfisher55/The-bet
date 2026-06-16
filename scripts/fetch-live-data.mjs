@@ -791,8 +791,8 @@ async function fetchRedditSentiment() {
 
 // ── Google News RSS — shared parser ─────────────────────────────────────
 const IMPACT_KEYWORDS = {
-  critical: ["arrested","charged","indicted","suspended indefinitely","dismissed from team","expelled","guilty"],
-  negative: ["injured","out for season","torn","surgery","suspended","dismissed","transfer portal","decommits","fired","resigned","investigation","allegations","banned"],
+  critical: ["arrested","charged","indicted","suspended indefinitely","dismissed from team","expelled","guilty","gambling"],
+  negative: ["injured","out for season","torn","surgery","suspended","dismissed","transfer portal","decommits","fired","resigned","investigation","allegations","banned","scandal","lawsuit","suspension","controversy","violation","misconduct","cancel","legal trouble","academic","eligibility"],
   positive: ["commits","enrolled","returns","promoted","extension","wins","ranked","signs","award","honor","drafted"],
 };
 function parseNewsXML(xml, maxItems = 5) {
