@@ -3,7 +3,7 @@
    Zero-dependency, self-contained CSS
    ═══════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root {
   --bg:        #0A0A0B;
@@ -171,8 +171,18 @@ button, select, input { font-family: inherit; }
 .card::before {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(135deg, rgba(251,146,60,.02) 0%, rgba(129,140,248,.015) 100%);
+  background: linear-gradient(135deg, rgba(251,146,60,.025) 0%, rgba(129,140,248,.015) 100%);
   border-radius: inherit;
+}
+/* Jersey-cut corner accent — top-right diagonal slash */
+.card::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 22px; height: 22px;
+  background: linear-gradient(to bottom left, rgba(251,146,60,.38) 45%, transparent 50%);
+  border-radius: 0 var(--radius-lg) 0 0;
+  pointer-events: none;
+  z-index: 1;
 }
 .card-p { padding: 20px; }
 @media (max-width: 400px) { .card-p { padding: 14px; } }
@@ -283,12 +293,13 @@ select.field { cursor: pointer; }
 .section-label {
   font-size: .62rem; font-weight: 800; letter-spacing: 2.5px;
   text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 10px;
 }
 .section-label::before {
   content: '';
-  display: inline-block; width: 16px; height: 2px;
-  background: var(--primary); border-radius: 1px; flex-shrink: 0;
+  display: inline-block; width: 3px; height: 14px;
+  background: linear-gradient(to bottom, var(--primary), var(--primary-d));
+  border-radius: 2px; flex-shrink: 0;
 }
 
 /* ── Hero ────────────────────────────────────────────── */
@@ -867,4 +878,81 @@ select.field { cursor: pointer; }
 }
 .gd-icon-sm  { width: .85em; height: .85em; }
 .gd-icon-lg  { width: 1.3em; height: 1.3em; }
+
+/* ══ SCOREBOARD TYPOGRAPHY ═══════════════════════════════════════════ */
+/* Rajdhani gives stats/numbers that LED-scoreboard digital look       */
+.stat-cell-value,
+.stat-cell-val,
+.vegas-val,
+.social-score,
+.pred-score,
+.upcoming-days,
+.pick-chip-val,
+.matchup-vs-txt,
+.page-stat-val {
+  font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}
+
+/* Page title keeps Barlow Condensed but gets a broadcast accent bar */
+.page-header {
+  position: relative;
+  margin-bottom: 36px;
+  padding: 12px 0 28px 18px;
+  z-index: 1;
+  border-left: 3px solid var(--primary);
+}
+.page-header::after {
+  display: none; /* replaced by left border */
+}
+
+/* Broadcast chyron: section label with stronger left accent */
+.section-label-broadcast {
+  position: relative;
+  display: flex; align-items: center; gap: 10px;
+  font-size: .6rem; font-weight: 900; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,.5);
+  margin-bottom: 16px;
+  padding: 5px 12px;
+  background: rgba(251,146,60,.07);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Very faint turf-stripe texture across page body */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 47px,
+    rgba(255,255,255,.006) 47px,
+    rgba(255,255,255,.006) 48px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Matchup header field corner decorators ─────────────────────────── */
+.matchup-header::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 50%, transparent 100%);
+}
+
+/* ── Scoreboard-style VS text ───────────────────────────────────────── */
+.matchup-vs-txt {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(251,146,60,.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 3px !important;
+}
 
