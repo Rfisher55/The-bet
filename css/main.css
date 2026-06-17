@@ -738,3 +738,133 @@ select.field { cursor: pointer; }
   .page-content { padding: 16px 0; }
   a { color: inherit; text-decoration: none; }
 }
+
+/* ══ GAME DAY INTERACTIVE EFFECTS ════════════════════════════════════════ */
+
+/* ── Scroll reveal ──────────────────────────────────────────────────── */
+.gd-hidden {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1);
+  will-change: opacity, transform;
+}
+.gd-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gd-hidden { opacity: 1 !important; transform: none !important; }
+}
+
+/* ── Nav scroll state ───────────────────────────────────────────────── */
+.nav::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--primary) 30%, var(--accent) 70%, transparent 100%);
+  opacity: .7;
+}
+.nav--scrolled {
+  background: rgba(10,10,11,.92) !important;
+  border-bottom-color: rgba(42,42,53,.9) !important;
+}
+
+/* ── Game Day badge ─────────────────────────────────────────────────── */
+.is-game-day::after {
+  content: '● LIVE';
+  display: inline-block;
+  margin-left: 8px;
+  font-size: .52rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: var(--danger);
+  vertical-align: middle;
+  animation: pulse 1.5s infinite;
+}
+
+/* ── Ticker strip ───────────────────────────────────────────────────── */
+.gd-ticker {
+  overflow: hidden;
+  background: rgba(251,146,60,.04);
+  border-bottom: 1px solid rgba(251,146,60,.15);
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+.gd-ticker-wrap {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: ticker-scroll 40s linear infinite;
+}
+.gd-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 28px;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .8px;
+  color: var(--muted-l);
+  text-transform: uppercase;
+}
+.gd-ticker-item span { color: var(--primary); }
+.gd-ticker-sep {
+  color: var(--border-l);
+  font-size: .5rem;
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (max-width: 640px) {
+  .gd-ticker { height: 28px; }
+  .gd-ticker-item { font-size: .58rem; padding: 0 18px; }
+}
+
+/* ── Card hover micro-effects ───────────────────────────────────────── */
+.card-link,
+.team-card,
+.top-pick,
+.game-card {
+  transition: transform .25s cubic-bezier(.22,1,.36,1),
+              box-shadow .25s ease,
+              border-color .25s ease;
+}
+.card-link:hover  { transform: translateY(-4px) !important; }
+.team-card:hover  { transform: translateY(-4px) !important; }
+.top-pick:hover   { transform: translateY(-4px) !important; }
+
+/* ── Broadcast lower-third (critical news) ──────────────────────────── */
+.breaking-banner {
+  position: relative;
+  background: linear-gradient(90deg, rgba(239,68,68,.12) 0%, rgba(239,68,68,.04) 100%);
+  border-left: 3px solid var(--danger);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.breaking-banner::before {
+  content: 'BREAKING';
+  position: absolute;
+  top: 50%; left: 14px;
+  transform: translateY(-50%);
+  font-size: .48rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--danger);
+  opacity: .5;
+}
+
+/* ── SVG icon utility ───────────────────────────────────────────────── */
+.gd-icon {
+  display: inline-block;
+  width: 1em; height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.gd-icon-sm  { width: .85em; height: .85em; }
+.gd-icon-lg  { width: 1.3em; height: 1.3em; }
+
