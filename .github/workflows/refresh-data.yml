@@ -89,6 +89,22 @@ jobs:
             CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
             git pull --rebase origin "$CURRENT_BRANCH" 2>/dev/null || { echo "⚠️ Rebase failed — skipping push to avoid overwriting concurrent data commit"; exit 1; }
             git push origin HEAD:"$CURRENT_BRANCH"
+            # Sync data/ to main so the live GitHub Pages site always has fresh data
+            if [ "$CURRENT_BRANCH" != "main" ]; then
+              git fetch origin main
+              git checkout main
+              git pull --rebase origin main 2>/dev/null || true
+              git checkout "$CURRENT_BRANCH" -- data/
+              git add data/
+              if ! git diff --staged --quiet; then
+                git commit -m "data: sync to main from $CURRENT_BRANCH [skip ci]"
+                git push origin main
+                echo "✅ Data synced to main"
+              else
+                echo "No data delta vs main — skipping sync"
+              fi
+              git checkout "$CURRENT_BRANCH"
+            fi
           fi
 
       - name: Check and post breaking alerts
