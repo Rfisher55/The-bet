@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-30T14:12:19.457Z",
+  "generated": "2026-06-30T17:51:17.777Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -20,7 +20,7 @@
     "ESPN (schedule — CFBD preseason fallback)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 98853,
+  "fetchDurationMs": 98343,
   "apRanks": {},
   "games": [
     {
@@ -1542,6 +1542,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401856664",
+      "espnId": "401856664",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "8:00 PM ET",
+      "homeTeamId": "oklahoma",
+      "awayTeamId": "utep",
+      "homeTeamName": "Oklahoma Sooners",
+      "awayTeamName": "UTEP Miners",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "SECN+",
+      "venue": "Memorial Stadium (Norman, OK)",
+      "venueCity": "Norman",
+      "venueState": "OK",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "UTEP Miners at Oklahoma Sooners",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401856769",
       "espnId": "401856769",
       "week": 1,
@@ -1805,75 +1874,6 @@
       },
       "gamePreview": {
         "headline": "Fresno State Bulldogs at USC Trojans",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401856664",
-      "espnId": "401856664",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "8:00 PM ET",
-      "homeTeamId": "oklahoma",
-      "awayTeamId": "utep",
-      "homeTeamName": "Oklahoma Sooners",
-      "awayTeamName": "UTEP Miners",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "SECN+",
-      "venue": "Memorial Stadium (Norman, OK)",
-      "venueCity": "Norman",
-      "venueState": "OK",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "UTEP Miners at Oklahoma Sooners",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
