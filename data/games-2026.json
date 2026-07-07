@@ -1,8 +1,8 @@
 {
-  "generated": "2026-07-06T21:27:12.628Z",
+  "generated": "2026-07-07T02:45:25.864Z",
   "season": 2026,
-  "totalGames": 856,
-  "scheduledGames": 856,
+  "totalGames": 858,
+  "scheduledGames": 858,
   "completedGames": 0,
   "liveGames": 0,
   "gamesWithLines": 0,
@@ -21,7 +21,7 @@
     "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 99106,
+  "fetchDurationMs": 97076,
   "apRanks": {},
   "games": [
     {
@@ -38126,6 +38126,144 @@
       "gamePreview": {
         "headline": "San Diego State Aztecs at Colorado State Rams",
         "synopsis": "Week 8 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401862812",
+      "espnId": "401862812",
+      "week": 9,
+      "seasonType": "regular",
+      "date": "2026-10-29",
+      "time": "7:30 PM ET",
+      "homeTeamId": "north_texas",
+      "awayTeamId": "fau",
+      "homeTeamName": "North Texas Mean Green",
+      "awayTeamName": "Florida Atlantic Owls",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "TBD",
+      "venue": "DATCU Stadium",
+      "venueCity": "Denton",
+      "venueState": "TX",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Florida Atlantic Owls at North Texas Mean Green",
+        "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401869963",
+      "espnId": "401869963",
+      "week": 9,
+      "seasonType": "regular",
+      "date": "2026-10-29",
+      "time": "7:30 PM ET",
+      "homeTeamId": "james_madison",
+      "awayTeamId": "troy",
+      "homeTeamName": "James Madison Dukes",
+      "awayTeamName": "Troy Trojans",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "TBD",
+      "venue": "Bridgeforth Stadium",
+      "venueCity": "Harrisonburg",
+      "venueState": "VA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Troy Trojans at James Madison Dukes",
+        "synopsis": "Week 9 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
           "team": "",
