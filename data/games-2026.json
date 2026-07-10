@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-10T14:15:11.383Z",
+  "generated": "2026-07-10T17:46:06.359Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -21,7 +21,7 @@
     "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 97482,
+  "fetchDurationMs": 97392,
   "apRanks": {},
   "games": [
     {
@@ -1888,75 +1888,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401861962",
-      "espnId": "401861962",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "12:00 PM ET",
-      "homeTeamId": "uconn",
-      "awayTeamId": "lafayette",
-      "homeTeamName": "UConn Huskies",
-      "awayTeamName": "Lafayette Leopards",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "TBD",
-      "venue": "Pratt & Whitney Stadium",
-      "venueCity": "East Hartford",
-      "venueState": "CT",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Lafayette Leopards at UConn Huskies",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401856634",
       "espnId": "401856634",
       "week": 1,
@@ -2452,6 +2383,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401861962",
+      "espnId": "401861962",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "12:00 PM ET",
+      "homeTeamId": "uconn",
+      "awayTeamId": "lafayette",
+      "homeTeamName": "UConn Huskies",
+      "awayTeamName": "Lafayette Leopards",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "TBD",
+      "venue": "Pratt & Whitney Stadium",
+      "venueCity": "East Hartford",
+      "venueState": "CT",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Lafayette Leopards at UConn Huskies",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401862701",
       "espnId": "401862701",
       "week": 1,
@@ -2797,75 +2797,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401864496",
-      "espnId": "401864496",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "1:00 PM ET",
-      "homeTeamId": "air_force",
-      "awayTeamId": "duquesne",
-      "homeTeamName": "Air Force Falcons",
-      "awayTeamName": "Duquesne Dukes",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "MW+",
-      "venue": "Falcon Stadium",
-      "venueCity": "USAF Academy",
-      "venueState": "CO",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Duquesne Dukes at Air Force Falcons",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401856659",
       "espnId": "401856659",
       "week": 1,
@@ -2991,6 +2922,75 @@
       },
       "gamePreview": {
         "headline": "Southeast Missouri State Redhawks at Iowa State Cyclones",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401864496",
+      "espnId": "401864496",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "1:00 PM ET",
+      "homeTeamId": "air_force",
+      "awayTeamId": "duquesne",
+      "homeTeamName": "Air Force Falcons",
+      "awayTeamName": "Duquesne Dukes",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "MW+",
+      "venue": "Falcon Stadium",
+      "venueCity": "USAF Academy",
+      "venueState": "CO",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Duquesne Dukes at Air Force Falcons",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -5971,75 +5971,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401870790",
-      "espnId": "401870790",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-06",
-      "time": "9:00 PM ET",
-      "homeTeamId": "new_mexico_state",
-      "awayTeamId": "mercyhurst",
-      "homeTeamName": "New Mexico State Aggies",
-      "awayTeamName": "Mercyhurst Lakers",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN+",
-      "venue": "Aggie Memorial Stadium",
-      "venueCity": "Las Cruces",
-      "venueState": "NM",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Mercyhurst Lakers at New Mexico State Aggies",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401856774",
       "espnId": "401856774",
       "week": 1,
@@ -6096,6 +6027,75 @@
       },
       "gamePreview": {
         "headline": "Morgan State Bears at Arizona State Sun Devils",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401870790",
+      "espnId": "401870790",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-06",
+      "time": "9:00 PM ET",
+      "homeTeamId": "new_mexico_state",
+      "awayTeamId": "mercyhurst",
+      "homeTeamName": "New Mexico State Aggies",
+      "awayTeamName": "Mercyhurst Lakers",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "ESPN+",
+      "venue": "Aggie Memorial Stadium",
+      "venueCity": "Las Cruces",
+      "venueState": "NM",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Mercyhurst Lakers at New Mexico State Aggies",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -50034,75 +50034,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401869938",
-      "espnId": "401869938",
-      "week": 12,
-      "seasonType": "regular",
-      "date": "2026-11-21",
-      "time": "12:00 AM ET",
-      "homeTeamId": "la_tech",
-      "awayTeamId": "arkansas_state",
-      "homeTeamName": "Louisiana Tech Bulldogs",
-      "awayTeamName": "Arkansas State Red Wolves",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "TBD",
-      "venue": "Joe Aillet Stadium",
-      "venueCity": "Ruston",
-      "venueState": "LA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Arkansas State Red Wolves at Louisiana Tech Bulldogs",
-        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401856869",
       "espnId": "401856869",
       "week": 12,
@@ -52793,6 +52724,75 @@
       },
       "gamePreview": {
         "headline": "UL Monroe Warhawks at App State Mountaineers",
+        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401869938",
+      "espnId": "401869938",
+      "week": 12,
+      "seasonType": "regular",
+      "date": "2026-11-21",
+      "time": "12:00 AM ET",
+      "homeTeamId": "la_tech",
+      "awayTeamId": "arkansas_state",
+      "homeTeamName": "Louisiana Tech Bulldogs",
+      "awayTeamName": "Arkansas State Red Wolves",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "TBD",
+      "venue": "Joe Aillet Stadium",
+      "venueCity": "Ruston",
+      "venueState": "LA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Arkansas State Red Wolves at Louisiana Tech Bulldogs",
         "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
