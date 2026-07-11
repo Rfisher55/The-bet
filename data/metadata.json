@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-11T20:34:55.142Z",
+  "generated": "2026-07-11T23:28:03.363Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -18,8 +18,7 @@
   "espnFallback": true,
   "dataSourcesActive": [
     "ESPN (schedule — CFBD preseason fallback)",
-    "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 96927
+  "fetchDurationMs": 98342
 }
