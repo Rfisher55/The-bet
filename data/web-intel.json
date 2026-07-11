@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-11T12:56:05.400Z",
-  "elapsedMs": 3697,
+  "generatedAt": "2026-07-11T13:15:44.204Z",
+  "elapsedMs": 3768,
   "atsRankings": {
     "sacramento state": {
       "atsW": 1,
@@ -968,6 +968,18 @@
   "redditSentiment": {},
   "redditPosts": [],
   "newsByTeam": {
+    "lsu": [
+      {
+        "title": "Eight Of The Most Impactful Transfer Portal Additions to LSU's Roster - Sports Illustrated",
+        "source": "Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQUlF3dlVwQ1V0TERTSm5JUHFOSGVrd0otZDZmcUY4TWRoM2dLdFVWOUhfYUJMY0duR2hVajFqYjY2QjVHVzBqNkRLUHUzTXVHVVczb0VVWWVYUElxNW81VGRvaHFONy1pTHoxNFhmcVlHTzZiZDZ1ZUpnQ29jLUlqSURrdUZKR0gwaEdMTlh6b2plZlZuYzJwR0xoYWp6OVliX2tsc29WajdzY2s?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 11 Jul 2026 13:00:00 GMT",
+        "searchQuery": "college football transfer portal"
+      }
+    ],
     "penn_state": [
       {
         "title": "How Penn State’s Game 8 opponent Purdue was affected by the transfer portal - 247Sports",
@@ -992,15 +1004,27 @@
         "searchQuery": "college football transfer portal"
       }
     ],
+    "south_carolina": [
+      {
+        "title": "Where South Carolina football's transfer portal departures will play in 2026 - On3",
+        "source": "On3",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQcUwtQklhWV9YN043bVVoTFgxckVST2ZRZmJBazJ1dzNSQy1FZFBnTThmMkg4U1hjTnllUWM1dVV6UFhnaGZlTXJvbDZJNk5idlFRMDN4T01mRHhwRU1pS3JMRkotT2RGOUVhZ1VEd0M5YUJCajZTMDRObnI4NXFES0JRX1kzTjhkdDIzaDNxRjhrRTgxd21OUHV3REpDd0pIYkZjSjRmMk4zTEFTdzMtcXBzN21wRjR5NXc?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 3,
+        "isCritical": false,
+        "pubDate": "Wed, 08 Jul 2026 17:13:00 GMT",
+        "searchQuery": "college football transfer portal"
+      }
+    ],
     "florida_state": [
       {
-        "title": "Former FSU Football WR Enters Transfer Portal After Charges Dismissed - Sports Illustrated",
-        "source": "Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOTFhVTVFiQnNSODBmV0lvZmdlTjBpWVVUV2xGRWtJR3VsZFgtaDJnNDVqUWlyMmNTMS1FeF9qZmpWaEh6WU1GaGFnQUtTdUZjSjVHQ1JQWTY1ekVCZnhNTVNJTUtRdVphME5KQ25UWUlSemlNLV8xRXlKWmwwWVUtNzVQZTVDdXVJQm5LX19LUzRVcmlOejFOaWx1Ny1ad2o4SVFVR0ozbTEyZTlIMjZsVGp1U1pjcE1EVk5IU2xvck9LZjBKWTlXVUJiMTNoUDRt?oc=5",
+        "title": "Former FSU Football WR Enters Transfer Portal After Charges Dismissed - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPdVRpNVdwdEo1YXFJVkF3QXFMMEtBbER6ZVhPeUZqMUdmS2I5c0NUQnhkZFo1VEsxRHFfWkhiZ3l2TU1EWVdSUjRmNEgyU1NPSTl5UnYza0VBNXNuMC1nUnJOSGxPN2pEanI5QUtNRThyOVZsbGlFOVV2ckxwX0tVOGQxdlQ?oc=5",
         "sentiment": "negative",
         "daysAgo": 2,
         "isCritical": false,
-        "pubDate": "Thu, 09 Jul 2026 19:05:01 GMT",
+        "pubDate": "Thu, 09 Jul 2026 19:05:02 GMT",
         "searchQuery": "college football transfer portal"
       },
       {
@@ -1014,29 +1038,19 @@
         "searchQuery": "college football transfer portal"
       }
     ],
-    "south_carolina": [
+    "usc": [
       {
-        "title": "Where South Carolina football's transfer portal departures will play in 2026 - On3",
-        "source": "On3",
-        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQcUwtQklhWV9YN043bVVoTFgxckVST2ZRZmJBazJ1dzNSQy1FZFBnTThmMkg4U1hjTnllUWM1dVV6UFhnaGZlTXJvbDZJNk5idlFRMDN4T01mRHhwRU1pS3JMRkotT2RGOUVhZ1VEd0M5YUJCajZTMDRObnI4NXFES0JRX1kzTjhkdDIzaDNxRjhrRTgxd21OUHV3REpDd0pIYkZjSjRmMk4zTEFTdzMtcXBzN21wRjR5NXc?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 3,
+        "title": "Four USC Trojans Set for Resurgence With Injury Returns - Sports Illustrated",
+        "source": "Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOYVBhOVRkbU1aZmp3MlpYUDFKdXZEZTZnSS1yWnRpd3RuZ2ZVVTU5bXpySUFoSXBtd04tTUNZX0NwdGFLVnZhMWNGSnhKZGhNUEx5TzZ0dEt5eXNOWHU3V1RCMTlDNWUzTzU5UGE4LWFKcDh1a3ZlSFU4WGlNaDhNV0lNZw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
         "isCritical": false,
-        "pubDate": "Wed, 08 Jul 2026 17:13:00 GMT",
-        "searchQuery": "college football transfer portal"
+        "pubDate": "Fri, 10 Jul 2026 12:54:24 GMT",
+        "searchQuery": "college football injury"
       }
     ],
     "notre_dame": [
-      {
-        "title": "Jedd Fisch details Demond Williams Jr.'s transfer portal fiasco - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOTG41UHVOS1F0cHNjNkJBdVcxcGFqbVZOY0F4UW1qNGVlS1Q5eUlhZ1BmUkktbk1BaUQ5VERQcmh2Q2hnX1VjSmhCZGp4QmFIRDZuWm9lV0ZrbVhrLVVBcS1ENWNzb19SSVFJSDc4SHBfSTV1Ry1uYTFPTmMtRk5XN2VTMzJXWTJiTHFV?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Fri, 10 Jul 2026 20:07:30 GMT",
-        "searchQuery": "college football transfer portal"
-      },
       {
         "title": "BRINGING A CHIP: Baylor’s Pendergrass looking for strong return from injury - Longview News-Journal",
         "source": "Longview News-Journal",
@@ -1058,16 +1072,6 @@
         "searchQuery": "college football coaching change"
       },
       {
-        "title": "Breaking Down Every Position on Notre Dame's Roster in College Football '27 - 247Sports",
-        "source": "247Sports",
-        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOU3hOX29aemFBVHVlX0lmb0hVNHJpTndudXFEaThoNU1weTg0UFNaalY2dUJ0NXFIRDJDM2lralozbXVZTzV1eExpMUVlTzZTNUhpYUpEUzUwQWtDOXZfbnJXd3hHYUVaeDZEUnZtQ0xaZW5hczZaQ0VyckZwbjN3WmxXTXlaMWVzaW92NmdyNDVzSy1kaEFUQnFpajZLOEtrcklOdVlwMXBFNmUwUzBUMHhPdHZsWGhBZEw3S1FKLVNCX1lTMU8wc1BtVDVUdw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 15,
-        "isCritical": false,
-        "pubDate": "Fri, 26 Jun 2026 07:00:00 GMT",
-        "searchQuery": "college football depth chart"
-      },
-      {
         "title": "Jeremy Fowler addresses whether NFL could suspend Brendan Sorsby after Supplemental Draft - On3",
         "source": "On3",
         "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxOeTV3UUpIWDEwNGpLUnpQSkhpUmc0TVNWTTJwQmN3bUl6Nk9CbHZUc1Z2VUpsYlpsQk9BbzlqYzNJX0VhQm5nWWtSVHRvbGRKWXpxd3Ixa1JPZl9GOTA4Y21BNWJnOUZoQ3pVRE1ETHVScGlSX2hjd2ktR19QMzQweFpGN18yX1JvQlB4U21MblpNd09nV3ZxRHhBYUN6RlJPM3JHVHQ1WkhlVUpGcXpLZF9kN25ISkZqR1ZlaW03V1pnR3ktSUVkTG5aY1RsbDlfdmtZQnVTSHhnQ1VkeUZsSmNfNGRsUUUtcjFLSWpRSHQ4a0dTTk13?oc=5",
@@ -1076,30 +1080,26 @@
         "isCritical": false,
         "pubDate": "Thu, 09 Jul 2026 07:55:56 GMT",
         "searchQuery": "college football suspended"
-      }
-    ],
-    "washington": [
+      },
       {
-        "title": "Jedd Fisch details Demond Williams Jr.'s transfer portal fiasco - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOTG41UHVOS1F0cHNjNkJBdVcxcGFqbVZOY0F4UW1qNGVlS1Q5eUlhZ1BmUkktbk1BaUQ5VERQcmh2Q2hnX1VjSmhCZGp4QmFIRDZuWm9lV0ZrbVhrLVVBcS1ENWNzb19SSVFJSDc4SHBfSTV1Ry1uYTFPTmMtRk5XN2VTMzJXWTJiTHFV?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Fri, 10 Jul 2026 20:07:30 GMT",
-        "searchQuery": "college football transfer portal"
-      }
-    ],
-    "usc": [
+        "title": "Brendan Sorsby timeline: Gambling, NFL supplemental draft, more - ESPN",
+        "source": "ESPN",
+        "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZGdQRVFCeEl2amp5bFc5U01YQTctZXJRYjhpMmF6Q1dNYW9jTU9lT2xQTDdWS1ZmM3JKdUhibE1VSFJOR0VMb2lmTlVZaXQyWHVKMXEzN0F5S0l1WVRXeUNtYXVRd1FKMG54aW4wMHpHdkJJbzRVMV8yc2tWNWhmVFJYUnFaNFhjVWxPTGhBbzJyaTFrZGhDcWNMNTR5bHA5UUxWcjQ1U3VOTWdWeGloWGdRbnM?oc=5",
+        "sentiment": "critical",
+        "daysAgo": 10,
+        "isCritical": true,
+        "pubDate": "Wed, 01 Jul 2026 13:15:00 GMT",
+        "searchQuery": "college football suspended"
+      },
       {
-        "title": "Four USC Trojans Set for Resurgence With Injury Returns - Sports Illustrated",
-        "source": "Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOYVBhOVRkbU1aZmp3MlpYUDFKdXZEZTZnSS1yWnRpd3RuZ2ZVVTU5bXpySUFoSXBtd04tTUNZX0NwdGFLVnZhMWNGSnhKZGhNUEx5TzZ0dEt5eXNOWHU3V1RCMTlDNWUzTzU5UGE4LWFKcDh1a3ZlSFU4WGlNaDhNV0lNZw?oc=5",
+        "title": "Brendan Sorsby's NFL exit ends the fight Texas Tech should never have picked - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOQTNKSjhlbm05R0MyNDVtdUhXQ1dpTVk5NGMtMHpmZUpvYUdMcVhpMHJPekgyaW12bzVwZDBrekxsZFczRENjMHVBTVRkNURpdDlkT0VVWEVLQjU2M2ktdkdnbldDVmlXRTg4SEhJQTlHak9oclE2NXMwQ3M2dmNLTXZEd0RKWkFuS3FqRmNxcWFXMmctMnhsVGhRUnU3aW15S1ZCNUhHTFVjS2UxM29PTE9oVGpPamc3Z1VmaEU3djE3WHpR?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 26,
         "isCritical": false,
-        "pubDate": "Fri, 10 Jul 2026 12:54:24 GMT",
-        "searchQuery": "college football injury"
+        "pubDate": "Mon, 15 Jun 2026 07:00:00 GMT",
+        "searchQuery": "college football suspended"
       }
     ],
     "texas": [
@@ -1244,18 +1244,6 @@
         "searchQuery": "college football coaching change"
       }
     ],
-    "clemson": [
-      {
-        "title": "Clemson Football Depth Chart Outlook: Wide Receiver - Sports Illustrated",
-        "source": "Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQLTFJRWdaMzhSUzNfUThQQk15cnBnSVJ0TGZHV01HdDJ1TElwVF9pVVdQM0pYLWo1V3dtZmFHY21ZYVJqZlNXMFZyeTBwcVYzTzVDRElMVUZrZXllZzdZNTZhUkNwcUNsSGctTXJNQTRvc3lOc1A5d0lyUmw0MktzTGU1dVVsSEpPQ2M2MzVhcnNxbEtHVXZ5Szhn?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Fri, 10 Jul 2026 15:18:41 GMT",
-        "searchQuery": "college football depth chart"
-      }
-    ],
     "ohio_state": [
       {
         "title": "Ohio State football transfer arrested on serious charges over the weekend, suspended from his new team in the SEC - Yahoo Sports",
@@ -1267,9 +1255,31 @@
         "pubDate": "Mon, 15 Jun 2026 07:00:00 GMT",
         "searchQuery": "college football suspended"
       }
+    ],
+    "clemson": [
+      {
+        "title": "Clemson Football Depth Chart Outlook: Wide Receiver - Sports Illustrated",
+        "source": "Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQLTFJRWdaMzhSUzNfUThQQk15cnBnSVJ0TGZHV01HdDJ1TElwVF9pVVdQM0pYLWo1V3dtZmFHY21ZYVJqZlNXMFZyeTBwcVYzTzVDRElMVUZrZXllZzdZNTZhUkNwcUNsSGctTXJNQTRvc3lOc1A5d0lyUmw0MktzTGU1dVVsSEpPQ2M2MzVhcnNxbEtHVXZ5Szhn?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Fri, 10 Jul 2026 15:18:41 GMT",
+        "searchQuery": "college football depth chart"
+      }
     ]
   },
   "allNews": [
+    {
+      "title": "Eight Of The Most Impactful Transfer Portal Additions to LSU's Roster - Sports Illustrated",
+      "source": "Sports Illustrated",
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQUlF3dlVwQ1V0TERTSm5JUHFOSGVrd0otZDZmcUY4TWRoM2dLdFVWOUhfYUJMY0duR2hVajFqYjY2QjVHVzBqNkRLUHUzTXVHVVczb0VVWWVYUElxNW81VGRvaHFONy1pTHoxNFhmcVlHTzZiZDZ1ZUpnQ29jLUlqSURrdUZKR0gwaEdMTlh6b2plZlZuYzJwR0xoYWp6OVliX2tsc29WajdzY2s?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 11 Jul 2026 13:00:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
     {
       "title": "How Penn State’s Game 8 opponent Purdue was affected by the transfer portal - 247Sports",
       "source": "247Sports",
@@ -1278,16 +1288,6 @@
       "daysAgo": 2,
       "isCritical": false,
       "pubDate": "Thu, 09 Jul 2026 18:23:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "Former FSU Football WR Enters Transfer Portal After Charges Dismissed - Sports Illustrated",
-      "source": "Sports Illustrated",
-      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOTFhVTVFiQnNSODBmV0lvZmdlTjBpWVVUV2xGRWtJR3VsZFgtaDJnNDVqUWlyMmNTMS1FeF9qZmpWaEh6WU1GaGFnQUtTdUZjSjVHQ1JQWTY1ekVCZnhNTVNJTUtRdVphME5KQ25UWUlSemlNLV8xRXlKWmwwWVUtNzVQZTVDdXVJQm5LX19LUzRVcmlOejFOaWx1Ny1ad2o4SVFVR0ozbTEyZTlIMjZsVGp1U1pjcE1EVk5IU2xvck9LZjBKWTlXVUJiMTNoUDRt?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 2,
-      "isCritical": false,
-      "pubDate": "Thu, 09 Jul 2026 19:05:01 GMT",
       "searchQuery": "college football transfer portal"
     },
     {
@@ -1301,13 +1301,13 @@
       "searchQuery": "college football transfer portal"
     },
     {
-      "title": "Jedd Fisch details Demond Williams Jr.'s transfer portal fiasco - Yahoo Sports",
+      "title": "Former FSU Football WR Enters Transfer Portal After Charges Dismissed - Yahoo Sports",
       "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOTG41UHVOS1F0cHNjNkJBdVcxcGFqbVZOY0F4UW1qNGVlS1Q5eUlhZ1BmUkktbk1BaUQ5VERQcmh2Q2hnX1VjSmhCZGp4QmFIRDZuWm9lV0ZrbVhrLVVBcS1ENWNzb19SSVFJSDc4SHBfSTV1Ry1uYTFPTmMtRk5XN2VTMzJXWTJiTHFV?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPdVRpNVdwdEo1YXFJVkF3QXFMMEtBbER6ZVhPeUZqMUdmS2I5c0NUQnhkZFo1VEsxRHFfWkhiZ3l2TU1EWVdSUjRmNEgyU1NPSTl5UnYza0VBNXNuMC1nUnJOSGxPN2pEanI5QUtNRThyOVZsbGlFOVV2ckxwX0tVOGQxdlQ?oc=5",
       "sentiment": "negative",
-      "daysAgo": 1,
+      "daysAgo": 2,
       "isCritical": false,
-      "pubDate": "Fri, 10 Jul 2026 20:07:30 GMT",
+      "pubDate": "Thu, 09 Jul 2026 19:05:02 GMT",
       "searchQuery": "college football transfer portal"
     },
     {
@@ -1421,56 +1421,6 @@
       "searchQuery": "college football coaching change"
     },
     {
-      "title": "Building an ultimate college football roster: The FBS's best position groups in 2026 - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQcWtJWFY5ZG5BRHJldWF4VGxldFNUN3JRbkJTSmtjcE53OEtKbWdad3hqS2NYNlBTd0IyZVZGUEVLLTk5MHdJcUhlQXg4U284d0RBQ0dhM0otaHBWaWdCODB5NWJQR1A2VzdONEU0d3VEeW5haFp1RWlDSVZNc3JvUTRSMERjaEZWSG03YVZWVQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 4,
-      "isCritical": false,
-      "pubDate": "Tue, 07 Jul 2026 14:11:43 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "NC State’s football roster updated to reflect new 5-in-5 rule - Backing The Pack",
-      "source": "Backing The Pack",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxORWJ1M1ZkU3BnN1BDWktqWXlqaW1BZ21rV2syR0IxYXpmR0JoVkdHMmprd0pBSzRBWnJFRVdOWS1oaE82cGlBLWVNNVBQNU10TFVidVVVYzdKOUlDZmcyNDI0TExkLTJ2SXZiU1RmM01TSXZFM1VGMnlINFE2cGlxbFdYZVFUZ2RHRWw3ZXFCS3hRVGc3TDNtQVRIZE8wSDF5amlEYms1cHFNdU81Q2h3VHJsZm5YUQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Fri, 10 Jul 2026 17:09:55 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "2026 Utah State Football Depth Chart Projections - HERO Sports",
-      "source": "HERO Sports",
-      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPbkUwXzJNbkQzZ2tHdkptSGFjTUtDM0R3VnA5RW5CN2xGaVJzeHZ0QnFWam5yMl9QejNrc0NhRC1LV1Bwb2xsZ1ZmYllVTUw0RVBEZm5fM0FjVHFLRjNBaUc3VnBHWW5GTmdsWmdMWnhzbTZCOHg1MWMzVkF1S25GeGpRWnItNEJv?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Fri, 10 Jul 2026 16:44:15 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "Clemson Football Depth Chart Outlook: Wide Receiver - Sports Illustrated",
-      "source": "Sports Illustrated",
-      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQLTFJRWdaMzhSUzNfUThQQk15cnBnSVJ0TGZHV01HdDJ1TElwVF9pVVdQM0pYLWo1V3dtZmFHY21ZYVJqZlNXMFZyeTBwcVYzTzVDRElMVUZrZXllZzdZNTZhUkNwcUNsSGctTXJNQTRvc3lOc1A5d0lyUmw0MktzTGU1dVVsSEpPQ2M2MzVhcnNxbEtHVXZ5Szhn?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Fri, 10 Jul 2026 15:18:41 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "Breaking Down Every Position on Notre Dame's Roster in College Football '27 - 247Sports",
-      "source": "247Sports",
-      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOU3hOX29aemFBVHVlX0lmb0hVNHJpTndudXFEaThoNU1weTg0UFNaalY2dUJ0NXFIRDJDM2lralozbXVZTzV1eExpMUVlTzZTNUhpYUpEUzUwQWtDOXZfbnJXd3hHYUVaeDZEUnZtQ0xaZW5hczZaQ0VyckZwbjN3WmxXTXlaMWVzaW92NmdyNDVzSy1kaEFUQnFpajZLOEtrcklOdVlwMXBFNmUwUzBUMHhPdHZsWGhBZEw3S1FKLVNCX1lTMU8wc1BtVDVUdw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 15,
-      "isCritical": false,
-      "pubDate": "Fri, 26 Jun 2026 07:00:00 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
       "title": "Ranking the 50 Best College Football Players of All Time - Sports Illustrated",
       "source": "Sports Illustrated",
       "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNN0xETXNKSnBVeUpmdlllZFdoRzFtS1VkN1Vzc2ZXT2NkV1FNWlFwR3BCcGFIbjVLdVBmM0R0ZEU3Qy0zY0kwbVBsRTctbE9Db1lnd2tuVTJYSldDVEFyb3BhcEhMSG9wZUw1T1FGNlRyNVdCWEwwcTBnSW5yb1h5R3lhOEVxTld2NnpTLWJ6dlREdw?oc=5",
@@ -1571,54 +1521,54 @@
       "searchQuery": "college football suspended"
     },
     {
-      "title": "College Football Playoff National Championship odds, money line, spreads and totals - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPRmo4QktQMmVFVmlrYVk3NUlrVlY0bEM0WXd0R1hFdHBxSEpfeXFTNzQxTEhlOEY4WUZEV2hOSk45OVpTZG02YV9yU3NNN3M5dmFfUTVrM0V2TFBjeUZQZzV6bm9UeUcwaTdaUWN4YmhsUTVGbzdUVVMySjNEcDAycHNSaVNheVBNMTdlV3p6WVdFclU0VllmSVNjVUtuLVdsNGtEc0ExMGJPMW1kaHJBTHd2SW81LS1wS3plcg?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 182,
-      "isCritical": false,
-      "pubDate": "Sat, 10 Jan 2026 08:00:00 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "2025 CFP Odds: Lines, Spreads for Each Quarterfinal Game - FOX Sports",
-      "source": "FOX Sports",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNeW81ODNZcUdpUFJ2c0NhYWVoVUdhOUtsdEs3MUFwUTRWaWVxNHBhbjRpR3I4TTY2Y1JTVWNwNlNRM0xrOXU4d2gxdXY3WXBZREVpcHlDNElVS05rVnAxQXFaUWh5SnczYXNfRkFYNVc0VjBDblJyNnVMWDBVM0FNSmdjSHJNREQ2cE0tUEowZWl1Nkx4eHFQMzBycmlBY1BVelVj0gGjAUFVX3lxTFBMdTExX1BCTFZ2QURhdG1MN2lXQlM1UVgxQkxNYzlKaDIzR1JISm9uSjZkMS1BTzU3dkNmdmRSb2lfTUxnUWdNNFJjTUtEWkpkTEhOQ1ROakJCSUpfUDJqeFZpMFBvQkVxSnlxeFpONHlnbkc2eEZYMFA0VnRaaEtDcVNWUHhFVndaRVAxRDRxd1RYczhUN0ZtNWNYU1BESFBvZWM?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 191,
-      "isCritical": false,
-      "pubDate": "Thu, 01 Jan 2026 08:00:00 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College football 2026 Week 1 betting: Early betting odds and analysis for TCU-UNC, Virginia-NC State - CBS Sports",
+      "title": "Building an ultimate college football roster: The FBS's best position groups in 2026 - CBS Sports",
       "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNSmlxQm5WeFFYTzNkYk5VVWVYNlludUJwUjZQX3VSZDQyQzNydHRVWmZKRDM1ZkNjRzE0SjV1R1BrOTY3cjBERzNiTkNPdEczVW1vUzhURWRGU2txVFJzOWdWRVR1SmczWktPZ21hLUdwcENBVl9TNDRtcllQTTAwcEJzRVg3T3hpdnVkSWhWb2QyVGtvM2N2cWFCSW01bER6MlNQalRkX3Y3aXZya0RwdUdoTjJhcndTNW5iMXdHYkQ0RXlGZDZfZlM3cGs0S1hnODNmNg?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQcWtJWFY5ZG5BRHJldWF4VGxldFNUN3JRbkJTSmtjcE53OEtKbWdad3hqS2NYNlBTd0IyZVZGUEVLLTk5MHdJcUhlQXg4U284d0RBQ0dhM0otaHBWaWdCODB5NWJQR1A2VzdONEU0d3VEeW5haFp1RWlDSVZNc3JvUTRSMERjaEZWSG03YVZWVQ?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 53,
+      "daysAgo": 4,
       "isCritical": false,
-      "pubDate": "Tue, 19 May 2026 07:00:00 GMT",
-      "searchQuery": "college football spread odds"
+      "pubDate": "Tue, 07 Jul 2026 14:11:43 GMT",
+      "searchQuery": "college football depth chart"
     },
     {
-      "title": "2025 CFP Odds: Lines, Spreads for Each Semifinal Game - FOX Sports",
-      "source": "FOX Sports",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPajc3U2VrZjhDdk1xMFV5NHpKNVVhZkIwMm1EcEpTUTk5X3hjekk1Z0RJWEVPVXlCMjQ0elFpNmpnckw3YTdMLUlCMDNSRFVHSlY0ZTBKZGJ0dE9YaDNncldmS0dudUwtdWdEYk1zYnJFcHZzbjFSdTYtczlVMC1DNjNsY1lJMkVNWWFIdTBWTVp4NHM3MlRtdjRIazFYOEXSAZ8BQVVfeXFMTVhKb0VXR0RiOXRRXzFscUlZYi1mZGxqcWhnMXhjejY5T3EwNXYxSjlsaW5qVDlzTWlOTGg5VDhEaU42REplSHhHQ09VdE9hWFhvTG5jcTdFV3hLM1B2dVU2cXdUZXM2bklNY05sTUxIanNEMWxONnpWRUFSVi1GTkx5Qndmd0RLSFBsZlhzSTZLNFAwenBvOEVLdHJ2N3NN?oc=5",
+      "title": "NC State’s football roster updated to reflect new 5-in-5 rule - Backing The Pack",
+      "source": "Backing The Pack",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxORWJ1M1ZkU3BnN1BDWktqWXlqaW1BZ21rV2syR0IxYXpmR0JoVkdHMmprd0pBSzRBWnJFRVdOWS1oaE82cGlBLWVNNVBQNU10TFVidVVVYzdKOUlDZmcyNDI0TExkLTJ2SXZiU1RmM01TSXZFM1VGMnlINFE2cGlxbFdYZVFUZ2RHRWw3ZXFCS3hRVGc3TDNtQVRIZE8wSDF5amlEYms1cHFNdU81Q2h3VHJsZm5YUQ?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 183,
+      "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Fri, 09 Jan 2026 08:00:00 GMT",
-      "searchQuery": "college football spread odds"
+      "pubDate": "Fri, 10 Jul 2026 17:09:55 GMT",
+      "searchQuery": "college football depth chart"
     },
     {
-      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 13 - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOcmNsWlhTQUNuZk1qM1FlMXB3cEx0T2VPVmpWb3U0Q1BJQmF5ZjV6Z2szaFV6NUlwX2k0SmxEQzJfaG0zVjY4YmNmbTZab0ZVTDZlUzVmd0VyQ2tLek54cWZ3R1RISW56Znhrd0ZqSzhtTkU1eUwxZXJYMktqUHJndkNZbTJCVWtTNENNSTJWanFmalRmWDBuZk5ybGJSa25IQ2dpbEl3azB5djgxRVE?oc=5",
+      "title": "2026 Utah State Football Depth Chart Projections - HERO Sports",
+      "source": "HERO Sports",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPbkUwXzJNbkQzZ2tHdkptSGFjTUtDM0R3VnA5RW5CN2xGaVJzeHZ0QnFWam5yMl9QejNrc0NhRC1LV1Bwb2xsZ1ZmYllVTUw0RVBEZm5fM0FjVHFLRjNBaUc3VnBHWW5GTmdsWmdMWnhzbTZCOHg1MWMzVkF1S25GeGpRWnItNEJv?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 231,
+      "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Sat, 22 Nov 2025 08:00:00 GMT",
-      "searchQuery": "college football spread odds"
+      "pubDate": "Fri, 10 Jul 2026 16:44:15 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "Clemson Football Depth Chart Outlook: Wide Receiver - Sports Illustrated",
+      "source": "Sports Illustrated",
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQLTFJRWdaMzhSUzNfUThQQk15cnBnSVJ0TGZHV01HdDJ1TElwVF9pVVdQM0pYLWo1V3dtZmFHY21ZYVJqZlNXMFZyeTBwcVYzTzVDRElMVUZrZXllZzdZNTZhUkNwcUNsSGctTXJNQTRvc3lOc1A5d0lyUmw0MktzTGU1dVVsSEpPQ2M2MzVhcnNxbEtHVXZ5Szhn?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Fri, 10 Jul 2026 15:18:41 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "Breaking Down Every Position on Notre Dame's Roster in College Football '27 - 247Sports",
+      "source": "247Sports",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOU3hOX29aemFBVHVlX0lmb0hVNHJpTndudXFEaThoNU1weTg0UFNaalY2dUJ0NXFIRDJDM2lralozbXVZTzV1eExpMUVlTzZTNUhpYUpEUzUwQWtDOXZfbnJXd3hHYUVaeDZEUnZtQ0xaZW5hczZaQ0VyckZwbjN3WmxXTXlaMWVzaW92NmdyNDVzSy1kaEFUQnFpajZLOEtrcklOdVlwMXBFNmUwUzBUMHhPdHZsWGhBZEw3S1FKLVNCX1lTMU8wc1BtVDVUdw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 15,
+      "isCritical": false,
+      "pubDate": "Fri, 26 Jun 2026 07:00:00 GMT",
+      "searchQuery": "college football depth chart"
     },
     {
       "title": "2026 Big 12 football predictions: Game-by-game picks, projecting every team's final win-loss record - CBS Sports",
@@ -1669,6 +1619,56 @@
       "isCritical": false,
       "pubDate": "Thu, 04 Jun 2026 07:00:00 GMT",
       "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "College Football Playoff National Championship odds, money line, spreads and totals - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPRmo4QktQMmVFVmlrYVk3NUlrVlY0bEM0WXd0R1hFdHBxSEpfeXFTNzQxTEhlOEY4WUZEV2hOSk45OVpTZG02YV9yU3NNN3M5dmFfUTVrM0V2TFBjeUZQZzV6bm9UeUcwaTdaUWN4YmhsUTVGbzdUVVMySjNEcDAycHNSaVNheVBNMTdlV3p6WVdFclU0VllmSVNjVUtuLVdsNGtEc0ExMGJPMW1kaHJBTHd2SW81LS1wS3plcg?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 182,
+      "isCritical": false,
+      "pubDate": "Sat, 10 Jan 2026 08:00:00 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "2025 CFP Odds: Lines, Spreads for Each Quarterfinal Game - FOX Sports",
+      "source": "FOX Sports",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNeW81ODNZcUdpUFJ2c0NhYWVoVUdhOUtsdEs3MUFwUTRWaWVxNHBhbjRpR3I4TTY2Y1JTVWNwNlNRM0xrOXU4d2gxdXY3WXBZREVpcHlDNElVS05rVnAxQXFaUWh5SnczYXNfRkFYNVc0VjBDblJyNnVMWDBVM0FNSmdjSHJNREQ2cE0tUEowZWl1Nkx4eHFQMzBycmlBY1BVelVj0gGjAUFVX3lxTFBMdTExX1BCTFZ2QURhdG1MN2lXQlM1UVgxQkxNYzlKaDIzR1JISm9uSjZkMS1BTzU3dkNmdmRSb2lfTUxnUWdNNFJjTUtEWkpkTEhOQ1ROakJCSUpfUDJqeFZpMFBvQkVxSnlxeFpONHlnbkc2eEZYMFA0VnRaaEtDcVNWUHhFVndaRVAxRDRxd1RYczhUN0ZtNWNYU1BESFBvZWM?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 191,
+      "isCritical": false,
+      "pubDate": "Thu, 01 Jan 2026 08:00:00 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "College football 2026 Week 1 betting: Early betting odds and analysis for TCU-UNC, Virginia-NC State - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNSmlxQm5WeFFYTzNkYk5VVWVYNlludUJwUjZQX3VSZDQyQzNydHRVWmZKRDM1ZkNjRzE0SjV1R1BrOTY3cjBERzNiTkNPdEczVW1vUzhURWRGU2txVFJzOWdWRVR1SmczWktPZ21hLUdwcENBVl9TNDRtcllQTTAwcEJzRVg3T3hpdnVkSWhWb2QyVGtvM2N2cWFCSW01bER6MlNQalRkX3Y3aXZya0RwdUdoTjJhcndTNW5iMXdHYkQ0RXlGZDZfZlM3cGs0S1hnODNmNg?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 53,
+      "isCritical": false,
+      "pubDate": "Tue, 19 May 2026 07:00:00 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "2025 CFP Odds: Lines, Spreads for Each Semifinal Game - FOX Sports",
+      "source": "FOX Sports",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPajc3U2VrZjhDdk1xMFV5NHpKNVVhZkIwMm1EcEpTUTk5X3hjekk1Z0RJWEVPVXlCMjQ0elFpNmpnckw3YTdMLUlCMDNSRFVHSlY0ZTBKZGJ0dE9YaDNncldmS0dudUwtdWdEYk1zYnJFcHZzbjFSdTYtczlVMC1DNjNsY1lJMkVNWWFIdTBWTVp4NHM3MlRtdjRIazFYOEXSAZ8BQVVfeXFMTVhKb0VXR0RiOXRRXzFscUlZYi1mZGxqcWhnMXhjejY5T3EwNXYxSjlsaW5qVDlzTWlOTGg5VDhEaU42REplSHhHQ09VdE9hWFhvTG5jcTdFV3hLM1B2dVU2cXdUZXM2bklNY05sTUxIanNEMWxONnpWRUFSVi1GTkx5Qndmd0RLSFBsZlhzSTZLNFAwenBvOEVLdHJ2N3NN?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 183,
+      "isCritical": false,
+      "pubDate": "Fri, 09 Jan 2026 08:00:00 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 13 - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOcmNsWlhTQUNuZk1qM1FlMXB3cEx0T2VPVmpWb3U0Q1BJQmF5ZjV6Z2szaFV6NUlwX2k0SmxEQzJfaG0zVjY4YmNmbTZab0ZVTDZlUzVmd0VyQ2tLek54cWZ3R1RISW56Znhrd0ZqSzhtTkU1eUwxZXJYMktqUHJndkNZbTJCVWtTNENNSTJWanFmalRmWDBuZk5ybGJSa25IQ2dpbEl3azB5djgxRVE?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 231,
+      "isCritical": false,
+      "pubDate": "Sat, 22 Nov 2025 08:00:00 GMT",
+      "searchQuery": "college football spread odds"
     }
   ],
   "criticalAlerts": [
