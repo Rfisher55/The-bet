@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-12T03:33:43.671Z",
-  "elapsedMs": 3554,
+  "generatedAt": "2026-07-12T04:47:51.110Z",
+  "elapsedMs": 3765,
   "atsRankings": {
     "sacramento state": {
       "atsW": 1,
@@ -1036,7 +1036,7 @@
         "source": "HERO Sports",
         "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPbkUwXzJNbkQzZ2tHdkptSGFjTUtDM0R3VnA5RW5CN2xGaVJzeHZ0QnFWam5yMl9QejNrc0NhRC1LV1Bwb2xsZ1ZmYllVTUw0RVBEZm5fM0FjVHFLRjNBaUc3VnBHWW5GTmdsWmdMWnhzbTZCOHg1MWMzVkF1S25GeGpRWnItNEJv?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 2,
         "isCritical": false,
         "pubDate": "Fri, 10 Jul 2026 16:44:15 GMT",
         "searchQuery": "college football depth chart"
@@ -1104,6 +1104,40 @@
         "isCritical": false,
         "pubDate": "Tue, 19 May 2026 07:00:00 GMT",
         "searchQuery": "college football spread odds"
+      }
+    ],
+    "michigan": [
+      {
+        "title": "Michigan State Announces Football Program Leadership Change - Michigan State University Athletics",
+        "source": "Michigan State University Athletics",
+        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPTFBmR3gtQks5SGhIYi10MHRKczAxb055XzdXNVE4VUZYUWFNWGg0MzlsMjAybzN3TFZva3RoaTZtZ3o1SGQ0UlQ2d2VTVXM3d0xFalZjR0RDVVpzQVFsYnFCbFFoamZSNDVORDhsbGVfdThxVWtLc0xvc1o2LUQyNTliNUJUN2I4bzRHSDhGNXMzcVhjUkw4YU1qMjRwb1dw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 224,
+        "isCritical": false,
+        "pubDate": "Sun, 30 Nov 2025 08:00:00 GMT",
+        "searchQuery": "college football coaching change"
+      },
+      {
+        "title": "College football wild card teams: Florida, Michigan offer wide range of outcomes in 2026 - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPTzF6SGladzdTOGZuQ0U5OGxHR2t2ZUFLYmZYTVpmY1VLN1N3M1pyVzIxNHZEUmxWMkFhOVpxUmhOZUxmMmJId0NET20wbE93RWxtcENZYjIzNktDT3A3ODNMdkZfSF9vWnpPazA2MlYtSlh3WWJfaW5aUGZvdWdNTmtuTE1VakRCak9IV2tpOTFGNEtDLVBhQzF0TGNkUQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Sat, 11 Jul 2026 13:02:54 GMT",
+        "searchQuery": "NCAA college football"
+      }
+    ],
+    "michigan_state": [
+      {
+        "title": "Michigan State Announces Football Program Leadership Change - Michigan State University Athletics",
+        "source": "Michigan State University Athletics",
+        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPTFBmR3gtQks5SGhIYi10MHRKczAxb055XzdXNVE4VUZYUWFNWGg0MzlsMjAybzN3TFZva3RoaTZtZ3o1SGQ0UlQ2d2VTVXM3d0xFalZjR0RDVVpzQVFsYnFCbFFoamZSNDVORDhsbGVfdThxVWtLc0xvc1o2LUQyNTliNUJUN2I4bzRHSDhGNXMzcVhjUkw4YU1qMjRwb1dw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 224,
+        "isCritical": false,
+        "pubDate": "Sun, 30 Nov 2025 08:00:00 GMT",
+        "searchQuery": "college football coaching change"
       }
     ],
     "texas": [
@@ -1244,18 +1278,6 @@
         "searchQuery": "college football depth chart"
       }
     ],
-    "michigan": [
-      {
-        "title": "College football wild card teams: Florida, Michigan offer wide range of outcomes in 2026 - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPTzF6SGladzdTOGZuQ0U5OGxHR2t2ZUFLYmZYTVpmY1VLN1N3M1pyVzIxNHZEUmxWMkFhOVpxUmhOZUxmMmJId0NET20wbE93RWxtcENZYjIzNktDT3A3ODNMdkZfSF9vWnpPazA2MlYtSlh3WWJfaW5aUGZvdWdNTmtuTE1VakRCak9IV2tpOTFGNEtDLVBhQzF0TGNkUQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Sat, 11 Jul 2026 13:02:54 GMT",
-        "searchQuery": "NCAA college football"
-      }
-    ],
     "florida": [
       {
         "title": "College football wild card teams: Florida, Michigan offer wide range of outcomes in 2026 - CBS Sports",
@@ -1311,13 +1333,13 @@
       "searchQuery": "college football coaching change"
     },
     {
-      "title": "Head Coaching Changes in NAIA Football - Victory Sports Network",
-      "source": "Victory Sports Network",
-      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNLVp0WmhWcF9iY1FfR0JQajVrNTlvS0NiMW53ZTg5cDNac2daTHZzZnlVUGFNTVpwMmZhUnhNbzZ2SXJfcDB3TWVWTHNNbS1pbjRpa3hzN0VlQmZNQTFvd2pPaEpDcWROSFFnd1NxRlM1bThCejIyUTd4NTN2czQ5ekJlUGdoeGNXMVZR?oc=5",
+      "title": "Michigan State Announces Football Program Leadership Change - Michigan State University Athletics",
+      "source": "Michigan State University Athletics",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPTFBmR3gtQks5SGhIYi10MHRKczAxb055XzdXNVE4VUZYUWFNWGg0MzlsMjAybzN3TFZva3RoaTZtZ3o1SGQ0UlQ2d2VTVXM3d0xFalZjR0RDVVpzQVFsYnFCbFFoamZSNDVORDhsbGVfdThxVWtLc0xvc1o2LUQyNTliNUJUN2I4bzRHSDhGNXMzcVhjUkw4YU1qMjRwb1dw?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 149,
+      "daysAgo": 224,
       "isCritical": false,
-      "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
+      "pubDate": "Sun, 30 Nov 2025 08:00:00 GMT",
       "searchQuery": "college football coaching change"
     },
     {
@@ -1421,56 +1443,6 @@
       "searchQuery": "college football transfer portal"
     },
     {
-      "title": "Jeremy Fowler addresses whether NFL could suspend Brendan Sorsby after Supplemental Draft - On3",
-      "source": "On3",
-      "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxOeTV3UUpIWDEwNGpLUnpQSkhpUmc0TVNWTTJwQmN3bUl6Nk9CbHZUc1Z2VUpsYlpsQk9BbzlqYzNJX0VhQm5nWWtSVHRvbGRKWXpxd3Ixa1JPZl9GOTA4Y21BNWJnOUZoQ3pVRE1ETHVScGlSX2hjd2ktR19QMzQweFpGN18yX1JvQlB4U21MblpNd09nV3ZxRHhBYUN6RlJPM3JHVHQ1WkhlVUpGcXpLZF9kN25ISkZqR1ZlaW03V1pnR3ktSUVkTG5aY1RsbDlfdmtZQnVTSHhnQ1VkeUZsSmNfNGRsUUUtcjFLSWpRSHQ4a0dTTk13?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 3,
-      "isCritical": false,
-      "pubDate": "Thu, 09 Jul 2026 07:55:56 GMT",
-      "searchQuery": "college football suspended"
-    },
-    {
-      "title": "Brendan Sorsby timeline: Gambling, NFL supplemental draft, more - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZGdQRVFCeEl2amp5bFc5U01YQTctZXJRYjhpMmF6Q1dNYW9jTU9lT2xQTDdWS1ZmM3JKdUhibE1VSFJOR0VMb2lmTlVZaXQyWHVKMXEzN0F5S0l1WVRXeUNtYXVRd1FKMG54aW4wMHpHdkJJbzRVMV8yc2tWNWhmVFJYUnFaNFhjVWxPTGhBbzJyaTFrZGhDcWNMNTR5bHA5UUxWcjQ1U3VOTWdWeGloWGdRbnM?oc=5",
-      "sentiment": "critical",
-      "daysAgo": 11,
-      "isCritical": true,
-      "pubDate": "Wed, 01 Jul 2026 13:15:00 GMT",
-      "searchQuery": "college football suspended"
-    },
-    {
-      "title": "Brendan Sorsby's NFL exit ends the fight Texas Tech should never have picked - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOQTNKSjhlbm05R0MyNDVtdUhXQ1dpTVk5NGMtMHpmZUpvYUdMcVhpMHJPekgyaW12bzVwZDBrekxsZFczRENjMHVBTVRkNURpdDlkT0VVWEVLQjU2M2ktdkdnbldDVmlXRTg4SEhJQTlHak9oclE2NXMwQ3M2dmNLTXZEd0RKWkFuS3FqRmNxcWFXMmctMnhsVGhRUnU3aW15S1ZCNUhHTFVjS2UxM29PTE9oVGpPamc3Z1VmaEU3djE3WHpR?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 27,
-      "isCritical": false,
-      "pubDate": "Mon, 15 Jun 2026 07:00:00 GMT",
-      "searchQuery": "college football suspended"
-    },
-    {
-      "title": "$6.8 million college football coach predicted to be suspended after tampering - Sports Illustrated",
-      "source": "Sports Illustrated",
-      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPbFdLblBLOEY4ZlgzSUUzRnhtNmh4YzhRWnJyZTZuU1VzNk11WEFkR19VLWJVLXZ2eEQyMUg3MWVKMVJmenBaSS1SZzMwb0pPbFZWR2x5ZTNIZ0xicXFMdW93SWVnZGY0MV9mZWFFcWlSQVhiZE5ZMzh4MVNObUlYSkFNS09ZMl96cGpEUWhzdVAzT3hUMm52OVRzSE1SVkpxdENTLUlCMDlpYTJIZFBfQmRlWUNzaVZFOEczYm4zM1loS0NGTXctU182cURzendhQUNTekxGWC1zWS05aVVQMA?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 151,
-      "isCritical": false,
-      "pubDate": "Wed, 11 Feb 2026 08:00:00 GMT",
-      "searchQuery": "college football suspended"
-    },
-    {
-      "title": "Four of the most absurd reasons college football players have been ruled ineligible in recent years - Fox News",
-      "source": "Fox News",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQeEhzZExDR1hnZlBJNGVpaktjczlMb29iSzBxQWRMcDV0bmJJdWdYRVNOYzhFNlhXblNUT1ZYeHpXOWJaWjVkUGFIWnh3MU1vMlR1cEdvU1A4VW1adkZFSjdQcmpTbnV5dGEwYjRsSkUzeDRtTDVHZm10OWVDUWVpVXVzZHRRZVBZelJHdUVESkxfa1hxSVV0c3d5LU02enlGQ0RyTHlVZ1Q0SktwUk54ZHQ5QQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 33,
-      "isCritical": false,
-      "pubDate": "Tue, 09 Jun 2026 07:00:00 GMT",
-      "searchQuery": "college football suspended"
-    },
-    {
       "title": "Building an ultimate college football roster: The FBS's best position groups in 2026 - CBS Sports",
       "source": "CBS Sports",
       "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQcWtJWFY5ZG5BRHJldWF4VGxldFNUN3JRbkJTSmtjcE53OEtKbWdad3hqS2NYNlBTd0IyZVZGUEVLLTk5MHdJcUhlQXg4U284d0RBQ0dhM0otaHBWaWdCODB5NWJQR1A2VzdONEU0d3VEeW5haFp1RWlDSVZNc3JvUTRSMERjaEZWSG03YVZWVQ?oc=5",
@@ -1495,7 +1467,7 @@
       "source": "HERO Sports",
       "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPbkUwXzJNbkQzZ2tHdkptSGFjTUtDM0R3VnA5RW5CN2xGaVJzeHZ0QnFWam5yMl9QejNrc0NhRC1LV1Bwb2xsZ1ZmYllVTUw0RVBEZm5fM0FjVHFLRjNBaUc3VnBHWW5GTmdsWmdMWnhzbTZCOHg1MWMzVkF1S25GeGpRWnItNEJv?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 1,
+      "daysAgo": 2,
       "isCritical": false,
       "pubDate": "Fri, 10 Jul 2026 16:44:15 GMT",
       "searchQuery": "college football depth chart"
@@ -1519,6 +1491,56 @@
       "isCritical": false,
       "pubDate": "Fri, 26 Jun 2026 07:00:00 GMT",
       "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "Jeremy Fowler addresses whether NFL could suspend Brendan Sorsby after Supplemental Draft - On3",
+      "source": "On3",
+      "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxOeTV3UUpIWDEwNGpLUnpQSkhpUmc0TVNWTTJwQmN3bUl6Nk9CbHZUc1Z2VUpsYlpsQk9BbzlqYzNJX0VhQm5nWWtSVHRvbGRKWXpxd3Ixa1JPZl9GOTA4Y21BNWJnOUZoQ3pVRE1ETHVScGlSX2hjd2ktR19QMzQweFpGN18yX1JvQlB4U21MblpNd09nV3ZxRHhBYUN6RlJPM3JHVHQ1WkhlVUpGcXpLZF9kN25ISkZqR1ZlaW03V1pnR3ktSUVkTG5aY1RsbDlfdmtZQnVTSHhnQ1VkeUZsSmNfNGRsUUUtcjFLSWpRSHQ4a0dTTk13?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 3,
+      "isCritical": false,
+      "pubDate": "Thu, 09 Jul 2026 07:55:56 GMT",
+      "searchQuery": "college football suspended"
+    },
+    {
+      "title": "Brendan Sorsby's NFL exit ends the fight Texas Tech should never have picked - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOQTNKSjhlbm05R0MyNDVtdUhXQ1dpTVk5NGMtMHpmZUpvYUdMcVhpMHJPekgyaW12bzVwZDBrekxsZFczRENjMHVBTVRkNURpdDlkT0VVWEVLQjU2M2ktdkdnbldDVmlXRTg4SEhJQTlHak9oclE2NXMwQ3M2dmNLTXZEd0RKWkFuS3FqRmNxcWFXMmctMnhsVGhRUnU3aW15S1ZCNUhHTFVjS2UxM29PTE9oVGpPamc3Z1VmaEU3djE3WHpR?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 27,
+      "isCritical": false,
+      "pubDate": "Mon, 15 Jun 2026 07:00:00 GMT",
+      "searchQuery": "college football suspended"
+    },
+    {
+      "title": "Big 12 discussing options as Sorsby trial gets February date - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPNndiNGljcHZzX2x2Snd0TXdiZTk2M1p6YVcwR2tucTdoSXRTa3JLdUY1OFpsaUZ3azJxelFEUUNyY2taTElkaWNCUzJ3VkhhckJqdHZkamVFNFZ6V0xadGxMajZZWjYxM1cwOGxpWGpKLVBMUzRNa3BMcVlXbUJLSHJOYWxOWjEtSmRrRFMtNERFRTYzT0VpYUlRRGltNjZvaVdramZremhCNDAyU2dXQ0tB?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 33,
+      "isCritical": false,
+      "pubDate": "Tue, 09 Jun 2026 07:00:00 GMT",
+      "searchQuery": "college football suspended"
+    },
+    {
+      "title": "$6.8 million college football coach predicted to be suspended after tampering - Sports Illustrated",
+      "source": "Sports Illustrated",
+      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPbFdLblBLOEY4ZlgzSUUzRnhtNmh4YzhRWnJyZTZuU1VzNk11WEFkR19VLWJVLXZ2eEQyMUg3MWVKMVJmenBaSS1SZzMwb0pPbFZWR2x5ZTNIZ0xicXFMdW93SWVnZGY0MV9mZWFFcWlSQVhiZE5ZMzh4MVNObUlYSkFNS09ZMl96cGpEUWhzdVAzT3hUMm52OVRzSE1SVkpxdENTLUlCMDlpYTJIZFBfQmRlWUNzaVZFOEczYm4zM1loS0NGTXctU182cURzendhQUNTekxGWC1zWS05aVVQMA?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 151,
+      "isCritical": false,
+      "pubDate": "Wed, 11 Feb 2026 08:00:00 GMT",
+      "searchQuery": "college football suspended"
+    },
+    {
+      "title": "Four of the most absurd reasons college football players have been ruled ineligible in recent years - Fox News",
+      "source": "Fox News",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQeEhzZExDR1hnZlBJNGVpaktjczlMb29iSzBxQWRMcDV0bmJJdWdYRVNOYzhFNlhXblNUT1ZYeHpXOWJaWjVkUGFIWnh3MU1vMlR1cEdvU1A4VW1adkZFSjdQcmpTbnV5dGEwYjRsSkUzeDRtTDVHZm10OWVDUWVpVXVzZHRRZVBZelJHdUVESkxfa1hxSVV0c3d5LU02enlGQ0RyTHlVZ1Q0SktwUk54ZHQ5QQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 33,
+      "isCritical": false,
+      "pubDate": "Tue, 09 Jun 2026 07:00:00 GMT",
+      "searchQuery": "college football suspended"
     },
     {
       "title": "College football wild card teams: Florida, Michigan offer wide range of outcomes in 2026 - CBS Sports",
@@ -1571,6 +1593,56 @@
       "searchQuery": "NCAA college football"
     },
     {
+      "title": "2026 Big 12 football predictions: Game-by-game picks, projecting every team's final win-loss record - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOeFNiMHV2WHdhUzlSZW9BaFk1d0dkTkhQdmFGdkUtdDZwNk1FYUdZNlVIdS1hRW0telMxS05uWmVncnBtSUwzdC1WbldRcjM4MkF6SlJBQUdSWTRabDViOUQwQXAwc2ZZd0M2VGhtTWJvTVVUZ1VzQlF1dlNSSkxpcXRLMnVPNFJIWkxQSDF5VGNhZm95Tk8wNGFNbnhiUFJx?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 3,
+      "isCritical": false,
+      "pubDate": "Thu, 09 Jul 2026 12:58:23 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "College Football Picks, Predictions: Our Expert’s Top 9 Win Totals for Group of 6 - Action Network",
+      "source": "Action Network",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQYlMwX0tqaUtacFN5LXJFZGZvYlUwclBDWFlkS1Z3aUREZm1qLXdjaHd2MDVjb0hCR1d3a004ZFFRVFpIOHB6cW5ETTJTT0cyLWFOMEs2TFotSjB3VnE3QTZzbC05eV81bXMxYkJfSlVSVmIyeW5RaGdsYnM0S011ckpCanFfUURoaXVNeXlGRlJFTXctYnVqSTFhMWVpMmxNNkpGQlRMTQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 5,
+      "isCritical": false,
+      "pubDate": "Tue, 07 Jul 2026 16:09:00 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "Our too-early College Football Playoff predictions with shocking sleeper pick - USA Today",
+      "source": "USA Today",
+      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNREk2RzdOWEw4ZGVReW5XOVJ1UjltejVqbG5LQWF2WjU4aXJ4YnNhakdaT3puUFRjXzJ2NHRvaVVFQklSVEZ2SjMtN3BjWjhEeWhyVG5DZ0dSMEZlSFRZcTJYVHpaVWFrWWE0SUJoZzlDYUJNNVE4OUFwMGFhY0xnemU5QjdJMk5wUmI0dWNFZ3hSVWtVNnl3SDdsaUZWLTJRNVhhaFBLLXRaUjlmRjlIcHdYbmxyOE84STVmbUNnbHAwd01UZHpCZkpKWHo4dXRQU0E?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 5,
+      "isCritical": false,
+      "pubDate": "Tue, 07 Jul 2026 08:26:35 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "College Football Week 0 &amp; Week 1 Early Predictions, Picks &amp; Analysis - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPMWtILWFZaC02SnVkOFhJdTRreThDTTJ4dkZYSUZMNTVOemRLTDBQYXA0bUZ5RlM5ZmtRZHNieXJPdzdOci1KcXJZLV9YZzgtWWEzWXNHV0RYQUEzV2hwRklHM1FSMFFENGZUcS1vS21LelppNVJoVFdnZV9JU1BfQU11MA?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 38,
+      "isCritical": false,
+      "pubDate": "Thu, 04 Jun 2026 07:00:00 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "2026 Big Ten college football preview, predictions, top transfers - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNSVlsMnJ5bnFrYU0xdFZlOEhUVS1Zd2hHOU5TdW1qUHl3c0taeGNNek5UNkN0bUkydGpFR2JMMWFVZUc5cHBraWVoTmVrcjdDVVR3MUszb1V3M0YyR3Excm92UFBCcXFFci1mS1VRaFY1U0t0azBnQXNwYm5DeC1BYV9XbVlkMjFsakM3Vmh4dHR4NDVFUmNOQnpBUU9mR1FaNVVvU2Rua3hVUUhlZlBacTl1WVdWQkR3SVV2b3NrWVNQSjR2?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 25,
+      "isCritical": false,
+      "pubDate": "Wed, 17 Jun 2026 07:00:00 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
       "title": "College Football Playoff National Championship odds, money line, spreads and totals - ESPN",
       "source": "ESPN",
       "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPRmo4QktQMmVFVmlrYVk3NUlrVlY0bEM0WXd0R1hFdHBxSEpfeXFTNzQxTEhlOEY4WUZEV2hOSk45OVpTZG02YV9yU3NNN3M5dmFfUTVrM0V2TFBjeUZQZzV6bm9UeUcwaTdaUWN4YmhsUTVGbzdUVVMySjNEcDAycHNSaVNheVBNMTdlV3p6WVdFclU0VllmSVNjVUtuLVdsNGtEc0ExMGJPMW1kaHJBTHd2SW81LS1wS3plcg?oc=5",
@@ -1619,68 +1691,7 @@
       "isCritical": false,
       "pubDate": "Sat, 22 Nov 2025 08:00:00 GMT",
       "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "2026 Big 12 football predictions: Game-by-game picks, projecting every team's final win-loss record - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOeFNiMHV2WHdhUzlSZW9BaFk1d0dkTkhQdmFGdkUtdDZwNk1FYUdZNlVIdS1hRW0telMxS05uWmVncnBtSUwzdC1WbldRcjM4MkF6SlJBQUdSWTRabDViOUQwQXAwc2ZZd0M2VGhtTWJvTVVUZ1VzQlF1dlNSSkxpcXRLMnVPNFJIWkxQSDF5VGNhZm95Tk8wNGFNbnhiUFJx?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 3,
-      "isCritical": false,
-      "pubDate": "Thu, 09 Jul 2026 12:58:23 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "College Football Picks, Predictions: Our Expert’s Top 9 Win Totals for Group of 6 - Action Network",
-      "source": "Action Network",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQYlMwX0tqaUtacFN5LXJFZGZvYlUwclBDWFlkS1Z3aUREZm1qLXdjaHd2MDVjb0hCR1d3a004ZFFRVFpIOHB6cW5ETTJTT0cyLWFOMEs2TFotSjB3VnE3QTZzbC05eV81bXMxYkJfSlVSVmIyeW5RaGdsYnM0S011ckpCanFfUURoaXVNeXlGRlJFTXctYnVqSTFhMWVpMmxNNkpGQlRMTQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 4,
-      "isCritical": false,
-      "pubDate": "Tue, 07 Jul 2026 16:09:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Our too-early College Football Playoff predictions with shocking sleeper pick - USA Today",
-      "source": "USA Today",
-      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNREk2RzdOWEw4ZGVReW5XOVJ1UjltejVqbG5LQWF2WjU4aXJ4YnNhakdaT3puUFRjXzJ2NHRvaVVFQklSVEZ2SjMtN3BjWjhEeWhyVG5DZ0dSMEZlSFRZcTJYVHpaVWFrWWE0SUJoZzlDYUJNNVE4OUFwMGFhY0xnemU5QjdJMk5wUmI0dWNFZ3hSVWtVNnl3SDdsaUZWLTJRNVhhaFBLLXRaUjlmRjlIcHdYbmxyOE84STVmbUNnbHAwd01UZHpCZkpKWHo4dXRQU0E?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 5,
-      "isCritical": false,
-      "pubDate": "Tue, 07 Jul 2026 08:26:35 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "College Football Week 0 &amp; Week 1 Early Predictions, Picks &amp; Analysis - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPMWtILWFZaC02SnVkOFhJdTRreThDTTJ4dkZYSUZMNTVOemRLTDBQYXA0bUZ5RlM5ZmtRZHNieXJPdzdOci1KcXJZLV9YZzgtWWEzWXNHV0RYQUEzV2hwRklHM1FSMFFENGZUcS1vS21LelppNVJoVFdnZV9JU1BfQU11MA?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 38,
-      "isCritical": false,
-      "pubDate": "Thu, 04 Jun 2026 07:00:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "2026 Big Ten college football preview, predictions, top transfers - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNSVlsMnJ5bnFrYU0xdFZlOEhUVS1Zd2hHOU5TdW1qUHl3c0taeGNNek5UNkN0bUkydGpFR2JMMWFVZUc5cHBraWVoTmVrcjdDVVR3MUszb1V3M0YyR3Excm92UFBCcXFFci1mS1VRaFY1U0t0azBnQXNwYm5DeC1BYV9XbVlkMjFsakM3Vmh4dHR4NDVFUmNOQnpBUU9mR1FaNVVvU2Rua3hVUUhlZlBacTl1WVdWQkR3SVV2b3NrWVNQSjR2?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 25,
-      "isCritical": false,
-      "pubDate": "Wed, 17 Jun 2026 07:00:00 GMT",
-      "searchQuery": "CFB picks predictions"
     }
   ],
-  "criticalAlerts": [
-    {
-      "title": "Brendan Sorsby timeline: Gambling, NFL supplemental draft, more - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZGdQRVFCeEl2amp5bFc5U01YQTctZXJRYjhpMmF6Q1dNYW9jTU9lT2xQTDdWS1ZmM3JKdUhibE1VSFJOR0VMb2lmTlVZaXQyWHVKMXEzN0F5S0l1WVRXeUNtYXVRd1FKMG54aW4wMHpHdkJJbzRVMV8yc2tWNWhmVFJYUnFaNFhjVWxPTGhBbzJyaTFrZGhDcWNMNTR5bHA5UUxWcjQ1U3VOTWdWeGloWGdRbnM?oc=5",
-      "sentiment": "critical",
-      "daysAgo": 11,
-      "isCritical": true,
-      "pubDate": "Wed, 01 Jul 2026 13:15:00 GMT",
-      "searchQuery": "college football suspended"
-    }
-  ]
+  "criticalAlerts": []
 }
