@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-12T17:48:57.242Z",
+  "generated": "2026-07-12T18:46:12.714Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -20,7 +20,7 @@
     "ESPN (schedule — CFBD preseason fallback)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 98020,
+  "fetchDurationMs": 96911,
   "apRanks": {},
   "games": [
     {
@@ -2100,75 +2100,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401858207",
-      "espnId": "401858207",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "12:30 PM ET",
-      "homeTeamId": "pittsburgh",
-      "awayTeamId": "miami_oh",
-      "homeTeamName": "Pittsburgh Panthers",
-      "awayTeamName": "Miami (OH) RedHawks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "The CW Network",
-      "venue": "Acrisure Stadium",
-      "venueCity": "Pittsburgh",
-      "venueState": "PA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Miami (OH) RedHawks at Pittsburgh Panthers",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401858208",
       "espnId": "401858208",
       "week": 1,
@@ -2645,6 +2576,75 @@
       },
       "gamePreview": {
         "headline": "Liberty Flames at James Madison Dukes",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401858207",
+      "espnId": "401858207",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "12:30 PM ET",
+      "homeTeamId": "pittsburgh",
+      "awayTeamId": "miami_oh",
+      "homeTeamName": "Pittsburgh Panthers",
+      "awayTeamName": "Miami (OH) RedHawks",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "The CW Network",
+      "venue": "Acrisure Stadium",
+      "venueCity": "Pittsburgh",
+      "venueState": "PA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Miami (OH) RedHawks at Pittsburgh Panthers",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -9846,6 +9846,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401866418",
+      "espnId": "401866418",
+      "week": 2,
+      "seasonType": "regular",
+      "date": "2026-09-12",
+      "time": "5:00 PM ET",
+      "homeTeamId": "ohio",
+      "awayTeamId": "jacksonville_state",
+      "homeTeamName": "Ohio Bobcats",
+      "awayTeamName": "Jacksonville State Gamecocks",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "ESPN+",
+      "venue": "Peden Stadium",
+      "venueCity": "Athens",
+      "venueState": "OH",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Jacksonville State Gamecocks at Ohio Bobcats",
+        "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401856672",
       "espnId": "401856672",
       "week": 2,
@@ -10040,75 +10109,6 @@
       },
       "gamePreview": {
         "headline": "Buffalo Bulls at Florida International Panthers",
-        "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401866418",
-      "espnId": "401866418",
-      "week": 2,
-      "seasonType": "regular",
-      "date": "2026-09-12",
-      "time": "5:00 PM ET",
-      "homeTeamId": "ohio",
-      "awayTeamId": "jacksonville_state",
-      "homeTeamName": "Ohio Bobcats",
-      "awayTeamName": "Jacksonville State Gamecocks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN+",
-      "venue": "Peden Stadium",
-      "venueCity": "Athens",
-      "venueState": "OH",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Jacksonville State Gamecocks at Ohio Bobcats",
         "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
