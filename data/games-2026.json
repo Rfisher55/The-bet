@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-13T14:26:51.187Z",
+  "generated": "2026-07-13T17:53:20.379Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -20,7 +20,7 @@
     "ESPN (schedule — CFBD preseason fallback)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 99014,
+  "fetchDurationMs": 97473,
   "apRanks": {},
   "games": [
     {
@@ -49272,75 +49272,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401870752",
-      "espnId": "401870752",
-      "week": 11,
-      "seasonType": "regular",
-      "date": "2026-11-14",
-      "time": "3:30 PM ET",
-      "homeTeamId": "western_kentucky",
-      "awayTeamId": "jacksonville_state",
-      "homeTeamName": "Western Kentucky Hilltoppers",
-      "awayTeamName": "Jacksonville State Gamecocks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "TBD",
-      "venue": "Houchens Industries-L.T. Smith Stadium",
-      "venueCity": "Bowling Green",
-      "venueState": "KY",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Jacksonville State Gamecocks at Western Kentucky Hilltoppers",
-        "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401858294",
       "espnId": "401858294",
       "week": 11,
@@ -49397,6 +49328,75 @@
       },
       "gamePreview": {
         "headline": "Boston College Eagles at Notre Dame Fighting Irish",
+        "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401870752",
+      "espnId": "401870752",
+      "week": 11,
+      "seasonType": "regular",
+      "date": "2026-11-14",
+      "time": "3:30 PM ET",
+      "homeTeamId": "western_kentucky",
+      "awayTeamId": "jacksonville_state",
+      "homeTeamName": "Western Kentucky Hilltoppers",
+      "awayTeamName": "Jacksonville State Gamecocks",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "TBD",
+      "venue": "Houchens Industries-L.T. Smith Stadium",
+      "venueCity": "Bowling Green",
+      "venueState": "KY",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Jacksonville State Gamecocks at Western Kentucky Hilltoppers",
         "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -53493,75 +53493,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401871079",
-      "espnId": "401871079",
-      "week": 12,
-      "seasonType": "regular",
-      "date": "2026-11-21",
-      "time": "2:00 PM ET",
-      "homeTeamId": "jacksonville_state",
-      "awayTeamId": "missouri_state",
-      "homeTeamName": "Jacksonville State Gamecocks",
-      "awayTeamName": "Missouri State Bears",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "TBD",
-      "venue": "AmFirst Stadium",
-      "venueCity": "Jacksonville",
-      "venueState": "AL",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Missouri State Bears at Jacksonville State Gamecocks",
-        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401856746",
       "espnId": "401856746",
       "week": 12,
@@ -53618,6 +53549,75 @@
       },
       "gamePreview": {
         "headline": "Chattanooga Mocs at Alabama Crimson Tide",
+        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401871079",
+      "espnId": "401871079",
+      "week": 12,
+      "seasonType": "regular",
+      "date": "2026-11-21",
+      "time": "2:00 PM ET",
+      "homeTeamId": "jacksonville_state",
+      "awayTeamId": "missouri_state",
+      "homeTeamName": "Jacksonville State Gamecocks",
+      "awayTeamName": "Missouri State Bears",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "TBD",
+      "venue": "AmFirst Stadium",
+      "venueCity": "Jacksonville",
+      "venueState": "AL",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Missouri State Bears at Jacksonville State Gamecocks",
         "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
