@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-13T06:51:26.629Z",
+  "generated": "2026-07-13T10:57:49.198Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -20,7 +20,7 @@
     "ESPN (schedule — CFBD preseason fallback)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 96606,
+  "fetchDurationMs": 96841,
   "apRanks": {},
   "games": [
     {
@@ -44988,75 +44988,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401871073",
-      "espnId": "401871073",
-      "week": 10,
-      "seasonType": "regular",
-      "date": "2026-11-07",
-      "time": "3:00 PM ET",
-      "homeTeamId": "kennesaw_state",
-      "awayTeamId": "delaware",
-      "homeTeamName": "Kennesaw State Owls",
-      "awayTeamName": "Delaware Blue Hens",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "TBD",
-      "venue": "Walens Family Field at Fifth Third Stadium",
-      "venueCity": "Kennesaw",
-      "venueState": "GA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Delaware Blue Hens at Kennesaw State Owls",
-        "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401869936",
       "espnId": "401869936",
       "week": 10,
@@ -45113,6 +45044,75 @@
       },
       "gamePreview": {
         "headline": "UL Monroe Warhawks at Arkansas State Red Wolves",
+        "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401871073",
+      "espnId": "401871073",
+      "week": 10,
+      "seasonType": "regular",
+      "date": "2026-11-07",
+      "time": "3:00 PM ET",
+      "homeTeamId": "kennesaw_state",
+      "awayTeamId": "delaware",
+      "homeTeamName": "Kennesaw State Owls",
+      "awayTeamName": "Delaware Blue Hens",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "TBD",
+      "venue": "Walens Family Field at Fifth Third Stadium",
+      "venueCity": "Kennesaw",
+      "venueState": "GA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Delaware Blue Hens at Kennesaw State Owls",
         "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
