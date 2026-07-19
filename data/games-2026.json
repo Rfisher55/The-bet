@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-19T11:08:33.282Z",
+  "generated": "2026-07-19T13:12:01.531Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -20,7 +20,7 @@
     "ESPN (schedule — CFBD preseason fallback)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 96854,
+  "fetchDurationMs": 96345,
   "apRanks": {},
   "games": [
     {
@@ -58410,6 +58410,75 @@
       "fromESPN": true
     },
     {
+      "id": "espn_401858540",
+      "espnId": "401858540",
+      "week": 13,
+      "seasonType": "regular",
+      "date": "2026-11-28",
+      "time": "12:00 PM ET",
+      "homeTeamId": "ohio_state",
+      "awayTeamId": "michigan",
+      "homeTeamName": "Ohio State Buckeyes",
+      "awayTeamName": "Michigan Wolverines",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "FOX",
+      "venue": "Ohio Stadium",
+      "venueCity": "Columbus",
+      "venueState": "OH",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Michigan Wolverines at Ohio State Buckeyes",
+        "synopsis": "Week 13 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
       "id": "espn_401866474",
       "espnId": "401866474",
       "week": 13,
@@ -58535,75 +58604,6 @@
       },
       "gamePreview": {
         "headline": "Massachusetts Minutemen at Bowling Green Falcons",
-        "synopsis": "Week 13 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858540",
-      "espnId": "401858540",
-      "week": 13,
-      "seasonType": "regular",
-      "date": "2026-11-28",
-      "time": "12:00 PM ET",
-      "homeTeamId": "ohio_state",
-      "awayTeamId": "michigan",
-      "homeTeamName": "Ohio State Buckeyes",
-      "awayTeamName": "Michigan Wolverines",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "FOX",
-      "venue": "Ohio Stadium",
-      "venueCity": "Columbus",
-      "venueState": "OH",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Michigan Wolverines at Ohio State Buckeyes",
         "synopsis": "Week 13 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
