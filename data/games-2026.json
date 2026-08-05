@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-04T20:33:11.752Z",
+  "generated": "2026-08-05T00:32:58.468Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -21,7 +21,7 @@
     "TheOddsAPI (20+ US books)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 102250,
+  "fetchDurationMs": 110557,
   "apRanks": {},
   "games": [
     {
@@ -2978,9 +2978,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2992,7 +2990,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "away",
+        "sharpSignal": null,
         "oddsBookCount": 2
       },
       "gamePreview": {
