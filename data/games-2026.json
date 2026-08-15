@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-15T17:23:48.966Z",
+  "generated": "2026-08-15T17:39:16.531Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 100653,
+  "fetchDurationMs": 104356,
   "apRanks": {},
   "games": [
     {
@@ -57,12 +57,12 @@
       "bettingLines": null,
       "weather": {
         "condition": "Overcast",
-        "tempF": 81,
-        "windMph": 8,
+        "tempF": 83,
+        "windMph": 9,
         "gusts": 10,
         "windDir": "SSE",
         "precipitation": 0.11,
-        "humidity": 70,
+        "humidity": 57,
         "indoors": false,
         "kickoffHour": 12,
         "code": 3
@@ -142,7 +142,7 @@
         "gusts": 9,
         "windDir": "WSW",
         "precipitation": 0,
-        "humidity": 39,
+        "humidity": 31,
         "indoors": false,
         "kickoffHour": 15,
         "code": 0
@@ -216,16 +216,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Thunderstorm",
-        "tempF": 76,
-        "windMph": 5,
+        "condition": "Heavy Showers",
+        "tempF": 90,
+        "windMph": 3,
         "gusts": 9,
-        "windDir": "E",
+        "windDir": "SSE",
         "precipitation": 0.12,
-        "humidity": 88,
+        "humidity": 52,
         "indoors": false,
         "kickoffHour": 15,
-        "code": 95
+        "code": 81
       },
       "lineMovement": [],
       "situational": {},
@@ -434,16 +434,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Overcast",
-        "tempF": 75,
-        "windMph": 8,
+        "condition": "Clear",
+        "tempF": 70,
+        "windMph": 7,
         "gusts": 7,
         "windDir": "WNW",
         "precipitation": 0.02,
-        "humidity": 42,
+        "humidity": 57,
         "indoors": false,
         "kickoffHour": 19,
-        "code": 3
+        "code": 0
       },
       "lineMovement": [],
       "situational": {},
@@ -514,16 +514,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Overcast",
-        "tempF": 78,
-        "windMph": 5,
+        "condition": "Partly Cloudy",
+        "tempF": 84,
+        "windMph": 6,
         "gusts": 10,
-        "windDir": "SSE",
+        "windDir": "WSW",
         "precipitation": 0.18,
-        "humidity": 79,
+        "humidity": 65,
         "indoors": false,
         "kickoffHour": 19,
-        "code": 3
+        "code": 2
       },
       "lineMovement": [],
       "situational": {},
