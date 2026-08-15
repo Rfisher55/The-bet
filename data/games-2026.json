@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-15T19:11:53.027Z",
+  "generated": "2026-08-15T19:29:57.044Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 103187,
+  "fetchDurationMs": 100316,
   "apRanks": {},
   "games": [
     {
@@ -216,7 +216,7 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Heavy Showers",
+        "condition": "Rain",
         "tempF": 90,
         "windMph": 3,
         "gusts": 9,
@@ -225,7 +225,7 @@
         "humidity": 52,
         "indoors": false,
         "kickoffHour": 15,
-        "code": 81
+        "code": 63
       },
       "lineMovement": [],
       "situational": {},
