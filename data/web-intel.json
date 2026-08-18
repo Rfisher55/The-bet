@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-18T04:12:30.454Z",
-  "elapsedMs": 3690,
+  "generatedAt": "2026-08-18T04:16:23.396Z",
+  "elapsedMs": 3815,
   "atsRankings": {
     "sacramento state": {
       "atsW": 1,
@@ -968,27 +968,41 @@
   "redditSentiment": {},
   "redditPosts": [],
   "newsByTeam": {
+    "oklahoma": [
+      {
+        "title": "Oklahoma football news: Key John Mateer protector gets positive injury update - sports.yahoo.com",
+        "source": "sports.yahoo.com",
+        "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOR2tQQzUwanV0TUt3NmJRYl9JQlhKVXI5Y2ZiMHJ6eHpfcGNvUjBsNkZQUHNmZ2Z3ZTFwZTFlSDM5SmxpbHNFLVRFcnlTSlJXNXFNdkdkLUtVOVctQXhSYVNNSUxlQnJXU044MHR2eFJPaUhxaFkxZ2tfc2llTXhULVBpR2tGT00?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Mon, 17 Aug 2026 20:35:01 GMT",
+        "searchQuery": "college football injury"
+      }
+    ],
+    "miami": [
+      {
+        "title": "Dolphins activate Bell off NFI - Miami Dolphins",
+        "source": "Miami Dolphins",
+        "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5wZWtSbkZBVzBuRVJBaWFwVEZZZ1UtdU1adUJyYWFsaEJRS3V6RDJfbE9MUzlucFFBWGE2UENyRFZZN1Etcndib1ZqSVpwVGtkdmtzYkoxUkR5TDJKMzhFbmU1MDZja1BTOHZ5cUdWWEx3WGM?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Mon, 17 Aug 2026 13:20:18 GMT",
+        "searchQuery": "college football injury"
+      },
+      {
+        "title": "Ohio State-Miami and what changes you'll see in 2026 college football - ESPN",
+        "source": "ESPN",
+        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxONWJvYWVfXy1iNkk4LUtHcll4OTAzVEhROUp2U2xURVF3UHVnc0RxLTVhU3FsLTBLXzF3dkwyUFlnVFFKVld4dHhPekliVUEybE1xbnBMS1hFYmVVSlIzMGlMM3gxaERZUm5UaDVQOFdiaUFFWUJWVXhjQWxWdU9HdVRjWGtTTkg5UzRxendrS2hzdmk5S090aFpJa3AyTnpUZEh2NFZuNHNzMlk?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false,
+        "pubDate": "Sat, 15 Aug 2026 11:25:00 GMT",
+        "searchQuery": "college football coaching change"
+      }
+    ],
     "notre_dame": [
-      {
-        "title": "2026 college football transfer portal's 100 under-the-radar players to know - 247Sports",
-        "source": "247Sports",
-        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNWUtKbjFmclVaM0JFQjR3dEREU0x5MzFhb3lJOXpfZi1XRmp4Z0V4SmFuTzJFWE5VTVA2TFNzbDNfbURlR3F5T1B6RF85VjI2d3BfOE05ZUMwZU1zMUNRX01KXzAzcExMSFA4bXZFOWRvT3JTV3dWakcxMGlFUHlGZXl0N3poaWlPWWI0dDE0dmhjNGJHMWtwZ3pyV05USVJFUm50QTdqTEZJQWQ3M25V?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 3,
-        "isCritical": false,
-        "pubDate": "Sat, 15 Aug 2026 14:12:00 GMT",
-        "searchQuery": "college football transfer portal"
-      },
-      {
-        "title": "Tracking every Indiana Football transfer portal departure: Where are they now? - Hoosier State of Mind",
-        "source": "Hoosier State of Mind",
-        "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOb3pfdV80ajI3b09zZmJZbGw2dWdFVU15NnlQOWp1VFFkdzlxdzVhX2FfU25nblVEaC1uMF9PTXVDYlRkT3ItX1FSNThoSXNhemdMMVBfaGRtdGdLN1Z3VzQ1Z0xFbjVSbVM0QkRpWVR0bV8zTFo1X1ZyTHk1aGpKMFZYcDItS0VxQUJZczVYa0pkbVgxQVZlQS01cTY5eVcxQXZVZGZiTWZCV1VFMFh1NE9DV0dJOFlrTTA1ag?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 3,
-        "isCritical": false,
-        "pubDate": "Fri, 14 Aug 2026 18:30:00 GMT",
-        "searchQuery": "college football transfer portal"
-      },
       {
         "title": "Jordyn Tyson Injury Update and Timeline Revealed in New Saints Rumors amid Fantasy Football Drafts - Bleacher Report",
         "source": "Bleacher Report",
@@ -1018,9 +1032,17 @@
         "isCritical": false,
         "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
         "searchQuery": "college football coaching change"
-      }
-    ],
-    "indiana": [
+      },
+      {
+        "title": "2026 college football transfer portal's 100 under-the-radar players to know - 247Sports",
+        "source": "247Sports",
+        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNWUtKbjFmclVaM0JFQjR3dEREU0x5MzFhb3lJOXpfZi1XRmp4Z0V4SmFuTzJFWE5VTVA2TFNzbDNfbURlR3F5T1B6RF85VjI2d3BfOE05ZUMwZU1zMUNRX01KXzAzcExMSFA4bXZFOWRvT3JTV3dWakcxMGlFUHlGZXl0N3poaWlPWWI0dDE0dmhjNGJHMWtwZ3pyV05USVJFUm50QTdqTEZJQWQ3M25V?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 3,
+        "isCritical": false,
+        "pubDate": "Sat, 15 Aug 2026 14:12:00 GMT",
+        "searchQuery": "college football transfer portal"
+      },
       {
         "title": "Tracking every Indiana Football transfer portal departure: Where are they now? - Hoosier State of Mind",
         "source": "Hoosier State of Mind",
@@ -1030,40 +1052,6 @@
         "isCritical": false,
         "pubDate": "Fri, 14 Aug 2026 18:30:00 GMT",
         "searchQuery": "college football transfer portal"
-      }
-    ],
-    "oklahoma": [
-      {
-        "title": "Oklahoma football news: Key John Mateer protector gets positive injury update - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOR2tQQzUwanV0TUt3NmJRYl9JQlhKVXI5Y2ZiMHJ6eHpfcGNvUjBsNkZQUHNmZ2Z3ZTFwZTFlSDM5SmxpbHNFLVRFcnlTSlJXNXFNdkdkLUtVOVctQXhSYVNNSUxlQnJXU044MHR2eFJPaUhxaFkxZ2tfc2llTXhULVBpR2tGT00?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Mon, 17 Aug 2026 20:35:01 GMT",
-        "searchQuery": "college football injury"
-      }
-    ],
-    "miami": [
-      {
-        "title": "Dolphins activate Bell off NFI - Miami Dolphins",
-        "source": "Miami Dolphins",
-        "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5wZWtSbkZBVzBuRVJBaWFwVEZZZ1UtdU1adUJyYWFsaEJRS3V6RDJfbE9MUzlucFFBWGE2UENyRFZZN1Etcndib1ZqSVpwVGtkdmtzYkoxUkR5TDJKMzhFbmU1MDZja1BTOHZ5cUdWWEx3WGM?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Mon, 17 Aug 2026 13:20:18 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
-        "title": "Ohio State-Miami and what changes you'll see in 2026 college football - ESPN",
-        "source": "ESPN",
-        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxONWJvYWVfXy1iNkk4LUtHcll4OTAzVEhROUp2U2xURVF3UHVnc0RxLTVhU3FsLTBLXzF3dkwyUFlnVFFKVld4dHhPekliVUEybE1xbnBMS1hFYmVVSlIzMGlMM3gxaERZUm5UaDVQOFdiaUFFWUJWVXhjQWxWdU9HdVRjWGtTTkg5UzRxendrS2hzdmk5S090aFpJa3AyTnpUZEh2NFZuNHNzMlk?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false,
-        "pubDate": "Sat, 15 Aug 2026 11:25:00 GMT",
-        "searchQuery": "college football coaching change"
       }
     ],
     "ohio_state": [
@@ -1144,84 +1132,16 @@
         "searchQuery": "college football coaching change"
       }
     ],
-    "colorado": [
+    "indiana": [
       {
-        "title": "Colorado High School Football Head Coach, Former College QB Suspended - Sports Illustrated",
-        "source": "Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQZ0w2em5UR1Z3VS1IRHdXc1ExdExfRThjUmRCTWU5N2NSM0czaDJzV0JpcERvT3Z4Nlc5UHNZT2poMEdFWTY2Q0t2d2MweGt3cjRNMUxvRWFNR2JOWFUwY1gxV19SaGdXc01xN3JzZ0x3alVuRUwzaXdEeTRKZ0N5a0ltczdTdDFjdTY1T3QxcWNrbEwzUmE1YVdPd0tJVzZ3Q09zcVpMcWVXUlNlSm5rX2tKZVFfQ0NadUpHeFZn?oc=5",
+        "title": "Tracking every Indiana Football transfer portal departure: Where are they now? - Hoosier State of Mind",
+        "source": "Hoosier State of Mind",
+        "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOb3pfdV80ajI3b09zZmJZbGw2dWdFVU15NnlQOWp1VFFkdzlxdzVhX2FfU25nblVEaC1uMF9PTXVDYlRkT3ItX1FSNThoSXNhemdMMVBfaGRtdGdLN1Z3VzQ1Z0xFbjVSbVM0QkRpWVR0bV8zTFo1X1ZyTHk1aGpKMFZYcDItS0VxQUJZczVYa0pkbVgxQVZlQS01cTY5eVcxQXZVZGZiTWZCV1VFMFh1NE9DV0dJOFlrTTA1ag?oc=5",
         "sentiment": "negative",
-        "daysAgo": 0,
+        "daysAgo": 3,
         "isCritical": false,
-        "pubDate": "Mon, 17 Aug 2026 22:04:17 GMT",
-        "searchQuery": "college football suspended"
-      }
-    ],
-    "tennessee": [
-      {
-        "title": "Tennessee's Arion Carter suspended 2 games over $427 flight - ESPN",
-        "source": "ESPN",
-        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPR0NocjFQQmVQVkU4LXhyWlNLUWtlRHZ1Z0VxVGpyZEtob3VxVFlKM1pwOTRKMC1zM3JNX2w3bF81TWtPdmJ4TWJseVFnV2EwT0plbURJOTlNR0pnQV9sZnVFVENoZlNWV2gzOHU2T09waGdtdlRFVmNELXFFU1p6YUp2d0VjNWNNOFN5cEk1b0tQQlNxckJQNDR1MWlqVHQ3MVNZMVpjbTFiaS1EQVE?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 20,
-        "isCritical": false,
-        "pubDate": "Wed, 29 Jul 2026 07:00:00 GMT",
-        "searchQuery": "college football suspended"
-      },
-      {
-        "title": "NCAA suspended Tennessee football player over $400 NFL Draft-related flight, coach says - nytimes.com",
-        "source": "nytimes.com",
-        "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQOVU5RzNvTkV0NWRrT0lzcXFfbE1kdkhpMDlkZUdDLXhBTm9pTTI1Uno0ZGpGWVFtOXhLTFd5N3ExUW0zUTFpQmhqNGRoWHVTSnVaaVp6eVBmUWFWSUNIM1hzbnlIblNkeWVNSmFiV2tlZ2w5blNVbFk3ZWg4WEJTNXQzbEZZX2c5Sy1MV0JraEJPZ3doLXVOX1d0ek1PVkkyTVZQdUpUdw?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 20,
-        "isCritical": false,
-        "pubDate": "Wed, 29 Jul 2026 07:00:00 GMT",
-        "searchQuery": "college football suspended"
-      },
-      {
-        "title": "Tennessee coach unloads on NCAA's 'bulls–t', after star linebacker suspended for outdated rule - Fox News",
-        "source": "Fox News",
-        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNcXNPc09YaG1DSHNZcVdlQlBRSUpNaXl6S3dIVHVCa0pyN1NCLS1lUGFEUVFXRDc4Z2haZGtiaFhKek5YRHN1Tm5xeUdRc21wMEJXaXA2VzJQWE9KYzQxWkdINlFucjd4VEdkcWswVFdMOUpWUjJ0cnFGcU16eVRUaGQ1NDdKZlJPM3JJM0ZWZi1MbkZNSWhSY1VuRFBpOWZ3YXRlblFucnFrQlBWdFZ6N3VtWQ?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 14,
-        "isCritical": false,
-        "pubDate": "Tue, 04 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football suspended"
-      }
-    ],
-    "arkansas": [
-      {
-        "title": "Projecting Arkansas football depth chart after first preseason scrimmage - Whole Hog Sports",
-        "source": "Whole Hog Sports",
-        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPNmd0dmtzdmJkRHM5U0N0UkhCWXRvY21rekcwdDltamFQYmRyYVBUU3Q3bnBWZjBJWnQydkNjd3FFZ3pLU2cyRmdUbTVka2YyUExodUt1VGxrRnUzdlNoRmtuZkZRVG1uMXNpQjFSX2ZBTG5DVDhoTFdaWGM3TXBTTXJNZ0R6TV9HcG1iaDlfNi1KYU4zXzNrelJWakpBUHdqcTAyaXUxUFdaOHBpUkttWGlNRlZFWkdfdlpQNEVqYUtPZENrRXA2QzFn?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Mon, 17 Aug 2026 21:27:00 GMT",
-        "searchQuery": "college football depth chart"
-      }
-    ],
-    "kentucky": [
-      {
-        "title": "Get to know the Kentucky football roster: No. 19 Kenny Darby - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNVDV2bjdhcDNJR1RpWHpfd2dnaHlMT3hvek91NmRFSjhDMGNTOFlGSU5pVWVyeTdPYllkUWNjTEEtb05GSTVWT25Od1RTUjN1Q2R3Y05FbEZaWGtJeldZTzV4ZFRUb3hDYzgwNTNOYmNLOERiQ3dIVk1OZ1B5WmRoR1FRMmRTaXNy?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Mon, 17 Aug 2026 15:07:46 GMT",
-        "searchQuery": "college football depth chart"
-      }
-    ],
-    "iowa": [
-      {
-        "title": "Iowa Football: 2026 Depth Chart Projection - Mid-Fall Camp Update - 247Sports",
-        "source": "247Sports",
-        "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQZk1PNWFTT2hsU2h5Wk5DQTREMXFaVlZ4MUZIS3ZJUkR6TlNUNEUxZ09qNlVuQnROSmJBWnZTdGx0ZlAybHg0Z2Q0VWo2aUZVVFNtN0lCZlFGWDFuT2F5dHRMeTgwLXhDZzZJakRpd1hzOUhLWFBFYVkxUEpfVVJaWUVTWlZ6akR1SjktTE50NXNFbGMtQW1rMnRqVHdoVjVSZUo3LUU4ZmhEOWZjXzhPZGs1TWtDRV8yZEJoUDFSWnVhelB1SVpaV3RWVQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Mon, 17 Aug 2026 12:03:07 GMT",
-        "searchQuery": "college football depth chart"
+        "pubDate": "Fri, 14 Aug 2026 18:30:00 GMT",
+        "searchQuery": "college football transfer portal"
       }
     ],
     "oregon": [
@@ -1256,6 +1176,86 @@
         "searchQuery": "NCAA college football"
       }
     ],
+    "colorado": [
+      {
+        "title": "Colorado High School Football Head Coach, Former College QB Suspended - Sports Illustrated",
+        "source": "Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQZ0w2em5UR1Z3VS1IRHdXc1ExdExfRThjUmRCTWU5N2NSM0czaDJzV0JpcERvT3Z4Nlc5UHNZT2poMEdFWTY2Q0t2d2MweGt3cjRNMUxvRWFNR2JOWFUwY1gxV19SaGdXc01xN3JzZ0x3alVuRUwzaXdEeTRKZ0N5a0ltczdTdDFjdTY1T3QxcWNrbEwzUmE1YVdPd0tJVzZ3Q09zcVpMcWVXUlNlSm5rX2tKZVFfQ0NadUpHeFZn?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Mon, 17 Aug 2026 22:04:17 GMT",
+        "searchQuery": "college football suspended"
+      }
+    ],
+    "tennessee": [
+      {
+        "title": "Tennessee's Arion Carter suspended 2 games over $427 flight - ESPN",
+        "source": "ESPN",
+        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPR0NocjFQQmVQVkU4LXhyWlNLUWtlRHZ1Z0VxVGpyZEtob3VxVFlKM1pwOTRKMC1zM3JNX2w3bF81TWtPdmJ4TWJseVFnV2EwT0plbURJOTlNR0pnQV9sZnVFVENoZlNWV2gzOHU2T09waGdtdlRFVmNELXFFU1p6YUp2d0VjNWNNOFN5cEk1b0tQQlNxckJQNDR1MWlqVHQ3MVNZMVpjbTFiaS1EQVE?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 20,
+        "isCritical": false,
+        "pubDate": "Wed, 29 Jul 2026 07:00:00 GMT",
+        "searchQuery": "college football suspended"
+      },
+      {
+        "title": "Tennessee coach unloads on NCAA's 'bulls–t', after star linebacker suspended for outdated rule - Fox News",
+        "source": "Fox News",
+        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNcXNPc09YaG1DSHNZcVdlQlBRSUpNaXl6S3dIVHVCa0pyN1NCLS1lUGFEUVFXRDc4Z2haZGtiaFhKek5YRHN1Tm5xeUdRc21wMEJXaXA2VzJQWE9KYzQxWkdINlFucjd4VEdkcWswVFdMOUpWUjJ0cnFGcU16eVRUaGQ1NDdKZlJPM3JJM0ZWZi1MbkZNSWhSY1VuRFBpOWZ3YXRlblFucnFrQlBWdFZ6N3VtWQ?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 14,
+        "isCritical": false,
+        "pubDate": "Tue, 04 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football suspended"
+      },
+      {
+        "title": "NCAA suspended Tennessee football player over $400 NFL Draft-related flight, coach says - The New York Times",
+        "source": "The New York Times",
+        "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQOVU5RzNvTkV0NWRrT0lzcXFfbE1kdkhpMDlkZUdDLXhBTm9pTTI1Uno0ZGpGWVFtOXhLTFd5N3ExUW0zUTFpQmhqNGRoWHVTSnVaaVp6eVBmUWFWSUNIM1hzbnlIblNkeWVNSmFiV2tlZ2w5blNVbFk3ZWg4WEJTNXQzbEZZX2c5Sy1MV0JraEJPZ3doLXVOX1d0ek1PVkkyTVZQdUpUdw?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 20,
+        "isCritical": false,
+        "pubDate": "Wed, 29 Jul 2026 07:00:00 GMT",
+        "searchQuery": "college football suspended"
+      }
+    ],
+    "arkansas": [
+      {
+        "title": "Projecting Arkansas football depth chart after first preseason scrimmage - Whole Hog Sports",
+        "source": "Whole Hog Sports",
+        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPNmd0dmtzdmJkRHM5U0N0UkhCWXRvY21rekcwdDltamFQYmRyYVBUU3Q3bnBWZjBJWnQydkNjd3FFZ3pLU2cyRmdUbTVka2YyUExodUt1VGxrRnUzdlNoRmtuZkZRVG1uMXNpQjFSX2ZBTG5DVDhoTFdaWGM3TXBTTXJNZ0R6TV9HcG1iaDlfNi1KYU4zXzNrelJWakpBUHdqcTAyaXUxUFdaOHBpUkttWGlNRlZFWkdfdlpQNEVqYUtPZENrRXA2QzFn?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Mon, 17 Aug 2026 21:27:00 GMT",
+        "searchQuery": "college football depth chart"
+      }
+    ],
+    "kentucky": [
+      {
+        "title": "Get to know the Kentucky football roster: No. 19 Kenny Darby - sports.yahoo.com",
+        "source": "sports.yahoo.com",
+        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNVDV2bjdhcDNJR1RpWHpfd2dnaHlMT3hvek91NmRFSjhDMGNTOFlGSU5pVWVyeTdPYllkUWNjTEEtb05GSTVWT25Od1RTUjN1Q2R3Y05FbEZaWGtJeldZTzV4ZFRUb3hDYzgwNTNOYmNLOERiQ3dIVk1OZ1B5WmRoR1FRMmRTaXNy?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Mon, 17 Aug 2026 15:07:46 GMT",
+        "searchQuery": "college football depth chart"
+      }
+    ],
+    "iowa": [
+      {
+        "title": "Iowa Football: 2026 Depth Chart Projection - Mid-Fall Camp Update - 247Sports",
+        "source": "247Sports",
+        "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQZk1PNWFTT2hsU2h5Wk5DQTREMXFaVlZ4MUZIS3ZJUkR6TlNUNEUxZ09qNlVuQnROSmJBWnZTdGx0ZlAybHg0Z2Q0VWo2aUZVVFNtN0lCZlFGWDFuT2F5dHRMeTgwLXhDZzZJakRpd1hzOUhLWFBFYVkxUEpfVVJaWUVTWlZ6akR1SjktTE50NXNFbGMtQW1rMnRqVHdoVjVSZUo3LUU4ZmhEOWZjXzhPZGs1TWtDRV8yZEJoUDFSWnVhelB1SVpaV3RWVQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Mon, 17 Aug 2026 12:03:07 GMT",
+        "searchQuery": "college football depth chart"
+      }
+    ],
     "alabama": [
       {
         "title": "College Football Picks, Predictions: Bet Alabama, LSU in NCAAF Week 1 - Action Network",
@@ -1283,56 +1283,6 @@
   },
   "allNews": [
     {
-      "title": "2026 college football transfer portal's 100 under-the-radar players to know - 247Sports",
-      "source": "247Sports",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNWUtKbjFmclVaM0JFQjR3dEREU0x5MzFhb3lJOXpfZi1XRmp4Z0V4SmFuTzJFWE5VTVA2TFNzbDNfbURlR3F5T1B6RF85VjI2d3BfOE05ZUMwZU1zMUNRX01KXzAzcExMSFA4bXZFOWRvT3JTV3dWakcxMGlFUHlGZXl0N3poaWlPWWI0dDE0dmhjNGJHMWtwZ3pyV05USVJFUm50QTdqTEZJQWQ3M25V?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 3,
-      "isCritical": false,
-      "pubDate": "Sat, 15 Aug 2026 14:12:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "TRANSFER PORTAL PUTS PRESSURE ON HIGH SCHOOL QUARTERBACKS - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNZy1rT2RxVmdtX1hvdkhhQ0gyUS1HdVVYcnNXVC1xMkVaTmZhbTZNTWlGVkdjQkVpQkFMYktvdDJTNWFTR3JoNjA0d0E3Tmg3Y092UmZvS3NsdjJEQnR5blUxY0gtM3VEajNYUzA1dzZNVHMxVjFQdUhMLTdnbHlaeWtjSEtHbzQ1R1dZ?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Mon, 17 Aug 2026 17:16:01 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "Most impactful FBS college football transfers to know in the 2026 season - NCAA.com",
-      "source": "NCAA.com",
-      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPUHQ4empSQkpuOVlIcENuNGlWX0g4OEY1TDAzWmZfaGhFM0pWVWRUYkVocXo0YjRiVVJHUFRDdzVpRmE5dnFEblZCYmJaNTlOWEZxRDJOS2ZVNDlkeWY4TUxXT0JiQk5VbkdzcVRyVjhJSkZ0LWhSYXB0UlBLTHFHSU16RUx0TXU2bDhFTWpHZ3l0bGszeV94YjF6WDVpbUo0ZzYwSVhVeXpJaFp1dXJuQmZsUWw1b1nSAbwBQVVfeXFMT2xncDlMUUgyN0s1LUQtY0I0WEhYbW9iVUx4VUNQSlFuMzEzZlNId1VYV1JOeG5SVTY1VUlhOXRPeHlLX2hwNGxLZGVmeDlHVEV2ZEtlb1F6TUl5Vmhmd2hKM2Nyc19RaWVJdzNvVFduTnlyM1JCOXowT29RQk4wbmZ0ZTV1Ti1STXNiNVVwenIyRnA3a1VKNW9wdWxnNEtTZUVfQi1PYTdWTWNRNFVMaGNfYVhVcDNZdy1KYXc?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 26,
-      "isCritical": false,
-      "pubDate": "Thu, 23 Jul 2026 07:00:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "Tracking every Indiana Football transfer portal departure: Where are they now? - Hoosier State of Mind",
-      "source": "Hoosier State of Mind",
-      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOb3pfdV80ajI3b09zZmJZbGw2dWdFVU15NnlQOWp1VFFkdzlxdzVhX2FfU25nblVEaC1uMF9PTXVDYlRkT3ItX1FSNThoSXNhemdMMVBfaGRtdGdLN1Z3VzQ1Z0xFbjVSbVM0QkRpWVR0bV8zTFo1X1ZyTHk1aGpKMFZYcDItS0VxQUJZczVYa0pkbVgxQVZlQS01cTY5eVcxQXZVZGZiTWZCV1VFMFh1NE9DV0dJOFlrTTA1ag?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 3,
-      "isCritical": false,
-      "pubDate": "Fri, 14 Aug 2026 18:30:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "Inside the room where college football GMs reveal how the sport really works - USA Today",
-      "source": "USA Today",
-      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPdXhzM1huRmcwUG12QUpucFUxNFozMW15cmtnQVRjYUpUWkc1bnJnb3JFSWVzU3pPRHNpRE9aV2V3NkJZUjZJOEZkNk5TNnFOUzFHTTByeVpSWDdXbnZVU18yczRzaS1CM28zQklsNWxVZ25ad1dhQ0hMcDgxMDhsMVBBM2g5UF9EMkNaN1pPZkZ5cjdHSl8ydkhiam1kWkdwVmVvSUdUVFNESWh6Rmprc2d4RjR0WkxDUFpkSWR2S1A5UFRucmpXbnAzLV9hSXRn?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Mon, 17 Aug 2026 19:39:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
       "title": "47-year-old California pastor makes college football comeback decades after injury stifled career - Fox News",
       "source": "Fox News",
       "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPVkFlX0JucGFpczBwSS1Vc1c4eGM4Z29KVm1ZdnZXcGhaeEpwdUNpTHp2ejkxZnVjOFFqeUlvMU5CcFZaRUVvRGRBdEJlMVM4WUp3VVdCMzlXQVJyb1FSaXNUaldzakhkQ3ZnMkU1SE1RcURWTklZc0lEdWM5ZTYzdEZVYWJYTkgzWE1qeWdPNFl6Sno5ajlUS2kybVc0N3c4c29YdWthXy1tSjRSZXZjb1A5SEstUmI3djNJZlpBX3AwY3RaLXfSAcsBQVVfeXFMTjVNbWhrS252T2ZYY2cyM1F0dlVGcmRWY0dDMUxCMk9qRnBMOEVzZkY3M2NDQjdPRlJhOEhaOEgxTmI4alAzcEs5ODdJeEJROHhOU3pxcXVyNjJta3NvU2RNNVA1dklSb1JuUTN1WFgyc0FmaW1yWlpybmxxYWlOdnRQZWhkZHUyY3NCN21NVVJVb293R0c2Mlo0TWdGdmxlZGJKa25RdHY5ZThHVllLYTRwNXlRQm1PejQzNTRiSVFxa25hRG9ZTlA5MFU?oc=5",
@@ -1343,8 +1293,8 @@
       "searchQuery": "college football injury"
     },
     {
-      "title": "Oklahoma football news: Key John Mateer protector gets positive injury update - Yahoo Sports",
-      "source": "Yahoo Sports",
+      "title": "Oklahoma football news: Key John Mateer protector gets positive injury update - sports.yahoo.com",
+      "source": "sports.yahoo.com",
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOR2tQQzUwanV0TUt3NmJRYl9JQlhKVXI5Y2ZiMHJ6eHpfcGNvUjBsNkZQUHNmZ2Z3ZTFwZTFlSDM5SmxpbHNFLVRFcnlTSlJXNXFNdkdkLUtVOVctQXhSYVNNSUxlQnJXU044MHR2eFJPaUhxaFkxZ2tfc2llTXhULVBpR2tGT00?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
@@ -1413,8 +1363,8 @@
       "searchQuery": "college football coaching change"
     },
     {
-      "title": "College Football Hot Seat: USA Today names 11 coaches facing the heat ahead of the 2026 season - On3",
-      "source": "On3",
+      "title": "College Football Hot Seat: USA Today names 11 coaches facing the heat ahead of the 2026 season - on3.com",
+      "source": "on3.com",
       "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOT1puRlJJZmEyUy1QNU9mc2o3RldrLUQ1cWd3YlJUXzRfNEl2U3hUVXRJcks3WU9FdVJCVjc2QW1nWmF3MzFZZDIweXB3eC1IMHFaemc0TEgwcTQyRFM5eU5TYno3X2U3cU52WWdWSGtzZlVUcWJVYk9WN1pmRmZWZ1I1d3pUaVYwbVBGNElYM1FiZzZHbnJwdTdhUlBvUUREX05FcDgwcFZzbExfZUVRWm5B?oc=5",
       "sentiment": "neutral",
       "daysAgo": 7,
@@ -1431,6 +1381,106 @@
       "isCritical": false,
       "pubDate": "Sat, 15 Aug 2026 03:53:00 GMT",
       "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "2026 college football transfer portal's 100 under-the-radar players to know - 247Sports",
+      "source": "247Sports",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNWUtKbjFmclVaM0JFQjR3dEREU0x5MzFhb3lJOXpfZi1XRmp4Z0V4SmFuTzJFWE5VTVA2TFNzbDNfbURlR3F5T1B6RF85VjI2d3BfOE05ZUMwZU1zMUNRX01KXzAzcExMSFA4bXZFOWRvT3JTV3dWakcxMGlFUHlGZXl0N3poaWlPWWI0dDE0dmhjNGJHMWtwZ3pyV05USVJFUm50QTdqTEZJQWQ3M25V?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 3,
+      "isCritical": false,
+      "pubDate": "Sat, 15 Aug 2026 14:12:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "TRANSFER PORTAL PUTS PRESSURE ON HIGH SCHOOL QUARTERBACKS - sports.yahoo.com",
+      "source": "sports.yahoo.com",
+      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNZy1rT2RxVmdtX1hvdkhhQ0gyUS1HdVVYcnNXVC1xMkVaTmZhbTZNTWlGVkdjQkVpQkFMYktvdDJTNWFTR3JoNjA0d0E3Tmg3Y092UmZvS3NsdjJEQnR5blUxY0gtM3VEajNYUzA1dzZNVHMxVjFQdUhMLTdnbHlaeWtjSEtHbzQ1R1dZ?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Mon, 17 Aug 2026 17:16:01 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "Most impactful FBS college football transfers to know in the 2026 season - NCAA.com",
+      "source": "NCAA.com",
+      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPUHQ4empSQkpuOVlIcENuNGlWX0g4OEY1TDAzWmZfaGhFM0pWVWRUYkVocXo0YjRiVVJHUFRDdzVpRmE5dnFEblZCYmJaNTlOWEZxRDJOS2ZVNDlkeWY4TUxXT0JiQk5VbkdzcVRyVjhJSkZ0LWhSYXB0UlBLTHFHSU16RUx0TXU2bDhFTWpHZ3l0bGszeV94YjF6WDVpbUo0ZzYwSVhVeXpJaFp1dXJuQmZsUWw1b1nSAbwBQVVfeXFMT2xncDlMUUgyN0s1LUQtY0I0WEhYbW9iVUx4VUNQSlFuMzEzZlNId1VYV1JOeG5SVTY1VUlhOXRPeHlLX2hwNGxLZGVmeDlHVEV2ZEtlb1F6TUl5Vmhmd2hKM2Nyc19RaWVJdzNvVFduTnlyM1JCOXowT29RQk4wbmZ0ZTV1Ti1STXNiNVVwenIyRnA3a1VKNW9wdWxnNEtTZUVfQi1PYTdWTWNRNFVMaGNfYVhVcDNZdy1KYXc?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 26,
+      "isCritical": false,
+      "pubDate": "Thu, 23 Jul 2026 07:00:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "Tracking every Indiana Football transfer portal departure: Where are they now? - Hoosier State of Mind",
+      "source": "Hoosier State of Mind",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOb3pfdV80ajI3b09zZmJZbGw2dWdFVU15NnlQOWp1VFFkdzlxdzVhX2FfU25nblVEaC1uMF9PTXVDYlRkT3ItX1FSNThoSXNhemdMMVBfaGRtdGdLN1Z3VzQ1Z0xFbjVSbVM0QkRpWVR0bV8zTFo1X1ZyTHk1aGpKMFZYcDItS0VxQUJZczVYa0pkbVgxQVZlQS01cTY5eVcxQXZVZGZiTWZCV1VFMFh1NE9DV0dJOFlrTTA1ag?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 3,
+      "isCritical": false,
+      "pubDate": "Fri, 14 Aug 2026 18:30:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "Inside the room where college football GMs reveal how the sport really works - usatoday.com",
+      "source": "usatoday.com",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPdXhzM1huRmcwUG12QUpucFUxNFozMW15cmtnQVRjYUpUWkc1bnJnb3JFSWVzU3pPRHNpRE9aV2V3NkJZUjZJOEZkNk5TNnFOUzFHTTByeVpSWDdXbnZVU18yczRzaS1CM28zQklsNWxVZ25ad1dhQ0hMcDgxMDhsMVBBM2g5UF9EMkNaN1pPZkZ5cjdHSl8ydkhiam1kWkdwVmVvSUdUVFNESWh6Rmprc2d4RjR0WkxDUFpkSWR2S1A5UFRucmpXbnAzLV9hSXRn?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Mon, 17 Aug 2026 19:39:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "Ohio State, Oregon headline preseason AP college football poll - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOa2hSY3lSOWtBdkVvcC1saEFoUkFLM1ZObWZVVVJWdjk0cTV5MlBUbENCa21FMTF0TDcxR2ZwOThMVzVibUhkNC1zMWRLUmtHN1IwZF91UlZYZlVnNjlRcjdKbWctQlhkRGR3YlhZRm5nbjg1M1JCR1ozek9CNWF1OEw0MTlGZC01VnNDcjR5YVhEQUJhTEd4MmIyNy1iWDBlMS1mZTJXRWRRWWVIMEp0SldBLTFHam1QeDI0?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Mon, 17 Aug 2026 16:12:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "CFB Win Totals: Can UNC Surpass Expectations? Stream of NCAA Football - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPNVAtalhRaWEtN2VYWUx5YWZTZ0hYZldvT0NqWFYxZnNVLTd1YVZnVnhMcDh3ejlJaTY1UTU2MVp6aWJwdVVLNTV4MkFMMXlwNGZ1YWExVXR5aTNiMExpMkt5UjRCWDJmMEhBamJrbE5CSVNGOXc2UDl1ODF5NWQ3ck9UTzdZc3dpVG5LS2ZBanBFZzRyLUlsaVFuNW5zc1E?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Mon, 17 Aug 2026 23:58:11 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "AP Top 25 poll: Ohio State preseason No. 1, Oregon at No. 2 in college football rankings - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOOUdaOVhpMGFZQ1hZUlJXSHhCV04wR0taTzFBX0RPeHhpNHlBNHVkVVBDcmVCUDQ4c2FnRE4tb2tGV05yTjVOYWdRUUhZN2toNGc0dDNZQlFXTFlrbW1nUTBaaG9HU2RkY1FsWDhGelJHYmxKM2tnUFhpMEp5bHg1NXY0WmxpdGRYMGZwYmVoMFNLSXNEMWMzMzMyaUdzTHFERndmWnZjN3pPSmVwYU1QLTRNSzdRRjI0?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Mon, 17 Aug 2026 16:27:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "How to get tickets to the 2026-27 NCAA football season games with Gametime - sports.yahoo.com",
+      "source": "sports.yahoo.com",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOUWVGdG0xbnFPSmNIbG1uMVdSdHlaWTA4X2FFd2lQNVdxWWpVUWk4R3RXbVBuN3B3Y0FTa25rN25zYXFES3d3aGZ1NldsUS1zLUxsa0ZacDZQeTRaVTJkNXoxMEVhQ0xmOEpTdkJKSm9zT1psdmcwelpER2tleE1PUEVHQW83MVFibFRiM0xEZXRTbGNQLXducEtOY21qVXUwODFEVHlaVWFSQUp4ZkJlTjJySVdLMlI4R000aGNLeFJjLTRGdHl4Q05fMEw0TVlUWkxB?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Mon, 17 Aug 2026 14:33:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "The Latest: Ohio State and Oregon are 1-2 in preseason Top 25 college football poll - CBS 17",
+      "source": "CBS 17",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOZUQ2cjdzenpUTjd5azVTcngtVTFqdWp3MmRVRWxGVEpMNnFXbThFZ0xLX20tdThXOU5uSHBnMV9VSE9CdEJxaVJGekkzWThiSVFjMjVoeFU1M0NHRlNZb0owRnhfTjhnaWZ4ZVNZU2k4MmVvX0N4TDhQRkV6VzhhUG5WcjdwRWZxa0w2Z2dFeHFoVHJOc1IyRU0tZFVhcmdyeEhWRVFpR3V2emZCRXdqZkdZZ3RfVEFaLU5r0gHAAUFVX3lxTE5VU2VrN1Nqc3JxRTM2S2lrWU5YaFBQcEQtb28tRzVIdGpldUlQQUdBdDVJTWN2S3N1QWZiQWUzamtiM2tFcUpuUFc4dmtETmlkMzdYdE5TRnIxTHRmcTJmSzJYZ3V4R2E2d1dBVWtPcmswLVd4WU5vdmdiamJ6ZmdvSnlwcDhXRFJQLXphQU1hOFZZS2RsaHBUSkpSNXdDYktwOUJqcEYzNVJOcDVZcnBodFdJWGxmSmJ6UlVlTXQyXw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Mon, 17 Aug 2026 19:09:24 GMT",
+      "searchQuery": "NCAA college football"
     },
     {
       "title": "Colorado High School Football Head Coach, Former College QB Suspended - Sports Illustrated",
@@ -1463,16 +1513,6 @@
       "searchQuery": "college football suspended"
     },
     {
-      "title": "NCAA suspended Tennessee football player over $400 NFL Draft-related flight, coach says - nytimes.com",
-      "source": "nytimes.com",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQOVU5RzNvTkV0NWRrT0lzcXFfbE1kdkhpMDlkZUdDLXhBTm9pTTI1Uno0ZGpGWVFtOXhLTFd5N3ExUW0zUTFpQmhqNGRoWHVTSnVaaVp6eVBmUWFWSUNIM1hzbnlIblNkeWVNSmFiV2tlZ2w5blNVbFk3ZWg4WEJTNXQzbEZZX2c5Sy1MV0JraEJPZ3doLXVOX1d0ek1PVkkyTVZQdUpUdw?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 20,
-      "isCritical": false,
-      "pubDate": "Wed, 29 Jul 2026 07:00:00 GMT",
-      "searchQuery": "college football suspended"
-    },
-    {
       "title": "Tennessee coach unloads on NCAA's 'bulls–t', after star linebacker suspended for outdated rule - Fox News",
       "source": "Fox News",
       "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNcXNPc09YaG1DSHNZcVdlQlBRSUpNaXl6S3dIVHVCa0pyN1NCLS1lUGFEUVFXRDc4Z2haZGtiaFhKek5YRHN1Tm5xeUdRc21wMEJXaXA2VzJQWE9KYzQxWkdINlFucjd4VEdkcWswVFdMOUpWUjJ0cnFGcU16eVRUaGQ1NDdKZlJPM3JJM0ZWZi1MbkZNSWhSY1VuRFBpOWZ3YXRlblFucnFrQlBWdFZ6N3VtWQ?oc=5",
@@ -1480,6 +1520,16 @@
       "daysAgo": 14,
       "isCritical": false,
       "pubDate": "Tue, 04 Aug 2026 07:00:00 GMT",
+      "searchQuery": "college football suspended"
+    },
+    {
+      "title": "NCAA suspended Tennessee football player over $400 NFL Draft-related flight, coach says - The New York Times",
+      "source": "The New York Times",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQOVU5RzNvTkV0NWRrT0lzcXFfbE1kdkhpMDlkZUdDLXhBTm9pTTI1Uno0ZGpGWVFtOXhLTFd5N3ExUW0zUTFpQmhqNGRoWHVTSnVaaVp6eVBmUWFWSUNIM1hzbnlIblNkeWVNSmFiV2tlZ2w5blNVbFk3ZWg4WEJTNXQzbEZZX2c5Sy1MV0JraEJPZ3doLXVOX1d0ek1PVkkyTVZQdUpUdw?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 20,
+      "isCritical": false,
+      "pubDate": "Wed, 29 Jul 2026 07:00:00 GMT",
       "searchQuery": "college football suspended"
     },
     {
@@ -1493,8 +1543,8 @@
       "searchQuery": "college football depth chart"
     },
     {
-      "title": "Get to know the Kentucky football roster: No. 19 Kenny Darby - Yahoo Sports",
-      "source": "Yahoo Sports",
+      "title": "Get to know the Kentucky football roster: No. 19 Kenny Darby - sports.yahoo.com",
+      "source": "sports.yahoo.com",
       "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNVDV2bjdhcDNJR1RpWHpfd2dnaHlMT3hvek91NmRFSjhDMGNTOFlGSU5pVWVyeTdPYllkUWNjTEEtb05GSTVWT25Od1RTUjN1Q2R3Y05FbEZaWGtJeldZTzV4ZFRUb3hDYzgwNTNOYmNLOERiQ3dIVk1OZ1B5WmRoR1FRMmRTaXNy?oc=5",
       "sentiment": "neutral",
       "daysAgo": 1,
@@ -1531,56 +1581,6 @@
       "isCritical": false,
       "pubDate": "Mon, 17 Aug 2026 23:01:00 GMT",
       "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "Ohio State, Oregon headline preseason AP college football poll - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOa2hSY3lSOWtBdkVvcC1saEFoUkFLM1ZObWZVVVJWdjk0cTV5MlBUbENCa21FMTF0TDcxR2ZwOThMVzVibUhkNC1zMWRLUmtHN1IwZF91UlZYZlVnNjlRcjdKbWctQlhkRGR3YlhZRm5nbjg1M1JCR1ozek9CNWF1OEw0MTlGZC01VnNDcjR5YVhEQUJhTEd4MmIyNy1iWDBlMS1mZTJXRWRRWWVIMEp0SldBLTFHam1QeDI0?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Mon, 17 Aug 2026 16:12:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "CFB Win Totals: Can UNC Surpass Expectations? Stream of NCAA Football - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPNVAtalhRaWEtN2VYWUx5YWZTZ0hYZldvT0NqWFYxZnNVLTd1YVZnVnhMcDh3ejlJaTY1UTU2MVp6aWJwdVVLNTV4MkFMMXlwNGZ1YWExVXR5aTNiMExpMkt5UjRCWDJmMEhBamJrbE5CSVNGOXc2UDl1ODF5NWQ3ck9UTzdZc3dpVG5LS2ZBanBFZzRyLUlsaVFuNW5zc1E?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Mon, 17 Aug 2026 23:58:11 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "AP Top 25 poll: Ohio State preseason No. 1, Oregon at No. 2 in college football rankings - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOOUdaOVhpMGFZQ1hZUlJXSHhCV04wR0taTzFBX0RPeHhpNHlBNHVkVVBDcmVCUDQ4c2FnRE4tb2tGV05yTjVOYWdRUUhZN2toNGc0dDNZQlFXTFlrbW1nUTBaaG9HU2RkY1FsWDhGelJHYmxKM2tnUFhpMEp5bHg1NXY0WmxpdGRYMGZwYmVoMFNLSXNEMWMzMzMyaUdzTHFERndmWnZjN3pPSmVwYU1QLTRNSzdRRjI0?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Mon, 17 Aug 2026 16:27:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "How to get tickets to the 2026-27 NCAA football season games with Gametime - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOUWVGdG0xbnFPSmNIbG1uMVdSdHlaWTA4X2FFd2lQNVdxWWpVUWk4R3RXbVBuN3B3Y0FTa25rN25zYXFES3d3aGZ1NldsUS1zLUxsa0ZacDZQeTRaVTJkNXoxMEVhQ0xmOEpTdkJKSm9zT1psdmcwelpER2tleE1PUEVHQW83MVFibFRiM0xEZXRTbGNQLXducEtOY21qVXUwODFEVHlaVWFSQUp4ZkJlTjJySVdLMlI4R000aGNLeFJjLTRGdHl4Q05fMEw0TVlUWkxB?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Mon, 17 Aug 2026 14:33:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "The Latest: Ohio State and Oregon are 1-2 in preseason Top 25 college football poll - CBS 17",
-      "source": "CBS 17",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOZUQ2cjdzenpUTjd5azVTcngtVTFqdWp3MmRVRWxGVEpMNnFXbThFZ0xLX20tdThXOU5uSHBnMV9VSE9CdEJxaVJGekkzWThiSVFjMjVoeFU1M0NHRlNZb0owRnhfTjhnaWZ4ZVNZU2k4MmVvX0N4TDhQRkV6VzhhUG5WcjdwRWZxa0w2Z2dFeHFoVHJOc1IyRU0tZFVhcmdyeEhWRVFpR3V2emZCRXdqZkdZZ3RfVEFaLU5r0gHAAUFVX3lxTE5VU2VrN1Nqc3JxRTM2S2lrWU5YaFBQcEQtb28tRzVIdGpldUlQQUdBdDVJTWN2S3N1QWZiQWUzamtiM2tFcUpuUFc4dmtETmlkMzdYdE5TRnIxTHRmcTJmSzJYZ3V4R2E2d1dBVWtPcmswLVd4WU5vdmdiamJ6ZmdvSnlwcDhXRFJQLXphQU1hOFZZS2RsaHBUSkpSNXdDYktwOUJqcEYzNVJOcDVZcnBodFdJWGxmSmJ6UlVlTXQyXw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Mon, 17 Aug 2026 19:09:24 GMT",
-      "searchQuery": "NCAA college football"
     },
     {
       "title": "Arizona football predictions, picks, win probabilities for 2026 games - azcentral.com and The Arizona Republic",
@@ -1623,8 +1623,8 @@
       "searchQuery": "CFB picks predictions"
     },
     {
-      "title": "Have your say in predicting biggest Week 1 games in Palm Beach County - Yahoo Sports",
-      "source": "Yahoo Sports",
+      "title": "Have your say in predicting biggest Week 1 games in Palm Beach County - sports.yahoo.com",
+      "source": "sports.yahoo.com",
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxORWNZT3VxLUcwSjBMNWRpVnpOOUZrbnNvZGFzblZ0TmEyYlY3NEU5dzNpcDRSck12aGRHR2VBNHdtY1NiczFSdUswQ3VOckdDVFB1enUtQVlHenR0Y3BUM1pLSlFwRGYwbkJBc1FnWmtTd2xlR2xxQ1o1NkFmVDhjZFY1bG9OSGM?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
