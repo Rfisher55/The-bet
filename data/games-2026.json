@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-19T00:12:35.384Z",
+  "generated": "2026-08-19T04:15:45.651Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 102043,
+  "fetchDurationMs": 106996,
   "apRanks": {},
   "games": [
     {
@@ -59,9 +59,9 @@
         "condition": "Clear",
         "tempF": 100,
         "windMph": 12,
-        "gusts": 9,
+        "gusts": 13,
         "windDir": "S",
-        "precipitation": 0.08,
+        "precipitation": 0.06,
         "humidity": 29,
         "indoors": false,
         "kickoffHour": 12,
@@ -139,7 +139,7 @@
         "condition": "Clear",
         "tempF": 88,
         "windMph": 10,
-        "gusts": 7,
+        "gusts": 6,
         "windDir": "WSW",
         "precipitation": 0.04,
         "humidity": 27,
@@ -219,7 +219,7 @@
         "condition": "Clear",
         "tempF": 82,
         "windMph": 6,
-        "gusts": 10,
+        "gusts": 8,
         "windDir": "ENE",
         "precipitation": 0.2,
         "humidity": 33,
@@ -437,7 +437,7 @@
         "condition": "Clear",
         "tempF": 66,
         "windMph": 8,
-        "gusts": 8,
+        "gusts": 11,
         "windDir": "W",
         "precipitation": 0,
         "humidity": 62,
@@ -519,7 +519,7 @@
         "windMph": 6,
         "gusts": 16,
         "windDir": "NE",
-        "precipitation": 0.16,
+        "precipitation": 0.32,
         "humidity": 52,
         "indoors": false,
         "kickoffHour": 19,
@@ -668,7 +668,7 @@
         "windMph": 0,
         "gusts": 0,
         "windDir": "N/A",
-        "precipitation": 0.14,
+        "precipitation": 0.18,
         "humidity": 50,
         "indoors": false,
         "kickoffHour": 18,
@@ -748,7 +748,7 @@
         "windMph": 0,
         "gusts": 0,
         "windDir": "N/A",
-        "precipitation": 0.39,
+        "precipitation": 0.52,
         "humidity": 50,
         "indoors": false,
         "kickoffHour": 19,
@@ -762,7 +762,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "🌧 Rain 52%"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -828,7 +830,7 @@
         "windMph": 0,
         "gusts": 0,
         "windDir": "N/A",
-        "precipitation": 0.39,
+        "precipitation": 0.27,
         "humidity": 50,
         "indoors": false,
         "kickoffHour": 19,
