@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-22T15:11:29.583Z",
+  "generated": "2026-08-22T15:24:17.858Z",
   "spRatings": [],
   "eloRatings": [],
   "teamStats": [],
@@ -15,15 +15,6 @@
   "teamNews": {
     "georgia": [
       {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Top three Georgia comeback candidates - On3",
-        "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQcVFzdmRiWHh5Z1FPTlIwRHZUZXpLWDlmbFJ5c0h6R0IxX0VjTUlMZjM0clhkb1Y0VXpELXR1ODdja1VIdWVJbGZhTlNndm9Zd1A1MlFqWHRzNmQtN1V2N2h6d2lzdkc2NGpWRE95NUl2djViTHkzVTVMM1JDNl94WVhEYWpLQW1sZ21PeW43Yw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
         "reporter": "Yahoo Sports",
         "outlet": "Yahoo Sports",
         "report": "Georgia True Freshman Reportedly Struggling in Fall Camp After Dominant Spring - Yahoo Sports",
@@ -37,6 +28,15 @@
         "outlet": "Yahoo Sports",
         "report": "Where preseason polls, experts rank Georgia football - Yahoo Sports",
         "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNWEUyQ0Nyb1A0QUhYYWZIQnc2c0ZnS2Zrdi1tSHdJdlEtZWZKU0hFdGVxazVQTkhnU2cxQ2FaRXdiSWFieE1oVklqeEszNFcyanhJRDVVU3ZoRHhXbHRjdGF4T3YyclRvTVAzcnB2ZVE4SjJIRUItVzJRYzF0QzhBWl9udXI2bDJrNXJV?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Star SEC QB has received hate for being a Donald Trump supporter. Here’s why - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1VWllSdV9iOHV1d09wLUMteEU5Sjl0MHRJRVF0eWp6TXpoYmtHTm5rbVVIdW5GajZVejV6ay1DWUQ5c2Fna1RXZVp4MTNDbnQxTzY0ZXItQ2R6R2RVaEI2UUduR2xvLThlOW82b1hGU3N1bDNWb3FCSnIwdDB5U3M?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false
@@ -62,24 +62,6 @@
     ],
     "ohio_state": [
       {
-        "reporter": "CBS Sports",
-        "outlet": "CBS Sports",
-        "report": "The education of Jeremiah Smith: Ohio State's best player is still learning why he's this good - CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQR3hSS2dLb0RHTmxaakxOdFktZ0lhRHFwbjVTclFfeXhidURnVTExb01wdzRxRWNaVXVvbWM3YkpYdnQwN09aY2ZyTEFnT24wV3VKYWVMaTNsd1A4Y0VHVGJsc0VLdjNpWDVQZWNYeDhZOEhwVlIyU2dESVBUOGQ4V1pNeVhqMjRyMkJJc0kzTXp4OFVUbHVZMV9uY25HcWY4VWJv?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "No. 2 ATH Camden Noe on Clemson, ND, OSU and Michigan: why each school is earning a real look - On3",
-        "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPZHBrNnkxNEo1al9sRmZlc1IzRHlpQjEweFdVcHhKYWdsbHpZeE05bDBXRnNkNENZWUhwbHFGcHdmOGx1ai1hV2lCQnJCS1BQaEtrYi1DbmZEd0lta0F4UDVseExfR0VCSUt1djAzdHgycXJndVNUM0c3YXMxa1pjODFRdXFoWlRLWUNZUTdIaTN0bDlDdm1NS29wbVdrNTlWWHFTS05xRjVNWEZLNDZ3dkFDcElHMU1vMWkyWWFXUGNsTm9xLWgwQm9jeERVOUZ5Tkx6TVA2ZHE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
         "reporter": "The New York Times",
         "outlet": "The New York Times",
         "report": "What makes Arthur Smith’s Ohio State offense different? Here’s what we’re hearing - The New York Times",
@@ -104,6 +86,71 @@
         "link": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxOQjJxXzZwUEpiSEpVZWVvejZXNmNNMDFkNW5GYjVmd3lCalpaXzRDd3F2MXdzZ29rVEU5ZWZJMVdJMkljdHBHQUF0N21TLXhrdzZmaHJPdnVVWWxsajljZWI3NUd4U0pzNE1LRXNCaGQ0TWYtcFRjaVh1dlhRZWlCQnZZeFZoSGVPaVJtQVhlanJoQUtCekVReFgwbEtLRHlZNnIydXhQNVVOY1JGMVRhQVl4cFNsSUxsa2t3Uk40SDR5TmhNdVZXRWhiR1V4UlczX0FicjdOYm9tUlEtaWd3UTJQa2p1SXNNWUpmbGhRVll0NGs?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "No. 2 ATH Camden Noe on Clemson, ND, OSU and Michigan: why each school is earning a real look - On3",
+        "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPZHBrNnkxNEo1al9sRmZlc1IzRHlpQjEweFdVcHhKYWdsbHpZeE05bDBXRnNkNENZWUhwbHFGcHdmOGx1ai1hV2lCQnJCS1BQaEtrYi1DbmZEd0lta0F4UDVseExfR0VCSUt1djAzdHgycXJndVNUM0c3YXMxa1pjODFRdXFoWlRLWUNZUTdIaTN0bDlDdm1NS29wbVdrNTlWWHFTS05xRjVNWEZLNDZ3dkFDcElHMU1vMWkyWWFXUGNsTm9xLWgwQm9jeERVOUZ5Tkx6TVA2ZHE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "247Sports",
+        "outlet": "247Sports",
+        "report": "Snapshot of Ohio State's defensive depth chart two weeks before the 2026 season - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPT2c4SVNDWHVkTEktSnN0Nlp3dllUVy1yVDBNV2ozMGNlSkVGaFJhandzNkhtZ2dveTNQdU9YWGIwdDFMNFoxWHBKOTRSd2tSYTl6Xzc1THFPS05jcFlVN3hlNHFWYmJpd0tyMjg2c1BqamtfV2I1ck93R3VWUTBnV214TmlLWk9NM0hGWmI0eG1FM1hQZWc0MmRTTWgzWDFWZkNYa3RQaTYxV2VOU2czVHFsRnVNbjlUaFRuQTZ0U2RaN2VQZDhfVG53WGFxWHVYeVcwTGk4MUxXTXh4cWUxZU1Wckw0aWNlY1E?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      }
+    ],
+    "alabama": [
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Alabama Names Winner of 2026 Quarterback Battle - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOVDlMaTBIbWlPakJSbXhsLVdZOElUTlpJcmNyZUo4X1BaWWJuOHVmQk54SjdBZ1VzUFE1S043MVBpUktzOXU5Nm9GSUdZQm9ITGRPelV6TVJWRjF5WUNNZHNUMmNibzZxU3F5eWduR3htSjVyN2cxbk1nVENad0VhelNGcjVmNEt4Q2pHRVV0LXZZQQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Bama Hammer",
+        "outlet": "Bama Hammer",
+        "report": "Projecting Alabama football's depth chart for Week 1 after the final fall camp scrimmage - Bama Hammer",
+        "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNVp2Ty1idGdoMW1SNjV1Tkppa3pwOVJnclFoajgycmU2NWUzMVlPSW9TU1l6dzczWWR3eUZYb0tWcE16WnZrZENKTEFmS2ZmUWRleFpwYXBfMkZQUlNjQk5GaTYwUGYyNUNnaENLTWhyWlA0R24wZGtOTGliSkc4Nl9RamRnamhITV9TdXJCSWExbFY0SlVJWnloOVZhRDNvSVVDMUZWV2RSazVrT3kwSQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Alabama Freshman Xavier Griffin Is Already Drawing Jihaad Campbell Comparisons - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNZm9rRDFpYllKM1JieXU2YUUxb0dFSTdxVWdRQW1wX01QVWJ5d1ZJZFc0V3dfRm9WTXpmd0c1Ny1lRVd2Y2t6UDBtaG01T1FwUzl4NUpKUFZMMEdrOEVJbmZtTmNJdHZQODRGbWJBTXoxS3RTckJSQ2cwNndySHBVU2k5c1Q2ekVwTWNSQnVBUzdNQQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Roll 'Bama Roll",
+        "outlet": "Roll 'Bama Roll",
+        "report": "2026 Alabama Football Schedule Preview, Win Totals - Roll 'Bama Roll",
+        "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNQXI4Q1NsTG1vLV9rSHZjSlp4Sjh5Y2JCbTZ4WFNRSWI1R3I3NG1iZ2g4elNJeFBYRFljVGZ5SldLbk9zUVlyRGZfSXEzUnBGdVBRenREQXRMSlhMSjQyeEdWdy1ZZ0xTQWRvZDZSdjUyT1JmOENsY1JIVkhYaFIwbk1rRkFKT19HV0I5OUFDUEpnandNNkZUMlBsamZTaWstLTd3aXRQWQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Where Alabama position battles stand after final scrimmage: Offense - On3",
+        "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNQl9CWjJHMEJKZFo4Q3VUcndxSVU1bGY3OEJPb3dFOGdyYU9Hb3ZuMExZczFKZGI0LXpTRXdHSFRIYmxFZER1MVR0ZHBtTjBaLWZqMVprSl9PdHlGLXhXNTVkLUNvVWdkNGRvQnViTnF0NGxmc09ZS0ZlZk5oLXd4VzNUMlBQUzZ3dWtyenY3Vk52VFRXWkhPMWR4V19XRjdzanJoUXNpR19FcUdreEFzbjR2aGg0bGR2UHpF?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
         "isCritical": false
       }
     ],
@@ -149,194 +196,6 @@
         "outlet": "New York Post",
         "report": "Arch Manning, Texas 2026 predictions, odds: Don’t expect a bounce-back campaign - New York Post",
         "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPM2NYcW9uc3F3Mnl3WjM1S2c4WTBjcGdQNE5uams4cEpwUHk0TFJkaWpQTDVxR25KYlp0WVlnYmtSMlVjUmdIbmNQd196NmFfSFd3RVotYWM2NVk5ZmpOSk5BNko1Smx5QWpYYjhIXzg0MkhnRTdWWTlHWE15VGdaV2xCR2luUjdzZHAxZXRBVy13MVJ4Q1NGYVVMOWZlTHRicUN0Wi1GYmEtM2hNMDBLWndjTnc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      }
-    ],
-    "alabama": [
-      {
-        "reporter": "Bama Hammer",
-        "outlet": "Bama Hammer",
-        "report": "Projecting Alabama football's depth chart for Week 1 after the final fall camp scrimmage - Bama Hammer",
-        "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQNVp2Ty1idGdoMW1SNjV1Tkppa3pwOVJnclFoajgycmU2NWUzMVlPSW9TU1l6dzczWWR3eUZYb0tWcE16WnZrZENKTEFmS2ZmUWRleFpwYXBfMkZQUlNjQk5GaTYwUGYyNUNnaENLTWhyWlA0R24wZGtOTGliSkc4Nl9RamRnamhITV9TdXJCSWExbFY0SlVJWnloOVZhRDNvSVVDMUZWV2RSazVrT3kwSQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Alabama Freshman Xavier Griffin Is Already Drawing Jihaad Campbell Comparisons - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNZm9rRDFpYllKM1JieXU2YUUxb0dFSTdxVWdRQW1wX01QVWJ5d1ZJZFc0V3dfRm9WTXpmd0c1Ny1lRVd2Y2t6UDBtaG01T1FwUzl4NUpKUFZMMEdrOEVJbmZtTmNJdHZQODRGbWJBTXoxS3RTckJSQ2cwNndySHBVU2k5c1Q2ekVwTWNSQnVBUzdNQQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Nick Saban Names SEC Powerhouse That Could Surprise CFP Contenders in 2026 - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQLXM1QzdqOHlydm52d3pZZy1JendqRm92SzBUX294V2pBbjFsN0psdGVEaFZ2NjE5WkdDNGhjdmI3V09XTWo1SFRGWUl4RllVeWpsVzEtUElnbkNta1huSFJpV0dndVk2SEhNWUh5bmtNc1dOWmdEZkdBSGNEbjlsSUhTakdfTVVudHFlamNldHZ6c0Q4bXh3WWlJT0FyWlIwcy1MVU5URUZGZDhFWEFLZEIxaHN6TjVhVmF2ZmgzVzA0QQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Roll 'Bama Roll",
-        "outlet": "Roll 'Bama Roll",
-        "report": "2026 Alabama Football Schedule Preview, Win Totals - Roll 'Bama Roll",
-        "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNQXI4Q1NsTG1vLV9rSHZjSlp4Sjh5Y2JCbTZ4WFNRSWI1R3I3NG1iZ2g4elNJeFBYRFljVGZ5SldLbk9zUVlyRGZfSXEzUnBGdVBRenREQXRMSlhMSjQyeEdWdy1ZZ0xTQWRvZDZSdjUyT1JmOENsY1JIVkhYaFIwbk1rRkFKT19HV0I5OUFDUEpnandNNkZUMlBsamZTaWstLTd3aXRQWQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "AL.com",
-        "outlet": "AL.com",
-        "report": "If these 10 Alabama players are great this year, they might win it all - AL.com",
-        "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNWkswMzJGYnkzam9Xd2ZwS2JlY3psR3NxR1k0R1BoZFVmZ24xRlgySlIzaG4tUGs5OUVXU1FuV2FhemJISjRheDEtUnRPV0hSOHdqOHFscUJFd2hPUk9XVVFHbVA3Y0FMeG5ndWNQVmlzVTRyS3FhVm01dC1yR1pFWUlMZkp0aHR4YkJZTExTYmtZUHVObWVmaTJhZXRQSC1Hd3BCdGpIaHAyQjg2aXVpSGpSaE15RGVa?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      }
-    ],
-    "michigan": [
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Michigan freshman out for season, other players dealing with minor injuries - On3",
-        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQNjhfTjNBTF9LMmNzWTVQZ3ZhRTdHa2g1MDQ4ckJRbG9jcGtSWUpGbmltclVFOFdwMGMwVXNKSjB3WkJhbEJRNFp4MGdJM1YyOFd2cWpjV1EwZjE2MENveDl3QjFxbEhVU21yTFZmTFBYTXJ4UVRsTFZFWE0wbnlWWHdBN3U3UFlKMjVXTG9PNmNEeE1USFk5UEx1NG5NZ2FTbF9nZUFJZjRVaFVfZVJQSEozeUp5emlLWUd3WENsb0RSV1hDY2JyMWlpcVhnUQ?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Maize n Brew",
-        "outlet": "Maize n Brew",
-        "report": "Michigan Football freshman OL suffers season-ending injury in fall camp - Maize n Brew",
-        "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQTUhiZmswSFB6Z01GX2F3Z3NxdzlPRk40YjFOVmFkOFl1U3I4U0JaV2FjOUN3OGU0Wi1PdkZCQnhjSVc2X0ZZS2dibFN0QzR6VEpleldXa19aSWliT1VncXFFWDNIbTU5ZGhEOEFfSjhCQUhTa0NMemI0XzJhUDBqbjhZRnYtcngtaTk3U01NQm8tcExaeWxtZVhidkI3c3FibXNWR0s2NERrNWlzYzJLVURIRTc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "'An incredible day’ — Michigan football practice ITF EXTRA, quarterback edition - On3",
-        "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNVzkzZURBZWUybmtNNDZmOEJNaVYzaUZpVTVIMUJRY21OampRLTJLc0ZKWm9SSjBDbGNzR1NDdU1QUEtuSDMycTVtWDBYRUphSFpfazhLTVJxWC15MU43NFJSa0p0bGxEb1cySnNYclcyaFVFa1J2dXNmR0J2RzlNZy1aZUJBV0tIQW91a1VQejdYUXBBcWJaM3A5WUxBUFhYU2JsM3lNU2MxVlNiVlZLaTFhekU0MFp4emdNQS03UU1VV1pk?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Michigan Football QB Bryce Underwood Receives Best Report Yet - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQZEZpSzZ4UmtxZmo4cU1oamVpOVlPeXk5MkZ5QlZ3bk4zcDAwd2VkeTlwVnFpUlBrLVVMSTkyOW9PeUs5dXNyS0x4d2pvdkpsVUlVS0l0V2puRW1WNEMzNm1WTXJVZEJjU3gwMVpDbjA0SGZVbFZpQ1BMZ1drdFZYSlFTbjVWT21iRUNwMkY4NW9sdUVoQkluSWNMSDhIRmxJWDhYZUhDclIyeFgxY296bkZTN0JyanM?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Maize n Brew",
-        "outlet": "Maize n Brew",
-        "report": "How Jason Beck plans to limit Michigan Football QB Bryce Underwood’s turnovers - Maize n Brew",
-        "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNZWxpZGY4YXAtendKT2ZzOGFZSkhsVHlXQ2xrZjBIWTZrWHMwUFMtZWFNRXNncDVoakVtYUdvY3I2aWpFNEg4SkFCVXV6NkJiYTZGSW90c0hjMERZU2pYOGhMam1HT2J3eTBTaWVOaDVZSURDODZaRC1hVG5mMHowRnZmT3RjaHVOdmo4WFFTSkR6blFlZDBaeGdSQm56RmJuQ29ma3NCdnprbWFJYnlSbG1WZ21IcEMzT184OQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      }
-    ],
-    "penn_state": [
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Penn State commit out indefinitely following injury - On3",
-        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOdlV2SW1iWUp5Y2l2aE1MN1VCSzBTam5CUDlYVUJRYU85Q1R4em9hb2c1T1JTWkRQTS1mQVZGQmFJRDRPaUpvU3NvdVg0aFZHV0k4dVcwMmcyYTNPVURBQmFTcmNtWkZLUy10Y2lmcFk5djJ5WXlvdnBsd3lPbVlKV3dGWnJwemtzdE03QmtTazMzeXJQeVFmemJnOWJzT2hsYkRPbHNvMVdxVkczMlY2Q3BRT24zc1JpdTZUMnI2TQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Updated Penn State Football Projected Starting Lineup Through Week 2 of Camp - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQekZBTmFTTFYyZzB2MnBYaGlZVzlhenBCZ3QzZndfUkRNWTRhN21YOXFhNzFkZ2FWeTlBekk2eTZQb0hwenBEV1FLcDBQSERNb3dJWl84Y2J2V29pdW03bGphTUlOUjd6SGRlM3M1UVhIYjZ3Qzl0cUhtV1BDX2pEdzhvb251X2lRNS1Ta19Qbk1JVnBsR0RkamNhM3RndmRoeEJ5MldKNXNfX1hDWGdkT1BDNHh5UURKVVpuSFZDcw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false
-      },
-      {
-        "reporter": "Black Shoe Diaries",
-        "outlet": "Black Shoe Diaries",
-        "report": "Only Peyton Falzone Until Penn State Football - Black Shoe Diaries",
-        "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQcFpvV1laOE5DRnZxdjdMdHZWQm1FYnVLMWdac213ajRpZlgxX3J1aUg0TlJsbUxlRHl0VEU3NlAwcTVvOFhLejhvWVBUYzV2aXNtT2hsVlVlZlNTaUFUVzgxM2taVVlKY3pCY1ZCN0xLc3VZSk0xZWFXcUc3ZGJyLVlNSGREQThKNTlzUlBtVlBkQXVSXzZNdzlXeVBqeXl2YVhNMElqRG9vLVZZOUpHblo0di1GRjlncy1QVw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "247Sports",
-        "outlet": "247Sports",
-        "report": "Penn State Daily Headlines: August 22 - 247Sports",
-        "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPNS1maVAxNmVneElWS3FyMThTWEk2a1ZQY25hZE91WldreGMzTFo0M0x0YVNPblhQbklzMkdkZGYydjloX3dDU2NIdzBYSDNuLTFXZHBsWTZ1S2d1cWtwVllvcnJEUjZKX0FHRERJN29qdzZqaTdBZUNodWRaY1d4VjNXUWs0XzJWeTR5MlM5OFpmMGkxMmZuS25MNEFCUlRkUFJocERWSWw0dGswMzgzSEpRUVJCZzFVX0VnWm50U21tZEZWX3NTWjIxLWRCSkluVnM3V1pjTU5Xa3VaeWc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "The Penn State Football Position Group That Changed Most During Training Camp - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQTGliNEJFejBheERKMC10b09uSjBucTN0SmREMXZ5clFRZG80X3EwRXp4RTZtZmNJYTZENFpEX1g3YnpVVnNXYmRmTlZWNm5DRlZISWZFV2pqSEo5blRrNmhTbDdRYnBWay04T3JKWk5wbkUxQjF2TmtPalpUSGNOUk9adVVMRmQzYkprUmUwNzI3U3NWdEQwckpZS1I2aU1POWc1b1RfLXJJQW5PTnJOb3J0UkN5aExaWi1jcWdiWGs?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      }
-    ],
-    "clemson": [
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Why Josh Pate Remains Optimistic Regarding Dabo Swinney, Clemson Football - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNTjRHZUVwQkZYN29IazUwdE5felk1VWZKSnJEVVFUcktsYW8tVTNiY2YzbGJyN3pkUm9CUzU0WFJoamJyOWhQbEwxdTI1cW04MHN1LXhjcDRkOVM0NXlUWGtIcFFvSTVIYnVvRHJ3Rm1heXM3VkFSVDJoajNZdUxzNDBfYy1GRWJRQWt2cVR5Mm1NdzBDU0IyWks3NlltRy1OTExKdVEtTHpldXlESm9NWTFVYzF2Rmc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "TigerNet",
-        "outlet": "TigerNet",
-        "report": "National analyst gives one specific reason to be excited about Clemson in 2026 - TigerNet",
-        "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPcG9FaVJlVC1IVXViR0dpcmJBc1ZVUnRTYzhBUVJ0SU9CNFFkbkdXUEJNMWNaU0lLNmtnRW5lbGotOWlBeVQxVmJvLVlLdWVUTUtDU2JwWUktQzNjOGc5Q29XdEdXaEh6cDhRTXd2Z2ZtY0xZTGQ1cFBjMFZnQzQtMEZMSFRUOGpaWDdjODdMeEdlb3hrQ1JqQkg3cW9JTjh5cXJRcEJTd0Z0cURZV0JEcmU3dXlRY1ZsYlRXRmpZTFpLLWZKNHB6eURmOA?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "The most important thing we've learned in Clemson this this month - On3",
-        "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNT3hjS1JlYmxZWmUtdF9UOUszOGIyTzhHY0NHcFY2LU9EcHpEX2w5cUlVWncxR3NjeVltV3l2bkFJT2tEN3Q1NHF0OXAzR0tqbHQzUjgwM1U4bURsSjV0S05xMEdFcGE5ZGU3enpKWjhJVUM2Q1hPVWUyYTdVTGpHOHJCVXJCZHljRm9Oc1FMeDNHMWlhd09mVXZIc0tuaHhLX21WM3hKNjJiLVZJS3hCcm9pTkk?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Clemson Wire",
-        "outlet": "Clemson Wire",
-        "report": "Stewart Mandel offers outlook for Clemson football in 2026 - Clemson Wire",
-        "link": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPUmxzLVJQVVF0RXVhVlRXajFMYnBqc3VudlYxc0hJakNmY2dvVDlnLXIySDF3NGJ5dFpWQmU5VklGeHc4cllRODByNmQ3cjRpaUktWVNaT3VINk5rWnpncWt6Z0lTQVotOVlUaFd4YmhaSFJ0QW5XS3QwdzdaYWJrb1FMNWoxZG95MzQySDVyanlKTGJPNXhZUFNaOEgwdnVqUVVwSE1rSjdtdGlTcHlfWEtzMXZGVTVjNUxCZXdKQ2FHQjFPLVF6Um1aZ1JxeDZZRG1ZTEhfSnJPU0l4dld1ZDZRNTN3YVZZMDRmNHRBYUtsd2FsSnV3VUJFendGeU5uYnZmS1c0LUt3Nnl5bWV0WC1n?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Clemson Tigers @ Cincinnati Bearcats: Live game updates, stats, play-by-play - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPelh5dkY1cl96WkpIbGNRa1JKOXJPeVZXd0ZBbkdSa2IyVFYyRlBYR1ZQSFlFNC1aVDMxXzdFd1c0Q0FvRnNhZ3dnbDdwRHEwMG9lWVFxcHc3V0Z6Zm1naHNSMU1ZRmMzRHBnZ09WMFhndHdCdEJmZTlsbjBIUEYtSnJFOWk1dw?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false
@@ -389,21 +248,21 @@
         "isCritical": false
       }
     ],
-    "lsu": [
+    "clemson": [
       {
         "reporter": "Sports Illustrated",
         "outlet": "Sports Illustrated",
-        "report": "One Assistant Coach Quietly Reshaping LSU Football - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNLVhJTDFRSWdVcThnOEtMcmtpVkgtQ3hOMG5HRTlfSFZVeXVtTTNLV2tRQU11T3l3Y2gzbFVMTzZrR1BnNUk0YTl4cHJmZ0VOb3FNckRpeFBscXh1ZF90aDhoc2lMM19naDcwVHFoZjlIWDlQYXpWYU5mems0N0g2aUdQQm1VNW5ZdWx5UWJWZ2dnMEQy?oc=5",
+        "report": "Why Josh Pate Remains Optimistic Regarding Dabo Swinney, Clemson Football - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNTjRHZUVwQkZYN29IazUwdE5felk1VWZKSnJEVVFUcktsYW8tVTNiY2YzbGJyN3pkUm9CUzU0WFJoamJyOWhQbEwxdTI1cW04MHN1LXhjcDRkOVM0NXlUWGtIcFFvSTVIYnVvRHJ3Rm1heXM3VkFSVDJoajNZdUxzNDBfYy1GRWJRQWt2cVR5Mm1NdzBDU0IyWks3NlltRy1OTExKdVEtTHpldXlESm9NWTFVYzF2Rmc?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 3,
+        "daysAgo": 0,
         "isCritical": false
       },
       {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "What Lane Kiffin Has Noticed About New QB Sam Leavitt During Fall Camp - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNcUdaSUFrZVVDSUotYjNzVzA3bl9jbzEwV0g5X1pKWEVES2xFMzY5X25iQ2J3eEVweHczMnYwM1duRkJkRERuQl9LWXAwSVprRlBWdm9lMGV1WDVMMXBBbUM2aGcwaUg0bUhCMVpiTkF5QUNwLUxzS2dXdkNxdWFMeWc3X01NY0F6WElpQXk2bGxYNjU0dk1Xd0VHRFR0dmZVZFFyOUdsd0tHQUFNUmJ3?oc=5",
+        "reporter": "TigerNet",
+        "outlet": "TigerNet",
+        "report": "National analyst gives one specific reason to be excited about Clemson in 2026 - TigerNet",
+        "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPcG9FaVJlVC1IVXViR0dpcmJBc1ZVUnRTYzhBUVJ0SU9CNFFkbkdXUEJNMWNaU0lLNmtnRW5lbGotOWlBeVQxVmJvLVlLdWVUTUtDU2JwWUktQzNjOGc5Q29XdEdXaEh6cDhRTXd2Z2ZtY0xZTGQ1cFBjMFZnQzQtMEZMSFRUOGpaWDdjODdMeEdlb3hrQ1JqQkg3cW9JTjh5cXJRcEJTd0Z0cURZV0JEcmU3dXlRY1ZsYlRXRmpZTFpLLWZKNHB6eURmOA?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false
@@ -411,17 +270,131 @@
       {
         "reporter": "On3",
         "outlet": "On3",
-        "report": "Notre Dame DL Junior Tuihalamaka commits to LSU out of NCAA transfer portal - On3",
-        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNQlFSTUxNVE5lbWpSUThsYVU1NW9RY3gtTDJ4bEhPaklWX3RSUkdydDIzdHBsV29CekpDcWpNbldRY3ZwSlBMLVpGcnpWdnQwdU8yWTkybF9fb29hN3JXUFYzNHE4N0piZHRoNVJOMmg0bU01NTNwdVJQdTJVdm95a19kb0hqM19qaDh3cHluZHlmamZDVFpkWndyNm1MdEtfajQtN2dScl91d3FrejFTakFiYnpFcmh0Tm5UdmZLX1lNbUhTTUMtWUVwRGw0UQ?oc=5",
+        "report": "The most important thing we've learned in Clemson this this month - On3",
+        "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNT3hjS1JlYmxZWmUtdF9UOUszOGIyTzhHY0NHcFY2LU9EcHpEX2w5cUlVWncxR3NjeVltV3l2bkFJT2tEN3Q1NHF0OXAzR0tqbHQzUjgwM1U4bURsSjV0S05xMEdFcGE5ZGU3enpKWjhJVUM2Q1hPVWUyYTdVTGpHOHJCVXJCZHljRm9Oc1FMeDNHMWlhd09mVXZIc0tuaHhLX21WM3hKNjJiLVZJS3hCcm9pTkk?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Clemson Wire",
+        "outlet": "Clemson Wire",
+        "report": "Stewart Mandel offers outlook for Clemson football in 2026 - Clemson Wire",
+        "link": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPUmxzLVJQVVF0RXVhVlRXajFMYnBqc3VudlYxc0hJakNmY2dvVDlnLXIySDF3NGJ5dFpWQmU5VklGeHc4cllRODByNmQ3cjRpaUktWVNaT3VINk5rWnpncWt6Z0lTQVotOVlUaFd4YmhaSFJ0QW5XS3QwdzdaYWJrb1FMNWoxZG95MzQySDVyanlKTGJPNXhZUFNaOEgwdnVqUVVwSE1rSjdtdGlTcHlfWEtzMXZGVTVjNUxCZXdKQ2FHQjFPLVF6Um1aZ1JxeDZZRG1ZTEhfSnJPU0l4dld1ZDZRNTN3YVZZMDRmNHRBYUtsd2FsSnV3VUJFendGeU5uYnZmS1c0LUt3Nnl5bWV0WC1n?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Clemson Tigers @ Cincinnati Bearcats: Live game updates, stats, play-by-play - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPelh5dkY1cl96WkpIbGNRa1JKOXJPeVZXd0ZBbkdSa2IyVFYyRlBYR1ZQSFlFNC1aVDMxXzdFd1c0Q0FvRnNhZ3dnbDdwRHEwMG9lWVFxcHc3V0Z6Zm1naHNSMU1ZRmMzRHBnZ09WMFhndHdCdEJmZTlsbjBIUEYtSnJFOWk1dw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      }
+    ],
+    "michigan": [
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Michigan freshman out for season, other players dealing with minor injuries - On3",
+        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQNjhfTjNBTF9LMmNzWTVQZ3ZhRTdHa2g1MDQ4ckJRbG9jcGtSWUpGbmltclVFOFdwMGMwVXNKSjB3WkJhbEJRNFp4MGdJM1YyOFd2cWpjV1EwZjE2MENveDl3QjFxbEhVU21yTFZmTFBYTXJ4UVRsTFZFWE0wbnlWWHdBN3U3UFlKMjVXTG9PNmNEeE1USFk5UEx1NG5NZ2FTbF9nZUFJZjRVaFVfZVJQSEozeUp5emlLWUd3WENsb0RSV1hDY2JyMWlpcVhnUQ?oc=5",
         "sentiment": "negative",
         "daysAgo": 1,
         "isCritical": false
       },
       {
+        "reporter": "Maize n Brew",
+        "outlet": "Maize n Brew",
+        "report": "Michigan Football freshman OL suffers season-ending injury in fall camp - Maize n Brew",
+        "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQTUhiZmswSFB6Z01GX2F3Z3NxdzlPRk40YjFOVmFkOFl1U3I4U0JaV2FjOUN3OGU0Wi1PdkZCQnhjSVc2X0ZZS2dibFN0QzR6VEpleldXa19aSWliT1VncXFFWDNIbTU5ZGhEOEFfSjhCQUhTa0NMemI0XzJhUDBqbjhZRnYtcngtaTk3U01NQm8tcExaeWxtZVhidkI3c3FibXNWR0s2NERrNWlzYzJLVURIRTc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Currently.com",
+        "outlet": "Currently.com",
+        "report": "5 Michigan Football players Kyle Whittingham believes have stepped up in fall camp - Currently.com",
+        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQYW5LZ3lGVEd2QWJyZElId0YzRGVNaENiZ3RCUUx4Z0lhNkdQeDhaQlVHSWVVcjM4YUgzUVZNUWJJV01PV2Jmc0hlU2pPTHA2RlhaTkluZllJeFkwdVFzbTNTWkhmZ0ZPb3dlcVhpc19CUWF2bEY1MWFlN1ZNRy1qWDJIbjBrc2o0LTRN?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Bryce Underwood progressing with his arm — but what about those legs? - On3",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNaGVGT2hlX19ZalRhOTRDUk5qUVZQOTJxd2pDUHFWZVkwejNLU2FwcW1xem92WXZMY0VHUjZWcGg2RU9YRGMya200dHM0ZklsWjVTRU12dDYzSHdhcTNwUzkzZHR4dmptUFRuOG84NU42bVI4T01lVjlOX3V5SjRTNHJJVHBfX25HRHhwOE9TRlYtQkk5ZkFyWDJlQm5NVFVSakhGZEZvS2ZJSjJNVXlVTHhTSmN5eU96bVE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      },
+      {
+        "reporter": "MLive.com",
+        "outlet": "MLive.com",
+        "report": "Veteran transfer catches Tommy Carr in Michigan’s backup QB race - MLive.com",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQVjhyMUM1aEFmeEJfVE9zS2RIUkczVHZpbldYVFI4MVhMdzRaLTZoM0E2U29aODZSeWJES2VJZGJjNUFZVy1fTmpsc1QwNDdGbnRyV2xzWjlpWjhPdXJQM0xmODgwUTJ2cUwzNHAxNVduWW5mQ1poRTFDY3NZVDVNdk9TRlgxVW9JWm5ZTmJqRXR6Q1BuZFFpTGhNRDAxUTZqdUNiSXRCeDhrQWhrYk40aHJsN1BfdWFCa1HSAc4BQVVfeXFMTjJfaHN5Q2pweDRuWDhsX3J4RHNFd3YtbkZzV0dsc0xoMEZfeml4UVBNejYwNDFzaEwxWndyVXYydmpqMENLSkhxdUwtOFRPTlRQclk3dHBJZVNhT0tOV3NvRG9DWUZyNjJTbHJuZXdoT19wZGJ2eWgyenI0T2dNaVhYb2JjdnBzZHAxR1BLVldlUm5HMHZjckJ6RE9pQ09mZXJETzlFMUo5ZXRGc24tcFduSXJxUVVVdlI2T25NTVpmR21RQjJsa2pjTHY3OFE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      }
+    ],
+    "penn_state": [
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Penn State commit out indefinitely following injury - On3",
+        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOdlV2SW1iWUp5Y2l2aE1MN1VCSzBTam5CUDlYVUJRYU85Q1R4em9hb2c1T1JTWkRQTS1mQVZGQmFJRDRPaUpvU3NvdVg0aFZHV0k4dVcwMmcyYTNPVURBQmFTcmNtWkZLUy10Y2lmcFk5djJ5WXlvdnBsd3lPbVlKV3dGWnJwemtzdE03QmtTazMzeXJQeVFmemJnOWJzT2hsYkRPbHNvMVdxVkczMlY2Q3BRT24zc1JpdTZUMnI2TQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Updated Penn State Football Projected Starting Lineup Through Week 2 of Camp - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQekZBTmFTTFYyZzB2MnBYaGlZVzlhenBCZ3QzZndfUkRNWTRhN21YOXFhNzFkZ2FWeTlBekk2eTZQb0hwenBEV1FLcDBQSERNb3dJWl84Y2J2V29pdW03bGphTUlOUjd6SGRlM3M1UVhIYjZ3Qzl0cUhtV1BDX2pEdzhvb251X2lRNS1Ta19Qbk1JVnBsR0RkamNhM3RndmRoeEJ5MldKNXNfX1hDWGdkT1BDNHh5UURKVVpuSFZDcw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false
+      },
+      {
+        "reporter": "Black Shoe Diaries",
+        "outlet": "Black Shoe Diaries",
+        "report": "Only Peyton Falzone Until Penn State Football - Black Shoe Diaries",
+        "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQcFpvV1laOE5DRnZxdjdMdHZWQm1FYnVLMWdac213ajRpZlgxX3J1aUg0TlJsbUxlRHl0VEU3NlAwcTVvOFhLejhvWVBUYzV2aXNtT2hsVlVlZlNTaUFUVzgxM2taVVlKY3pCY1ZCN0xLc3VZSk0xZWFXcUc3ZGJyLVlNSGREQThKNTlzUlBtVlBkQXVSXzZNdzlXeVBqeXl2YVhNMElqRG9vLVZZOUpHblo0di1GRjlncy1QVw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
         "reporter": "247Sports",
         "outlet": "247Sports",
-        "report": "Rapid Reactions: OC Charlie Weis Jr. dissects LSU football’s weapons, Sam Leavitt, and fall camp buzz - 247Sports",
-        "link": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNa0NJdjF6SF9ncE13YXZ4Tmk4amFsTkFNNElTZ090dDZjZ1U3d3E1MktnX1RWRm9rR1VtNXZ6YlJoM2p0T0RwNXhJeUZSa1JjMktoa0ZtQW9HR1EzemZGTHluYW5SM1lwR0xpWXpsajdQdFRrTU5ESjdtSzJZLVlPSG9WMGxmZjZRUlNBZTFKSFRyeG1lNkJVZDM5a2w5TVRsQldhLURpbFpBUGZzYTdMYS1YVmFBbi0yVFNkVkVMRU8tMTJmN0x2aTBoZTdrRnY1TzYxam1KTmJSbWFnbGk4OGZiakV5RzIzYV9kZktuYXBzcjg0S1FMUnN6OUxoT1g4OHRqZ1lQVkpFYm5DNzU5aGhJU19OZHM?oc=5",
+        "report": "Penn State Daily Headlines: August 22 - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPNS1maVAxNmVneElWS3FyMThTWEk2a1ZQY25hZE91WldreGMzTFo0M0x0YVNPblhQbklzMkdkZGYydjloX3dDU2NIdzBYSDNuLTFXZHBsWTZ1S2d1cWtwVllvcnJEUjZKX0FHRERJN29qdzZqaTdBZUNodWRaY1d4VjNXUWs0XzJWeTR5MlM5OFpmMGkxMmZuS25MNEFCUlRkUFJocERWSWw0dGswMzgzSEpRUVJCZzFVX0VnWm50U21tZEZWX3NTWjIxLWRCSkluVnM3V1pjTU5Xa3VaeWc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "The Penn State Football Position Group That Changed Most During Training Camp - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQTGliNEJFejBheERKMC10b09uSjBucTN0SmREMXZ5clFRZG80X3EwRXp4RTZtZmNJYTZENFpEX1g3YnpVVnNXYmRmTlZWNm5DRlZISWZFV2pqSEo5blRrNmhTbDdRYnBWay04T3JKWk5wbkUxQjF2TmtPalpUSGNOUk9adVVMRmQzYkprUmUwNzI3U3NWdEQwckpZS1I2aU1POWc1b1RfLXJJQW5PTnJOb3J0UkN5aExaWi1jcWdiWGs?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      }
+    ],
+    "oregon": [
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Oregon Ducks Pushing to Land No. 2 Overall Recruit in the Nation - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxObXlYbTBHdHhEX3E1ZjhnaEY4Q2JHN2NvZzFuMmo5b0ZvWXJ6OG1UYWJaTDVnNUd1b0ltQWJYN0ZiYTY5dnJpd1VOQzl1eUUxSERDZ2JiYUhISFpoSEx0cUV1eEFPUzR4dGxDVXprUlR0RldZUmxwdUZhSFdZc2N5amFMUlo5NkFZcDc5N25JcWIwVUsxSzB2U255WTk5OWlOMjRmU3VCOA?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
@@ -429,8 +402,35 @@
       {
         "reporter": "Yahoo Sports",
         "outlet": "Yahoo Sports",
-        "report": "“High on Our List of Concerns”: Lane Kiffin Sounds Alarm on LSU’s Biggest Worry as Tigers Seek Immediate Fix - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPWDFEdVMtZ1ZETlVPZ0FwSDRIbEhkR1NESFFNQ01Ja0xuZE9uQlZlN3ppbm9jaDRmb01UekVHVFJwb2gwbGJsWEpLUnlJVnB5cndQcDNPdFZkNHNEbWNCLUh5aEZIY3hnN092TUdNV1hxVThVa0pZdktQV0hUbllUb2w3UzZLdw?oc=5",
+        "report": "Davon Benjamin's versatility opening path to early Oregon role - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNM29PTDZraC1lRk1YNWpLeXUyMlB2QllDMFJSNnl1dGRUc2tQWjE4T1ozcTRaZXhmU0hseXVsZ0lZNzl2SG5CbEpfdUE4NjViZzUzN3lZUWFPd2h2UGRhaHZvUklKVlpLTkxrbjNoN3pOUHlCUkNLcHBFQjRpVE5RWER0N1NyeWZJWkhBd2U2Z3hIXzA?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "OregonLive.com",
+        "outlet": "OregonLive.com",
+        "report": "Oregon Ducks got bigger everywhere — and these roster numbers prove it - OregonLive.com",
+        "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPd2E4QThrQ2YzRWloZmxzRUdWUVRiZUtWNUx1X0lVVXZzbnZwMzJrWGZTSG15S3BQeHI4LVdnX3RVQ1gybXpVYzVZaHllaENwLW5kZl9KZWFSNU80WFFCZFYtRXVsdElHdGJtTU44c181R0ZwcnBFeFBUREU2azZjeTBpRzdEZXI0SW13N0YzdFJNa2VNdHByTElJM3VjazRNaklHa0Q0SVBUUmhsSUVuQ0lxTFozSm14?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      },
+      {
+        "reporter": "Ducks Wire",
+        "outlet": "Ducks Wire",
+        "report": "Game-by-game score predictions for Oregon Football in 2026 season - Ducks Wire",
+        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNRlgyRUs3Tk0zVi03WnRzaVFMZWNlWmZYQWt4d05CUjdBY1pZaVlwS3E5ejBGMldQeV9DT3dJRkRZQS1hR19JLXBqTEhFQ1RFX3FQT2paa3NOS09fUVc1X1FoNmh3RU9NbUdNRmRJY1R4bmdhQzRyNmxQYXl5OXpWMW1JdXZTMmFSTXltSjRiX2lrR3VqV0FRNWE0NFc4N1R4c3V0TXpkTEV1ZHYyQWxxT1M1eG8tR0hTZWVfOU9fQUNNQ0NEeUlXM1VYTU9VQ3hfTVY2bUF3?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Six Major Height, Weight Changes on Oregon Football’s New Roster - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNUGV3X1BQZENKbnFnMTBZWkt4YWluR3dWMGJ0WDRfVGlBREhGY2FQa0ppTVIxVjJtQWJOSzhmYUJFWXRKaGl5Rm4tTmZuOWl3eWo1LXVva3RXS1dDQTJmeUM2REhneUhLRk5xbDVsQ2R6TFQ4ZEpFZkZ4VnUwZDRvUVdrcDh3d2cyRFkwOTFVdVVyazdpZzVVNXJpcjV6Tjg?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
@@ -530,50 +530,97 @@
         "isCritical": false
       }
     ],
-    "oregon": [
+    "lsu": [
       {
         "reporter": "Sports Illustrated",
         "outlet": "Sports Illustrated",
-        "report": "Another Member of Oregon Ducks Coaching Staff Earns Preseason Recognition - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNcEtDaHB2SG5iNDVhUmpITXBXeWhnX1ZpaEZKRUl4RGpKUDdZMFM5TUY1MEFodXpMN0dnTm5fZTRhTU5CZ3FZMkhxOXAwczlZTjV1WFhRVlVuRWNJaEF2b3lUeC0tUWFPZ3NkYXEtMHpmOU5wZW9QaTJxbVhHMEZRSUFwT2twb1o1RVpKQjRxZWx5bkNMWFVacVhSd1gzejZyNXRUNC03NzJRSXlwNjhDNUtB?oc=5",
+        "report": "One Assistant Coach Quietly Reshaping LSU Football - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNLVhJTDFRSWdVcThnOEtMcmtpVkgtQ3hOMG5HRTlfSFZVeXVtTTNLV2tRQU11T3l3Y2gzbFVMTzZrR1BnNUk0YTl4cHJmZ0VOb3FNckRpeFBscXh1ZF90aDhoc2lMM19naDcwVHFoZjlIWDlQYXpWYU5mems0N0g2aUdQQm1VNW5ZdWx5UWJWZ2dnMEQy?oc=5",
         "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "What Lane Kiffin Has Noticed About New QB Sam Leavitt During Fall Camp - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNcUdaSUFrZVVDSUotYjNzVzA3bl9jbzEwV0g5X1pKWEVES2xFMzY5X25iQ2J3eEVweHczMnYwM1duRkJkRERuQl9LWXAwSVprRlBWdm9lMGV1WDVMMXBBbUM2aGcwaUg0bUhCMVpiTkF5QUNwLUxzS2dXdkNxdWFMeWc3X01NY0F6WElpQXk2bGxYNjU0dk1Xd0VHRFR0dmZVZFFyOUdsd0tHQUFNUmJ3?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Notre Dame DL Junior Tuihalamaka commits to LSU out of NCAA transfer portal - On3",
+        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNQlFSTUxNVE5lbWpSUThsYVU1NW9RY3gtTDJ4bEhPaklWX3RSUkdydDIzdHBsV29CekpDcWpNbldRY3ZwSlBMLVpGcnpWdnQwdU8yWTkybF9fb29hN3JXUFYzNHE4N0piZHRoNVJOMmg0bU01NTNwdVJQdTJVdm95a19kb0hqM19qaDh3cHluZHlmamZDVFpkWndyNm1MdEtfajQtN2dScl91d3FrejFTakFiYnpFcmh0Tm5UdmZLX1lNbUhTTUMtWUVwRGw0UQ?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "247Sports",
+        "outlet": "247Sports",
+        "report": "Rapid Reactions: OC Charlie Weis Jr. dissects LSU football’s weapons, Sam Leavitt, and fall camp buzz - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNa0NJdjF6SF9ncE13YXZ4Tmk4amFsTkFNNElTZ090dDZjZ1U3d3E1MktnX1RWRm9rR1VtNXZ6YlJoM2p0T0RwNXhJeUZSa1JjMktoa0ZtQW9HR1EzemZGTHluYW5SM1lwR0xpWXpsajdQdFRrTU5ESjdtSzJZLVlPSG9WMGxmZjZRUlNBZTFKSFRyeG1lNkJVZDM5a2w5TVRsQldhLURpbFpBUGZzYTdMYS1YVmFBbi0yVFNkVkVMRU8tMTJmN0x2aTBoZTdrRnY1TzYxam1KTmJSbWFnbGk4OGZiakV5RzIzYV9kZktuYXBzcjg0S1FMUnN6OUxoT1g4OHRqZ1lQVkpFYm5DNzU5aGhJU19OZHM?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "“High on Our List of Concerns”: Lane Kiffin Sounds Alarm on LSU’s Biggest Worry as Tigers Seek Immediate Fix - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPWDFEdVMtZ1ZETlVPZ0FwSDRIbEhkR1NESFFNQ01Ja0xuZE9uQlZlN3ppbm9jaDRmb01UekVHVFJwb2gwbGJsWEpLUnlJVnB5cndQcDNPdFZkNHNEbWNCLUh5aEZIY3hnN092TUdNV1hxVThVa0pZdktQV0hUbllUb2w3UzZLdw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      }
+    ],
+    "texas_am": [
+      {
+        "reporter": "Aggies Wire",
+        "outlet": "Aggies Wire",
+        "report": "Texas A&amp;M 2027 commit reclassifies, will join Aggies' 2026 roster - Aggies Wire",
+        "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOTFNVZUU2Mnl1NVZYdEJ1YWtiTEhMY3ZzODBIOFZFODFTSmUwSVBNc25MbzRUa3pOdVBKOXhaOFV1S19sOWVCTW90RWEzZ2RMekR0OXNYMy1oLTRjQnRWN1hxcE0wRzlPdmRVdVFna01ySTVJWVduTTNHelNtSVk5MFNGSzBSMHlxbjRqUkhmRmM0b3RRSmwwb21QczExQmpRM3hHaC0zci10cUZRZF93Z1hMQjhEUElHZGVJdWQxVFhkbUNPM3FnZXAxUW9GeV9JaHNib1pOM1pRZFZlZHVQLWljZzZhYU1taTlvQXZB?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false
+      },
+      {
+        "reporter": "12thman.com",
+        "outlet": "12thman.com",
+        "report": "Texas A&amp;M Honors R.C. Slocum with Statue and Dedication - 12thman.com",
+        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOaDRXck9kc1hQcVV2MU9hQUc2YjJQOXNrZmkzYlpFZTNJXzBUTUtNOUdjc19RQTBwNmZ4MU5tRzhkdVlqRTE1TkdQMjF0SmlfVHRGUkFNMTVKbjdqaW5qVnZQUEM3OHdXMWl2bHE4VEFJOU04UE9ib3NuZFhMODhHTGdzV19keFVyMkRHdU9FazVKNWFoZXc?oc=5",
+        "sentiment": "positive",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Legendary Texas A&amp;M Coach To Be Honored With Kyle Field Statue - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPeEM5d1hSc2w4MHN4aXZBaks2YUNvbTU3LXRMODNYQk1Wc2R1ampUc2JlY0otbC1YdTA0LThlVHd2ZGYwY1hFNWoyU3JnenBZS0Via3VFNkFVUjNlT29GdnZDcThzdDRXN1pFdTJjZ1ZSRV9aWXB5QjhPVWhEZDhjMEVxYXN0MC1RcHN2WUxjTG5nay0xSks2RVdva3dQckZGWGdGMQ?oc=5",
+        "sentiment": "positive",
         "daysAgo": 0,
         "isCritical": false
       },
       {
         "reporter": "Yahoo Sports",
         "outlet": "Yahoo Sports",
-        "report": "Davon Benjamin's versatility opening path to early Oregon role - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNM29PTDZraC1lRk1YNWpLeXUyMlB2QllDMFJSNnl1dGRUc2tQWjE4T1ozcTRaZXhmU0hseXVsZ0lZNzl2SG5CbEpfdUE4NjViZzUzN3lZUWFPd2h2UGRhaHZvUklKVlpLTkxrbjNoN3pOUHlCUkNLcHBFQjRpVE5RWER0N1NyeWZJWkhBd2U2Z3hIXzA?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "OregonLive.com",
-        "outlet": "OregonLive.com",
-        "report": "Oregon Ducks got bigger everywhere — and these roster numbers prove it - OregonLive.com",
-        "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPd2E4QThrQ2YzRWloZmxzRUdWUVRiZUtWNUx1X0lVVXZzbnZwMzJrWGZTSG15S3BQeHI4LVdnX3RVQ1gybXpVYzVZaHllaENwLW5kZl9KZWFSNU80WFFCZFYtRXVsdElHdGJtTU44c181R0ZwcnBFeFBUREU2azZjeTBpRzdEZXI0SW13N0YzdFJNa2VNdHByTElJM3VjazRNaklHa0Q0SVBUUmhsSUVuQ0lxTFozSm14?oc=5",
+        "report": "Texas A&amp;M to unveil statue of RC Slocum outside Kyle Field - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9WUERReXdlV3VnR3U0a2JRcTYyWXFMaVV4aVRYd3B5Q3pBSEVNVjV4OUhtcDRQcXM1YzlyMGprLVlodU1lTVR2MVloa2kxdm9Wa3dfMEFFY1FxOTQ4MTd2R3RkejVXaDg4NDdicTJRQXJ1Ulg5V1NmV3JGWG1EUQ?oc=5",
         "sentiment": "neutral",
         "daysAgo": 2,
         "isCritical": false
       },
       {
-        "reporter": "Ducks Wire",
-        "outlet": "Ducks Wire",
-        "report": "Game-by-game score predictions for Oregon Football in 2026 season - Ducks Wire",
-        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNRlgyRUs3Tk0zVi03WnRzaVFMZWNlWmZYQWt4d05CUjdBY1pZaVlwS3E5ejBGMldQeV9DT3dJRkRZQS1hR19JLXBqTEhFQ1RFX3FQT2paa3NOS09fUVc1X1FoNmh3RU9NbUdNRmRJY1R4bmdhQzRyNmxQYXl5OXpWMW1JdXZTMmFSTXltSjRiX2lrR3VqV0FRNWE0NFc4N1R4c3V0TXpkTEV1ZHYyQWxxT1M1eG8tR0hTZWVfOU9fQUNNQ0NEeUlXM1VYTU9VQ3hfTVY2bUF3?oc=5",
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Former Texas A&amp;M wide receiver named Browns-Bills joint practice MVP - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxObl9TUHdsNGNGX1lvRUVMRzl4eXRRWU9rY0x6bHZNM21fZkRySl9YQk9RdnVPRzlsRnlpYVRZcHBCNnZJS0JpcVk4Zm43blZkUUNlNHVFcDAyYjhHUS1hX3NzME1rU0puck5zUGpjRE8tRWh0bllUZ2l1bU1BQWVJa1J4aw?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Six Major Height, Weight Changes on Oregon Football’s New Roster - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNUGV3X1BQZENKbnFnMTBZWkt4YWluR3dWMGJ0WDRfVGlBREhGY2FQa0ppTVIxVjJtQWJOSzhmYUJFWXRKaGl5Rm4tTmZuOWl3eWo1LXVva3RXS1dDQTJmeUM2REhneUhLRk5xbDVsQ2R6TFQ4ZEpFZkZ4VnUwZDRvUVdrcDh3d2cyRFkwOTFVdVVyazdpZzVVNXJpcjV6Tjg?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
         "isCritical": false
       }
     ],
@@ -624,53 +671,6 @@
         "isCritical": false
       }
     ],
-    "auburn": [
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Auburn HC Alex Golesh Details the Most Important Aspect of College Football in This Era - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQRGdOUzIxZ043eTZ2dXFDYmljMWU2YkpCblI3Zm5LeUtzSUtFSlF6Zk5pVk16ZUtsRDJtN2JIUFRENlJzMHZGZnJDUDRmTGVfYVdyLWR2Z0NJQ3JCM1VpNk9UQ2VxeHBYU2stQ3hQS21xQkh1Q0lTdU9jRDcwUU16OVlIaHc0QXgzSDAyQkJrMTViTnlsZVJ4eDNUN3lhMFJoYTNwaWh5UjMtYXFWTzk4cmVmT0swYVBnZ2J3eVpGYi14NGRC?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Golesh speaks his truest truth: ADOB - On3",
-        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPeHRFQ3RiS3ByVFZSb2RTRlJhNXo2emVGY0VNc0Y0Yy1nU0thdE5uNWMtcW5YRHFKa2VUNmVGWEpWMHlibWZNS09rajFxaUNhemFJX3JUenhOa01VQkxoS3VHRVlBbDRiM3N1dlRuVVdnLUhib1pjS3pCcV9sY0Z2U1l1WVA4ZGNa?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Auburn LB Xavier Atkins Continues to Pile On Honors Ahead of 2026 Season - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNSEtyLV8zZmZRLXRkUEFwR3hsRV9WOWRmbVBWcTdLSG1sczc1dnBDWGY4dGoxYVNiaU9DQ0FoREpZdUtiMzM2WEVJZlVPcUduV3FYcjh6UXktX3JYb28zZmUzX1FiWktkVlk4Q2U2VF81YWs3NmxOOFNzWFhZcXZZcnBZdzl3RHhCZF9nbXpfZ3dqYjlsWEpUOEFnVXZzYVZUbF8yNnBRMjZUYk1xT2xfOGY5RFpOZw?oc=5",
-        "sentiment": "positive",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Auburn QB commit Sam Sollie shows potential and poise in loss: Friday Night Breakdown - On3",
-        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQZk9xN1VvYm1hMG01aTRWUkVydG9UWG9FM2VEWkUyd2lIZ3FIZ2dHbHBsYWlaQVY2aU83V2wtRGVuZ1k5LVZkSXEyd2lSalItTThyb1FtLWxyMnBLUHBEOThJSC1SSVZva0xXa3hGTlBIRTBnaXpzbkh3VW11M2dQT1B4bjRDN0RMVndIWk5hMnd6ZnVubUpCM3h6UkdsSTNpTm5WNkxwNXpEc2NGaXNsVjBaQ3dDY3lKc3RJLW4yRE0wM0V2Ujk3My1B?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "AL.com",
-        "outlet": "AL.com",
-        "report": "Auburn partners with app to sync radio, TV broadcasts for football games - AL.com",
-        "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOeXpucFV4VEVEV09EYmUyU0hORURqbTRTOWZmMWxrdTdPWkctMTFINHlna3VHZFdvV0JaQmlqRXJRcHNudkhCdFlIU0JXbktQb3NQZV9USGg1QjhhUWRSNTNCV0xnM0ZKQ2drSTN1eGZqakZldTJwRFg4aDh5Y2JYa3RUUi12bW9uT3Z5MzdfOTVEc2d5NEJjWDU4TQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      }
-    ],
     "florida_state": [
       {
         "reporter": "Orlando Sentinel",
@@ -718,12 +718,59 @@
         "isCritical": false
       }
     ],
-    "texas_am": [
+    "auburn": [
       {
-        "reporter": "Aggies Wire",
-        "outlet": "Aggies Wire",
-        "report": "Texas A&amp;M 2027 commit reclassifies, will join Aggies' 2026 roster - Aggies Wire",
-        "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOTFNVZUU2Mnl1NVZYdEJ1YWtiTEhMY3ZzODBIOFZFODFTSmUwSVBNc25MbzRUa3pOdVBKOXhaOFV1S19sOWVCTW90RWEzZ2RMekR0OXNYMy1oLTRjQnRWN1hxcE0wRzlPdmRVdVFna01ySTVJWVduTTNHelNtSVk5MFNGSzBSMHlxbjRqUkhmRmM0b3RRSmwwb21QczExQmpRM3hHaC0zci10cUZRZF93Z1hMQjhEUElHZGVJdWQxVFhkbUNPM3FnZXAxUW9GeV9JaHNib1pOM1pRZFZlZHVQLWljZzZhYU1taTlvQXZB?oc=5",
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Alex Golesh Teases Incredible Versatility From This Surprising Auburn Linebacker - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxObXpBU2pfWVBtYTlsYkR0SXVoOWM0MV9PT2tVY0NTUlVSX2JnSlhyNkdtd0xzY3NIZk9sV0poczVFZmE4ZzFNakU5dTVvNm11aWZraTZuMFFZellpYTVvV3QwOFpwUzJRNmNaNjdLR1ZxVXdVVzR0aWFFU0YwYUF3aGw2WlRuU1BNYlZmSEhZYy15ekRMVmx3WDc0RmJVdHR6TmZDNGs3MnhKS0dfcmo1OHNMcTlGTlU2djYtVW9RZERya1VYTEhlc2puc252WDQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Golesh speaks his truest truth: ADOB - On3",
+        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPeHRFQ3RiS3ByVFZSb2RTRlJhNXo2emVGY0VNc0Y0Yy1nU0thdE5uNWMtcW5YRHFKa2VUNmVGWEpWMHlibWZNS09rajFxaUNhemFJX3JUenhOa01VQkxoS3VHRVlBbDRiM3N1dlRuVVdnLUhib1pjS3pCcV9sY0Z2U1l1WVA4ZGNa?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Auburn LB Xavier Atkins Continues to Pile On Honors Ahead of 2026 Season - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNSEtyLV8zZmZRLXRkUEFwR3hsRV9WOWRmbVBWcTdLSG1sczc1dnBDWGY4dGoxYVNiaU9DQ0FoREpZdUtiMzM2WEVJZlVPcUduV3FYcjh6UXktX3JYb28zZmUzX1FiWktkVlk4Q2U2VF81YWs3NmxOOFNzWFhZcXZZcnBZdzl3RHhCZF9nbXpfZ3dqYjlsWEpUOEFnVXZzYVZUbF8yNnBRMjZUYk1xT2xfOGY5RFpOZw?oc=5",
+        "sentiment": "positive",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Auburn QB commit Sam Sollie shows potential and poise in loss: Friday Night Breakdown - On3",
+        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQZk9xN1VvYm1hMG01aTRWUkVydG9UWG9FM2VEWkUyd2lIZ3FIZ2dHbHBsYWlaQVY2aU83V2wtRGVuZ1k5LVZkSXEyd2lSalItTThyb1FtLWxyMnBLUHBEOThJSC1SSVZva0xXa3hGTlBIRTBnaXpzbkh3VW11M2dQT1B4bjRDN0RMVndIWk5hMnd6ZnVubUpCM3h6UkdsSTNpTm5WNkxwNXpEc2NGaXNsVjBaQ3dDY3lKc3RJLW4yRE0wM0V2Ujk3My1B?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "AL.com",
+        "outlet": "AL.com",
+        "report": "Auburn partners with app to sync radio, TV broadcasts for football games - AL.com",
+        "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOeXpucFV4VEVEV09EYmUyU0hORURqbTRTOWZmMWxrdTdPWkctMTFINHlna3VHZFdvV0JaQmlqRXJRcHNudkhCdFlIU0JXbktQb3NQZV9USGg1QjhhUWRSNTNCV0xnM0ZKQ2drSTN1eGZqakZldTJwRFg4aDh5Y2JYa3RUUi12bW9uT3Z5MzdfOTVEc2d5NEJjWDU4TQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      }
+    ],
+    "usc": [
+      {
+        "reporter": "NBC Sports",
+        "outlet": "NBC Sports",
+        "report": "NBC SPORTS NAMES COLLEGE FOOTBALL ANNOUNCE TEAMS AS SEASON KICKS OFF WITH NO. 14 USC TROJANS HOSTING SAN JOSE STATE AUG. 29 ON NBC AND PEACOCK - NBC Sports",
+        "link": "https://news.google.com/rss/articles/CBMimgJBVV95cUxOdE1WdE9WaXQtX3V0b25fdXUzRTlPT3BsZFNDRHVYMjBWUVk3cENCdzVfSnFPZVgzQkc2MEVyaUFTZjR6WElHeXVYY2RqQ3d0cEFvVVNOTXdOSUpCcUc1NHRnN2cwMmFDZ2dieDlKaUgxcDVmdUUwQkRiYU9IS3JSaklKQ05tVS1XM3FOelhjZGxCMWNxbGFvV05TNjJWbVVtUHhwRzFXNnFqOHEzQ2NWb3Z1Nmo4LWhHUHFycXJtcHc5S0RGM19ObS1mNkV1cWJBc21oYTBLMGtqZzh5Z3M2UkpwTjY1NDFWR25OQ0h5Q21ZZl9MOEVOTUd6WFpYMWlVdWlPQ0RKcXZxRW1hQkF5RjlZaXJaOV83M2c?oc=5",
         "sentiment": "neutral",
         "daysAgo": 3,
         "isCritical": false
@@ -731,37 +778,84 @@
       {
         "reporter": "Sports Illustrated",
         "outlet": "Sports Illustrated",
-        "report": "Legendary Texas A&amp;M Coach To Be Honored With Kyle Field Statue - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPeEM5d1hSc2w4MHN4aXZBaks2YUNvbTU3LXRMODNYQk1Wc2R1ampUc2JlY0otbC1YdTA0LThlVHd2ZGYwY1hFNWoyU3JnenBZS0Via3VFNkFVUjNlT29GdnZDcThzdDRXN1pFdTJjZ1ZSRV9aWXB5QjhPVWhEZDhjMEVxYXN0MC1RcHN2WUxjTG5nay0xSks2RVdva3dQckZGWGdGMQ?oc=5",
-        "sentiment": "positive",
+        "report": "Answering Burning Questions Surrounding USC Trojans Before the Season Opener - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNejROcWhjWXJaa0RDa1M2a3ZDa1BWRnRPQWcyeFNWWk82bWZHY1NBNFRFOFlDWGNFa3htX2h3eWdGMVZlcmF0Z2tVYUFFVGNEQ1ROZ3NaM3BGaV9IYW15R0FIM3h2Rk1TeDdVYmZmeXNqSTZ0ZURYYlVUdXFYTVZkcllTTDdCOTNOeXd5VkNJWEd0UnRqdEJJSS1yQWlPV2F6djBsRUN0ZnlBYndBRzhmVGFn?oc=5",
+        "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false
       },
       {
-        "reporter": "12thman.com",
-        "outlet": "12thman.com",
-        "report": "Texas A&amp;M Honors R.C. Slocum with Statue and Dedication - 12thman.com",
-        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOaDRXck9kc1hQcVV2MU9hQUc2YjJQOXNrZmkzYlpFZTNJXzBUTUtNOUdjc19RQTBwNmZ4MU5tRzhkdVlqRTE1TkdQMjF0SmlfVHRGUkFNMTVKbjdqaW5qVnZQUEM3OHdXMWl2bHE4VEFJOU04UE9ib3NuZFhMODhHTGdzV19keFVyMkRHdU9FazVKNWFoZXc?oc=5",
-        "sentiment": "positive",
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "USC's No. 1 complaint for their head coach? A lack of accountability - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE0zekR6TFZvWGszSHdqNUZQUWdOU1NmQzR1X0ZlbFJaWDZKenZ0UExTOW1BOG9EaU9sRTY1Qlh4MnhlYlJpLWYwcFU0aml5eVJSRFd2VHk4YUVXa1hxTGowQ3BRWng4dllfcUF5QVNPeG1NTGZwUmotQXhWdXVfUQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Trojans Wire",
+        "outlet": "Trojans Wire",
+        "report": "Promising USC transfer defender makes top 150 football players list - Trojans Wire",
+        "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQQnp1LTRxVk9ldW82X2w1UmxDdmVKVWRyVE1sb2NsREVIYVVIOS1yaUU2dmt0dVEwa191cTR5bmw1NWZXZGpTNmlXaUdKVVJVdTJURHd2TEotYmZEeVJnTWpocUhORXJ3YnNtQ2RrYjZuQnBnYVB0UHRsY0Z0NXZvMnJnc3BVRXBya3B2YUtRNkh6NWU5a0JfRlFPM3pCdktqcUxCYVZ3S05Gc1FKMjJwMUMtTEJtdU03SnBCUm42c2hLaHEwZzVlN1piVVZ0Nldnc2pRX0ZtaWVlYWRiMWZkdlhtQWdIUTFOanp3cA?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "247Sports",
+        "outlet": "247Sports",
+        "report": "The War Room - Inside the USC Trojan football program - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOSHZ2YVBRV3paRm10N2pXQy1KTUlGR0dZd2NabnBfTTBYQm9LWGp0QWRkaGI4UzY1TU5mLW5DZ2V0OEg3VTVsMG5lN0F2cmI5U3NPWTNPcXd2aGYtQ2VxYWIxNFVLbGZ3VnNsbTJla2J5c0RBdzZzamJDNlc0RmlLQ1JRck1jcEU5bFRpZEZma2dndlkyakJ2azVrV3BxU0hoZ3FjQTBWV2owM2dCX2VGeVd4czMyQU5FWjNqaDFCMWlNUFJBV0NkWVVB?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      }
+    ],
+    "colorado": [
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Tensions Rise for Deion Sanders as Colorado Suffers Alarming 4.1M Loss in Just 3 Years After His Arrival - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPU1dVN3VCVVMyVEY3WGx1SDdqaWJyYlhkbVlSMV9hakFDbldLbHZoaTE5Q0NubjAwRjFOR1lvSFNuQTF0UnZ1WXZlZElEb0xydDAwQ21MUUFKdkV1MURqNWRlOFAyOXhtaGxnbGNFOG5KNVpHMktUcUQ5eFg1ek93a0tlQndEbnlqUl9xVzlR?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Colorado Cornerbacks Coach Breaks Down Top Contenders for Nickel Position - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPLVJHb2J2Z052TFdpRnFWTGo3TkxVSUptRXZhS2Ficl90SDk0YWplLXJBZkM5N3hNX3h3OGFOcDhXc0hiRUtNVGhVUFFNWVZsVXRoRFlyXzhIRXIzYWZNWENpZS14MGVZMm9iTmdUTF9Ba3RQaWFjdHVEYVFwTVUzdjVrMTZjeG84WE04dzhaWDZPM0NqX0xfa3dWUjEyN2s2UUpxZWc3Wk9tRkxQTVdjWnBhUHY1R0FLUDdkZ0Z0dmNyQQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "The Denver Post",
+        "outlet": "The Denver Post",
+        "report": "Keeler: Deion Sanders sued by Nebraska graphic designer? CU Buffs’ opener can’t get here fast enough. - The Denver Post",
+        "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5zYURVUFJ5Ym5OdnNGWmtXT1ExRVZrT2d2aUx4Z3otWkFUWmtzNFFSREVSZVhkR2Naal9ETG8xT1A1NmJYZnZmMzVMZ3VFcnF5V2E1Z1NNQWp3bnd2LUMxOWF5dWotc25RZ25zRXFyckZtS1JycHc?oc=5",
+        "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
       },
       {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Texas A&amp;M to unveil statue of RC Slocum outside Kyle Field - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9WUERReXdlV3VnR3U0a2JRcTYyWXFMaVV4aVRYd3B5Q3pBSEVNVjV4OUhtcDRQcXM1YzlyMGprLVlodU1lTVR2MVloa2kxdm9Wa3dfMEFFY1FxOTQ4MTd2R3RkejVXaDg4NDdicTJRQXJ1Ulg5V1NmV3JGWG1EUQ?oc=5",
+        "reporter": "The New York Times",
+        "outlet": "The New York Times",
+        "report": "Deion Sanders sued by designer over rights to use ‘Prime’ logo - The New York Times",
+        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPTWpKZ1FfNDVvb0FtRmFESDlwY182UWt1SWRyTUZ2djBDSDV1OUQzNERZUjlGVnlnWXBtSnd0dlJScksxeVpCMWdDUjZsTGVXM1RoMV8tT2ZQMkJpR0huMXhzNFM4R2ZLVlBoQjRVQWxOeGFFZjBya25uU0ptdndfWk1XY1ZGOV94R01NS0hhSVVZRzd2aXc?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 2,
+        "daysAgo": 0,
         "isCritical": false
       },
       {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Former Texas A&amp;M wide receiver named Browns-Bills joint practice MVP - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxObl9TUHdsNGNGX1lvRUVMRzl4eXRRWU9rY0x6bHZNM21fZkRySl9YQk9RdnVPRzlsRnlpYVRZcHBCNnZJS0JpcVk4Zm43blZkUUNlNHVFcDAyYjhHUS1hX3NzME1rU0puck5zUGpjRE8tRWh0bllUZ2l1bU1BQWVJa1J4aw?oc=5",
+        "reporter": "ESPN",
+        "outlet": "ESPN",
+        "report": "Deion Sanders sought to testify at Shilo's bankruptcy trial - ESPN",
+        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNQUdwMlFXclo2X1I5eEktdUEyRHlid1RuU0pFa2pNZ2JYRnZOa2dZbzZZc3ZWN1AwRTZHdkxUeFYwaVJHZlZNWF95eFVLVlFEc1VUT3pYU2hrM1dBdGlJVTBZOUpqZGwwZXRncWJuVHRYaUJwZ1ZscUxfbWVycWlCRU5NWUNHQ0RNblBORFhEWXJPR21vZmtDdEZYSVR0RTM3Z1lGSjFFQ1hFVU5fMnc?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 0,
+        "daysAgo": 3,
         "isCritical": false
       }
     ],
@@ -823,19 +917,19 @@
         "isCritical": false
       },
       {
-        "reporter": "Huskies Wire",
-        "outlet": "Huskies Wire",
-        "report": "4-Star Washington Football Commit Named To First-Team All-America - Huskies Wire",
-        "link": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNSzg1WXNlV2Q2T2d0Q2NPclkyd053UXJxSHl0bVhMbnYtbzh5cUtvbVJGRlpPMnZ5b0FiUzUxYXVjWk1nZVpDWFhlVWdjdkk5UC1jN0NjUS1TcUJIVlBIMzlMd1RlQXpnRm5DTWplcEkxa0g1Q0phUE9TSi1pVnhDU21qSHh2V0EwTzFjY09HTzBUOFNTX01TMXZac1g1STZYSmtnUUhXNWZmU21rWlJsV1F3d2ZsX0N4b08wV2dQWUhFWXhTUUVKeGFaY2FxSGpVSFExdUlFZXd5UG5kQUF3YXRhV2dOMGpmYWtxbnJLMUJIWlE?oc=5",
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Washington Football LB Named to 2026 CFP Polynesian POY Watch List - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNczVaUFRmNFdHRThtSTVybktzTFMwQ3RRZW9jQ19vUjhLa0VGQ3lDUi1DSm94ZnpWUzhPWHg1VVkzWFJDbkUtZHhseDNPZ1h0ajBySjhYdEZWQ1FSWXpHNVF4LXEyd243cGs5QU81TGlUV281MTN6N19Cc3R4cHVwVzZISjB4OEpzTXc?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false
       },
       {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Washington Football LB Named to 2026 CFP Polynesian POY Watch List - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNczVaUFRmNFdHRThtSTVybktzTFMwQ3RRZW9jQ19vUjhLa0VGQ3lDUi1DSm94ZnpWUzhPWHg1VVkzWFJDbkUtZHhseDNPZ1h0ajBySjhYdEZWQ1FSWXpHNVF4LXEyd243cGs5QU81TGlUV281MTN6N19Cc3R4cHVwVzZISjB4OEpzTXc?oc=5",
+        "reporter": "Huskies Wire",
+        "outlet": "Huskies Wire",
+        "report": "4-Star Washington Football Commit Named To First-Team All-America - Huskies Wire",
+        "link": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNSzg1WXNlV2Q2T2d0Q2NPclkyd053UXJxSHl0bVhMbnYtbzh5cUtvbVJGRlpPMnZ5b0FiUzUxYXVjWk1nZVpDWFhlVWdjdkk5UC1jN0NjUS1TcUJIVlBIMzlMd1RlQXpnRm5DTWplcEkxa0g1Q0phUE9TSi1pVnhDU21qSHh2V0EwTzFjY09HTzBUOFNTX01TMXZac1g1STZYSmtnUUhXNWZmU21rWlJsV1F3d2ZsX0N4b08wV2dQWUhFWXhTUUVKeGFaY2FxSGpVSFExdUlFZXd5UG5kQUF3YXRhV2dOMGpmYWtxbnJLMUJIWlE?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false
@@ -856,147 +950,6 @@
         "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOdGtwSmRBUWpKZ2pkYkhsdS1zT0JnbzlDazFJbUZEajZPeWg0YXU2N2MybllieG5DWVp5SEE0NzBkSkpMRkhpNkZVN3FkcFY5akhTRjZ1WG1ERllZOU03b1pNNlp3YWl0ZTd3NmZrMkJMbFM5WUFRWGw1X0w0OVBJR283SmhObkhsNG9oR2h1cUt6T2J0QmNNOHFLdVRaUG1RZ3c?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
-        "isCritical": false
-      }
-    ],
-    "colorado": [
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Tensions Rise for Deion Sanders as Colorado Suffers Alarming 4.1M Loss in Just 3 Years After His Arrival - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPU1dVN3VCVVMyVEY3WGx1SDdqaWJyYlhkbVlSMV9hakFDbldLbHZoaTE5Q0NubjAwRjFOR1lvSFNuQTF0UnZ1WXZlZElEb0xydDAwQ21MUUFKdkV1MURqNWRlOFAyOXhtaGxnbGNFOG5KNVpHMktUcUQ5eFg1ek93a0tlQndEbnlqUl9xVzlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Colorado Cornerbacks Coach Breaks Down Top Contenders for Nickel Position - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPLVJHb2J2Z052TFdpRnFWTGo3TkxVSUptRXZhS2Ficl90SDk0YWplLXJBZkM5N3hNX3h3OGFOcDhXc0hiRUtNVGhVUFFNWVZsVXRoRFlyXzhIRXIzYWZNWENpZS14MGVZMm9iTmdUTF9Ba3RQaWFjdHVEYVFwTVUzdjVrMTZjeG84WE04dzhaWDZPM0NqX0xfa3dWUjEyN2s2UUpxZWc3Wk9tRkxQTVdjWnBhUHY1R0FLUDdkZ0Z0dmNyQQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "The Denver Post",
-        "outlet": "The Denver Post",
-        "report": "Keeler: Deion Sanders sued by Nebraska graphic designer? CU Buffs’ opener can’t get here fast enough. - The Denver Post",
-        "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5zYURVUFJ5Ym5OdnNGWmtXT1ExRVZrT2d2aUx4Z3otWkFUWmtzNFFSREVSZVhkR2Naal9ETG8xT1A1NmJYZnZmMzVMZ3VFcnF5V2E1Z1NNQWp3bnd2LUMxOWF5dWotc25RZ25zRXFyckZtS1JycHc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "The New York Times",
-        "outlet": "The New York Times",
-        "report": "Deion Sanders sued by designer over rights to use ‘Prime’ logo - The New York Times",
-        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPTWpKZ1FfNDVvb0FtRmFESDlwY182UWt1SWRyTUZ2djBDSDV1OUQzNERZUjlGVnlnWXBtSnd0dlJScksxeVpCMWdDUjZsTGVXM1RoMV8tT2ZQMkJpR0huMXhzNFM4R2ZLVlBoQjRVQWxOeGFFZjBya25uU0ptdndfWk1XY1ZGOV94R01NS0hhSVVZRzd2aXc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "ESPN",
-        "outlet": "ESPN",
-        "report": "Deion Sanders sought to testify at Shilo's bankruptcy trial - ESPN",
-        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNQUdwMlFXclo2X1I5eEktdUEyRHlid1RuU0pFa2pNZ2JYRnZOa2dZbzZZc3ZWN1AwRTZHdkxUeFYwaVJHZlZNWF95eFVLVlFEc1VUT3pYU2hrM1dBdGlJVTBZOUpqZGwwZXRncWJuVHRYaUJwZ1ZscUxfbWVycWlCRU5NWUNHQ0RNblBORFhEWXJPR21vZmtDdEZYSVR0RTM3Z1lGSjFFQ1hFVU5fMnc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false
-      }
-    ],
-    "usc": [
-      {
-        "reporter": "NBC Sports",
-        "outlet": "NBC Sports",
-        "report": "NBC SPORTS NAMES COLLEGE FOOTBALL ANNOUNCE TEAMS AS SEASON KICKS OFF WITH NO. 14 USC TROJANS HOSTING SAN JOSE STATE AUG. 29 ON NBC AND PEACOCK - NBC Sports",
-        "link": "https://news.google.com/rss/articles/CBMimgJBVV95cUxOdE1WdE9WaXQtX3V0b25fdXUzRTlPT3BsZFNDRHVYMjBWUVk3cENCdzVfSnFPZVgzQkc2MEVyaUFTZjR6WElHeXVYY2RqQ3d0cEFvVVNOTXdOSUpCcUc1NHRnN2cwMmFDZ2dieDlKaUgxcDVmdUUwQkRiYU9IS3JSaklKQ05tVS1XM3FOelhjZGxCMWNxbGFvV05TNjJWbVVtUHhwRzFXNnFqOHEzQ2NWb3Z1Nmo4LWhHUHFycXJtcHc5S0RGM19ObS1mNkV1cWJBc21oYTBLMGtqZzh5Z3M2UkpwTjY1NDFWR25OQ0h5Q21ZZl9MOEVOTUd6WFpYMWlVdWlPQ0RKcXZxRW1hQkF5RjlZaXJaOV83M2c?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Answering Burning Questions Surrounding USC Trojans Before the Season Opener - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNejROcWhjWXJaa0RDa1M2a3ZDa1BWRnRPQWcyeFNWWk82bWZHY1NBNFRFOFlDWGNFa3htX2h3eWdGMVZlcmF0Z2tVYUFFVGNEQ1ROZ3NaM3BGaV9IYW15R0FIM3h2Rk1TeDdVYmZmeXNqSTZ0ZURYYlVUdXFYTVZkcllTTDdCOTNOeXd5VkNJWEd0UnRqdEJJSS1yQWlPV2F6djBsRUN0ZnlBYndBRzhmVGFn?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Promising USC transfer defender makes top 150 football players list - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPcDJYYUdhazluSC0xeWE2N0ZINnZBUTRrb2JWUnZtdG5xYWx4SHI5OFZOYmZEYTF2dmFyZ3hkNnNFOWlNVGF1THdhV0N6TWIyOHFVOEM0cXpWQkNwR1QyRi1HNHVwc1hfcmFwamcxbkhrb3NLaG9qOTNER2FWUTR3b1NuaURhSWY5US1nalM4SQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Trojans Wire",
-        "outlet": "Trojans Wire",
-        "report": "USC season preview: Oregon secondary will challenge Trojan receivers - Trojans Wire",
-        "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxPOEJIdkZZNi1icE5fZWJobDRnQVgtMXZmc1R4WUFlS05LLXRqOFdXczhZdExhY251d3FXRjFadjJjc1FmVnJZVEtzZ0IwWWdzN3hZWjZHSGVPdi1feEl5WmxPbm4zdFBEUTY2aTdfb0pQUmlYWml0eDN6RGpfMHpMTWlBNjREVjZBMEdNQTRhcEgyaWNvQXlpd3I3d2xZeDAta1pwRlF5ZzFRelhIVk1UTXQwVTNEYzhhd3VvUUF0TVpIU3kwaW5jNXlldFhydHl2cFlELVVia2JQYXgzZ1d4bWpiRQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "247Sports",
-        "outlet": "247Sports",
-        "report": "The War Room - Inside the USC Trojan football program - 247Sports",
-        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOSHZ2YVBRV3paRm10N2pXQy1KTUlGR0dZd2NabnBfTTBYQm9LWGp0QWRkaGI4UzY1TU5mLW5DZ2V0OEg3VTVsMG5lN0F2cmI5U3NPWTNPcXd2aGYtQ2VxYWIxNFVLbGZ3VnNsbTJla2J5c0RBdzZzamJDNlc0RmlLQ1JRck1jcEU5bFRpZEZma2dndlkyakJ2azVrV3BxU0hoZ3FjQTBWV2owM2dCX2VGeVd4czMyQU5FWjNqaDFCMWlNUFJBV0NkWVVB?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      }
-    ],
-    "byu": [
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Starting Defense Dominates, Freshman WR Shines on Day 15 of BYU Camp - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPOUp5ZkNWOVZEUHd1bkhqeVhZRFlEd2kza2pkNnVIT3hrdnhQN2N2WTlEeUtBbENDWFdZVXVqN3N3N3ZSX1dwWkpIZC1LbDlONEZ6VDdIX1VGN1J3ckI0QjBLR2MyZHJBSk5QZ2lxUGNlM3pIdFdHSW1obkNmQ2tzeEJra1hnNnZ6bGRRMEFnWDBOZmo4VlJ0WUlxaG5WU2VUdWdsUFpGdjZLLVU?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Deseret News",
-        "outlet": "Deseret News",
-        "report": "Inexperience on special teams might be the biggest question mark facing the Cougars in 2026 - Deseret News",
-        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOdmxWdDdBZVBPcWZ3X01JRHRrazRza1pRWVQ4UHVlUjI2RGxRdkJNZWZ4TTgtSUNidGRXb3JsN1hCLWZ3bnRXM2c2bmEwb3kxVk55X2JnSVZwTVNfczNHb0JWLTlhclVJR0VLeG5NWGJxb1NPZnNOTGZla2dhSlNPVHFTd1Y5ZjUtUkw5SmYxWjNpaUZpc2JNTUViOXY3Q3lvczBMMDR6aEloT0NyQWRZZ245VQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "The Salt Lake Tribune",
-        "outlet": "The Salt Lake Tribune",
-        "report": "Gordon Monson: Want Cosmo to visit your seat at a BYU game? That’ll cost up to $3,203. - The Salt Lake Tribune",
-        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1FMFdQT0ZJNWNjazVHeF9qdUhhRGRGQi0xREd0aXU2VXZYVWpSZ0dJcThkckgxNWszUDZaallSeTRCbmRydjdNcDRRLXlkZ1hOWnNzbnJydVJpal9nLXpXaUh1T0l4M1ZUY2pPQ19yTnh0X3RCcTNGRE5WT2c?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "BYU Athletics",
-        "outlet": "BYU Athletics",
-        "report": "Football closing out third week of fall camp for 2026 - BYU Athletics",
-        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZlMwck14REFQcDFiSzF3RjNXM2ExaUp2eW1kSWx4b1RCWERxSzFKR1VTUHF1TFdaQkxDdkNlSGZvY0hRSDZNTjIwQ1d0eEVMUWQ1XzlhZF95dnpaM1BGdmZzZ2Y3X3lGZ0NsNFVpanluUkxpMC1ONFFqcExkYUFpWmVzTGUyUFo3WTFxY0lyTDFid3RlSGhz?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "ESPN",
-        "outlet": "ESPN",
-        "report": "Arizona vs. BYU (Sep 12, 2026) Live Score - ESPN",
-        "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5iZk81MWJMbEdPM21WR0w4V3BYcFp2WUZha0U4bDNoTUFWMjhINENGMXVYMVBudVNmUWRwb1VUT3RmNk5YeVRxcDRya2RzcG85a0hRdFNzRndoX3F4OVc3UkdremRrNVFZbEtNaHEyYmNCOUoxWnl4Rms3N0RLQQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 213,
         "isCritical": false
       }
     ],
@@ -1044,6 +997,53 @@
         "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNUjdNYVJ3OFduaVk4elNLejNlYk4wWjROdDhFclRodHoxaFN6Yk5yNzlFOTNhNDBwam1NcWQtUDBmZFJQbl9XUmtqbThYenNGUk1vRmVMZVpmNGlURXlTVHNzVnNpVnNlS3J5ZVJ4bEpPbjIwVlRFVnFidVR2TlFMWTdPaHk4UDRW?oc=5",
         "sentiment": "neutral",
         "daysAgo": 2,
+        "isCritical": false
+      }
+    ],
+    "byu": [
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Starting Defense Dominates, Freshman WR Shines on Day 15 of BYU Camp - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPOUp5ZkNWOVZEUHd1bkhqeVhZRFlEd2kza2pkNnVIT3hrdnhQN2N2WTlEeUtBbENDWFdZVXVqN3N3N3ZSX1dwWkpIZC1LbDlONEZ6VDdIX1VGN1J3ckI0QjBLR2MyZHJBSk5QZ2lxUGNlM3pIdFdHSW1obkNmQ2tzeEJra1hnNnZ6bGRRMEFnWDBOZmo4VlJ0WUlxaG5WU2VUdWdsUFpGdjZLLVU?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Deseret News",
+        "outlet": "Deseret News",
+        "report": "Inexperience on special teams might be the biggest question mark facing the Cougars in 2026 - Deseret News",
+        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOdmxWdDdBZVBPcWZ3X01JRHRrazRza1pRWVQ4UHVlUjI2RGxRdkJNZWZ4TTgtSUNidGRXb3JsN1hCLWZ3bnRXM2c2bmEwb3kxVk55X2JnSVZwTVNfczNHb0JWLTlhclVJR0VLeG5NWGJxb1NPZnNOTGZla2dhSlNPVHFTd1Y5ZjUtUkw5SmYxWjNpaUZpc2JNTUViOXY3Q3lvczBMMDR6aEloT0NyQWRZZ245VQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "The Salt Lake Tribune",
+        "outlet": "The Salt Lake Tribune",
+        "report": "Gordon Monson: Want Cosmo to visit your seat at a BYU game? That’ll cost up to $3,203. - The Salt Lake Tribune",
+        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1FMFdQT0ZJNWNjazVHeF9qdUhhRGRGQi0xREd0aXU2VXZYVWpSZ0dJcThkckgxNWszUDZaallSeTRCbmRydjdNcDRRLXlkZ1hOWnNzbnJydVJpal9nLXpXaUh1T0l4M1ZUY2pPQ19yTnh0X3RCcTNGRE5WT2c?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "BYU Athletics",
+        "outlet": "BYU Athletics",
+        "report": "Football closing out third week of fall camp for 2026 - BYU Athletics",
+        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZlMwck14REFQcDFiSzF3RjNXM2ExaUp2eW1kSWx4b1RCWERxSzFKR1VTUHF1TFdaQkxDdkNlSGZvY0hRSDZNTjIwQ1d0eEVMUWQ1XzlhZF95dnpaM1BGdmZzZ2Y3X3lGZ0NsNFVpanluUkxpMC1ONFFqcExkYUFpWmVzTGUyUFo3WTFxY0lyTDFid3RlSGhz?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "ESPN",
+        "outlet": "ESPN",
+        "report": "Arizona vs. BYU (Sep 12, 2026) Live Score - ESPN",
+        "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5iZk81MWJMbEdPM21WR0w4V3BYcFp2WUZha0U4bDNoTUFWMjhINENGMXVYMVBudVNmUWRwb1VUT3RmNk5YeVRxcDRya2RzcG85a0hRdFNzRndoX3F4OVc3UkdremRrNVFZbEtNaHEyYmNCOUoxWnl4Rms3N0RLQQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 213,
         "isCritical": false
       }
     ],
@@ -1188,53 +1188,6 @@
         "isCritical": false
       }
     ],
-    "tcu": [
-      {
-        "reporter": "USA Today",
-        "outlet": "USA Today",
-        "report": "TCU dismisses projected starter after locker room fight with teammate - USA Today",
-        "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQX2MwNEp6ZVowcDFCcjdBaDlZVU5UNmFDcWlMbjF1WjY3T0pydlBkcTRYZkR4czNWNWV2NGRhTWxkQ1JFdnVCUVlhVmN3OUJYYnVPOHQyLXRpRGlfOXpTUldRcEV3QWhfUXFWZk1nQmI5bDQ5ODNDZVlVOFRxekpfaURoaTUzNzd0cThyTlhhTzNSNWxxa2ZSWnFQRlFGT0RqOVB2ZWRsalZsalhUcGI3bExBSkFlZw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      },
-      {
-        "reporter": "The New York Times",
-        "outlet": "The New York Times",
-        "report": "TCU safety Jacob Fields dismissed after allegedly assaulting teammate: Source - The New York Times",
-        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNQVd1MjhoYkR1NlZXMk5XVVpQd2JTbE03ejczYnhTcVoxU0trelFXNGNVeWVzcDhiSU9lWlJrRGFKajVITmhzc2pxQUlEUUVCb2VFLXdlczlrMEdhN1kxeFZHSEo4Wll5cnRfZkJ4S0lYYldlYXBHRjdadDBzYkV0S1p0ai11NjA3SVBMak0zOE8yeWRGaUlVWWpKLTJHcVJ5dEI3MVB3ZEpFbkdh?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 2,
-        "isCritical": false
-      },
-      {
-        "reporter": "People.com",
-        "outlet": "People.com",
-        "report": "TCU Football Player Cut from Team After Allegedly Assaulting Teammate in Locker Room: Reports - People.com",
-        "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQZi12cmZ4MzhrdUd6ZU5sVTR5TVFmYmd5X05uUmQxd3h1TEFWRS16aTJOYlM4WmUzUThFU0FkUEx6eTJwZlN5akRYZ1Z1UUxENTJrU3hXa2pyT05LcTNaQzZhVko5WXdqc040dHZib19zanRtR2o1dUs0aFF3WTVXYWdTRDNlWERBMVNfcmZTRllVQ3FLWWJOdXlQb1padw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "New York Post",
-        "outlet": "New York Post",
-        "report": "TCU star Jacob Fields dismissed for allegedly assaulting teammate in shocker - New York Post",
-        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPWGRQRUNRSmlQRVNfVVVxUlJHYmZBRjlzVTRWWXA0TXpJOHJDWjI5RXJzVk5PYjF2bHNHWlF4SG5sMXZiWEJCdXctdjZsVzVxV0xwSG1NV3dwZFBxTHlFYkxJVHdfZjNtZGNoRWtwaHZ4b2k1bFlQVW9TZldCUTFvMVZydnptVW5fR2EwTnpQQW5RTmNReWk1Z2QxWFFYSXJa?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "TCU Locker Room Brawl: Superstar Player Gets Kicked Off Team After Brutal Assault Sends Teammate To Hospital - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQeDc3eHdCT1FFSGZsS0oya2kweTBqU0luMS1uOHA1OVJpUkExZ2txSGFmMGMtZ2FpSGcwc09XczVFWUgxYU5qTXZJNEJ3VVktSW83VGxjUFN5M3IwQzdGckN3OXBrYlFiajVhQWFrbmExWnhkQTFrM0E1NjB6Z2RDTHdHUlFDWFE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      }
-    ],
     "baylor": [
       {
         "reporter": "Sports Illustrated",
@@ -1279,6 +1232,53 @@
         "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPWkhFdFJ5MHBGT19FMTFiYmJqbTdpbFZmSzZWRXpySlIwcm1zLThkRWxmVV9SUGVjNC13LWpDTVRDUVVqNVMwUXdwNEdNQUNuX21XU1RSamwtM1ZRbV9pcDROWkZXc2lCT0w1Rmo5RjJQRjNzOEU4WWZDZXFvcEk1SEp0X01kWGc0WUZVRlhmWktXdmRLdkRnMA?oc=5",
         "sentiment": "neutral",
         "daysAgo": 3,
+        "isCritical": false
+      }
+    ],
+    "tcu": [
+      {
+        "reporter": "USA Today",
+        "outlet": "USA Today",
+        "report": "TCU dismisses projected starter after locker room fight with teammate - USA Today",
+        "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQX2MwNEp6ZVowcDFCcjdBaDlZVU5UNmFDcWlMbjF1WjY3T0pydlBkcTRYZkR4czNWNWV2NGRhTWxkQ1JFdnVCUVlhVmN3OUJYYnVPOHQyLXRpRGlfOXpTUldRcEV3QWhfUXFWZk1nQmI5bDQ5ODNDZVlVOFRxekpfaURoaTUzNzd0cThyTlhhTzNSNWxxa2ZSWnFQRlFGT0RqOVB2ZWRsalZsalhUcGI3bExBSkFlZw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      },
+      {
+        "reporter": "People.com",
+        "outlet": "People.com",
+        "report": "TCU Football Player Cut from Team After Allegedly Assaulting Teammate in Locker Room: Reports - People.com",
+        "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQZi12cmZ4MzhrdUd6ZU5sVTR5TVFmYmd5X05uUmQxd3h1TEFWRS16aTJOYlM4WmUzUThFU0FkUEx6eTJwZlN5akRYZ1Z1UUxENTJrU3hXa2pyT05LcTNaQzZhVko5WXdqc040dHZib19zanRtR2o1dUs0aFF3WTVXYWdTRDNlWERBMVNfcmZTRllVQ3FLWWJOdXlQb1padw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "New York Post",
+        "outlet": "New York Post",
+        "report": "TCU star Jacob Fields dismissed for allegedly assaulting teammate in shocker - New York Post",
+        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPWGRQRUNRSmlQRVNfVVVxUlJHYmZBRjlzVTRWWXA0TXpJOHJDWjI5RXJzVk5PYjF2bHNHWlF4SG5sMXZiWEJCdXctdjZsVzVxV0xwSG1NV3dwZFBxTHlFYkxJVHdfZjNtZGNoRWtwaHZ4b2k1bFlQVW9TZldCUTFvMVZydnptVW5fR2EwTnpQQW5RTmNReWk1Z2QxWFFYSXJa?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "The New York Times",
+        "outlet": "The New York Times",
+        "report": "TCU safety Jacob Fields dismissed after allegedly assaulting teammate: Source - The New York Times",
+        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNQVd1MjhoYkR1NlZXMk5XVVpQd2JTbE03ejczYnhTcVoxU0trelFXNGNVeWVzcDhiSU9lWlJrRGFKajVITmhzc2pxQUlEUUVCb2VFLXdlczlrMEdhN1kxeFZHSEo4Wll5cnRfZkJ4S0lYYldlYXBHRjdadDBzYkV0S1p0ai11NjA3SVBMak0zOE8yeWRGaUlVWWpKLTJHcVJ5dEI3MVB3ZEpFbkdh?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 2,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "TCU Locker Room Brawl: Superstar Player Gets Kicked Off Team After Brutal Assault Sends Teammate To Hospital - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQeDc3eHdCT1FFSGZsS0oya2kweTBqU0luMS1uOHA1OVJpUkExZ2txSGFmMGMtZ2FpSGcwc09XczVFWUgxYU5qTXZJNEJ3VVktSW83VGxjUFN5M3IwQzdGckN3OXBrYlFiajVhQWFrbmExWnhkQTFrM0E1NjB6Z2RDTHdHUlFDWFE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
         "isCritical": false
       }
     ],
@@ -1329,48 +1329,48 @@
         "isCritical": false
       }
     ],
-    "michigan_state": [
+    "wisconsin": [
       {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Michigan State football 2026 game-by-game predictions: Michigan - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQUU9EYTN1Zy00UXRNV3YxVm9MTjFWNzQtemRNOHd5VjRJR0YzUllZU1cwZ0ZSRXhZdG1xXzRCdFZkdnF0WjFSWE41NEdrSVl5OGc1d1BVRXdFRDItQXdxNVJDV1p2cmk0bWdtZWhkSDVJM2tITDN1V2dWWVkyeU1PdzU2cmRTRWZPR2c?oc=5",
+        "reporter": "Milwaukee Journal Sentinel",
+        "outlet": "Milwaukee Journal Sentinel",
+        "report": "Wisconsin football season ticket sales drop sharply ahead of 2026 season - Milwaukee Journal Sentinel",
+        "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNMlk1Z3FjSUEtdFdQa3dNRmFOTk1oYWlDcE43SGQwX0d2d2VXX2VEVldmRmlFVUp2VFBtLUViZU93MlRFSWVoQmp4d3NQNDJBUHN4cWpQTElyMUJkQ2hvdG84bVBzcE9YZkhQSl9jbGlBMlJhVEV0d19kTk92YW81RVQ0VF9wSGV0Unh1aTZjSmhmeUVQWkN4WGUwQ3FtajhNcGFUWUVCblIzdVQzRTJZS3BNelBWY0NRV3JwM21HUW43MkJHT2taWWNXYkduVk9oZjhZSGp1XzRadGFacG14SXFMR1oza3RC?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 0,
+        "daysAgo": 2,
         "isCritical": false
       },
       {
-        "reporter": "MLive.com",
-        "outlet": "MLive.com",
-        "report": "On its fifth athletic director in 8 years, Michigan State needs this one to stick - MLive.com",
-        "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQZGFaekU2b0NKR0JNUUxXZ1FFaDRIUzdteHhRZ3dVNWhoMDVnYjFPWGtEa2h5WFZ6elBBYThHMDRzU2VNRmFiajNHd2YwTlE5SmtwQVFTOUdWMWpOaUprTzU1ZFpSM3VIRVdSTFdFcVNhVGI5bGJZY05obnByR210UldXVEF6M185NnFXdFV2VlZxSmQ1b09vVDBxVWQ3amNhNEt1eUVNc3Aza0UwSnN0Mm9BOUFjRUxDbFU5UWVBX2I4ZTdXbTlSYTM1NVdPZXRmLXc?oc=5",
+        "reporter": "Bucky's 5th Quarter",
+        "outlet": "Bucky's 5th Quarter",
+        "report": "Report: Badgers season ticket sales face steep drop for 2026 season - Bucky's 5th Quarter",
+        "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOMlhPaHk2d2ZjRmZ2ZjQyaUtGVkYybzNqZUNkS1Vsdk81N2ZhS0k5RzlHUkhNUHg4d2ozWUwtaXRJWTA1N0gwOHI5d1VvOXBOdkJnakYzaHRMc0hwTkhBb25HdjRfM1VlTFdBdTZTVVRDdFpYUDFVR2Y3czUzcW5xVFFnUkpaMl9EZ3gyNzJqbEY4MjdKckVseHdWc19XdG10Ni13bjVFUWV2c01QalBCc2YxUGV3LWJBM1REdjl2d2xUbnZmay1vS2FNSHZzay03VDl5QVNZZGNMZENxMTBLZEdyTDRJTXAwczF3UF9R?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 2,
         "isCritical": false
       },
       {
         "reporter": "Sports Illustrated",
         "outlet": "Sports Illustrated",
-        "report": "Michigan State Football Positional Preview: Defensive Ends - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQMjV3WU90WDVnZ19WaWpDVU1XTXVZSDZKdG9uNTZBRHRfSFVBcnVJNUZEMnlCeVBDdkR5a1RsWG1KU0M2Mmw5NEZGOE91RHp4ekQ4MGRZbHFEMkN6SllicDNsRXNvNDdXLXhkOS1XVlE3cmRBRDZsTE5XWmVfakJRcjM0UGNUb1NRbEJGQU1adm9tVjM5dkZZ?oc=5",
+        "report": "Badgers' Starting Safety Dealing With Injury Late in Fall Camp - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNOVEyTWhJeWJyTGtNMGlqTFVpWjUyV3FOLTZ1YVJDNGJLYk9JMmdBNHhsT2dTd1RzNnJQVVdickNtVU1TY2M3VVUtTm5QbHlKUXg4MjZPaDJQeXIyQVhpXzlJR0dTYTRLRzlyUzN2MlNBbEMzUkw1Vk1mRFpEcmwyV2U0S2VGQTZvWU5IdzBkdlN0c18xR1k5MV9ud2gyYjBUTjJGV0RKSEtveE0?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false
       },
       {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Jordan Hall, Cam Edwards headline Michigan State's Top 85 while counting toward Next 40 - On3",
-        "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxORlhWMHQxcjN3YWhaa1FOSnVRbzhiLVVBWUNQdTExeDNkYUpjeE5kemVxYjB0SWd1Z3JxeTlMYXdvdlVGcmNvSTBnSFREUE9hb2hUaWswc3czV1pDRHlYTEFjQ0FOaUFvUld1c0JfTlZzdmVXTXNCSUhtc1Y0SVJpdTBqVUoxMU5LdktwQXdYdmduaWRmY1o0bGxYTm1SQXNTb3FoX1BtZm1fQlk2MUhrMFZJRi1ldUFFbjBMczYyekxhV2RkUHhIaFNJNUJuV0ZGb2lLVVBGQWU?oc=5",
+        "reporter": "Milwaukee Journal Sentinel",
+        "outlet": "Milwaukee Journal Sentinel",
+        "report": "LB Taylor Schaefer's banner day highlights Day 12 of Wisconsin camp - Milwaukee Journal Sentinel",
+        "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNU0NnOEdKTk5wLU5DNGJWY3pyY0NyN1NYZ1hXUlA3UExmN3IxZE5PSU9zZlZnTVNrUHRxTTdtVUUtY3NmWk14c2szcVBaT085c0ZjY3V1c0FObjJJWUdOXzNmRzFUZThJTFdHWlFhdEk0a3dXSlV0LVJDRi0xRXhBaWd5Q0lheUVaNmFseDhLbGNORDVpam9GRFJyR2R5WUxwdzI5MlBJOG43T1dMakJ1QzFIak1pMm9jUldZWlJYM2l2MVcyLVkteEtDVUM4LWs5NnZDVnAwQl82enNCc2NJS1dwYWhhOGM0c25xOUdkb1RXSF9sUlE?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 2,
         "isCritical": false
       },
       {
-        "reporter": "247Sports",
-        "outlet": "247Sports",
-        "report": "After initial skepticism, Spartans saw value in dorm living early in training camp - 247Sports",
-        "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPakdmcDNidXBLa1dwcncwbjRRaUNEWWw0YkMzYTg3c0VTZzNQdkV6cXlwMm5rOFJOUlRVZUxaUXFMUGxLQ2UxTDV2c1VBZFQtVHJ5QjQ4ektEeTdZNmE3MzZObmdxWFZWVDJKcjBaaFRsMFFWMzNYVVJNWDRSTHVTZk10bGZWbVYtaEhoYmRTN3VibHFHMzBvNkhRZ2Z3SlNncGdVdlNIakJMZXIwXzVaLThrWDZ2WXNHajM2bDE1VmpLZGhNUTh6OFhhbUxMWG5xamU0ZEpyQjM3VGMyS3Axd2lJZkFZM2NkRWc?oc=5",
+        "reporter": "BadgerExtra",
+        "outlet": "BadgerExtra",
+        "report": "4 observations from Wisconsin football's 13th training camp practice - BadgerExtra",
+        "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPblFxcjliakY0T3ljbEtpMnNaUkE3OFhsRjRrM19XYW1vN1ZuR2prZTZtTmVLbHRoaktEOHhEamJEZVdfN2RnOGlocm9VSGdJcU5YS1E4bTlvUl9kQnA3VERqdmd1eVRUaUhuQnh0ajFvZjBqUWRDeDF5LUZraGVGamZuN3NjQWZyZlVQRDZjeGxJdUh4dThTZTBaTG9OVVpyc01hZUZCRk1hWDduZ3RpMFBSVW9RVVVBUzk4ZlZrc1c0QnNHVHBLQUd2NGdYM1RrVWl2TzlYR0JQVFZwQjJvbHpFcHFHWm9rRVc4OG5n?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
@@ -1423,59 +1423,12 @@
         "isCritical": false
       }
     ],
-    "wisconsin": [
-      {
-        "reporter": "Milwaukee Journal Sentinel",
-        "outlet": "Milwaukee Journal Sentinel",
-        "report": "Wisconsin football season ticket sales drop sharply ahead of 2026 season - Milwaukee Journal Sentinel",
-        "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNMlk1Z3FjSUEtdFdQa3dNRmFOTk1oYWlDcE43SGQwX0d2d2VXX2VEVldmRmlFVUp2VFBtLUViZU93MlRFSWVoQmp4d3NQNDJBUHN4cWpQTElyMUJkQ2hvdG84bVBzcE9YZkhQSl9jbGlBMlJhVEV0d19kTk92YW81RVQ0VF9wSGV0Unh1aTZjSmhmeUVQWkN4WGUwQ3FtajhNcGFUWUVCblIzdVQzRTJZS3BNelBWY0NRV3JwM21HUW43MkJHT2taWWNXYkduVk9oZjhZSGp1XzRadGFacG14SXFMR1oza3RC?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      },
-      {
-        "reporter": "Bucky's 5th Quarter",
-        "outlet": "Bucky's 5th Quarter",
-        "report": "Report: Badgers season ticket sales face steep drop for 2026 season - Bucky's 5th Quarter",
-        "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOMlhPaHk2d2ZjRmZ2ZjQyaUtGVkYybzNqZUNkS1Vsdk81N2ZhS0k5RzlHUkhNUHg4d2ozWUwtaXRJWTA1N0gwOHI5d1VvOXBOdkJnakYzaHRMc0hwTkhBb25HdjRfM1VlTFdBdTZTVVRDdFpYUDFVR2Y3czUzcW5xVFFnUkpaMl9EZ3gyNzJqbEY4MjdKckVseHdWc19XdG10Ni13bjVFUWV2c01QalBCc2YxUGV3LWJBM1REdjl2d2xUbnZmay1vS2FNSHZzay03VDl5QVNZZGNMZENxMTBLZEdyTDRJTXAwczF3UF9R?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Badgers' Starting Safety Dealing With Injury Late in Fall Camp - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNOVEyTWhJeWJyTGtNMGlqTFVpWjUyV3FOLTZ1YVJDNGJLYk9JMmdBNHhsT2dTd1RzNnJQVVdickNtVU1TY2M3VVUtTm5QbHlKUXg4MjZPaDJQeXIyQVhpXzlJR0dTYTRLRzlyUzN2MlNBbEMzUkw1Vk1mRFpEcmwyV2U0S2VGQTZvWU5IdzBkdlN0c18xR1k5MV9ud2gyYjBUTjJGV0RKSEtveE0?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Milwaukee Journal Sentinel",
-        "outlet": "Milwaukee Journal Sentinel",
-        "report": "LB Taylor Schaefer's banner day highlights Day 12 of Wisconsin camp - Milwaukee Journal Sentinel",
-        "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNU0NnOEdKTk5wLU5DNGJWY3pyY0NyN1NYZ1hXUlA3UExmN3IxZE5PSU9zZlZnTVNrUHRxTTdtVUUtY3NmWk14c2szcVBaT085c0ZjY3V1c0FObjJJWUdOXzNmRzFUZThJTFdHWlFhdEk0a3dXSlV0LVJDRi0xRXhBaWd5Q0lheUVaNmFseDhLbGNORDVpam9GRFJyR2R5WUxwdzI5MlBJOG43T1dMakJ1QzFIak1pMm9jUldZWlJYM2l2MVcyLVkteEtDVUM4LWs5NnZDVnAwQl82enNCc2NJS1dwYWhhOGM0c25xOUdkb1RXSF9sUlE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      },
-      {
-        "reporter": "BadgerExtra",
-        "outlet": "BadgerExtra",
-        "report": "4 observations from Wisconsin football's 13th training camp practice - BadgerExtra",
-        "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPblFxcjliakY0T3ljbEtpMnNaUkE3OFhsRjRrM19XYW1vN1ZuR2prZTZtTmVLbHRoaktEOHhEamJEZVdfN2RnOGlocm9VSGdJcU5YS1E4bTlvUl9kQnA3VERqdmd1eVRUaUhuQnh0ajFvZjBqUWRDeDF5LUZraGVGamZuN3NjQWZyZlVQRDZjeGxJdUh4dThTZTBaTG9OVVpyc01hZUZCRk1hWDduZ3RpMFBSVW9RVVVBUzk4ZlZrc1c0QnNHVHBLQUd2NGdYM1RrVWl2TzlYR0JQVFZwQjJvbHpFcHFHWm9rRVc4OG5n?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      }
-    ],
     "iowa": [
       {
         "reporter": "247Sports",
         "outlet": "247Sports",
-        "report": "Iowa Football: Hawkeyes New Quarterbacks Coach Billy VandeMerkt and the Battle for QB1 - 247Sports",
-        "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxOa29PNDFsSTlqN2ZKdElZUENIQlJjRUVZVUhYVWN6a0ZjNDA2aVpuX1Y5VVdKUzU2RVVWU09haE1ERGFkd1JseE93LVFVaUxScTg3bWNyMXM0clIwNURKd3JYakRkcWpmYzd4UHA1dXZicVowdm1CSnRmWWxteUhpQ1JZQ3l6bVJjT2cyYTRKU0FGTl81MTlRTGtrTEFzdU9ObThrNU9PYWNXY2xVYnl0THk3aGliczByeHBTazlVYVpZZ0dlSmJCOVR3X0F5cEVIWG8xUG12aDZqM2hpNTQtQlQwLTE0bHIyMjhXVHlyVQ?oc=5",
+        "report": "Iowa Football: Three Questions Outside of QB That Hawkeyes Must Answer Before Opener - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQNkV2cm9ISC1nWTRzeUdlWFhVOWE4LTVvMUlEMEh6MWowWllqUjlDTEljRU5PRnUybU5LdnFkSV9hSzVRS0RpZF9nbmt0dHd1QVhMYXFab0lDMEpvNGc5YlA0UXRXU3pmV0U1cl9aMUgzakliVFV1U2FvUXlxcy1EN2h0MHdMd1NuSWEtcGRpbEJXdFY4Zl9zQndSVWkweXVWZjl6NmtlTUdUQmQ5U1hJX05RWVFBcktQWFJ6M1lWS01IUmo0am42QkpQclc4czdCY1Nv?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
@@ -1514,6 +1467,100 @@
         "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPSGNvOGFCTzItSWFCcTU2QXNYcnhwUW9zbjBObVR6X2liVnBCU01xUzBjRVkyZkNXQWNLSFhHdmN2U3ZyeXpSQ1lrTDN2dm5xX0hhaGVMTEZVWEc0TmVvQ0RENVp1MGNiQTFVTGVJMTFoXzk0TTlBZjBCbF9IempPUlFlVjJLZGtxbTM0SDgtbHZMbDNlLTNrcVFJbkp2eUxrNUM0bThrZENKbWxYNHR5cmNR?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
+        "isCritical": false
+      }
+    ],
+    "michigan_state": [
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Michigan State football 2026 game-by-game predictions: Michigan - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQUU9EYTN1Zy00UXRNV3YxVm9MTjFWNzQtemRNOHd5VjRJR0YzUllZU1cwZ0ZSRXhZdG1xXzRCdFZkdnF0WjFSWE41NEdrSVl5OGc1d1BVRXdFRDItQXdxNVJDV1p2cmk0bWdtZWhkSDVJM2tITDN1V2dWWVkyeU1PdzU2cmRTRWZPR2c?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "WR Crishon McCray, RB Marvis Parrish highlight rankings No. 21-40 on Michigan State roster - On3",
+        "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOSE1weE1wUWwyREtCYWF3M3BIYm82U2lHYURnZ2huZ0xjeHFNeXhTd0Zpa0ZwaWlWSkFlaTl2SHl6a01XNHIySmp5VzBlYTZteFZ1MTIxSzAxYVdLNnZKaC1Da0ZnaFFYUllHWnZHay1qQk9hcWVyaVVINGN0UlRFZFN0NXZkOXFkYVNrTWVfUG5PZmdVQ1JKVG1xM2dnQl9rT0drSzRDTXJZNEE0TXJDeERFSnM3ZFJzNkNud0xSU05wTEdhNEsxVW5iQXNFTlExSHpLZQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "MLive.com",
+        "outlet": "MLive.com",
+        "report": "On its fifth athletic director in 8 years, Michigan State needs this one to stick - MLive.com",
+        "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQZGFaekU2b0NKR0JNUUxXZ1FFaDRIUzdteHhRZ3dVNWhoMDVnYjFPWGtEa2h5WFZ6elBBYThHMDRzU2VNRmFiajNHd2YwTlE5SmtwQVFTOUdWMWpOaUprTzU1ZFpSM3VIRVdSTFdFcVNhVGI5bGJZY05obnByR210UldXVEF6M185NnFXdFV2VlZxSmQ1b09vVDBxVWQ3amNhNEt1eUVNc3Aza0UwSnN0Mm9BOUFjRUxDbFU5UWVBX2I4ZTdXbTlSYTM1NVdPZXRmLXc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Michigan State Football Positional Preview: Defensive Ends - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQMjV3WU90WDVnZ19WaWpDVU1XTXVZSDZKdG9uNTZBRHRfSFVBcnVJNUZEMnlCeVBDdkR5a1RsWG1KU0M2Mmw5NEZGOE91RHp4ekQ4MGRZbHFEMkN6SllicDNsRXNvNDdXLXhkOS1XVlE3cmRBRDZsTE5XWmVfakJRcjM0UGNUb1NRbEJGQU1adm9tVjM5dkZZ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "247Sports",
+        "outlet": "247Sports",
+        "report": "After initial skepticism, Spartans saw value in dorm living early in training camp - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPakdmcDNidXBLa1dwcncwbjRRaUNEWWw0YkMzYTg3c0VTZzNQdkV6cXlwMm5rOFJOUlRVZUxaUXFMUGxLQ2UxTDV2c1VBZFQtVHJ5QjQ4ektEeTdZNmE3MzZObmdxWFZWVDJKcjBaaFRsMFFWMzNYVVJNWDRSTHVTZk10bGZWbVYtaEhoYmRTN3VibHFHMzBvNkhRZ2Z3SlNncGdVdlNIakJMZXIwXzVaLThrWDZ2WXNHajM2bDE1VmpLZGhNUTh6OFhhbUxMWG5xamU0ZEpyQjM3VGMyS3Axd2lJZkFZM2NkRWc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      }
+    ],
+    "nebraska": [
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Husker Football 2026: Another Voyage Into the Unknown - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOZ0Z5R3Ffc01oLVNZUFo1U3d5LVd6bWdvcTUtaGM2OHhoVjNQTE5kQng2VURMdHZjNEVGc21XR0NIOXRXU2tTaXRaM25Qd0wwY1dBcFY1YzVxenZ4YVEzU1B4ZE4zRjFGVXlwUnlMNUlUSHhaX05oMG8wVkQ5bi10Y0QyOFVDSXZUUjBkU0dRZS1XV2NFU0dBcUdSXzFJMkEybWZEZg?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Nebraska Future Looks Bright for Defensive Lineman Kade Pietrzak, Who Played Plenty as a True Freshman - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQSGhsbVdPRU42TmVvZDh4VjNuZ09MdDA3bFhpazkyNVZQbEpoWWVpcnlqcWJabEM0eGhwTGF6blBVYzFvdllyaW94UmpFUEJrRENyMkZXREhTODFoNVlibElPQy03dlo2ZUdVc052ZXhYLXdmZzFhM2w5aXFPbndiREp3VEJmNHU4NE5VZTJQcjUxdW9NNGFQaDQ4YU1MZTlNR01yX1Z1YjJIV3pMU2lZa19MN1hPUEFw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Nebraska Fall Camp Nuggets: The latest on NU's defensive progress - On3",
+        "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQX0xsdGh1VVpxajIzemhsOHhqYmg2NVRGNHZCTHBXektrblpaVzdqdGVvZDBRb0VSdXFiM0J2NkpLWDNQQkVYYk10RzV0akxnQV8wMmVRcnpQVk83QmF1RzdiZG9keGJTUUh2Y3dXaTlCdmUzUkcwaXdMM19YTVhGbVRvdnZ2bHc2d3RrT1d2VHVJaXREc1oyeTJfSGFWaUhrREREN183Rk1ET1hiQk93SWg0N0lNRXM?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Corn Nation",
+        "outlet": "Corn Nation",
+        "report": "Why Do Nebraska Fans WANT the Sellout Streak to Die? - Corn Nation",
+        "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPeHpieXVMenRTbTVvUTRfRnhuZzJzaDktSGx0bVhIMDJ1UHlxS2M0MkR5MTBDQmZoZzYwOGluNzVuTEJ1UEN6ZXFiSmlyZ3QxS25faDhvQUNwMFhBMlZTRFRRVTh0ZkpMRzFFUXdXd0Z3MWp4N2FwTjVjZXI0U3VHbmN6aw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "HUSKERS FOOTBALL 2025-2026 Part 3: What’s Happened Since Vegas? - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxORHlNenI0Nk5DYnp0ZUo1MTlUOWVyM2c5UVRzeXozYXpTNmtmSEJFSXk0TmIyR0NMTDdjS2VOYTdmb3ViNFJvSnV1TGxfdW5hTG81dHI3NldPS3hCTFB4XzdJNEx0QmZYZGlET2FMUmhnbFkzNi02NDNhbzU1SjZMT2R4cEYzTU0?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
         "isCritical": false
       }
     ],
@@ -1564,48 +1611,48 @@
         "isCritical": false
       }
     ],
-    "nebraska": [
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Husker Football 2026: Another Voyage Into the Unknown - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOZ0Z5R3Ffc01oLVNZUFo1U3d5LVd6bWdvcTUtaGM2OHhoVjNQTE5kQng2VURMdHZjNEVGc21XR0NIOXRXU2tTaXRaM25Qd0wwY1dBcFY1YzVxenZ4YVEzU1B4ZE4zRjFGVXlwUnlMNUlUSHhaX05oMG8wVkQ5bi10Y0QyOFVDSXZUUjBkU0dRZS1XV2NFU0dBcUdSXzFJMkEybWZEZg?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Nebraska Fall Camp Nuggets: The latest on NU's defensive progress - On3",
-        "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQX0xsdGh1VVpxajIzemhsOHhqYmg2NVRGNHZCTHBXektrblpaVzdqdGVvZDBRb0VSdXFiM0J2NkpLWDNQQkVYYk10RzV0akxnQV8wMmVRcnpQVk83QmF1RzdiZG9keGJTUUh2Y3dXaTlCdmUzUkcwaXdMM19YTVhGbVRvdnZ2bHc2d3RrT1d2VHVJaXREc1oyeTJfSGFWaUhrREREN183Rk1ET1hiQk93SWg0N0lNRXM?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Corn Nation",
-        "outlet": "Corn Nation",
-        "report": "Why Do Nebraska Fans WANT the Sellout Streak to Die? - Corn Nation",
-        "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPeHpieXVMenRTbTVvUTRfRnhuZzJzaDktSGx0bVhIMDJ1UHlxS2M0MkR5MTBDQmZoZzYwOGluNzVuTEJ1UEN6ZXFiSmlyZ3QxS25faDhvQUNwMFhBMlZTRFRRVTh0ZkpMRzFFUXdXd0Z3MWp4N2FwTjVjZXI0U3VHbmN6aw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      },
+    "indiana": [
       {
         "reporter": "Yahoo Sports",
         "outlet": "Yahoo Sports",
-        "report": "HUSKERS FOOTBALL 2025-2026 Part 3: What’s Happened Since Vegas? - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxORHlNenI0Nk5DYnp0ZUo1MTlUOWVyM2c5UVRzeXozYXpTNmtmSEJFSXk0TmIyR0NMTDdjS2VOYTdmb3ViNFJvSnV1TGxfdW5hTG81dHI3NldPS3hCTFB4XzdJNEx0QmZYZGlET2FMUmhnbFkzNi02NDNhbzU1SjZMT2R4cEYzTU0?oc=5",
+        "report": "Paul Finebaum blasts Indiana’s schedule as ‘junior high’ competition - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNb0Z1NGw1YnY1Zks4T1BXNjE4SmYxRFFnRzR5VWR6Qy1jLXJEMHJZVWxvTEU4VjlTUUNkNUoxTDN1U05sLW5lSnF2Q1p4UGJUWTYtYzViRGotcWZRbTJBblRGeTVuQUxPZHVPRHNnMWRiYXNIN19SQTlqYjJvVlo4M2RqRFdZbFdCR3QzczFqUQ?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 2,
+        "daysAgo": 0,
         "isCritical": false
       },
       {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "'I'm Trying to Teach These Guys How to Be Pros': Roy Manning is Focused on Elevating Nebraska's Edge Room - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOdmJ3TWREd2w3M0NodzNiMEp5cGxFdloyR1AwcWt0dUduelFIalYydF9PZ2g4TVhIMW9iaVYxZnlMV3JXWGYtTVJ0YnZkV2dHNjRWUEhUb2hyQlBXT1ZXYnpQQThpcGE5VFAya2FXTkNlOXJ6eE5EamhLTnpka3U0NG1zODNLUmNubU8wTG9vLUlfWVZncDg3MVNmN29UZEFqd25LTV9GZXVLSFJ3?oc=5",
+        "reporter": "IndyStar",
+        "outlet": "IndyStar",
+        "report": "How the NCAA's fifth-year eligibility court win impacts 2 Indiana football players - IndyStar",
+        "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNTHgwbElGY2pzUHJUa1ktNE84S1ZqQVBnOVBqUEVsakNNQlpKTlk0dFRLa3pqZFBwbmdmRE9WWXlYT1phT09PMS1JRVZVcXhQcWp4RjJfTzhrQWVtWEx5U2NGTFQ3OS1wN2ZjTDZkRHlsanhBcjA2RFIxWnNBdXVPcFBwdkRoRmg5cFBHOUE4Sk1zOXR0TGNJMl9ORGtrdFZOa010UFJWeTVNSDkyVUNoV3hlR3VORzU4UERPN253TUdRWWZRRHoyemZkakxOd0F4QjI4a2MxNjFoZUdDMWQ5VkZSQ0xOWHVpM2FQX2NYLXBRblFVWkpmbkt3?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "The Crimson Quarry",
+        "outlet": "The Crimson Quarry",
+        "report": "Indiana football’s Kellan Wyatt and Stephen Daley ruled ineligible for 2026 - The Crimson Quarry",
+        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNS2RVSzJOOFlmSjdrRGxpRmtMS0tUZ013S1YxSndMejdUUnhLY2RfNFk3d0UtMkYzdGY2c3Z6aGRaVk80emFjUnRHamM5MTQwSkJJVi1QN1hkS1JTdEJKa2NjdWh6d2dWRGlVNFNqS2p2T1JnRHJSd0JJRHVBWlF5YXh1TkNXTGI4RE9ZWm81UUcxTWpvMFJZQkt1TUJYNnZSMWZ5Q1E5QWNYeEpEbkNVTlk3VjZ0TjVHREpLTjZzVQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "The Daily Hoosier",
+        "outlet": "The Daily Hoosier",
+        "report": "Tenth Circuit grants NCAA stay request: How it impacts IU’s Alexis, Daley and Wyatt - The Daily Hoosier",
+        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNbUx2dTFpcnVMc3J6aDBXQWRtM1FscDJ5cFU2WlRaS2VJLXNHUVp5SVdraWdtbGNQRlRibWc4dFk1RlJLSks1M3NrSm54akQ4dU9TaDhjX1ZVQTdSYXBfMnZ2NkRYWjJoaEhGOW5nNkFWdUc3MnNmTnE0U3lEQ0UtNUdYenVEU2c3QW5USHlyeUlJWFM0eUh3U0tHWGJvUUI3YWJVZmJHMXhqRXVROW1ranNFYw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sportsnaut",
+        "outlet": "Sportsnaut",
+        "report": "Highest-Paid College Football Players 2026: 10 Top NIL Valuations in CFB Right Now - Sportsnaut",
+        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOTXlmc3F4OTFaa2locUpoSV8tQUplSHJzVURiLVBfZWhPZUFZS0NYUXR1cERKMjkwSlJDa1NjNGpWdnZLWC1sb1c5RFA3UE5lRnpxenpCbVZaa2JmM2Uwa3A1U2tRbXNzYm1jZFRpSHZ5SFRjRnVZZlpHRHBjZkphSjVhWXRua1lTTWc?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
@@ -1651,102 +1698,55 @@
       {
         "reporter": "The Champaign Room",
         "outlet": "The Champaign Room",
-        "report": "TCR Daily Brief: Friday, Aug. 21 - The Champaign Room",
-        "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQMDdKMmVmTW5tVU5UNGFXUUZFUnFJaXpaVHJESjFZTHE3TjlONFVLTUxmVHJGN25TYWpncFpodXdGR1M1WVdVbWpBM1lUdmpVZzRpdFBhcFFrNUhzS0RiWXBKZ2tSU2t5Q0NIeG5kV2p3SVE2aVVic3N3M0FaQlVVWXY5RjFaVGRoRjZfR0FlNTN6dS0zdHVfRE5nclViaWdhLWRVU005MWNLX2JvWEtnN2JsQnVSN2RYQUg0ZUwzaWFyVHYwbHpubDFEYm9paGdvVWFpaXA3RWR3Wk16VXc?oc=5",
-        "sentiment": "neutral",
+        "report": "Bailey named to Bednarik Award watch list - The Champaign Room",
+        "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNN3Z0OHp5NzlGelA5YWdsY3lKR3BfVFV4ZTVEanNBS1lfbDZpeGd2YW1kMkJUWlhqRzFSNVotQ2JKSk5ZaEt6N25ROUtTYmVSckpCMjhiMWxiS0ZMVldXWTJiMDRqVFlPSU81emQ4Q1g2MkFLNXM1V1pzLWVDX2cxbDdFeFY0WUpNeWVNaEdFc2ZNRFdDUmZOaWtCcHJyb2t0eVIwTE81dmFiVUdseVJhWEZVMVJMMUFzMlJiVGllZkxHX3FzQ0YtYzBHTkU?oc=5",
+        "sentiment": "positive",
         "daysAgo": 1,
         "isCritical": false
       }
     ],
-    "indiana": [
+    "pittsburgh": [
       {
-        "reporter": "IndyStar",
-        "outlet": "IndyStar",
-        "report": "How the NCAA's fifth-year eligibility court win impacts 2 Indiana football players - IndyStar",
-        "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNTHgwbElGY2pzUHJUa1ktNE84S1ZqQVBnOVBqUEVsakNNQlpKTlk0dFRLa3pqZFBwbmdmRE9WWXlYT1phT09PMS1JRVZVcXhQcWp4RjJfTzhrQWVtWEx5U2NGTFQ3OS1wN2ZjTDZkRHlsanhBcjA2RFIxWnNBdXVPcFBwdkRoRmg5cFBHOUE4Sk1zOXR0TGNJMl9ORGtrdFZOa010UFJWeTVNSDkyVUNoV3hlR3VORzU4UERPN253TUdRWWZRRHoyemZkakxOd0F4QjI4a2MxNjFoZUdDMWQ5VkZSQ0xOWHVpM2FQX2NYLXBRblFVWkpmbkt3?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "The Crimson Quarry",
-        "outlet": "The Crimson Quarry",
-        "report": "Indiana football’s Kellan Wyatt and Stephen Daley ruled ineligible for 2026 - The Crimson Quarry",
-        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNS2RVSzJOOFlmSjdrRGxpRmtMS0tUZ013S1YxSndMejdUUnhLY2RfNFk3d0UtMkYzdGY2c3Z6aGRaVk80emFjUnRHamM5MTQwSkJJVi1QN1hkS1JTdEJKa2NjdWh6d2dWRGlVNFNqS2p2T1JnRHJSd0JJRHVBWlF5YXh1TkNXTGI4RE9ZWm81UUcxTWpvMFJZQkt1TUJYNnZSMWZ5Q1E5QWNYeEpEbkNVTlk3VjZ0TjVHREpLTjZzVQ?oc=5",
+        "reporter": "pittsburghpanthers.com",
+        "outlet": "pittsburghpanthers.com",
+        "report": "Five Takeaways from Pitt Football Training Camp Practice No. 13 - pittsburghpanthers.com",
+        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPN2dtOUs2ZDNjWV9ES3Q4RUwwRmg4SEpvNTFBWV9aX1RNQWRDNTZOX2w2QVpfZEZuWkZBbkVNb0pQN3FlVUpxM3dlYW1DSVVsaVkyRjJ2VDdlN29Kczh5dEhnTVY2X3lQRXBNbFZvRXR6am1TTUFYRkdEM3FNVVJuZkVSakxuNjZsWHZZR2FMdE1TQXdkSXQ0UENUcVV3WHl4dEZtMFNiVHpWUkxI?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
       },
-      {
-        "reporter": "The Daily Hoosier",
-        "outlet": "The Daily Hoosier",
-        "report": "Tenth Circuit grants NCAA stay request: How it impacts IU’s Alexis, Daley and Wyatt - The Daily Hoosier",
-        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNbUx2dTFpcnVMc3J6aDBXQWRtM1FscDJ5cFU2WlRaS2VJLXNHUVp5SVdraWdtbGNQRlRibWc4dFk1RlJLSks1M3NrSm54akQ4dU9TaDhjX1ZVQTdSYXBfMnZ2NkRYWjJoaEhGOW5nNkFWdUc3MnNmTnE0U3lEQ0UtNUdYenVEU2c3QW5USHlyeUlJWFM0eUh3U0tHWGJvUUI3YWJVZmJHMXhqRXVROW1ranNFYw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sportsnaut",
-        "outlet": "Sportsnaut",
-        "report": "Highest-Paid College Football Players 2026: 10 Top NIL Valuations in CFB Right Now - Sportsnaut",
-        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOTXlmc3F4OTFaa2locUpoSV8tQUplSHJzVURiLVBfZWhPZUFZS0NYUXR1cERKMjkwSlJDa1NjNGpWdnZLWC1sb1c5RFA3UE5lRnpxenpCbVZaa2JmM2Uwa3A1U2tRbXNzYm1jZFRpSHZ5SFRjRnVZZlpHRHBjZkphSjVhWXRua1lTTWc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "‘We’re Not Defending a National Championship’ — Curt Cignetti Sets Record Straight With Blunt Take on Indiana’s 2026 Ambitions - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQTzJtb0tPbTQwSXpWbjI1NGhNb2dXNHFNcnp5QjVhNFo4QlNZR0d1c2JZX2NPSEYxcEhjVVo4SXNGX3NvZEJfQW1DTE5IdVhEeERBNmlKRzhXQTJQNlo3UWRVa1BkaWVydjVUZ1NYWUZjZ1dId3JXNUY5dThSRHhaaXhtQlYxZlNackFrTG5NSUR2ZW8?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      }
-    ],
-    "nc_state": [
       {
         "reporter": "On3",
         "outlet": "On3",
-        "report": "What college football agents are saying about NC State GM Andy Vaughn, coaching staff and more - On3",
-        "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPMmxpY19FdlZPU3dhejJhNFN1SE1VR19KVGU4dzRzOGRsVmpaS0J2eXFsR2xDMFdwRHNjWnpscHd6ZkxlZXhzNV85dk5sUXpfRG42OVNHYjEzckdNeXZhVmpzQnJFUTN4MlVuTTdsZG5SVkhhY0VpUi1od0RmQnk4NHZQbmM5SWZSdVA2UXpTWUhpVThNR3JlSG55dmZWc2F2R0RFV0VqR3ZmRlpjd0NiblZHRmd1Mm9wRkdKdU5yYjlIa01BM2VpRVNiSkFWZmYxZHdUZ3hQVFlEVWs?oc=5",
+        "report": "Pitt Lands New Representative on College Football Freaks List - On3",
+        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQYl9nZmFLUl85dUVpRFB6T1BZODg3Y0NlQ3ItQkxHWkNZVDA4eGtJdldVY2RfeFRRbldXS092NzFGdDNfRzZtYlFfN2hXdW02RVNLbjJJc0tpWHg5R2tmMWVRVXluazJrd1prVXg0akRVVjVISjRUVHJQX2d3cjNubU9Fd24zeXVhelpwTk4wbjlpLWl0bXdoZWZqSldFbjFxYnNkaV9hSVQ0V0dQbldR?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 3,
+        "daysAgo": 12,
         "isCritical": false
       },
       {
-        "reporter": "PackInsider",
-        "outlet": "PackInsider",
-        "report": "Boo Corrigan Talks NC State Football, Realignment, Revenue, Gainey &amp; More - PackInsider",
-        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNWkRUYXQyVnBCSThacnFhcU5JcUwyMWZOaHpsVE53N1ZHQnZZcUN3NzMxbFcwMEpwU2RUN3lHQUlkeVVORndfdG9BdUtLUTNGSTVqcDdkYnl1Mng1UnRIU1AyNWxXUDZzMUJzZTExSzNpZzdqYV9tZzQ0dFBhNTZVaUh3S2N3Vmx4d096aF80bzd0ZzNTM0hz?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "247Sports",
-        "outlet": "247Sports",
-        "report": "Kirk Herbstreit names NC State's CJ Bailey Top 5 most underrated QB in college football - 247Sports",
-        "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNSTA1MDZDU3dpcDEtN0FpUDBlaUZMbTBVQ0ZnZ2k2dVFzeHFqN3d2LXRFUy03UUZkMGl2ZGRMUVV3bkp5UTlIeU9aVjJ3VXFZRHdCYlJvMlozblgtUzdvQTZRbnNXSmVNYjlYdmFTU2c3MTVGTlZ5SGlZODhNcVhDQ3NMREszREtxMnhpMmZjeEpja0RBNDlsUXBjRlZORWh3Y1JwMEFIenFzcEt0WF9TRUl4U2VIa2p5N1hPdm5ITUJmR1dmdHRuLVZFSG5uRksxZGlzNUZJSjVXVktXakY3dlJGX0d0M3Bk?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      },
-      {
-        "reporter": "Raleigh News &amp; Observer",
-        "outlet": "Raleigh News &amp; Observer",
-        "report": "How does the new NCAA court ruling impact NC State football? (Video) - Raleigh News &amp; Observer",
-        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQQXJobTRHSVh4azl6NGRWQW5nc1Bqd05TVW56NzlEVFkyemZmeVpXWHc0ZlFkOFlUZHRZVkFyd09mNUtJdGZwRmJlS0FUbk5xUmVDd0NwUGxnanRwQlJ4djh1amJqTlBnSkNMOENoS0RKd1NYQlZmUGRPbkRScHVxMEF0eEQ?oc=5",
+        "reporter": "pittsburghpanthers.com",
+        "outlet": "pittsburghpanthers.com",
+        "report": "Pitt Football Unveils Expanded Pregame Experience - pittsburghpanthers.com",
+        "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNOHhrQ2loUFMwaXNnOWdHc29pN0NxXzJQalBPRjRSSXFaOUJza0kzX1lkNW5VMnc4bmFwSFF2WFZuZER3YzBSYnZCVjI4WmwyUndUUUJUNEI2dWptVnlNUEtMOHNGdnZGZGkxemIzcTk5SzJXM2hXenZGUTFZSDhCajdXXzJCSXJObV9IWXNOMTN5NGo2T2ZvVVNveDY?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
       },
       {
-        "reporter": "NC State University Athletics",
-        "outlet": "NC State University Athletics",
-        "report": "Carter-Finley Sold Out for 29 Straight Games - NC State University Athletics",
-        "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPcTl6b0tBdUllVnVHTVJFQ1BxVjlXMU5EWk9vZlJ1RGl6TElfTVRLck9yYk9pYUZheEQ5ZnYzcTliS1ZtVnhRWTRqc1RNTHNMVHU3cFhCQUJqc0ZRU05aLTlvODRDMGR3QnBNdXhMQmQwczhES2NXVEt2ZXlxUFpQRVV2cUFGV0dUbUZ4aXFkQnhUQlNGa1ZxUg?oc=5",
+        "reporter": "reflector.com",
+        "outlet": "reflector.com",
+        "report": "High school football: Friday games all washed out until Monday - reflector.com",
+        "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxOQ0R0b3VaMEd1dXFwTS1ra1lMYmNLTXprYUEtZHFpQUpacmNiOUZXQTVFTFpxNjNtTU1mMkdvQnRzTEo0VnhNQUY0Y2g3Zi1uN0pUenlJM0p1OHlGbHhHd1B6UzlWRlpVckwwZGtZZjNXdzB2YzBmQ3A4X2NrRm9QUG9jXzFaWExHNUF3VjVwdkpieDdGamZPcEFyUFZTRTNuNWhlbnRLMjRibkVEZWoyU0hrdXdrQjI3dDZTV25HVXE1LVVHNlpKRUR5Q005SWNjN09xdEg3cGhSdXZGOU9lcUY2cVpCdks0NmtUbQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "malvern-online.com",
+        "outlet": "malvern-online.com",
+        "report": "Jr. Panthers scrimmage against Spring Hill - malvern-online.com",
+        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOVXBxRmFUdWViRERhbjlWWXZhTGN3dTlRZlpPem1mVDZDUEQ5b1BGVlVpR2FaNmZjR05LVGlZSE8yMUVubHZ2cFVucXlCRWE4RTFuNHVrSF91UzJrRlV2ZFgtU01tN29oVVFwNnUxelJidDJJRkZCVERiS2E5bFMxMTJQRnp0dXZZRml0RU12SlZjUWpUQjFnWTdaQ1diX3ZWV3hlZzRVUnR6X1VseFlEeVdpLVFYRDRfUUxUM0Y0cjFLTlB1Sk9JbQ?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
@@ -1799,63 +1799,54 @@
         "isCritical": false
       }
     ],
-    "pittsburgh": [
-      {
-        "reporter": "pittsburghpanthers.com",
-        "outlet": "pittsburghpanthers.com",
-        "report": "Five Takeaways from Pitt Football Training Camp Practice No. 13 - pittsburghpanthers.com",
-        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPN2dtOUs2ZDNjWV9ES3Q4RUwwRmg4SEpvNTFBWV9aX1RNQWRDNTZOX2w2QVpfZEZuWkZBbkVNb0pQN3FlVUpxM3dlYW1DSVVsaVkyRjJ2VDdlN29Kczh5dEhnTVY2X3lQRXBNbFZvRXR6am1TTUFYRkdEM3FNVVJuZkVSakxuNjZsWHZZR2FMdE1TQXdkSXQ0UENUcVV3WHl4dEZtMFNiVHpWUkxI?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
+    "nc_state": [
       {
         "reporter": "On3",
         "outlet": "On3",
-        "report": "Pitt Lands New Representative on College Football Freaks List - On3",
-        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQYl9nZmFLUl85dUVpRFB6T1BZODg3Y0NlQ3ItQkxHWkNZVDA4eGtJdldVY2RfeFRRbldXS092NzFGdDNfRzZtYlFfN2hXdW02RVNLbjJJc0tpWHg5R2tmMWVRVXluazJrd1prVXg0akRVVjVISjRUVHJQX2d3cjNubU9Fd24zeXVhelpwTk4wbjlpLWl0bXdoZWZqSldFbjFxYnNkaV9hSVQ0V0dQbldR?oc=5",
+        "report": "What college football agents are saying about NC State GM Andy Vaughn, coaching staff and more - On3",
+        "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPMmxpY19FdlZPU3dhejJhNFN1SE1VR19KVGU4dzRzOGRsVmpaS0J2eXFsR2xDMFdwRHNjWnpscHd6ZkxlZXhzNV85dk5sUXpfRG42OVNHYjEzckdNeXZhVmpzQnJFUTN4MlVuTTdsZG5SVkhhY0VpUi1od0RmQnk4NHZQbmM5SWZSdVA2UXpTWUhpVThNR3JlSG55dmZWc2F2R0RFV0VqR3ZmRlpjd0NiblZHRmd1Mm9wRkdKdU5yYjlIa01BM2VpRVNiSkFWZmYxZHdUZ3hQVFlEVWs?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 12,
+        "daysAgo": 3,
         "isCritical": false
       },
       {
-        "reporter": "pittsburghpanthers.com",
-        "outlet": "pittsburghpanthers.com",
-        "report": "Pitt Football Unveils Expanded Pregame Experience - pittsburghpanthers.com",
-        "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNOHhrQ2loUFMwaXNnOWdHc29pN0NxXzJQalBPRjRSSXFaOUJza0kzX1lkNW5VMnc4bmFwSFF2WFZuZER3YzBSYnZCVjI4WmwyUndUUUJUNEI2dWptVnlNUEtMOHNGdnZGZGkxemIzcTk5SzJXM2hXenZGUTFZSDhCajdXXzJCSXJObV9IWXNOMTN5NGo2T2ZvVVNveDY?oc=5",
+        "reporter": "PackInsider",
+        "outlet": "PackInsider",
+        "report": "Boo Corrigan Talks NC State Football, Realignment, Revenue, Gainey &amp; More - PackInsider",
+        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNWkRUYXQyVnBCSThacnFhcU5JcUwyMWZOaHpsVE53N1ZHQnZZcUN3NzMxbFcwMEpwU2RUN3lHQUlkeVVORndfdG9BdUtLUTNGSTVqcDdkYnl1Mng1UnRIU1AyNWxXUDZzMUJzZTExSzNpZzdqYV9tZzQ0dFBhNTZVaUh3S2N3Vmx4d096aF80bzd0ZzNTM0hz?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
       },
       {
-        "reporter": "reflector.com",
-        "outlet": "reflector.com",
-        "report": "High school football: Friday games all washed out until Monday - reflector.com",
-        "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxOQ0R0b3VaMEd1dXFwTS1ra1lMYmNLTXprYUEtZHFpQUpacmNiOUZXQTVFTFpxNjNtTU1mMkdvQnRzTEo0VnhNQUY0Y2g3Zi1uN0pUenlJM0p1OHlGbHhHd1B6UzlWRlpVckwwZGtZZjNXdzB2YzBmQ3A4X2NrRm9QUG9jXzFaWExHNUF3VjVwdkpieDdGamZPcEFyUFZTRTNuNWhlbnRLMjRibkVEZWoyU0hrdXdrQjI3dDZTV25HVXE1LVVHNlpKRUR5Q005SWNjN09xdEg3cGhSdXZGOU9lcUY2cVpCdks0NmtUbQ?oc=5",
+        "reporter": "247Sports",
+        "outlet": "247Sports",
+        "report": "Kirk Herbstreit names NC State's CJ Bailey Top 5 most underrated QB in college football - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNSTA1MDZDU3dpcDEtN0FpUDBlaUZMbTBVQ0ZnZ2k2dVFzeHFqN3d2LXRFUy03UUZkMGl2ZGRMUVV3bkp5UTlIeU9aVjJ3VXFZRHdCYlJvMlozblgtUzdvQTZRbnNXSmVNYjlYdmFTU2c3MTVGTlZ5SGlZODhNcVhDQ3NMREszREtxMnhpMmZjeEpja0RBNDlsUXBjRlZORWh3Y1JwMEFIenFzcEt0WF9TRUl4U2VIa2p5N1hPdm5ITUJmR1dmdHRuLVZFSG5uRksxZGlzNUZJSjVXVktXakY3dlJGX0d0M3Bk?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      },
+      {
+        "reporter": "Raleigh News &amp; Observer",
+        "outlet": "Raleigh News &amp; Observer",
+        "report": "How does the new NCAA court ruling impact NC State football? (Video) - Raleigh News &amp; Observer",
+        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQQXJobTRHSVh4azl6NGRWQW5nc1Bqd05TVW56NzlEVFkyemZmeVpXWHc0ZlFkOFlUZHRZVkFyd09mNUtJdGZwRmJlS0FUbk5xUmVDd0NwUGxnanRwQlJ4djh1amJqTlBnSkNMOENoS0RKd1NYQlZmUGRPbkRScHVxMEF0eEQ?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
       },
       {
-        "reporter": "malvern-online.com",
-        "outlet": "malvern-online.com",
-        "report": "Jr. Panthers scrimmage against Spring Hill - malvern-online.com",
-        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOVXBxRmFUdWViRERhbjlWWXZhTGN3dTlRZlpPem1mVDZDUEQ5b1BGVlVpR2FaNmZjR05LVGlZSE8yMUVubHZ2cFVucXlCRWE4RTFuNHVrSF91UzJrRlV2ZFgtU01tN29oVVFwNnUxelJidDJJRkZCVERiS2E5bFMxMTJQRnp0dXZZRml0RU12SlZjUWpUQjFnWTdaQ1diX3ZWV3hlZzRVUnR6X1VseFlEeVdpLVFYRDRfUUxUM0Y0cjFLTlB1Sk9JbQ?oc=5",
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "5 NC State Transfers to Watch Out For - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNcXo2STRELThIRV9pWDZEV0tuRDlCdVFGZ1JYYXlOQm12RENxOHhjSlptTFNDdU94WXJpYXp6c1NhYUdhbmZpMGJ5WFZTN1NnaUFFbDZtZG5wOTBwQ0N2THJZbndtdlMxZzQ5SmdQM0hJdDBNb1VZZEpOV1hUUTF1QlNqQlU3clZraXhhZ3R3?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 2,
         "isCritical": false
       }
     ],
     "north_carolina": [
-      {
-        "reporter": "247Sports",
-        "outlet": "247Sports",
-        "report": "UNC Kicker Rece Verhoff Ineligible After New Court Ruling - 247Sports",
-        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOc1RrbllLdzVvTnIxVldOa0d6cm41TFd1UFRsNUQzdHdlc1NSRmZwMUIyc1hWWFBBWktjMnh2b29GM2FkRUJmVTRZOFl5UUNwcEVsakZ1MEQtWTFqWTA3Vlhrc05WXzY3RzNVMEl0LXF2NjNnMnRRalAwdEZuTnQzUFUwU0gwc3BMVGs0dVlMRGtJU3lyS2w1RTBsNXpYeTFiTjRSNHZHdmRWUUZpVklXVG5jNXdjUFhhY2F5RkpB?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
       {
         "reporter": "Sports Illustrated",
         "outlet": "Sports Illustrated",
@@ -1891,52 +1882,14 @@
         "sentiment": "positive",
         "daysAgo": 1,
         "isCritical": false
-      }
-    ],
-    "smu": [
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Intel: SMU's approach to Ahmaad Moses eligibility after latest court ruling - On3",
-        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOMFBHMnBORFJaM3I2cGM2Mk94eTBfai0xX2VkVUk2N1ljdjVETFZUWUNXXzlKejJIOHNPWTA4N3RNZHFoY1oyTnhIQVd3R3g5TUV6ZlNkeDBhVTA2ZVFJSGRNZXdWZVpQZ3VSWGo1cUVyMVA3Y0UyODBLd3dLek5UamtYYVhEQ1JwSXBhOXdyeHVJX1gxOXhhMi13TGpVSHU3XzZ5WmVrbTFvekhrMHB5NjNJMXA5WEw3ZHc?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 1,
-        "isCritical": false
       },
       {
-        "reporter": "Dallas News",
-        "outlet": "Dallas News",
-        "report": "Cal transfer RB Kendrick Raphael gives SMU something it's been missing since CFP run - Dallas News",
-        "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQSWJGcklXUGxMV3VIbm5hQjFaSFBBY2lieDFBS3o3Wk9DSmg2a2RSRU5sSXlDRDNJcG45UFNFdXBaU2RXelJSUUFvQnZHc180cTZPU196VXU3NjZQRnU4TERnOTUtMXFvd2p4dmJyX2FlU0tNRWFNT1BJc2lQLXV6R2hmelpKOTA1VWR2eTJaRlYtYS1MQUtXQWtvSGg1bnlpNzg3eks4Q3YyYWctUTF5NFR0Ynk?oc=5",
+        "reporter": "247Sports",
+        "outlet": "247Sports",
+        "report": "Bill Belichick Press Conference &amp; Takeaways - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPdG4wMUlOSkd4YmxkRGU4LVRKYkhfdG91ZVUyQS1RdW50WHVyUEFLQ29kcjd5WENFeGRsN05tRnl0S2dHU1pEU093VEFaSXhHWGxzWE1KOWdwZllfdFp4TUVGSl9vdExFSjBISzYwQ09HRlFwODV6cEozTXJWbjFVcUtrMzJ0MEJPeFFJMk81dWNIaGFQQU5YUUp2SFJsc0ZYMmNKSzhIOUhMVEZFazUzd0lmTmZYS2c2eFRwbHBRSQ?oc=5",
         "sentiment": "neutral",
         "daysAgo": 2,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "SMU fall camp intel: Injury bug creeping into practice, forcing movement on OL - On3",
-        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOZGUyRXpCb2YyV0I4b0w4ZzVVM1ZnaHJEckdnTDgzbGtHMm5UWDl3X3dXVWwwZzVoT25KQ2FHVjNRNkZRMklVeGRBYTFQbUJ2RXMwMXZ2X3U5c242MmZvVmk4d1NfVW5UdVZYVXBjci1XR1h4V3BOTnUzMkhqalBkM2lkeWoxR3BPU1Y4T0w0WTRDWjY2UXMxaVVxeDU2M3pYd3pUN2Z0MHZaN2YzRXZZMUFSaUxzcHYxWU5oci1R?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false
-      },
-      {
-        "reporter": "SMU Athletics",
-        "outlet": "SMU Athletics",
-        "report": "Mustangs Mic’d Up Returns Aug. 26 With SMU Football Head Coach Rhett Lashlee - SMU Athletics",
-        "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOdTBIV3FPaE1XR0p4UlJoR1A4YW5XelJpMlJVRW5wQWZhT3NGSVlQQ19uQnVXS1V3NVd1eHhFX0lid1lob2NBN252TG8tNkhhWmRpRFBLVEhkSTJ5VmJPaWR0TzZObGxyQzMyWU9ucTR0emVoSkxrNnRfdW8wZk5PbWQ5TDJFVHdpdzFGdmY3MHNWSGp0WjMzQndYMXhEdldyNkNjOEI4VmlFbUo3dlhHQk93RE9yejE4ZGl4Y1pmWmVZTGhTRXc?oc=5",
-        "sentiment": "positive",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Underdog Dynasty",
-        "outlet": "Underdog Dynasty",
-        "report": "2026 SMU Mustangs Football Season Preview - Underdog Dynasty",
-        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNRzhfRFJpU2lsejF0Q09Da1RjcmZsRFM1R292eF9qR1VzSW50LXBwVVF2c0dyOWdHWGJPY2Nucmw5VEtsMDhpR24xaVVlS0dhRXlla3dJRm5hQUxXakFoS1VFMW84QUpDUG9vbGVfMVZOaDZIaFlWbHpFZ2h3Yzg3OHk5UFZXOHVPbjQ4?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 5,
         "isCritical": false
       }
     ],
@@ -2034,7 +1987,63 @@
         "isCritical": false
       }
     ],
+    "smu": [
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Intel: SMU's approach to Ahmaad Moses eligibility after latest court ruling - On3",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOMFBHMnBORFJaM3I2cGM2Mk94eTBfai0xX2VkVUk2N1ljdjVETFZUWUNXXzlKejJIOHNPWTA4N3RNZHFoY1oyTnhIQVd3R3g5TUV6ZlNkeDBhVTA2ZVFJSGRNZXdWZVpQZ3VSWGo1cUVyMVA3Y0UyODBLd3dLek5UamtYYVhEQ1JwSXBhOXdyeHVJX1gxOXhhMi13TGpVSHU3XzZ5WmVrbTFvekhrMHB5NjNJMXA5WEw3ZHc?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Dallas News",
+        "outlet": "Dallas News",
+        "report": "Cal transfer RB Kendrick Raphael gives SMU something it's been missing since CFP run - Dallas News",
+        "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQSWJGcklXUGxMV3VIbm5hQjFaSFBBY2lieDFBS3o3Wk9DSmg2a2RSRU5sSXlDRDNJcG45UFNFdXBaU2RXelJSUUFvQnZHc180cTZPU196VXU3NjZQRnU4TERnOTUtMXFvd2p4dmJyX2FlU0tNRWFNT1BJc2lQLXV6R2hmelpKOTA1VWR2eTJaRlYtYS1MQUtXQWtvSGg1bnlpNzg3eks4Q3YyYWctUTF5NFR0Ynk?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "SMU fall camp intel: Injury bug creeping into practice, forcing movement on OL - On3",
+        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOZGUyRXpCb2YyV0I4b0w4ZzVVM1ZnaHJEckdnTDgzbGtHMm5UWDl3X3dXVWwwZzVoT25KQ2FHVjNRNkZRMklVeGRBYTFQbUJ2RXMwMXZ2X3U5c242MmZvVmk4d1NfVW5UdVZYVXBjci1XR1h4V3BOTnUzMkhqalBkM2lkeWoxR3BPU1Y4T0w0WTRDWjY2UXMxaVVxeDU2M3pYd3pUN2Z0MHZaN2YzRXZZMUFSaUxzcHYxWU5oci1R?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false
+      },
+      {
+        "reporter": "SMU Athletics",
+        "outlet": "SMU Athletics",
+        "report": "Mustangs Mic’d Up Returns Aug. 26 With SMU Football Head Coach Rhett Lashlee - SMU Athletics",
+        "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOdTBIV3FPaE1XR0p4UlJoR1A4YW5XelJpMlJVRW5wQWZhT3NGSVlQQ19uQnVXS1V3NVd1eHhFX0lid1lob2NBN252TG8tNkhhWmRpRFBLVEhkSTJ5VmJPaWR0TzZObGxyQzMyWU9ucTR0emVoSkxrNnRfdW8wZk5PbWQ5TDJFVHdpdzFGdmY3MHNWSGp0WjMzQndYMXhEdldyNkNjOEI4VmlFbUo3dlhHQk93RE9yejE4ZGl4Y1pmWmVZTGhTRXc?oc=5",
+        "sentiment": "positive",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Underdog Dynasty",
+        "outlet": "Underdog Dynasty",
+        "report": "2026 SMU Mustangs Football Season Preview - Underdog Dynasty",
+        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNRzhfRFJpU2lsejF0Q09Da1RjcmZsRFM1R292eF9qR1VzSW50LXBwVVF2c0dyOWdHWGJPY2Nucmw5VEtsMDhpR24xaVVlS0dhRXlla3dJRm5hQUxXakFoS1VFMW84QUpDUG9vbGVfMVZOaDZIaFlWbHpFZ2h3Yzg3OHk5UFZXOHVPbjQ4?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 5,
+        "isCritical": false
+      }
+    ],
     "wake_forest": [
+      {
+        "reporter": "WyomingNews.com",
+        "outlet": "WyomingNews.com",
+        "report": "Cowboys DT Ja'Quan Redfern on pace for playing time - WyomingNews.com",
+        "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxQNG5jcUNtNEFjdlhZY012cE5NdGtTSXBXeHp5cEZhZm5fOG9SZ0t3SldPaG9vM0xOaEpaU0xnVDVqbEl2R1g5LWUwLWRjUmkwZHZzTG05dS1BQlRWWkZ3NXJRRWhfdWtQY2RDMjZ1T0RSZXR4bTBNMWpNNE9vT0tHODdfbFFUTmxWeGNmTUQ3NmcxWEJvNzZQZmhCZjJvRVVSZDc1c1VVQWpKTzMyck9FNDc2cW9BVE9lSEZuamFLUHlmT193aVNNazhzMnA2NzVjSFN6dWFlMS1mYlFNbWFPRUFGaFMtckgtOU9kQ3ltSVZ2VFlzMWF0OXNDZjJoQQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
       {
         "reporter": "NC Sports Network",
         "outlet": "NC Sports Network",
@@ -2054,12 +2063,12 @@
         "isCritical": false
       },
       {
-        "reporter": "WyomingNews.com",
-        "outlet": "WyomingNews.com",
-        "report": "Cowboys DT Ja'Quan Redfern on pace for playing time - WyomingNews.com",
-        "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxQNG5jcUNtNEFjdlhZY012cE5NdGtTSXBXeHp5cEZhZm5fOG9SZ0t3SldPaG9vM0xOaEpaU0xnVDVqbEl2R1g5LWUwLWRjUmkwZHZzTG05dS1BQlRWWkZ3NXJRRWhfdWtQY2RDMjZ1T0RSZXR4bTBNMWpNNE9vT0tHODdfbFFUTmxWeGNmTUQ3NmcxWEJvNzZQZmhCZjJvRVVSZDc1c1VVQWpKTzMyck9FNDc2cW9BVE9lSEZuamFLUHlmT193aVNNazhzMnA2NzVjSFN6dWFlMS1mYlFNbWFPRUFGaFMtckgtOU9kQ3ltSVZ2VFlzMWF0OXNDZjJoQQ?oc=5",
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "What we know of Wake Forest's plans for roster adds - On3",
+        "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQbWtSZDhvbU5kLW9XakpSTlZQdkNBNEhuaDZPTGFQbkdGRnllZW1jRTJUd1dTNGhuX3JOdTk5Q3NhUThHSWNHSll1U2Z1anVZTml3cmtLU0hlR0FpRGdHd1NObFhFQTJ1bDNtODhUQ3U0b3VWWmhybUxpamd5NmpQQXJ3a0RvWEtQT0hKZHRfR3dFQkpkci1YRGkxamlkTnhMU3prUQ?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 0,
+        "daysAgo": 21,
         "isCritical": false
       },
       {
@@ -2069,109 +2078,6 @@
         "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxObDZHUVYzVTlhYzRhUDhXYW5WVWM3ZGJIVElqNmJsc3BwWkZHZjNNQ2ltVkZVSVdvZG03ZG1oRG5Vejd0TmFSeE0yYWJoSHB3VXpHX3RSQTBiVkh1ZHJwcmwtcGFWemZwX2FKQl9IMkFMcTdVZFZBbVhMTC1lcURaUlptSzVUMk1lMXlNdzFRMTNZRzBTdGpmbkJLSVlOMUFBdWx3bmRmcGtZY3NINFl4R19zbkNrdzNi?oc=5",
         "sentiment": "neutral",
         "daysAgo": 3,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "What we know of Wake Forest's plans for roster adds - On3",
-        "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQbWtSZDhvbU5kLW9XakpSTlZQdkNBNEhuaDZPTGFQbkdGRnllZW1jRTJUd1dTNGhuX3JOdTk5Q3NhUThHSWNHSll1U2Z1anVZTml3cmtLU0hlR0FpRGdHd1NObFhFQTJ1bDNtODhUQ3U0b3VWWmhybUxpamd5NmpQQXJ3a0RvWEtQT0hKZHRfR3dFQkpkci1YRGkxamlkTnhMU3prUQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 21,
-        "isCritical": false
-      }
-    ],
-    "arizona_state": [
-      {
-        "reporter": "azcentral.com and The Arizona Republic",
-        "outlet": "azcentral.com and The Arizona Republic",
-        "report": "Arizona State's Prayer Young-Blackgoat represents more than football - azcentral.com and The Arizona Republic",
-        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPaDIyM3NDemV2NmdtSGFIWEJ5QkNobWFJczdLTUhESDZpNFV5emM1RHVtcnBkSkg5VU5mS09OWE5DTUpKeVJEc1hWSHlzYURqbDNGcFpQQm4yWkkyUzNfbUtrRG9CRXZlYlNPSFcwQ0NtdlJBa3FTNkN1cFNkSXRUNF90bjMyX2ZpRkotVldQc0xMZjdrUHpmSURiU1AzdXUwSkVJaFplSmtWaEVCU0hCZWFnaS1WNzQtRThheERWcGMyMWNqMXRYQQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Arizona Sports",
-        "outlet": "Arizona Sports",
-        "report": "ASU football’s new practice facility will be named Invisalign Performance Center - Arizona Sports",
-        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPU1lCN1RJT1lHLTVGODVrUFFvdi1XU29UZWxYeWdkazljcElwa3BHTF9EUThhemo3T19UOXU3emE5VDlxYVRtcGFMMnhsN2hwU21zaUl6d0FpSlJseE1oSThUX29LNUxiS2xMeVVOcGFYVWtHc2dXNVY0YVZodmVGZURKcEJQaDRaQ21LNUNMWXdISjZhWlpPaEFLSnd0N2xlRm1wa0V6NTRmOVhZWjZpako1ZERDVXRjb0E?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "247Sports",
-        "outlet": "247Sports",
-        "report": "Friday report: Premier ASU weapons return ahead of walk-off TD; defense called out - 247Sports",
-        "link": "https://news.google.com/rss/articles/CBMikwJBVV95cUxOMklkWDh5OXhfdDZaVDBUbFl0M3BNQW5VNlROaXpiRHU1UmJiTU5uWWZkRzJCR3h4cDFaYjI3ci1yRFZsSnBaRjYzZ3RHelFweXZPNWRCUDczU2I0ZGRqZW1iNmxwVEg2VWlYM1QwR2RsMVJxeXBhcVN3cmd2bWZONG9ZalNDUlNRM0twS2Z0QlU3UmFFZE8yX3RVUmhXUXVfVFBrZjF6RHVxUHpkZ04tWGNaNFVLMEt3NGJqTGRKelpXU2poNFJGVEhQNFd4UFE3OWM4NEJuNzlwS1ZlUW9ZcWh1S2c1eVNXLTdCaTVBZFoycEdYbTFVTGNMVHBoTGpWOE42LUlRUUVOV3V5aDRxY1lHSQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false
-      },
-      {
-        "reporter": "Newsday",
-        "outlet": "Newsday",
-        "report": "Arizona State reloads with impressive transfer portal haul for Dillingham's fourth season - Newsday",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOZHlzb1l0X2UwV2YwU3p1WXpfMW9HSXdYQ3RqTW5YMm1jRE9qRVUwUVZ5anIxbkJPX0dDVHplNzRVTXl1bHprRE4tNTc2eTdwY0d2UDNteEE5N0xBSUZBT1ZPN0ZYajZTLU1fRVpVOW8zdFQ0TFlqX2FRazhTZFYxWTNFLVo4OGM2WUVCYlZB?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Arizona State grad Keith Abney is impressing as a rookie with Detroit Lions - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQZ2ZxLVhaV3hTSXFWNk5vbUVkVEVOZkY2bW9Fa0xnaE5DcHE0cWFkZGpPOEJ5MllydHlFV0JqLXlFWG5FOU5fNWZrUjVhdnJPUDdpZUpNLVFodHl2cllYYU1DOUI2T1o3LUV6TzdkNWVUN1lvREkzRzZSWXFReUFpNWl0NE1xQQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      }
-    ],
-    "arizona": [
-      {
-        "reporter": "Arizona Daily Star",
-        "outlet": "Arizona Daily Star",
-        "report": "Arizona-ASU Game 2: Arizona shuts out Tempe Normal in 1902 clash - Arizona Daily Star",
-        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPNkRucWpBcnVFazNJVmJ4WUZ6bU56T1Z4b0xHSE9naDRjSFVlR3F2UG5PS2NQTDA3RGZfZnhuU0NxQ2lnMUZPNFEyUmtXRXkzcVpDdzdGeXdLc2s1VEI1N2VmcFNkeWpuMnJnaU1HR0x5ODJTR0hnM3NWR203QmFkUTdJRE1NMjBacGY4cXFnR1ZFcEFLZ216eUdhMk5MTFNkLUE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Arizona Desert Swarm",
-        "outlet": "Arizona Desert Swarm",
-        "report": "Arizona football: Battle for No. 2 cornerback spot ongoing as training camp nears end - Arizona Desert Swarm",
-        "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOSE1DaFd0amVGbG9QcUYwZkZ4ODNrNGZZYkJxS2JJWEpZbFlwUGtCVGZMUWV2WE56emV5NU1Oamlrcl9nTHBlVzBRM2F1VkU5U1JDY1B5Rm1ua0lONHNxQ19rZXdHZ1FiUUU1WmpUVW9mOGZqUXhwYW1XT2YyWDJXZF93enZVY0laaEhhZkFiWGdodzBndzh4dXVHZlg4NXlSX3V2anZlZDhNc3E2YUQ2V0NiX1FoVmhyQTF5NUFIOExpZ0RhMl9Vb3lhOFU1Q2FFazlrWEUtdWNnWms?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "azcentral.com and The Arizona Republic",
-        "outlet": "azcentral.com and The Arizona Republic",
-        "report": "Arizona State football predictions, picks, win probabilities for 2026 - azcentral.com and The Arizona Republic",
-        "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNZnpYX3NMb3VKRTQ2dF9GWk9WX1RHSHNxallwRG4xWXZVZGxabm5mcGl5dTRXNjlKNnpKR3ZkeG0ta21lWVE3WHZ5SlFkUTMyQ3VNSFhzTGlONWI4ZHZ5TDk3dUd2ZEk0QTE5QTVQOGhpYkFvR2hCd3VadHVoU01MY0ZpaFJicUhhODJwZlhPN05fNTd6cTZMWkd6aXhfV29JYVktTXlWQ0NwSjBCMy1sRG0wNGpOMW40dS1VWi0xZXlydXZreTZUbVBsWDk4U3R4T3plRjlwdWZBUkc1Wm03VTdmeGJadDgy?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "ESPN",
-        "outlet": "ESPN",
-        "report": "Arizona vs. BYU (Sep 12, 2026) Live Score - ESPN",
-        "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5iZk81MWJMbEdPM21WR0w4V3BYcFp2WUZha0U4bDNoTUFWMjhINENGMXVYMVBudVNmUWRwb1VUT3RmNk5YeVRxcDRya2RzcG85a0hRdFNzRndoX3F4OVc3UkdremRrNVFZbEtNaHEyYmNCOUoxWnl4Rms3N0RLQQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 213,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "SB Nation Reacts: Arizona football fans hopeful for successful 2026 season - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOU0d4RWhPbGxnUm9mUkJvbHRodXVZdHhCSHloUzQ1Sk9pam1fVGdZS3FVbzdKd2Jlcm5iU0hlY0dCWEgwWHVwWE9FRHFtbFlybjNXZzg3Vk9LTW9DTjhCODJISU1pT09TUTZ2QnRhWHJaa3Btdll6WmRld3ItTFN6dkdIcVJDdXhrOUE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
         "isCritical": false
       }
     ],
@@ -2269,14 +2175,108 @@
         "isCritical": false
       }
     ],
+    "arizona_state": [
+      {
+        "reporter": "azcentral.com and The Arizona Republic",
+        "outlet": "azcentral.com and The Arizona Republic",
+        "report": "Arizona State's Prayer Young-Blackgoat represents more than football - azcentral.com and The Arizona Republic",
+        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPaDIyM3NDemV2NmdtSGFIWEJ5QkNobWFJczdLTUhESDZpNFV5emM1RHVtcnBkSkg5VU5mS09OWE5DTUpKeVJEc1hWSHlzYURqbDNGcFpQQm4yWkkyUzNfbUtrRG9CRXZlYlNPSFcwQ0NtdlJBa3FTNkN1cFNkSXRUNF90bjMyX2ZpRkotVldQc0xMZjdrUHpmSURiU1AzdXUwSkVJaFplSmtWaEVCU0hCZWFnaS1WNzQtRThheERWcGMyMWNqMXRYQQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Arizona Sports",
+        "outlet": "Arizona Sports",
+        "report": "ASU football’s new practice facility will be named Invisalign Performance Center - Arizona Sports",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPU1lCN1RJT1lHLTVGODVrUFFvdi1XU29UZWxYeWdkazljcElwa3BHTF9EUThhemo3T19UOXU3emE5VDlxYVRtcGFMMnhsN2hwU21zaUl6d0FpSlJseE1oSThUX29LNUxiS2xMeVVOcGFYVWtHc2dXNVY0YVZodmVGZURKcEJQaDRaQ21LNUNMWXdISjZhWlpPaEFLSnd0N2xlRm1wa0V6NTRmOVhZWjZpako1ZERDVXRjb0E?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "247Sports",
+        "outlet": "247Sports",
+        "report": "Friday report: Premier ASU weapons return ahead of walk-off TD; defense called out - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMikwJBVV95cUxOMklkWDh5OXhfdDZaVDBUbFl0M3BNQW5VNlROaXpiRHU1UmJiTU5uWWZkRzJCR3h4cDFaYjI3ci1yRFZsSnBaRjYzZ3RHelFweXZPNWRCUDczU2I0ZGRqZW1iNmxwVEg2VWlYM1QwR2RsMVJxeXBhcVN3cmd2bWZONG9ZalNDUlNRM0twS2Z0QlU3UmFFZE8yX3RVUmhXUXVfVFBrZjF6RHVxUHpkZ04tWGNaNFVLMEt3NGJqTGRKelpXU2poNFJGVEhQNFd4UFE3OWM4NEJuNzlwS1ZlUW9ZcWh1S2c1eVNXLTdCaTVBZFoycEdYbTFVTGNMVHBoTGpWOE42LUlRUUVOV3V5aDRxY1lHSQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false
+      },
+      {
+        "reporter": "Newsday",
+        "outlet": "Newsday",
+        "report": "Arizona State reloads with impressive transfer portal haul for Dillingham's fourth season - Newsday",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOZHlzb1l0X2UwV2YwU3p1WXpfMW9HSXdYQ3RqTW5YMm1jRE9qRVUwUVZ5anIxbkJPX0dDVHplNzRVTXl1bHprRE4tNTc2eTdwY0d2UDNteEE5N0xBSUZBT1ZPN0ZYajZTLU1fRVpVOW8zdFQ0TFlqX2FRazhTZFYxWTNFLVo4OGM2WUVCYlZB?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Arizona State grad Keith Abney is impressing as a rookie with Detroit Lions - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQZ2ZxLVhaV3hTSXFWNk5vbUVkVEVOZkY2bW9Fa0xnaE5DcHE0cWFkZGpPOEJ5MllydHlFV0JqLXlFWG5FOU5fNWZrUjVhdnJPUDdpZUpNLVFodHl2cllYYU1DOUI2T1o3LUV6TzdkNWVUN1lvREkzRzZSWXFReUFpNWl0NE1xQQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      }
+    ],
+    "arizona": [
+      {
+        "reporter": "Arizona Daily Star",
+        "outlet": "Arizona Daily Star",
+        "report": "Arizona-ASU Game 2: Arizona shuts out Tempe Normal in 1902 clash - Arizona Daily Star",
+        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPNkRucWpBcnVFazNJVmJ4WUZ6bU56T1Z4b0xHSE9naDRjSFVlR3F2UG5PS2NQTDA3RGZfZnhuU0NxQ2lnMUZPNFEyUmtXRXkzcVpDdzdGeXdLc2s1VEI1N2VmcFNkeWpuMnJnaU1HR0x5ODJTR0hnM3NWR203QmFkUTdJRE1NMjBacGY4cXFnR1ZFcEFLZ216eUdhMk5MTFNkLUE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Arizona Desert Swarm",
+        "outlet": "Arizona Desert Swarm",
+        "report": "Arizona football: Battle for No. 2 cornerback spot ongoing as training camp nears end - Arizona Desert Swarm",
+        "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOSE1DaFd0amVGbG9QcUYwZkZ4ODNrNGZZYkJxS2JJWEpZbFlwUGtCVGZMUWV2WE56emV5NU1Oamlrcl9nTHBlVzBRM2F1VkU5U1JDY1B5Rm1ua0lONHNxQ19rZXdHZ1FiUUU1WmpUVW9mOGZqUXhwYW1XT2YyWDJXZF93enZVY0laaEhhZkFiWGdodzBndzh4dXVHZlg4NXlSX3V2anZlZDhNc3E2YUQ2V0NiX1FoVmhyQTF5NUFIOExpZ0RhMl9Vb3lhOFU1Q2FFazlrWEUtdWNnWms?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "azcentral.com and The Arizona Republic",
+        "outlet": "azcentral.com and The Arizona Republic",
+        "report": "Arizona State football predictions, picks, win probabilities for 2026 - azcentral.com and The Arizona Republic",
+        "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNZnpYX3NMb3VKRTQ2dF9GWk9WX1RHSHNxallwRG4xWXZVZGxabm5mcGl5dTRXNjlKNnpKR3ZkeG0ta21lWVE3WHZ5SlFkUTMyQ3VNSFhzTGlONWI4ZHZ5TDk3dUd2ZEk0QTE5QTVQOGhpYkFvR2hCd3VadHVoU01MY0ZpaFJicUhhODJwZlhPN05fNTd6cTZMWkd6aXhfV29JYVktTXlWQ0NwSjBCMy1sRG0wNGpOMW40dS1VWi0xZXlydXZreTZUbVBsWDk4U3R4T3plRjlwdWZBUkc1Wm03VTdmeGJadDgy?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "ESPN",
+        "outlet": "ESPN",
+        "report": "Arizona vs. BYU (Sep 12, 2026) Live Score - ESPN",
+        "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5iZk81MWJMbEdPM21WR0w4V3BYcFp2WUZha0U4bDNoTUFWMjhINENGMXVYMVBudVNmUWRwb1VUT3RmNk5YeVRxcDRya2RzcG85a0hRdFNzRndoX3F4OVc3UkdremRrNVFZbEtNaHEyYmNCOUoxWnl4Rms3N0RLQQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 213,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "SB Nation Reacts: Arizona football fans hopeful for successful 2026 season - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOU0d4RWhPbGxnUm9mUkJvbHRodXVZdHhCSHloUzQ1Sk9pam1fVGdZS3FVbzdKd2Jlcm5iU0hlY0dCWEgwWHVwWE9FRHFtbFlybjNXZzg3Vk9LTW9DTjhCODJISU1pT09TUTZ2QnRhWHJaa3Btdll6WmRld3ItTFN6dkdIcVJDdXhrOUE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      }
+    ],
     "utah_state": [
       {
         "reporter": "Utah State University Athletics",
         "outlet": "Utah State University Athletics",
-        "report": "Utah State’s Brevin Hamblin Named to Chuck Bednarik Award Preseason Watch List - Utah State University Athletics",
-        "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNdzhmSk9lZ2NvUWxGSzFWUTRiNlB2UW81TzFHTzBkTWhyVVhEYXFLb1N0ckxGN3dRM2RSZEdUaWdMRUE1Y0lBX1NFMDZJV1llX2VOWHI5RTVmci0xclVQOTZPQW1nUnZyM3p1WW03ZU1iWUFIY29rNzllZkVydndva3RpcXc4QTF1LU5DTmZCcTAwcGMyZDBzQS1yMXAtZV9GeHNmZUVYVDdwdkxfUDZMUVlDMXpsM1NsX29rNWlUQ0Q5cWZzUHdyWVJKcFJsbjg?oc=5",
+        "report": "Four Aggies Named to 2026 Polynesian College Football Player of the Year Award Watch List - Utah State University Athletics",
+        "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPOGozVmg1cVpadzU0VWluNkczSlVjd3otaXdsLVhkNlJWYjNNUDhMbjk0X3ZPMFlRblJXR1ZlNTVkczY4RkRhN0xkTHZQa01sRFpwTzhLc2k0V0JTWl9YUUxwM3p6MGRTa3FzWFVCbVUwaTFsaXdtOG5ZemVISnhFUWVxXzZRYUVma0pkd3B4bk54T01nMzBUZHJ0X1cwZWFzQ3BTNG1rbmRnVHh6aS1aTGotV2laY3lTM19qcWVVazJhTWZka1BiYlVkdlZkVkFsNXQ4?oc=5",
         "sentiment": "positive",
-        "daysAgo": 1,
+        "daysAgo": 2,
         "isCritical": false
       },
       {
@@ -2291,28 +2291,75 @@
       {
         "reporter": "Utah State University Athletics",
         "outlet": "Utah State University Athletics",
-        "report": "Four Aggies Named to 2026 Polynesian College Football Player of the Year Award Watch List - Utah State University Athletics",
-        "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPOGozVmg1cVpadzU0VWluNkczSlVjd3otaXdsLVhkNlJWYjNNUDhMbjk0X3ZPMFlRblJXR1ZlNTVkczY4RkRhN0xkTHZQa01sRFpwTzhLc2k0V0JTWl9YUUxwM3p6MGRTa3FzWFVCbVUwaTFsaXdtOG5ZemVISnhFUWVxXzZRYUVma0pkd3B4bk54T01nMzBUZHJ0X1cwZWFzQ3BTNG1rbmRnVHh6aS1aTGotV2laY3lTM19qcWVVazJhTWZka1BiYlVkdlZkVkFsNXQ4?oc=5",
+        "report": "Utah State’s Brevin Hamblin Named to Chuck Bednarik Award Preseason Watch List - Utah State University Athletics",
+        "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNdzhmSk9lZ2NvUWxGSzFWUTRiNlB2UW81TzFHTzBkTWhyVVhEYXFLb1N0ckxGN3dRM2RSZEdUaWdMRUE1Y0lBX1NFMDZJV1llX2VOWHI5RTVmci0xclVQOTZPQW1nUnZyM3p1WW03ZU1iWUFIY29rNzllZkVydndva3RpcXc4QTF1LU5DTmZCcTAwcGMyZDBzQS1yMXAtZV9GeHNmZUVYVDdwdkxfUDZMUVlDMXpsM1NsX29rNWlUQ0Q5cWZzUHdyWVJKcFJsbjg?oc=5",
         "sentiment": "positive",
-        "daysAgo": 2,
-        "isCritical": false
-      },
-      {
-        "reporter": "KSL Sports",
-        "outlet": "KSL Sports",
-        "report": "Previewing Utah State football’s 2026 schedule: Utah Utes - KSL Sports",
-        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFB4bDY3ZTctZXljenNSZjZJbzdyUUtWeEVKSUl4ZE80YllQOVpVd0M2VFpfSmNDdlpEbGpPXzBKNkNtcjZaNUVRdVZWbFJfQVF3NHRpRDlDczlQSGFXRVF0bjFxalQzNkFTTXVIekJkQkpQcVZSdVZrTmVZV3o?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 28,
+        "daysAgo": 1,
         "isCritical": false
       },
       {
         "reporter": "Deseret News",
         "outlet": "Deseret News",
-        "report": "Assessing Utah State’s road to bowl eligibility - Deseret News",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPbEhYRjBMSHlJWG5MUzdTZHA4OFlpUkpMSHA0RlE2c3IxTjlnOUcybjVfcTc1bkplR2NOTE1LT1lETW91Z3psMFVka1pqMUpHajgxNEEwcjJmUXVSZmRvQmF2alY4T1BGYVJfbWdBeGlfdmg5R3pYaXpMR1ZPem40N2NUelNpVEZDb1NaVEp3?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 13,
+        "report": "‘Chips on their shoulders’: Utah State defenders confident heading into new season - Deseret News",
+        "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNWXVNVE9RTTRQd3Y1MlhVMllHNjZIRWYxT1dYZy03dGRMTEEwcWV6eUMwV1VtaHhWUVVHQUIxenZMLS01bExKM0pXQ0tjeTdiOXhucko3bks2R1NXQWsyNkhHdFR5ZjlybkFxLUdtMWNxcDUzbGNtOUQtSUxsM3RiN2ZDazk3NWFsQzdFMnZBMXJBbGMzb2RBa29IUWU?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 5,
+        "isCritical": false
+      },
+      {
+        "reporter": "KSL Sports",
+        "outlet": "KSL Sports",
+        "report": "Previewing Utah State's 2026 running back depth - KSL Sports",
+        "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1vZjc2ZkI2NFU0WHA5RFZmeDdBTEhvbl9wSmE0UXpibGlFT1N1Sl9XVmlGWEFFYjBsazU1SjdBZEpxbmY2akFHdE1hbXNnLVBjN1FsX0xMVTVSaWpoYnBCZjhNbi1SM1V6V2RZM2xCQWhweEVU?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 5,
+        "isCritical": false
+      }
+    ],
+    "mississippi_state": [
+      {
+        "reporter": "247Sports",
+        "outlet": "247Sports",
+        "report": "Kostas Kostadinov is no longer with Mississippi State basketball - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPelFYWnRHZzFLdmxmSnJJajZxLWxzLVhXNDNmcjVkZy1TUnRTOG1OTEk4NTRaNFVmNFRpc21IazNlbEhycjEzbEgwNFJFYXJqWU9WajJUVkRiMmxfNGVFOVFyNGZVcDVFbE9rSHBETDI4eFd2ZURUNGRFMzVOd2RER0llOWxlNnhJSUZzUDg2bXNqUDJVamNKRkZNOEpDT2YxY3ZpeE5PQ0VfUU5kTldYQ0d1dkp2QzZBX05hQTF4Zw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "OL Mario Nash Jr. no longer on Mississippi State roster - On3",
+        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQT25uYmJleTJHX0lNLTBUd1ZtM1ZrUUxadnVSWEN2Y01WWlJPNUR5WHJCendsNW10YVZsNGtsengxZjFjdy1ENnpDeHdQUnlzZ0NVMk1PanB2TWhhMnp6a2lUeHFKaTB3My1tSXZSU0FDd1hnb2x6bmNSaUI0Z0ZJbEdBa1RWc0dRNGZZbk9QaDlfaFJUem9iWjFfbzlNdzBZUGQtZ2xIRlNza3YtQjBsQXcxUQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "PFF",
+        "outlet": "PFF",
+        "report": "2026 College Football Preview: Mississippi State Bulldogs - PFF",
+        "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOX0NXVWlWaGVOcEtxemJoMUFlLWxSOC02YjlqWVJhQ1dKQmF2OTRlQmo4ZTV2RXIzaEtlcFZOV3pWYldMcVROdDVrSGJVWHpjaWUyYzQ4dHJNVzJ6VWIwUXFzUExObWtxaG1HR0o0MjJmNDdZQy1zYUMxZmJPRnp4TklB?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Montgomery Advertiser",
+        "outlet": "Montgomery Advertiser",
+        "report": "Scouting Auburn football's Week 11 opponent: Mississippi State - Montgomery Advertiser",
+        "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxPb3VPdW1xUTFGZE9RTE5rOGpVa3A0ZURDOU44SGdBeGIwUGtIQ2JWbG5iUUpUQWJHY1l5SnBzTzlCWkpDaEZWRzB6a1JLWlVQbXBUY05mRk9YWHdOZEZJMFVHZS1fU1pmZUlsUElvOVEtanRMdmlWTTFzRDJ4bWs1WWVaRXl1aUpNcUN2d3Y0U3k4LW9NSmMtQURIZERCWnVDcmhmb3VneF9RMmtLWmFFd3R6X3NtQWxwZjVZOFl3bXlQQlppOXg0SVkzSDJQOUJwT2xsNGxoeEhkcmo3Q0hzNnRkRVJ2VzNGb1RSQjhMaUFXaGtuRlBjQ2s4clJFQQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Mississippi State - Official Athletics Website",
+        "outlet": "Mississippi State - Official Athletics Website",
+        "report": "State Trio Named To Senior Bowl Top 300 - Mississippi State - Official Athletics Website",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOdkNNVXI2Z2p0YUVBUllPY0FrTGZNcjlibEtMYk1kRmlzWVRySG1LRGFqZnR1Ylc0Q2U1Ym4tNmtnUW9BclBuNzlfUkRPUmVOdEdYXzFRYmthTkVWN3RleUljZmhrem5aMVM0YnFEN3hiaEVoMkhOdmlfV3JscVpjN3lDVmQ3ZWRZTFh1bUp3?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
         "isCritical": false
       }
     ],
@@ -2410,106 +2457,12 @@
         "isCritical": false
       }
     ],
-    "mississippi_state": [
-      {
-        "reporter": "247Sports",
-        "outlet": "247Sports",
-        "report": "Kostas Kostadinov is no longer with Mississippi State basketball - 247Sports",
-        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPelFYWnRHZzFLdmxmSnJJajZxLWxzLVhXNDNmcjVkZy1TUnRTOG1OTEk4NTRaNFVmNFRpc21IazNlbEhycjEzbEgwNFJFYXJqWU9WajJUVkRiMmxfNGVFOVFyNGZVcDVFbE9rSHBETDI4eFd2ZURUNGRFMzVOd2RER0llOWxlNnhJSUZzUDg2bXNqUDJVamNKRkZNOEpDT2YxY3ZpeE5PQ0VfUU5kTldYQ0d1dkp2QzZBX05hQTF4Zw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "OL Mario Nash Jr. no longer on Mississippi State roster - On3",
-        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQT25uYmJleTJHX0lNLTBUd1ZtM1ZrUUxadnVSWEN2Y01WWlJPNUR5WHJCendsNW10YVZsNGtsengxZjFjdy1ENnpDeHdQUnlzZ0NVMk1PanB2TWhhMnp6a2lUeHFKaTB3My1tSXZSU0FDd1hnb2x6bmNSaUI0Z0ZJbEdBa1RWc0dRNGZZbk9QaDlfaFJUem9iWjFfbzlNdzBZUGQtZ2xIRlNza3YtQjBsQXcxUQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "PFF",
-        "outlet": "PFF",
-        "report": "2026 College Football Preview: Mississippi State Bulldogs - PFF",
-        "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOX0NXVWlWaGVOcEtxemJoMUFlLWxSOC02YjlqWVJhQ1dKQmF2OTRlQmo4ZTV2RXIzaEtlcFZOV3pWYldMcVROdDVrSGJVWHpjaWUyYzQ4dHJNVzJ6VWIwUXFzUExObWtxaG1HR0o0MjJmNDdZQy1zYUMxZmJPRnp4TklB?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Montgomery Advertiser",
-        "outlet": "Montgomery Advertiser",
-        "report": "Scouting Auburn football's Week 11 opponent: Mississippi State - Montgomery Advertiser",
-        "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxPb3VPdW1xUTFGZE9RTE5rOGpVa3A0ZURDOU44SGdBeGIwUGtIQ2JWbG5iUUpUQWJHY1l5SnBzTzlCWkpDaEZWRzB6a1JLWlVQbXBUY05mRk9YWHdOZEZJMFVHZS1fU1pmZUlsUElvOVEtanRMdmlWTTFzRDJ4bWs1WWVaRXl1aUpNcUN2d3Y0U3k4LW9NSmMtQURIZERCWnVDcmhmb3VneF9RMmtLWmFFd3R6X3NtQWxwZjVZOFl3bXlQQlppOXg0SVkzSDJQOUJwT2xsNGxoeEhkcmo3Q0hzNnRkRVJ2VzNGb1RSQjhMaUFXaGtuRlBjQ2s4clJFQQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Mississippi State - Official Athletics Website",
-        "outlet": "Mississippi State - Official Athletics Website",
-        "report": "State Trio Named To Senior Bowl Top 300 - Mississippi State - Official Athletics Website",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOdkNNVXI2Z2p0YUVBUllPY0FrTGZNcjlibEtMYk1kRmlzWVRySG1LRGFqZnR1Ylc0Q2U1Ym4tNmtnUW9BclBuNzlfUkRPUmVOdEdYXzFRYmthTkVWN3RleUljZmhrem5aMVM0YnFEN3hiaEVoMkhOdmlfV3JscVpjN3lDVmQ3ZWRZTFh1bUp3?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false
-      }
-    ],
-    "kentucky": [
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Transfer Portal Tracker: Where former Kentucky Wildcats are playing football in 2026 - On3",
-        "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNYkdIV3BCbERRUXNmTzU0WjBKOXllTVNqYU5FMU5kcGxXcTR5cThxUUZxUnBmaWJibjNITXJmRUdkeEt3dDlIV0pyRlBBb3gwUnpFUENFSTZja3MxdF9kREFWbW9xRUw0Y29FeXpEVkVEOUs1ckFWRTQ1bU81RnBidHBYbklaRHZrUi1vOE5iR2Jza0RKVC1NVA?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "A Sea Of Blue",
-        "outlet": "A Sea Of Blue",
-        "report": "Kentucky is recruiting an NFL RB who just played for the Seahawks this preseason - A Sea Of Blue",
-        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQOU8zbUFGNTFRc3lyT2Nnei1reHpLazhONTRManFKSkhJUWJQU2RnMlNZbm1ka1VqUGdReE81UWFocjZFOUFCQWk5SDJKYkxpNWd5S2tiaWFVc2Jray1EdFFaUnlibEJWQWN4ZVB0X09pOS1JNU44SnpNMFBiNVowZ0Q0Y2FFcDNNejZlRHZNNkNkU294aVJtQThtRlVqT0I3d1E?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "PFF",
-        "outlet": "PFF",
-        "report": "2026 College Football Preview: Kentucky Wildcats - PFF",
-        "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE12a0JRdi1wQjRMZ2M5UmQxbVJhMENrRXhDUGNsVmt2WExQV3gyZjJQZUVHSThUTWJMM2ZCM0xkdlQtZ3FUU0t1N1FqSmtmNUxnLThuNWF1bGxpOXI4ZldTZWtiRkVRNzNYcWIyczRDYjFOdjRfQnc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Get to know the Kentucky football roster: No. 15 CJ Works - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQbzBEQkhvd2JyeE92T2phNDZMUWZnQWd2U2hzWV92UnpOVmwxOGRFank4OUZtWmdxN0RIX0twUGNkb2tGSFZ2MFhCckNKUVYySDJvdnNwdHcwaktmVVVoV3Y4ZTdGazVMU1RRX0dKcDU3bVd4ZW9KU1VjM0J4TE5MZTlzb0RFNVNR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "FBSchedules.com",
-        "outlet": "FBSchedules.com",
-        "report": "Kentucky moves two future FCS opponents to season-openers - FBSchedules.com",
-        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNRUp2cnlLbjhiZG1XMWUtQ2p0MFBKZE1KSlBoMFlJZGVvcGlSZ1B1aEN4bUNFZTBYeEE5ZDVJUW05d1RlOHVuemxIT3ZjZE1mQ0xITTdLYmliUkUzc0xqekhwNzRTTFBQTklfNDU1QWZsRnJnS3ZQOVdDc3p5WmFZS2lIM1Fmay1WRWfSAY8BQVVfeXFMTzBoSldXR0RyYUZHYXdHcHN3M0o1Q1dVZVFXcDM3WEdQNGVTNXlJLUJzbFB3TGViY09LYll6THhDRmRKTlNJSkJNV3VaSTM0UXZRN1c1V0ZQNkJYcDlfZm03NUVySFNyNTRVM3hOejYzNXNrN0NNVElVTDlVVVR6b0VXc1V0R1lFZnI0YmZOVk0?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false
-      }
-    ],
     "arkansas": [
       {
-        "reporter": "PFF",
-        "outlet": "PFF",
-        "report": "2026 College Football Preview: Arkansas Razorbacks - PFF",
-        "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9OQUVxckRYT0xlUUNZbHdtUnF5bjhuV2FnVzF0akpsM3d1eHlfZUt4aERCTWdNTE5MTlRMVWRyTGVzNDlkNEkxb1E5bXc5dUNGSmRSZ0FSMzJGZVMtZkZZYW5IVVlMUHg3YmNwRzdWUEwtUXJ0MlJsdg?oc=5",
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Inside Arkansas' Recruitment of No. 1 Overall Prospect Ryder Flugence - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQTEZVbHZSbWZBa1ZxOUc2RUVxc2JFRm9rSHh1UHVlUmt4MGtETDBCOVNLNE80U2hIUG15Z0F4cU8xdjFoUDAyeFI0TFJDSUtNNXZhcU9XX2tULVVkaHJHc3dhYloyR21EU3VKNnEwOVFXU3h3eUxDaTNkTDBQa0E4Y2cxdjVrYWFReHNzR3ZoY2FIenpGSXdIQTl1VWdobkFGdXVTTFhCX3JZbl9BeXFMVXFB?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false
@@ -2609,15 +2562,6 @@
         "isCritical": false
       },
       {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "USC Trojans @ South Carolina Gamecocks: Live game updates, stats, play-by-play - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNY2s3aDNRYmhselZNNERNREFOVm1ILUt0TWNPR2t5UXllbGNLU0lhbUp4dF9MTzF4c21zMDlENndwTEJKR2FrSmdsY3c3a2tTY2J0cHVwbFlOMTQ0RmJNZ21qbUZzX1J0RFQzREZpaDhHWlRtN3J1aW9wdjVvSmhxVEZtb1lVLVZ2?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
         "reporter": "247Sports",
         "outlet": "247Sports",
         "report": "Projecting South Carolina's statistical leaders in 2026: Offense - 247Sports",
@@ -2629,10 +2573,10 @@
       {
         "reporter": "The State",
         "outlet": "The State",
-        "report": "Caleb Herring left Tennessee for South Carolina. He’s in line for big role on defense - The State",
-        "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNODFNNy1VTmtWWTRRcDl1bXNZOWZrNnpBSHBSb2ZmSF93dDV4RG1YaHBXNkQ2aDc5aWxldVVEUUZLLTBTd1dkOFV3RVo4QnJSd0U5aDZnaFRwZWRRZXRVT3c4RTYwQWd6YWhpLUNKRnJ3QUZWSDVuOTVFNGNSWTgxNjllcmQyLS1hZkRKejcwMkxWOGszcDVBSDg2NVNYa29LOWExNENn0gGmAUFVX3lxTE90bERTNUR1Yi1LTzJLaVpRMTFHdU5LUzZ4TkxNRjUxaG1STUJQdXB5bVpHb3ZraXJTZ01ReWFQWHpJTE5jMnNlRVpTWFlWektXMU9EelVJSWtyUHltSVcwWUYxa2JzSkd2ZGtTZHpIa2tDQzJBdWphbzdZNThRSFB1ODNGNHJuTHF1RGxiSjhvMWxrTkcwblpnTmNlVFZMQXBBX1NKd0E?oc=5",
+        "report": "Buzz follows Gamecocks WR Sequel Patterson from high school to college. What to expect - The State",
+        "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOYlFjek5SRGVnbDdiRkg4RUpNNV9udFlCMTlxWUVKOUE0bDN0d3UyLUs1UEtadXl0Qmc5TVhjRTVsZEpQZ1BvRnlIUkU4NW5iYjhrSDEtaTgtdm1kYXJmcW5uc0tIYnZQdGtfUlZXeFBqY1U1Z3QwMjlqMUJtam9WelZvOFAxUHNhVEpjRkM0XzB1MFJBZm5XUE1Sd0NMSWZKY3d6Xzd30gGmAUFVX3lxTFA1b3BjT283bEhZT0pib0NXa1o0VTd1R0c0LVl0M0ExWlVNYVQwUVhPaW5JZnNtNU9xYlJKZWdLMXdpVjV1ekc2d281c25JemhjcDJ6Tk1KUUFibi1QQXlHTWN0VjhiNExiYlFGRUJQYnBwMlZZdElFMVJzSUMtbkRERFFSSWdHMUlQWkR2d2pHRmNXR1QyV3dmSzFFWmdyYXgwM0Z4dHc?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 0,
         "isCritical": false
       },
       {
@@ -2642,6 +2586,62 @@
         "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQVU9fSDkxdDVCVWNTcjlfdHVweTdlNHN2bHljUVFhMC15enFTeEoyN0VBQzAwdDBnU0s3WW5sZURRRG5oSzFFeUwzMDZwOVpVRVpTMlFjUXhhWVVETjI2d1REQU5kNEZRcUVJbnRWbC0wSEFCZkZYb05kWkRzT0dHTlExWEdrRTBCdUxrZUNfWktOSF9FYzZWblFVZ2Q0MnlLVlFwRzIzOHRLWVNkd2VhZHFpVDVJMFZNTlhSQ2FIcE12U1NkR3ZBd0hzMHNIZjJPZDNuWDdNU0czLXFCQ0dLN2NvR3FUM2ZtNUZHaQ?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "247Sports",
+        "outlet": "247Sports",
+        "report": "Skill set, explosiveness 'absolutely there' for Patterson in Year 1 - 247Sports",
+        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPUF9GWFAxYWxkbmw5NWp5dTVSVDJ5VFY5NWdGWWhTUHBnM1ZDNkl6eGhCTjFNRHliaHVhSDlZUWsxZzRXbnpGTWh5eGxWcGc0ajJOSGJYM1JkX1k5YVVtdHdfYnp1bmpoaFI3NHJzLVJEOHF3RWcwOVZrQ3ZRdVZZSzlJV1BrV0xLa3prekltbkpjSnBKbnlqcHdoV0EyQ3BxOHFpYUM4bTRWMERDRjE4NEdQeTVxZWFtak5CUHBOUnJ3MEJhQ3ZEYlIzYWRxbk5UenJ2U3lB?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false
+      }
+    ],
+    "kentucky": [
+      {
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Transfer Portal Tracker: Where former Kentucky Wildcats are playing football in 2026 - On3",
+        "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNYkdIV3BCbERRUXNmTzU0WjBKOXllTVNqYU5FMU5kcGxXcTR5cThxUUZxUnBmaWJibjNITXJmRUdkeEt3dDlIV0pyRlBBb3gwUnpFUENFSTZja3MxdF9kREFWbW9xRUw0Y29FeXpEVkVEOUs1ckFWRTQ1bU81RnBidHBYbklaRHZrUi1vOE5iR2Jza0RKVC1NVA?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "A Sea Of Blue",
+        "outlet": "A Sea Of Blue",
+        "report": "Kentucky is recruiting an NFL RB who just played for the Seahawks this preseason - A Sea Of Blue",
+        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQOU8zbUFGNTFRc3lyT2Nnei1reHpLazhONTRManFKSkhJUWJQU2RnMlNZbm1ka1VqUGdReE81UWFocjZFOUFCQWk5SDJKYkxpNWd5S2tiaWFVc2Jray1EdFFaUnlibEJWQWN4ZVB0X09pOS1JNU44SnpNMFBiNVowZ0Q0Y2FFcDNNejZlRHZNNkNkU294aVJtQThtRlVqT0I3d1E?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "PFF",
+        "outlet": "PFF",
+        "report": "2026 College Football Preview: Kentucky Wildcats - PFF",
+        "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE12a0JRdi1wQjRMZ2M5UmQxbVJhMENrRXhDUGNsVmt2WExQV3gyZjJQZUVHSThUTWJMM2ZCM0xkdlQtZ3FUU0t1N1FqSmtmNUxnLThuNWF1bGxpOXI4ZldTZWtiRkVRNzNYcWIyczRDYjFOdjRfQnc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Get to know the Kentucky football roster: No. 15 CJ Works - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQbzBEQkhvd2JyeE92T2phNDZMUWZnQWd2U2hzWV92UnpOVmwxOGRFank4OUZtWmdxN0RIX0twUGNkb2tGSFZ2MFhCckNKUVYySDJvdnNwdHcwaktmVVVoV3Y4ZTdGazVMU1RRX0dKcDU3bVd4ZW9KU1VjM0J4TE5MZTlzb0RFNVNR?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "FBSchedules.com",
+        "outlet": "FBSchedules.com",
+        "report": "Kentucky moves two future FCS opponents to season-openers - FBSchedules.com",
+        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNRUp2cnlLbjhiZG1XMWUtQ2p0MFBKZE1KSlBoMFlJZGVvcGlSZ1B1aEN4bUNFZTBYeEE5ZDVJUW05d1RlOHVuemxIT3ZjZE1mQ0xITTdLYmliUkUzc0xqekhwNzRTTFBQTklfNDU1QWZsRnJnS3ZQOVdDc3p5WmFZS2lIM1Fmay1WRWfSAY8BQVVfeXFMTzBoSldXR0RyYUZHYXdHcHN3M0o1Q1dVZVFXcDM3WEdQNGVTNXlJLUJzbFB3TGViY09LYll6THhDRmRKTlNJSkJNV3VaSTM0UXZRN1c1V0ZQNkJYcDlfZm03NUVySFNyNTRVM3hOejYzNXNrN0NNVElVTDlVVVR6b0VXc1V0R1lFZnI0YmZOVk0?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
         "isCritical": false
       }
     ],
@@ -2689,53 +2689,6 @@
         "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQdWhJSUdpZFhHbjUzQjItWEJKN19oV2pOYjNNWnJCb3NlUEIyQXZvcUtoMkdEeF8xcjg4VVU2ZjNSMzRCOS1DUjhLSlJUeFZrbzBHQmpGMXdJUFU4cVNkbnZwU1E1MDN0RGp1T09lYng1WUxYX0VNUm1QRDRnWEtMRFpHRG5aZ1lYV3N5VjdoeWpLM1VPRC11Uw?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
-        "isCritical": false
-      }
-    ],
-    "west_virginia": [
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Woah! College GameDay Analyst Picks WVU to Pull Off Major Surprise in 2026 - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOaGYwQXNyb00xbHI1UW5PNFp5ZXlIeWdSZm9kd3NYaFc2Q21WdWNiOFZMa2NjWW9keTFvajJKdnpfMWJDaUtEM0t4RklYcWlwb0dhajk0RmktWk5xMWpTM3hpOURWeFBtZHduMERLbG1JaXk2SHk0VkVpd2hpeUFlVE12N1B5TktwT3BkUi0yNkZscFhvLWJlaVZUaTVRRlBjTUtBRUVlOVZjMXdFbXpJSnJ2c3F5M2JLZTRfVmdwaw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "On3",
-        "outlet": "On3",
-        "report": "Rich Rodriguez: ‘Hell, we've got to get it done now’ - On3",
-        "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQQ3BuM2lreGVRMFpBdS1FVVB0bUZZYUprRXp6Y3dlWHF1elJJVnRlUElrbnpKMTM0T2RrSkxYMWhhYi1WWXctdDFCTm1keWFaVlZfdXpVQ0RzWDlZazNTdHBtLTVnVG8yUTNNX2gtMUUwbm1CazlqQnFCTnFleUMwSFlDbzFQQ1R4bEo5Q1dFek1HZmc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "The Voice Of Motown",
-        "outlet": "The Voice Of Motown",
-        "report": "WVU Football: ESPN Analyst Predicts Mountaineers to Play in the Big 12 Championship - The Voice Of Motown",
-        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQay1pNnN4RTVMN0YyVk1BZGdILUFfTkh4TVBzMkRtV3NuUWxLMThNYWRHUWVTNzdxZUlkZGJ1UW1PTUFYbnB3NE5rVWVkQmFHOFZmWm1Nc1JPR09hMG51SThOR1EyeFNLNnpjVFJqSlFjRlE5VGx0YXQ5X0lGWVp2c2JHRFFyT3JMZ2ZMZ2VWWUJFZzZTRW5pcXBWVno1OUJOQzZtcFpET185MVJxUEE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Times West Virginian",
-        "outlet": "Times West Virginian",
-        "report": "COLUMN: WVU's Boulware determined to get Mountaineers run game on track in 2026 - Times West Virginian",
-        "link": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNLWZ4Z2tiNnpOVjd2M3QwSUoyVndUQVlZOEQ2dFp6RVpfVXBUaHpaVEhhWnRiTy1BdlhucmJXZlpwUWV5Z0hvbjQzQjFrMVB3cy1LSkFhRVRwaWJXUFlGNDZfUENEUERfWnhnMnFRREx6aEwzU0lSM3VwNzViT1pNLS1nVEJqRm8ybmtEamlmam9mc0ZUNHNPU2owbDZKT3QwSEZqdjF4aWNXWGh6N0hKb29LTENVTDVxQVR3S09lSlZDb2wtazZLRE9Lc3lfaVhfRlNhem5BZUV5R0Z5Z25GaGR5cFpGbENvTXZsaVdaVDJwU1ZfTWFNN3loMHoyZDFiTTdrTjJR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Charleston Gazette-Mail",
-        "outlet": "Charleston Gazette-Mail",
-        "report": "WVU football: Amare 'Bubba' Grayson hoping to make immediate impact on OL - Charleston Gazette-Mail",
-        "link": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxPOEs0UzJuTHZickhZYmlMQ2ZBbnNzUkxHOExicnRIdTMzNEhmeFNMZkFIRVFJbHFib3Uya1JHLTZyUmFJNU9pY0FKcmNZMlhZU3B1bFY5dmV4WWhKOXF3bVJCVml1aF9iazNPZk5TbzZud3V5LW9seVRsbDJqWTc2WWx6cmRDQWlmajBFX0JBVU9lOW8xLWIzQjZ1MGNydnRLMC1LZnZaWlJTcTM5a0tMSkxzOFQ4aG40Q2ctUUpWSFpPaVNCNURCOGlWUHkwZXVrYTFxYjRBc2ZsUzNYS0FnNWd6WWdjRFVVNU9KRlVPY2dsa1U?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
         "isCritical": false
       }
     ],
@@ -2833,50 +2786,50 @@
         "isCritical": false
       }
     ],
-    "cincinnati": [
+    "west_virginia": [
       {
-        "reporter": "Underdog Dynasty",
-        "outlet": "Underdog Dynasty",
-        "report": "2026 Cincinnati Bearcats Football Season Preview - Underdog Dynasty",
-        "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPZFRTYUNoX2YzSmdQM0lGVHd3eUFGc3p6MFByMHI5TUgtMERSTXpDQ0dkVkpOaEhac0ROZVpnWWgyYkpCTHd4Qm9WVnd6dnRmaHhOWW9ET0NvaEYyTzFJWkVzakpKc21HNHdTR1ByRm40d3NQaTQyTUlfMnVON2JRQVZpOGtHWkhINXFvejBYMFhrQ2xMX2ZKSw?oc=5",
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Woah! College GameDay Analyst Picks WVU to Pull Off Major Surprise in 2026 - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOaGYwQXNyb00xbHI1UW5PNFp5ZXlIeWdSZm9kd3NYaFc2Q21WdWNiOFZMa2NjWW9keTFvajJKdnpfMWJDaUtEM0t4RklYcWlwb0dhajk0RmktWk5xMWpTM3hpOURWeFBtZHduMERLbG1JaXk2SHk0VkVpd2hpeUFlVE12N1B5TktwT3BkUi0yNkZscFhvLWJlaVZUaTVRRlBjTUtBRUVlOVZjMXdFbXpJSnJ2c3F5M2JLZTRfVmdwaw?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
       },
       {
-        "reporter": "Cincy on the Prowl",
-        "outlet": "Cincy on the Prowl",
-        "report": "Cincinnati Bearcats Schedule Analysis: Week Eight, Utah - Cincy on the Prowl",
-        "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOcUFRTHkxU3RsaXp0WWdvTHVZdFp4MV9mX1NMN1ZfSERyRGVkbWJsSG92V1lxbEdLZmQwMlA2M09OYW5LaU9QdE5FdHRkX3B2Nmp4WFdIdjRmMmprSzRiMVBBN2V3VkM5NUlhZk9sUG9ZLUNiUGlXNzdkWVN6SEg0aHdUcmJ5d05ENTBmSDlaU1loOEx3MHRQNVlB?oc=5",
+        "reporter": "On3",
+        "outlet": "On3",
+        "report": "Rich Rodriguez: ‘Hell, we've got to get it done now’ - On3",
+        "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQQ3BuM2lreGVRMFpBdS1FVVB0bUZZYUprRXp6Y3dlWHF1elJJVnRlUElrbnpKMTM0T2RrSkxYMWhhYi1WWXctdDFCTm1keWFaVlZfdXpVQ0RzWDlZazNTdHBtLTVnVG8yUTNNX2gtMUUwbm1CazlqQnFCTnFleUMwSFlDbzFQQ1R4bEo5Q1dFek1HZmc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "The Voice Of Motown",
+        "outlet": "The Voice Of Motown",
+        "report": "WVU Football: ESPN Analyst Predicts Mountaineers to Play in the Big 12 Championship - The Voice Of Motown",
+        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQay1pNnN4RTVMN0YyVk1BZGdILUFfTkh4TVBzMkRtV3NuUWxLMThNYWRHUWVTNzdxZUlkZGJ1UW1PTUFYbnB3NE5rVWVkQmFHOFZmWm1Nc1JPR09hMG51SThOR1EyeFNLNnpjVFJqSlFjRlE5VGx0YXQ5X0lGWVp2c2JHRFFyT3JMZ2ZMZ2VWWUJFZzZTRW5pcXBWVno1OUJOQzZtcFpET185MVJxUEE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Times West Virginian",
+        "outlet": "Times West Virginian",
+        "report": "COLUMN: WVU's Boulware determined to get Mountaineers run game on track in 2026 - Times West Virginian",
+        "link": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNLWZ4Z2tiNnpOVjd2M3QwSUoyVndUQVlZOEQ2dFp6RVpfVXBUaHpaVEhhWnRiTy1BdlhucmJXZlpwUWV5Z0hvbjQzQjFrMVB3cy1LSkFhRVRwaWJXUFlGNDZfUENEUERfWnhnMnFRREx6aEwzU0lSM3VwNzViT1pNLS1nVEJqRm8ybmtEamlmam9mc0ZUNHNPU2owbDZKT3QwSEZqdjF4aWNXWGh6N0hKb29LTENVTDVxQVR3S09lSlZDb2wtazZLRE9Lc3lfaVhfRlNhem5BZUV5R0Z5Z25GaGR5cFpGbENvTXZsaVdaVDJwU1ZfTWFNN3loMHoyZDFiTTdrTjJR?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false
       },
       {
-        "reporter": "Cincinnati Enquirer",
-        "outlet": "Cincinnati Enquirer",
-        "report": "Tracking Cincinnati Bearcats progress after scrimmage Aug. 21 - Cincinnati Enquirer",
-        "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPbkdsSXJEQ0pVV3IzZnMtUHkteUZsWUpXdkxLTXVsOUlmWjd1cjVta2ctRkcxWW1Qb0h5Q001Z1d4R2VOZ2JUaEQwMzNkMTFSeFAxR2Z0UGUyT3pIZGdVTlVEMEJhTkQwSmxLTEZTRWtQUXpndENiMXcyd2NJUy1FOU54NWlVR2dDQUhqVkN6LTk4WnVDWEZfckRPS3pqbWIzMzFYbkIySlF5a05FczlFM2xBd29FLV9ocFNndnlLUnRMT184U21ERjM2WFNpM0pNSXdYMk1kaU9oOVU?oc=5",
+        "reporter": "Charleston Gazette-Mail",
+        "outlet": "Charleston Gazette-Mail",
+        "report": "WVU football: Amare 'Bubba' Grayson hoping to make immediate impact on OL - Charleston Gazette-Mail",
+        "link": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxPOEs0UzJuTHZickhZYmlMQ2ZBbnNzUkxHOExicnRIdTMzNEhmeFNMZkFIRVFJbHFib3Uya1JHLTZyUmFJNU9pY0FKcmNZMlhZU3B1bFY5dmV4WWhKOXF3bVJCVml1aF9iazNPZk5TbzZud3V5LW9seVRsbDJqWTc2WWx6cmRDQWlmajBFX0JBVU9lOW8xLWIzQjZ1MGNydnRLMC1LZnZaWlJTcTM5a0tMSkxzOFQ4aG40Q2ctUUpWSFpPaVNCNURCOGlWUHkwZXVrYTFxYjRBc2ZsUzNYS0FnNWd6WWdjRFVVNU9KRlVPY2dsa1U?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "UC Bearcats football depth chart projections, takeaways on Aug. 17 - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOSjFqV1EtNGRuSTZFZkJOcXBNNzg0aVh6QTZzSUJLVmp1SUVZcDRNYTEyNVRVTVE1NXpUT2lKRHprUkZ3Z0FxRnJuVnlmM3pCanFtbWZnMVY3RW54dkF2SWlDTXl6YktEUzcyY3JPMV91SXB5NG1oN1p0YnQxLUktaDFuY0hDWnhh?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 5,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Bearcats Leaders Discuss End of Fall Camp, JC French's Progress Following Final Scrimmage - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOMTZlaXJqQmxQSkhaMHZPeHlBNU9pMzJmek9FVmt6eUdfSjZMUGZTR3Z4MUN3WVVZbmpfTnpKTGFrQUw1azk3a1RCT282VU5ndnYxZDRzYlRZeXprSW5zOVJnSGlWdTRtamUwZE5XZlFFcC1oTkNiaHpRd045bGtzVklmNnBsZTAtRm1MOU4yYWxHYTVwS0hMcXJ4YnQxdEtlVnhYNWtQTUdZWS1xQURNME40N29iNGFSb0lDMWNOT2FkeVFJNXdlRnZSeFdCWV9WbU9nZnRHZ0ZrQnRacVVNbHJB?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 0,
         "isCritical": false
       }
     ],
@@ -2884,10 +2837,10 @@
       {
         "reporter": "Daytona Beach News-Journal",
         "outlet": "Daytona Beach News-Journal",
-        "report": "UCF unveils $90 million stadium upgrade before football season: 'We're ready to go' - Daytona Beach News-Journal",
-        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUTh5eEs1MFgzdGg2WnBuUjZGMTRCUlhTckZBdHg3LWRSUVppX09PdHdFcENyem13QmFjaDhVR3oyc1BYWWdNYm0xX25RNGEzQVcxZ3VWalB3Y0Y2ZFVmbkRUeHlTeTR1TWVYWnViOFM4bURteWN3UllFcFk0X0xfTDRGYzE5cjBSSVJFZmszMmp4alpqc3Z1QUliYS13cnMwR29yLXozWldPdmF3SXNjbnJwNTBpckZ3M01lN0VrV3lMRE9iaFZmZg?oc=5",
+        "report": "This UCF football offensive switch stands out as biggest camp surprise - Daytona Beach News-Journal",
+        "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOY3ZxUGhXbWRNT1hwdFVGYnJOazNId0MtVXdoV2VGRzQ3cExENTI3dnZVSUh6elNWLWY3T29mNUw4YTVqb24yb2J6WVZuSUJRLWhuSmI0YmdzTDU3N0lXZktRajZsaUV6ckU5MC0xUF9KTG1JaE5ZeTkwV0l0RGk3aG1pcVVxV2tMamFKVGpNZmNpOWhPYlhuaVh4bGNqUFl6Z3YwU0RVd3JsSW83NXNEbnV6SFhTSzROM2ZzdUtRUkhucVo4aHJfYm1R?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 2,
         "isCritical": false
       },
       {
@@ -2909,12 +2862,12 @@
         "isCritical": false
       },
       {
-        "reporter": "The Palm Beach Post",
-        "outlet": "The Palm Beach Post",
-        "report": "This UCF football offensive switch stands out as biggest camp surprise - The Palm Beach Post",
-        "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNa2VKVG56aDZXWHBZYlJqM1R1WXFVRHJYd2Y5NEZtcEZSLVB6bGtWUE5kdFlJNDAzRXlIanlvcG1XZGlDeVlaODd2T1k5WmlBc3o1S18zaXNoS3RKZVFxS3cyYWR3ekd1M1FGOW44TjhaamN5UGY4NG9iT3ZJaHdoajY4Z0d0bVk5YkZXQnd3SjZ1bDkzanBjMnJEQmxhcmM4SFA4MDc2NU1iSzZLNHFESERQemtMVlhTMHNTUE1yZG1DVHc?oc=5",
+        "reporter": "The News-Press",
+        "outlet": "The News-Press",
+        "report": "UCF unveils $90 million stadium upgrade before football season: 'We're ready to go' - The News-Press",
+        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOWTJMQkVnVjNSM3k2WmtCUVJtWm1oU3FHd0hMUXhjN29JU0ktNW5ySnV2dllmcmo0RDNjTlRJcF9GczJjcXJsZE1OYnpaSE1MUS1reDdscmY2QkFjX2w0MGlDdENNcUNBS0Z2T1E4dXg5S3lrcDJ6WGpTemJ2dDJXRTlnd1Vld2tYZndOdjRTTzNaeGlNZkRkdDkzc19xMFhxTUJPVGdNbzlsZTBrMDBEZ0RycTVyNGhhc3RRLTFR?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 2,
+        "daysAgo": 1,
         "isCritical": false
       },
       {
@@ -2922,53 +2875,6 @@
         "outlet": "WKMG",
         "report": "UCF Football nearing desired starting position for first game of 2026 season - WKMG",
         "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNaV80WTloRGFSZ2hCaFJQZVR2UXBXYmc3MURMeHJZeXlWOEFMTEZLTTEzRUw1Y3dPTHQzQ0poLS04cEprbWxiNUlyTS10V0J1Tk5tNm9oQk1VOHJ6ZDl4TFlRUHU1Q3l1ejlMWjdIcmNPdHNrVmNoSUlTOXlibXFPdU5iVjFhcUROeW50R1hIVkJBZk5oRXdPdGllTENHTzhHd1ZKeHNYdUxUSlB3dnZTTk9EaEcwMlBkV216UDkwYnVKQQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 4,
-        "isCritical": false
-      }
-    ],
-    "houston": [
-      {
-        "reporter": "Underdog Dynasty",
-        "outlet": "Underdog Dynasty",
-        "report": "2026 Houston Cougars Football Season Preview - Underdog Dynasty",
-        "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPc3piU2NEYldtdkMweExvQXNMQ2RJbzZUZTk4Mjh1aEI2MFl4MVBpamVnSEg4OW9tUUxkUzRZcVhoR1VVSXluYUhOUGU1N0FlWmpvLWR0ZHJxMVNWTUxpSm84dENvMUlIR0xzQ1RwQTY4YlgxNVZTUWtlNmEtejh1NW1kOFBLcU9LU0M0YTUzYVJfNDg?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Three Things to Watch in Houston's Final Week of Fall Camp - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNbXNuUzQ5VE9DRndNd2ZtckJhSFBscUVfRWRDenl5bVBvM3pINVZ1TUxGQXZmRzhfLVBXSXp5N3pIOWkyT0h2cVZnMFFpX0RZQ3lyWURaWDBXT1BiMmNIX1liSi1PYmdqMDNqMG5NQTBoLXRzRXBON2J2UkNQTll6Tk5EQXRsR1hRWlE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "BCSNN",
-        "outlet": "BCSNN",
-        "report": "Houston Cougars Cornerback Will James Gets A Nod On The Bednarik Award Watch List - BCSNN",
-        "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQX3RQMm5pUWZoMWFCYTVRbnFQQU1MaHJlTktIYzJDaEIzaE42d0haMTNtSEpOazRwYXhiRURiR2VYaG5SRUQtV1dMUGpCR0haVlFOajZzb2ZEM3BsYnNoOHpRek4wYXMzY0hPNTdlMVExV2t3TGUyOWxvOC05RXlTbDVTWmoxUXI4UFlrYTcyLTU3d01jWHg0V3BwMmR6cFY5ekhNYXVtZ0pOTGJNMHhPWEtJTXdPU3hP?oc=5",
-        "sentiment": "positive",
-        "daysAgo": 0,
-        "isCritical": false
-      },
-      {
-        "reporter": "Sports Illustrated",
-        "outlet": "Sports Illustrated",
-        "report": "Houston Cougars Players Who Need a Strong Finish to Fall Camp - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNaHVhV21tUmN5RlRmS3YwcDBCa2pPNDN0NmxWV1BNcGdaZXZva1o5azdBdm1XQXZfWURoSExJTEVHZmxQYVUzYnh0Uk5aaVQwa3dScUZfcEI5aFRDT3hMUlc1WnJZbEY2VmcxQ1hfX0lkTXRzZlJhdXlRTTBJZ1d2R0hSVHdESXNEbDc2c08welFwc3Ewd0hMVmxncUFCbm9HSmNKNGRn?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false
-      },
-      {
-        "reporter": "Houston Chronicle",
-        "outlet": "Houston Chronicle",
-        "report": "How NCAA's '5-for-5' rule change is impacting UH football's freshmen - Houston Chronicle",
-        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOTWN0bHJkam9MSE5JejFiVGFQVVRJTm9LbDBuMlotOG1LdWtsS1pHZVU2c3lpZkx6WVpwZ3hPd1A3Y1FTRzA3VkRiN09NRGtRX1JKUzVRVWZoeC1aSTc4QTFlOTczcC1MTGZrcUFnMlJSbjVZWGdQS1NWY0dzQU9uYmoxaGlyV09rb1hnemUwTmozaUdRdThjTVkwMjhmVTdjZDEwNkFIeVZ1X2lLbXhN?oc=5",
         "sentiment": "neutral",
         "daysAgo": 4,
         "isCritical": false
@@ -3021,50 +2927,144 @@
         "isCritical": false
       }
     ],
-    "coastal_carolina": [
+    "cincinnati": [
       {
-        "reporter": "Coastal Carolina University Athletics",
-        "outlet": "Coastal Carolina University Athletics",
-        "report": "Coastal Carolina Football Home Opener to Feature Three-Part Drone Show, White Out and Free Concessions - Coastal Carolina University Athletics",
-        "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNTWk3Xzh0VEtSMW9iZnhCaXBCSEVRYTZ6Z1pxNFdfdEZhWlZ4dlhZM1BKTU4zSmo2Nm1oRTg0VE95MXRrcGFvRnkxUGJlSFZvU1ZFUS11R01HMnFaRGdfRnBXN1RpYjBnem5Cci1TeVBfRGpNWHZZaHExY0NPMEV1S3lVOFBJTXJSVlBOeVB6am5hU2RCcllDUzdwVVRFS0poTk9rbXZZR2pyZHg4TWI4S2FmNmxwLTB4Q0dneldVMkxHZDJUd2NPTExrX09yeFlEQmlPV0Z6dw?oc=5",
+        "reporter": "Underdog Dynasty",
+        "outlet": "Underdog Dynasty",
+        "report": "2026 Cincinnati Bearcats Football Season Preview - Underdog Dynasty",
+        "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPZFRTYUNoX2YzSmdQM0lGVHd3eUFGc3p6MFByMHI5TUgtMERSTXpDQ0dkVkpOaEhac0ROZVpnWWgyYkpCTHd4Qm9WVnd6dnRmaHhOWW9ET0NvaEYyTzFJWkVzakpKc21HNHdTR1ByRm40d3NQaTQyTUlfMnVON2JRQVZpOGtHWkhINXFvejBYMFhrQ2xMX2ZKSw?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false
       },
       {
-        "reporter": "New York Post",
-        "outlet": "New York Post",
-        "report": "Sun Belt preview, pick, predictions: Ryan Beard’s Coastal Carolina can upset the odds - New York Post",
-        "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOOVYyZHB2a3doQXNEaF85QzQzcnpYWV9SckhNSUEzZVg4OGJUU2pXMFlqYXBuLXg2TFpLLUZDT2p2R01pOFF3NGxPNXJTQ25Lcm5GV3I2dVM2VVNpdjQ0NkhaTjRVSEZKVDJsWnM3MElsU0JIVlhJZWlIR000dmFZcWswNGlyQmNSRU1pU283YWU3WGtiTGpTX09obUNyOGNyakJNYWEwTWxzcnZNZF9vVDNaam5uc0VzMEhXYQ?oc=5",
+        "reporter": "Cincy on the Prowl",
+        "outlet": "Cincy on the Prowl",
+        "report": "Cincinnati Bearcats Schedule Analysis: Week Eight, Utah - Cincy on the Prowl",
+        "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOcUFRTHkxU3RsaXp0WWdvTHVZdFp4MV9mX1NMN1ZfSERyRGVkbWJsSG92V1lxbEdLZmQwMlA2M09OYW5LaU9QdE5FdHRkX3B2Nmp4WFdIdjRmMmprSzRiMVBBN2V3VkM5NUlhZk9sUG9ZLUNiUGlXNzdkWVN6SEg0aHdUcmJ5d05ENTBmSDlaU1loOEx3MHRQNVlB?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 2,
+        "daysAgo": 0,
         "isCritical": false
       },
       {
-        "reporter": "Fordham Now",
-        "outlet": "Fordham Now",
-        "report": "2026 Fordham Football at Coastal Carolina Tailgate - Fordham Now",
-        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOT0pIX292MWVhS2F0UU9mc3kwT19Ba1RHS1ZYRlVUTDZ5UDE0dktpVUc5NEFLbnd2T19NdzVXOVpmc0NpVk1pSFpINzctTVVoSkpqcGh3LUNKeFlIeXBaNk9obVZna0dEb08xaG5VWjRCM1QtQVlvbnJ2bklySkYwSGplZUcxZnM3?oc=5",
+        "reporter": "Cincinnati Enquirer",
+        "outlet": "Cincinnati Enquirer",
+        "report": "Tracking Cincinnati Bearcats progress after scrimmage Aug. 21 - Cincinnati Enquirer",
+        "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPbkdsSXJEQ0pVV3IzZnMtUHkteUZsWUpXdkxLTXVsOUlmWjd1cjVta2ctRkcxWW1Qb0h5Q001Z1d4R2VOZ2JUaEQwMzNkMTFSeFAxR2Z0UGUyT3pIZGdVTlVEMEJhTkQwSmxLTEZTRWtQUXpndENiMXcyd2NJUy1FOU54NWlVR2dDQUhqVkN6LTk4WnVDWEZfckRPS3pqbWIzMzFYbkIySlF5a05FczlFM2xBd29FLV9ocFNndnlLUnRMT184U21ERjM2WFNpM0pNSXdYMk1kaU9oOVU?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 23,
+        "daysAgo": 1,
         "isCritical": false
       },
       {
-        "reporter": "Coastal Carolina University Athletics",
-        "outlet": "Coastal Carolina University Athletics",
-        "report": "Free Concessions to Return to Coastal Carolina for 2026 Football Season - Coastal Carolina University Athletics",
-        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPOVNaZXE4WC1FWE94cHk5dGJrUGtPQlNLdWgwVzRkQVFPWTI2bEY1LUtoRTNFZTVnRWZ0YXZlaG1mVlpHa2pVa2Fxby1QR29iYjVuZTdtUHhtT3dUTS0xS1ZnMW84akV5dWxmYUVZaG4zUGFXRWs5SkRoNy16NmNtQkg0ZElpV2NQREJMS0EydFFMR2prZ3kzTTRhbTB6aWhwS28yNEw4bGNwYmtRbGxR?oc=5",
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "UC Bearcats football depth chart projections, takeaways on Aug. 17 - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOSjFqV1EtNGRuSTZFZkJOcXBNNzg0aVh6QTZzSUJLVmp1SUVZcDRNYTEyNVRVTVE1NXpUT2lKRHprUkZ3Z0FxRnJuVnlmM3pCanFtbWZnMVY3RW54dkF2SWlDTXl6YktEUzcyY3JPMV91SXB5NG1oN1p0YnQxLUktaDFuY0hDWnhh?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 4,
+        "daysAgo": 5,
         "isCritical": false
       },
       {
         "reporter": "Sports Illustrated",
         "outlet": "Sports Illustrated",
-        "report": "South Carolina Football Roster Breakdown: Defensive Backs - Sports Illustrated",
-        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQcHhHM2NHTjNlSXdjamxTb25GQnIyUWdnT0QzdVozOUY0dXY1cjNER091UlcyaXpJemcyZDRuVGVUdWpJZW5yeFBxVnZCdnhMeElPd2pOVWJ1NWVYLUtCZndlSmJEM0VVd00weFJwdkxJVjBrWUNTQmpQeUVUQ3k5QlNSaW1taDR4M2RYU2UydTB3cWJqTTZUdHd2NHU3MlZCZnpCU0xLaWtJZmg4X0lj?oc=5",
+        "report": "Bearcats Leaders Discuss End of Fall Camp, JC French's Progress Following Final Scrimmage - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOMTZlaXJqQmxQSkhaMHZPeHlBNU9pMzJmek9FVmt6eUdfSjZMUGZTR3Z4MUN3WVVZbmpfTnpKTGFrQUw1azk3a1RCT282VU5ndnYxZDRzYlRZeXprSW5zOVJnSGlWdTRtamUwZE5XZlFFcC1oTkNiaHpRd045bGtzVklmNnBsZTAtRm1MOU4yYWxHYTVwS0hMcXJ4YnQxdEtlVnhYNWtQTUdZWS1xQURNME40N29iNGFSb0lDMWNOT2FkeVFJNXdlRnZSeFdCWV9WbU9nZnRHZ0ZrQnRacVVNbHJB?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      }
+    ],
+    "houston": [
+      {
+        "reporter": "Underdog Dynasty",
+        "outlet": "Underdog Dynasty",
+        "report": "2026 Houston Cougars Football Season Preview - Underdog Dynasty",
+        "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPc3piU2NEYldtdkMweExvQXNMQ2RJbzZUZTk4Mjh1aEI2MFl4MVBpamVnSEg4OW9tUUxkUzRZcVhoR1VVSXluYUhOUGU1N0FlWmpvLWR0ZHJxMVNWTUxpSm84dENvMUlIR0xzQ1RwQTY4YlgxNVZTUWtlNmEtejh1NW1kOFBLcU9LU0M0YTUzYVJfNDg?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Three Things to Watch in Houston's Final Week of Fall Camp - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNbXNuUzQ5VE9DRndNd2ZtckJhSFBscUVfRWRDenl5bVBvM3pINVZ1TUxGQXZmRzhfLVBXSXp5N3pIOWkyT0h2cVZnMFFpX0RZQ3lyWURaWDBXT1BiMmNIX1liSi1PYmdqMDNqMG5NQTBoLXRzRXBON2J2UkNQTll6Tk5EQXRsR1hRWlE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "BCSNN",
+        "outlet": "BCSNN",
+        "report": "Houston Cougars Cornerback Will James Gets A Nod On The Bednarik Award Watch List - BCSNN",
+        "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQX3RQMm5pUWZoMWFCYTVRbnFQQU1MaHJlTktIYzJDaEIzaE42d0haMTNtSEpOazRwYXhiRURiR2VYaG5SRUQtV1dMUGpCR0haVlFOajZzb2ZEM3BsYnNoOHpRek4wYXMzY0hPNTdlMVExV2t3TGUyOWxvOC05RXlTbDVTWmoxUXI4UFlrYTcyLTU3d01jWHg0V3BwMmR6cFY5ekhNYXVtZ0pOTGJNMHhPWEtJTXdPU3hP?oc=5",
+        "sentiment": "positive",
+        "daysAgo": 0,
+        "isCritical": false
+      },
+      {
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "Houston Cougars Players Who Need a Strong Finish to Fall Camp - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNaHVhV21tUmN5RlRmS3YwcDBCa2pPNDN0NmxWV1BNcGdaZXZva1o5azdBdm1XQXZfWURoSExJTEVHZmxQYVUzYnh0Uk5aaVQwa3dScUZfcEI5aFRDT3hMUlc1WnJZbEY2VmcxQ1hfX0lkTXRzZlJhdXlRTTBJZ1d2R0hSVHdESXNEbDc2c08welFwc3Ewd0hMVmxncUFCbm9HSmNKNGRn?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false
+      },
+      {
+        "reporter": "Houston Chronicle",
+        "outlet": "Houston Chronicle",
+        "report": "How NCAA's '5-for-5' rule change is impacting UH football's freshmen - Houston Chronicle",
+        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOTWN0bHJkam9MSE5JejFiVGFQVVRJTm9LbDBuMlotOG1LdWtsS1pHZVU2c3lpZkx6WVpwZ3hPd1A3Y1FTRzA3VkRiN09NRGtRX1JKUzVRVWZoeC1aSTc4QTFlOTczcC1MTGZrcUFnMlJSbjVZWGdQS1NWY0dzQU9uYmoxaGlyV09rb1hnemUwTmozaUdRdThjTVkwMjhmVTdjZDEwNkFIeVZ1X2lLbXhN?oc=5",
         "sentiment": "neutral",
         "daysAgo": 4,
+        "isCritical": false
+      }
+    ],
+    "app_state": [
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Appalachian State Mountaineers @ Georgia Southern Eagles: Live game updates, stats, play-by-play - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQSGk4dlp1TWdRbHBXVkZ3WmdWZjFpdXVjWjZoOTVILUhKU0pRRkl6ZFNWOURCWDRsMUNCQW9ib0N6ZVc5aFdpejlrbzVDbV9LQjctczhrcDFpb3p0cVFqS0N1eTNxVU9qVzVHVHJBYU14YU40Vl9JSW1OQnFNSl9XODJJRG9lcW5HbmdkRHg2VzU5T3Z0TENCSmppcEQwZTFk?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false
+      },
+      {
+        "reporter": "NC Football News",
+        "outlet": "NC Football News",
+        "report": "Maine at Appalachian State Football: Time, TV &amp; Game Info (2026) - NC Football News",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBnSGxKZFdWenM2Q3ItZGotZzkwTk9oak5kb2paaVlYNHBFSE5WU1BkN1p0ZVBLd3E2eFBzQ0d5VDlRVHRnYXBPZDQ5SjBvbHM5X1VmZmVvbU0xNzA0cUswSHpyVFVJa1AwTjVudXNTVTdaaFZxekhkZTFPZGp2d0E?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false
+      },
+      {
+        "reporter": "Watauga Democrat",
+        "outlet": "Watauga Democrat",
+        "report": "App State Sports In Brief: Aug. 19 - Watauga Democrat",
+        "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPS1hpTXlwU0ozVl9uUm1hQWI1b0lGdV9YVF81amxReW0ycGdNSERDUDE1Y0xmMVhwQWNWTUhBVTdmQkNXTFVDemU3bm1xOGowNFB6bFZjdHVzZDlaZHhvbTJZbXlJcFpQemZRVF95cjNSV3pxWFpDQlR1T0RYNTlDaDhSOW5LODc2dFlrTnZhV1JjNkNod21CSEFjT25TNllzNWx4OGphZWYzYlNQRDZ4dmpjRDFqOVJwaktkSFk2bXh2Q2xNTHNwNG5VRHQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false
+      },
+      {
+        "reporter": "College Football News",
+        "outlet": "College Football News",
+        "report": "App State Mountaineers College Football Preview 2026 - College Football News",
+        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZWNhSzY0SFZqeWxranZpUkdfbHduT0NkbEQtUmlVemlzMU1nR1NBOFczaGVOV2o1X2duQkptYVdNR3NuX2JYTWZ6Uk0ycFJHLXVkR25Wd18tYkNXOWxEeW1OQlZtVzNBcU5jSTlWOG5maHhDMFkyb1g4d0pLbzB4TW1aMFZaTVJXN3N6UWI5U0dfOVFlMEhiZnlkYTlXSnpRb0JB?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 103,
+        "isCritical": false
+      },
+      {
+        "reporter": "Yahoo Sports",
+        "outlet": "Yahoo Sports",
+        "report": "Louisiana Tech Lady Techsters @ Appalachian State Mountaineers: Live game updates, stats, play-by-play - Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQVTg2N05HdVZJYUxXSnltOFRWcFc3NHV5Yy1uVmJSY2dEX2RsazA5M3NfcGJRSUpPbFh6c3BRX2JRUDA0VGpkZUtyZkdQVmZMdU0tY0U1N01DUUhQdTIwNFp6MWdnN3VkWTlPb1NNckhLQXZuOXFEaHJpQ2t3UmQ4X3FRV3FmVlotek1nTFlwcGFxRm9NMDd5Z2Zfc0pUQ0JlR3NGNG5LXzg?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
         "isCritical": false
       }
     ],
@@ -3115,50 +3115,50 @@
         "isCritical": false
       }
     ],
-    "app_state": [
+    "coastal_carolina": [
       {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Appalachian State Mountaineers @ Georgia Southern Eagles: Live game updates, stats, play-by-play - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQSGk4dlp1TWdRbHBXVkZ3WmdWZjFpdXVjWjZoOTVILUhKU0pRRkl6ZFNWOURCWDRsMUNCQW9ib0N6ZVc5aFdpejlrbzVDbV9LQjctczhrcDFpb3p0cVFqS0N1eTNxVU9qVzVHVHJBYU14YU40Vl9JSW1OQnFNSl9XODJJRG9lcW5HbmdkRHg2VzU5T3Z0TENCSmppcEQwZTFk?oc=5",
+        "reporter": "Coastal Carolina University Athletics",
+        "outlet": "Coastal Carolina University Athletics",
+        "report": "Coastal Carolina Football Home Opener to Feature Three-Part Drone Show, White Out and Free Concessions - Coastal Carolina University Athletics",
+        "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNTWk3Xzh0VEtSMW9iZnhCaXBCSEVRYTZ6Z1pxNFdfdEZhWlZ4dlhZM1BKTU4zSmo2Nm1oRTg0VE95MXRrcGFvRnkxUGJlSFZvU1ZFUS11R01HMnFaRGdfRnBXN1RpYjBnem5Cci1TeVBfRGpNWHZZaHExY0NPMEV1S3lVOFBJTXJSVlBOeVB6am5hU2RCcllDUzdwVVRFS0poTk9rbXZZR2pyZHg4TWI4S2FmNmxwLTB4Q0dneldVMkxHZDJUd2NPTExrX09yeFlEQmlPV0Z6dw?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 3,
+        "daysAgo": 1,
         "isCritical": false
       },
       {
-        "reporter": "NC Football News",
-        "outlet": "NC Football News",
-        "report": "Maine at Appalachian State Football: Time, TV &amp; Game Info (2026) - NC Football News",
-        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBnSGxKZFdWenM2Q3ItZGotZzkwTk9oak5kb2paaVlYNHBFSE5WU1BkN1p0ZVBLd3E2eFBzQ0d5VDlRVHRnYXBPZDQ5SjBvbHM5X1VmZmVvbU0xNzA0cUswSHpyVFVJa1AwTjVudXNTVTdaaFZxekhkZTFPZGp2d0E?oc=5",
+        "reporter": "New York Post",
+        "outlet": "New York Post",
+        "report": "Sun Belt preview, pick, predictions: Ryan Beard’s Coastal Carolina can upset the odds - New York Post",
+        "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOOVYyZHB2a3doQXNEaF85QzQzcnpYWV9SckhNSUEzZVg4OGJUU2pXMFlqYXBuLXg2TFpLLUZDT2p2R01pOFF3NGxPNXJTQ25Lcm5GV3I2dVM2VVNpdjQ0NkhaTjRVSEZKVDJsWnM3MElsU0JIVlhJZWlIR000dmFZcWswNGlyQmNSRU1pU283YWU3WGtiTGpTX09obUNyOGNyakJNYWEwTWxzcnZNZF9vVDNaam5uc0VzMEhXYQ?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 3,
+        "daysAgo": 2,
         "isCritical": false
       },
       {
-        "reporter": "Watauga Democrat",
-        "outlet": "Watauga Democrat",
-        "report": "App State Sports In Brief: Aug. 19 - Watauga Democrat",
-        "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPS1hpTXlwU0ozVl9uUm1hQWI1b0lGdV9YVF81amxReW0ycGdNSERDUDE1Y0xmMVhwQWNWTUhBVTdmQkNXTFVDemU3bm1xOGowNFB6bFZjdHVzZDlaZHhvbTJZbXlJcFpQemZRVF95cjNSV3pxWFpDQlR1T0RYNTlDaDhSOW5LODc2dFlrTnZhV1JjNkNod21CSEFjT25TNllzNWx4OGphZWYzYlNQRDZ4dmpjRDFqOVJwaktkSFk2bXh2Q2xNTHNwNG5VRHQ?oc=5",
+        "reporter": "Coastal Carolina University Athletics",
+        "outlet": "Coastal Carolina University Athletics",
+        "report": "Free Concessions to Return to Coastal Carolina for 2026 Football Season - Coastal Carolina University Athletics",
+        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPOVNaZXE4WC1FWE94cHk5dGJrUGtPQlNLdWgwVzRkQVFPWTI2bEY1LUtoRTNFZTVnRWZ0YXZlaG1mVlpHa2pVa2Fxby1QR29iYjVuZTdtUHhtT3dUTS0xS1ZnMW84akV5dWxmYUVZaG4zUGFXRWs5SkRoNy16NmNtQkg0ZElpV2NQREJMS0EydFFMR2prZ3kzTTRhbTB6aWhwS28yNEw4bGNwYmtRbGxR?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 3,
+        "daysAgo": 4,
         "isCritical": false
       },
       {
-        "reporter": "College Football News",
-        "outlet": "College Football News",
-        "report": "App State Mountaineers College Football Preview 2026 - College Football News",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZWNhSzY0SFZqeWxranZpUkdfbHduT0NkbEQtUmlVemlzMU1nR1NBOFczaGVOV2o1X2duQkptYVdNR3NuX2JYTWZ6Uk0ycFJHLXVkR25Wd18tYkNXOWxEeW1OQlZtVzNBcU5jSTlWOG5maHhDMFkyb1g4d0pLbzB4TW1aMFZaTVJXN3N6UWI5U0dfOVFlMEhiZnlkYTlXSnpRb0JB?oc=5",
+        "reporter": "Sports Illustrated",
+        "outlet": "Sports Illustrated",
+        "report": "South Carolina Football Roster Breakdown: Defensive Backs - Sports Illustrated",
+        "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQcHhHM2NHTjNlSXdjamxTb25GQnIyUWdnT0QzdVozOUY0dXY1cjNER091UlcyaXpJemcyZDRuVGVUdWpJZW5yeFBxVnZCdnhMeElPd2pOVWJ1NWVYLUtCZndlSmJEM0VVd00weFJwdkxJVjBrWUNTQmpQeUVUQ3k5QlNSaW1taDR4M2RYU2UydTB3cWJqTTZUdHd2NHU3MlZCZnpCU0xLaWtJZmg4X0lj?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 103,
+        "daysAgo": 4,
         "isCritical": false
       },
       {
-        "reporter": "Yahoo Sports",
-        "outlet": "Yahoo Sports",
-        "report": "Louisiana Tech Lady Techsters @ Appalachian State Mountaineers: Live game updates, stats, play-by-play - Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQVTg2N05HdVZJYUxXSnltOFRWcFc3NHV5Yy1uVmJSY2dEX2RsazA5M3NfcGJRSUpPbFh6c3BRX2JRUDA0VGpkZUtyZkdQVmZMdU0tY0U1N01DUUhQdTIwNFp6MWdnN3VkWTlPb1NNckhLQXZuOXFEaHJpQ2t3UmQ4X3FRV3FmVlotek1nTFlwcGFxRm9NMDd5Z2Zfc0pUQ0JlR3NGNG5LXzg?oc=5",
+        "reporter": "Underdog Dynasty",
+        "outlet": "Underdog Dynasty",
+        "report": "Sun Belt Media Days: Ryan Beard takes over Coastal Carolina - Underdog Dynasty",
+        "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNalJ2WTM2ZnpPRWZSZ1ZNeHJuNG1zejhkUER0TjdoWThqRm0wTmJwZ2ZLcDMySWI1MExMVjNkc3JyRHduZEVYOGo5eFNXYVVtVEdnaG5kcm1OcGVVWS1ST09ZSDlSNUI0alFwUHZaWVZhZUtaUXlNNHc5MXFXT2NLZVdodFExaWlYV3d2d0NQTDNFMlVZN0ZkaFFLOTBoa29hRGdoTVJQOXBrVm40R01qWTB6NDZZbGxCSW9EZHZPdVE?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 3,
+        "daysAgo": 33,
         "isCritical": false
       }
     ],
