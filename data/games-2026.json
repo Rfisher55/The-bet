@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-22T14:51:33.948Z",
+  "generated": "2026-08-22T15:01:34.072Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 858,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 104553,
+  "fetchDurationMs": 117372,
   "apRanks": {},
   "games": [
     {
@@ -141,7 +141,7 @@
         "windMph": 11,
         "gusts": 9,
         "windDir": "WSW",
-        "precipitation": 0.01,
+        "precipitation": 0,
         "humidity": 21,
         "indoors": false,
         "kickoffHour": 15,
@@ -221,7 +221,7 @@
         "windMph": 4,
         "gusts": 5,
         "windDir": "ESE",
-        "precipitation": 0.19,
+        "precipitation": 0.15,
         "humidity": 32,
         "indoors": false,
         "kickoffHour": 15,
@@ -519,7 +519,7 @@
         "windMph": 5,
         "gusts": 9,
         "windDir": "WSW",
-        "precipitation": 0.46,
+        "precipitation": 0.49,
         "humidity": 53,
         "indoors": false,
         "kickoffHour": 19,
