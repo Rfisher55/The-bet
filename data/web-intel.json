@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-27T23:07:04.478Z",
-  "elapsedMs": 3851,
+  "generatedAt": "2026-08-27T23:11:22.044Z",
+  "elapsedMs": 3638,
   "atsRankings": {
     "sacramento state": {
       "atsW": 1,
@@ -970,26 +970,6 @@
   "newsByTeam": {
     "notre_dame": [
       {
-        "title": "College football injury tracker: Major Power Four contenders lost key starters as 2026 season openers near - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcHp5Nkg5b2VacjctQ2Z6SmJKUzR5VWpnbzhUZ0FHWnFKZ1VCWlR6Smx0RWx0YTRudm95NTR4cXc3ajE0UHA2WUxvZ3ByTTFXYkxBeWJRY1llR0hwbmhJMGc1TC1lRDE3dVZaSTFzcGtiMDNHZzBhQjhlWEU0QzJmM1RVZVhsQ1Q0NGlwbm1tMy1vYjJ1Um5j?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false,
-        "pubDate": "Tue, 25 Aug 2026 13:11:43 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
-        "title": "Penn State Football Injury Updates: Who's Back and What it Means - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNaGIwc1pYRjR0ZUpIcmN1M0U2U1dQNFJBekZ1M0NkWDM2Z21VaklXN3BpMzJMNVJ6QUw0cTI0dEZ2ZnlGY3FXcDh6c1d3bjFBVDBHekZpcWJvTVVRVXNJRmJfYVU3Sk1uSEtUTy1LVzFNenhSc2ZhZzdibF9wZS1tOGhXekVVdURRRzlN?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false,
-        "pubDate": "Tue, 25 Aug 2026 20:26:36 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
         "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
         "source": "Yahoo Sports",
         "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
@@ -1018,9 +998,17 @@
         "isCritical": false,
         "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
         "searchQuery": "college football coaching change"
-      }
-    ],
-    "penn_state": [
+      },
+      {
+        "title": "College football injury tracker: Major Power Four contenders lost key starters as 2026 season openers near - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcHp5Nkg5b2VacjctQ2Z6SmJKUzR5VWpnbzhUZ0FHWnFKZ1VCWlR6Smx0RWx0YTRudm95NTR4cXc3ajE0UHA2WUxvZ3ByTTFXYkxBeWJRY1llR0hwbmhJMGc1TC1lRDE3dVZaSTFzcGtiMDNHZzBhQjhlWEU0QzJmM1RVZVhsQ1Q0NGlwbm1tMy1vYjJ1Um5j?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Tue, 25 Aug 2026 13:11:43 GMT",
+        "searchQuery": "college football injury"
+      },
       {
         "title": "Penn State Football Injury Updates: Who's Back and What it Means - Yahoo Sports",
         "source": "Yahoo Sports",
@@ -1030,7 +1018,9 @@
         "isCritical": false,
         "pubDate": "Tue, 25 Aug 2026 20:26:36 GMT",
         "searchQuery": "college football injury"
-      },
+      }
+    ],
+    "penn_state": [
       {
         "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
         "source": "Yahoo Sports",
@@ -1040,6 +1030,16 @@
         "isCritical": false,
         "pubDate": "Thu, 20 Aug 2026 12:27:27 GMT",
         "searchQuery": "college football coaching change"
+      },
+      {
+        "title": "Penn State Football Injury Updates: Who's Back and What it Means - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNaGIwc1pYRjR0ZUpIcmN1M0U2U1dQNFJBekZ1M0NkWDM2Z21VaklXN3BpMzJMNVJ6QUw0cTI0dEZ2ZnlGY3FXcDh6c1d3bjFBVDBHekZpcWJvTVVRVXNJRmJfYVU3Sk1uSEtUTy1LVzFNenhSc2ZhZzdibF9wZS1tOGhXekVVdURRRzlN?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Tue, 25 Aug 2026 20:26:36 GMT",
+        "searchQuery": "college football injury"
       }
     ],
     "ole_miss": [
@@ -1205,56 +1205,6 @@
   },
   "allNews": [
     {
-      "title": "College football injury tracker: Major Power Four contenders lost key starters as 2026 season openers near - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcHp5Nkg5b2VacjctQ2Z6SmJKUzR5VWpnbzhUZ0FHWnFKZ1VCWlR6Smx0RWx0YTRudm95NTR4cXc3ajE0UHA2WUxvZ3ByTTFXYkxBeWJRY1llR0hwbmhJMGc1TC1lRDE3dVZaSTFzcGtiMDNHZzBhQjhlWEU0QzJmM1RVZVhsQ1Q0NGlwbm1tMy1vYjJ1Um5j?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 2,
-      "isCritical": false,
-      "pubDate": "Tue, 25 Aug 2026 13:11:43 GMT",
-      "searchQuery": "college football injury"
-    },
-    {
-      "title": "Virginia's Depth Chart Is Already Ravaged By An Absurd Number Of Injuries Before First Football Game - BroBible",
-      "source": "BroBible",
-      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNVE9wbXJ4dFlhYzNzSUFxSVFpeWhMWFVZZ3JtbTFubU8tXzZWUDR4T3NUakQ0cnhaLUJkLWZwLUpaelVaaGg1TE4wa2ZoOVIzdVBvOHpILXV5a2M4R0FFUm9ydWd1aUNSYmRBZmNYc2tVN3hwVm96Y2VHUTFaN3NzV01NYjlaWU9TYzVUUUdfdHgyRzhGa09uTHVsNnpIZHVwVmlsS1Axa2tLaWtRREZzZTdNbFhFZV82TmdtVmdR?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 13:58:25 GMT",
-      "searchQuery": "college football injury"
-    },
-    {
-      "title": "Virginia Cavaliers release week zero injury report featuring a shocking number of hurt players - Fox News",
-      "source": "Fox News",
-      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNdFRrdGVmOFgzcFVoWlJSYlFnZVpYX3NXZ1I3TTI4Q2NmOEV4R1hRWlJLVTBoVzhZcjJSSEd5UEpqZElMcEhLWHFqOFRRQk9kQ0o0RDZXVWZwYmlySmROU0hYcElUYVltYlMxSjJQRTdfb0FjTjdHbFpZaFlDb2dvazlYa29IamN2UnliTU1DMnJwSm1tcG5ZcXVYR1k0cDRSdHBxWTRFNXRzYzNkRkdoaEZSTXVFU0hYM0E?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 15:46:53 GMT",
-      "searchQuery": "college football injury"
-    },
-    {
-      "title": "Penn State Football Injury Updates: Who's Back and What it Means - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNaGIwc1pYRjR0ZUpIcmN1M0U2U1dQNFJBekZ1M0NkWDM2Z21VaklXN3BpMzJMNVJ6QUw0cTI0dEZ2ZnlGY3FXcDh6c1d3bjFBVDBHekZpcWJvTVVRVXNJRmJfYVU3Sk1uSEtUTy1LVzFNenhSc2ZhZzdibF9wZS1tOGhXekVVdURRRzlN?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 2,
-      "isCritical": false,
-      "pubDate": "Tue, 25 Aug 2026 20:26:36 GMT",
-      "searchQuery": "college football injury"
-    },
-    {
-      "title": "Lions RB Isiah Pacheco dealing with back injury - 98.1 The Sports Animal",
-      "source": "98.1 The Sports Animal",
-      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNUjdBRHFPTzF1eTU4YXNaMHI1WThnc2tnNktJdlFQREVyUE9TQThjMVVPTVc2TWFpUDk0QVJsbU91cE0tZ3VxdmVSRUhROUFZRmEzS1MyWElqazhOc3lXaUxQb1ZxQldkQWt6dDdPdGhGNXdlVFVVdGZjLTNYekNFWkEtVU9TMTBXZWhNRjc5MmRHVTlDX1E?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 18:04:29 GMT",
-      "searchQuery": "college football injury"
-    },
-    {
       "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
       "source": "Yahoo Sports",
       "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
@@ -1305,6 +1255,56 @@
       "searchQuery": "college football coaching change"
     },
     {
+      "title": "College football injury tracker: Major Power Four contenders lost key starters as 2026 season openers near - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcHp5Nkg5b2VacjctQ2Z6SmJKUzR5VWpnbzhUZ0FHWnFKZ1VCWlR6Smx0RWx0YTRudm95NTR4cXc3ajE0UHA2WUxvZ3ByTTFXYkxBeWJRY1llR0hwbmhJMGc1TC1lRDE3dVZaSTFzcGtiMDNHZzBhQjhlWEU0QzJmM1RVZVhsQ1Q0NGlwbm1tMy1vYjJ1Um5j?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Tue, 25 Aug 2026 13:11:43 GMT",
+      "searchQuery": "college football injury"
+    },
+    {
+      "title": "Virginia's Depth Chart Is Already Ravaged By An Absurd Number Of Injuries Before First Football Game - BroBible",
+      "source": "BroBible",
+      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNVE9wbXJ4dFlhYzNzSUFxSVFpeWhMWFVZZ3JtbTFubU8tXzZWUDR4T3NUakQ0cnhaLUJkLWZwLUpaelVaaGg1TE4wa2ZoOVIzdVBvOHpILXV5a2M4R0FFUm9ydWd1aUNSYmRBZmNYc2tVN3hwVm96Y2VHUTFaN3NzV01NYjlaWU9TYzVUUUdfdHgyRzhGa09uTHVsNnpIZHVwVmlsS1Axa2tLaWtRREZzZTdNbFhFZV82TmdtVmdR?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 13:58:25 GMT",
+      "searchQuery": "college football injury"
+    },
+    {
+      "title": "Virginia Cavaliers release week zero injury report featuring a shocking number of hurt players - Fox News",
+      "source": "Fox News",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNdFRrdGVmOFgzcFVoWlJSYlFnZVpYX3NXZ1I3TTI4Q2NmOEV4R1hRWlJLVTBoVzhZcjJSSEd5UEpqZElMcEhLWHFqOFRRQk9kQ0o0RDZXVWZwYmlySmROU0hYcElUYVltYlMxSjJQRTdfb0FjTjdHbFpZaFlDb2dvazlYa29IamN2UnliTU1DMnJwSm1tcG5ZcXVYR1k0cDRSdHBxWTRFNXRzYzNkRkdoaEZSTXVFU0hYM0E?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 15:46:53 GMT",
+      "searchQuery": "college football injury"
+    },
+    {
+      "title": "Penn State Football Injury Updates: Who's Back and What it Means - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNaGIwc1pYRjR0ZUpIcmN1M0U2U1dQNFJBekZ1M0NkWDM2Z21VaklXN3BpMzJMNVJ6QUw0cTI0dEZ2ZnlGY3FXcDh6c1d3bjFBVDBHekZpcWJvTVVRVXNJRmJfYVU3Sk1uSEtUTy1LVzFNenhSc2ZhZzdibF9wZS1tOGhXekVVdURRRzlN?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Tue, 25 Aug 2026 20:26:36 GMT",
+      "searchQuery": "college football injury"
+    },
+    {
+      "title": "Lions RB Isiah Pacheco dealing with back injury - 98.1 The Sports Animal",
+      "source": "98.1 The Sports Animal",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNUjdBRHFPTzF1eTU4YXNaMHI1WThnc2tnNktJdlFQREVyUE9TQThjMVVPTVc2TWFpUDk0QVJsbU91cE0tZ3VxdmVSRUhROUFZRmEzS1MyWElqazhOc3lXaUxQb1ZxQldkQWt6dDdPdGhGNXdlVFVVdGZjLTNYekNFWkEtVU9TMTBXZWhNRjc5MmRHVTlDX1E?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 18:04:29 GMT",
+      "searchQuery": "college football injury"
+    },
+    {
       "title": "West Virginia DL Eddie Kelly to enter NCAA Transfer Portal - On3",
       "source": "On3",
       "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQZ0xFZkhUS3VBZTJHN09iY3poT1VsZWxMVHFoNUZuZmxYNEtpSUNnZzh0R0RJZHRfcC11S29aLS1yTlNfUDJEbC1GUS12blRMQWFGNUZYVnVmMHpqM2RvdjFrUHhocDVYQ2xwQU1uVEJaTkpRZm5zejl3M2RwUjJYV2p0dER4NWRQOGtacg?oc=5",
@@ -1335,16 +1335,6 @@
       "searchQuery": "college football transfer portal"
     },
     {
-      "title": "College football transfer portal cheat sheet: What you need to know as the season starts - The New York Times",
-      "source": "The New York Times",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNUzNrVFh6VzB5Sk8tZlBPMmZBa3hIS0dHT2JzWmdkMXFjai1HTzA4VjlSbkp2V3ZiZjh4VUhIRktYa0ZQemNWbjFDZGVLOWpKVTM4aVBwVVd5ZWw4a3UyS3dJRWs5am41SFN6bnhJYUlYS01VN05iUklvLXQyRFFVZnY3dFB3a3NxdXg4NkVCRFkxcHEwcERGRXd3dWxLRzZqZ2s0eWFB?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 10:00:17 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
       "title": "Lane Kiffin's NFL transfer portal brings spineless leaders to life | Opinion - USA Today",
       "source": "USA Today",
       "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUmtNeTV5cFc2VDRqWHh3TFRTRnFiUjJ4YUpILTlzbEdLaUxHLXdEd2c2ck1FZ2Q5WXZyOFFqVmU5aDROTnZrWGxyV2h0T1FFLVB4NFRHei1YMDRrRmtVTlpWNV95WFg5VWktSVgxS3lhXzh0TTRLYlhraW14LXhmaFFoR1B2ZjhpR2tzOHBRVzNWZEYtWFN1LVZNQVh0WEZrYkx6clJnNHFDNmotYXQtVFZRRzMxUWNJU1VCcWtaSHVxZ01SQUpWNA?oc=5",
@@ -1355,54 +1345,14 @@
       "searchQuery": "college football transfer portal"
     },
     {
-      "title": "Sleeper college football players who could break out in 2026 season - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNTkVhUTdvdXJydXE1Y2lKZHNiYjl1YS1KV0k5OGotenQwRnBGd3NCbjRpMnItRUVSMjNKRUlPM1ROM2pzYzQwWng2eHpKcVBpa1R4U3BUS0dmWk54cnRhbHRtcXc3Q1UxeFdCa2FqUHZXMExPZXhBSDZneXEzdEJYYlBnUzBvekY3MFl6OXJVMjRaYkJuaW1Ubld5bkstT0pqYXI5SFU3alpZSmc0?oc=5",
-      "sentiment": "neutral",
+      "title": "College football transfer portal cheat sheet: What you need to know as the season starts - The New York Times",
+      "source": "The New York Times",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNUzNrVFh6VzB5Sk8tZlBPMmZBa3hIS0dHT2JzWmdkMXFjai1HTzA4VjlSbkp2V3ZiZjh4VUhIRktYa0ZQemNWbjFDZGVLOWpKVTM4aVBwVVd5ZWw4a3UyS3dJRWs5am41SFN6bnhJYUlYS01VN05iUklvLXQyRFFVZnY3dFB3a3NxdXg4NkVCRFkxcHEwcERGRXd3dWxLRzZqZ2s0eWFB?oc=5",
+      "sentiment": "negative",
       "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 11:00:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "Big 12 announces ban on all professionals from returning - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOSEpNR0NnaXVodU5KVE9DeFBIa3c4c2I1YnBkM0NJcUdMOG1nNFhWY2RNTVAtcURIdndRWlNSZ0xIdDZwYkY1Q0NWeTJHdXRfd0NoU3c4QTBKaHJNdHdKbC1tN2liVFJHZjBTb0tjWmhDM2dZanNqNkcwZS1LcVNudjhkU1p4c0IyTF80QnNGMktodE4ybi1DdjZFX3J5aTcyd3VjU0Y3R054dw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Wed, 26 Aug 2026 22:24:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "ACC is latest power conference to approve banning players who were on NFL rosters - The Mercury News",
-      "source": "The Mercury News",
-      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOMldKU3c2cm5yVWFhZFZ4T1J3R2lVWndqd3ZfenhuLV9md1pNZlpCcnkzMkZGbTE4YVFGZEtYOWZ0cUpPUGMtNjVGX0F3Z1VxSFBLU1RDSTYwc2dMZmNQZ1JoMkpObmJJLU55amN1NDRIN3RVakFhME5BWjJsZEZoQ3lVRkNUYURnNlp5Z1FXbHRza0JZVkVUdWlTYWdjT3FwdUViTWNaZjFsZ2NjWUZSZjNPWGFROUl1aGVscG1VVE51RUVKZTZ4dFZweURwQnd0T2fSAdcBQVVfeXFMUF9ZYUZsc3I1MDR6ZEVuZWRHTXBPSjJVZ2dweG9Zb2JhNXlQU2ZGS1Y0MTRjaVJvcmR1WFkzZkthSjNBeXBtbWlEVHl6My1tZExBOHJkLU1Pc3dydE5icVB5RHV2OTVBQVAwai1yQzFYenF6VHBrNjlpbERhN1U5WXI1WHB2dkVaak1lcm5LcUlvZ2ZBSk1ldEw0OWN3RXZKb3VxYzRuSk54ODdmTmxHTXRqWFpUaXpOUWlHUEoxZjJSM2RzZTZsdEtoOUo2Nk9TYWJ6YU1tYmc?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 21:13:57 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "SEC joins Big Ten in banning pros from returning to college, including basketball players - AP News",
-      "source": "AP News",
-      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE44Rjh6TjR0bmhHZUd0cHlmR3RiQnRBTERVcVdXYkxOdU9jN25JaXBISEFPTm5JaUc4ak5qYTY1QVR5a3BjLVl2Y0dBYV9YT0tPaE12ZGJ4d3V5UzNiNUZoRkhhTC1kTnpIY09EbjFmb3h4eElLZ01Rb2s2WQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 2,
-      "isCritical": false,
-      "pubDate": "Wed, 26 Aug 2026 00:52:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "How the updated College Football Playoff format will work in 2026-27 - NCAA.com",
-      "source": "NCAA.com",
-      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOalMxdndIejBsYnc0RUFjV2h4bVlhZ3k5ek5DSDBocGNUeU5NMi1xUmYxZFZfNXUzMm1NQjZUY0VGQmtlLXozZzh2Y0RvQjlWLUZWTVlKeDlRNWI5Qy15ajVKQ0hBZTBVWE43U0o2ZEp0dGhDRWdVWHpZVFVaaFk1NmczQ01mS3NULW93QU00MzFDUkRBY1FWVEUzbXVGSTNoLUdUajF6Y1dtRG1v?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 20:37:05 GMT",
-      "searchQuery": "NCAA college football"
+      "pubDate": "Thu, 27 Aug 2026 10:00:17 GMT",
+      "searchQuery": "college football transfer portal"
     },
     {
       "title": "Why could NFL players return to college while Arion Carter is suspended? - Knoxville News Sentinel",
@@ -1453,6 +1403,56 @@
       "isCritical": false,
       "pubDate": "Tue, 25 Aug 2026 23:46:00 GMT",
       "searchQuery": "college football suspended"
+    },
+    {
+      "title": "Sleeper college football players who could break out in 2026 season - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNTkVhUTdvdXJydXE1Y2lKZHNiYjl1YS1KV0k5OGotenQwRnBGd3NCbjRpMnItRUVSMjNKRUlPM1ROM2pzYzQwWng2eHpKcVBpa1R4U3BUS0dmWk54cnRhbHRtcXc3Q1UxeFdCa2FqUHZXMExPZXhBSDZneXEzdEJYYlBnUzBvekY3MFl6OXJVMjRaYkJuaW1Ubld5bkstT0pqYXI5SFU3alpZSmc0?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 11:00:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "Big 12 announces ban on all professionals from returning - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOSEpNR0NnaXVodU5KVE9DeFBIa3c4c2I1YnBkM0NJcUdMOG1nNFhWY2RNTVAtcURIdndRWlNSZ0xIdDZwYkY1Q0NWeTJHdXRfd0NoU3c4QTBKaHJNdHdKbC1tN2liVFJHZjBTb0tjWmhDM2dZanNqNkcwZS1LcVNudjhkU1p4c0IyTF80QnNGMktodE4ybi1DdjZFX3J5aTcyd3VjU0Y3R054dw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Wed, 26 Aug 2026 22:24:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "SEC joins Big Ten in banning pros from returning to college, including basketball players - AP News",
+      "source": "AP News",
+      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE44Rjh6TjR0bmhHZUd0cHlmR3RiQnRBTERVcVdXYkxOdU9jN25JaXBISEFPTm5JaUc4ak5qYTY1QVR5a3BjLVl2Y0dBYV9YT0tPaE12ZGJ4d3V5UzNiNUZoRkhhTC1kTnpIY09EbjFmb3h4eElLZ01Rb2s2WQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Wed, 26 Aug 2026 00:52:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "Major College Football Conference to Pass a Rule Prohibiting Players Who Were in the NFL Amid Transfer Portal Chaos - Mediaite",
+      "source": "Mediaite",
+      "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOS0F5cjV1QTBfZHpMRS1jV3pjWlB1UFlCdTBiNEVkVDlEcUtoNFJDakZyUk5ZZUVXTnkxcUJTM01LLUZ4ZjhUUjBlaHZyX3Q0aUtwclBiOGJydUFsMDhOdF9IaHBIbTNwcGxQUDl3ZnJzWE9rSndKVjd6Nk5FQXlmRlZDeEVGUjlWV3RzR2JTTFU2NWFsRWVoNFBSbzBZWVNCMVBhdWtaV2NhZWJOTTdTc0I1ZC1NSWlnSlhHQVFhTUVDSlVCMTdlbC1rdTVMV1g3alhxMXo5ZWQyV3YxTjlBbTl1S0M0dkk?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Tue, 25 Aug 2026 15:33:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "How the updated College Football Playoff format will work in 2026-27 - NCAA.com",
+      "source": "NCAA.com",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOalMxdndIejBsYnc0RUFjV2h4bVlhZ3k5ek5DSDBocGNUeU5NMi1xUmYxZFZfNXUzMm1NQjZUY0VGQmtlLXozZzh2Y0RvQjlWLUZWTVlKeDlRNWI5Qy15ajVKQ0hBZTBVWE43U0o2ZEp0dGhDRWdVWHpZVFVaaFk1NmczQ01mS3NULW93QU00MzFDUkRBY1FWVEUzbXVGSTNoLUdUajF6Y1dtRG1v?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 20:37:05 GMT",
+      "searchQuery": "NCAA college football"
     },
     {
       "title": "About that Notre Dame Football Depth Chart… - One Foot Down",
