@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T19:54:28.953Z",
+  "generated": "2026-08-29T20:11:11.149Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 855,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 111845,
+  "fetchDurationMs": 145041,
   "apRanks": {},
   "games": [
     {
@@ -30,7 +30,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-08-29",
-      "time": "15:00 - 1st",
+      "time": "9:34 - 2nd",
       "homeTeamId": "usc",
       "awayTeamId": "san_jos_state",
       "homeTeamName": "USC Trojans",
@@ -44,7 +44,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 7,
+      "homeScore": 14,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -81,6 +81,75 @@
       },
       "gamePreview": {
         "headline": "San José State Spartans at USC Trojans",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401858202",
+      "espnId": "401858202",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-08-29",
+      "time": "10:06 - 1st",
+      "homeTeamId": "virginia",
+      "awayTeamId": "nc_state",
+      "homeTeamName": "Virginia Cavaliers",
+      "awayTeamName": "NC State Wolfpack",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "ESPN",
+      "venue": "Scott Stadium",
+      "venueCity": "Charlottesville",
+      "venueState": "VA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "NC State Wolfpack at Virginia Cavaliers",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -150,75 +219,6 @@
       },
       "gamePreview": {
         "headline": "North Carolina Tar Heels at TCU Horned Frogs",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858202",
-      "espnId": "401858202",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-08-29",
-      "time": "14:46 - 1st",
-      "homeTeamId": "virginia",
-      "awayTeamId": "nc_state",
-      "homeTeamName": "Virginia Cavaliers",
-      "awayTeamName": "NC State Wolfpack",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN",
-      "venue": "Scott Stadium",
-      "venueCity": "Charlottesville",
-      "venueState": "VA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "NC State Wolfpack at Virginia Cavaliers",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
