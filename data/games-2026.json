@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T21:54:28.343Z",
+  "generated": "2026-08-29T22:10:52.437Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 854,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 120390,
+  "fetchDurationMs": 177923,
   "apRanks": {},
   "games": [
     {
@@ -30,7 +30,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-08-29",
-      "time": "9:42 - 4th",
+      "time": "8:28 - 4th",
       "homeTeamId": "usc",
       "awayTeamId": "san_jos_state",
       "homeTeamName": "USC Trojans",
@@ -99,7 +99,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-08-29",
-      "time": "10:23 - 3rd",
+      "time": "7:08 - 3rd",
       "homeTeamId": "virginia",
       "awayTeamId": "nc_state",
       "homeTeamName": "Virginia Cavaliers",
@@ -150,6 +150,75 @@
       },
       "gamePreview": {
         "headline": "NC State Wolfpack at Virginia Cavaliers",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401864577",
+      "espnId": "401864577",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-08-29",
+      "time": "10:09 - 1st",
+      "homeTeamId": "north_dakota_state",
+      "awayTeamId": "jacksonville_state",
+      "homeTeamName": "North Dakota State Bison",
+      "awayTeamName": "Jacksonville State Gamecocks",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Fargodome",
+      "venueCity": "Fargo",
+      "venueState": "ND",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": 7,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 0
+      },
+      "gamePreview": {
+        "headline": "Jacksonville State Gamecocks at North Dakota State Bison",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -219,75 +288,6 @@
       },
       "gamePreview": {
         "headline": "North Carolina Tar Heels at TCU Horned Frogs",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401864577",
-      "espnId": "401864577",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-08-29",
-      "time": "15:00 - 1st",
-      "homeTeamId": "north_dakota_state",
-      "awayTeamId": "jacksonville_state",
-      "homeTeamName": "North Dakota State Bison",
-      "awayTeamName": "Jacksonville State Gamecocks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Fargodome",
-      "venueCity": "Fargo",
-      "venueState": "ND",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Jacksonville State Gamecocks at North Dakota State Bison",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
