@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T20:22:55.984Z",
+  "generated": "2026-08-29T20:35:47.787Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 855,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 122776,
+  "fetchDurationMs": 128917,
   "apRanks": {},
   "games": [
     {
@@ -30,7 +30,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-08-29",
-      "time": "2:46 - 2nd",
+      "time": "5:51 - 2nd",
       "homeTeamId": "usc",
       "awayTeamId": "san_jos_state",
       "homeTeamName": "USC Trojans",
@@ -44,7 +44,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 21,
+      "homeScore": 14,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -99,7 +99,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-08-29",
-      "time": "2:37 - 1st",
+      "time": "5:11 - 1st",
       "homeTeamId": "virginia",
       "awayTeamId": "nc_state",
       "homeTeamName": "Virginia Cavaliers",
@@ -113,7 +113,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 10,
+      "homeScore": 3,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
