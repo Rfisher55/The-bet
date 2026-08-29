@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T16:35:34.543Z",
+  "generated": "2026-08-29T16:44:24.766Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 857,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 126176,
+  "fetchDurationMs": 111689,
   "apRanks": {},
   "games": [
     {
@@ -30,7 +30,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-08-29",
-      "time": "7:20 - 1st",
+      "time": "4:00 - 1st",
       "homeTeamId": "tcu",
       "awayTeamId": "north_carolina",
       "homeTeamName": "TCU Horned Frogs",
@@ -44,7 +44,7 @@
       "isConferenceGame": false,
       "neutralSite": true,
       "status": "in_progress",
-      "homeScore": 3,
+      "homeScore": 10,
       "awayScore": 3,
       "homeApRank": null,
       "awayApRank": null,
