@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-30T01:33:16.129Z",
-  "elapsedMs": 8173,
+  "generatedAt": "2026-08-30T01:51:34.688Z",
+  "elapsedMs": 7538,
   "atsRankings": {
     "san jose st": {
       "atsW": 1,
@@ -23,6 +23,13 @@
       "streak": "100.0%",
       "last5": "5.0"
     },
+    "north dakota state": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "26.0"
+    },
     "tcu": {
       "atsW": 0,
       "atsL": 1,
@@ -38,6 +45,13 @@
       "last5": "16.0"
     },
     "nc state": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "-26.0"
+    },
+    "jacksonville st": {
       "atsW": 0,
       "atsL": 1,
       "atsPct": 0,
@@ -260,38 +274,6 @@
         "pubDate": "Sat, 29 Aug 2026 17:01:42 GMT",
         "searchQuery": "college football depth chart"
       }
-    ],
-    "memphis": [
-      {
-        "title": "Memphis vs. UNLV Prediction, Odds, Pick For College Football Week 0 - FOX Sports",
-        "source": "FOX Sports",
-        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPRGVmeFBBemlkM1JwQ21KWE9pWVlQVmlvNV94MmtwSEVITWwwX2hOX3MwUWdGcjlBb3VMbUVONHpjc2RYSWZ2X3RaZ200WG1rLUIxSXZxWjd5ZlktZ0w0TE96Y3BaUHN1QWxGUWMtR2Q4U0lVUTdjZ2NtYlNibjZLWHZyUFZYX2lSQzlKYjNRNjlJQmU3M1NTdWl4WF9RZGhTNnpPZHdUcS1vUnUxUEJWdm5n0gGyAUFVX3lxTE5qcnJlLWJhRWExLUZyS1JmZ0c3eG5TZUNwZVozQWRTZHZpSmlsVW0xN1hUUHh1MGVuN3RGS2N4WWlRWWRoWVhaQmY3MlM0Q05rVjZxRTF2MlB4LVdSNEJydWlocldPYXhtZl9lYjUtZVZUXy0xNjJTcmV0SEU2eXZqRUpScGI2LXdGNnBTYlJBSDhGUnBqLWFzTjhTNlU5ZmNDSzMtOURUcTZ2UnJNa0N5TXc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Sat, 29 Aug 2026 02:00:11 GMT",
-        "searchQuery": "CFB picks predictions"
-      },
-      {
-        "title": "Memphis vs UNLV Prediction, Picks &amp; Odds Tonight: College Football Week 0 - Covers.com",
-        "source": "Covers.com",
-        "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOZWZ5NjdjQU9kTlpaWHZfMEF0akVCUFRoa3NMdURuOUJNc2sxUVFlMEF5NDhmTHljTFViY25DaVlJcUxKdk05elp5SnJFN1lGajdPMUt6N0tKbUd0QUhnWk9kSXU3LVVsUXJTdlVBUUZvdlA0bjkyVXE4VWc4b0ttdG1BTkhhZmNpTi0td1kzdWxoQWM?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 29 Aug 2026 23:03:00 GMT",
-        "searchQuery": "CFB picks predictions"
-      },
-      {
-        "title": "Memphis vs UNLV Prediction, Odds, Start Time: Expert NCAAF Week 0 Picks - Action Network",
-        "source": "Action Network",
-        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPQ0JZZnlVZW94R3lrY0t2bXEzMFU5OXkxX3JzN2c1MVNhNWZ4Q3NSd3ZXU0JqUlRmTXFKUFdGWE5PUUcyMXAxU0JVem1sWmRhbGZKd0ExYWRWcFhSWXVTenpnZGRKbUNsMkJGZEhnME8wbEtTZGFvaS11RTRISURPWE9jTFpKSGJYU1IzSnI3QmpPYkpDaGc5d25VbG1idWdsX05Cek5KWEtlMTFfc09kZjBNaUtWbjNIUV85Wmluaw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 29 Aug 2026 22:21:00 GMT",
-        "searchQuery": "CFB picks predictions"
-      }
     ]
   },
   "allNews": [
@@ -416,16 +398,6 @@
       "searchQuery": "college football transfer portal"
     },
     {
-      "title": "Lane Kiffin's NFL transfer portal brings spineless leaders to life | Opinion - USA Today",
-      "source": "USA Today",
-      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUmtNeTV5cFc2VDRqWHh3TFRTRnFiUjJ4YUpILTlzbEdLaUxHLXdEd2c2ck1FZ2Q5WXZyOFFqVmU5aDROTnZrWGxyV2h0T1FFLVB4NFRHei1YMDRrRmtVTlpWNV95WFg5VWktSVgxS3lhXzh0TTRLYlhraW14LXhmaFFoR1B2ZjhpR2tzOHBRVzNWZEYtWFN1LVZNQVh0WEZrYkx6clJnNHFDNmotYXQtVFZRRzMxUWNJU1VCcWtaSHVxZ01SQUpWNA?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 2,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 15:55:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
       "title": "2026 Team Talent Composite: How the transfer portal is reshaping college football's power structure - 247Sports",
       "source": "247Sports",
       "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNbzhuSmtGbUtyM1I2WENLeFJhYU8xNUtpUVRMQ09JdGw2SFdDa1NBenRHRWZJeklRN2R4dnZkbEZ6cVlYcXFQNXFzS1pSbzhGSkJ5aWZEU0RuZlc4R3FicnVEU2stdkt0NWQ5bFlGUlBRbDJKZFdPRTh6NnMyZFFwTzJDLXRId3NDUVRnTzBQNEZIUmRkREw1bW9LTDdyb3lGcXlUcmhZck1zd3BySU5PS2hMcFZxT0ZqUzFOdlExMGEtUQ?oc=5",
@@ -433,6 +405,16 @@
       "daysAgo": 2,
       "isCritical": false,
       "pubDate": "Thu, 27 Aug 2026 14:00:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "Lane Kiffin's NFL transfer portal brings spineless leaders to life | Opinion - USA Today",
+      "source": "USA Today",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUmtNeTV5cFc2VDRqWHh3TFRTRnFiUjJ4YUpILTlzbEdLaUxHLXdEd2c2ck1FZ2Q5WXZyOFFqVmU5aDROTnZrWGxyV2h0T1FFLVB4NFRHei1YMDRrRmtVTlpWNV95WFg5VWktSVgxS3lhXzh0TTRLYlhraW14LXhmaFFoR1B2ZjhpR2tzOHBRVzNWZEYtWFN1LVZNQVh0WEZrYkx6clJnNHFDNmotYXQtVFZRRzMxUWNJU1VCcWtaSHVxZ01SQUpWNA?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 15:55:00 GMT",
       "searchQuery": "college football transfer portal"
     },
     {
@@ -546,16 +528,6 @@
       "searchQuery": "college football depth chart"
     },
     {
-      "title": "Rule changes for 2026 season: Targeting punishment tweaks, more automatic unsportsmanlike conduct penalties - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxNU1pfa0U5eVY1dzB2dlJBX3RMTU94TlFud2VhZnM4M242Vm53T3F1RjVFa0M0eFdZQmd2SmotdW53TXViUmlkT2g3aEh0LW9mcEhuaUNCYkNsXzFJVFgzQ0FoS3l2aUtlOFRfeWdCQm9rV00zR01ORVpIaW1xUE9OS3RZYk5xNWRJS08zQ2dUZGIzcjlQeG1NVGhkWGI2Vjg2cnl2UWpvMmNMVm5YZVI5V2c2OUVFbkladHphV3R0VVdPZDlscXFVMnZjUVh6Wjk0SE5LRmRoQTlTYzZacnlJdHNGelROWm1PaUk3ek0waExzUQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Fri, 28 Aug 2026 18:54:24 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
       "title": "College football top 25 rankings and playoff predictions for 2026 - New York Post",
       "source": "New York Post",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPdzJ1UDRrdTV1YUgyeXNZNlNieTBBU3BHV0ZFaFcya0NNRzVBT3VEVUxYZmFJNXFnX0xHc3RVLU1JdHB3ZHNMUzdWQkE1UXZmNW85Qy1ZQUx6VG81Y01kYlpqQ0Z6RGhEMWVFZ0pCYWNWTEd6bTUwUXNTUkJqLWNWTm02TTdUU3VseTR2NUFrQ0toT2N4RjZiRXRpOUc4LUg4V1dUREJn?oc=5",
@@ -583,6 +555,16 @@
       "daysAgo": 1,
       "isCritical": false,
       "pubDate": "Fri, 28 Aug 2026 15:36:06 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "Rule changes for 2026 season: Targeting punishment tweaks, more automatic unsportsmanlike conduct penalties - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxNU1pfa0U5eVY1dzB2dlJBX3RMTU94TlFud2VhZnM4M242Vm53T3F1RjVFa0M0eFdZQmd2SmotdW53TXViUmlkT2g3aEh0LW9mcEhuaUNCYkNsXzFJVFgzQ0FoS3l2aUtlOFRfeWdCQm9rV00zR01ORVpIaW1xUE9OS3RZYk5xNWRJS08zQ2dUZGIzcjlQeG1NVGhkWGI2Vjg2cnl2UWpvMmNMVm5YZVI5V2c2OUVFbkladHphV3R0VVdPZDlscXFVMnZjUVh6Wjk0SE5LRmRoQTlTYzZacnlJdHNGelROWm1PaUk3ek0waExzUQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Fri, 28 Aug 2026 18:54:24 GMT",
       "searchQuery": "NCAA college football"
     },
     {
@@ -656,36 +638,6 @@
       "searchQuery": "CFB picks predictions"
     },
     {
-      "title": "Memphis vs. UNLV Prediction, Odds, Pick For College Football Week 0 - FOX Sports",
-      "source": "FOX Sports",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPRGVmeFBBemlkM1JwQ21KWE9pWVlQVmlvNV94MmtwSEVITWwwX2hOX3MwUWdGcjlBb3VMbUVONHpjc2RYSWZ2X3RaZ200WG1rLUIxSXZxWjd5ZlktZ0w0TE96Y3BaUHN1QWxGUWMtR2Q4U0lVUTdjZ2NtYlNibjZLWHZyUFZYX2lSQzlKYjNRNjlJQmU3M1NTdWl4WF9RZGhTNnpPZHdUcS1vUnUxUEJWdm5n0gGyAUFVX3lxTE5qcnJlLWJhRWExLUZyS1JmZ0c3eG5TZUNwZVozQWRTZHZpSmlsVW0xN1hUUHh1MGVuN3RGS2N4WWlRWWRoWVhaQmY3MlM0Q05rVjZxRTF2MlB4LVdSNEJydWlocldPYXhtZl9lYjUtZVZUXy0xNjJTcmV0SEU2eXZqRUpScGI2LXdGNnBTYlJBSDhGUnBqLWFzTjhTNlU5ZmNDSzMtOURUcTZ2UnJNa0N5TXc?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 02:00:11 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Memphis vs UNLV Prediction, Picks &amp; Odds Tonight: College Football Week 0 - Covers.com",
-      "source": "Covers.com",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOZWZ5NjdjQU9kTlpaWHZfMEF0akVCUFRoa3NMdURuOUJNc2sxUVFlMEF5NDhmTHljTFViY25DaVlJcUxKdk05elp5SnJFN1lGajdPMUt6N0tKbUd0QUhnWk9kSXU3LVVsUXJTdlVBUUZvdlA0bjkyVXE4VWc4b0ttdG1BTkhhZmNpTi0td1kzdWxoQWM?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 23:03:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Memphis vs UNLV Prediction, Odds, Start Time: Expert NCAAF Week 0 Picks - Action Network",
-      "source": "Action Network",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPQ0JZZnlVZW94R3lrY0t2bXEzMFU5OXkxX3JzN2c1MVNhNWZ4Q3NSd3ZXU0JqUlRmTXFKUFdGWE5PUUcyMXAxU0JVem1sWmRhbGZKd0ExYWRWcFhSWXVTenpnZGRKbUNsMkJGZEhnME8wbEtTZGFvaS11RTRISURPWE9jTFpKSGJYU1IzSnI3QmpPYkpDaGc5d25VbG1idWdsX05Cek5KWEtlMTFfc09kZjBNaUtWbjNIUV85Wmluaw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 22:21:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
       "title": "ACC expert picks 2026: Most overrated and underrated teams, projected order of finish, bold predictions - CBS Sports",
       "source": "CBS Sports",
       "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNSk93VjdpXy0zUFlHenFraGVZbE02RXFzMklpRElncjhiZ1Y0bEdwczZJcFZLM01SSm50Q0JfQWloUDJKVUhldzhGcER3RXFJU1RWNU5JV2FPMFVFU3ZNQ2JaMVB2aDNwclc0azJRQXNNWEczRExZcGJJZDBRa09jU2xqQVpjbmdMdlFQVzFB?oc=5",
@@ -693,6 +645,36 @@
       "daysAgo": 2,
       "isCritical": false,
       "pubDate": "Thu, 27 Aug 2026 15:01:00 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "2026 College Football Playoff Predictions: Will Big Ten's Dominance Come To An End? - FOX Sports",
+      "source": "FOX Sports",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNd2JDRUR0UzlISzdOUkhNc3YxNXJBdmlKU3I3M1JiZF9ZRERXZmdsRi1Nc1NpZ1Z1WFlwLWRfcU9OTkVDZi04QnZwYWhuQ3lCdWxhcXF6SmNTS0xsMnhnb1RpcExiTnJjVDNYZkREVC1zT1R5cWJuOGlrY05kYTBYckZyWUcydThFTHVpVXNsQi14SU1USnJv0gGXAUFVX3lxTE9DNkdObFNBX1VwZFFFSndmUmRCTUpodUk2R3oxSS1JbmIzWGxCU0h2NXEzbTRvek0zZkF6XzlJbjZqNTZUQ0NGZ3JQcF9NbGJUNE9raHhuNklVWTZYTzd3WWx0NVhjV2FOOXZUaXFSSXBDWjEteHMxcGdqdnA2a3Brd0dUNWlkenVIeWlSZjlwZExBQ3RLNUE?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 3,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 00:07:35 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "Hawaii vs Stanford Prediction, Picks &amp; Odds | 29 Aug 2026 - Sportsgambler",
+      "source": "Sportsgambler",
+      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOTUNqUktjNTl6N3M3azdWT3hOZnk4NXNsdDJUVEUtX1RCUXU1VTAyNmZkQTNaTk55UXd0RXNkS3JrSzcxZ3hZV1p5Q0VjV2loZncxUDA2UnZRVFcxS1UxdVFneUJZY3RqeXNJUjBldUh4WlM2TDlGQWwzRlhFVmYxazM2ODVpUEdUZXpQYnFsR2VDZEZ5YjltVmZOWkI3VzR0aGdHdzVOUC1kT2p5TzFMSEpMOEVrblRLUmdWWVdB?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 29 Aug 2026 21:37:41 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "Stanford vs. Hawaii prediction, odds, time: 2026 college football picks for Week 0 by proven model - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOZUZHRHJxM3BlektJcy1jaGx6aU12MTZxTkc0aXVoLWtpMTVvcFh0aFk4WWNyZlVqR3VEcnN6NWc3TmRoRmdsU2JxZ3ljZzhFcDN1Ui03NkhaR3lsM2ZscURWSldLQzNnWXd0b3BydmVuVzA4UUl2MmctSW9iZ3FPelJwQjREeGhtTUMxNDliWFc4cHZOV09RSE5qVmhrNDhLVkk1eVpMRmxwMXJ4bzZFSTY4MWJ0RDdfcGR1S2pMQVRuRDdhdTRF?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 29 Aug 2026 20:30:49 GMT",
       "searchQuery": "CFB picks predictions"
     }
   ],
