@@ -1,13 +1,27 @@
 {
-  "generatedAt": "2026-08-30T03:28:34.733Z",
-  "elapsedMs": 3812,
+  "generatedAt": "2026-08-30T03:32:41.031Z",
+  "elapsedMs": 3827,
   "atsRankings": {
+    "e michigan": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "11.0"
+    },
     "san jose st": {
       "atsW": 1,
       "atsL": 0,
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "-16.0"
+    },
+    "new mexico st": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "-17.0"
     },
     "virginia": {
       "atsW": 1,
@@ -44,12 +58,26 @@
       "streak": "0.0%",
       "last5": "16.0"
     },
+    "florida st": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "17.0"
+    },
     "nc state": {
       "atsW": 0,
       "atsL": 1,
       "atsPct": 0,
       "streak": "0.0%",
       "last5": "-26.0"
+    },
+    "sacramento state": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "-11.0"
     },
     "jacksonville st": {
       "atsW": 0,
@@ -65,7 +93,37 @@
   "redditSentiment": {},
   "redditPosts": [],
   "newsByTeam": {
-    "georgia": [
+    "notre_dame": [
+      {
+        "title": "NCAA adopts proposals to significantly alter current college football calendar, transfer portal window - On3",
+        "source": "On3",
+        "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQcExyQVdPNENXUlEyWWlYRENscG95UEhhOW1IdmJQMFJ1cmFBN25HaEpUVGk1cTlhNk1UUHFFU3JlOExTYWU1S0JKT1E0R0hDbDk2b1BFTmdsOFc3R1J3b3ZFOXhTTjlaOGpjUG02SjF5V2k1aGlQYkJSWU1OZy1SY0R0UUhXQTEyVXFXQzVBU0xDYVpnb3B1N2N2bThUVXFvRDU5MnV4ZVBmMU1mRnlHWjN3Uld5Y3NTR0RyZERFTnZQZW1KQnc?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Fri, 28 Aug 2026 16:44:06 GMT",
+        "searchQuery": "college football transfer portal"
+      },
+      {
+        "title": "NCAA finalizes changes to 2027 football schedule, shortens transfer portal window - AL.com",
+        "source": "AL.com",
+        "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPeWxOMGV3b3pyYlJ0UkgydWhMYkF3NGdFOTJsdUdoMEhwZWpDNEdrM2RFWndvLXV1X25UYzlTQVdBUFk3TjVrT2wwX0ZYVm1RbmRRdng4SDhvcDFQSDBieUFFMEdhYmZleTFsVEN6VWVjSmFkbWNmQ09QVUhlZlp0ajFma3ZGLWpDTU8wZlBWbVNDU3RDYzN3Q3ZJczcycy1WdkpTb2JoNW9sQjhVbldjLUQtWW9MbGJmeTdV?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Thu, 27 Aug 2026 16:21:00 GMT",
+        "searchQuery": "college football transfer portal"
+      },
+      {
+        "title": "College football injury tracker: Major Power Four contenders lost key starters as 2026 season openers near - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcHp5Nkg5b2VacjctQ2Z6SmJKUzR5VWpnbzhUZ0FHWnFKZ1VCWlR6Smx0RWx0YTRudm95NTR4cXc3ajE0UHA2WUxvZ3ByTTFXYkxBeWJRY1llR0hwbmhJMGc1TC1lRDE3dVZaSTFzcGtiMDNHZzBhQjhlWEU0QzJmM1RVZVhsQ1Q0NGlwbm1tMy1vYjJ1Um5j?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 5,
+        "isCritical": false,
+        "pubDate": "Tue, 25 Aug 2026 13:11:43 GMT",
+        "searchQuery": "college football injury"
+      },
       {
         "title": "College football coaching tiers 2026: It’s Curt Cignetti and Kirby Smart, then everyone else - The Athletic - The New York Times",
         "source": "The New York Times",
@@ -74,19 +132,29 @@
         "daysAgo": 12,
         "isCritical": false,
         "pubDate": "Tue, 18 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
+      },
+      {
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 10,
+        "isCritical": false,
+        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
         "searchQuery": "college football coaching change"
       }
     ],
-    "notre_dame": [
+    "ole_miss": [
       {
-        "title": "College football coaching tiers 2026: It’s Curt Cignetti and Kirby Smart, then everyone else - The Athletic - The New York Times",
-        "source": "The New York Times",
-        "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNbktMdG9TZGJhN01aaXdJSVotYkMzUFNtSkVkLTlvUDd2T2ZmQUtsRGw2eW8yYzRZYkV3RVJXYjF2UHJxRjBhM19hZWVfd1Vnd3ZJTTNnODV0QmdnZEh1TEdFbFNCMlZfaHpRc3FwdVViNk9rU2hRd1REMVVFU2hnRWs2azRhU2owLXJtWHNzQlg0WHNqNFEwN3BZRWI1ckVyNFlfUXJ3?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 12,
+        "title": "Lane Kiffin's NFL transfer portal brings spineless leaders to life | Opinion - USA Today",
+        "source": "USA Today",
+        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUmtNeTV5cFc2VDRqWHh3TFRTRnFiUjJ4YUpILTlzbEdLaUxHLXdEd2c2ck1FZ2Q5WXZyOFFqVmU5aDROTnZrWGxyV2h0T1FFLVB4NFRHei1YMDRrRmtVTlpWNV95WFg5VWktSVgxS3lhXzh0TTRLYlhraW14LXhmaFFoR1B2ZjhpR2tzOHBRVzNWZEYtWFN1LVZNQVh0WEZrYkx6clJnNHFDNmotYXQtVFZRRzMxUWNJU1VCcWtaSHVxZ01SQUpWNA?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 2,
         "isCritical": false,
-        "pubDate": "Tue, 18 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
+        "pubDate": "Thu, 27 Aug 2026 15:55:00 GMT",
+        "searchQuery": "college football transfer portal"
       },
       {
         "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
@@ -107,26 +175,40 @@
         "isCritical": false,
         "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
         "searchQuery": "college football coaching change"
-      },
+      }
+    ],
+    "utah": [
       {
-        "title": "College football injury tracker: Major Power Four contenders lost key starters as 2026 season openers near - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcHp5Nkg5b2VacjctQ2Z6SmJKUzR5VWpnbzhUZ0FHWnFKZ1VCWlR6Smx0RWx0YTRudm95NTR4cXc3ajE0UHA2WUxvZ3ByTTFXYkxBeWJRY1llR0hwbmhJMGc1TC1lRDE3dVZaSTFzcGtiMDNHZzBhQjhlWEU0QzJmM1RVZVhsQ1Q0NGlwbm1tMy1vYjJ1Um5j?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 5,
-        "isCritical": false,
-        "pubDate": "Tue, 25 Aug 2026 13:11:43 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
-        "title": "NCAA adopts proposals to significantly alter current college football calendar, transfer portal window - On3",
-        "source": "On3",
-        "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQcExyQVdPNENXUlEyWWlYRENscG95UEhhOW1IdmJQMFJ1cmFBN25HaEpUVGk1cTlhNk1UUHFFU3JlOExTYWU1S0JKT1E0R0hDbDk2b1BFTmdsOFc3R1J3b3ZFOXhTTjlaOGpjUG02SjF5V2k1aGlQYkJSWU1OZy1SY0R0UUhXQTEyVXFXQzVBU0xDYVpnb3B1N2N2bThUVXFvRDU5MnV4ZVBmMU1mRnlHWjN3Uld5Y3NTR0RyZERFTnZQZW1KQnc?oc=5",
+        "title": "Gordon Monson: If Utah coaches pressured players to play injured, shame on them - The Salt Lake Tribune",
+        "source": "The Salt Lake Tribune",
+        "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOajQ0UHhlWmdYYW9kMDRLemtHN185bWlsQk5IMFFqZ2FyQUFiRmxHcGh0c21CMmNxa3luc3FhSEltTUR5bHJndGx2TDBnR1hZUHJGVDVZajlZUHhyWWxPUWdjdTl0LWNJM2hGVHhmWFdPNHQ2UHA5Y0xmandFM3VibTV3?oc=5",
         "sentiment": "negative",
         "daysAgo": 1,
         "isCritical": false,
-        "pubDate": "Fri, 28 Aug 2026 16:44:06 GMT",
-        "searchQuery": "college football transfer portal"
+        "pubDate": "Sat, 29 Aug 2026 12:03:54 GMT",
+        "searchQuery": "college football injury"
+      },
+      {
+        "title": "2026 college football coaching carousel grades: Marks for Kyle Whittingham, Lane Kiffin and all 33 FBS hires - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOanVvZ3lkZ2RaNFBscXROVUkzYWR4dm1DUW5OR0QwanphTFRrM09uWldNakEyMjlySDBzU2hURV95SmQ5MFZQX2VpS1lGMFpXeDB0NTRGdkxQa3NGNk5QcWlvN1RzNDh2TC1YQW82a3I5RjBLaDNZLW1BODA4aU9IMWYxMjJTenpxbzB5aEVnXzlQT2tGVTJGSmdrVU1Kc2RKamJycGEwb2EyNEpWQ3dkSjdjd1puYU1OQmUwTVJmT3pDQjhuNVI4LW9kQ2R3UQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 198,
+        "isCritical": false,
+        "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
+        "searchQuery": "college football coaching change"
+      }
+    ],
+    "georgia": [
+      {
+        "title": "College football coaching tiers 2026: It’s Curt Cignetti and Kirby Smart, then everyone else - The Athletic - The New York Times",
+        "source": "The New York Times",
+        "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNbktMdG9TZGJhN01aaXdJSVotYkMzUFNtSkVkLTlvUDd2T2ZmQUtsRGw2eW8yYzRZYkV3RVJXYjF2UHJxRjBhM19hZWVfd1Vnd3ZJTTNnODV0QmdnZEh1TEdFbFNCMlZfaHpRc3FwdVViNk9rU2hRd1REMVVFU2hnRWs2azRhU2owLXJtWHNzQlg0WHNqNFEwN3BZRWI1ckVyNFlfUXJ3?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 12,
+        "isCritical": false,
+        "pubDate": "Tue, 18 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
       }
     ],
     "indiana": [
@@ -153,60 +235,6 @@
         "searchQuery": "college football coaching change"
       }
     ],
-    "ole_miss": [
-      {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 10,
-        "isCritical": false,
-        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      },
-      {
-        "title": "2026 college football coaching carousel grades: Marks for Kyle Whittingham, Lane Kiffin and all 33 FBS hires - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOanVvZ3lkZ2RaNFBscXROVUkzYWR4dm1DUW5OR0QwanphTFRrM09uWldNakEyMjlySDBzU2hURV95SmQ5MFZQX2VpS1lGMFpXeDB0NTRGdkxQa3NGNk5QcWlvN1RzNDh2TC1YQW82a3I5RjBLaDNZLW1BODA4aU9IMWYxMjJTenpxbzB5aEVnXzlQT2tGVTJGSmdrVU1Kc2RKamJycGEwb2EyNEpWQ3dkSjdjd1puYU1OQmUwTVJmT3pDQjhuNVI4LW9kQ2R3UQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 198,
-        "isCritical": false,
-        "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      },
-      {
-        "title": "Lane Kiffin's NFL transfer portal brings spineless leaders to life | Opinion - USA Today",
-        "source": "USA Today",
-        "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUmtNeTV5cFc2VDRqWHh3TFRTRnFiUjJ4YUpILTlzbEdLaUxHLXdEd2c2ck1FZ2Q5WXZyOFFqVmU5aDROTnZrWGxyV2h0T1FFLVB4NFRHei1YMDRrRmtVTlpWNV95WFg5VWktSVgxS3lhXzh0TTRLYlhraW14LXhmaFFoR1B2ZjhpR2tzOHBRVzNWZEYtWFN1LVZNQVh0WEZrYkx6clJnNHFDNmotYXQtVFZRRzMxUWNJU1VCcWtaSHVxZ01SQUpWNA?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 2,
-        "isCritical": false,
-        "pubDate": "Thu, 27 Aug 2026 15:55:00 GMT",
-        "searchQuery": "college football transfer portal"
-      }
-    ],
-    "utah": [
-      {
-        "title": "2026 college football coaching carousel grades: Marks for Kyle Whittingham, Lane Kiffin and all 33 FBS hires - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOanVvZ3lkZ2RaNFBscXROVUkzYWR4dm1DUW5OR0QwanphTFRrM09uWldNakEyMjlySDBzU2hURV95SmQ5MFZQX2VpS1lGMFpXeDB0NTRGdkxQa3NGNk5QcWlvN1RzNDh2TC1YQW82a3I5RjBLaDNZLW1BODA4aU9IMWYxMjJTenpxbzB5aEVnXzlQT2tGVTJGSmdrVU1Kc2RKamJycGEwb2EyNEpWQ3dkSjdjd1puYU1OQmUwTVJmT3pDQjhuNVI4LW9kQ2R3UQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 198,
-        "isCritical": false,
-        "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      },
-      {
-        "title": "Gordon Monson: If Utah coaches pressured players to play injured, shame on them - The Salt Lake Tribune",
-        "source": "The Salt Lake Tribune",
-        "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOajQ0UHhlWmdYYW9kMDRLemtHN185bWlsQk5IMFFqZ2FyQUFiRmxHcGh0c21CMmNxa3luc3FhSEltTUR5bHJndGx2TDBnR1hZUHJGVDVZajlZUHhyWWxPUWdjdTl0LWNJM2hGVHhmWFdPNHQ2UHA5Y0xmandFM3VibTV3?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Sat, 29 Aug 2026 12:03:54 GMT",
-        "searchQuery": "college football injury"
-      }
-    ],
     "oregon": [
       {
         "title": "New College Football Schedule Rules Mirroring Dan Lanning Criticisms - Sports Illustrated",
@@ -229,16 +257,6 @@
         "isCritical": false,
         "pubDate": "Sat, 29 Aug 2026 15:59:30 GMT",
         "searchQuery": "college football depth chart"
-      },
-      {
-        "title": "Missouri college football player dies after medical emergency during season opener - CBS News",
-        "source": "CBS News",
-        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNVFEQ013UG1oSkJCc2RSanUzWEgxS0ZIakhwSFVkQ0s4dzRneDlsZ250TnhJbW1DZFpKdVRPUXZjbF9xTm9mU1RPV0g2Y29ualJ2aEtkVGFsc2EyWmZIZG9MN2FaVTdiUm5TdkdzSDNYZm5tUU93ck9nRjM3Nm02R1VsTWhPZDdO?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 30 Aug 2026 02:36:19 GMT",
-        "searchQuery": "NCAA college football"
       }
     ],
     "florida_state": [
@@ -280,54 +298,54 @@
   },
   "allNews": [
     {
-      "title": "College football coaching tiers 2026: It’s Curt Cignetti and Kirby Smart, then everyone else - The Athletic - The New York Times",
-      "source": "The New York Times",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNbktMdG9TZGJhN01aaXdJSVotYkMzUFNtSkVkLTlvUDd2T2ZmQUtsRGw2eW8yYzRZYkV3RVJXYjF2UHJxRjBhM19hZWVfd1Vnd3ZJTTNnODV0QmdnZEh1TEdFbFNCMlZfaHpRc3FwdVViNk9rU2hRd1REMVVFU2hnRWs2azRhU2owLXJtWHNzQlg0WHNqNFEwN3BZRWI1ckVyNFlfUXJ3?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 12,
-      "isCritical": false,
-      "pubDate": "Tue, 18 Aug 2026 07:00:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
-      "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 10,
-      "isCritical": false,
-      "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
-      "title": "2026 college football coaching carousel grades: Marks for Kyle Whittingham, Lane Kiffin and all 33 FBS hires - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOanVvZ3lkZ2RaNFBscXROVUkzYWR4dm1DUW5OR0QwanphTFRrM09uWldNakEyMjlySDBzU2hURV95SmQ5MFZQX2VpS1lGMFpXeDB0NTRGdkxQa3NGNk5QcWlvN1RzNDh2TC1YQW82a3I5RjBLaDNZLW1BODA4aU9IMWYxMjJTenpxbzB5aEVnXzlQT2tGVTJGSmdrVU1Kc2RKamJycGEwb2EyNEpWQ3dkSjdjd1puYU1OQmUwTVJmT3pDQjhuNVI4LW9kQ2R3UQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 198,
-      "isCritical": false,
-      "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
-      "title": "New College Football Schedule Rules Mirroring Dan Lanning Criticisms - Sports Illustrated",
-      "source": "Sports Illustrated",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPNy1qXzVaWGpYMXVrQWlDdThleGZyYVRENjJ2LU5fbDRHaXIwS0ZDWnE4RFRfcElCTWkwVzd2TFFGb2VZM1NLbXozMUFhOEhmcHQ0N1ZaR3h2YWJRNW9vd01rY0xGWTFwbXQ1STRQUEVPVnZfTEowbWg4VkpvYWM3RThISDZZczQ4YnhWZlVTakFoMnNXbWdmYXltbWlZX2p4dXc3SF9IbFpob2VEbmhROA?oc=5",
-      "sentiment": "neutral",
+      "title": "NCAA adopts proposals to significantly alter current college football calendar, transfer portal window - On3",
+      "source": "On3",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQcExyQVdPNENXUlEyWWlYRENscG95UEhhOW1IdmJQMFJ1cmFBN25HaEpUVGk1cTlhNk1UUHFFU3JlOExTYWU1S0JKT1E0R0hDbDk2b1BFTmdsOFc3R1J3b3ZFOXhTTjlaOGpjUG02SjF5V2k1aGlQYkJSWU1OZy1SY0R0UUhXQTEyVXFXQzVBU0xDYVpnb3B1N2N2bThUVXFvRDU5MnV4ZVBmMU1mRnlHWjN3Uld5Y3NTR0RyZERFTnZQZW1KQnc?oc=5",
+      "sentiment": "negative",
       "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Fri, 28 Aug 2026 22:30:00 GMT",
-      "searchQuery": "college football coaching change"
+      "pubDate": "Fri, 28 Aug 2026 16:44:06 GMT",
+      "searchQuery": "college football transfer portal"
     },
     {
-      "title": "ESPN making major change to college football broadcasts - PennLive.com",
-      "source": "PennLive.com",
-      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQZDVRUlJQcnFIckhvd1E5ck9mVWlHWnVnUGlnLWZFVDVlTnlSNS1SZE1OX3BpbzRsTkdYMU1GaDcwTkh2c3dhalhXMG1fdXJlOTBTTTdQbHphWEU3bjZROTlrc3U0c1NYYWFkUUItdWVlNzBoeHpsT2tMcHF0YWtzMmlVd0RjTEVWOHdwcnZ1QTh5V3Z0VkVTaEgyTWxxVS1nN1HSAbYBQVVfeXFMT2E4UVR1c3RSbWtBTHY1ZVZiSDNfaTV1QWczZHc3WlNjTkVwb28wbngxTmJwYUNJT2F6Q1k1TjBQei1hRVl2T2FzcDhpOGlxUFFiNFFCTVluZjBVdlpZTWt2eU8wWmFtbVJjYTZkREhkbmNwUmljSFdrc3hDUWpac1BSSmd6SXhWbDNMRmxwTnlUME1Zc3l0TU5SUmV5TlJFUnVCaDhaV09Pc1lyWndKaGVOSThuV3c?oc=5",
+      "title": "NCAA finalizes changes to 2027 football schedule, shortens transfer portal window - AL.com",
+      "source": "AL.com",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPeWxOMGV3b3pyYlJ0UkgydWhMYkF3NGdFOTJsdUdoMEhwZWpDNEdrM2RFWndvLXV1X25UYzlTQVdBUFk3TjVrT2wwX0ZYVm1RbmRRdng4SDhvcDFQSDBieUFFMEdhYmZleTFsVEN6VWVjSmFkbWNmQ09QVUhlZlp0ajFma3ZGLWpDTU8wZlBWbVNDU3RDYzN3Q3ZJczcycy1WdkpTb2JoNW9sQjhVbldjLUQtWW9MbGJmeTdV?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 16:21:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "Stop hitting the panic button on college football: The sport isn't dying, it just needs time to evolve - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQN1lUU2FYcjhrdGkzLTRBb0J3MzFaYXZVRll3Qjk4MmdhMVRpWWRmaVczdm12MjFuMzZsNGo0SlJzUzRRV0JIQmZNaEZMS0dVMU1XMFlDbzlCUzZ3UnJnNWo1enFOS0xqVGl2UFdiTDJfMVJqZzBSdjhLdVl2a1VLdjd0ampkYTNTcUlBOU14cw?oc=5",
       "sentiment": "neutral",
       "daysAgo": 2,
       "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 19:16:00 GMT",
-      "searchQuery": "college football coaching change"
+      "pubDate": "Fri, 28 Aug 2026 13:56:56 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "2026 Team Talent Composite: How the transfer portal is reshaping college football's power structure - 247Sports",
+      "source": "247Sports",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNbzhuSmtGbUtyM1I2WENLeFJhYU8xNUtpUVRMQ09JdGw2SFdDa1NBenRHRWZJeklRN2R4dnZkbEZ6cVlYcXFQNXFzS1pSbzhGSkJ5aWZEU0RuZlc4R3FicnVEU2stdkt0NWQ5bFlGUlBRbDJKZFdPRTh6NnMyZFFwTzJDLXRId3NDUVRnTzBQNEZIUmRkREw1bW9LTDdyb3lGcXlUcmhZck1zd3BySU5PS2hMcFZxT0ZqUzFOdlExMGEtUQ?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 3,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 14:00:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "Lane Kiffin's NFL transfer portal brings spineless leaders to life | Opinion - USA Today",
+      "source": "USA Today",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUmtNeTV5cFc2VDRqWHh3TFRTRnFiUjJ4YUpILTlzbEdLaUxHLXdEd2c2ck1FZ2Q5WXZyOFFqVmU5aDROTnZrWGxyV2h0T1FFLVB4NFRHei1YMDRrRmtVTlpWNV95WFg5VWktSVgxS3lhXzh0TTRLYlhraW14LXhmaFFoR1B2ZjhpR2tzOHBRVzNWZEYtWFN1LVZNQVh0WEZrYkx6clJnNHFDNmotYXQtVFZRRzMxUWNJU1VCcWtaSHVxZ01SQUpWNA?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 15:55:00 GMT",
+      "searchQuery": "college football transfer portal"
     },
     {
       "title": "College Football Week 0 Injury Report: Latest Updates on Key Players for Saturday's Games - Sports Illustrated",
@@ -380,54 +398,54 @@
       "searchQuery": "college football injury"
     },
     {
-      "title": "NCAA adopts proposals to significantly alter current college football calendar, transfer portal window - On3",
-      "source": "On3",
-      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQcExyQVdPNENXUlEyWWlYRENscG95UEhhOW1IdmJQMFJ1cmFBN25HaEpUVGk1cTlhNk1UUHFFU3JlOExTYWU1S0JKT1E0R0hDbDk2b1BFTmdsOFc3R1J3b3ZFOXhTTjlaOGpjUG02SjF5V2k1aGlQYkJSWU1OZy1SY0R0UUhXQTEyVXFXQzVBU0xDYVpnb3B1N2N2bThUVXFvRDU5MnV4ZVBmMU1mRnlHWjN3Uld5Y3NTR0RyZERFTnZQZW1KQnc?oc=5",
-      "sentiment": "negative",
+      "title": "College football coaching tiers 2026: It’s Curt Cignetti and Kirby Smart, then everyone else - The Athletic - The New York Times",
+      "source": "The New York Times",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNbktMdG9TZGJhN01aaXdJSVotYkMzUFNtSkVkLTlvUDd2T2ZmQUtsRGw2eW8yYzRZYkV3RVJXYjF2UHJxRjBhM19hZWVfd1Vnd3ZJTTNnODV0QmdnZEh1TEdFbFNCMlZfaHpRc3FwdVViNk9rU2hRd1REMVVFU2hnRWs2azRhU2owLXJtWHNzQlg0WHNqNFEwN3BZRWI1ckVyNFlfUXJ3?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 12,
+      "isCritical": false,
+      "pubDate": "Tue, 18 Aug 2026 07:00:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 10,
+      "isCritical": false,
+      "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "2026 college football coaching carousel grades: Marks for Kyle Whittingham, Lane Kiffin and all 33 FBS hires - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOanVvZ3lkZ2RaNFBscXROVUkzYWR4dm1DUW5OR0QwanphTFRrM09uWldNakEyMjlySDBzU2hURV95SmQ5MFZQX2VpS1lGMFpXeDB0NTRGdkxQa3NGNk5QcWlvN1RzNDh2TC1YQW82a3I5RjBLaDNZLW1BODA4aU9IMWYxMjJTenpxbzB5aEVnXzlQT2tGVTJGSmdrVU1Kc2RKamJycGEwb2EyNEpWQ3dkSjdjd1puYU1OQmUwTVJmT3pDQjhuNVI4LW9kQ2R3UQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 198,
+      "isCritical": false,
+      "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "New College Football Schedule Rules Mirroring Dan Lanning Criticisms - Sports Illustrated",
+      "source": "Sports Illustrated",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPNy1qXzVaWGpYMXVrQWlDdThleGZyYVRENjJ2LU5fbDRHaXIwS0ZDWnE4RFRfcElCTWkwVzd2TFFGb2VZM1NLbXozMUFhOEhmcHQ0N1ZaR3h2YWJRNW9vd01rY0xGWTFwbXQ1STRQUEVPVnZfTEowbWg4VkpvYWM3RThISDZZczQ4YnhWZlVTakFoMnNXbWdmYXltbWlZX2p4dXc3SF9IbFpob2VEbmhROA?oc=5",
+      "sentiment": "neutral",
       "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Fri, 28 Aug 2026 16:44:06 GMT",
-      "searchQuery": "college football transfer portal"
+      "pubDate": "Fri, 28 Aug 2026 22:30:00 GMT",
+      "searchQuery": "college football coaching change"
     },
     {
-      "title": "NCAA finalizes changes to 2027 football schedule, shortens transfer portal window - AL.com",
-      "source": "AL.com",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPeWxOMGV3b3pyYlJ0UkgydWhMYkF3NGdFOTJsdUdoMEhwZWpDNEdrM2RFWndvLXV1X25UYzlTQVdBUFk3TjVrT2wwX0ZYVm1RbmRRdng4SDhvcDFQSDBieUFFMEdhYmZleTFsVEN6VWVjSmFkbWNmQ09QVUhlZlp0ajFma3ZGLWpDTU8wZlBWbVNDU3RDYzN3Q3ZJczcycy1WdkpTb2JoNW9sQjhVbldjLUQtWW9MbGJmeTdV?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 2,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 16:21:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "Stop hitting the panic button on college football: The sport isn't dying, it just needs time to evolve - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQN1lUU2FYcjhrdGkzLTRBb0J3MzFaYXZVRll3Qjk4MmdhMVRpWWRmaVczdm12MjFuMzZsNGo0SlJzUzRRV0JIQmZNaEZMS0dVMU1XMFlDbzlCUzZ3UnJnNWo1enFOS0xqVGl2UFdiTDJfMVJqZzBSdjhLdVl2a1VLdjd0ampkYTNTcUlBOU14cw?oc=5",
+      "title": "ESPN making major change to college football broadcasts - PennLive.com",
+      "source": "PennLive.com",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQZDVRUlJQcnFIckhvd1E5ck9mVWlHWnVnUGlnLWZFVDVlTnlSNS1SZE1OX3BpbzRsTkdYMU1GaDcwTkh2c3dhalhXMG1fdXJlOTBTTTdQbHphWEU3bjZROTlrc3U0c1NYYWFkUUItdWVlNzBoeHpsT2tMcHF0YWtzMmlVd0RjTEVWOHdwcnZ1QTh5V3Z0VkVTaEgyTWxxVS1nN1HSAbYBQVVfeXFMT2E4UVR1c3RSbWtBTHY1ZVZiSDNfaTV1QWczZHc3WlNjTkVwb28wbngxTmJwYUNJT2F6Q1k1TjBQei1hRVl2T2FzcDhpOGlxUFFiNFFCTVluZjBVdlpZTWt2eU8wWmFtbVJjYTZkREhkbmNwUmljSFdrc3hDUWpac1BSSmd6SXhWbDNMRmxwTnlUME1Zc3l0TU5SUmV5TlJFUnVCaDhaV09Pc1lyWndKaGVOSThuV3c?oc=5",
       "sentiment": "neutral",
       "daysAgo": 2,
       "isCritical": false,
-      "pubDate": "Fri, 28 Aug 2026 13:56:56 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "2026 Team Talent Composite: How the transfer portal is reshaping college football's power structure - 247Sports",
-      "source": "247Sports",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNbzhuSmtGbUtyM1I2WENLeFJhYU8xNUtpUVRMQ09JdGw2SFdDa1NBenRHRWZJeklRN2R4dnZkbEZ6cVlYcXFQNXFzS1pSbzhGSkJ5aWZEU0RuZlc4R3FicnVEU2stdkt0NWQ5bFlGUlBRbDJKZFdPRTh6NnMyZFFwTzJDLXRId3NDUVRnTzBQNEZIUmRkREw1bW9LTDdyb3lGcXlUcmhZck1zd3BySU5PS2hMcFZxT0ZqUzFOdlExMGEtUQ?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 3,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 14:00:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "Lane Kiffin's NFL transfer portal brings spineless leaders to life | Opinion - USA Today",
-      "source": "USA Today",
-      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUmtNeTV5cFc2VDRqWHh3TFRTRnFiUjJ4YUpILTlzbEdLaUxHLXdEd2c2ck1FZ2Q5WXZyOFFqVmU5aDROTnZrWGxyV2h0T1FFLVB4NFRHei1YMDRrRmtVTlpWNV95WFg5VWktSVgxS3lhXzh0TTRLYlhraW14LXhmaFFoR1B2ZjhpR2tzOHBRVzNWZEYtWFN1LVZNQVh0WEZrYkx6clJnNHFDNmotYXQtVFZRRzMxUWNJU1VCcWtaSHVxZ01SQUpWNA?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 2,
-      "isCritical": false,
-      "pubDate": "Thu, 27 Aug 2026 15:55:00 GMT",
-      "searchQuery": "college football transfer portal"
+      "pubDate": "Thu, 27 Aug 2026 19:16:00 GMT",
+      "searchQuery": "college football coaching change"
     },
     {
       "title": "Syracuse football depth chart projection: Closest calls; breakout players to watch - Syracuse.com",
@@ -480,6 +498,56 @@
       "searchQuery": "college football depth chart"
     },
     {
+      "title": "College football top 25 rankings and playoff predictions for 2026 - New York Post",
+      "source": "New York Post",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPdzJ1UDRrdTV1YUgyeXNZNlNieTBBU3BHV0ZFaFcya0NNRzVBT3VEVUxYZmFJNXFnX0xHc3RVLU1JdHB3ZHNMUzdWQkE1UXZmNW85Qy1ZQUx6VG81Y01kYlpqQ0Z6RGhEMWVFZ0pCYWNWTEd6bTUwUXNTUkJqLWNWTm02TTdUU3VseTR2NUFrQ0toT2N4RjZiRXRpOUc4LUg4V1dUREJn?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 29 Aug 2026 16:19:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "How the updated College Football Playoff format will work in 2026-27 - NCAA.com",
+      "source": "NCAA.com",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOalMxdndIejBsYnc0RUFjV2h4bVlhZ3k5ek5DSDBocGNUeU5NMi1xUmYxZFZfNXUzMm1NQjZUY0VGQmtlLXozZzh2Y0RvQjlWLUZWTVlKeDlRNWI5Qy15ajVKQ0hBZTBVWE43U0o2ZEp0dGhDRWdVWHpZVFVaaFk1NmczQ01mS3NULW93QU00MzFDUkRBY1FWVEUzbXVGSTNoLUdUajF6Y1dtRG1v?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Thu, 27 Aug 2026 20:37:05 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "Group of Six expert picks 2026: Which non-Power Four team will crash the College Football Playoff party - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQaEIyS05zT1J2NExoaUpNYmg3UmpXem5nTTlpWF9nUHB1NjdjUjNaQlNxbzhQMkJlSGlnSGR3YnZ0bmJMVUl5YkZPNG5rTlBOM1g3cFZ0V1lwU24yZnpuc1B5MFRyZzRBVkpIYUp5WWJmZFAzTTBVTFRWdDU1R2RvV2FzWjhGV25BZTdWbl8tYk5IYVBhTGhVN25oRzhqWk0?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Fri, 28 Aug 2026 15:36:06 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "Rule changes for 2026 season: Targeting punishment tweaks, more automatic unsportsmanlike conduct penalties - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxNU1pfa0U5eVY1dzB2dlJBX3RMTU94TlFud2VhZnM4M242Vm53T3F1RjVFa0M0eFdZQmd2SmotdW53TXViUmlkT2g3aEh0LW9mcEhuaUNCYkNsXzFJVFgzQ0FoS3l2aUtlOFRfeWdCQm9rV00zR01ORVpIaW1xUE9OS3RZYk5xNWRJS08zQ2dUZGIzcjlQeG1NVGhkWGI2Vjg2cnl2UWpvMmNMVm5YZVI5V2c2OUVFbkladHphV3R0VVdPZDlscXFVMnZjUVh6Wjk0SE5LRmRoQTlTYzZacnlJdHNGelROWm1PaUk3ek0waExzUQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Fri, 28 Aug 2026 18:54:24 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "William Jewell College RB dies after medical emergency during game - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQVWhocWZHcThFOXRvNXJLZy1NVUlYb1dmZVE5a1JXOHhjNVBhTC1yMHpkZVllanFiR0VVclVZd3lOdU0zSjlGYVVISjFfNldkX1ZxNXpmOEJvS0RZRk5TYmJ2ZEYxVDdMZ21seFY2dEt6QXBtQVNiaHNMWllIdlBnRWJNWjNueDR4NnJNS1lIcFEwQUFoR3dtMlNHRFVWVkllWVNsUTNuWlJpMEI1MXZUbg?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 29 Aug 2026 22:56:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
       "title": "William Jewell College shares death of football player ahead of suspended game - KSHB 41 Kansas City",
       "source": "KSHB 41 Kansas City",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOSXJWUS1IaXZ3TGhtdU82V0p6Tlk1Vm1jZm5iZGUyMldKUmV4dVRDTEtHbWxBM1R1ZWlfSW5tZXdDZFpiOEtLdHBXUGdKRWZTM1p3VGJ4MTZWUHNQckJ6VGQ2ai1GSXQ5bXIxYmJhS2hSblZRWDVmanhCWFpQR3BDc2YtYVNoWURMd3VFTjh2ZHIzcnhwSzZkckFzb3A1SDEwQnZDemdwbXAweWhLWjd6ZjdlYmJmV1E4eXlWVkpOWQ?oc=5",
@@ -530,54 +598,54 @@
       "searchQuery": "college football suspended"
     },
     {
-      "title": "College football top 25 rankings and playoff predictions for 2026 - New York Post",
-      "source": "New York Post",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPdzJ1UDRrdTV1YUgyeXNZNlNieTBBU3BHV0ZFaFcya0NNRzVBT3VEVUxYZmFJNXFnX0xHc3RVLU1JdHB3ZHNMUzdWQkE1UXZmNW85Qy1ZQUx6VG81Y01kYlpqQ0Z6RGhEMWVFZ0pCYWNWTEd6bTUwUXNTUkJqLWNWTm02TTdUU3VseTR2NUFrQ0toT2N4RjZiRXRpOUc4LUg4V1dUREJn?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 16:19:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "Rule changes for 2026 season: Targeting punishment tweaks, more automatic unsportsmanlike conduct penalties - CBS Sports",
+      "title": "College football odds, picks, predictions for Week 0, 2026: Computer backs Virginia, New Mexico State - CBS Sports",
       "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxNU1pfa0U5eVY1dzB2dlJBX3RMTU94TlFud2VhZnM4M242Vm53T3F1RjVFa0M0eFdZQmd2SmotdW53TXViUmlkT2g3aEh0LW9mcEhuaUNCYkNsXzFJVFgzQ0FoS3l2aUtlOFRfeWdCQm9rV00zR01ORVpIaW1xUE9OS3RZYk5xNWRJS08zQ2dUZGIzcjlQeG1NVGhkWGI2Vjg2cnl2UWpvMmNMVm5YZVI5V2c2OUVFbkladHphV3R0VVdPZDlscXFVMnZjUVh6Wjk0SE5LRmRoQTlTYzZacnlJdHNGelROWm1PaUk3ek0waExzUQ?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOZ2c5aDQzTVlWMVJmQ2k0QXI0Z2V3X0t2ZFhPUWhyVElZTEpvaTRsbXp6alNrU1RtQjZhOXozSkxqS0laS1ZnTGlmUHBhaER3Y1NsSUZLRnA2YUJvLXNsN3JtOVZLa2IwRzdIblZ5WWZZQWRzeVNfVFI0NG0zQnJ2bXdmQWtWNHNfRDRSWmxDc3JKTlYzbjRhbVN5d2lySUwzWHlHX2lCZXVjdllDREJUczN1Y2JVN0NUeGZHSGs4NWxhUQ?oc=5",
       "sentiment": "neutral",
       "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Fri, 28 Aug 2026 18:54:24 GMT",
-      "searchQuery": "NCAA college football"
+      "pubDate": "Sat, 29 Aug 2026 11:29:48 GMT",
+      "searchQuery": "college football spread odds"
     },
     {
-      "title": "William Jewell College RB dies after medical emergency during game - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQVWhocWZHcThFOXRvNXJLZy1NVUlYb1dmZVE5a1JXOHhjNVBhTC1yMHpkZVllanFiR0VVclVZd3lOdU0zSjlGYVVISjFfNldkX1ZxNXpmOEJvS0RZRk5TYmJ2ZEYxVDdMZ21seFY2dEt6QXBtQVNiaHNMWllIdlBnRWJNWjNueDR4NnJNS1lIcFEwQUFoR3dtMlNHRFVWVkllWVNsUTNuWlJpMEI1MXZUbg?oc=5",
+      "title": "College Football Picks Against the Spread for Week 0 - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQYVFWWFNfX2VYU3VIOXpiNllDZk5JU0hWdWJod192b05vNVptYzhXSjVkcXY1MnQzc3NEOXFJekhSVVlhNFhhYUh0a1dwOHZ3NEJkMVlLeUNERWlSV1B2djllSTByV3d0Wl9XY1VuUWtaRXQ3S0JsYnhVRDZLbkpOTktCeVZqd0lpeF9YeG5CMA?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sat, 29 Aug 2026 12:10:00 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "College football odds, lines, spreads: Picks, predictions, betting advice for Week 0, 2026 from proven model - SportsLine",
+      "source": "SportsLine",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOTVZEX1owTU5La3BVUHlaQzlqQUozcjBPVVp3aVEtOUFJVC1scDlhUklBYzhpRmprT3U4MEpMNkZfZWZwcGZuTElLU2hRRjNFazRxTE1nTVI0Um1xd05UTWtIbjhGbGZNTWlJRzExVWFHb2hYRXBLMVZrQzhzMVF1RDljS1VCcDBfREVKOGVsb0pUdWhKRnRBUnQ1VkNTeUhxWHJlZ0lnWTlsQnVuMXdsX09JbXJaQkdURkFYVGQ4YzJEVUY3Y3JTMUR6cm9GdE43T2JxWm1R?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sat, 29 Aug 2026 11:30:38 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "College Football Odds Saturday: Pros vs Joes on 3 Lines - Action Network",
+      "source": "Action Network",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNWUo1RFVrRG9Gd3Fma2x6STUyWW1wTHlTQmg0RThpRWZ4b0ZOc2RJVVlnOHF6anNvTXBaMkZZV1RLVTdGa21KbkZpLUV4ZkljV0syc2dfVklva0wyYjZHZUdmS3J6YS1Cd19XdDN2OXlfZzRVeGFuTTNnS1l5TmhtZnV0TzV1Zw?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 22:56:00 GMT",
-      "searchQuery": "NCAA college football"
+      "pubDate": "Sat, 29 Aug 2026 16:42:00 GMT",
+      "searchQuery": "college football spread odds"
     },
     {
-      "title": "College football player MicahJo Barnett dies after medical emergency during season opener - The Athletic - The New York Times",
-      "source": "The New York Times",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdk5LblRzbHlpbHNQQXYzNEtfLWp4QjJPdHREZno2bWMxUG1uSDhDalVkNkcySEdLd09ET0pybjRvOWVldHVsUU5iMDgzVVdRbkM3eDhCMXVfUmZ1V2ppUThhbzlZR01NM2Z5TE5yVGVMVlA5MmI2dmV3RnBxdmxZbjdpbDRMU2E1VWd2MVN6UlZ2RzliUHFCSE9BVVpKSDdhdU5lOVFDUVpJQ1dTV2tpTi1WRQ?oc=5",
+      "title": "College Football Predictions Today: Week 0 Picks and Best Bets for Today (Aug. 29) - FanDuel",
+      "source": "FanDuel",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQWm4zOUgzOGEtaXhHeUhnRTFmZU11YlU0eUo1XzJpRVF1UjB5M2RXWmlwRVZqMUdMQXJtRXFRSzhSUXM1cG5RMEJQSkE4bHVla0RwdURoN2h1WUoxT3R3clFFNTFjSm1VUldaZmJpUVBQTWJrRloyajJZTXM1QUxtOVB2ckFoVzBMQUx5Sm9UU1VURUFmamZKRDhJSVcxeXQ2UFFBdXllenUycWhKeklwdA?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 0,
+      "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 21:21:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "Missouri college football player dies after medical emergency during season opener - CBS News",
-      "source": "CBS News",
-      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNVFEQ013UG1oSkJCc2RSanUzWEgxS0ZIakhwSFVkQ0s4dzRneDlsZ250TnhJbW1DZFpKdVRPUXZjbF9xTm9mU1RPV0g2Y29ualJ2aEtkVGFsc2EyWmZIZG9MN2FaVTdiUm5TdkdzSDNYZm5tUU93ck9nRjM3Nm02R1VsTWhPZDdO?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sun, 30 Aug 2026 02:36:19 GMT",
-      "searchQuery": "NCAA college football"
+      "pubDate": "Sat, 29 Aug 2026 12:40:01 GMT",
+      "searchQuery": "college football spread odds"
     },
     {
       "title": "College football odds, picks, predictions for Week 0, 2026: Computer backs Virginia, New Mexico State - CBS Sports",
@@ -628,56 +696,6 @@
       "isCritical": false,
       "pubDate": "Sat, 29 Aug 2026 11:30:38 GMT",
       "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "College football odds, picks, predictions for Week 0, 2026: Computer backs Virginia, New Mexico State - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOZ2c5aDQzTVlWMVJmQ2k0QXI0Z2V3X0t2ZFhPUWhyVElZTEpvaTRsbXp6alNrU1RtQjZhOXozSkxqS0laS1ZnTGlmUHBhaER3Y1NsSUZLRnA2YUJvLXNsN3JtOVZLa2IwRzdIblZ5WWZZQWRzeVNfVFI0NG0zQnJ2bXdmQWtWNHNfRDRSWmxDc3JKTlYzbjRhbVN5d2lySUwzWHlHX2lCZXVjdllDREJUczN1Y2JVN0NUeGZHSGs4NWxhUQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 11:29:48 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College Football Picks Against the Spread for Week 0 - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQYVFWWFNfX2VYU3VIOXpiNllDZk5JU0hWdWJod192b05vNVptYzhXSjVkcXY1MnQzc3NEOXFJekhSVVlhNFhhYUh0a1dwOHZ3NEJkMVlLeUNERWlSV1B2djllSTByV3d0Wl9XY1VuUWtaRXQ3S0JsYnhVRDZLbkpOTktCeVZqd0lpeF9YeG5CMA?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 12:10:00 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College football odds, lines, spreads: Picks, predictions, betting advice for Week 0, 2026 from proven model - SportsLine",
-      "source": "SportsLine",
-      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOTVZEX1owTU5La3BVUHlaQzlqQUozcjBPVVp3aVEtOUFJVC1scDlhUklBYzhpRmprT3U4MEpMNkZfZWZwcGZuTElLU2hRRjNFazRxTE1nTVI0Um1xd05UTWtIbjhGbGZNTWlJRzExVWFHb2hYRXBLMVZrQzhzMVF1RDljS1VCcDBfREVKOGVsb0pUdWhKRnRBUnQ1VkNTeUhxWHJlZ0lnWTlsQnVuMXdsX09JbXJaQkdURkFYVGQ4YzJEVUY3Y3JTMUR6cm9GdE43T2JxWm1R?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 11:30:38 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College Football Odds Saturday: Pros vs Joes on 3 Lines - Action Network",
-      "source": "Action Network",
-      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNWUo1RFVrRG9Gd3Fma2x6STUyWW1wTHlTQmg0RThpRWZ4b0ZOc2RJVVlnOHF6anNvTXBaMkZZV1RLVTdGa21KbkZpLUV4ZkljV0syc2dfVklva0wyYjZHZUdmS3J6YS1Cd19XdDN2OXlfZzRVeGFuTTNnS1l5TmhtZnV0TzV1Zw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 16:42:00 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College Football Predictions Today: Week 0 Picks and Best Bets for Today (Aug. 29) - FanDuel",
-      "source": "FanDuel",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQWm4zOUgzOGEtaXhHeUhnRTFmZU11YlU0eUo1XzJpRVF1UjB5M2RXWmlwRVZqMUdMQXJtRXFRSzhSUXM1cG5RMEJQSkE4bHVla0RwdURoN2h1WUoxT3R3clFFNTFjSm1VUldaZmJpUVBQTWJrRloyajJZTXM1QUxtOVB2ckFoVzBMQUx5Sm9UU1VURUFmamZKRDhJSVcxeXQ2UFFBdXllenUycWhKeklwdA?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 29 Aug 2026 12:40:01 GMT",
-      "searchQuery": "college football spread odds"
     }
   ],
   "criticalAlerts": []
