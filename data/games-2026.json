@@ -1,8 +1,8 @@
 {
-  "generated": "2026-08-30T21:03:53.205Z",
+  "generated": "2026-08-30T21:32:33.313Z",
   "season": 2026,
-  "totalGames": 858,
-  "scheduledGames": 850,
+  "totalGames": 851,
+  "scheduledGames": 843,
   "completedGames": 8,
   "liveGames": 0,
   "gamesWithLines": 0,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 141556,
+  "fetchDurationMs": 114130,
   "apRanks": {},
   "games": [
     {
@@ -10900,75 +10900,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401866418",
-      "espnId": "401866418",
-      "week": 2,
-      "seasonType": "regular",
-      "date": "2026-09-12",
-      "time": "6:00 PM ET",
-      "homeTeamId": "ohio",
-      "awayTeamId": "jacksonville_state",
-      "homeTeamName": "Ohio Bobcats",
-      "awayTeamName": "Jacksonville State Gamecocks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN+",
-      "venue": "Peden Stadium",
-      "venueCity": "Athens",
-      "venueState": "OH",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Jacksonville State Gamecocks at Ohio Bobcats",
-        "synopsis": "Week 2 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401868187",
       "espnId": "401868187",
       "week": 2,
@@ -17162,75 +17093,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401869948",
-      "espnId": "401869948",
-      "week": 3,
-      "seasonType": "regular",
-      "date": "2026-09-19",
-      "time": "7:00 PM ET",
-      "homeTeamId": "jacksonville_state",
-      "awayTeamId": "georgia_southern",
-      "homeTeamName": "Jacksonville State Gamecocks",
-      "awayTeamName": "Georgia Southern Eagles",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN+",
-      "venue": "AmFirst Stadium",
-      "venueCity": "Jacksonville",
-      "venueState": "AL",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Georgia Southern Eagles at Jacksonville State Gamecocks",
-        "synopsis": "Week 3 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401870764",
       "espnId": "401870764",
       "week": 3,
@@ -23095,75 +22957,6 @@
       },
       "gamePreview": {
         "headline": "Mercyhurst Lakers at Western Kentucky Hilltoppers",
-        "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401871048",
-      "espnId": "401871048",
-      "week": 4,
-      "seasonType": "regular",
-      "date": "2026-09-26",
-      "time": "7:00 PM ET",
-      "homeTeamId": "jacksonville_state",
-      "awayTeamId": "middle_tennessee",
-      "homeTeamName": "Jacksonville State Gamecocks",
-      "awayTeamName": "Middle Tennessee Blue Raiders",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN+",
-      "venue": "AmFirst Stadium",
-      "venueCity": "Jacksonville",
-      "venueState": "AL",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Middle Tennessee Blue Raiders at Jacksonville State Gamecocks",
         "synopsis": "Week 4 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -46358,75 +46151,6 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401871075",
-      "espnId": "401871075",
-      "week": 10,
-      "seasonType": "regular",
-      "date": "2026-11-08",
-      "time": "7:00 PM ET",
-      "homeTeamId": "jacksonville_state",
-      "awayTeamId": "sam_houston",
-      "homeTeamName": "Jacksonville State Gamecocks",
-      "awayTeamName": "Sam Houston Bearkats",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "AmFirst Stadium",
-      "venueCity": "Jacksonville",
-      "venueState": "AL",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Sam Houston Bearkats at Jacksonville State Gamecocks",
-        "synopsis": "Week 10 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
       "id": "espn_401858291",
       "espnId": "401858291",
       "week": 10,
@@ -50353,75 +50077,6 @@
       },
       "gamePreview": {
         "headline": "Boston College Eagles at Notre Dame Fighting Irish",
-        "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401870752",
-      "espnId": "401870752",
-      "week": 11,
-      "seasonType": "regular",
-      "date": "2026-11-14",
-      "time": "3:30 PM ET",
-      "homeTeamId": "western_kentucky",
-      "awayTeamId": "jacksonville_state",
-      "homeTeamName": "Western Kentucky Hilltoppers",
-      "awayTeamName": "Jacksonville State Gamecocks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "TBD",
-      "venue": "Houchens Industries-L.T. Smith Stadium",
-      "venueCity": "Bowling Green",
-      "venueState": "KY",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Jacksonville State Gamecocks at Western Kentucky Hilltoppers",
         "synopsis": "Week 11 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -54505,75 +54160,6 @@
       },
       "gamePreview": {
         "headline": "Chattanooga Mocs at Alabama Crimson Tide",
-        "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401871079",
-      "espnId": "401871079",
-      "week": 12,
-      "seasonType": "regular",
-      "date": "2026-11-21",
-      "time": "2:00 PM ET",
-      "homeTeamId": "jacksonville_state",
-      "awayTeamId": "missouri_state",
-      "homeTeamName": "Jacksonville State Gamecocks",
-      "awayTeamName": "Missouri State Bears",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "TBD",
-      "venue": "AmFirst Stadium",
-      "venueCity": "Jacksonville",
-      "venueState": "AL",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Missouri State Bears at Jacksonville State Gamecocks",
         "synopsis": "Week 12 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -59974,75 +59560,6 @@
       },
       "gamePreview": {
         "headline": "Troy Trojans at Arkansas State Red Wolves",
-        "synopsis": "Week 13 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401871062",
-      "espnId": "401871062",
-      "week": 13,
-      "seasonType": "regular",
-      "date": "2026-11-28",
-      "time": "3:30 PM ET",
-      "homeTeamId": "delaware",
-      "awayTeamId": "jacksonville_state",
-      "homeTeamName": "Delaware Blue Hens",
-      "awayTeamName": "Jacksonville State Gamecocks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Delaware Stadium",
-      "venueCity": "Newark",
-      "venueState": "DE",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 0
-      },
-      "gamePreview": {
-        "headline": "Jacksonville State Gamecocks at Delaware Blue Hens",
         "synopsis": "Week 13 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
