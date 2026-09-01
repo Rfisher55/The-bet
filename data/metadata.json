@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-01T00:32:18.751Z",
+  "generated": "2026-09-01T04:11:52.655Z",
   "season": 2026,
   "totalGames": 851,
   "scheduledGames": 843,
@@ -12,8 +12,8 @@
   "rankedTeams": 25,
   "injuredPlayers": 0,
   "spTeams": 139,
-  "ppaTeams": 0,
-  "recruitingTeams": 0,
+  "ppaTeams": 16,
+  "recruitingTeams": 221,
   "transferCount": 0,
   "espnFallback": true,
   "dataSourcesActive": [
@@ -23,5 +23,5 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 224088
+  "fetchDurationMs": 89042
 }
