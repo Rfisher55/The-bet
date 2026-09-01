@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-01T12:15:52.515Z",
+  "generated": "2026-09-01T16:33:18.262Z",
   "season": 2026,
   "totalGames": 851,
   "scheduledGames": 843,
@@ -23,7 +23,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 138746,
+  "fetchDurationMs": 162416,
   "apRanks": {
     "ohio_state": 1,
     "oregon": 2,
@@ -643,7 +643,7 @@
         "windMph": 6,
         "gusts": 15,
         "windDir": "W",
-        "precipitation": 0.34,
+        "precipitation": 0.27,
         "humidity": 70,
         "indoors": false,
         "kickoffHour": 18,
@@ -723,7 +723,7 @@
         "windMph": 11,
         "gusts": 17,
         "windDir": "ESE",
-        "precipitation": 0.7,
+        "precipitation": 0.8,
         "humidity": 77,
         "indoors": false,
         "kickoffHour": 19,
@@ -738,7 +738,7 @@
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
         "trendingTopics": [
-          "🌧 Rain 70%"
+          "🌧 Rain 80%"
         ]
       },
       "socialIntel": {
@@ -805,7 +805,7 @@
         "windMph": 12,
         "gusts": 23,
         "windDir": "WNW",
-        "precipitation": 0.01,
+        "precipitation": 0.04,
         "humidity": 54,
         "indoors": false,
         "kickoffHour": 19,
@@ -1174,7 +1174,7 @@
         "windMph": 10,
         "gusts": 14,
         "windDir": "S",
-        "precipitation": 0.08,
+        "precipitation": 0.07,
         "humidity": 38,
         "indoors": false,
         "kickoffHour": 20,
@@ -1416,7 +1416,7 @@
         "windMph": 5,
         "gusts": 5,
         "windDir": "ESE",
-        "precipitation": 0.02,
+        "precipitation": 0.04,
         "humidity": 77,
         "indoors": false,
         "kickoffHour": 21,
@@ -1854,7 +1854,7 @@
         "windMph": 8,
         "gusts": 16,
         "windDir": "ENE",
-        "precipitation": 0.1,
+        "precipitation": 0.06,
         "humidity": 60,
         "indoors": false,
         "kickoffHour": 20,
@@ -2016,7 +2016,7 @@
         "windMph": 6,
         "gusts": 5,
         "windDir": "SSE",
-        "precipitation": 0.27,
+        "precipitation": 0.26,
         "humidity": 48,
         "indoors": false,
         "kickoffHour": 21,
@@ -2098,7 +2098,7 @@
         "windMph": 1,
         "gusts": 1,
         "windDir": "E",
-        "precipitation": 0.15,
+        "precipitation": 0.14,
         "humidity": 55,
         "indoors": false,
         "kickoffHour": 12,
@@ -2180,7 +2180,7 @@
         "windMph": 1,
         "gusts": 4,
         "windDir": "N",
-        "precipitation": 0.04,
+        "precipitation": 0.08,
         "humidity": 41,
         "indoors": false,
         "kickoffHour": 12,
@@ -2339,7 +2339,7 @@
         "windMph": 6,
         "gusts": 9,
         "windDir": "NNW",
-        "precipitation": 0.31,
+        "precipitation": 0.22,
         "humidity": 58,
         "indoors": false,
         "kickoffHour": 12,
@@ -2643,7 +2643,7 @@
         "windMph": 8,
         "gusts": 14,
         "windDir": "N",
-        "precipitation": 0.01,
+        "precipitation": 0.02,
         "humidity": 52,
         "indoors": false,
         "kickoffHour": 12,
@@ -2861,7 +2861,7 @@
         "windMph": 6,
         "gusts": 7,
         "windDir": "NE",
-        "precipitation": 0.24,
+        "precipitation": 0.19,
         "humidity": 54,
         "indoors": false,
         "kickoffHour": 12,
@@ -2943,7 +2943,7 @@
         "windMph": 5,
         "gusts": 9,
         "windDir": "N",
-        "precipitation": 0.15,
+        "precipitation": 0.14,
         "humidity": 54,
         "indoors": false,
         "kickoffHour": 12,
@@ -3023,7 +3023,7 @@
         "windMph": 5,
         "gusts": 7,
         "windDir": "WNW",
-        "precipitation": 0.01,
+        "precipitation": 0,
         "humidity": 37,
         "indoors": false,
         "kickoffHour": 12,
@@ -3103,7 +3103,7 @@
         "windMph": 3,
         "gusts": 3,
         "windDir": "N",
-        "precipitation": 0.11,
+        "precipitation": 0.15,
         "humidity": 62,
         "indoors": false,
         "kickoffHour": 13,
@@ -3401,7 +3401,7 @@
         "windMph": 0,
         "gusts": 2,
         "windDir": "S",
-        "precipitation": 0.14,
+        "precipitation": 0.17,
         "humidity": 29,
         "indoors": false,
         "kickoffHour": 15,
@@ -3565,7 +3565,7 @@
         "windMph": 5,
         "gusts": 6,
         "windDir": "E",
-        "precipitation": 0.11,
+        "precipitation": 0.09,
         "humidity": 28,
         "indoors": false,
         "kickoffHour": 15,
@@ -3647,7 +3647,7 @@
         "windMph": 8,
         "gusts": 11,
         "windDir": "N",
-        "precipitation": 0.11,
+        "precipitation": 0.05,
         "humidity": 46,
         "indoors": false,
         "kickoffHour": 15,
@@ -3729,7 +3729,7 @@
         "windMph": 6,
         "gusts": 8,
         "windDir": "NNE",
-        "precipitation": 0.07,
+        "precipitation": 0.22,
         "humidity": 39,
         "indoors": false,
         "kickoffHour": 15,
@@ -3812,7 +3812,7 @@
         "windMph": 1,
         "gusts": 2,
         "windDir": "SW",
-        "precipitation": 0.38,
+        "precipitation": 0.17,
         "humidity": 61,
         "indoors": false,
         "kickoffHour": 15,
@@ -3892,7 +3892,7 @@
         "windMph": 6,
         "gusts": 8,
         "windDir": "NNE",
-        "precipitation": 0.12,
+        "precipitation": 0.2,
         "humidity": 48,
         "indoors": false,
         "kickoffHour": 15,
@@ -3972,7 +3972,7 @@
         "windMph": 4,
         "gusts": 12,
         "windDir": "NNW",
-        "precipitation": 0.42,
+        "precipitation": 0.48,
         "humidity": 33,
         "indoors": false,
         "kickoffHour": 15,
@@ -4121,7 +4121,7 @@
         "windMph": 11,
         "gusts": 14,
         "windDir": "NNE",
-        "precipitation": 0.18,
+        "precipitation": 0.05,
         "humidity": 43,
         "indoors": false,
         "kickoffHour": 15,
@@ -4481,7 +4481,7 @@
         "windMph": 6,
         "gusts": 6,
         "windDir": "ESE",
-        "precipitation": 0.07,
+        "precipitation": 0.1,
         "humidity": 46,
         "indoors": false,
         "kickoffHour": 16,
@@ -4784,7 +4784,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -4796,7 +4798,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "home",
         "oddsBookCount": 4
       },
       "gamePreview": {
@@ -4850,7 +4852,7 @@
         "windMph": 12,
         "gusts": 19,
         "windDir": "E",
-        "precipitation": 0.14,
+        "precipitation": 0.19,
         "humidity": 46,
         "indoors": false,
         "kickoffHour": 19,
@@ -4932,7 +4934,7 @@
         "windMph": 12,
         "gusts": 9,
         "windDir": "SSE",
-        "precipitation": 0.03,
+        "precipitation": 0.06,
         "humidity": 19,
         "indoors": false,
         "kickoffHour": 19,
@@ -5014,7 +5016,7 @@
         "windMph": 8,
         "gusts": 10,
         "windDir": "NW",
-        "precipitation": 0.11,
+        "precipitation": 0.2,
         "humidity": 50,
         "indoors": false,
         "kickoffHour": 19,
@@ -5028,9 +5030,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -5042,7 +5042,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
+        "sharpSignal": null,
         "oddsBookCount": 4
       },
       "gamePreview": {
@@ -5096,7 +5096,7 @@
         "windMph": 4,
         "gusts": 5,
         "windDir": "NW",
-        "precipitation": 0.02,
+        "precipitation": 0.04,
         "humidity": 41,
         "indoors": false,
         "kickoffHour": 19,
@@ -5245,7 +5245,7 @@
         "windMph": 4,
         "gusts": 14,
         "windDir": "ESE",
-        "precipitation": 0.08,
+        "precipitation": 0.1,
         "humidity": 29,
         "indoors": false,
         "kickoffHour": 19,
@@ -5808,7 +5808,7 @@
         "windMph": 2,
         "gusts": 7,
         "windDir": "WNW",
-        "precipitation": 0.58,
+        "precipitation": 0.56,
         "humidity": 55,
         "indoors": false,
         "kickoffHour": 19,
@@ -5823,7 +5823,7 @@
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
         "trendingTopics": [
-          "🌧 Rain 58%",
+          "🌧 Rain 56%",
           "#11 LSU Tigers"
         ]
       },
@@ -5891,7 +5891,7 @@
         "windMph": 6,
         "gusts": 8,
         "windDir": "ESE",
-        "precipitation": 0.15,
+        "precipitation": 0.09,
         "humidity": 49,
         "indoors": false,
         "kickoffHour": 19,
@@ -5973,7 +5973,7 @@
         "windMph": 15,
         "gusts": 26,
         "windDir": "SW",
-        "precipitation": 0.11,
+        "precipitation": 0.3,
         "humidity": 77,
         "indoors": false,
         "kickoffHour": 19,
@@ -6053,7 +6053,7 @@
         "windMph": 10,
         "gusts": 18,
         "windDir": "N",
-        "precipitation": 0.18,
+        "precipitation": 0.27,
         "humidity": 53,
         "indoors": false,
         "kickoffHour": 19,
@@ -6202,7 +6202,7 @@
         "windMph": 4,
         "gusts": 10,
         "windDir": "SSW",
-        "precipitation": 0.41,
+        "precipitation": 0.55,
         "humidity": 49,
         "indoors": false,
         "kickoffHour": 19,
@@ -6216,7 +6216,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "🌧 Rain 55%"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -6282,7 +6284,7 @@
         "windMph": 4,
         "gusts": 5,
         "windDir": "SSW",
-        "precipitation": 0.4,
+        "precipitation": 0.37,
         "humidity": 86,
         "indoors": false,
         "kickoffHour": 20,
@@ -6364,7 +6366,7 @@
         "windMph": 8,
         "gusts": 19,
         "windDir": "SE",
-        "precipitation": 0.08,
+        "precipitation": 0.03,
         "humidity": 64,
         "indoors": false,
         "kickoffHour": 20,
@@ -6391,7 +6393,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 3
       },
       "gamePreview": {
         "headline": "Hampton Pirates at Maryland Terrapins",
@@ -6444,7 +6446,7 @@
         "windMph": 3,
         "gusts": 1,
         "windDir": "ESE",
-        "precipitation": 0.15,
+        "precipitation": 0.12,
         "humidity": 79,
         "indoors": false,
         "kickoffHour": 20,
@@ -6458,9 +6460,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -6472,8 +6472,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "away",
-        "oddsBookCount": 3
+        "sharpSignal": null,
+        "oddsBookCount": 4
       },
       "gamePreview": {
         "headline": "South Dakota State Jackrabbits at Northwestern Wildcats",
@@ -6611,7 +6611,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 4
       },
       "gamePreview": {
         "headline": "Mercyhurst Lakers at New Mexico State Aggies",
@@ -6664,7 +6664,7 @@
         "windMph": 4,
         "gusts": 7,
         "windDir": "WNW",
-        "precipitation": 0.18,
+        "precipitation": 0.23,
         "humidity": 47,
         "indoors": false,
         "kickoffHour": 21,
@@ -6678,9 +6678,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -6692,8 +6690,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "away",
-        "oddsBookCount": 2
+        "sharpSignal": null,
+        "oddsBookCount": 3
       },
       "gamePreview": {
         "headline": "Northern Arizona Lumberjacks at Arizona Wildcats",
@@ -6749,9 +6747,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -6763,8 +6759,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 3
+        "sharpSignal": null,
+        "oddsBookCount": 4
       },
       "gamePreview": {
         "headline": "Portland State Vikings at San Diego State Aztecs",
@@ -6817,7 +6813,7 @@
         "windMph": 10,
         "gusts": 11,
         "windDir": "W",
-        "precipitation": 0.09,
+        "precipitation": 0.06,
         "humidity": 33,
         "indoors": false,
         "kickoffHour": 22,
@@ -6844,7 +6840,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 4
       },
       "gamePreview": {
         "headline": "Morgan State Bears at Arizona State Sun Devils",
@@ -6982,7 +6978,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Central Michigan Chippewas at New Mexico Lobos",
@@ -7051,7 +7047,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Mississippi Valley State Delta Devils at Sacramento State Hornets",
@@ -7120,7 +7116,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "UCLA Bruins at California Golden Bears",
@@ -7189,7 +7185,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Western Kentucky Hilltoppers at Nevada Wolf Pack",
@@ -7319,7 +7315,7 @@
         "windMph": 2,
         "gusts": 19,
         "windDir": "SE",
-        "precipitation": 0.15,
+        "precipitation": 0.22,
         "humidity": 74,
         "indoors": false,
         "kickoffHour": 19,
@@ -7401,7 +7397,7 @@
         "windMph": 5,
         "gusts": 7,
         "windDir": "E",
-        "precipitation": 0.17,
+        "precipitation": 0.13,
         "humidity": 50,
         "indoors": false,
         "kickoffHour": 19,
@@ -7481,7 +7477,7 @@
         "windMph": 5,
         "gusts": 4,
         "windDir": "ESE",
-        "precipitation": 0.16,
+        "precipitation": 0.17,
         "humidity": 64,
         "indoors": false,
         "kickoffHour": 19,
@@ -7561,7 +7557,7 @@
         "windMph": 5,
         "gusts": 10,
         "windDir": "E",
-        "precipitation": 0.14,
+        "precipitation": 0.07,
         "humidity": 82,
         "indoors": false,
         "kickoffHour": 19,
@@ -7659,7 +7655,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Missouri Tigers at Kansas Jayhawks",
@@ -7712,7 +7708,7 @@
         "windMph": 23,
         "gusts": 26,
         "windDir": "SSW",
-        "precipitation": 0.13,
+        "precipitation": 0.12,
         "humidity": 31,
         "indoors": false,
         "kickoffHour": 12,
@@ -7742,7 +7738,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Oregon Ducks at Oklahoma State Cowboys",
@@ -7795,7 +7791,7 @@
         "windMph": 10,
         "gusts": 24,
         "windDir": "SSW",
-        "precipitation": 0.19,
+        "precipitation": 0.16,
         "humidity": 87,
         "indoors": false,
         "kickoffHour": 12,
@@ -7877,7 +7873,7 @@
         "windMph": 2,
         "gusts": 6,
         "windDir": "E",
-        "precipitation": 0.15,
+        "precipitation": 0.2,
         "humidity": 87,
         "indoors": false,
         "kickoffHour": 12,
@@ -7906,7 +7902,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Arizona State Sun Devils at Texas A&M Aggies",
@@ -7959,7 +7955,7 @@
         "windMph": 11,
         "gusts": 21,
         "windDir": "SSW",
-        "precipitation": 0.13,
+        "precipitation": 0.08,
         "humidity": 90,
         "indoors": false,
         "kickoffHour": 12,
@@ -7989,7 +7985,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Oklahoma Sooners at Michigan Wolverines",
@@ -8113,7 +8109,7 @@
         "windMph": 2,
         "gusts": 3,
         "windDir": "SSE",
-        "precipitation": 0.07,
+        "precipitation": 0.12,
         "humidity": 92,
         "indoors": false,
         "kickoffHour": 12,
@@ -8193,7 +8189,7 @@
         "windMph": 5,
         "gusts": 6,
         "windDir": "SE",
-        "precipitation": 0.13,
+        "precipitation": 0.04,
         "humidity": 59,
         "indoors": false,
         "kickoffHour": 12,
@@ -8273,7 +8269,7 @@
         "windMph": 3,
         "gusts": 6,
         "windDir": "WSW",
-        "precipitation": 0.19,
+        "precipitation": 0.13,
         "humidity": 52,
         "indoors": false,
         "kickoffHour": 12,
@@ -8353,7 +8349,7 @@
         "windMph": 13,
         "gusts": 22,
         "windDir": "SW",
-        "precipitation": 0.24,
+        "precipitation": 0.16,
         "humidity": 80,
         "indoors": false,
         "kickoffHour": 12,
@@ -8433,7 +8429,7 @@
         "windMph": 4,
         "gusts": 16,
         "windDir": "S",
-        "precipitation": 0.09,
+        "precipitation": 0.17,
         "humidity": 91,
         "indoors": false,
         "kickoffHour": 12,
@@ -8651,7 +8647,7 @@
         "windMph": 2,
         "gusts": 4,
         "windDir": "WSW",
-        "precipitation": 0.05,
+        "precipitation": 0.19,
         "humidity": 42,
         "indoors": false,
         "kickoffHour": 12,
@@ -8733,7 +8729,7 @@
         "windMph": 8,
         "gusts": 14,
         "windDir": "WSW",
-        "precipitation": 0.16,
+        "precipitation": 0.26,
         "humidity": 60,
         "indoors": false,
         "kickoffHour": 13,
@@ -9020,7 +9016,7 @@
         "windMph": 13,
         "gusts": 18,
         "windDir": "WSW",
-        "precipitation": 0.17,
+        "precipitation": 0.12,
         "humidity": 78,
         "indoors": false,
         "kickoffHour": 15,
@@ -9102,7 +9098,7 @@
         "windMph": 10,
         "gusts": 12,
         "windDir": "SW",
-        "precipitation": 0.12,
+        "precipitation": 0.23,
         "humidity": 55,
         "indoors": false,
         "kickoffHour": 15,
@@ -9184,7 +9180,7 @@
         "windMph": 15,
         "gusts": 25,
         "windDir": "SW",
-        "precipitation": 0.2,
+        "precipitation": 0.06,
         "humidity": 19,
         "indoors": false,
         "kickoffHour": 15,
@@ -9266,7 +9262,7 @@
         "windMph": 8,
         "gusts": 8,
         "windDir": "NNW",
-        "precipitation": 0.05,
+        "precipitation": 0.11,
         "humidity": 42,
         "indoors": false,
         "kickoffHour": 15,
@@ -9348,7 +9344,7 @@
         "windMph": 9,
         "gusts": 12,
         "windDir": "NW",
-        "precipitation": 0.1,
+        "precipitation": 0.21,
         "humidity": 40,
         "indoors": false,
         "kickoffHour": 15,
@@ -9428,7 +9424,7 @@
         "windMph": 8,
         "gusts": 10,
         "windDir": "ESE",
-        "precipitation": 0.13,
+        "precipitation": 0.1,
         "humidity": 39,
         "indoors": false,
         "kickoffHour": 15,
@@ -9508,7 +9504,7 @@
         "windMph": 8,
         "gusts": 16,
         "windDir": "WSW",
-        "precipitation": 0.14,
+        "precipitation": 0.21,
         "humidity": 71,
         "indoors": false,
         "kickoffHour": 15,
@@ -10375,7 +10371,7 @@
         "windMph": 11,
         "gusts": 26,
         "windDir": "SSE",
-        "precipitation": 0.09,
+        "precipitation": 0.2,
         "humidity": 61,
         "indoors": false,
         "kickoffHour": 16,
@@ -10664,7 +10660,7 @@
         "windMph": 8,
         "gusts": 12,
         "windDir": "SE",
-        "precipitation": 0.3,
+        "precipitation": 0.24,
         "humidity": 45,
         "indoors": false,
         "kickoffHour": 16,
@@ -10744,7 +10740,7 @@
         "windMph": 6,
         "gusts": 4,
         "windDir": "WNW",
-        "precipitation": 0.19,
+        "precipitation": 0.33,
         "humidity": 33,
         "indoors": false,
         "kickoffHour": 17,
@@ -10824,7 +10820,7 @@
         "windMph": 12,
         "gusts": 16,
         "windDir": "NNW",
-        "precipitation": 0.06,
+        "precipitation": 0.03,
         "humidity": 17,
         "indoors": false,
         "kickoffHour": 18,
@@ -11111,7 +11107,7 @@
         "windMph": 7,
         "gusts": 9,
         "windDir": "WSW",
-        "precipitation": 0.19,
+        "precipitation": 0.29,
         "humidity": 42,
         "indoors": false,
         "kickoffHour": 19,
@@ -11270,7 +11266,7 @@
         "windMph": 1,
         "gusts": 12,
         "windDir": "NW",
-        "precipitation": 0.15,
+        "precipitation": 0.11,
         "humidity": 68,
         "indoors": false,
         "kickoffHour": 19,
@@ -11350,7 +11346,7 @@
         "windMph": 3,
         "gusts": 5,
         "windDir": "SSW",
-        "precipitation": 0.13,
+        "precipitation": 0.23,
         "humidity": 67,
         "indoors": false,
         "kickoffHour": 19,
@@ -11430,7 +11426,7 @@
         "windMph": 9,
         "gusts": 15,
         "windDir": "ESE",
-        "precipitation": 0.1,
+        "precipitation": 0.03,
         "humidity": 79,
         "indoors": false,
         "kickoffHour": 19,
@@ -12068,7 +12064,7 @@
         "windMph": 6,
         "gusts": 5,
         "windDir": "SSW",
-        "precipitation": 0,
+        "precipitation": 0.02,
         "humidity": 61,
         "indoors": false,
         "kickoffHour": 19,
@@ -12148,7 +12144,7 @@
         "windMph": 6,
         "gusts": 10,
         "windDir": "NW",
-        "precipitation": 0.13,
+        "precipitation": 0.16,
         "humidity": 87,
         "indoors": false,
         "kickoffHour": 19,
@@ -12228,7 +12224,7 @@
         "windMph": 17,
         "gusts": 30,
         "windDir": "SSW",
-        "precipitation": 0.03,
+        "precipitation": 0.16,
         "humidity": 57,
         "indoors": false,
         "kickoffHour": 19,
@@ -12258,7 +12254,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Ohio State Buckeyes at Texas Longhorns",
@@ -12311,7 +12307,7 @@
         "windMph": 8,
         "gusts": 15,
         "windDir": "SSW",
-        "precipitation": 0.45,
+        "precipitation": 0.35,
         "humidity": 52,
         "indoors": false,
         "kickoffHour": 19,
@@ -12464,7 +12460,7 @@
         "windMph": 6,
         "gusts": 11,
         "windDir": "N",
-        "precipitation": 0.06,
+        "precipitation": 0.13,
         "humidity": 97,
         "indoors": false,
         "kickoffHour": 19,
@@ -12493,7 +12489,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Iowa State Cyclones at Iowa Hawkeyes",
@@ -12546,7 +12542,7 @@
         "windMph": 7,
         "gusts": 9,
         "windDir": "NNW",
-        "precipitation": 0.11,
+        "precipitation": 0.15,
         "humidity": 53,
         "indoors": false,
         "kickoffHour": 19,
@@ -12764,7 +12760,7 @@
         "windMph": 11,
         "gusts": 24,
         "windDir": "E",
-        "precipitation": 0.19,
+        "precipitation": 0.1,
         "humidity": 94,
         "indoors": false,
         "kickoffHour": 19,
@@ -12846,7 +12842,7 @@
         "windMph": 3,
         "gusts": 3,
         "windDir": "NE",
-        "precipitation": 0.19,
+        "precipitation": 0.26,
         "humidity": 60,
         "indoors": false,
         "kickoffHour": 19,
@@ -12926,7 +12922,7 @@
         "windMph": 9,
         "gusts": 11,
         "windDir": "ESE",
-        "precipitation": 0.25,
+        "precipitation": 0.24,
         "humidity": 58,
         "indoors": false,
         "kickoffHour": 20,
@@ -13006,7 +13002,7 @@
         "windMph": 5,
         "gusts": 11,
         "windDir": "S",
-        "precipitation": 0.14,
+        "precipitation": 0.07,
         "humidity": 49,
         "indoors": false,
         "kickoffHour": 20,
@@ -13293,7 +13289,7 @@
         "windMph": 3,
         "gusts": 5,
         "windDir": "ESE",
-        "precipitation": 0.03,
+        "precipitation": 0.01,
         "humidity": 26,
         "indoors": false,
         "kickoffHour": 22,
@@ -13322,7 +13318,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Arkansas Razorbacks at Utah Utes",
@@ -13513,7 +13509,7 @@
         "windMph": 6,
         "gusts": 5,
         "windDir": "SSW",
-        "precipitation": 0.1,
+        "precipitation": 0,
         "humidity": 61,
         "indoors": false,
         "kickoffHour": 23,
@@ -13823,7 +13819,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Houston Cougars at Texas Tech Red Raiders",
@@ -15500,7 +15496,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "SMU Mustangs at Louisville Cardinals",
@@ -16679,7 +16675,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Florida Gators at Auburn Tigers",
@@ -17583,7 +17579,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "LSU Tigers at Ole Miss Rebels",
@@ -19395,7 +19391,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Oklahoma Sooners at Georgia Bulldogs",
@@ -19538,7 +19534,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Texas A&M Aggies at LSU Tigers",
@@ -22123,7 +22119,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Texas Longhorns at Tennessee Volunteers",
@@ -24281,7 +24277,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Miami Hurricanes at Clemson Tigers",
@@ -28606,7 +28602,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Georgia Bulldogs at Alabama Crimson Tide",
@@ -31182,7 +31178,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Texas Longhorns at Oklahoma Sooners",
@@ -32090,7 +32086,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Ohio State Buckeyes at Indiana Hoosiers",
@@ -32161,7 +32157,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Nebraska Cornhuskers at Oregon Ducks",
@@ -32232,7 +32228,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Auburn Tigers at Georgia Bulldogs",
@@ -32304,7 +32300,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Notre Dame Fighting Irish at BYU Cougars",
@@ -32809,7 +32805,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Alabama Crimson Tide at Tennessee Volunteers",
@@ -32881,7 +32877,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Penn State Nittany Lions at Michigan Wolverines",
@@ -33384,7 +33380,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Kansas Jayhawks at Kansas State Wildcats",
@@ -36358,7 +36354,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Ole Miss Rebels at Texas Longhorns",
@@ -36430,7 +36426,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Indiana Hoosiers at Michigan Wolverines",
@@ -36579,7 +36575,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Texas A&M Aggies at Alabama Crimson Tide",
@@ -37077,7 +37073,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Houston Cougars at Utah Utes",
@@ -42514,7 +42510,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Florida Gators at Georgia Bulldogs",
@@ -43485,7 +43481,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Oregon Ducks at Ohio State Buckeyes",
@@ -43557,7 +43553,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Georgia Bulldogs at Ole Miss Rebels",
@@ -43843,7 +43839,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Alabama Crimson Tide at LSU Tigers",
@@ -43986,7 +43982,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "BYU Cougars at Utah Utes",
@@ -44057,7 +44053,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Michigan State Spartans at Michigan Wolverines",
@@ -46642,7 +46638,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Miami Hurricanes at Notre Dame Fighting Irish",
@@ -47408,7 +47404,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Michigan Wolverines at Oregon Ducks",
@@ -47552,7 +47548,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Texas Longhorns at LSU Tigers",
@@ -47701,7 +47697,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Duke Blue Devils at Miami Hurricanes",
@@ -47773,7 +47769,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Tennessee Volunteers at Texas A&M Aggies",
@@ -47845,7 +47841,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Ole Miss Rebels at Oklahoma Sooners",
@@ -47916,7 +47912,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Texas Tech Red Raiders at Oklahoma State Cowboys",
@@ -51886,7 +51882,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Virginia Tech Hokies at Miami Hurricanes",
@@ -51958,7 +51954,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Texas A&M Aggies at Oklahoma Sooners",
@@ -52030,7 +52026,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "LSU Tigers at Tennessee Volunteers",
@@ -55306,7 +55302,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "SMU Mustangs at Notre Dame Fighting Irish",
@@ -56069,7 +56065,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Mississippi State Bulldogs at Ole Miss Rebels",
@@ -56557,7 +56553,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Texas Longhorns at Texas A&M Aggies",
@@ -56769,7 +56765,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Washington Huskies at Oregon Ducks",
@@ -57279,7 +57275,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Auburn Tigers at Alabama Crimson Tide",
@@ -57634,7 +57630,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Tennessee Volunteers at Vanderbilt Commodores",
@@ -57851,7 +57847,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "South Carolina Gamecocks at Clemson Tigers",
@@ -57920,7 +57916,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Arizona State Sun Devils at Arizona Wildcats",
@@ -58472,7 +58468,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 0
+        "oddsBookCount": 1
       },
       "gamePreview": {
         "headline": "Illinois Fighting Illini at Northwestern Wildcats",
@@ -59648,7 +59644,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 2
       },
       "gamePreview": {
         "headline": "Michigan Wolverines at Ohio State Buckeyes",
