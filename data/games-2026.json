@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-05T15:54:46.478Z",
+  "generated": "2026-09-05T16:12:12.183Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
   "completedGames": 27,
   "liveGames": 0,
   "gamesWithLines": 0,
-  "gamesWithWeather": 95,
+  "gamesWithWeather": 94,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 0,
@@ -22,7 +22,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 141396,
+  "fetchDurationMs": 197688,
   "apRanks": {},
   "games": [
     {
@@ -2141,7 +2141,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2153,7 +2155,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "away",
         "oddsBookCount": 8
       },
       "gamePreview": {
@@ -2216,7 +2218,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2228,7 +2232,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "home",
         "oddsBookCount": 7
       },
       "gamePreview": {
@@ -2285,7 +2289,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2297,7 +2303,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "home",
         "oddsBookCount": 8
       },
       "gamePreview": {
@@ -2367,7 +2373,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 8
+        "oddsBookCount": 7
       },
       "gamePreview": {
         "headline": "Lafayette Leopards at UConn Huskies",
@@ -2423,7 +2429,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2435,7 +2443,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "away",
         "oddsBookCount": 8
       },
       "gamePreview": {
@@ -2492,7 +2500,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2504,7 +2514,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "home",
         "oddsBookCount": 8
       },
       "gamePreview": {
@@ -2919,7 +2929,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 5
       },
       "gamePreview": {
         "headline": "Southeast Missouri State Redhawks at Iowa State Cyclones",
@@ -2988,7 +2998,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 8
+        "oddsBookCount": 7
       },
       "gamePreview": {
         "headline": "Duquesne Dukes at Air Force Falcons",
@@ -17451,18 +17461,7 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": {
-        "condition": "Mostly Clear",
-        "tempF": 82,
-        "windMph": 6,
-        "gusts": 18,
-        "windDir": "SSW",
-        "precipitation": 0.06,
-        "humidity": 58,
-        "indoors": false,
-        "kickoffHour": 19,
-        "code": 1
-      },
+      "weather": null,
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
