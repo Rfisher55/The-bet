@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-05T14:09:24.606Z",
+  "generated": "2026-09-05T14:20:38.413Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
   "completedGames": 27,
   "liveGames": 0,
   "gamesWithLines": 0,
-  "gamesWithWeather": 95,
+  "gamesWithWeather": 94,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 25,
@@ -23,7 +23,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 80036,
+  "fetchDurationMs": 78602,
   "apRanks": {
     "ohio_state": 1,
     "oregon": 2,
@@ -2274,7 +2274,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 7
       },
       "gamePreview": {
         "headline": "New Hampshire Wildcats at Syracuse Orange",
@@ -6127,7 +6127,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Mercyhurst Lakers at New Mexico State Aggies",
@@ -6276,7 +6276,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Portland State Vikings at San Diego State Aztecs",
@@ -17605,18 +17605,7 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": {
-        "condition": "Mostly Clear",
-        "tempF": 82,
-        "windMph": 6,
-        "gusts": 18,
-        "windDir": "SSW",
-        "precipitation": 0.06,
-        "humidity": 58,
-        "indoors": false,
-        "kickoffHour": 19,
-        "code": 1
-      },
+      "weather": null,
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
