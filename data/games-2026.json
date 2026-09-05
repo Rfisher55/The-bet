@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-05T14:39:09.954Z",
+  "generated": "2026-09-05T14:47:49.624Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
@@ -9,7 +9,7 @@
   "gamesWithWeather": 94,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
-  "rankedTeams": 25,
+  "rankedTeams": 0,
   "injuredPlayers": 0,
   "spTeams": 139,
   "ppaTeams": 40,
@@ -23,34 +23,8 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 98289,
-  "apRanks": {
-    "ohio_state": 1,
-    "oregon": 2,
-    "georgia": 3,
-    "notre_dame": 4,
-    "texas": 5,
-    "indiana": 6,
-    "miami": 7,
-    "texas_am": 8,
-    "ole_miss": 9,
-    "oklahoma": 10,
-    "lsu": 11,
-    "texas_tech": 12,
-    "alabama": 13,
-    "usc": 14,
-    "byu": 14,
-    "michigan": 16,
-    "washington": 17,
-    "penn_state": 18,
-    "smu": 19,
-    "tennessee": 20,
-    "utah": 21,
-    "iowa": 22,
-    "houston": 23,
-    "louisville": 24,
-    "missouri": 25
-  },
+  "fetchDurationMs": 170197,
+  "apRanks": {},
   "games": [
     {
       "id": "espn_401864494",
@@ -74,7 +48,7 @@
       "status": "final",
       "homeScore": 42,
       "awayScore": 26,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.7,
       "awaySP": -15.7,
@@ -88,13 +62,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -628,7 +600,7 @@
       "status": "final",
       "homeScore": 66,
       "awayScore": 14,
-      "homeApRank": 21,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": null,
@@ -642,13 +614,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 4,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -699,7 +669,7 @@
       "status": "final",
       "homeScore": 54,
       "awayScore": 14,
-      "homeApRank": 25,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 15.4,
       "awaySP": null,
@@ -717,9 +687,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -1392,7 +1360,7 @@
       "homeScore": 6,
       "awayScore": 45,
       "homeApRank": null,
-      "awayApRank": 7,
+      "awayApRank": null,
       "homeSP": -2.3,
       "awaySP": 22,
       "homeSpRank": 79,
@@ -1406,12 +1374,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 18,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -1462,7 +1428,7 @@
       "status": "final",
       "homeScore": 51,
       "awayScore": null,
-      "homeApRank": 10,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 18.8,
       "awaySP": -19.3,
@@ -1476,13 +1442,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 15,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#10 Oklahoma Sooners"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -1533,7 +1497,7 @@
       "status": "final",
       "homeScore": 39,
       "awayScore": null,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.7,
       "awaySP": -1.4,
@@ -1547,13 +1511,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -1949,7 +1911,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 6,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 25.8,
       "awaySP": -11.6,
@@ -1963,13 +1925,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 19,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2020,7 +1980,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 13,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.6,
       "awaySP": -2.3,
@@ -2034,13 +1994,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 12,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2091,7 +2049,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 23,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 7.4,
       "awaySP": -5.6,
@@ -2111,13 +2069,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 2,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2657,7 +2613,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 1,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 32.7,
       "awaySP": -25.1,
@@ -2671,13 +2627,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 24,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -3104,7 +3058,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Rhode Island Rams at Temple Owls",
@@ -3142,7 +3096,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 3,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.4,
       "awaySP": null,
@@ -3156,13 +3110,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 22,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -3213,7 +3165,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 2,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 29.2,
       "awaySP": 5.1,
@@ -3227,13 +3179,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 23,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -3284,7 +3234,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 5,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22.8,
       "awaySP": -2.1,
@@ -3298,13 +3248,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 20,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -3355,7 +3303,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 18,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.2,
       "awaySP": -8.2,
@@ -3369,13 +3317,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 7,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -3426,7 +3372,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 20,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.3,
       "awaySP": null,
@@ -3440,13 +3386,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 5,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -4118,7 +4062,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 22,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.6,
       "awaySP": -17.2,
@@ -4132,13 +4076,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 3,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -4465,7 +4407,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 8,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 20.9,
       "awaySP": -19.1,
@@ -4479,13 +4421,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 17,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -4536,7 +4476,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 12,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 21.8,
       "awaySP": null,
@@ -4550,13 +4490,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 13,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -5366,7 +5304,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 11,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 20.4,
       "awaySP": 13.1,
@@ -5380,13 +5318,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 14,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -5437,7 +5373,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 16,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17,
       "awaySP": -6,
@@ -5451,13 +5387,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 9,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -5784,7 +5718,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.9,
       "awaySP": null,
@@ -5809,13 +5743,12 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
         "trendingTopics": [
-          "🌧 Rain 58%",
-          "#14 BYU Cougars"
+          "🌧 Rain 58%"
         ]
       },
       "socialIntel": {
@@ -5829,7 +5762,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Utah Tech Trailblazers at BYU Cougars",
@@ -5989,7 +5922,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "South Dakota State Jackrabbits at Northwestern Wildcats",
@@ -6741,7 +6674,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 7,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22,
       "awaySP": null,
@@ -6761,13 +6694,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 18,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -6818,7 +6749,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 24,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 11.1,
       "awaySP": null,
@@ -6843,13 +6774,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 1,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -7141,7 +7070,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 25,
+      "awayApRank": null,
       "homeSP": 3.3,
       "awaySP": 15.4,
       "homeSpRank": 58,
@@ -7158,9 +7087,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -7212,7 +7139,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 2,
+      "awayApRank": null,
       "homeSP": 6.9,
       "awaySP": 29.2,
       "homeSpRank": 39,
@@ -7237,12 +7164,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 23,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -7293,7 +7218,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 6,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 25.8,
       "awaySP": null,
@@ -7318,13 +7243,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 19,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -7375,7 +7298,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 8,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 20.9,
       "awaySP": 4.9,
@@ -7400,13 +7323,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 17,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -7457,8 +7378,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 16,
-      "awayApRank": 10,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17,
       "awaySP": 18.8,
       "homeSpRank": 15,
@@ -7482,14 +7403,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 9,
-        "awayTeamBuzz": 15,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines",
-          "#10 Oklahoma Sooners"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -7541,7 +7459,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 18,
+      "awayApRank": null,
       "homeSP": -9.1,
       "awaySP": 16.2,
       "homeSpRank": 99,
@@ -7555,12 +7473,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 7,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -8149,7 +8065,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 3,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.4,
       "awaySP": -7.3,
@@ -8174,13 +8090,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 22,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -8518,7 +8432,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 4,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.5,
       "awaySP": -15.3,
@@ -8543,13 +8457,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 21,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -8601,7 +8513,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 13,
+      "awayApRank": null,
       "homeSP": 5.2,
       "awaySP": 17.6,
       "homeSpRank": 47,
@@ -8626,12 +8538,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 12,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -8682,7 +8592,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.9,
       "awaySP": 9.5,
@@ -8707,13 +8617,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -8764,7 +8672,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 17,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 15.8,
       "awaySP": -7.9,
@@ -8789,13 +8697,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 8,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#17 Washington Huskies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -9873,7 +9779,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 19,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 12.1,
       "awaySP": null,
@@ -9898,13 +9804,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 6,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -10679,7 +10583,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 20,
+      "awayApRank": null,
       "homeSP": 5.9,
       "awaySP": 17.3,
       "homeSpRank": 42,
@@ -10704,12 +10608,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 5,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -10760,7 +10662,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 23,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 7.4,
       "awaySP": null,
@@ -10780,13 +10682,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 2,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -11795,8 +11695,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 5,
-      "awayApRank": 1,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 22.8,
       "awaySP": 32.7,
       "homeSpRank": 6,
@@ -11820,14 +11720,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 20,
-        "awayTeamBuzz": 24,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#5 Texas Longhorns",
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -11878,7 +11775,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 11,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 20.4,
       "awaySP": -9.1,
@@ -11903,13 +11800,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 14,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -11961,7 +11856,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 12,
+      "awayApRank": null,
       "homeSP": -5.6,
       "awaySP": 21.8,
       "homeSpRank": 89,
@@ -11975,12 +11870,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 13,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -12031,7 +11924,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 22,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.6,
       "awaySP": -0.4,
@@ -12056,13 +11949,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 3,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -12331,7 +12222,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 9,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.5,
       "awaySP": -24.1,
@@ -12356,13 +12247,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 16,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#9 Ole Miss Rebels"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -12860,7 +12749,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 21,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": 5.6,
@@ -12885,13 +12774,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 4,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -13080,7 +12967,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.7,
       "awaySP": -10.6,
@@ -13105,13 +12992,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -13312,7 +13197,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 7,
+      "awayApRank": null,
       "homeSP": 3.4,
       "awaySP": 22,
       "homeSpRank": 57,
@@ -13337,12 +13222,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 18,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -13393,8 +13276,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 12,
-      "awayApRank": 23,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 21.8,
       "awaySP": 7.4,
       "homeSpRank": 8,
@@ -13418,14 +13301,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 13,
-        "awayTeamBuzz": 2,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders",
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -13476,7 +13356,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 2,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 29.2,
       "awaySP": null,
@@ -13501,13 +13381,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 23,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -13627,7 +13505,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 1,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 32.7,
       "awaySP": -22.4,
@@ -13652,13 +13530,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 24,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -13710,7 +13586,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 3,
+      "awayApRank": null,
       "homeSP": 5.6,
       "awaySP": 26.4,
       "homeSpRank": 44,
@@ -13735,12 +13611,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 22,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -13791,7 +13665,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 18,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.2,
       "awaySP": -12.7,
@@ -13816,13 +13690,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 7,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -14869,7 +14741,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 8,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 20.9,
       "awaySP": 5.2,
@@ -14894,13 +14766,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 17,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -14951,7 +14821,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 13,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.6,
       "awaySP": 9.1,
@@ -14976,13 +14846,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 12,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -15034,7 +14902,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 14,
+      "awayApRank": null,
       "homeSP": 2.7,
       "awaySP": 17.7,
       "homeSpRank": 61,
@@ -15059,12 +14927,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 11,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -15115,7 +14981,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 16,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17,
       "awaySP": -19.3,
@@ -15140,13 +15006,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 9,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -15197,8 +15061,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 24,
-      "awayApRank": 19,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 11.1,
       "awaySP": 12.1,
       "homeSpRank": 27,
@@ -15222,14 +15086,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 1,
-        "awayTeamBuzz": 6,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals",
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -15280,7 +15141,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 21,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": -7.9,
@@ -15305,13 +15166,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 4,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -15649,7 +15508,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 6,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 25.8,
       "awaySP": -7.3,
@@ -15674,13 +15533,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 19,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -15731,7 +15588,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 22,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.6,
       "awaySP": null,
@@ -15756,13 +15613,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 3,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -16467,7 +16322,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 25,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 15.4,
       "awaySP": -8,
@@ -16496,9 +16351,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -17352,7 +17205,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 17,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 15.8,
       "awaySP": null,
@@ -17377,13 +17230,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 8,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#17 Washington Huskies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -17514,7 +17365,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 4,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.5,
       "awaySP": 2.2,
@@ -17539,13 +17390,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 21,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -17596,8 +17445,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 9,
-      "awayApRank": 11,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 16.5,
       "awaySP": 20.4,
       "homeSpRank": 16,
@@ -17610,14 +17459,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 16,
-        "awayTeamBuzz": 14,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#9 Ole Miss Rebels",
-          "#11 LSU Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -17668,7 +17514,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 10,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 18.8,
       "awaySP": 0,
@@ -17682,13 +17528,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 15,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#10 Oklahoma Sooners"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -17740,7 +17584,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 14,
+      "awayApRank": null,
       "homeSP": -11.6,
       "awaySP": 14.9,
       "homeSpRank": 105,
@@ -17754,12 +17598,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 11,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -18050,7 +17892,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 20,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.3,
       "awaySP": -12.9,
@@ -18075,13 +17917,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 5,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -18132,7 +17972,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 5,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22.8,
       "awaySP": -1.1,
@@ -18157,13 +17997,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 20,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19226,7 +19064,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 6,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 25.8,
       "awaySP": 5.1,
@@ -19240,13 +19078,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 19,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19366,7 +19202,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 1,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 32.7,
       "awaySP": 10.4,
@@ -19380,13 +19216,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 24,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19437,8 +19271,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
-      "awayApRank": 2,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17.7,
       "awaySP": 29.2,
       "homeSpRank": 12,
@@ -19451,14 +19285,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
-        "awayTeamBuzz": 23,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans",
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19509,8 +19340,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 3,
-      "awayApRank": 10,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 26.4,
       "awaySP": 18.8,
       "homeSpRank": 4,
@@ -19523,14 +19354,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 22,
-        "awayTeamBuzz": 15,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs",
-          "#10 Oklahoma Sooners"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19582,7 +19410,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 4,
+      "awayApRank": null,
       "homeSP": -2.2,
       "awaySP": 26.5,
       "homeSpRank": 78,
@@ -19596,12 +19424,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 21,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19652,8 +19478,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 11,
-      "awayApRank": 8,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 20.4,
       "awaySP": 20.9,
       "homeSpRank": 10,
@@ -19666,14 +19492,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 14,
-        "awayTeamBuzz": 17,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers",
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19725,7 +19548,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 9,
+      "awayApRank": null,
       "homeSP": 15.2,
       "awaySP": 16.5,
       "homeSpRank": 20,
@@ -19739,12 +19562,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 16,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#9 Ole Miss Rebels"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19795,7 +19616,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 12,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 21.8,
       "awaySP": -26,
@@ -19809,13 +19630,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 13,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19866,7 +19685,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 13,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.6,
       "awaySP": 12.6,
@@ -19880,13 +19699,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 12,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -19937,8 +19754,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 16,
-      "awayApRank": 22,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17,
       "awaySP": 14.6,
       "homeSpRank": 15,
@@ -19951,14 +19768,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 9,
-        "awayTeamBuzz": 3,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines",
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -20009,7 +19823,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 17,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 15.8,
       "awaySP": 6.2,
@@ -20023,13 +19837,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 8,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#17 Washington Huskies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -20080,7 +19892,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 18,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.2,
       "awaySP": 3.8,
@@ -20094,13 +19906,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 7,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -20151,7 +19961,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 19,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 12.1,
       "awaySP": -19.1,
@@ -20165,13 +19975,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 6,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -20223,7 +20031,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 21,
+      "awayApRank": null,
       "homeSP": -0.4,
       "awaySP": 9.8,
       "homeSpRank": 69,
@@ -20237,12 +20045,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 4,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -20294,7 +20100,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 23,
+      "awayApRank": null,
       "homeSP": -10.8,
       "awaySP": 7.4,
       "homeSpRank": 103,
@@ -20308,12 +20114,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 2,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -20364,7 +20168,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 24,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 11.1,
       "awaySP": 3.4,
@@ -20378,13 +20182,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 1,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -20436,7 +20238,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 25,
+      "awayApRank": null,
       "homeSP": 4.8,
       "awaySP": 15.4,
       "homeSpRank": 52,
@@ -20453,9 +20255,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -22237,8 +22037,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 20,
-      "awayApRank": 5,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17.3,
       "awaySP": 22.8,
       "homeSpRank": 14,
@@ -22251,14 +22051,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 5,
-        "awayTeamBuzz": 20,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers",
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -23137,7 +22934,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 7,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22,
       "awaySP": -15.1,
@@ -23157,13 +22954,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 18,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24181,7 +23976,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 18,
+      "awayApRank": null,
       "homeSP": 5.1,
       "awaySP": 16.2,
       "homeSpRank": 49,
@@ -24195,12 +23990,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 7,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24251,8 +24044,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 22,
-      "awayApRank": 1,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 14.6,
       "awaySP": 32.7,
       "homeSpRank": 22,
@@ -24265,14 +24058,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 3,
-        "awayTeamBuzz": 24,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes",
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24323,7 +24113,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 3,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.4,
       "awaySP": 9.8,
@@ -24337,13 +24127,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 22,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24395,7 +24183,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 4,
+      "awayApRank": null,
       "homeSP": 3.5,
       "awaySP": 26.5,
       "homeSpRank": 56,
@@ -24409,12 +24197,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 21,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24466,7 +24252,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 7,
+      "awayApRank": null,
       "homeSP": 13.1,
       "awaySP": 22,
       "homeSpRank": 23,
@@ -24480,12 +24266,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 18,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24536,7 +24320,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 8,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 20.9,
       "awaySP": 5.6,
@@ -24550,13 +24334,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 17,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24608,7 +24390,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 12,
+      "awayApRank": null,
       "homeSP": 0.7,
       "awaySP": 21.8,
       "homeSpRank": 65,
@@ -24622,12 +24404,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 13,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24679,7 +24459,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 13,
+      "awayApRank": null,
       "homeSP": 4.8,
       "awaySP": 17.6,
       "homeSpRank": 52,
@@ -24693,12 +24473,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 12,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24750,7 +24528,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 14,
+      "awayApRank": null,
       "homeSP": 9.4,
       "awaySP": 14.9,
       "homeSpRank": 32,
@@ -24764,12 +24542,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 11,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24820,8 +24596,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
-      "awayApRank": 17,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17.7,
       "awaySP": 15.8,
       "homeSpRank": 12,
@@ -24834,14 +24610,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
-        "awayTeamBuzz": 8,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans",
-          "#17 Washington Huskies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24893,7 +24666,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 16,
+      "awayApRank": null,
       "homeSP": 6.2,
       "awaySP": 17,
       "homeSpRank": 40,
@@ -24907,12 +24680,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 9,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -24963,7 +24734,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 19,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 12.1,
       "awaySP": -2.5,
@@ -24977,13 +24748,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 6,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -25034,7 +24803,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 20,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.3,
       "awaySP": 11.5,
@@ -25048,13 +24817,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 5,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -25105,7 +24872,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 23,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 7.4,
       "awaySP": 1.7,
@@ -25125,13 +24892,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 2,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -25183,7 +24948,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 24,
+      "awayApRank": null,
       "homeSP": 5.7,
       "awaySP": 11.1,
       "homeSpRank": 43,
@@ -25197,12 +24962,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 1,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -25253,7 +25016,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 25,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 15.4,
       "awaySP": 15.2,
@@ -25271,9 +25034,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -27670,7 +27431,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 11,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 20.4,
       "awaySP": null,
@@ -27684,13 +27445,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 14,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -27742,7 +27501,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 6,
+      "awayApRank": null,
       "homeSP": 2.7,
       "awaySP": 25.8,
       "homeSpRank": 61,
@@ -27756,12 +27515,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 19,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -28295,7 +28052,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 24,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 11.1,
       "awaySP": 9.1,
@@ -28309,13 +28066,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 1,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -28366,8 +28121,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 17,
-      "awayApRank": 22,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 15.8,
       "awaySP": 14.6,
       "homeSpRank": 18,
@@ -28380,14 +28135,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 8,
-        "awayTeamBuzz": 3,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#17 Washington Huskies",
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -28576,7 +28328,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.9,
       "awaySP": -0.4,
@@ -28590,13 +28342,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -28647,7 +28397,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 1,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 32.7,
       "awaySP": 5.2,
@@ -28661,13 +28411,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 24,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -28718,7 +28466,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 2,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 29.2,
       "awaySP": 5.4,
@@ -28732,13 +28480,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 23,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -28789,8 +28535,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 13,
-      "awayApRank": 3,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17.6,
       "awaySP": 26.4,
       "homeSpRank": 13,
@@ -28803,14 +28549,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 12,
-        "awayTeamBuzz": 22,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide",
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -28862,7 +28605,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 6,
+      "awayApRank": null,
       "homeSP": 9.3,
       "awaySP": 25.8,
       "homeSpRank": 33,
@@ -28876,12 +28619,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 19,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -28932,8 +28673,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 25,
-      "awayApRank": 8,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 15.4,
       "awaySP": 20.9,
       "homeSpRank": 19,
@@ -28947,13 +28688,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 17,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers",
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -29005,7 +28743,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 9,
+      "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": 16.5,
       "homeSpRank": 29,
@@ -29019,12 +28757,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 16,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#9 Ole Miss Rebels"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -29076,7 +28812,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 11,
+      "awayApRank": null,
       "homeSP": 5.2,
       "awaySP": 20.4,
       "homeSpRank": 47,
@@ -29090,12 +28826,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 14,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -29146,8 +28880,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 18,
-      "awayApRank": 14,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 16.2,
       "awaySP": 17.7,
       "homeSpRank": 17,
@@ -29160,14 +28894,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 7,
-        "awayTeamBuzz": 11,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions",
-          "#14 USC Trojans"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -29219,7 +28950,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 20,
+      "awayApRank": null,
       "homeSP": 5.6,
       "awaySP": 17.3,
       "homeSpRank": 44,
@@ -29233,12 +28964,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 5,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -29289,7 +29018,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 21,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": 3.3,
@@ -29303,13 +29032,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 4,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -29361,7 +29088,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 23,
+      "awayApRank": null,
       "homeSP": 9.2,
       "awaySP": 7.4,
       "homeSpRank": 34,
@@ -29375,12 +29102,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 2,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -31294,7 +31019,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 4,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.5,
       "awaySP": -2.3,
@@ -31308,13 +31033,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 21,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -31365,8 +31088,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 10,
-      "awayApRank": 5,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 18.8,
       "awaySP": 22.8,
       "homeSpRank": 11,
@@ -31379,14 +31102,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 15,
-        "awayTeamBuzz": 20,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#10 Oklahoma Sooners",
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32134,7 +31854,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 17,
+      "awayApRank": null,
       "homeSP": -2.2,
       "awaySP": 15.8,
       "homeSpRank": 78,
@@ -32148,12 +31868,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 8,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#17 Washington Huskies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32273,8 +31991,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 6,
-      "awayApRank": 1,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 25.8,
       "awaySP": 32.7,
       "homeSpRank": 5,
@@ -32287,14 +32005,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 19,
-        "awayTeamBuzz": 24,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers",
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32345,7 +32060,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 2,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 29.2,
       "awaySP": 9.3,
@@ -32359,13 +32074,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 23,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32416,7 +32129,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 3,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.4,
       "awaySP": 11.5,
@@ -32430,13 +32143,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 22,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32487,8 +32198,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
-      "awayApRank": 4,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 14.9,
       "awaySP": 26.5,
       "homeSpRank": 21,
@@ -32501,14 +32212,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
-        "awayTeamBuzz": 21,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars",
-          "#4 Notre Dame Fighting Irish"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32559,7 +32267,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 5,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22.8,
       "awaySP": 15.2,
@@ -32573,13 +32281,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 20,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32630,7 +32336,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 7,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22,
       "awaySP": 9.1,
@@ -32650,13 +32356,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 18,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32707,8 +32411,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 9,
-      "awayApRank": 25,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 16.5,
       "awaySP": 15.4,
       "homeSpRank": 16,
@@ -32721,14 +32425,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 16,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#9 Ole Miss Rebels",
-          "#25 Missouri Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32779,7 +32480,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 10,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 18.8,
       "awaySP": 5.2,
@@ -32793,13 +32494,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 15,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#10 Oklahoma Sooners"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32850,7 +32549,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 11,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 20.4,
       "awaySP": 4.8,
@@ -32864,13 +32563,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 14,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32921,7 +32618,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 12,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 21.8,
       "awaySP": 4.9,
@@ -32935,13 +32632,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 13,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -32992,8 +32687,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 20,
-      "awayApRank": 13,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17.3,
       "awaySP": 17.6,
       "homeSpRank": 14,
@@ -33006,14 +32701,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 5,
-        "awayTeamBuzz": 12,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers",
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -33064,8 +32756,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 16,
-      "awayApRank": 18,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17,
       "awaySP": 16.2,
       "homeSpRank": 15,
@@ -33078,14 +32770,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 9,
-        "awayTeamBuzz": 7,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines",
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -33136,7 +32825,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 19,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 12.1,
       "awaySP": 8.1,
@@ -33150,13 +32839,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 6,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -33208,7 +32895,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 21,
+      "awayApRank": null,
       "homeSP": 0.7,
       "awaySP": 9.8,
       "homeSpRank": 65,
@@ -33222,12 +32909,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 4,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -33278,7 +32963,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 23,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 7.4,
       "awaySP": 6.9,
@@ -33298,13 +32983,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 2,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -33356,7 +33039,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 24,
+      "awayApRank": null,
       "homeSP": -1.9,
       "awaySP": 11.1,
       "homeSpRank": 76,
@@ -33376,12 +33059,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 1,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -35364,7 +35045,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 8,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 20.9,
       "awaySP": null,
@@ -35378,13 +35059,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 17,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -36471,7 +36150,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 2,
+      "awayApRank": null,
       "homeSP": 10.4,
       "awaySP": 29.2,
       "homeSpRank": 28,
@@ -36485,12 +36164,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 23,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -36541,8 +36218,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 5,
-      "awayApRank": 9,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 22.8,
       "awaySP": 16.5,
       "homeSpRank": 6,
@@ -36555,14 +36232,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 20,
-        "awayTeamBuzz": 16,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#5 Texas Longhorns",
-          "#9 Ole Miss Rebels"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -36613,8 +36287,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 16,
-      "awayApRank": 6,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17,
       "awaySP": 25.8,
       "homeSpRank": 15,
@@ -36627,14 +36301,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 9,
-        "awayTeamBuzz": 19,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines",
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -36685,7 +36356,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 7,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22,
       "awaySP": 6.2,
@@ -36705,13 +36376,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 18,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -36762,8 +36431,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 13,
-      "awayApRank": 8,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17.6,
       "awaySP": 20.9,
       "homeSpRank": 13,
@@ -36776,14 +36445,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 12,
-        "awayTeamBuzz": 17,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide",
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -36835,7 +36501,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 10,
+      "awayApRank": null,
       "homeSP": 4.8,
       "awaySP": 18.8,
       "homeSpRank": 52,
@@ -36849,12 +36515,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 15,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#10 Oklahoma Sooners"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -36906,7 +36570,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 12,
+      "awayApRank": null,
       "homeSP": 3,
       "awaySP": 21.8,
       "homeSpRank": 59,
@@ -36920,12 +36584,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 13,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -36977,7 +36639,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 14,
+      "awayApRank": null,
       "homeSP": 1.7,
       "awaySP": 14.9,
       "homeSpRank": 63,
@@ -36991,12 +36653,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 11,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -37048,7 +36708,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 14,
+      "awayApRank": null,
       "homeSP": 3.8,
       "awaySP": 17.7,
       "homeSpRank": 53,
@@ -37062,12 +36722,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 11,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -37118,7 +36776,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 19,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 12.1,
       "awaySP": 3,
@@ -37132,13 +36790,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 6,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -37190,7 +36846,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 20,
+      "awayApRank": null,
       "homeSP": 12.6,
       "awaySP": 17.3,
       "homeSpRank": 24,
@@ -37204,12 +36860,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 5,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -37260,8 +36914,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 21,
-      "awayApRank": 23,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": 7.4,
       "homeSpRank": 29,
@@ -37274,14 +36928,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 4,
-        "awayTeamBuzz": 2,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes",
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -37333,7 +36984,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 22,
+      "awayApRank": null,
       "homeSP": 6.2,
       "awaySP": 14.6,
       "homeSpRank": 40,
@@ -37347,12 +36998,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 3,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -38997,7 +38646,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 11,
+      "awayApRank": null,
       "homeSP": 11.5,
       "awaySP": 20.4,
       "homeSpRank": 26,
@@ -39011,12 +38660,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 14,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -39895,8 +39542,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
-      "awayApRank": 1,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17.7,
       "awaySP": 32.7,
       "homeSpRank": 12,
@@ -39909,14 +39556,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
-        "awayTeamBuzz": 24,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans",
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -39967,7 +39611,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 2,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 29.2,
       "awaySP": 5.1,
@@ -39981,13 +39625,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 23,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40038,7 +39680,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 5,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22.8,
       "awaySP": 4.8,
@@ -40052,13 +39694,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 20,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40109,7 +39749,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 6,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 25.8,
       "awaySP": 6.2,
@@ -40123,13 +39763,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 19,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40181,7 +39819,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 7,
+      "awayApRank": null,
       "homeSP": 3.5,
       "awaySP": 22,
       "homeSpRank": 56,
@@ -40195,12 +39833,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 18,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40251,7 +39887,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 9,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.5,
       "awaySP": 11.5,
@@ -40265,13 +39901,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 16,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#9 Ole Miss Rebels"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40322,7 +39956,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 10,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 18.8,
       "awaySP": 12.6,
@@ -40336,13 +39970,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 15,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#10 Oklahoma Sooners"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40393,7 +40025,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 12,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 21.8,
       "awaySP": 9.5,
@@ -40407,13 +40039,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 13,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40464,7 +40094,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.9,
       "awaySP": 4.9,
@@ -40478,13 +40108,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40536,7 +40164,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 16,
+      "awayApRank": null,
       "homeSP": 2.7,
       "awaySP": 17,
       "homeSpRank": 61,
@@ -40550,12 +40178,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 9,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40607,7 +40233,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 17,
+      "awayApRank": null,
       "homeSP": 9.3,
       "awaySP": 15.8,
       "homeSpRank": 33,
@@ -40621,12 +40247,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 8,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#17 Washington Huskies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40677,7 +40301,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 18,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.2,
       "awaySP": -2.2,
@@ -40691,13 +40315,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 7,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40749,7 +40371,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 19,
+      "awayApRank": null,
       "homeSP": -1.9,
       "awaySP": 12.1,
       "homeSpRank": 76,
@@ -40769,12 +40391,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 6,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40826,7 +40446,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 21,
+      "awayApRank": null,
       "homeSP": 3,
       "awaySP": 9.8,
       "homeSpRank": 59,
@@ -40840,12 +40460,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 4,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40896,7 +40514,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 22,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.6,
       "awaySP": 3.8,
@@ -40910,13 +40528,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 3,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -40967,7 +40583,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 24,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 11.1,
       "awaySP": -2.3,
@@ -40981,13 +40597,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 1,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -41039,7 +40653,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 25,
+      "awayApRank": null,
       "homeSP": 5.6,
       "awaySP": 15.4,
       "homeSpRank": 44,
@@ -41056,9 +40670,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -42490,7 +42102,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 4,
+      "awayApRank": null,
       "homeSP": 1.2,
       "awaySP": 26.5,
       "homeSpRank": 64,
@@ -42504,12 +42116,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 21,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -42698,7 +42308,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 3,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.4,
       "awaySP": 15.2,
@@ -42712,13 +42322,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 22,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -43321,7 +42929,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 19,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 12.1,
       "awaySP": 8.6,
@@ -43335,13 +42943,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 6,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -43668,8 +43274,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 1,
-      "awayApRank": 2,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 32.7,
       "awaySP": 29.2,
       "homeSpRank": 1,
@@ -43682,14 +43288,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 24,
-        "awayTeamBuzz": 23,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#1 Ohio State Buckeyes",
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -43740,8 +43343,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 9,
-      "awayApRank": 3,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 16.5,
       "awaySP": 26.4,
       "homeSpRank": 16,
@@ -43754,14 +43357,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 16,
-        "awayTeamBuzz": 22,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#9 Ole Miss Rebels",
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -43812,8 +43412,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 25,
-      "awayApRank": 5,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 15.4,
       "awaySP": 22.8,
       "homeSpRank": 19,
@@ -43827,13 +43427,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 20,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers",
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -43885,7 +43482,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 8,
+      "awayApRank": null,
       "homeSP": 12.6,
       "awaySP": 20.9,
       "homeSpRank": 24,
@@ -43899,12 +43496,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 17,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -43956,7 +43551,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 10,
+      "awayApRank": null,
       "homeSP": 15.2,
       "awaySP": 18.8,
       "homeSpRank": 20,
@@ -43970,12 +43565,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 15,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#10 Oklahoma Sooners"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -44026,8 +43619,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 11,
-      "awayApRank": 13,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 20.4,
       "awaySP": 17.6,
       "homeSpRank": 10,
@@ -44040,14 +43633,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 14,
-        "awayTeamBuzz": 12,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers",
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -44098,7 +43688,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 12,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 21.8,
       "awaySP": -1.3,
@@ -44112,13 +43702,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 13,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -44169,8 +43757,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 21,
-      "awayApRank": 14,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": 14.9,
       "homeSpRank": 29,
@@ -44183,14 +43771,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 4,
-        "awayTeamBuzz": 11,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes",
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -44241,7 +43826,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 16,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17,
       "awaySP": 2.2,
@@ -44255,13 +43840,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 9,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -44312,8 +43895,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 17,
-      "awayApRank": 18,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 15.8,
       "awaySP": 16.2,
       "homeSpRank": 18,
@@ -44326,14 +43909,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 8,
-        "awayTeamBuzz": 7,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#17 Washington Huskies",
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -44384,7 +43964,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 20,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.3,
       "awaySP": 5.2,
@@ -44398,13 +43978,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 5,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -44456,7 +44034,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 22,
+      "awayApRank": null,
       "homeSP": 5.1,
       "awaySP": 14.6,
       "homeSpRank": 49,
@@ -44470,12 +44048,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 3,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -44526,7 +44102,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 23,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 7.4,
       "awaySP": 3,
@@ -44546,13 +44122,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 2,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -44604,7 +44178,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 24,
+      "awayApRank": null,
       "homeSP": 5.9,
       "awaySP": 11.1,
       "homeSpRank": 42,
@@ -44618,12 +44192,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 1,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -46894,8 +46466,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 4,
-      "awayApRank": 7,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 26.5,
       "awaySP": 22,
       "homeSpRank": 3,
@@ -46908,14 +46480,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 21,
-        "awayTeamBuzz": 18,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish",
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -47519,7 +47088,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 23,
+      "awayApRank": null,
       "homeSP": 0.7,
       "awaySP": 7.4,
       "homeSpRank": 65,
@@ -47533,12 +47102,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 2,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -47589,7 +47156,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 1,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 32.7,
       "awaySP": 5.1,
@@ -47603,13 +47170,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 24,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -47660,8 +47225,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 2,
-      "awayApRank": 16,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 29.2,
       "awaySP": 17,
       "homeSpRank": 2,
@@ -47674,14 +47239,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 23,
-        "awayTeamBuzz": 9,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks",
-          "#16 Michigan Wolverines"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -47732,8 +47294,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 3,
-      "awayApRank": 25,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 26.4,
       "awaySP": 15.4,
       "homeSpRank": 4,
@@ -47746,14 +47308,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 22,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs",
-          "#25 Missouri Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -47804,8 +47363,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 11,
-      "awayApRank": 5,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 20.4,
       "awaySP": 22.8,
       "homeSpRank": 10,
@@ -47818,14 +47377,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 14,
-        "awayTeamBuzz": 20,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers",
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -47876,8 +47432,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 6,
-      "awayApRank": 14,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 25.8,
       "awaySP": 17.7,
       "homeSpRank": 5,
@@ -47890,14 +47446,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 19,
-        "awayTeamBuzz": 11,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers",
-          "#14 USC Trojans"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -47948,7 +47501,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 7,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22,
       "awaySP": 5.6,
@@ -47968,13 +47521,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 18,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48025,8 +47576,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 8,
-      "awayApRank": 20,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 20.9,
       "awaySP": 17.3,
       "homeSpRank": 9,
@@ -48039,14 +47590,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 17,
-        "awayTeamBuzz": 5,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#8 Texas A&M Aggies",
-          "#20 Tennessee Volunteers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48097,8 +47645,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 10,
-      "awayApRank": 9,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 18.8,
       "awaySP": 16.5,
       "homeSpRank": 11,
@@ -48111,14 +47659,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 15,
-        "awayTeamBuzz": 16,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#10 Oklahoma Sooners",
-          "#9 Ole Miss Rebels"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48170,7 +47715,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 12,
+      "awayApRank": null,
       "homeSP": 6.9,
       "awaySP": 21.8,
       "homeSpRank": 39,
@@ -48184,12 +47729,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 13,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48241,7 +47784,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 13,
+      "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": 17.6,
       "homeSpRank": 29,
@@ -48255,12 +47798,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 12,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48311,7 +47852,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.9,
       "awaySP": 3.8,
@@ -48325,13 +47866,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48383,7 +47922,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 17,
+      "awayApRank": null,
       "homeSP": 2.2,
       "awaySP": 15.8,
       "homeSpRank": 62,
@@ -48397,12 +47936,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 8,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#17 Washington Huskies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48453,7 +47990,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 18,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.2,
       "awaySP": 6.2,
@@ -48467,13 +48004,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 7,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48524,7 +48059,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 19,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 12.1,
       "awaySP": 3.4,
@@ -48538,13 +48073,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 6,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48596,7 +48129,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 21,
+      "awayApRank": null,
       "homeSP": 9.5,
       "awaySP": 9.8,
       "homeSpRank": 31,
@@ -48610,12 +48143,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 4,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48666,7 +48197,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 22,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.6,
       "awaySP": -2.2,
@@ -48680,13 +48211,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 3,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -48738,7 +48267,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 24,
+      "awayApRank": null,
       "homeSP": 3.5,
       "awaySP": 11.1,
       "homeSpRank": 56,
@@ -48752,12 +48281,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 1,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -50809,7 +50336,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 4,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.5,
       "awaySP": -2.5,
@@ -50823,13 +50350,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 21,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -51778,7 +51303,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 2,
+      "awayApRank": null,
       "homeSP": 2.2,
       "awaySP": 29.2,
       "homeSpRank": 62,
@@ -51792,12 +51317,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 23,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -51918,7 +51441,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 1,
+      "awayApRank": null,
       "homeSP": 9.3,
       "awaySP": 32.7,
       "homeSpRank": 33,
@@ -51932,12 +51455,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 24,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#1 Ohio State Buckeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -51989,7 +51510,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 3,
+      "awayApRank": null,
       "homeSP": 12.6,
       "awaySP": 26.4,
       "homeSpRank": 24,
@@ -52003,12 +51524,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 22,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52059,7 +51578,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 5,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22.8,
       "awaySP": 5.6,
@@ -52073,13 +51592,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 20,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52130,8 +51647,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 17,
-      "awayApRank": 6,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 15.8,
       "awaySP": 25.8,
       "homeSpRank": 18,
@@ -52144,14 +51661,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 8,
-        "awayTeamBuzz": 19,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#17 Washington Huskies",
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52202,7 +51716,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 7,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22,
       "awaySP": 8.6,
@@ -52222,13 +51736,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 18,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52279,8 +51791,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 10,
-      "awayApRank": 8,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 18.8,
       "awaySP": 20.9,
       "homeSpRank": 11,
@@ -52293,14 +51805,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 15,
-        "awayTeamBuzz": 17,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#10 Oklahoma Sooners",
-          "#8 Texas A&M Aggies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52351,8 +51860,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 20,
-      "awayApRank": 11,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 17.3,
       "awaySP": 20.4,
       "homeSpRank": 14,
@@ -52365,14 +51874,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 5,
-        "awayTeamBuzz": 14,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers",
-          "#11 LSU Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52424,7 +51930,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 12,
+      "awayApRank": null,
       "homeSP": 3.8,
       "awaySP": 21.8,
       "homeSpRank": 53,
@@ -52438,12 +51944,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 13,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52495,7 +51999,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 14,
+      "awayApRank": null,
       "homeSP": 3.3,
       "awaySP": 14.9,
       "homeSpRank": 58,
@@ -52509,12 +52013,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 11,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52565,7 +52067,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.7,
       "awaySP": 5.2,
@@ -52579,13 +52081,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52636,7 +52136,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 16,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17,
       "awaySP": 5.4,
@@ -52650,13 +52150,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 9,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#16 Michigan Wolverines"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52707,7 +52205,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 18,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.2,
       "awaySP": 2.7,
@@ -52721,13 +52219,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 7,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52779,7 +52275,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 21,
+      "awayApRank": null,
       "homeSP": 9.4,
       "awaySP": 9.8,
       "homeSpRank": 32,
@@ -52793,12 +52289,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 4,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52850,7 +52344,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 22,
+      "awayApRank": null,
       "homeSP": 10.4,
       "awaySP": 14.6,
       "homeSpRank": 28,
@@ -52864,12 +52358,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 3,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52921,7 +52413,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 23,
+      "awayApRank": null,
       "homeSP": -1.3,
       "awaySP": 7.4,
       "homeSpRank": 72,
@@ -52935,12 +52427,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 2,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -52991,7 +52481,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 24,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 11.1,
       "awaySP": 6.2,
@@ -53005,13 +52495,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 1,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -53062,7 +52550,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 25,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 15.4,
       "awaySP": 5.2,
@@ -53080,9 +52568,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -54657,7 +54143,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 9,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.5,
       "awaySP": null,
@@ -54671,13 +54157,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 16,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#9 Ole Miss Rebels"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -55004,7 +54488,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 13,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.6,
       "awaySP": null,
@@ -55018,13 +54502,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 12,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -55696,8 +55178,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 4,
-      "awayApRank": 19,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 26.5,
       "awaySP": 12.1,
       "homeSpRank": 3,
@@ -55710,14 +55192,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 21,
-        "awayTeamBuzz": 6,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish",
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -56182,7 +55661,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 12,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 21.8,
       "awaySP": 9.4,
@@ -56196,13 +55675,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 13,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#12 Texas Tech Red Raiders"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -56460,7 +55937,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 9,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 16.5,
       "awaySP": 4.8,
@@ -56474,13 +55951,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 16,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#9 Ole Miss Rebels"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -56531,7 +56006,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 22,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.6,
       "awaySP": 9.3,
@@ -56545,13 +56020,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 3,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#22 Iowa Hawkeyes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -56947,8 +56420,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 8,
-      "awayApRank": 5,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 20.9,
       "awaySP": 22.8,
       "homeSpRank": 9,
@@ -56961,14 +56434,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 17,
-        "awayTeamBuzz": 20,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#8 Texas A&M Aggies",
-          "#5 Texas Longhorns"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57088,7 +56558,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 21,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": -1.3,
@@ -57102,13 +56572,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 4,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#21 Utah Utes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57159,8 +56627,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 2,
-      "awayApRank": 17,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 29.2,
       "awaySP": 15.8,
       "homeSpRank": 2,
@@ -57173,14 +56641,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 23,
-        "awayTeamBuzz": 8,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#2 Oregon Ducks",
-          "#17 Washington Huskies"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57231,7 +56696,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 3,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 26.4,
       "awaySP": 5.9,
@@ -57245,13 +56710,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 22,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#3 Georgia Bulldogs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57303,7 +56766,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 4,
+      "awayApRank": null,
       "homeSP": -1.9,
       "awaySP": 26.5,
       "homeSpRank": 76,
@@ -57323,12 +56786,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 21,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#4 Notre Dame Fighting Irish"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57379,7 +56840,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 6,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 25.8,
       "awaySP": -2.2,
@@ -57393,13 +56854,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 19,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#6 Indiana Hoosiers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57450,7 +56909,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 7,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 22,
       "awaySP": -2.5,
@@ -57470,13 +56929,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 18,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#7 Miami Hurricanes"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57527,8 +56984,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 25,
-      "awayApRank": 10,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 15.4,
       "awaySP": 18.8,
       "homeSpRank": 19,
@@ -57542,13 +56999,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 15,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#25 Missouri Tigers",
-          "#10 Oklahoma Sooners"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57600,7 +57054,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 11,
+      "awayApRank": null,
       "homeSP": 5.6,
       "awaySP": 20.4,
       "homeSpRank": 44,
@@ -57614,12 +57068,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 14,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#11 LSU Tigers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57670,7 +57122,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 13,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 17.6,
       "awaySP": 11.5,
@@ -57684,13 +57136,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 12,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#13 Alabama Crimson Tide"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57741,7 +57191,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 14,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 14.9,
       "awaySP": 3,
@@ -57755,13 +57205,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 11,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 BYU Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57813,7 +57261,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 14,
+      "awayApRank": null,
       "homeSP": 5.4,
       "awaySP": 17.7,
       "homeSpRank": 46,
@@ -57827,12 +57275,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 11,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#14 USC Trojans"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57884,7 +57330,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 18,
+      "awayApRank": null,
       "homeSP": 5.2,
       "awaySP": 16.2,
       "homeSpRank": 47,
@@ -57898,12 +57344,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 7,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#18 Penn State Nittany Lions"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -57955,7 +57399,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 19,
+      "awayApRank": null,
       "homeSP": -2.3,
       "awaySP": 12.1,
       "homeSpRank": 79,
@@ -57969,12 +57413,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 6,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#19 SMU Mustangs"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -58026,7 +57468,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 20,
+      "awayApRank": null,
       "homeSP": 9.8,
       "awaySP": 17.3,
       "homeSpRank": 29,
@@ -58040,12 +57482,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 5,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#20 Tennessee Volunteers"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -58096,7 +57536,7 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 23,
+      "homeApRank": null,
       "awayApRank": null,
       "homeSP": 7.4,
       "awaySP": 3.8,
@@ -58116,13 +57556,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 2,
+        "homeTeamBuzz": 0,
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#23 Houston Cougars"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -58174,7 +57612,7 @@
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
-      "awayApRank": 24,
+      "awayApRank": null,
       "homeSP": 5.2,
       "awaySP": 11.1,
       "homeSpRank": 47,
@@ -58188,12 +57626,10 @@
       "xFactors": [],
       "socialBuzz": {
         "homeTeamBuzz": 0,
-        "awayTeamBuzz": 1,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#24 Louisville Cardinals"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -60038,8 +59474,8 @@
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null,
-      "homeApRank": 1,
-      "awayApRank": 16,
+      "homeApRank": null,
+      "awayApRank": null,
       "homeSP": 32.7,
       "awaySP": 17,
       "homeSpRank": 1,
@@ -60052,14 +59488,11 @@
       "situational": {},
       "xFactors": [],
       "socialBuzz": {
-        "homeTeamBuzz": 24,
-        "awayTeamBuzz": 9,
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "#1 Ohio State Buckeyes",
-          "#16 Michigan Wolverines"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
