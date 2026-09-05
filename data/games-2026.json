@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-05T13:53:42.085Z",
+  "generated": "2026-09-05T14:09:24.606Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
   "completedGames": 27,
   "liveGames": 0,
   "gamesWithLines": 0,
-  "gamesWithWeather": 94,
+  "gamesWithWeather": 95,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 25,
@@ -23,7 +23,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 79000,
+  "fetchDurationMs": 80036,
   "apRanks": {
     "ohio_state": 1,
     "oregon": 2,
@@ -2481,7 +2481,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Bryant Bulldogs at Army Black Knights",
@@ -2550,7 +2550,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Tarleton State Texans at Bowling Green Falcons",
@@ -3175,7 +3175,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 5
       },
       "gamePreview": {
         "headline": "Tennessee State Tigers at Georgia Bulldogs",
@@ -5795,12 +5795,12 @@
       "bettingLines": null,
       "weather": {
         "condition": "Overcast",
-        "tempF": 64,
-        "windMph": 7,
-        "gusts": 9,
-        "windDir": "NW",
+        "tempF": 65,
+        "windMph": 6,
+        "gusts": 15,
+        "windDir": "SE",
         "precipitation": 0.58,
-        "humidity": 68,
+        "humidity": 58,
         "indoors": false,
         "kickoffHour": 20,
         "code": 3
@@ -5877,16 +5877,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Clear",
-        "tempF": 73,
-        "windMph": 10,
-        "gusts": 20,
-        "windDir": "ENE",
+        "condition": "Overcast",
+        "tempF": 75,
+        "windMph": 4,
+        "gusts": 8,
+        "windDir": "NE",
         "precipitation": 0,
-        "humidity": 72,
+        "humidity": 48,
         "indoors": false,
         "kickoffHour": 20,
-        "code": 0
+        "code": 3
       },
       "lineMovement": [],
       "situational": {},
@@ -5957,16 +5957,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Overcast",
-        "tempF": 70,
+        "condition": "Partly Cloudy",
+        "tempF": 69,
         "windMph": 8,
-        "gusts": 13,
+        "gusts": 14,
         "windDir": "NE",
         "precipitation": 0,
-        "humidity": 70,
+        "humidity": 71,
         "indoors": false,
         "kickoffHour": 20,
-        "code": 3
+        "code": 2
       },
       "lineMovement": [],
       "situational": {},
@@ -6176,9 +6176,9 @@
       "bettingLines": null,
       "weather": {
         "condition": "Clear",
-        "tempF": 88,
-        "windMph": 6,
-        "gusts": 16,
+        "tempF": 86,
+        "windMph": 5,
+        "gusts": 11,
         "windDir": "NW",
         "precipitation": 0.05,
         "humidity": 29,
@@ -6207,7 +6207,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 6
       },
       "gamePreview": {
         "headline": "Northern Arizona Lumberjacks at Arizona Wildcats",
@@ -6326,9 +6326,9 @@
       "weather": {
         "condition": "Overcast",
         "tempF": 93,
-        "windMph": 7,
-        "gusts": 17,
-        "windDir": "NNW",
+        "windMph": 10,
+        "gusts": 23,
+        "windDir": "NW",
         "precipitation": 0,
         "humidity": 28,
         "indoors": false,
@@ -6356,7 +6356,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Morgan State Bears at Arizona State Sun Devils",
@@ -6563,7 +6563,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 4
       },
       "gamePreview": {
         "headline": "Mississippi Valley State Delta Devils at Sacramento State Hornets",
@@ -17605,7 +17605,18 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": null,
+      "weather": {
+        "condition": "Mostly Clear",
+        "tempF": 82,
+        "windMph": 6,
+        "gusts": 18,
+        "windDir": "SSW",
+        "precipitation": 0.06,
+        "humidity": 58,
+        "indoors": false,
+        "kickoffHour": 19,
+        "code": 1
+      },
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
