@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-05T15:21:43.978Z",
+  "generated": "2026-09-05T15:29:07.514Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
@@ -22,7 +22,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 166147,
+  "fetchDurationMs": 129202,
   "apRanks": {},
   "games": [
     {
@@ -2988,7 +2988,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 8
+        "oddsBookCount": 7
       },
       "gamePreview": {
         "headline": "Duquesne Dukes at Air Force Falcons",
