@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-05T13:09:16.171Z",
+  "generated": "2026-09-05T13:20:17.077Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
   "completedGames": 27,
   "liveGames": 0,
   "gamesWithLines": 0,
-  "gamesWithWeather": 94,
+  "gamesWithWeather": 95,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 25,
@@ -23,7 +23,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 80825,
+  "fetchDurationMs": 83964,
   "apRanks": {
     "ohio_state": 1,
     "oregon": 2,
@@ -2412,7 +2412,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Lafayette Leopards at UConn Huskies",
@@ -3175,7 +3175,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 6
       },
       "gamePreview": {
         "headline": "Tennessee State Tigers at Georgia Bulldogs",
@@ -17605,7 +17605,18 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": null,
+      "weather": {
+        "condition": "Mostly Clear",
+        "tempF": 82,
+        "windMph": 6,
+        "gusts": 18,
+        "windDir": "SSW",
+        "precipitation": 0.06,
+        "humidity": 58,
+        "indoors": false,
+        "kickoffHour": 19,
+        "code": 1
+      },
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
