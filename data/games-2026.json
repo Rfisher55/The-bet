@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-05T15:39:38.251Z",
+  "generated": "2026-09-05T15:47:53.510Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
@@ -22,7 +22,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 117152,
+  "fetchDurationMs": 174508,
   "apRanks": {},
   "games": [
     {
@@ -4713,7 +4713,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Idaho State Bengals at Utah State Aggies",
@@ -5058,7 +5058,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 7
       },
       "gamePreview": {
         "headline": "Eastern Kentucky Colonels at Jacksonville State Gamecocks",
@@ -5528,9 +5528,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -5542,7 +5540,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
+        "sharpSignal": null,
         "oddsBookCount": 8
       },
       "gamePreview": {
