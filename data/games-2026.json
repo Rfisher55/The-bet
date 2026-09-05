@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-05T20:10:31.002Z",
+  "generated": "2026-09-05T20:23:18.358Z",
   "season": 2026,
   "totalGames": 858,
-  "scheduledGames": 806,
-  "completedGames": 36,
-  "liveGames": 16,
+  "scheduledGames": 802,
+  "completedGames": 37,
+  "liveGames": 19,
   "gamesWithLines": 0,
-  "gamesWithWeather": 95,
+  "gamesWithWeather": 94,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 0,
@@ -22,7 +22,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 111779,
+  "fetchDurationMs": 143833,
   "apRanks": {},
   "games": [
     {
@@ -1894,7 +1894,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "6:21 - 4th",
+      "time": "3:25 - 4th",
       "homeTeamId": "houston",
       "awayTeamId": "oregon_state",
       "homeTeamName": "Houston Cougars",
@@ -1908,7 +1908,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 26,
+      "homeScore": 33,
       "awayScore": 20,
       "homeApRank": null,
       "awayApRank": null,
@@ -1941,7 +1941,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Oregon State Beavers at Houston Cougars",
@@ -1963,7 +1963,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "1:55 - 4th",
+      "time": "Final",
       "homeTeamId": "ohio_state",
       "awayTeamId": "ball_state",
       "homeTeamName": "Ohio State Buckeyes",
@@ -1976,7 +1976,7 @@
       "venueState": "OH",
       "isConferenceGame": false,
       "neutralSite": false,
-      "status": "in_progress",
+      "status": "final",
       "homeScore": 56,
       "awayScore": 3,
       "homeApRank": null,
@@ -2032,7 +2032,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "10:22 - 4th",
+      "time": "7:55 - 4th",
       "homeTeamId": "pittsburgh",
       "awayTeamId": "miami_oh",
       "homeTeamName": "Pittsburgh Panthers",
@@ -2046,7 +2046,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 52,
+      "homeScore": 59,
       "awayScore": 14,
       "homeApRank": null,
       "awayApRank": null,
@@ -2079,7 +2079,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 3
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Miami (OH) RedHawks at Pittsburgh Panthers",
@@ -2101,7 +2101,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "2:26 - 4th",
+      "time": "0:06 - 4th",
       "homeTeamId": "south_carolina",
       "awayTeamId": "kent_state",
       "homeTeamName": "South Carolina Gamecocks",
@@ -2115,7 +2115,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 50,
+      "homeScore": 57,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -2170,7 +2170,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "12:48 - 4th",
+      "time": "9:19 - 4th",
       "homeTeamId": "kentucky",
       "awayTeamId": "youngstown_state",
       "homeTeamName": "Kentucky Wildcats",
@@ -2239,7 +2239,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "11:29 - 3rd",
+      "time": "6:30 - 3rd",
       "homeTeamId": "iowa_state",
       "awayTeamId": "southeast_missouri_state",
       "homeTeamName": "Iowa State Cyclones",
@@ -2253,7 +2253,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 34,
+      "homeScore": 28,
       "awayScore": 7,
       "homeApRank": null,
       "awayApRank": null,
@@ -2287,8 +2287,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 5
+        "sharpSignal": "away",
+        "oddsBookCount": 4
       },
       "gamePreview": {
         "headline": "Southeast Missouri State Redhawks at Iowa State Cyclones",
@@ -2310,7 +2310,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "5:35 - 4th",
+      "time": "0:48 - 4th",
       "homeTeamId": "air_force",
       "awayTeamId": "duquesne",
       "homeTeamName": "Air Force Falcons",
@@ -2379,7 +2379,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "2:00 PM ET",
+      "time": "12:38 - 3rd",
       "homeTeamId": "temple",
       "awayTeamId": "rhode_island",
       "homeTeamName": "Temple Owls",
@@ -2392,9 +2392,9 @@
       "venueState": "PA",
       "isConferenceGame": false,
       "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
+      "status": "in_progress",
+      "homeScore": 24,
+      "awayScore": 14,
       "homeApRank": null,
       "awayApRank": null,
       "homeSP": null,
@@ -2448,7 +2448,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "3:00 PM ET",
+      "time": "11:05 - 2nd",
       "homeTeamId": "georgia",
       "awayTeamId": "tennessee_state",
       "homeTeamName": "Georgia Bulldogs",
@@ -2461,8 +2461,8 @@
       "venueState": "GA",
       "isConferenceGame": false,
       "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
+      "status": "in_progress",
+      "homeScore": 28,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -2482,9 +2482,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2496,8 +2494,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 4
+        "sharpSignal": null,
+        "oddsBookCount": 3
       },
       "gamePreview": {
         "headline": "Tennessee State Tigers at Georgia Bulldogs",
@@ -2519,7 +2517,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "0:53 - 1st",
+      "time": "8:37 - 1st",
       "homeTeamId": "oregon",
       "awayTeamId": "boise_state",
       "homeTeamName": "Oregon Ducks",
@@ -2534,7 +2532,7 @@
       "neutralSite": false,
       "status": "in_progress",
       "homeScore": null,
-      "awayScore": null,
+      "awayScore": 7,
       "homeApRank": null,
       "awayApRank": null,
       "homeSP": null,
@@ -2553,9 +2551,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2567,8 +2563,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 6
+        "sharpSignal": null,
+        "oddsBookCount": 5
       },
       "gamePreview": {
         "headline": "Boise State Broncos at Oregon Ducks",
@@ -2590,7 +2586,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "12:19 - 1st",
+      "time": "9:28 - 1st",
       "homeTeamId": "texas",
       "awayTeamId": "texas_state",
       "homeTeamName": "Texas Longhorns",
@@ -2604,78 +2600,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 5
-      },
-      "gamePreview": {
-        "headline": "Texas State Bobcats at Texas Longhorns",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858434",
-      "espnId": "401858434",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "14:53 - 1st",
-      "homeTeamId": "penn_state",
-      "awayTeamId": "marshall",
-      "homeTeamName": "Penn State Nittany Lions",
-      "awayTeamName": "Marshall Thundering Herd",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "FS1",
-      "venue": "Beaver Stadium",
-      "venueCity": "University Park",
-      "venueState": "PA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": null,
+      "homeScore": 7,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -2710,10 +2635,10 @@
         },
         "beatWriter": [],
         "sharpSignal": "away",
-        "oddsBookCount": 5
+        "oddsBookCount": 6
       },
       "gamePreview": {
-        "headline": "Marshall Thundering Herd at Penn State Nittany Lions",
+        "headline": "Texas State Bobcats at Texas Longhorns",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -2727,26 +2652,26 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401856666",
-      "espnId": "401856666",
+      "id": "espn_401858434",
+      "espnId": "401858434",
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "10:42 - 1st",
-      "homeTeamId": "tennessee",
-      "awayTeamId": "furman",
-      "homeTeamName": "Tennessee Volunteers",
-      "awayTeamName": "Furman Paladins",
+      "time": "8:35 - 1st",
+      "homeTeamId": "penn_state",
+      "awayTeamId": "marshall",
+      "homeTeamName": "Penn State Nittany Lions",
+      "awayTeamName": "Marshall Thundering Herd",
       "homeConference": "",
       "awayConference": "",
-      "network": "SECN+",
-      "venue": "Neyland Stadium",
-      "venueCity": "Knoxville",
-      "venueState": "TN",
+      "network": "FS1",
+      "venue": "Beaver Stadium",
+      "venueCity": "University Park",
+      "venueState": "PA",
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 7,
+      "homeScore": 10,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -2779,10 +2704,10 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 4
+        "oddsBookCount": 6
       },
       "gamePreview": {
-        "headline": "Furman Paladins at Tennessee Volunteers",
+        "headline": "Marshall Thundering Herd at Penn State Nittany Lions",
         "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
         "analysis": [],
         "thePick": {
@@ -2796,26 +2721,26 @@
       "fromESPN": true
     },
     {
-      "id": "espn_401856777",
-      "espnId": "401856777",
+      "id": "espn_401856666",
+      "espnId": "401856666",
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "15:00 - 1st",
-      "homeTeamId": "cincinnati",
-      "awayTeamId": "boston_college",
-      "homeTeamName": "Cincinnati Bearcats",
-      "awayTeamName": "Boston College Eagles",
+      "time": "7:01 - 1st",
+      "homeTeamId": "tennessee",
+      "awayTeamId": "furman",
+      "homeTeamName": "Tennessee Volunteers",
+      "awayTeamName": "Furman Paladins",
       "homeConference": "",
       "awayConference": "",
-      "network": "FOX",
-      "venue": "Nippert Stadium",
-      "venueCity": "Cincinnati",
-      "venueState": "OH",
+      "network": "SECN+",
+      "venue": "Neyland Stadium",
+      "venueCity": "Knoxville",
+      "venueState": "TN",
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": null,
+      "homeScore": 7,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -2850,7 +2775,76 @@
         },
         "beatWriter": [],
         "sharpSignal": "home",
-        "oddsBookCount": 6
+        "oddsBookCount": 4
+      },
+      "gamePreview": {
+        "headline": "Furman Paladins at Tennessee Volunteers",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401856777",
+      "espnId": "401856777",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "8:27 - 1st",
+      "homeTeamId": "cincinnati",
+      "awayTeamId": "boston_college",
+      "homeTeamName": "Cincinnati Bearcats",
+      "awayTeamName": "Boston College Eagles",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "FOX",
+      "venue": "Nippert Stadium",
+      "venueCity": "Cincinnati",
+      "venueState": "OH",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": 3,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 5
       },
       "gamePreview": {
         "headline": "Boston College Eagles at Cincinnati Bearcats",
@@ -3010,7 +3004,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "10:21 - 1st",
+      "time": "7:53 - 1st",
       "homeTeamId": "navy",
       "awayTeamId": "towson",
       "homeTeamName": "Navy Midshipmen",
@@ -3024,7 +3018,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -3044,9 +3038,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -3058,7 +3050,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
+        "sharpSignal": null,
         "oddsBookCount": 4
       },
       "gamePreview": {
@@ -3081,7 +3073,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "10:17 - 1st",
+      "time": "6:51 - 1st",
       "homeTeamId": "utsa",
       "awayTeamId": "ut_rio_grande_valley",
       "homeTeamName": "UTSA Roadrunners",
@@ -3095,7 +3087,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": null,
+      "homeScore": 6,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -3152,7 +3144,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "10:06 - 1st",
+      "time": "5:28 - 1st",
       "homeTeamId": "north_dakota_state",
       "awayTeamId": "fordham",
       "homeTeamName": "North Dakota State Bison",
@@ -3166,7 +3158,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": null,
+      "homeScore": 3,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -3186,9 +3178,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -3200,8 +3190,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 4
+        "sharpSignal": null,
+        "oddsBookCount": 3
       },
       "gamePreview": {
         "headline": "Fordham Rams at North Dakota State Bison",
@@ -3223,7 +3213,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "9:14 - 1st",
+      "time": "6:18 - 1st",
       "homeTeamId": "app_state",
       "awayTeamId": "maine",
       "homeTeamName": "App State Mountaineers",
@@ -3237,7 +3227,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": null,
+      "homeScore": 6,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -3913,7 +3903,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "3:30 PM ET",
+      "time": "11:50 - 1st",
       "homeTeamId": "auburn",
       "awayTeamId": "baylor",
       "homeTeamName": "Auburn Tigers",
@@ -3926,76 +3916,7 @@
       "venueState": "GA",
       "isConferenceGame": false,
       "neutralSite": true,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 4
-      },
-      "gamePreview": {
-        "headline": "Baylor Bears at Auburn Tigers",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401856772",
-      "espnId": "401856772",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "3:45 PM ET",
-      "homeTeamId": "tulsa",
-      "awayTeamId": "oklahoma_state",
-      "homeTeamName": "Tulsa Golden Hurricane",
-      "awayTeamName": "Oklahoma State Cowboys",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPNU",
-      "venue": "H. A. Chapman Stadium",
-      "venueCity": "Tulsa",
-      "venueState": "OK",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "scheduled",
+      "status": "in_progress",
       "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
@@ -4031,6 +3952,75 @@
         },
         "beatWriter": [],
         "sharpSignal": "away",
+        "oddsBookCount": 4
+      },
+      "gamePreview": {
+        "headline": "Baylor Bears at Auburn Tigers",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401856772",
+      "espnId": "401856772",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "14:22 - 1st",
+      "homeTeamId": "tulsa",
+      "awayTeamId": "oklahoma_state",
+      "homeTeamName": "Tulsa Golden Hurricane",
+      "awayTeamName": "Oklahoma State Cowboys",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "ESPNU",
+      "venue": "H. A. Chapman Stadium",
+      "venueCity": "Tulsa",
+      "venueState": "OK",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
         "oddsBookCount": 5
       },
       "gamePreview": {
@@ -4100,7 +4090,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 8
+        "oddsBookCount": 7
       },
       "gamePreview": {
         "headline": "Northern Illinois Huskies at Iowa Hawkeyes",
@@ -18595,18 +18585,7 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": {
-        "condition": "Clear",
-        "tempF": 67,
-        "windMph": 4,
-        "gusts": 8,
-        "windDir": "SSE",
-        "precipitation": 0.03,
-        "humidity": 68,
-        "indoors": false,
-        "kickoffHour": 23,
-        "code": 0
-      },
+      "weather": null,
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
