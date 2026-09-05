@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-05T13:38:37.177Z",
+  "generated": "2026-09-05T13:45:56.250Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
@@ -23,7 +23,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 83389,
+  "fetchDurationMs": 78457,
   "apRanks": {
     "ohio_state": 1,
     "oregon": 2,
@@ -1968,7 +1968,8 @@
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
         "trendingTopics": [
-          "#6 Indiana Hoosiers"
+          "#6 Indiana Hoosiers",
+          "💰 Sharp Signal"
         ]
       },
       "socialIntel": {
@@ -1981,7 +1982,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "away",
         "oddsBookCount": 8
       },
       "gamePreview": {
@@ -4569,7 +4570,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Abilene Christian Wildcats at Texas Tech Red Raiders",
