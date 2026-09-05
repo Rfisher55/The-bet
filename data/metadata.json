@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-05T14:47:49.624Z",
+  "generated": "2026-09-05T14:55:13.780Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
@@ -11,17 +11,16 @@
   "gamesWithOdds": 0,
   "rankedTeams": 0,
   "injuredPlayers": 0,
-  "spTeams": 139,
-  "ppaTeams": 40,
-  "recruitingTeams": 221,
+  "spTeams": 0,
+  "ppaTeams": 0,
+  "recruitingTeams": 0,
   "transferCount": 0,
   "espnFallback": true,
   "dataSourcesActive": [
     "ESPN (schedule — CFBD preseason fallback)",
-    "CFBD (SP++ELO+recruiting+PPA)",
     "TheOddsAPI (20+ US books)",
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 170197
+  "fetchDurationMs": 168863
 }
