@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-05T12:13:27.556Z",
+  "generated": "2026-09-05T12:35:21.540Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
   "completedGames": 27,
   "liveGames": 0,
   "gamesWithLines": 0,
-  "gamesWithWeather": 95,
+  "gamesWithWeather": 94,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 25,
@@ -23,7 +23,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 55346,
+  "fetchDurationMs": 87642,
   "apRanks": {
     "ohio_state": 1,
     "oregon": 2,
@@ -15043,7 +15043,7 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Thunderstorm",
+        "condition": "Rain Showers",
         "tempF": 83,
         "windMph": 7,
         "gusts": 10,
@@ -15052,7 +15052,7 @@
         "humidity": 66,
         "indoors": false,
         "kickoffHour": 15,
-        "code": 95
+        "code": 80
       },
       "lineMovement": [],
       "situational": {},
@@ -16639,7 +16639,7 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Thunderstorm",
+        "condition": "Light Drizzle",
         "tempF": 82,
         "windMph": 9,
         "gusts": 14,
@@ -16648,7 +16648,7 @@
         "humidity": 74,
         "indoors": false,
         "kickoffHour": 19,
-        "code": 95
+        "code": 51
       },
       "lineMovement": [],
       "situational": {},
@@ -17605,18 +17605,7 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": {
-        "condition": "Mostly Clear",
-        "tempF": 82,
-        "windMph": 6,
-        "gusts": 5,
-        "windDir": "SSW",
-        "precipitation": 0.06,
-        "humidity": 58,
-        "indoors": false,
-        "kickoffHour": 19,
-        "code": 1
-      },
+      "weather": null,
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
