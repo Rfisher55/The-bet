@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-05T21:36:41.997Z",
+  "generated": "2026-09-05T21:44:02.516Z",
   "season": 2026,
   "totalGames": 858,
-  "scheduledGames": 804,
+  "scheduledGames": 805,
   "completedGames": 44,
-  "liveGames": 10,
+  "liveGames": 9,
   "gamesWithLines": 0,
   "gamesWithWeather": 95,
   "gamesWithBettingPct": 0,
@@ -22,7 +22,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 127065,
+  "fetchDurationMs": 101292,
   "apRanks": {},
   "games": [
     {
@@ -1894,7 +1894,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "15:00 - 3rd",
+      "time": "5:01 - 3rd",
       "homeTeamId": "georgia",
       "awayTeamId": "tennessee_state",
       "homeTeamName": "Georgia Bulldogs",
@@ -2032,7 +2032,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "12:46 - 3rd",
+      "time": "3:30 PM ET",
       "homeTeamId": "texas",
       "awayTeamId": "texas_state",
       "homeTeamName": "Texas Longhorns",
@@ -2045,9 +2045,9 @@
       "venueState": "TX",
       "isConferenceGame": false,
       "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": 34,
-      "awayScore": 7,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
       "homeSP": null,
@@ -2081,7 +2081,7 @@
         },
         "beatWriter": [],
         "sharpSignal": "away",
-        "oddsBookCount": 6
+        "oddsBookCount": 4
       },
       "gamePreview": {
         "headline": "Texas State Bobcats at Texas Longhorns",
@@ -2150,7 +2150,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 6
       },
       "gamePreview": {
         "headline": "Marshall Thundering Herd at Penn State Nittany Lions",
@@ -2206,7 +2206,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2218,7 +2220,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "away",
         "oddsBookCount": 4
       },
       "gamePreview": {
@@ -2241,7 +2243,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "3:30 PM ET",
+      "time": "0:03 - 2nd",
       "homeTeamId": "auburn",
       "awayTeamId": "baylor",
       "homeTeamName": "Auburn Tigers",
@@ -2254,9 +2256,9 @@
       "venueState": "GA",
       "isConferenceGame": false,
       "neutralSite": true,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
+      "status": "in_progress",
+      "homeScore": 10,
+      "awayScore": 7,
       "homeApRank": null,
       "awayApRank": null,
       "homeSP": null,
@@ -2381,7 +2383,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "2:32 - 1st",
+      "time": "5:07 - 1st",
       "homeTeamId": "duke",
       "awayTeamId": "tulane",
       "homeTeamName": "Duke Blue Devils",
@@ -2415,7 +2417,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2427,8 +2431,8 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 6
+        "sharpSignal": "away",
+        "oddsBookCount": 5
       },
       "gamePreview": {
         "headline": "Tulane Green Wave at Duke Blue Devils",
@@ -2450,7 +2454,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "4:33 - 1st",
+      "time": "7:22 - 1st",
       "homeTeamId": "charlotte",
       "awayTeamId": "the_citadel",
       "homeTeamName": "Charlotte 49ers",
@@ -2464,7 +2468,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 7,
+      "homeScore": null,
       "awayScore": 7,
       "homeApRank": null,
       "awayApRank": null,
@@ -2519,7 +2523,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "15:00 - 3rd",
+      "time": "3:30 PM ET",
       "homeTeamId": "navy",
       "awayTeamId": "towson",
       "homeTeamName": "Navy Midshipmen",
@@ -2532,9 +2536,9 @@
       "venueState": "MD",
       "isConferenceGame": false,
       "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": 28,
-      "awayScore": 12,
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
       "homeSP": null,
@@ -2553,7 +2557,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2565,7 +2571,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "home",
         "oddsBookCount": 5
       },
       "gamePreview": {
@@ -2659,7 +2665,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "10:51 - 3rd",
+      "time": "13:17 - 3rd",
       "homeTeamId": "north_dakota_state",
       "awayTeamId": "fordham",
       "homeTeamName": "North Dakota State Bison",
@@ -2673,7 +2679,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 31,
+      "homeScore": 24,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -2706,7 +2712,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 4
+        "oddsBookCount": 3
       },
       "gamePreview": {
         "headline": "Fordham Rams at North Dakota State Bison",
@@ -2728,7 +2734,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "13:10 - 3rd",
+      "time": "3:30 PM ET",
       "homeTeamId": "app_state",
       "awayTeamId": "maine",
       "homeTeamName": "App State Mountaineers",
@@ -2741,8 +2747,8 @@
       "venueState": "NC",
       "isConferenceGame": false,
       "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": 31,
+      "status": "scheduled",
+      "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -2797,7 +2803,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "3:45 PM ET",
+      "time": "End of 2nd",
       "homeTeamId": "tulsa",
       "awayTeamId": "oklahoma_state",
       "homeTeamName": "Tulsa Golden Hurricane",
@@ -2810,9 +2816,9 @@
       "venueState": "OK",
       "isConferenceGame": false,
       "neutralSite": false,
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
+      "status": "in_progress",
+      "homeScore": 10,
+      "awayScore": 3,
       "homeApRank": null,
       "awayApRank": null,
       "homeSP": null,
@@ -2831,7 +2837,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2843,7 +2851,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "away",
         "oddsBookCount": 6
       },
       "gamePreview": {
@@ -2866,7 +2874,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "6:53 - 2nd",
+      "time": "9:39 - 2nd",
       "homeTeamId": "iowa",
       "awayTeamId": "northern_illinois",
       "homeTeamName": "Iowa Hawkeyes",
@@ -2880,76 +2888,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 27,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 6
-      },
-      "gamePreview": {
-        "headline": "Northern Illinois Huskies at Iowa Hawkeyes",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401856635",
-      "espnId": "401856635",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "7:52 - 2nd",
-      "homeTeamId": "arkansas",
-      "awayTeamId": "north_alabama",
-      "homeTeamName": "Arkansas Razorbacks",
-      "awayTeamName": "North Alabama Lions",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "SEC Network",
-      "venue": "Donald W. Reynolds Razorback Stadium",
-      "venueCity": "Fayetteville",
-      "venueState": "AR",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": 14,
+      "homeScore": 20,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -2983,7 +2922,76 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "home",
+        "sharpSignal": "away",
+        "oddsBookCount": 6
+      },
+      "gamePreview": {
+        "headline": "Northern Illinois Huskies at Iowa Hawkeyes",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401856635",
+      "espnId": "401856635",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "8:41 - 2nd",
+      "homeTeamId": "arkansas",
+      "awayTeamId": "north_alabama",
+      "homeTeamName": "Arkansas Razorbacks",
+      "awayTeamName": "North Alabama Lions",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "SEC Network",
+      "venue": "Donald W. Reynolds Razorback Stadium",
+      "venueCity": "Fayetteville",
+      "venueState": "AR",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": 7,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
         "oddsBookCount": 5
       },
       "gamePreview": {
@@ -3006,7 +3014,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "8:28 - 1st",
+      "time": "11:02 - 1st",
       "homeTeamId": "southern_miss",
       "awayTeamId": "alcorn_state",
       "homeTeamName": "Southern Miss Golden Eagles",
