@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-05T16:45:29.322Z",
+  "generated": "2026-09-05T16:55:46.970Z",
   "season": 2026,
   "totalGames": 858,
-  "scheduledGames": 820,
+  "scheduledGames": 821,
   "completedGames": 27,
-  "liveGames": 11,
+  "liveGames": 10,
   "gamesWithLines": 0,
-  "gamesWithWeather": 95,
+  "gamesWithWeather": 94,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 0,
@@ -22,7 +22,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 182534,
+  "fetchDurationMs": 204824,
   "apRanks": {},
   "games": [
     {
@@ -1894,7 +1894,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "5:51 - 1st",
+      "time": "0:13 - 1st",
       "homeTeamId": "indiana",
       "awayTeamId": "north_texas",
       "homeTeamName": "Indiana Hoosiers",
@@ -1908,7 +1908,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 7,
+      "homeScore": 14,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -1963,7 +1963,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "4:35 - 1st",
+      "time": "0:24 - 1st",
       "homeTeamId": "alabama",
       "awayTeamId": "east_carolina",
       "homeTeamName": "Alabama Crimson Tide",
@@ -1977,7 +1977,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 3,
+      "homeScore": 10,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -1997,9 +1997,7 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
+        "trendingTopics": []
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2011,7 +2009,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": "away",
+        "sharpSignal": null,
         "oddsBookCount": 6
       },
       "gamePreview": {
@@ -2034,7 +2032,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "5:25 - 1st",
+      "time": "End of 1st",
       "homeTeamId": "houston",
       "awayTeamId": "oregon_state",
       "homeTeamName": "Houston Cougars",
@@ -2048,7 +2046,7 @@
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "in_progress",
-      "homeScore": 6,
+      "homeScore": 9,
       "awayScore": 7,
       "homeApRank": null,
       "awayApRank": null,
@@ -2103,7 +2101,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "2:14 - 1st",
+      "time": "14:30 - 2nd",
       "homeTeamId": "west_virginia",
       "awayTeamId": "coastal_carolina",
       "homeTeamName": "West Virginia Mountaineers",
@@ -2137,7 +2135,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -2149,7 +2149,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "away",
         "oddsBookCount": 5
       },
       "gamePreview": {
@@ -2172,7 +2172,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "4:19 - 1st",
+      "time": "12:00 PM ET",
       "homeTeamId": "syracuse",
       "awayTeamId": "new_hampshire",
       "homeTeamName": "Syracuse Orange",
@@ -2185,8 +2185,8 @@
       "venueState": "NY",
       "isConferenceGame": false,
       "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": 7,
+      "status": "scheduled",
+      "homeScore": null,
       "awayScore": null,
       "homeApRank": null,
       "awayApRank": null,
@@ -2197,7 +2197,13 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": null,
+      "weather": {
+        "condition": "Dome",
+        "tempF": 72,
+        "windMph": 0,
+        "precipitation": 0,
+        "indoors": true
+      },
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
@@ -2221,7 +2227,7 @@
         },
         "beatWriter": [],
         "sharpSignal": "away",
-        "oddsBookCount": 4
+        "oddsBookCount": 5
       },
       "gamePreview": {
         "headline": "New Hampshire Wildcats at Syracuse Orange",
@@ -2243,7 +2249,7 @@
       "week": 1,
       "seasonType": "regular",
       "date": "2026-09-05",
-      "time": "3:16 - 1st",
+      "time": "12:00 PM ET",
       "homeTeamId": "nebraska",
       "awayTeamId": "ohio",
       "homeTeamName": "Nebraska Cornhuskers",
@@ -2254,430 +2260,6 @@
       "venue": "Memorial Stadium (Lincoln, NE)",
       "venueCity": "Lincoln",
       "venueState": "NE",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": 7,
-      "awayScore": 10,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 6
-      },
-      "gamePreview": {
-        "headline": "Ohio Bobcats at Nebraska Cornhuskers",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401861962",
-      "espnId": "401861962",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "5:53 - 1st",
-      "homeTeamId": "uconn",
-      "awayTeamId": "lafayette",
-      "homeTeamName": "UConn Huskies",
-      "awayTeamName": "Lafayette Leopards",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "UConn+",
-      "venue": "Pratt & Whitney Stadium",
-      "venueCity": "East Hartford",
-      "venueState": "CT",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": 14,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": []
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": null,
-        "oddsBookCount": 5
-      },
-      "gamePreview": {
-        "headline": "Lafayette Leopards at UConn Huskies",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401862701",
-      "espnId": "401862701",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "5:48 - 1st",
-      "homeTeamId": "army",
-      "awayTeamId": "bryant",
-      "homeTeamName": "Army Black Knights",
-      "awayTeamName": "Bryant Bulldogs",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CBSSN",
-      "venue": "Michie Stadium",
-      "venueCity": "West Point",
-      "venueState": "NY",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": 14,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 4
-      },
-      "gamePreview": {
-        "headline": "Bryant Bulldogs at Army Black Knights",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401866410",
-      "espnId": "401866410",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "1:55 - 1st",
-      "homeTeamId": "bowling_green",
-      "awayTeamId": "tarleton_state",
-      "homeTeamName": "Bowling Green Falcons",
-      "awayTeamName": "Tarleton State Texans",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPN+",
-      "venue": "Doyt L. Perry Stadium",
-      "venueCity": "Bowling Green",
-      "venueState": "OH",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": null,
-      "awayScore": 7,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 5
-      },
-      "gamePreview": {
-        "headline": "Tarleton State Texans at Bowling Green Falcons",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401869960",
-      "espnId": "401869960",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "8:39 - 1st",
-      "homeTeamId": "james_madison",
-      "awayTeamId": "liberty",
-      "homeTeamName": "James Madison Dukes",
-      "awayTeamName": "Liberty Flames",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "ESPNU",
-      "venue": "Bridgeforth Stadium",
-      "venueCity": "Harrisonburg",
-      "venueState": "VA",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": "away",
-        "oddsBookCount": 5
-      },
-      "gamePreview": {
-        "headline": "Liberty Flames at James Madison Dukes",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858432",
-      "espnId": "401858432",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "14:54 - 1st",
-      "homeTeamId": "ohio_state",
-      "awayTeamId": "ball_state",
-      "homeTeamName": "Ohio State Buckeyes",
-      "awayTeamName": "Ball State Cardinals",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "BTN",
-      "venue": "Ohio Stadium",
-      "venueCity": "Columbus",
-      "venueState": "OH",
-      "isConferenceGame": false,
-      "neutralSite": false,
-      "status": "in_progress",
-      "homeScore": null,
-      "awayScore": null,
-      "homeApRank": null,
-      "awayApRank": null,
-      "homeSP": null,
-      "awaySP": null,
-      "homeSpRank": null,
-      "awaySpRank": null,
-      "homeElo": null,
-      "awayElo": null,
-      "bettingLines": null,
-      "weather": null,
-      "lineMovement": [],
-      "situational": {},
-      "xFactors": [],
-      "socialBuzz": {
-        "homeTeamBuzz": 0,
-        "awayTeamBuzz": 0,
-        "sentimentHome": 0.5,
-        "sentimentAway": 0.5,
-        "trendingTopics": [
-          "💰 Sharp Signal"
-        ]
-      },
-      "socialIntel": {
-        "lineMovement": [],
-        "publicBetting": {
-          "homePct": 50,
-          "awayPct": 50,
-          "overPct": 50,
-          "underPct": 50,
-          "source": "default"
-        },
-        "beatWriter": [],
-        "sharpSignal": "home",
-        "oddsBookCount": 5
-      },
-      "gamePreview": {
-        "headline": "Ball State Cardinals at Ohio State Buckeyes",
-        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
-        "analysis": [],
-        "thePick": {
-          "team": "",
-          "line": "",
-          "confidence": "LOW",
-          "unit": 1,
-          "reasoning": ""
-        }
-      },
-      "fromESPN": true
-    },
-    {
-      "id": "espn_401858207",
-      "espnId": "401858207",
-      "week": 1,
-      "seasonType": "regular",
-      "date": "2026-09-05",
-      "time": "12:30 PM ET",
-      "homeTeamId": "pittsburgh",
-      "awayTeamId": "miami_oh",
-      "homeTeamName": "Pittsburgh Panthers",
-      "awayTeamName": "Miami (OH) RedHawks",
-      "homeConference": "",
-      "awayConference": "",
-      "network": "CW",
-      "venue": "Acrisure Stadium",
-      "venueCity": "Pittsburgh",
-      "venueState": "PA",
       "isConferenceGame": false,
       "neutralSite": false,
       "status": "scheduled",
@@ -2714,7 +2296,423 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 5
+      },
+      "gamePreview": {
+        "headline": "Ohio Bobcats at Nebraska Cornhuskers",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401861962",
+      "espnId": "401861962",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "0:08 - 1st",
+      "homeTeamId": "uconn",
+      "awayTeamId": "lafayette",
+      "homeTeamName": "UConn Huskies",
+      "awayTeamName": "Lafayette Leopards",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "UConn+",
+      "venue": "Pratt & Whitney Stadium",
+      "venueCity": "East Hartford",
+      "venueState": "CT",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": 21,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 4
+      },
+      "gamePreview": {
+        "headline": "Lafayette Leopards at UConn Huskies",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401862701",
+      "espnId": "401862701",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "15:00 - 2nd",
+      "homeTeamId": "army",
+      "awayTeamId": "bryant",
+      "homeTeamName": "Army Black Knights",
+      "awayTeamName": "Bryant Bulldogs",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CBSSN",
+      "venue": "Michie Stadium",
+      "venueCity": "West Point",
+      "venueState": "NY",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": 21,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": "away",
+        "oddsBookCount": 4
+      },
+      "gamePreview": {
+        "headline": "Bryant Bulldogs at Army Black Knights",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401866410",
+      "espnId": "401866410",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "13:13 - 2nd",
+      "homeTeamId": "bowling_green",
+      "awayTeamId": "tarleton_state",
+      "homeTeamName": "Bowling Green Falcons",
+      "awayTeamName": "Tarleton State Texans",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "ESPN+",
+      "venue": "Doyt L. Perry Stadium",
+      "venueCity": "Bowling Green",
+      "venueState": "OH",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": null,
+      "awayScore": 7,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 5
+      },
+      "gamePreview": {
+        "headline": "Tarleton State Texans at Bowling Green Falcons",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401869960",
+      "espnId": "401869960",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "4:23 - 1st",
+      "homeTeamId": "james_madison",
+      "awayTeamId": "liberty",
+      "homeTeamName": "James Madison Dukes",
+      "awayTeamName": "Liberty Flames",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "ESPNU",
+      "venue": "Bridgeforth Stadium",
+      "venueCity": "Harrisonburg",
+      "venueState": "VA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": 7,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 6
+      },
+      "gamePreview": {
+        "headline": "Liberty Flames at James Madison Dukes",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401858432",
+      "espnId": "401858432",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "8:47 - 1st",
+      "homeTeamId": "ohio_state",
+      "awayTeamId": "ball_state",
+      "homeTeamName": "Ohio State Buckeyes",
+      "awayTeamName": "Ball State Cardinals",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "BTN",
+      "venue": "Ohio Stadium",
+      "venueCity": "Columbus",
+      "venueState": "OH",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": 7,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 4
+      },
+      "gamePreview": {
+        "headline": "Ball State Cardinals at Ohio State Buckeyes",
+        "synopsis": "Week 1 matchup. Lines and preview analysis update as game week approaches.",
+        "analysis": [],
+        "thePick": {
+          "team": "",
+          "line": "",
+          "confidence": "LOW",
+          "unit": 1,
+          "reasoning": ""
+        }
+      },
+      "fromESPN": true
+    },
+    {
+      "id": "espn_401858207",
+      "espnId": "401858207",
+      "week": 1,
+      "seasonType": "regular",
+      "date": "2026-09-05",
+      "time": "13:59 - 1st",
+      "homeTeamId": "pittsburgh",
+      "awayTeamId": "miami_oh",
+      "homeTeamName": "Pittsburgh Panthers",
+      "awayTeamName": "Miami (OH) RedHawks",
+      "homeConference": "",
+      "awayConference": "",
+      "network": "CW",
+      "venue": "Acrisure Stadium",
+      "venueCity": "Pittsburgh",
+      "venueState": "PA",
+      "isConferenceGame": false,
+      "neutralSite": false,
+      "status": "in_progress",
+      "homeScore": null,
+      "awayScore": null,
+      "homeApRank": null,
+      "awayApRank": null,
+      "homeSP": null,
+      "awaySP": null,
+      "homeSpRank": null,
+      "awaySpRank": null,
+      "homeElo": null,
+      "awayElo": null,
+      "bettingLines": null,
+      "weather": null,
+      "lineMovement": [],
+      "situational": {},
+      "xFactors": [],
+      "socialBuzz": {
+        "homeTeamBuzz": 0,
+        "awayTeamBuzz": 0,
+        "sentimentHome": 0.5,
+        "sentimentAway": 0.5,
+        "trendingTopics": []
+      },
+      "socialIntel": {
+        "lineMovement": [],
+        "publicBetting": {
+          "homePct": 50,
+          "awayPct": 50,
+          "overPct": 50,
+          "underPct": 50,
+          "source": "default"
+        },
+        "beatWriter": [],
+        "sharpSignal": null,
+        "oddsBookCount": 5
       },
       "gamePreview": {
         "headline": "Miami (OH) RedHawks at Pittsburgh Panthers",
@@ -5748,7 +5746,9 @@
         "awayTeamBuzz": 0,
         "sentimentHome": 0.5,
         "sentimentAway": 0.5,
-        "trendingTopics": []
+        "trendingTopics": [
+          "💰 Sharp Signal"
+        ]
       },
       "socialIntel": {
         "lineMovement": [],
@@ -5760,7 +5760,7 @@
           "source": "default"
         },
         "beatWriter": [],
-        "sharpSignal": null,
+        "sharpSignal": "away",
         "oddsBookCount": 8
       },
       "gamePreview": {
@@ -8953,7 +8953,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "UCF Knights at Pittsburgh Panthers",
@@ -9028,7 +9028,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "California Golden Bears at Syracuse Orange",
@@ -11736,7 +11736,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Ohio State Buckeyes at Texas Longhorns",
@@ -17831,18 +17831,7 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": {
-        "condition": "Light Drizzle",
-        "tempF": 81,
-        "windMph": 7,
-        "gusts": 21,
-        "windDir": "S",
-        "precipitation": 0.18,
-        "humidity": 70,
-        "indoors": false,
-        "kickoffHour": 19,
-        "code": 51
-      },
+      "weather": null,
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
@@ -43315,7 +43304,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Oregon Ducks at Ohio State Buckeyes",
@@ -59515,7 +59504,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 1
+        "oddsBookCount": 0
       },
       "gamePreview": {
         "headline": "Michigan Wolverines at Ohio State Buckeyes",
