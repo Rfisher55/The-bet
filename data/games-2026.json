@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-05T15:47:53.510Z",
+  "generated": "2026-09-05T15:54:46.478Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
@@ -22,7 +22,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 174508,
+  "fetchDurationMs": 141396,
   "apRanks": {},
   "games": [
     {
@@ -4368,7 +4368,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Norfolk State Spartans at Old Dominion Monarchs",
