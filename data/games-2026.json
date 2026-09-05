@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-05T13:28:00.821Z",
+  "generated": "2026-09-05T13:38:37.177Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
   "completedGames": 27,
   "liveGames": 0,
   "gamesWithLines": 0,
-  "gamesWithWeather": 95,
+  "gamesWithWeather": 94,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 25,
@@ -23,7 +23,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 52578,
+  "fetchDurationMs": 83389,
   "apRanks": {
     "ohio_state": 1,
     "oregon": 2,
@@ -2966,7 +2966,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 5
+        "oddsBookCount": 6
       },
       "gamePreview": {
         "headline": "Southeast Missouri State Redhawks at Iowa State Cyclones",
@@ -3459,7 +3459,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Furman Paladins at Tennessee Volunteers",
@@ -4638,7 +4638,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 6
+        "oddsBookCount": 7
       },
       "gamePreview": {
         "headline": "Austin Peay Governors at Vanderbilt Commodores",
@@ -5882,7 +5882,7 @@
         "windMph": 10,
         "gusts": 20,
         "windDir": "ENE",
-        "precipitation": 0.02,
+        "precipitation": 0,
         "humidity": 72,
         "indoors": false,
         "kickoffHour": 20,
@@ -17605,18 +17605,7 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": {
-        "condition": "Mostly Clear",
-        "tempF": 82,
-        "windMph": 6,
-        "gusts": 18,
-        "windDir": "SSW",
-        "precipitation": 0.06,
-        "humidity": 58,
-        "indoors": false,
-        "kickoffHour": 19,
-        "code": 1
-      },
+      "weather": null,
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
