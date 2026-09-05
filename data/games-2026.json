@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-05T15:12:34.252Z",
+  "generated": "2026-09-05T15:21:43.978Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 831,
   "completedGames": 27,
   "liveGames": 0,
   "gamesWithLines": 0,
-  "gamesWithWeather": 94,
+  "gamesWithWeather": 95,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 0,
@@ -22,7 +22,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 291344,
+  "fetchDurationMs": 166147,
   "apRanks": {},
   "games": [
     {
@@ -3747,7 +3747,7 @@
         },
         "beatWriter": [],
         "sharpSignal": null,
-        "oddsBookCount": 7
+        "oddsBookCount": 8
       },
       "gamePreview": {
         "headline": "Towson Tigers at Navy Midshipmen",
@@ -17451,7 +17451,18 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": null,
+      "weather": {
+        "condition": "Mostly Clear",
+        "tempF": 82,
+        "windMph": 6,
+        "gusts": 18,
+        "windDir": "SSW",
+        "precipitation": 0.06,
+        "humidity": 58,
+        "indoors": false,
+        "kickoffHour": 19,
+        "code": 1
+      },
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
