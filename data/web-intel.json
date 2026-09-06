@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-06T03:06:02.338Z",
-  "elapsedMs": 4992,
+  "generatedAt": "2026-09-06T03:16:13.154Z",
+  "elapsedMs": 5823,
   "atsRankings": {
     "akron": {
       "atsW": 1,
@@ -92,6 +92,13 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "40.0"
+    },
+    "kansas st": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "68.0"
     },
     "colorado": {
       "atsW": 1,
@@ -198,6 +205,13 @@
       "streak": "100.0%",
       "last5": "52.0"
     },
+    "colorado st": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "22.0"
+    },
     "oregon st": {
       "atsW": 1,
       "atsL": 0,
@@ -289,6 +303,13 @@
       "streak": "100.0%",
       "last5": "7.0"
     },
+    "sam houston": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "-3.0"
+    },
     "coastal car": {
       "atsW": 1,
       "atsL": 0,
@@ -302,6 +323,13 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "49.0"
+    },
+    "s alabama": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "25.0"
     },
     "utsa": {
       "atsW": 1,
@@ -436,6 +464,13 @@
       "streak": "0.0%",
       "last5": "27.0"
     },
+    "vanderbilt": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "19.0"
+    },
     "tennessee": {
       "atsW": 0,
       "atsL": 1,
@@ -534,12 +569,26 @@
       "streak": "0.0%",
       "last5": "-14.0"
     },
+    "troy": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "3.0"
+    },
     "unlv": {
       "atsW": 0,
       "atsL": 1,
       "atsPct": 0,
       "streak": "0.0%",
       "last5": "-6.0"
+    },
+    "wyoming": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "-22.0"
     },
     "oregon": {
       "atsW": 0,
@@ -625,6 +674,13 @@
       "streak": "0.0%",
       "last5": "-26.0"
     },
+    "old dominion": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "21.0"
+    },
     "charlotte": {
       "atsW": 0,
       "atsL": 1,
@@ -639,82 +695,6 @@
   "redditSentiment": {},
   "redditPosts": [],
   "newsByTeam": {
-    "notre_dame": [
-      {
-        "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - AP News",
-        "source": "AP News",
-        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPZlBNTUFQOFhwSDJVM1RyY3J1MkZmZUJxZFpYM0ptWnpJN2dTQ1FrV2hBdjB6SzlrSHBhY1p1MG5OUDBKWUtjbE42bEdHQUZsODNzWUIwZngwazdZdHp5c2tuMnU2dVhzMldVY3ZqV2g1aFNTLXh5TmZERVR2NXJoMDhBcmVGZmFaWnNxRQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 3,
-        "isCritical": false,
-        "pubDate": "Wed, 02 Sep 2026 21:52:00 GMT",
-        "searchQuery": "college football coaching change"
-      },
-      {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 17,
-        "isCritical": false,
-        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      },
-      {
-        "title": "NDSU Tabbed For Potential Coaching Change in 2027 - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNMGw0cDVGcWhsYjV3eDRJNENDOE5WNzdmRTVIeUVTV1V6M1BFMGVGT08wVlV3Z1lnVU01ZjlEN21oMVMzamZCaHk3ZXNzZjJ0NElpbzBEdV9tcF9QeGFiRTl0QUF2dFpndjhRUVFlY3FkT3BIMERQY1BJZnlJWGpBYXdpV1ZKWFpTcTFvVmN0aw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 4,
-        "isCritical": false,
-        "pubDate": "Tue, 01 Sep 2026 21:16:39 GMT",
-        "searchQuery": "college football coaching change"
-      },
-      {
-        "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
-        "source": "The New York Times",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS1d0bGdjQmhjSTNKb2FBZHJWM2NUMlFheGVocFBLaWNablQ3TEJ2YmZZa1dRSWRsbzNGcUtzUFJlRlZubmdnUVhqWnY1QjZoTFNWS2p4RjhLU25IZ0lBamd1TlpzbHdhY1A4Z3JFYkxVM2Vub0hNdUg5dkpNR0MxR1ZjWE9NbEhURFVfdzQ1MDJjemgwSUNKeUU2aW9ENjRtUWpN?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
-        "searchQuery": "college football transfer portal"
-      },
-      {
-        "title": "Temple kept its starters out of the transfer portal. Peter Clarke and others deserve credit. - Inquirer.com",
-        "source": "Inquirer.com",
-        "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNRER1YmtXeU4wdnFGOUhHdjNPa0tRUThkdUpDWXhxaGhKUUVGc05qSFNVTFZWWDk1dE5ESjZHQTBzWUs5dk9qTU5JSU1UMEFvV3Y5dUw5YVpDYXMxeTRiMFlmRUMyaEZrWGpyYWZYazhWRFBNYVYwRUFTTExGODAybVNpNDdWWllES21EV2JwOWpjZHJTdzk0ejhTb0l5YWk0VzJqbXBwb09tclVxVHFUbUs1RHJ0bjF3WUdoTzBsNkJTUUU?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 2,
-        "isCritical": false,
-        "pubDate": "Fri, 04 Sep 2026 09:01:01 GMT",
-        "searchQuery": "college football transfer portal"
-      }
-    ],
-    "penn_state": [
-      {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 17,
-        "isCritical": false,
-        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      }
-    ],
-    "ole_miss": [
-      {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 17,
-        "isCritical": false,
-        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      }
-    ],
     "texas": [
       {
         "title": "Texas football recruited a top transfer portal class last cycle — now, that effort is paying off - 247Sports",
@@ -757,14 +737,66 @@
         "searchQuery": "NCAA college football"
       },
       {
-        "title": "Marcel Reed sparks No. 8 Texas A&amp;M in a 50-0 rout of Missouri State - Newsday",
-        "source": "Newsday",
-        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQnRSMVZHSDhaOUR2SWhsX0MydERJR3NNSnN6MHVNUTRrUVhUcDdXZXR0STRYWk5zRDVOdTQ1REo0TnlLUUdVNGZHdzZsMVA1dzRHTW5uNm5qYmdRRzRianI3NVpXRUg0RG02dzJJa20zZUhkVlVvb0YtMmNCMkV5MUVreHdLUmltQ3J0OG9vQlRXaXBQT01ZN1BNQXByRFVj?oc=5",
+        "title": "Marcel Reed sparks No. 8 Texas A&amp;M in a 50-0 rout of Missouri State - LancasterOnline",
+        "source": "LancasterOnline",
+        "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPZGVlX0drTDJlUWtmTzBYU0ZGeHZINzA3Sm9jZE1WRVNEcl9IWVQyMUVMWTBJdmE5SEFKU1lsd1ltTlMzRm9laHU3dk14a0ZnSzk0ZHJ5MDE5Z011TGFNclRQMHh1VmtSRDUzaTRBOVJ5UzZnbDB5VzhQeTNYUHk0U3ozT18tYlR1ZDA1RUpEZmt0Z0J6QVE3Y1IwcXMtRUZoVWFrSUliTkZEX2ozZlBkTVFsbnBKQTFDSEswRFZkU1RHRmF0a2pQVEtxZ1FweVd1NHhqMzVJel80cldQa0lPQk9zWU1hR2NvRzY2MC1VeTZRT3l6?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 02:48:53 GMT",
+        "pubDate": "Sun, 06 Sep 2026 02:47:11 GMT",
         "searchQuery": "NCAA college football"
+      }
+    ],
+    "notre_dame": [
+      {
+        "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
+        "source": "The New York Times",
+        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS1d0bGdjQmhjSTNKb2FBZHJWM2NUMlFheGVocFBLaWNablQ3TEJ2YmZZa1dRSWRsbzNGcUtzUFJlRlZubmdnUVhqWnY1QjZoTFNWS2p4RjhLU25IZ0lBamd1TlpzbHdhY1A4Z3JFYkxVM2Vub0hNdUg5dkpNR0MxR1ZjWE9NbEhURFVfdzQ1MDJjemgwSUNKeUU2aW9ENjRtUWpN?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
+        "searchQuery": "college football transfer portal"
+      },
+      {
+        "title": "Temple kept its starters out of the transfer portal. Peter Clarke and others deserve credit. - Inquirer.com",
+        "source": "Inquirer.com",
+        "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNRER1YmtXeU4wdnFGOUhHdjNPa0tRUThkdUpDWXhxaGhKUUVGc05qSFNVTFZWWDk1dE5ESjZHQTBzWUs5dk9qTU5JSU1UMEFvV3Y5dUw5YVpDYXMxeTRiMFlmRUMyaEZrWGpyYWZYazhWRFBNYVYwRUFTTExGODAybVNpNDdWWllES21EV2JwOWpjZHJTdzk0ejhTb0l5YWk0VzJqbXBwb09tclVxVHFUbUs1RHJ0bjF3WUdoTzBsNkJTUUU?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Fri, 04 Sep 2026 09:01:01 GMT",
+        "searchQuery": "college football transfer portal"
+      },
+      {
+        "title": "Steve Angeli responds to injury scare with a sprint in Syracuse’s season-opening win - Syracuse.com",
+        "source": "Syracuse.com",
+        "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQMVV5ODY3TWNsQ1lHeEZlcC1HTlQ0R2dPMkJOUXZnRDhHX19MODBQMGJUMjZqX29QejFRMk04eTJqbl9WZ2dMcnhMTWZhal9NcFUyZWxRU1kxZG8wQTU1cU1vdHh5SDFaNHFmUUs5cUtNeEJmR2J4ak02eGhBT2M2WkFPNW1PSVVsaV9vZlJKeEpSbWRBU1RlMmZFc3JQdXRyV05PNWNmOGxXODJKa013cDVpem00YWVkS0x3SVFUdDBYckhwYXZ4eDB6cDJ0amNzM2c?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 19:34:00 GMT",
+        "searchQuery": "college football injury"
+      },
+      {
+        "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - AP News",
+        "source": "AP News",
+        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPZlBNTUFQOFhwSDJVM1RyY3J1MkZmZUJxZFpYM0ptWnpJN2dTQ1FrV2hBdjB6SzlrSHBhY1p1MG5OUDBKWUtjbE42bEdHQUZsODNzWUIwZngwazdZdHp5c2tuMnU2dVhzMldVY3ZqV2g1aFNTLXh5TmZERVR2NXJoMDhBcmVGZmFaWnNxRQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 3,
+        "isCritical": false,
+        "pubDate": "Wed, 02 Sep 2026 21:52:00 GMT",
+        "searchQuery": "college football coaching change"
+      },
+      {
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 17,
+        "isCritical": false,
+        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
       }
     ],
     "clemson": [
@@ -811,16 +843,6 @@
         "searchQuery": "college football transfer portal"
       },
       {
-        "title": "LSU opts for brief nuclear football disarmament in SEC standoff, but this battle isn't over - cbssports.com",
-        "source": "cbssports.com",
-        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOdHEzMW96MFZ6R2dSSnl5V1dQXzNyTktnRzA2UVhvV0o4YkpuTWVJVzlIOW01THh3cUJjZ2NSTlY1MVYtc1VQVGNaOTN5WHpYOGk0SkxoSmlKbUZnYkVKOUw1SDhwdnNVX1FaWGd0b0dWZ3dObzNDUkRsMXBfYWlJWkcxWXhHeU05aDdQS0JLU2E0MjRQWURwQXRsYUVPTTR1?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 14:15:01 GMT",
-        "searchQuery": "college football suspended"
-      },
-      {
         "title": "5 interesting things in LSU football's depth chart vs Clemson - The Daily Advertiser | Lafayette, Louisiana",
         "source": "The Daily Advertiser | Lafayette, Louisiana",
         "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNTlN0VUJwcGxGQllpLWttNjlpV0MxYkFLdjVqQ0Q5a21wXzFBdnNfVUxkcW1WVVZGYUdjNTNybEFkQVFPdUI1T25UckRjMzJDMFMxbmxna3NkU0o5YzJ3SG5HU09YNmNDc2xGaThUY2szdG9TR3hxNDJscFFqeHlJM2R1bnVkT0dTLWt1Skt3emJma1k3Rk51RlNiVjhKYUFnaXFtQUtLMUdacHBnT0w4Wm5iMVFVLUljdnI4cGNZc0RNa1dCWGpmamhNamttMTZu?oc=5",
@@ -829,6 +851,16 @@
         "isCritical": false,
         "pubDate": "Sun, 06 Sep 2026 00:28:00 GMT",
         "searchQuery": "college football depth chart"
+      },
+      {
+        "title": "LSU opts for brief nuclear football disarmament in SEC standoff, but this battle isn't over - cbssports.com",
+        "source": "cbssports.com",
+        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOdHEzMW96MFZ6R2dSSnl5V1dQXzNyTktnRzA2UVhvV0o4YkpuTWVJVzlIOW01THh3cUJjZ2NSTlY1MVYtc1VQVGNaOTN5WHpYOGk0SkxoSmlKbUZnYkVKOUw1SDhwdnNVX1FaWGd0b0dWZ3dObzNDUkRsMXBfYWlJWkcxWXhHeU05aDdQS0JLU2E0MjRQWURwQXRsYUVPTTR1?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 14:15:01 GMT",
+        "searchQuery": "college football suspended"
       }
     ],
     "georgia": [
@@ -863,16 +895,6 @@
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 17:14:55 GMT",
         "searchQuery": "college football depth chart"
-      },
-      {
-        "title": "Tennessee football releases first official depth chart for season opener vs. Furman - On3",
-        "source": "On3",
-        "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOLUdDUW0yTkZlNVNhRW1uaF9Ba2VoNDhYSkRKS1Z5cUxtM1I3LTE5N3VXLUszbTRDWm9uZWpSNk5xS04wY3ZIZU0ySmo1WFlKbDFjcEhYUjlVNmZiSWd5RWRSY1FGdVNsandrdnI0ejgzOHZqWGwzVHpkV210RV90R3JnbmQ5MlZYaC03bjMwejg4YjBsS09XRWVvU18yUXBheUIzenlBTlFMRnd4bWIzdGpVSUtVZ0czdFQ1Vkx3RV9OMVUxZkE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 17:45:37 GMT",
-        "searchQuery": "college football depth chart"
       }
     ],
     "oklahoma": [
@@ -899,16 +921,28 @@
         "searchQuery": "college football injury"
       }
     ],
-    "colorado": [
+    "penn_state": [
       {
-        "title": "A college football tie? Why Colorado School of Mines-Washburn ended 16-16 - USA Today",
-        "source": "USA Today",
-        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNTmZfOXBGQWg3bU0xQWdIZFh3dVFXYzhoenBJbTVlQk9Jb2E2MW5MUVFHaW16QWt6QlZqNm1WSk5nT3pEZkJlYTM2YlhUbno0c0R6b2JVc0dodEJKVHYzakpuTU1jWjd1aXNOcDZFMWZhQWFPdG9za0s0eHVzYXZRN1lTR3FiLWtxTUZ6SFczZ3c0RG9xc0FNSzVfMktNcFlvQU16dXJXZ2VhSmZhdi11Z0U3aWs5ZEhJLWc?oc=5",
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 0,
+        "daysAgo": 17,
         "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 21:11:00 GMT",
-        "searchQuery": "college football suspended"
+        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
+      }
+    ],
+    "ole_miss": [
+      {
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 17,
+        "isCritical": false,
+        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
       }
     ],
     "alabama": [
@@ -923,6 +957,18 @@
         "searchQuery": "college football depth chart"
       }
     ],
+    "colorado": [
+      {
+        "title": "A college football tie? Why Colorado School of Mines-Washburn ended 16-16 - USA Today",
+        "source": "USA Today",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNTmZfOXBGQWg3bU0xQWdIZFh3dVFXYzhoenBJbTVlQk9Jb2E2MW5MUVFHaW16QWt6QlZqNm1WSk5nT3pEZkJlYTM2YlhUbno0c0R6b2JVc0dodEJKVHYzakpuTU1jWjd1aXNOcDZFMWZhQWFPdG9za0s0eHVzYXZRN1lTR3FiLWtxTUZ6SFczZ3c0RG9xc0FNSzVfMktNcFlvQU16dXJXZ2VhSmZhdi11Z0U3aWs5ZEhJLWc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 21:11:00 GMT",
+        "searchQuery": "college football suspended"
+      }
+    ],
     "michigan": [
       {
         "title": "College football live updates, scores: Week 1 schedule features Michigan, Texas A&amp;M, Texas Tech - cbssports.com",
@@ -935,27 +981,27 @@
         "searchQuery": "NCAA college football"
       }
     ],
-    "kentucky": [
+    "virginia_tech": [
       {
-        "title": "How to watch Western Kentucky vs Nevada: Live stream College Football, NCAA, TV channel - Yahoo Sports",
+        "title": "How to watch Virginia Tech vs VMI: Live stream NCAA College Football, TV channel - Yahoo Sports",
         "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOanRaVFZkV0RBQUpiRWw3VlZHRUhESl9XdjYzVlZOLW9PQ25XNlROWmcta2ZNOV9IMU5JRmM0c3hKa1k4WnNPNHBiZWJDVGptTVRKS0ZVUHZHeHowSDg5c3BwbmdCQnNndzNFQi1YaGt0WTJrWV8wVnNRalRiS25PZkhtMmFPSEM4?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPeGRnVGhaMFlzU0thTUFCWWpIbl9KTmpaVDF2dGJza0s2RmlrdV80NEVEd2FLckx4bmY5RDVQRkVJQWtydzZkcW5HcnJCSl9qcTg1T21IeGw3VnRkc19STDVmTGdZU0tuQ0haWXhhUGNtb1NrWU9SSkNZSUpUZi05Zw?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 01:15:00 GMT",
+        "pubDate": "Sat, 05 Sep 2026 22:43:00 GMT",
         "searchQuery": "NCAA college football"
       }
     ],
     "missouri": [
       {
-        "title": "Marcel Reed sparks No. 8 Texas A&amp;M in a 50-0 rout of Missouri State - Newsday",
-        "source": "Newsday",
-        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQnRSMVZHSDhaOUR2SWhsX0MydERJR3NNSnN6MHVNUTRrUVhUcDdXZXR0STRYWk5zRDVOdTQ1REo0TnlLUUdVNGZHdzZsMVA1dzRHTW5uNm5qYmdRRzRianI3NVpXRUg0RG02dzJJa20zZUhkVlVvb0YtMmNCMkV5MUVreHdLUmltQ3J0OG9vQlRXaXBQT01ZN1BNQXByRFVj?oc=5",
+        "title": "Marcel Reed sparks No. 8 Texas A&amp;M in a 50-0 rout of Missouri State - LancasterOnline",
+        "source": "LancasterOnline",
+        "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPZGVlX0drTDJlUWtmTzBYU0ZGeHZINzA3Sm9jZE1WRVNEcl9IWVQyMUVMWTBJdmE5SEFKU1lsd1ltTlMzRm9laHU3dk14a0ZnSzk0ZHJ5MDE5Z011TGFNclRQMHh1VmtSRDUzaTRBOVJ5UzZnbDB5VzhQeTNYUHk0U3ozT18tYlR1ZDA1RUpEZmt0Z0J6QVE3Y1IwcXMtRUZoVWFrSUliTkZEX2ozZlBkTVFsbnBKQTFDSEswRFZkU1RHRmF0a2pQVEtxZ1FweVd1NHhqMzVJel80cldQa0lPQk9zWU1hR2NvRzY2MC1VeTZRT3l6?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 02:48:53 GMT",
+        "pubDate": "Sun, 06 Sep 2026 02:47:11 GMT",
         "searchQuery": "NCAA college football"
       }
     ],
@@ -979,16 +1025,6 @@
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 19:15:00 GMT",
         "searchQuery": "CFB picks predictions"
-      },
-      {
-        "title": "Week 1 College Football Predictions, Picks: Our Top NCAAF Favorites for Oregon vs Boise State, More - actionnetwork.com",
-        "source": "actionnetwork.com",
-        "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQRVgzNW1kYUZZVEwzbUpUcnY4ZnZhLV9uRkZPYjdXcG1ubjkydllCS2JSRnVWbDN3UW9uMy1xcHQ5cjZxMDVUYVY4WXdZaXB6LXhzWHVlRTZ1M1l4TW5aN09HWFFZREk1WU9KdjN4Q0RqM1l6blpmOGVQaV9SNVNPd1JSMU1EQnhvam4xMEltMTJkNFBQUWxkWjdtTHVQc0N5ZDFKVGJCUnhpdTlZSTVOTW82Ums3LTAzRVV0RXRKcHo5U0JVZWtKZmh5WWRoaTN6aFFIWHcxamFPZTM1dHE4R3F2U1NvQTdyZFNXNw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Fri, 04 Sep 2026 16:13:00 GMT",
-        "searchQuery": "CFB picks predictions"
       }
     ],
     "boise_state": [
@@ -1011,70 +1047,10 @@
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 19:15:00 GMT",
         "searchQuery": "CFB picks predictions"
-      },
-      {
-        "title": "Week 1 College Football Predictions, Picks: Our Top NCAAF Favorites for Oregon vs Boise State, More - actionnetwork.com",
-        "source": "actionnetwork.com",
-        "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQRVgzNW1kYUZZVEwzbUpUcnY4ZnZhLV9uRkZPYjdXcG1ubjkydllCS2JSRnVWbDN3UW9uMy1xcHQ5cjZxMDVUYVY4WXdZaXB6LXhzWHVlRTZ1M1l4TW5aN09HWFFZREk1WU9KdjN4Q0RqM1l6blpmOGVQaV9SNVNPd1JSMU1EQnhvam4xMEltMTJkNFBQUWxkWjdtTHVQc0N5ZDFKVGJCUnhpdTlZSTVOTW82Ums3LTAzRVV0RXRKcHo5U0JVZWtKZmh5WWRoaTN6aFFIWHcxamFPZTM1dHE4R3F2U1NvQTdyZFNXNw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Fri, 04 Sep 2026 16:13:00 GMT",
-        "searchQuery": "CFB picks predictions"
       }
     ]
   },
   "allNews": [
-    {
-      "title": "New faces, new places: Every FBS coaching change for 2026 college football season - USA Today",
-      "source": "USA Today",
-      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNRjdYSmJGRG4yLWJnaUFJdVg5RVpSSWZ0LWUzM3NPTlRhbkVqZUFzdDRiZk4xaTRZMnFoMGxNTU1zT3Z4QmEwNGpOSFpuQVNVVGNVTUdnWkJFbG02cEdEQ3ZpMGx0Sk1pdlZzbWFLdU41T0liSW5MZjN2YmNKYnhXN0NpR3IyeXo4aUhETjhEai1OMmxtWGFZaE5LcEpEb0l1TkwtR01ka05Yb1F2ZjEzTkpGZzQ3YVNiWURBRlN5cWtsV0U?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 10:01:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
-      "title": "College football coaching carousel 2026: Who to watch for the next big job opening - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOZzNodUFZcXVuOGZsSjdleDZyZVRlSGZjQURQbFgyYWdPNTNaOVVTX2tZb1NjQXpvUXZmSjBZbHBRQmRfcno4UEtTbFUwQXhpWDBza3ZaTkZ1RV93WVFqTG5VUXZxVUlyM1hBMGdjY1c2S0FfZUZ5dUxINUE1MEtWSU84WjRJNmRuZ0dSZzFmc2VjTmYtd3ZEXzVfT2JSRkJFTUYtNmRUbkxVRFBfOGQ4ckNB?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 6,
-      "isCritical": false,
-      "pubDate": "Mon, 31 Aug 2026 11:15:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
-      "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - AP News",
-      "source": "AP News",
-      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPZlBNTUFQOFhwSDJVM1RyY3J1MkZmZUJxZFpYM0ptWnpJN2dTQ1FrV2hBdjB6SzlrSHBhY1p1MG5OUDBKWUtjbE42bEdHQUZsODNzWUIwZngwazdZdHp5c2tuMnU2dVhzMldVY3ZqV2g1aFNTLXh5TmZERVR2NXJoMDhBcmVGZmFaWnNxRQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 3,
-      "isCritical": false,
-      "pubDate": "Wed, 02 Sep 2026 21:52:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
-      "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 17,
-      "isCritical": false,
-      "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
-      "title": "NDSU Tabbed For Potential Coaching Change in 2027 - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNMGw0cDVGcWhsYjV3eDRJNENDOE5WNzdmRTVIeUVTV1V6M1BFMGVGT08wVlV3Z1lnVU01ZjlEN21oMVMzamZCaHk3ZXNzZjJ0NElpbzBEdV9tcF9QeGFiRTl0QUF2dFpndjhRUVFlY3FkT3BIMERQY1BJZnlJWGpBYXdpV1ZKWFpTcTFvVmN0aw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 4,
-      "isCritical": false,
-      "pubDate": "Tue, 01 Sep 2026 21:16:39 GMT",
-      "searchQuery": "college football coaching change"
-    },
     {
       "title": "Texas football recruited a top transfer portal class last cycle — now, that effort is paying off - 247Sports",
       "source": "247Sports",
@@ -1176,6 +1152,106 @@
       "searchQuery": "college football injury"
     },
     {
+      "title": "New faces, new places: Every FBS coaching change for 2026 college football season - USA Today",
+      "source": "USA Today",
+      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNRjdYSmJGRG4yLWJnaUFJdVg5RVpSSWZ0LWUzM3NPTlRhbkVqZUFzdDRiZk4xaTRZMnFoMGxNTU1zT3Z4QmEwNGpOSFpuQVNVVGNVTUdnWkJFbG02cEdEQ3ZpMGx0Sk1pdlZzbWFLdU41T0liSW5MZjN2YmNKYnhXN0NpR3IyeXo4aUhETjhEai1OMmxtWGFZaE5LcEpEb0l1TkwtR01ka05Yb1F2ZjEzTkpGZzQ3YVNiWURBRlN5cWtsV0U?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 10:01:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "College football coaching carousel 2026: Who to watch for the next big job opening - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOZzNodUFZcXVuOGZsSjdleDZyZVRlSGZjQURQbFgyYWdPNTNaOVVTX2tZb1NjQXpvUXZmSjBZbHBRQmRfcno4UEtTbFUwQXhpWDBza3ZaTkZ1RV93WVFqTG5VUXZxVUlyM1hBMGdjY1c2S0FfZUZ5dUxINUE1MEtWSU84WjRJNmRuZ0dSZzFmc2VjTmYtd3ZEXzVfT2JSRkJFTUYtNmRUbkxVRFBfOGQ4ckNB?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 6,
+      "isCritical": false,
+      "pubDate": "Mon, 31 Aug 2026 11:15:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - AP News",
+      "source": "AP News",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPZlBNTUFQOFhwSDJVM1RyY3J1MkZmZUJxZFpYM0ptWnpJN2dTQ1FrV2hBdjB6SzlrSHBhY1p1MG5OUDBKWUtjbE42bEdHQUZsODNzWUIwZngwazdZdHp5c2tuMnU2dVhzMldVY3ZqV2g1aFNTLXh5TmZERVR2NXJoMDhBcmVGZmFaWnNxRQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 3,
+      "isCritical": false,
+      "pubDate": "Wed, 02 Sep 2026 21:52:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 17,
+      "isCritical": false,
+      "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "NDSU Tabbed For Potential Coaching Change in 2027 - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNMGw0cDVGcWhsYjV3eDRJNENDOE5WNzdmRTVIeUVTV1V6M1BFMGVGT08wVlV3Z1lnVU01ZjlEN21oMVMzamZCaHk3ZXNzZjJ0NElpbzBEdV9tcF9QeGFiRTl0QUF2dFpndjhRUVFlY3FkT3BIMERQY1BJZnlJWGpBYXdpV1ZKWFpTcTFvVmN0aw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 4,
+      "isCritical": false,
+      "pubDate": "Tue, 01 Sep 2026 21:16:39 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "Tennessee releases depth chart for season opener against Furman - 247Sports",
+      "source": "247Sports",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPaGtlV00xbndTdzh2VlZzY05lMEhYaEMxNWJFekVLakpza2YwcDhJY0JVMUNXT24yOVB1TkhKUUIxdTVuYU5peGFZX0gzWmd0NWNqZEpmS3dyVHVlSVYwTlEtZEhka3I3NFdBalJCcm1MZnBfUjRDOXRwNVljOUFxdVRxU0wwYXJ4VGZLREJEOGhacEhVQ242UjVJbXVRd2w4OGxhcDF2Qkdfd0xGTHFiOWNycFI2dTlZbUstSktSYzhNakdtNHlQQkktZzcxWHg2UE00?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 17:14:55 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "5 interesting things in LSU football's depth chart vs Clemson - The Daily Advertiser | Lafayette, Louisiana",
+      "source": "The Daily Advertiser | Lafayette, Louisiana",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNTlN0VUJwcGxGQllpLWttNjlpV0MxYkFLdjVqQ0Q5a21wXzFBdnNfVUxkcW1WVVZGYUdjNTNybEFkQVFPdUI1T25UckRjMzJDMFMxbmxna3NkU0o5YzJ3SG5HU09YNmNDc2xGaThUY2szdG9TR3hxNDJscFFqeHlJM2R1bnVkT0dTLWt1Skt3emJma1k3Rk51RlNiVjhKYUFnaXFtQUtLMUdacHBnT0w4Wm5iMVFVLUljdnI4cGNZc0RNa1dCWGpmamhNamttMTZu?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 00:28:00 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "No. 5 Texas releases depth chart for Texas State game - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFB4YUVUWGRyWFA3bjRhM2RyejBESXhscXRDSnJSYV90NEFrZkJpc0dpOVlOc0F5YnhhVlZnVTVfUlloU0l6TklxMVFXdVhMbzluZ1Z5aUxMUTlCMkFfTFA1dG1nUnJVZXBvcEp6WGhLc19HTmk4aHNuWmRXTkRXR2M?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 18:17:07 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "Alabama Football Announces 2026 Depth Chart - Sports Illustrated",
+      "source": "Sports Illustrated",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNR0Nqb1Q3b1NZU25pX2ZnenUxc1loV09DX3J4RDdnalZwZnlsNXRBY3lMMmpwYnBkWGJQWnlDYjlOUWhEcnhmdUQ5b29xSnE3M0pUZmpTeG5aSjNHcFhPcGRvdzhrYS14SE5RdDI1cmhpUXRtMGRWRTBOTkM1UUszOFV3SU1adkE4dmQ1Vm1LTzQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Fri, 04 Sep 2026 13:03:48 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "ASU reveals depth chart for 2026 season opener vs. Morgan State - Arizona Sports",
+      "source": "Arizona Sports",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNV0RwVkFlZzFvSmRBbE9WcDhIS0pIZDFBVWN2ekh6Vzdzck4zd3NUa1pkanZFMXhFWWFwcE9VSFI2NFJzeHBKOUpKeFhmbXpPS1lHakNfVkI4WHJsTGxfN2hNV1hCTk1OTjNhQ0pLUVlSYmEyR3RkS1NwLWxfaGtxbVFDX0NVUG5pOFdSd3hHQm5TNTB0TVJFWENfdmg?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 4,
+      "isCritical": false,
+      "pubDate": "Wed, 02 Sep 2026 14:10:32 GMT",
+      "searchQuery": "college football depth chart"
+    },
+    {
       "title": "College football game ends in tie after 108-degree heat index makes overtime untenable - The New York Times",
       "source": "The New York Times",
       "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOVEMtRVNqQmRzMkRNTjlwblpqVTZDWXpWUUxIcEtvbk14MVdLN09hM0FGNHBndVRER21FZk4xT21hMVRzTHNIblRIcDF2dnFLMWJSY1Q5Y2hBenBfNVdoWWRSbExjRjlHYUZIcXNrejh1S2dBdmJVN2p0bFFHdVYyN002TFBuZjJOUGtxVUUtZ3BlaUdRVXJTQWlrZHVrbXg5OG1tX290NlFwN25DcEl4ZA?oc=5",
@@ -1226,56 +1302,6 @@
       "searchQuery": "college football suspended"
     },
     {
-      "title": "Tennessee releases depth chart for season opener against Furman - 247Sports",
-      "source": "247Sports",
-      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPaGtlV00xbndTdzh2VlZzY05lMEhYaEMxNWJFekVLakpza2YwcDhJY0JVMUNXT24yOVB1TkhKUUIxdTVuYU5peGFZX0gzWmd0NWNqZEpmS3dyVHVlSVYwTlEtZEhka3I3NFdBalJCcm1MZnBfUjRDOXRwNVljOUFxdVRxU0wwYXJ4VGZLREJEOGhacEhVQ242UjVJbXVRd2w4OGxhcDF2Qkdfd0xGTHFiOWNycFI2dTlZbUstSktSYzhNakdtNHlQQkktZzcxWHg2UE00?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 17:14:55 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "5 interesting things in LSU football's depth chart vs Clemson - The Daily Advertiser | Lafayette, Louisiana",
-      "source": "The Daily Advertiser | Lafayette, Louisiana",
-      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNTlN0VUJwcGxGQllpLWttNjlpV0MxYkFLdjVqQ0Q5a21wXzFBdnNfVUxkcW1WVVZGYUdjNTNybEFkQVFPdUI1T25UckRjMzJDMFMxbmxna3NkU0o5YzJ3SG5HU09YNmNDc2xGaThUY2szdG9TR3hxNDJscFFqeHlJM2R1bnVkT0dTLWt1Skt3emJma1k3Rk51RlNiVjhKYUFnaXFtQUtLMUdacHBnT0w4Wm5iMVFVLUljdnI4cGNZc0RNa1dCWGpmamhNamttMTZu?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 00:28:00 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "No. 5 Texas releases depth chart for Texas State game - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFB4YUVUWGRyWFA3bjRhM2RyejBESXhscXRDSnJSYV90NEFrZkJpc0dpOVlOc0F5YnhhVlZnVTVfUlloU0l6TklxMVFXdVhMbzluZ1Z5aUxMUTlCMkFfTFA1dG1nUnJVZXBvcEp6WGhLc19HTmk4aHNuWmRXTkRXR2M?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 18:17:07 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "Alabama Football Announces 2026 Depth Chart - Sports Illustrated",
-      "source": "Sports Illustrated",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNR0Nqb1Q3b1NZU25pX2ZnenUxc1loV09DX3J4RDdnalZwZnlsNXRBY3lMMmpwYnBkWGJQWnlDYjlOUWhEcnhmdUQ5b29xSnE3M0pUZmpTeG5aSjNHcFhPcGRvdzhrYS14SE5RdDI1cmhpUXRtMGRWRTBOTkM1UUszOFV3SU1adkE4dmQ1Vm1LTzQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 2,
-      "isCritical": false,
-      "pubDate": "Fri, 04 Sep 2026 13:03:48 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "Tennessee football releases first official depth chart for season opener vs. Furman - On3",
-      "source": "On3",
-      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOLUdDUW0yTkZlNVNhRW1uaF9Ba2VoNDhYSkRKS1Z5cUxtM1I3LTE5N3VXLUszbTRDWm9uZWpSNk5xS04wY3ZIZU0ySmo1WFlKbDFjcEhYUjlVNmZiSWd5RWRSY1FGdVNsandrdnI0ejgzOHZqWGwzVHpkV210RV90R3JnbmQ5MlZYaC03bjMwejg4YjBsS09XRWVvU18yUXBheUIzenlBTlFMRnd4bWIzdGpVSUtVZ0czdFQ1Vkx3RV9OMVUxZkE?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 17:45:37 GMT",
-      "searchQuery": "college football depth chart"
-    },
-    {
       "title": "College football live updates, scores: Week 1 schedule features Michigan, Texas A&amp;M, Texas Tech - cbssports.com",
       "source": "cbssports.com",
       "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQMk16emRCdkg1WEtGMG9iTWpqZE5UU1JpR2pTVzhvcUd2bTRQajlZVnRnS0kwUUpKRzhGTUZsQ0VIeUdJWlE0RTRrNnlLWEM4ejNETkMwcllidmk1NHpTOFZXQ2MwVEFXYWZWQVFUXzZoeWJHVDIzb0N5bVJKVjlWQ0liTkdlUE1CcW1ORUtwNkx6RVhHYmxmQ1JDVVpYakx1S1BlSjZ6SnZQNU5SQnBWdg?oc=5",
@@ -1296,23 +1322,23 @@
       "searchQuery": "NCAA college football"
     },
     {
-      "title": "How to watch Western Kentucky vs Nevada: Live stream College Football, NCAA, TV channel - Yahoo Sports",
+      "title": "How to watch Virginia Tech vs VMI: Live stream NCAA College Football, TV channel - Yahoo Sports",
       "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOanRaVFZkV0RBQUpiRWw3VlZHRUhESl9XdjYzVlZOLW9PQ25XNlROWmcta2ZNOV9IMU5JRmM0c3hKa1k4WnNPNHBiZWJDVGptTVRKS0ZVUHZHeHowSDg5c3BwbmdCQnNndzNFQi1YaGt0WTJrWV8wVnNRalRiS25PZkhtMmFPSEM4?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPeGRnVGhaMFlzU0thTUFCWWpIbl9KTmpaVDF2dGJza0s2RmlrdV80NEVEd2FLckx4bmY5RDVQRkVJQWtydzZkcW5HcnJCSl9qcTg1T21IeGw3VnRkc19STDVmTGdZU0tuQ0haWXhhUGNtb1NrWU9SSkNZSUpUZi05Zw?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 01:15:00 GMT",
+      "pubDate": "Sat, 05 Sep 2026 22:43:00 GMT",
       "searchQuery": "NCAA college football"
     },
     {
-      "title": "Marcel Reed sparks No. 8 Texas A&amp;M in a 50-0 rout of Missouri State - Newsday",
-      "source": "Newsday",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQnRSMVZHSDhaOUR2SWhsX0MydERJR3NNSnN6MHVNUTRrUVhUcDdXZXR0STRYWk5zRDVOdTQ1REo0TnlLUUdVNGZHdzZsMVA1dzRHTW5uNm5qYmdRRzRianI3NVpXRUg0RG02dzJJa20zZUhkVlVvb0YtMmNCMkV5MUVreHdLUmltQ3J0OG9vQlRXaXBQT01ZN1BNQXByRFVj?oc=5",
+      "title": "Marcel Reed sparks No. 8 Texas A&amp;M in a 50-0 rout of Missouri State - LancasterOnline",
+      "source": "LancasterOnline",
+      "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPZGVlX0drTDJlUWtmTzBYU0ZGeHZINzA3Sm9jZE1WRVNEcl9IWVQyMUVMWTBJdmE5SEFKU1lsd1ltTlMzRm9laHU3dk14a0ZnSzk0ZHJ5MDE5Z011TGFNclRQMHh1VmtSRDUzaTRBOVJ5UzZnbDB5VzhQeTNYUHk0U3ozT18tYlR1ZDA1RUpEZmt0Z0J6QVE3Y1IwcXMtRUZoVWFrSUliTkZEX2ozZlBkTVFsbnBKQTFDSEswRFZkU1RHRmF0a2pQVEtxZ1FweVd1NHhqMzVJel80cldQa0lPQk9zWU1hR2NvRzY2MC1VeTZRT3l6?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 02:48:53 GMT",
+      "pubDate": "Sun, 06 Sep 2026 02:47:11 GMT",
       "searchQuery": "NCAA college football"
     },
     {
@@ -1326,13 +1352,23 @@
       "searchQuery": "NCAA college football"
     },
     {
-      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 1 - cbssports.com",
-      "source": "cbssports.com",
-      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQcml6dzhFN0tjZk9wUGE3RXpwWlIwNmpOOE9qakt0czBaT1BtTXJwSzE5YzhDdFdEMFJITUJ5T2NXUThyN01seVhBUWZXWV81dnNkVTM1T2dfWnNTM2p3QWtfN095WlV1WkYtMFZGdjhnazJLMUthb19xQzFzS1dhUm1oeGtiWk5KcUhzZ3F0YUl1WE16dk94N1RQODhwVlN6QmxxT2dMallzdDZsWklsNzdSMmtyYmFTRk1JVjQ0ZEJaNkgxX2tXekZuV05JZENoalVqbk1yYWIxRFpoU3FvYWtn?oc=5",
+      "title": "Boston College vs. Cincinnati Prediction, Odds, Pick For College Football Week 1 - FOX Sports",
+      "source": "FOX Sports",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQSFhwYmhfVUlmODJDUzVSZlM3TFAzeEJLRmNWb2pPemlZM0Z4dXdmb1Q3N0xXUllWYW1teEE3Y0J2eW1ENnlteHdfZXh6WUhKYWFGX0lscGtmRGdnNzAyZlRMd0c5QWhVNlA2MDZZNW8wRS1jeDJRdmM2YWdLMnJFS19RcmpTWEtVUGJFQ0xqSzRRTzd2R3FZNFdobGRIazZsTGNJOW4tRGdZSFMta2RidkcxeGhEb0FGaFRlZ1FoNHVwd9IBwgFBVV95cUxNWmo0Q0otdnZwWC0xUTZRWW5DYURwS3p2SEE1TzZTTmxESC04TkhQejZyR1BCakxoSWstd2F5VTlsb1o5OTZnZzFMcjRsa29zT0RaQ2FNZWp0bjRDdXc3LWVKLWpwZzdnNTdCRjdxQk1sa1BRZ2pYNlhzSVpFY1RwS2JzSE9kdE5BM2RMQWJvYlZ1SlVWQm1Sb2FxejJCUlBfWXV4RndRcWhPOElKNlMxeFNOa2V1TUc0eHBvU3hMVUJFUQ?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 0,
+      "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 19:45:00 GMT",
+      "pubDate": "Sat, 05 Sep 2026 07:30:06 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "FCS Picks, Predictions: Week 1 College Football Bets for Saturday, Sept. 5 - actionnetwork.com",
+      "source": "actionnetwork.com",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOUHZjck45cHlGckJ0ZkFTdEJBTGdkZEhXYXBQbGVONjRhZXlwTWc4dFhUdFJESlRHYUxxX2g5Q2Jwc3pTbFYyMTBWYUVPOFZDNmVBcnFqeGNXZ1lRV2hFbS05WURpc0Y3ZkJvWWhoWVI5MW5SOHVncXhQZ1BNSURJS0hPRFVRclVKQWJGTnpYMks2dm0ydmQxSEN1M1BKbWtNdVY0Ng?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 10:48:00 GMT",
       "searchQuery": "CFB picks predictions"
     },
     {
@@ -1363,16 +1399,6 @@
       "daysAgo": 0,
       "isCritical": false,
       "pubDate": "Sat, 05 Sep 2026 19:15:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Week 1 College Football Predictions, Picks: Our Top NCAAF Favorites for Oregon vs Boise State, More - actionnetwork.com",
-      "source": "actionnetwork.com",
-      "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQRVgzNW1kYUZZVEwzbUpUcnY4ZnZhLV9uRkZPYjdXcG1ubjkydllCS2JSRnVWbDN3UW9uMy1xcHQ5cjZxMDVUYVY4WXdZaXB6LXhzWHVlRTZ1M1l4TW5aN09HWFFZREk1WU9KdjN4Q0RqM1l6blpmOGVQaV9SNVNPd1JSMU1EQnhvam4xMEltMTJkNFBQUWxkWjdtTHVQc0N5ZDFKVGJCUnhpdTlZSTVOTW82Ums3LTAzRVV0RXRKcHo5U0JVZWtKZmh5WWRoaTN6aFFIWHcxamFPZTM1dHE4R3F2U1NvQTdyZFNXNw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Fri, 04 Sep 2026 16:13:00 GMT",
       "searchQuery": "CFB picks predictions"
     },
     {
