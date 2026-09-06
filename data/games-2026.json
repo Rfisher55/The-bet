@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-06T17:03:07.057Z",
+  "generated": "2026-09-06T17:32:45.329Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 763,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 121375,
+  "fetchDurationMs": 114937,
   "apRanks": {},
   "games": [
     {
@@ -6692,7 +6692,7 @@
         "gusts": 4,
         "windDir": "ENE",
         "precipitation": 0.07,
-        "humidity": 45,
+        "humidity": 35,
         "indoors": false,
         "kickoffHour": 19,
         "code": 1
@@ -6772,7 +6772,7 @@
         "gusts": 2,
         "windDir": "ESE",
         "precipitation": 0.11,
-        "humidity": 61,
+        "humidity": 60,
         "indoors": false,
         "kickoffHour": 19,
         "code": 1
@@ -6852,7 +6852,7 @@
         "gusts": 15,
         "windDir": "NNE",
         "precipitation": 0.35,
-        "humidity": 59,
+        "humidity": 54,
         "indoors": false,
         "kickoffHour": 19,
         "code": 2
@@ -6932,7 +6932,7 @@
         "gusts": 11,
         "windDir": "E",
         "precipitation": 0,
-        "humidity": 76,
+        "humidity": 42,
         "indoors": false,
         "kickoffHour": 19,
         "code": 3
@@ -7081,7 +7081,7 @@
         "gusts": 24,
         "windDir": "SSW",
         "precipitation": 0.07,
-        "humidity": 35,
+        "humidity": 37,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -7161,7 +7161,7 @@
         "gusts": 15,
         "windDir": "SSW",
         "precipitation": 0.13,
-        "humidity": 55,
+        "humidity": 41,
         "indoors": false,
         "kickoffHour": 12,
         "code": 3
@@ -7241,7 +7241,7 @@
         "gusts": 19,
         "windDir": "S",
         "precipitation": 0.06,
-        "humidity": 59,
+        "humidity": 45,
         "indoors": false,
         "kickoffHour": 12,
         "code": 2
@@ -7321,7 +7321,7 @@
         "gusts": 17,
         "windDir": "SSW",
         "precipitation": 0.08,
-        "humidity": 55,
+        "humidity": 50,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -7470,7 +7470,7 @@
         "gusts": 16,
         "windDir": "S",
         "precipitation": 0.13,
-        "humidity": 36,
+        "humidity": 42,
         "indoors": false,
         "kickoffHour": 12,
         "code": 2
@@ -7550,7 +7550,7 @@
         "gusts": 8,
         "windDir": "SE",
         "precipitation": 0.1,
-        "humidity": 67,
+        "humidity": 52,
         "indoors": false,
         "kickoffHour": 12,
         "code": 2
@@ -7630,7 +7630,7 @@
         "gusts": 9,
         "windDir": "SSE",
         "precipitation": 0.15,
-        "humidity": 59,
+        "humidity": 67,
         "indoors": false,
         "kickoffHour": 12,
         "code": 51
@@ -7710,7 +7710,7 @@
         "gusts": 23,
         "windDir": "SSW",
         "precipitation": 0.09,
-        "humidity": 68,
+        "humidity": 56,
         "indoors": false,
         "kickoffHour": 12,
         "code": 1
@@ -7790,7 +7790,7 @@
         "gusts": 4,
         "windDir": "S",
         "precipitation": 0.04,
-        "humidity": 48,
+        "humidity": 43,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -8008,7 +8008,7 @@
         "gusts": 6,
         "windDir": "SSW",
         "precipitation": 0.13,
-        "humidity": 48,
+        "humidity": 42,
         "indoors": false,
         "kickoffHour": 12,
         "code": 1
@@ -8088,7 +8088,7 @@
         "gusts": 10,
         "windDir": "SW",
         "precipitation": 0.06,
-        "humidity": 42,
+        "humidity": 40,
         "indoors": false,
         "kickoffHour": 13,
         "code": 1
@@ -8375,7 +8375,7 @@
         "gusts": 18,
         "windDir": "SW",
         "precipitation": 0.08,
-        "humidity": 49,
+        "humidity": 42,
         "indoors": false,
         "kickoffHour": 15,
         "code": 0
@@ -8455,7 +8455,7 @@
         "gusts": 11,
         "windDir": "SSW",
         "precipitation": 0.14,
-        "humidity": 31,
+        "humidity": 26,
         "indoors": false,
         "kickoffHour": 15,
         "code": 1
@@ -8535,7 +8535,7 @@
         "gusts": 23,
         "windDir": "NW",
         "precipitation": 0.06,
-        "humidity": 15,
+        "humidity": 28,
         "indoors": false,
         "kickoffHour": 15,
         "code": 3
@@ -8615,7 +8615,7 @@
         "gusts": 5,
         "windDir": "N",
         "precipitation": 0.05,
-        "humidity": 43,
+        "humidity": 45,
         "indoors": false,
         "kickoffHour": 15,
         "code": 0
@@ -8695,7 +8695,7 @@
         "gusts": 8,
         "windDir": "N",
         "precipitation": 0.2,
-        "humidity": 28,
+        "humidity": 21,
         "indoors": false,
         "kickoffHour": 15,
         "code": 2
@@ -8775,7 +8775,7 @@
         "gusts": 21,
         "windDir": "NE",
         "precipitation": 0.29,
-        "humidity": 32,
+        "humidity": 21,
         "indoors": false,
         "kickoffHour": 15,
         "code": 3
@@ -8857,7 +8857,7 @@
         "gusts": 11,
         "windDir": "S",
         "precipitation": 0.12,
-        "humidity": 46,
+        "humidity": 39,
         "indoors": false,
         "kickoffHour": 15,
         "code": 2
@@ -9012,7 +9012,7 @@
         "gusts": 15,
         "windDir": "SSW",
         "precipitation": 0.07,
-        "humidity": 49,
+        "humidity": 47,
         "indoors": false,
         "kickoffHour": 15,
         "code": 0
@@ -9092,7 +9092,7 @@
         "gusts": 17,
         "windDir": "SSW",
         "precipitation": 0.1,
-        "humidity": 42,
+        "humidity": 36,
         "indoors": false,
         "kickoffHour": 15,
         "code": 0
@@ -9724,7 +9724,7 @@
         "gusts": 20,
         "windDir": "S",
         "precipitation": 0.05,
-        "humidity": 29,
+        "humidity": 26,
         "indoors": false,
         "kickoffHour": 16,
         "code": 0
@@ -10005,16 +10005,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Thunderstorm",
+        "condition": "Drizzle",
         "tempF": 87,
         "windMph": 5,
         "gusts": 10,
         "windDir": "SSW",
         "precipitation": 0.23,
-        "humidity": 59,
+        "humidity": 35,
         "indoors": false,
         "kickoffHour": 16,
-        "code": 95
+        "code": 53
       },
       "lineMovement": [],
       "situational": {},
@@ -10091,7 +10091,7 @@
         "gusts": 10,
         "windDir": "SE",
         "precipitation": 0.54,
-        "humidity": 56,
+        "humidity": 37,
         "indoors": false,
         "kickoffHour": 17,
         "code": 51
@@ -10173,7 +10173,7 @@
         "gusts": 20,
         "windDir": "NW",
         "precipitation": 0.05,
-        "humidity": 15,
+        "humidity": 31,
         "indoors": false,
         "kickoffHour": 18,
         "code": 0
@@ -10529,7 +10529,7 @@
         "gusts": 15,
         "windDir": "SW",
         "precipitation": 0.37,
-        "humidity": 45,
+        "humidity": 23,
         "indoors": false,
         "kickoffHour": 19,
         "code": 3
@@ -10678,16 +10678,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Partly Cloudy",
+        "condition": "Thunderstorm",
         "tempF": 89,
         "windMph": 7,
         "gusts": 13,
         "windDir": "S",
         "precipitation": 0.32,
-        "humidity": 50,
+        "humidity": 79,
         "indoors": false,
         "kickoffHour": 19,
-        "code": 2
+        "code": 95
       },
       "lineMovement": [],
       "situational": {},
@@ -10764,7 +10764,7 @@
         "gusts": 6,
         "windDir": "SE",
         "precipitation": 0.11,
-        "humidity": 38,
+        "humidity": 37,
         "indoors": false,
         "kickoffHour": 19,
         "code": 3
@@ -10838,16 +10838,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Rain Showers",
+        "condition": "Light Rain",
         "tempF": 68,
         "windMph": 23,
         "gusts": 36,
         "windDir": "NE",
         "precipitation": 0.14,
-        "humidity": 89,
+        "humidity": 24,
         "indoors": false,
         "kickoffHour": 19,
-        "code": 80
+        "code": 61
       },
       "lineMovement": [],
       "situational": {},
@@ -11484,7 +11484,7 @@
         "gusts": 5,
         "windDir": "S",
         "precipitation": 0,
-        "humidity": 56,
+        "humidity": 47,
         "indoors": false,
         "kickoffHour": 19,
         "code": 0
@@ -11564,7 +11564,7 @@
         "gusts": 9,
         "windDir": "WSW",
         "precipitation": 0.18,
-        "humidity": 97,
+        "humidity": 73,
         "indoors": false,
         "kickoffHour": 19,
         "code": 53
@@ -11644,7 +11644,7 @@
         "gusts": 22,
         "windDir": "SSE",
         "precipitation": 0.06,
-        "humidity": 34,
+        "humidity": 27,
         "indoors": false,
         "kickoffHour": 19,
         "code": 2
@@ -11724,7 +11724,7 @@
         "gusts": 20,
         "windDir": "S",
         "precipitation": 0.55,
-        "humidity": 69,
+        "humidity": 53,
         "indoors": false,
         "kickoffHour": 19,
         "code": 3
@@ -11869,16 +11869,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Rain Showers",
+        "condition": "Light Rain",
         "tempF": 70,
         "windMph": 2,
         "gusts": 5,
         "windDir": "NNE",
         "precipitation": 0.16,
-        "humidity": 96,
+        "humidity": 61,
         "indoors": false,
         "kickoffHour": 19,
-        "code": 80
+        "code": 61
       },
       "lineMovement": [],
       "situational": {},
@@ -11955,7 +11955,7 @@
         "gusts": 6,
         "windDir": "N",
         "precipitation": 0.3,
-        "humidity": 72,
+        "humidity": 49,
         "indoors": false,
         "kickoffHour": 19,
         "code": 3
@@ -12173,7 +12173,7 @@
         "gusts": 22,
         "windDir": "S",
         "precipitation": 0.13,
-        "humidity": 62,
+        "humidity": 39,
         "indoors": false,
         "kickoffHour": 19,
         "code": 3
@@ -12253,7 +12253,7 @@
         "gusts": 9,
         "windDir": "WSW",
         "precipitation": 0.32,
-        "humidity": 76,
+        "humidity": 64,
         "indoors": false,
         "kickoffHour": 19,
         "code": 2
@@ -12333,7 +12333,7 @@
         "gusts": 30,
         "windDir": "SSE",
         "precipitation": 0.13,
-        "humidity": 49,
+        "humidity": 38,
         "indoors": false,
         "kickoffHour": 20,
         "code": 53
@@ -12407,16 +12407,16 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Rain Showers",
+        "condition": "Light Rain",
         "tempF": 80,
         "windMph": 22,
         "gusts": 19,
         "windDir": "NNW",
         "precipitation": 0.17,
-        "humidity": 61,
+        "humidity": 41,
         "indoors": false,
         "kickoffHour": 20,
-        "code": 80
+        "code": 61
       },
       "lineMovement": [],
       "situational": {},
@@ -12702,7 +12702,7 @@
         "gusts": 2,
         "windDir": "N",
         "precipitation": 0.1,
-        "humidity": 27,
+        "humidity": 30,
         "indoors": false,
         "kickoffHour": 22,
         "code": 0
@@ -12920,7 +12920,7 @@
         "gusts": 3,
         "windDir": "SSW",
         "precipitation": 0.01,
-        "humidity": 66,
+        "humidity": 63,
         "indoors": false,
         "kickoffHour": 23,
         "code": 0
@@ -13069,7 +13069,7 @@
         "gusts": 5,
         "windDir": "NE",
         "precipitation": 0.14,
-        "humidity": 55,
+        "humidity": 60,
         "indoors": false,
         "kickoffHour": 19,
         "code": 0
@@ -13149,7 +13149,7 @@
         "gusts": 4,
         "windDir": "N",
         "precipitation": 0.14,
-        "humidity": 61,
+        "humidity": 87,
         "indoors": false,
         "kickoffHour": 19,
         "code": 3
@@ -13229,7 +13229,7 @@
         "gusts": 14,
         "windDir": "S",
         "precipitation": 0.1,
-        "humidity": 19,
+        "humidity": 46,
         "indoors": false,
         "kickoffHour": 20,
         "code": 0
@@ -13309,7 +13309,7 @@
         "gusts": 1,
         "windDir": "ENE",
         "precipitation": 0.05,
-        "humidity": 68,
+        "humidity": 56,
         "indoors": false,
         "kickoffHour": 22,
         "code": 0
@@ -13458,7 +13458,7 @@
         "gusts": 9,
         "windDir": "NE",
         "precipitation": 0.19,
-        "humidity": 53,
+        "humidity": 62,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -13538,7 +13538,7 @@
         "gusts": 7,
         "windDir": "NE",
         "precipitation": 0.14,
-        "humidity": 42,
+        "humidity": 47,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -13618,7 +13618,7 @@
         "gusts": 5,
         "windDir": "NE",
         "precipitation": 0.05,
-        "humidity": 64,
+        "humidity": 93,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -13698,7 +13698,7 @@
         "gusts": 20,
         "windDir": "SSE",
         "precipitation": 0.17,
-        "humidity": 29,
+        "humidity": 36,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -13778,7 +13778,7 @@
         "gusts": 20,
         "windDir": "S",
         "precipitation": 0.18,
-        "humidity": 55,
+        "humidity": 40,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -13927,7 +13927,7 @@
         "gusts": 13,
         "windDir": "E",
         "precipitation": 0.18,
-        "humidity": 48,
+        "humidity": 75,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -14007,7 +14007,7 @@
         "gusts": 13,
         "windDir": "ENE",
         "precipitation": 0.14,
-        "humidity": 45,
+        "humidity": 83,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -14087,7 +14087,7 @@
         "gusts": 20,
         "windDir": "S",
         "precipitation": 0.14,
-        "humidity": 42,
+        "humidity": 96,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -14236,7 +14236,7 @@
         "gusts": 9,
         "windDir": "S",
         "precipitation": 0.15,
-        "humidity": 57,
+        "humidity": 65,
         "indoors": false,
         "kickoffHour": 12,
         "code": 2
@@ -14316,7 +14316,7 @@
         "gusts": 4,
         "windDir": "ENE",
         "precipitation": 0.3,
-        "humidity": 46,
+        "humidity": 60,
         "indoors": false,
         "kickoffHour": 12,
         "code": 0
@@ -14465,7 +14465,7 @@
         "gusts": 12,
         "windDir": "ENE",
         "precipitation": 0.19,
-        "humidity": 41,
+        "humidity": 30,
         "indoors": false,
         "kickoffHour": 14,
         "code": 0
@@ -14545,7 +14545,7 @@
         "gusts": 9,
         "windDir": "ESE",
         "precipitation": 0.13,
-        "humidity": 53,
+        "humidity": 48,
         "indoors": false,
         "kickoffHour": 14,
         "code": 0
@@ -14694,7 +14694,7 @@
         "gusts": 14,
         "windDir": "NE",
         "precipitation": 0.06,
-        "humidity": 29,
+        "humidity": 30,
         "indoors": false,
         "kickoffHour": 15,
         "code": 0
@@ -14774,7 +14774,7 @@
         "gusts": 10,
         "windDir": "ENE",
         "precipitation": 0.3,
-        "humidity": 43,
+        "humidity": 44,
         "indoors": false,
         "kickoffHour": 15,
         "code": 2
@@ -14854,7 +14854,7 @@
         "gusts": 10,
         "windDir": "ENE",
         "precipitation": 0.15,
-        "humidity": 60,
+        "humidity": 54,
         "indoors": false,
         "kickoffHour": 15,
         "code": 3
@@ -14934,7 +14934,7 @@
         "gusts": 3,
         "windDir": "ESE",
         "precipitation": 0.2,
-        "humidity": 44,
+        "humidity": 54,
         "indoors": false,
         "kickoffHour": 15,
         "code": 2
@@ -15014,7 +15014,7 @@
         "gusts": 9,
         "windDir": "ENE",
         "precipitation": 0.22,
-        "humidity": 34,
+        "humidity": 45,
         "indoors": false,
         "kickoffHour": 15,
         "code": 0
@@ -15094,7 +15094,7 @@
         "gusts": 11,
         "windDir": "NNW",
         "precipitation": 0.18,
-        "humidity": 20,
+        "humidity": 15,
         "indoors": false,
         "kickoffHour": 15,
         "code": 0
@@ -15174,7 +15174,7 @@
         "gusts": 11,
         "windDir": "ENE",
         "precipitation": 0.18,
-        "humidity": 32,
+        "humidity": 39,
         "indoors": false,
         "kickoffHour": 15,
         "code": 0
@@ -15461,7 +15461,7 @@
         "gusts": 11,
         "windDir": "E",
         "precipitation": 0.2,
-        "humidity": 36,
+        "humidity": 46,
         "indoors": false,
         "kickoffHour": 16,
         "code": 0
@@ -15541,7 +15541,7 @@
         "gusts": 12,
         "windDir": "SSE",
         "precipitation": 0.15,
-        "humidity": 44,
+        "humidity": 39,
         "indoors": false,
         "kickoffHour": 16,
         "code": 0
@@ -15621,7 +15621,7 @@
         "gusts": 13,
         "windDir": "NE",
         "precipitation": 0.15,
-        "humidity": 30,
+        "humidity": 64,
         "indoors": false,
         "kickoffHour": 16,
         "code": 0
@@ -15770,7 +15770,7 @@
         "gusts": 13,
         "windDir": "NE",
         "precipitation": 0.02,
-        "humidity": 20,
+        "humidity": 26,
         "indoors": false,
         "kickoffHour": 16,
         "code": 0
@@ -15850,7 +15850,7 @@
         "gusts": 14,
         "windDir": "NE",
         "precipitation": 0.15,
-        "humidity": 31,
+        "humidity": 60,
         "indoors": false,
         "kickoffHour": 16,
         "code": 0
@@ -16275,7 +16275,7 @@
         "gusts": 11,
         "windDir": "SE",
         "precipitation": 0.19,
-        "humidity": 55,
+        "humidity": 42,
         "indoors": false,
         "kickoffHour": 19,
         "code": 0
@@ -16355,7 +16355,7 @@
         "gusts": 20,
         "windDir": "ENE",
         "precipitation": 0.16,
-        "humidity": 64,
+        "humidity": 78,
         "indoors": false,
         "kickoffHour": 19,
         "code": 0
@@ -16435,7 +16435,7 @@
         "gusts": 15,
         "windDir": "NE",
         "precipitation": 0.3,
-        "humidity": 74,
+        "humidity": 65,
         "indoors": false,
         "kickoffHour": 19,
         "code": 51
@@ -16515,7 +16515,7 @@
         "gusts": 14,
         "windDir": "SE",
         "precipitation": 0.1,
-        "humidity": 35,
+        "humidity": 27,
         "indoors": false,
         "kickoffHour": 19,
         "code": 0
@@ -16664,7 +16664,7 @@
         "gusts": 13,
         "windDir": "SE",
         "precipitation": 0.13,
-        "humidity": 50,
+        "humidity": 60,
         "indoors": false,
         "kickoffHour": 19,
         "code": 1
@@ -17158,7 +17158,7 @@
         "gusts": 7,
         "windDir": "N",
         "precipitation": 0.06,
-        "humidity": 73,
+        "humidity": 57,
         "indoors": false,
         "kickoffHour": 19,
         "code": 1
@@ -17238,7 +17238,7 @@
         "gusts": 29,
         "windDir": "SE",
         "precipitation": 0.03,
-        "humidity": 37,
+        "humidity": 87,
         "indoors": false,
         "kickoffHour": 19,
         "code": 2
@@ -17318,7 +17318,7 @@
         "gusts": 7,
         "windDir": "SSE",
         "precipitation": 0.23,
-        "humidity": 61,
+        "humidity": 69,
         "indoors": false,
         "kickoffHour": 19,
         "code": 1
@@ -17398,7 +17398,7 @@
         "gusts": 3,
         "windDir": "ESE",
         "precipitation": 0.19,
-        "humidity": 64,
+        "humidity": 62,
         "indoors": false,
         "kickoffHour": 19,
         "code": 3
@@ -17616,7 +17616,7 @@
         "gusts": 10,
         "windDir": "ESE",
         "precipitation": 0.13,
-        "humidity": 61,
+        "humidity": 55,
         "indoors": false,
         "kickoffHour": 19,
         "code": 1
@@ -17696,7 +17696,7 @@
         "gusts": 12,
         "windDir": "NE",
         "precipitation": 0.14,
-        "humidity": 59,
+        "humidity": 77,
         "indoors": false,
         "kickoffHour": 19,
         "code": 0
@@ -17776,7 +17776,7 @@
         "gusts": 13,
         "windDir": "E",
         "precipitation": 0.05,
-        "humidity": 60,
+        "humidity": 63,
         "indoors": false,
         "kickoffHour": 19,
         "code": 2
@@ -17856,7 +17856,7 @@
         "gusts": 6,
         "windDir": "NE",
         "precipitation": 0.25,
-        "humidity": 46,
+        "humidity": 86,
         "indoors": false,
         "kickoffHour": 19,
         "code": 2
@@ -17931,12 +17931,12 @@
       "bettingLines": null,
       "weather": {
         "condition": "Clear",
-        "tempF": 88,
+        "tempF": 76,
         "windMph": 8,
         "gusts": 10,
         "windDir": "ESE",
         "precipitation": 0.04,
-        "humidity": 29,
+        "humidity": 91,
         "indoors": false,
         "kickoffHour": 20,
         "code": 0
@@ -18011,12 +18011,12 @@
       "bettingLines": null,
       "weather": {
         "condition": "Clear",
-        "tempF": 84,
+        "tempF": 64,
         "windMph": 3,
         "gusts": 4,
         "windDir": "SSE",
         "precipitation": 0.06,
-        "humidity": 24,
+        "humidity": 76,
         "indoors": false,
         "kickoffHour": 20,
         "code": 0
@@ -18229,12 +18229,12 @@
       "bettingLines": null,
       "weather": {
         "condition": "Partly Cloudy",
-        "tempF": 82,
+        "tempF": 69,
         "windMph": 5,
         "gusts": 6,
         "windDir": "NE",
         "precipitation": 0.05,
-        "humidity": 15,
+        "humidity": 11,
         "indoors": false,
         "kickoffHour": 22,
         "code": 2
@@ -18378,12 +18378,12 @@
       "bettingLines": null,
       "weather": {
         "condition": "Clear",
-        "tempF": 93,
+        "tempF": 87,
         "windMph": 3,
         "gusts": 5,
         "windDir": "ENE",
         "precipitation": 0.21,
-        "humidity": 10,
+        "humidity": 33,
         "indoors": false,
         "kickoffHour": 22,
         "code": 0
@@ -18527,12 +18527,12 @@
       "bettingLines": null,
       "weather": {
         "condition": "Overcast",
-        "tempF": 81,
+        "tempF": 71,
         "windMph": 4,
         "gusts": 5,
         "windDir": "SSE",
         "precipitation": 0.03,
-        "humidity": 37,
+        "humidity": 69,
         "indoors": false,
         "kickoffHour": 23,
         "code": 3
