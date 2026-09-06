@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-06T04:05:24.397Z",
-  "elapsedMs": 4132,
+  "generatedAt": "2026-09-06T04:13:28.981Z",
+  "elapsedMs": 3872,
   "atsRankings": {
     "akron": {
       "atsW": 1,
@@ -43,6 +43,13 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "28.0"
+    },
+    "louisiana tech": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "74.0"
     },
     "georgia": {
       "atsW": 1,
@@ -302,6 +309,13 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "35.0"
+    },
+    "florida intl": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "-10.0"
     },
     "j madison": {
       "atsW": 1,
@@ -569,6 +583,13 @@
       "streak": "0.0%",
       "last5": "13.0"
     },
+    "s florida": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "10.0"
+    },
     "tulane": {
       "atsW": 0,
       "atsL": 1,
@@ -704,6 +725,16 @@
   "newsByTeam": {
     "texas": [
       {
+        "title": "College Football Injury Report: Latest Week 1 updates at Clemson, Texas &amp; more - On3",
+        "source": "On3",
+        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQdkFSTldmZktTQnBFYWdEZFFwT2hGS2pMajBpTVMycENOUmI5azdmR2FJRHpyMGNmQS1BY0dxN0hielRxT1otbXhzbC0tLTFnbHl4SXNUY0gwbmktWmpvTXdLeGhvU3RzNEhsQTd1Q1VvaUdsdHZ3NXE3Y3pqZi04WWg1aHZXR1U4a1VKQndQUERZa21uNHJaV2VJX2FmOXFOVGc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Fri, 04 Sep 2026 13:52:45 GMT",
+        "searchQuery": "college football injury"
+      },
+      {
         "title": "Texas football recruited a top transfer portal class last cycle — now, that effort is paying off - 247Sports",
         "source": "247Sports",
         "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQlhsY2g4RTdUZm5jTUp2NEN2ZzlkYWhBTnJOZmFRTUtrZDAyX05JMGJNMUZBbXNmYThneWJqZnZ1aWtFbFpMVTA5cnN6M3RMZEFqYVhxOHo5NFoyaDA3RXVOanlVSUFPQnFSREFXWERfazNvM0g5di1HN29nNFltMWZiTEhLU1kydHNlaWRZYzdBbDZrYTZhb3FJckVjcVBGUFNUVjJIZnBRYUhKOHRDNHBYNFVxMXNmWkhNdHFUWXdodElteVlNSmRSbDhRSFRrcWdxOUZn?oc=5",
@@ -712,16 +743,6 @@
         "isCritical": false,
         "pubDate": "Sun, 06 Sep 2026 02:15:43 GMT",
         "searchQuery": "college football transfer portal"
-      },
-      {
-        "title": "College Football Injury Report: Latest Week 1 updates at Clemson, Texas &amp; more - on3.com",
-        "source": "on3.com",
-        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQdkFSTldmZktTQnBFYWdEZFFwT2hGS2pMajBpTVMycENOUmI5azdmR2FJRHpyMGNmQS1BY0dxN0hielRxT1otbXhzbC0tLTFnbHl4SXNUY0gwbmktWmpvTXdLeGhvU3RzNEhsQTd1Q1VvaUdsdHZ3NXE3Y3pqZi04WWg1aHZXR1U4a1VKQndQUERZa21uNHJaV2VJX2FmOXFOVGc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false,
-        "pubDate": "Fri, 04 Sep 2026 13:52:45 GMT",
-        "searchQuery": "college football injury"
       },
       {
         "title": "College football live updates, scores: Week 1 schedule features Michigan, Texas A&amp;M, Texas Tech - CBS Sports",
@@ -734,8 +755,8 @@
         "searchQuery": "NCAA college football"
       },
       {
-        "title": "Texas Tech vs. Abilene Christian Prediction, Odds, Pick For College Football Week 1 - foxsports.com",
-        "source": "foxsports.com",
+        "title": "Texas Tech vs. Abilene Christian Prediction, Odds, Pick For College Football Week 1 - FOX Sports",
+        "source": "FOX Sports",
         "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOb0J6d1Fiei1uNkxCVkRsQk5Lal9Udk1WQzdDLVdFVmthZV9pSlY1WXd4bWZXeTJpT3lfbHlhenV6VHdRaVJWaWdxX1laS25SakM4TTFoNHBCdHBzWll2UnBTTXg0U0swZDVVSk1sbU52clo3LVpnbGNmdmxGVFRZNUNpaXA2OXY1ZTdiZjMxaWpLUjBVSGhWRTZPNnRqRmZwSnZfd01PWG5FWGxFcFhCWDM3aDFkZXY5LVpNRVV4SnRDbWNacXfSAcYBQVVfeXFMT3VGNGdvbjlqcFhwTWhkT0MwOFZGR3dJY2xRbDJCaGl5YW5tdjJZNkFWMnk1MVFHdXBQb3FGNnBoWmRuYWJ4MzVkcFlpdi01YnE0dVg5ZjZjNFBiRFQwNTEyRnlPRWIxNXFzMVRqZmdqbXY5ZkVkTklCcHdoVnluN0RpQ2ZBZklHU3h1WGpZZGFZTHFDSy1ndnhlR0JieGh3N2l0VlRaUnM4MzNnYncwUnV1U3FwcGFpT19OTkJHZlRkY3BNWlpB?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
@@ -744,7 +765,17 @@
         "searchQuery": "CFB picks predictions"
       }
     ],
-    "notre_dame": [
+    "clemson": [
+      {
+        "title": "College Football Injury Report: Latest Week 1 updates at Clemson, Texas &amp; more - On3",
+        "source": "On3",
+        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQdkFSTldmZktTQnBFYWdEZFFwT2hGS2pMajBpTVMycENOUmI5azdmR2FJRHpyMGNmQS1BY0dxN0hielRxT1otbXhzbC0tLTFnbHl4SXNUY0gwbmktWmpvTXdLeGhvU3RzNEhsQTd1Q1VvaUdsdHZ3NXE3Y3pqZi04WWg1aHZXR1U4a1VKQndQUERZa21uNHJaV2VJX2FmOXFOVGc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Fri, 04 Sep 2026 13:52:45 GMT",
+        "searchQuery": "college football injury"
+      },
       {
         "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
         "source": "The New York Times",
@@ -754,6 +785,82 @@
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
         "searchQuery": "college football transfer portal"
+      },
+      {
+        "title": "5 interesting things in LSU football's depth chart vs Clemson - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPR0hmcEJVQkZpZXR6QVRVRmRqNy1rbXQ3MlJuVlVWXzlkaW1EWTUtOE9SUGFsZXRJX3NvYmRUN1Z0bFZYeHJseHFESXNTX1o3bFU1anZFclhWbDZJR1ZUTkNVUElmWUJFU2kyemhaUjFEQ2FtRDFkVGk5T0pidkRMdEIzSm9OdllkZkJj?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 00:28:00 GMT",
+        "searchQuery": "college football depth chart"
+      },
+      {
+        "title": "Top 25 betting lines: LSU a double-digit favorite over Clemson; Ohio State, UGA, Indiana all 40+ point faves - ESPN",
+        "source": "ESPN",
+        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPQVZkQ20zODhKTFpDcTZWUVp6eU5qSENGRmFyUUE5UVl3YkxoQjQxQkRZajRWb3FBLUNhN2I5U0pPNkJlemZBXy1jUXNaYkc4VEF1Z0RPeHU1cHZPNnMtb2dpdzFGdElUNVN1UHVyc1psTmVxZFgwV1pfejRpNWVVeE9LRHFpTW1oYi1IREpUaWZmRTR5Z2owMFJrNU11UXR4SkxJ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Thu, 03 Sep 2026 19:52:00 GMT",
+        "searchQuery": "college football spread odds"
+      }
+    ],
+    "oklahoma": [
+      {
+        "title": "Jacob Sexton injury update: Oklahoma State football OL carted off with leg injury vs Tulsa - The Oklahoman",
+        "source": "The Oklahoman",
+        "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQZmprTlFpZXhHcjc1M3d1MG1oSENtX1U4bFVWQXhUQk5xVE9WdzFwSV9jV2cyQUNISWtKdWF4TWQtdkZFYWtnREgzQTZlaGRuMHJyMXUwU0ZGZjZQd3Z6bzZLVXY2bDRJQW1pVTgtR2NURk9EOXY1ZGhfNU1aZkR4RW42ZnExUEdiVFZSQmk5c3VzTGlVVEh4NVJZOTg1dzhVNXNPeVB3OWtIVmF1MHlfWWo4Nl9aOHdPX2theFA5bGt2Z20tRkJELTZ6cEJpWWFUeTFSVElaZjdxSEhqdVJQZ1J6OUVsTWE1b2NTYnF1NC1PSnlrdmc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 20:13:00 GMT",
+        "searchQuery": "college football injury"
+      }
+    ],
+    "tennessee": [
+      {
+        "title": "Tennessee pregame injury report: Furman - 247Sports",
+        "source": "247Sports",
+        "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQWU1leW5UaXk2UFlPU1hVY3dNVGxMMmNSSkk1TkloanhoM1V6Y0JfUEtrTi1PYTVYaG9VQjFtdGdOenZIc2ZEYWE5S0EyU1QyTDRqZUo3T09GQ2Jxb1M2RXlfT2thNzU4YmRiek81akY1NVN0TTdsRDlhd2hBOGRENmhfS0RNdWV5S213RzNQcXhVN2FTdmpkRnR0MFUtY2tIdjdJd2JDWEh4TXBHWTgyUg?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 19:21:49 GMT",
+        "searchQuery": "college football injury"
+      },
+      {
+        "title": "Tennessee releases depth chart for season opener against Furman - 247Sports",
+        "source": "247Sports",
+        "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPaGtlV00xbndTdzh2VlZzY05lMEhYaEMxNWJFekVLakpza2YwcDhJY0JVMUNXT24yOVB1TkhKUUIxdTVuYU5peGFZX0gzWmd0NWNqZEpmS3dyVHVlSVYwTlEtZEhka3I3NFdBalJCcm1MZnBfUjRDOXRwNVljOUFxdVRxU0wwYXJ4VGZLREJEOGhacEhVQ242UjVJbXVRd2w4OGxhcDF2Qkdfd0xGTHFiOWNycFI2dTlZbUstSktSYzhNakdtNHlQQkktZzcxWHg2UE00?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 17:14:55 GMT",
+        "searchQuery": "college football depth chart"
+      },
+      {
+        "title": "Tennessee football releases first official depth chart for season opener vs. Furman - On3",
+        "source": "On3",
+        "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOLUdDUW0yTkZlNVNhRW1uaF9Ba2VoNDhYSkRKS1Z5cUxtM1I3LTE5N3VXLUszbTRDWm9uZWpSNk5xS04wY3ZIZU0ySmo1WFlKbDFjcEhYUjlVNmZiSWd5RWRSY1FGdVNsandrdnI0ejgzOHZqWGwzVHpkV210RV90R3JnbmQ5MlZYaC03bjMwejg4YjBsS09XRWVvU18yUXBheUIzenlBTlFMRnd4bWIzdGpVSUtVZ0czdFQ1Vkx3RV9OMVUxZkE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 17:45:37 GMT",
+        "searchQuery": "college football depth chart"
+      }
+    ],
+    "notre_dame": [
+      {
+        "title": "Steve Angeli responds to injury scare with a sprint in Syracuse’s season-opening win - Syracuse.com",
+        "source": "Syracuse.com",
+        "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQMVV5ODY3TWNsQ1lHeEZlcC1HTlQ0R2dPMkJOUXZnRDhHX19MODBQMGJUMjZqX29QejFRMk04eTJqbl9WZ2dMcnhMTWZhal9NcFUyZWxRU1kxZG8wQTU1cU1vdHh5SDFaNHFmUUs5cUtNeEJmR2J4ak02eGhBT2M2WkFPNW1PSVVsaV9vZlJKeEpSbWRBU1RlMmZFc3JQdXRyV05PNWNmOGxXODJKa013cDVpem00YWVkS0x3SVFUdDBYckhwYXZ4eDB6cDJ0amNzM2c?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 19:34:00 GMT",
+        "searchQuery": "college football injury"
       },
       {
         "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - AP News",
@@ -786,18 +893,6 @@
         "searchQuery": "college football coaching change"
       },
       {
-        "title": "Steve Angeli responds to injury scare with a sprint in Syracuse’s season-opening win - Syracuse.com",
-        "source": "Syracuse.com",
-        "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQMVV5ODY3TWNsQ1lHeEZlcC1HTlQ0R2dPMkJOUXZnRDhHX19MODBQMGJUMjZqX29QejFRMk04eTJqbl9WZ2dMcnhMTWZhal9NcFUyZWxRU1kxZG8wQTU1cU1vdHh5SDFaNHFmUUs5cUtNeEJmR2J4ak02eGhBT2M2WkFPNW1PSVVsaV9vZlJKeEpSbWRBU1RlMmZFc3JQdXRyV05PNWNmOGxXODJKa013cDVpem00YWVkS0x3SVFUdDBYckhwYXZ4eDB6cDJ0amNzM2c?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 19:34:00 GMT",
-        "searchQuery": "college football injury"
-      }
-    ],
-    "clemson": [
-      {
         "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
         "source": "The New York Times",
         "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS1d0bGdjQmhjSTNKb2FBZHJWM2NUMlFheGVocFBLaWNablQ3TEJ2YmZZa1dRSWRsbzNGcUtzUFJlRlZubmdnUVhqWnY1QjZoTFNWS2p4RjhLU25IZ0lBamd1TlpzbHdhY1A4Z3JFYkxVM2Vub0hNdUg5dkpNR0MxR1ZjWE9NbEhURFVfdzQ1MDJjemgwSUNKeUU2aW9ENjRtUWpN?oc=5",
@@ -806,36 +901,42 @@
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
         "searchQuery": "college football transfer portal"
-      },
+      }
+    ],
+    "kansas_state": [
       {
-        "title": "College Football Injury Report: Latest Week 1 updates at Clemson, Texas &amp; more - on3.com",
-        "source": "on3.com",
-        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQdkFSTldmZktTQnBFYWdEZFFwT2hGS2pMajBpTVMycENOUmI5azdmR2FJRHpyMGNmQS1BY0dxN0hielRxT1otbXhzbC0tLTFnbHl4SXNUY0gwbmktWmpvTXdLeGhvU3RzNEhsQTd1Q1VvaUdsdHZ3NXE3Y3pqZi04WWg1aHZXR1U4a1VKQndQUERZa21uNHJaV2VJX2FmOXFOVGc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false,
-        "pubDate": "Fri, 04 Sep 2026 13:52:45 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
-        "title": "5 interesting things in LSU football's depth chart vs Clemson - Yahoo Sports",
+        "title": "Kansas State football injury report vs Nicholls: Who's in, who's out? - Yahoo Sports",
         "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPR0hmcEJVQkZpZXR6QVRVRmRqNy1rbXQ3MlJuVlVWXzlkaW1EWTUtOE9SUGFsZXRJX3NvYmRUN1Z0bFZYeHJseHFESXNTX1o3bFU1anZFclhWbDZJR1ZUTkNVUElmWUJFU2kyemhaUjFEQ2FtRDFkVGk5T0pidkRMdEIzSm9OdllkZkJj?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOUTJlR3FmTmdfNlJ6dnFhVmNCdlBqVmNNNEhKYWN2RG5ETzB1U2pvLVh2NDdIQ3c1dWZkTmdoUU9xZVQ2QWdRU2VSMVpyTWg5NGN1QXVfTXpUUHY4anpRMEdRaDg3aC1qTFBCeWxBSDc0R2YzZHJzUEJya285WTRNaWkxeXZtYmMyWGZxVQ?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 00:28:00 GMT",
-        "searchQuery": "college football depth chart"
-      },
+        "pubDate": "Sat, 05 Sep 2026 21:30:26 GMT",
+        "searchQuery": "college football injury"
+      }
+    ],
+    "penn_state": [
       {
-        "title": "Top 25 betting lines: LSU a double-digit favorite over Clemson; Ohio State, UGA, Indiana all 40+ point faves - ESPN",
-        "source": "ESPN",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPQVZkQ20zODhKTFpDcTZWUVp6eU5qSENGRmFyUUE5UVl3YkxoQjQxQkRZajRWb3FBLUNhN2I5U0pPNkJlemZBXy1jUXNaYkc4VEF1Z0RPeHU1cHZPNnMtb2dpdzFGdElUNVN1UHVyc1psTmVxZFgwV1pfejRpNWVVeE9LRHFpTW1oYi1IREpUaWZmRTR5Z2owMFJrNU11UXR4SkxJ?oc=5",
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 2,
+        "daysAgo": 17,
         "isCritical": false,
-        "pubDate": "Thu, 03 Sep 2026 19:52:00 GMT",
-        "searchQuery": "college football spread odds"
+        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
+      }
+    ],
+    "ole_miss": [
+      {
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 17,
+        "isCritical": false,
+        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
       }
     ],
     "lsu": [
@@ -894,94 +995,14 @@
     ],
     "georgia": [
       {
-        "title": "Former Georgia DB JaCorey Thomas enters transfer portal in light of eligibility lawsuit - on3.com",
-        "source": "on3.com",
+        "title": "Former Georgia DB JaCorey Thomas enters transfer portal in light of eligibility lawsuit - On3",
+        "source": "On3",
         "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxObkVUMkwxMVo4cTM3RmtrakdETkxWOEtHSTFqR080M3BQOWxZdlNFZHgzX3FIZnJ1R1pOeGxfVzJGUFZoeFNOTmRWUFlVTy1vTTQzalozSXN4T0k1LUNIX21MRWZVTVNSVlVTSnBoWDE2eWh0aVA3OU5ockxiYTJ0MXo1ei01RUhXbDlhSVhLRGtvcklnelExcnVNbUd2M2xfYW5oUkVFVUdJTER0UllPbHN4WQ?oc=5",
         "sentiment": "negative",
         "daysAgo": 1,
         "isCritical": false,
         "pubDate": "Fri, 04 Sep 2026 21:36:38 GMT",
         "searchQuery": "college football transfer portal"
-      }
-    ],
-    "penn_state": [
-      {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 17,
-        "isCritical": false,
-        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      }
-    ],
-    "ole_miss": [
-      {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 17,
-        "isCritical": false,
-        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      }
-    ],
-    "oklahoma": [
-      {
-        "title": "Jacob Sexton injury update: Oklahoma State football OL carted off with leg injury vs Tulsa - The Oklahoman",
-        "source": "The Oklahoman",
-        "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQZmprTlFpZXhHcjc1M3d1MG1oSENtX1U4bFVWQXhUQk5xVE9WdzFwSV9jV2cyQUNISWtKdWF4TWQtdkZFYWtnREgzQTZlaGRuMHJyMXUwU0ZGZjZQd3Z6bzZLVXY2bDRJQW1pVTgtR2NURk9EOXY1ZGhfNU1aZkR4RW42ZnExUEdiVFZSQmk5c3VzTGlVVEh4NVJZOTg1dzhVNXNPeVB3OWtIVmF1MHlfWWo4Nl9aOHdPX2theFA5bGt2Z20tRkJELTZ6cEJpWWFUeTFSVElaZjdxSEhqdVJQZ1J6OUVsTWE1b2NTYnF1NC1PSnlrdmc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 20:13:00 GMT",
-        "searchQuery": "college football injury"
-      }
-    ],
-    "tennessee": [
-      {
-        "title": "Tennessee pregame injury report: Furman - 247Sports",
-        "source": "247Sports",
-        "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQWU1leW5UaXk2UFlPU1hVY3dNVGxMMmNSSkk1TkloanhoM1V6Y0JfUEtrTi1PYTVYaG9VQjFtdGdOenZIc2ZEYWE5S0EyU1QyTDRqZUo3T09GQ2Jxb1M2RXlfT2thNzU4YmRiek81akY1NVN0TTdsRDlhd2hBOGRENmhfS0RNdWV5S213RzNQcXhVN2FTdmpkRnR0MFUtY2tIdjdJd2JDWEh4TXBHWTgyUg?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 19:21:49 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
-        "title": "Tennessee releases depth chart for season opener against Furman - 247Sports",
-        "source": "247Sports",
-        "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPaGtlV00xbndTdzh2VlZzY05lMEhYaEMxNWJFekVLakpza2YwcDhJY0JVMUNXT24yOVB1TkhKUUIxdTVuYU5peGFZX0gzWmd0NWNqZEpmS3dyVHVlSVYwTlEtZEhka3I3NFdBalJCcm1MZnBfUjRDOXRwNVljOUFxdVRxU0wwYXJ4VGZLREJEOGhacEhVQ242UjVJbXVRd2w4OGxhcDF2Qkdfd0xGTHFiOWNycFI2dTlZbUstSktSYzhNakdtNHlQQkktZzcxWHg2UE00?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 17:14:55 GMT",
-        "searchQuery": "college football depth chart"
-      },
-      {
-        "title": "Tennessee football releases first official depth chart for season opener vs. Furman - on3.com",
-        "source": "on3.com",
-        "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOLUdDUW0yTkZlNVNhRW1uaF9Ba2VoNDhYSkRKS1Z5cUxtM1I3LTE5N3VXLUszbTRDWm9uZWpSNk5xS04wY3ZIZU0ySmo1WFlKbDFjcEhYUjlVNmZiSWd5RWRSY1FGdVNsandrdnI0ejgzOHZqWGwzVHpkV210RV90R3JnbmQ5MlZYaC03bjMwejg4YjBsS09XRWVvU18yUXBheUIzenlBTlFMRnd4bWIzdGpVSUtVZ0czdFQ1Vkx3RV9OMVUxZkE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 17:45:37 GMT",
-        "searchQuery": "college football depth chart"
-      }
-    ],
-    "kansas_state": [
-      {
-        "title": "Kansas State football injury report vs Nicholls: Who's in, who's out? - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOUTJlR3FmTmdfNlJ6dnFhVmNCdlBqVmNNNEhKYWN2RG5ETzB1U2pvLVh2NDdIQ3c1dWZkTmdoUU9xZVQ2QWdRU2VSMVpyTWg5NGN1QXVfTXpUUHY4anpRMEdRaDg3aC1qTFBCeWxBSDc0R2YzZHJzUEJya285WTRNaWkxeXZtYmMyWGZxVQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 21:30:26 GMT",
-        "searchQuery": "college football injury"
       }
     ],
     "alabama": [
@@ -996,26 +1017,14 @@
         "searchQuery": "college football depth chart"
       },
       {
-        "title": "Alabama releases depth chart ahead of Week 1 matchup vs. East Carolina - Saturday Down South",
-        "source": "Saturday Down South",
+        "title": "Alabama releases depth chart ahead of Week 1 matchup vs. East Carolina - saturdaydownsouth.com",
+        "source": "saturdaydownsouth.com",
         "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQOTJfWVpOcHppRElEOUlrREs3NG1UbVZ1WXMwNWx0aFhsajZJX2xPc1lvSk1zSlBHOGVSZHBzZEl5WFprc3l1R1dZcDJSTVZpczgzSXBfS2dTUm8zMU5MZGpWMDVlMTJnRzRKS2dRS0FxTzBvM19NSjN1UVBQUXVWVUFGN2ZEczhtU3ZabnBQOTl6aHgyajI3Q1hLbDF3enVIRlJ2UlVUNFNtUjZQZFJ1M203OXlEeW5fUFBLcmtBVzdoM1Qx?oc=5",
         "sentiment": "neutral",
         "daysAgo": 2,
         "isCritical": false,
         "pubDate": "Fri, 04 Sep 2026 15:24:00 GMT",
         "searchQuery": "college football depth chart"
-      }
-    ],
-    "colorado": [
-      {
-        "title": "A college football tie? Why Colorado School of Mines-Washburn ended 16-16 - USA Today",
-        "source": "USA Today",
-        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNTmZfOXBGQWg3bU0xQWdIZFh3dVFXYzhoenBJbTVlQk9Jb2E2MW5MUVFHaW16QWt6QlZqNm1WSk5nT3pEZkJlYTM2YlhUbno0c0R6b2JVc0dodEJKVHYzakpuTU1jWjd1aXNOcDZFMWZhQWFPdG9za0s0eHVzYXZRN1lTR3FiLWtxTUZ6SFczZ3c0RG9xc0FNSzVfMktNcFlvQU16dXJXZ2VhSmZhdi11Z0U3aWs5ZEhJLWc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 21:11:00 GMT",
-        "searchQuery": "college football suspended"
       }
     ],
     "michigan": [
@@ -1032,50 +1041,58 @@
     ],
     "utah": [
       {
-        "title": "No. 14 BYU forces 4 turnovers in 63-7 rout of Utah Tech - newsday.com",
-        "source": "newsday.com",
-        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOZUhTOXZZdWlLclFuQ0NGcW9BdC13Yl8tOTROVGdTb01NVVNIU05iU0d3Ymdtc3Q5SDhuQlE3MUFKN25LWnc0ZG82NlZBbDRBSlZMeDA3WUpqeTJSdGFJVi0tWktMV1gyXzF6UG54Y3lDWnFyWHZFemlFbTJGd3hLS0ZEZVhEbjVJRnc?oc=5",
+        "title": "How to Watch Utah Tech vs. No. 14 BYU: Live Stream NCAA CFB, TV Channel - athlonsports.com",
+        "source": "athlonsports.com",
+        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQSmVYV00wNW9VSHJGVjd5Q2lGVlIxMGt6NGYzUDhEckZndFJ5Yk5WaENqUVZPSjNhMGxwQVJoaFJmVlExalh3Y2RERnZ1bTFRdWFadXo5UGFoRjE4OFZFakxneEdMWE9NXzg2cXVwRlRucUc2R2k5OElNY0lyRDlUTGRhQjlKcXNOaXhMOW5yVHNadUgzaEVRWk1lUGdXRDRCQ3M2dVNIcGwyRDFxVlE?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 03:21:23 GMT",
+        "pubDate": "Sat, 05 Sep 2026 22:56:55 GMT",
+        "searchQuery": "NCAA college football"
+      },
+      {
+        "title": "Utah Tech vs. #14 BYU - ESPN",
+        "source": "ESPN",
+        "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9mV0twX1lKVm4yRkh6b0pQVWxNUERnMFBnaWFqSTRrS2Zua3JTeEh3Z3FFUW5tSndMNWpvYnJDeDE3Uk44S0w5XzdrVmlhZEQyZENHN09EV2RUejBMQ2lsaUJydlNpNUZaMG9F?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 15:07:56 GMT",
         "searchQuery": "NCAA college football"
       }
     ],
     "byu": [
       {
-        "title": "No. 14 BYU forces 4 turnovers in 63-7 rout of Utah Tech - newsday.com",
-        "source": "newsday.com",
-        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOZUhTOXZZdWlLclFuQ0NGcW9BdC13Yl8tOTROVGdTb01NVVNIU05iU0d3Ymdtc3Q5SDhuQlE3MUFKN25LWnc0ZG82NlZBbDRBSlZMeDA3WUpqeTJSdGFJVi0tWktMV1gyXzF6UG54Y3lDWnFyWHZFemlFbTJGd3hLS0ZEZVhEbjVJRnc?oc=5",
+        "title": "How to Watch Utah Tech vs. No. 14 BYU: Live Stream NCAA CFB, TV Channel - athlonsports.com",
+        "source": "athlonsports.com",
+        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQSmVYV00wNW9VSHJGVjd5Q2lGVlIxMGt6NGYzUDhEckZndFJ5Yk5WaENqUVZPSjNhMGxwQVJoaFJmVlExalh3Y2RERnZ1bTFRdWFadXo5UGFoRjE4OFZFakxneEdMWE9NXzg2cXVwRlRucUc2R2k5OElNY0lyRDlUTGRhQjlKcXNOaXhMOW5yVHNadUgzaEVRWk1lUGdXRDRCQ3M2dVNIcGwyRDFxVlE?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 03:21:23 GMT",
+        "pubDate": "Sat, 05 Sep 2026 22:56:55 GMT",
+        "searchQuery": "NCAA college football"
+      },
+      {
+        "title": "Utah Tech vs. #14 BYU - ESPN",
+        "source": "ESPN",
+        "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9mV0twX1lKVm4yRkh6b0pQVWxNUERnMFBnaWFqSTRrS2Zua3JTeEh3Z3FFUW5tSndMNWpvYnJDeDE3Uk44S0w5XzdrVmlhZEQyZENHN09EV2RUejBMQ2lsaUJydlNpNUZaMG9F?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 15:07:56 GMT",
         "searchQuery": "NCAA college football"
       }
     ],
-    "ohio_state": [
+    "colorado": [
       {
-        "title": "Top 25 betting lines: LSU a double-digit favorite over Clemson; Ohio State, UGA, Indiana all 40+ point faves - ESPN",
-        "source": "ESPN",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPQVZkQ20zODhKTFpDcTZWUVp6eU5qSENGRmFyUUE5UVl3YkxoQjQxQkRZajRWb3FBLUNhN2I5U0pPNkJlemZBXy1jUXNaYkc4VEF1Z0RPeHU1cHZPNnMtb2dpdzFGdElUNVN1UHVyc1psTmVxZFgwV1pfejRpNWVVeE9LRHFpTW1oYi1IREpUaWZmRTR5Z2owMFJrNU11UXR4SkxJ?oc=5",
+        "title": "A college football tie? Why Colorado School of Mines-Washburn ended 16-16 - USA Today",
+        "source": "USA Today",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNTmZfOXBGQWg3bU0xQWdIZFh3dVFXYzhoenBJbTVlQk9Jb2E2MW5MUVFHaW16QWt6QlZqNm1WSk5nT3pEZkJlYTM2YlhUbno0c0R6b2JVc0dodEJKVHYzakpuTU1jWjd1aXNOcDZFMWZhQWFPdG9za0s0eHVzYXZRN1lTR3FiLWtxTUZ6SFczZ3c0RG9xc0FNSzVfMktNcFlvQU16dXJXZ2VhSmZhdi11Z0U3aWs5ZEhJLWc?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 2,
+        "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Thu, 03 Sep 2026 19:52:00 GMT",
-        "searchQuery": "college football spread odds"
-      }
-    ],
-    "indiana": [
-      {
-        "title": "Top 25 betting lines: LSU a double-digit favorite over Clemson; Ohio State, UGA, Indiana all 40+ point faves - ESPN",
-        "source": "ESPN",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPQVZkQ20zODhKTFpDcTZWUVp6eU5qSENGRmFyUUE5UVl3YkxoQjQxQkRZajRWb3FBLUNhN2I5U0pPNkJlemZBXy1jUXNaYkc4VEF1Z0RPeHU1cHZPNnMtb2dpdzFGdElUNVN1UHVyc1psTmVxZFgwV1pfejRpNWVVeE9LRHFpTW1oYi1IREpUaWZmRTR5Z2owMFJrNU11UXR4SkxJ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false,
-        "pubDate": "Thu, 03 Sep 2026 19:52:00 GMT",
-        "searchQuery": "college football spread odds"
+        "pubDate": "Sat, 05 Sep 2026 21:11:00 GMT",
+        "searchQuery": "college football suspended"
       }
     ],
     "oregon": [
@@ -1121,58 +1138,82 @@
         "pubDate": "Sat, 05 Sep 2026 19:15:00 GMT",
         "searchQuery": "CFB picks predictions"
       }
+    ],
+    "ohio_state": [
+      {
+        "title": "Top 25 betting lines: LSU a double-digit favorite over Clemson; Ohio State, UGA, Indiana all 40+ point faves - ESPN",
+        "source": "ESPN",
+        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPQVZkQ20zODhKTFpDcTZWUVp6eU5qSENGRmFyUUE5UVl3YkxoQjQxQkRZajRWb3FBLUNhN2I5U0pPNkJlemZBXy1jUXNaYkc4VEF1Z0RPeHU1cHZPNnMtb2dpdzFGdElUNVN1UHVyc1psTmVxZFgwV1pfejRpNWVVeE9LRHFpTW1oYi1IREpUaWZmRTR5Z2owMFJrNU11UXR4SkxJ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Thu, 03 Sep 2026 19:52:00 GMT",
+        "searchQuery": "college football spread odds"
+      }
+    ],
+    "indiana": [
+      {
+        "title": "Top 25 betting lines: LSU a double-digit favorite over Clemson; Ohio State, UGA, Indiana all 40+ point faves - ESPN",
+        "source": "ESPN",
+        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPQVZkQ20zODhKTFpDcTZWUVp6eU5qSENGRmFyUUE5UVl3YkxoQjQxQkRZajRWb3FBLUNhN2I5U0pPNkJlemZBXy1jUXNaYkc4VEF1Z0RPeHU1cHZPNnMtb2dpdzFGdElUNVN1UHVyc1psTmVxZFgwV1pfejRpNWVVeE9LRHFpTW1oYi1IREpUaWZmRTR5Z2owMFJrNU11UXR4SkxJ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Thu, 03 Sep 2026 19:52:00 GMT",
+        "searchQuery": "college football spread odds"
+      }
     ]
   },
   "allNews": [
     {
-      "title": "Texas football recruited a top transfer portal class last cycle — now, that effort is paying off - 247Sports",
-      "source": "247Sports",
-      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQlhsY2g4RTdUZm5jTUp2NEN2ZzlkYWhBTnJOZmFRTUtrZDAyX05JMGJNMUZBbXNmYThneWJqZnZ1aWtFbFpMVTA5cnN6M3RMZEFqYVhxOHo5NFoyaDA3RXVOanlVSUFPQnFSREFXWERfazNvM0g5di1HN29nNFltMWZiTEhLU1kydHNlaWRZYzdBbDZrYTZhb3FJckVjcVBGUFNUVjJIZnBRYUhKOHRDNHBYNFVxMXNmWkhNdHFUWXdodElteVlNSmRSbDhRSFRrcWdxOUZn?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 02:15:43 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
-      "source": "The New York Times",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS1d0bGdjQmhjSTNKb2FBZHJWM2NUMlFheGVocFBLaWNablQ3TEJ2YmZZa1dRSWRsbzNGcUtzUFJlRlZubmdnUVhqWnY1QjZoTFNWS2p4RjhLU25IZ0lBamd1TlpzbHdhY1A4Z3JFYkxVM2Vub0hNdUg5dkpNR0MxR1ZjWE9NbEhURFVfdzQ1MDJjemgwSUNKeUU2aW9ENjRtUWpN?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "At Boston College, football roster building hasn’t gone as planned in the new world of college sports - The Boston Globe",
-      "source": "The Boston Globe",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNcVlYcFdKOUNHbVJHb2hJSlNwRFlJU2UtRTJfNEdUbk5wQkhfS0l2bEk5Z0xkdXFYckFtcG9kSkhGLXRON1FBTWtsX3hCU2dRODVWaTFZR2c5T05hWnhvQlpfYm5sazBPNGVoMGRDMDh3ZDFlZmZmQmxxbHptc19XcW05Y19xQzdVNVRnX3h5SDhsWlU?oc=5",
+      "title": "College Football Injury Report: Latest Week 1 updates at Clemson, Texas &amp; more - On3",
+      "source": "On3",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQdkFSTldmZktTQnBFYWdEZFFwT2hGS2pMajBpTVMycENOUmI5azdmR2FJRHpyMGNmQS1BY0dxN0hielRxT1otbXhzbC0tLTFnbHl4SXNUY0gwbmktWmpvTXdLeGhvU3RzNEhsQTd1Q1VvaUdsdHZ3NXE3Y3pqZi04WWg1aHZXR1U4a1VKQndQUERZa21uNHJaV2VJX2FmOXFOVGc?oc=5",
       "sentiment": "neutral",
       "daysAgo": 2,
       "isCritical": false,
-      "pubDate": "Fri, 04 Sep 2026 05:00:00 GMT",
-      "searchQuery": "college football transfer portal"
+      "pubDate": "Fri, 04 Sep 2026 13:52:45 GMT",
+      "searchQuery": "college football injury"
     },
     {
-      "title": "North Carolina football news: Tar Heels lose starting safety to transfer portal - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOZFlQWk1faG9FSTItSnhIT0pBRXVjZG5JSzdhZlhtN3U1OWNFSndiLUJlSVloUjNLYXBBU0hwa3NqSGxQR29VWkxnSEVlR1VWOTExOUUzbm1PM1JCRUhlVkl3eGVPWEM0SVFXbVhSYkRnMzMwSUlrbXd1Ymc4ZlZWWE1fNlNOQnNP?oc=5",
-      "sentiment": "negative",
+      "title": "Jacob Sexton injury update: Oklahoma State football OL carted off with leg injury vs Tulsa - The Oklahoman",
+      "source": "The Oklahoman",
+      "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQZmprTlFpZXhHcjc1M3d1MG1oSENtX1U4bFVWQXhUQk5xVE9WdzFwSV9jV2cyQUNISWtKdWF4TWQtdkZFYWtnREgzQTZlaGRuMHJyMXUwU0ZGZjZQd3Z6bzZLVXY2bDRJQW1pVTgtR2NURk9EOXY1ZGhfNU1aZkR4RW42ZnExUEdiVFZSQmk5c3VzTGlVVEh4NVJZOTg1dzhVNXNPeVB3OWtIVmF1MHlfWWo4Nl9aOHdPX2theFA5bGt2Z20tRkJELTZ6cEJpWWFUeTFSVElaZjdxSEhqdVJQZ1J6OUVsTWE1b2NTYnF1NC1PSnlrdmc?oc=5",
+      "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 02:18:00 GMT",
-      "searchQuery": "college football transfer portal"
+      "pubDate": "Sat, 05 Sep 2026 20:13:00 GMT",
+      "searchQuery": "college football injury"
     },
     {
-      "title": "Former Georgia DB JaCorey Thomas enters transfer portal in light of eligibility lawsuit - on3.com",
-      "source": "on3.com",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxObkVUMkwxMVo4cTM3RmtrakdETkxWOEtHSTFqR080M3BQOWxZdlNFZHgzX3FIZnJ1R1pOeGxfVzJGUFZoeFNOTmRWUFlVTy1vTTQzalozSXN4T0k1LUNIX21MRWZVTVNSVlVTSnBoWDE2eWh0aVA3OU5ockxiYTJ0MXo1ei01RUhXbDlhSVhLRGtvcklnelExcnVNbUd2M2xfYW5oUkVFVUdJTER0UllPbHN4WQ?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 1,
+      "title": "Tennessee pregame injury report: Furman - 247Sports",
+      "source": "247Sports",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQWU1leW5UaXk2UFlPU1hVY3dNVGxMMmNSSkk1TkloanhoM1V6Y0JfUEtrTi1PYTVYaG9VQjFtdGdOenZIc2ZEYWE5S0EyU1QyTDRqZUo3T09GQ2Jxb1M2RXlfT2thNzU4YmRiek81akY1NVN0TTdsRDlhd2hBOGRENmhfS0RNdWV5S213RzNQcXhVN2FTdmpkRnR0MFUtY2tIdjdJd2JDWEh4TXBHWTgyUg?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Fri, 04 Sep 2026 21:36:38 GMT",
-      "searchQuery": "college football transfer portal"
+      "pubDate": "Sat, 05 Sep 2026 19:21:49 GMT",
+      "searchQuery": "college football injury"
+    },
+    {
+      "title": "Steve Angeli responds to injury scare with a sprint in Syracuse’s season-opening win - Syracuse.com",
+      "source": "Syracuse.com",
+      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQMVV5ODY3TWNsQ1lHeEZlcC1HTlQ0R2dPMkJOUXZnRDhHX19MODBQMGJUMjZqX29QejFRMk04eTJqbl9WZ2dMcnhMTWZhal9NcFUyZWxRU1kxZG8wQTU1cU1vdHh5SDFaNHFmUUs5cUtNeEJmR2J4ak02eGhBT2M2WkFPNW1PSVVsaV9vZlJKeEpSbWRBU1RlMmZFc3JQdXRyV05PNWNmOGxXODJKa013cDVpem00YWVkS0x3SVFUdDBYckhwYXZ4eDB6cDJ0amNzM2c?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 19:34:00 GMT",
+      "searchQuery": "college football injury"
+    },
+    {
+      "title": "Kansas State football injury report vs Nicholls: Who's in, who's out? - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOUTJlR3FmTmdfNlJ6dnFhVmNCdlBqVmNNNEhKYWN2RG5ETzB1U2pvLVh2NDdIQ3c1dWZkTmdoUU9xZVQ2QWdRU2VSMVpyTWg5NGN1QXVfTXpUUHY4anpRMEdRaDg3aC1qTFBCeWxBSDc0R2YzZHJzUEJya285WTRNaWkxeXZtYmMyWGZxVQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 21:30:26 GMT",
+      "searchQuery": "college football injury"
     },
     {
       "title": "New faces, new places: Every FBS coaching change for 2026 college football season - USA Today",
@@ -1225,54 +1266,54 @@
       "searchQuery": "college football coaching change"
     },
     {
-      "title": "College Football Injury Report: Latest Week 1 updates at Clemson, Texas &amp; more - on3.com",
-      "source": "on3.com",
-      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQdkFSTldmZktTQnBFYWdEZFFwT2hGS2pMajBpTVMycENOUmI5azdmR2FJRHpyMGNmQS1BY0dxN0hielRxT1otbXhzbC0tLTFnbHl4SXNUY0gwbmktWmpvTXdLeGhvU3RzNEhsQTd1Q1VvaUdsdHZ3NXE3Y3pqZi04WWg1aHZXR1U4a1VKQndQUERZa21uNHJaV2VJX2FmOXFOVGc?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 2,
-      "isCritical": false,
-      "pubDate": "Fri, 04 Sep 2026 13:52:45 GMT",
-      "searchQuery": "college football injury"
-    },
-    {
-      "title": "Jacob Sexton injury update: Oklahoma State football OL carted off with leg injury vs Tulsa - The Oklahoman",
-      "source": "The Oklahoman",
-      "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxQZmprTlFpZXhHcjc1M3d1MG1oSENtX1U4bFVWQXhUQk5xVE9WdzFwSV9jV2cyQUNISWtKdWF4TWQtdkZFYWtnREgzQTZlaGRuMHJyMXUwU0ZGZjZQd3Z6bzZLVXY2bDRJQW1pVTgtR2NURk9EOXY1ZGhfNU1aZkR4RW42ZnExUEdiVFZSQmk5c3VzTGlVVEh4NVJZOTg1dzhVNXNPeVB3OWtIVmF1MHlfWWo4Nl9aOHdPX2theFA5bGt2Z20tRkJELTZ6cEJpWWFUeTFSVElaZjdxSEhqdVJQZ1J6OUVsTWE1b2NTYnF1NC1PSnlrdmc?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 20:13:00 GMT",
-      "searchQuery": "college football injury"
-    },
-    {
-      "title": "Tennessee pregame injury report: Furman - 247Sports",
+      "title": "Texas football recruited a top transfer portal class last cycle — now, that effort is paying off - 247Sports",
       "source": "247Sports",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQWU1leW5UaXk2UFlPU1hVY3dNVGxMMmNSSkk1TkloanhoM1V6Y0JfUEtrTi1PYTVYaG9VQjFtdGdOenZIc2ZEYWE5S0EyU1QyTDRqZUo3T09GQ2Jxb1M2RXlfT2thNzU4YmRiek81akY1NVN0TTdsRDlhd2hBOGRENmhfS0RNdWV5S213RzNQcXhVN2FTdmpkRnR0MFUtY2tIdjdJd2JDWEh4TXBHWTgyUg?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQlhsY2g4RTdUZm5jTUp2NEN2ZzlkYWhBTnJOZmFRTUtrZDAyX05JMGJNMUZBbXNmYThneWJqZnZ1aWtFbFpMVTA5cnN6M3RMZEFqYVhxOHo5NFoyaDA3RXVOanlVSUFPQnFSREFXWERfazNvM0g5di1HN29nNFltMWZiTEhLU1kydHNlaWRZYzdBbDZrYTZhb3FJckVjcVBGUFNUVjJIZnBRYUhKOHRDNHBYNFVxMXNmWkhNdHFUWXdodElteVlNSmRSbDhRSFRrcWdxOUZn?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 02:15:43 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
+      "source": "The New York Times",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS1d0bGdjQmhjSTNKb2FBZHJWM2NUMlFheGVocFBLaWNablQ3TEJ2YmZZa1dRSWRsbzNGcUtzUFJlRlZubmdnUVhqWnY1QjZoTFNWS2p4RjhLU25IZ0lBamd1TlpzbHdhY1A4Z3JFYkxVM2Vub0hNdUg5dkpNR0MxR1ZjWE9NbEhURFVfdzQ1MDJjemgwSUNKeUU2aW9ENjRtUWpN?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 19:21:49 GMT",
-      "searchQuery": "college football injury"
+      "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
+      "searchQuery": "college football transfer portal"
     },
     {
-      "title": "Steve Angeli responds to injury scare with a sprint in Syracuse’s season-opening win - Syracuse.com",
-      "source": "Syracuse.com",
-      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQMVV5ODY3TWNsQ1lHeEZlcC1HTlQ0R2dPMkJOUXZnRDhHX19MODBQMGJUMjZqX29QejFRMk04eTJqbl9WZ2dMcnhMTWZhal9NcFUyZWxRU1kxZG8wQTU1cU1vdHh5SDFaNHFmUUs5cUtNeEJmR2J4ak02eGhBT2M2WkFPNW1PSVVsaV9vZlJKeEpSbWRBU1RlMmZFc3JQdXRyV05PNWNmOGxXODJKa013cDVpem00YWVkS0x3SVFUdDBYckhwYXZ4eDB6cDJ0amNzM2c?oc=5",
+      "title": "At Boston College, football roster building hasn’t gone as planned in the new world of college sports - The Boston Globe",
+      "source": "The Boston Globe",
+      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNcVlYcFdKOUNHbVJHb2hJSlNwRFlJU2UtRTJfNEdUbk5wQkhfS0l2bEk5Z0xkdXFYckFtcG9kSkhGLXRON1FBTWtsX3hCU2dRODVWaTFZR2c5T05hWnhvQlpfYm5sazBPNGVoMGRDMDh3ZDFlZmZmQmxxbHptc19XcW05Y19xQzdVNVRnX3h5SDhsWlU?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 0,
+      "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 19:34:00 GMT",
-      "searchQuery": "college football injury"
+      "pubDate": "Sat, 05 Sep 2026 00:41:14 GMT",
+      "searchQuery": "college football transfer portal"
     },
     {
-      "title": "Kansas State football injury report vs Nicholls: Who's in, who's out? - Yahoo Sports",
+      "title": "North Carolina football news: Tar Heels lose starting safety to transfer portal - Yahoo Sports",
       "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOUTJlR3FmTmdfNlJ6dnFhVmNCdlBqVmNNNEhKYWN2RG5ETzB1U2pvLVh2NDdIQ3c1dWZkTmdoUU9xZVQ2QWdRU2VSMVpyTWg5NGN1QXVfTXpUUHY4anpRMEdRaDg3aC1qTFBCeWxBSDc0R2YzZHJzUEJya285WTRNaWkxeXZtYmMyWGZxVQ?oc=5",
-      "sentiment": "neutral",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOZFlQWk1faG9FSTItSnhIT0pBRXVjZG5JSzdhZlhtN3U1OWNFSndiLUJlSVloUjNLYXBBU0hwa3NqSGxQR29VWkxnSEVlR1VWOTExOUUzbm1PM1JCRUhlVkl3eGVPWEM0SVFXbVhSYkRnMzMwSUlrbXd1Ymc4ZlZWWE1fNlNOQnNP?oc=5",
+      "sentiment": "negative",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 21:30:26 GMT",
-      "searchQuery": "college football injury"
+      "pubDate": "Sun, 06 Sep 2026 02:18:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "Former Georgia DB JaCorey Thomas enters transfer portal in light of eligibility lawsuit - On3",
+      "source": "On3",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxObkVUMkwxMVo4cTM3RmtrakdETkxWOEtHSTFqR080M3BQOWxZdlNFZHgzX3FIZnJ1R1pOeGxfVzJGUFZoeFNOTmRWUFlVTy1vTTQzalozSXN4T0k1LUNIX21MRWZVTVNSVlVTSnBoWDE2eWh0aVA3OU5ockxiYTJ0MXo1ei01RUhXbDlhSVhLRGtvcklnelExcnVNbUd2M2xfYW5oUkVFVUdJTER0UllPbHN4WQ?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Fri, 04 Sep 2026 21:36:38 GMT",
+      "searchQuery": "college football transfer portal"
     },
     {
       "title": "Tennessee releases depth chart for season opener against Furman - 247Sports",
@@ -1305,8 +1346,8 @@
       "searchQuery": "college football depth chart"
     },
     {
-      "title": "Tennessee football releases first official depth chart for season opener vs. Furman - on3.com",
-      "source": "on3.com",
+      "title": "Tennessee football releases first official depth chart for season opener vs. Furman - On3",
+      "source": "On3",
       "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOLUdDUW0yTkZlNVNhRW1uaF9Ba2VoNDhYSkRKS1Z5cUxtM1I3LTE5N3VXLUszbTRDWm9uZWpSNk5xS04wY3ZIZU0ySmo1WFlKbDFjcEhYUjlVNmZiSWd5RWRSY1FGdVNsandrdnI0ejgzOHZqWGwzVHpkV210RV90R3JnbmQ5MlZYaC03bjMwejg4YjBsS09XRWVvU18yUXBheUIzenlBTlFMRnd4bWIzdGpVSUtVZ0czdFQ1Vkx3RV9OMVUxZkE?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
@@ -1315,14 +1356,64 @@
       "searchQuery": "college football depth chart"
     },
     {
-      "title": "Alabama releases depth chart ahead of Week 1 matchup vs. East Carolina - Saturday Down South",
-      "source": "Saturday Down South",
+      "title": "Alabama releases depth chart ahead of Week 1 matchup vs. East Carolina - saturdaydownsouth.com",
+      "source": "saturdaydownsouth.com",
       "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQOTJfWVpOcHppRElEOUlrREs3NG1UbVZ1WXMwNWx0aFhsajZJX2xPc1lvSk1zSlBHOGVSZHBzZEl5WFprc3l1R1dZcDJSTVZpczgzSXBfS2dTUm8zMU5MZGpWMDVlMTJnRzRKS2dRS0FxTzBvM19NSjN1UVBQUXVWVUFGN2ZEczhtU3ZabnBQOTl6aHgyajI3Q1hLbDF3enVIRlJ2UlVUNFNtUjZQZFJ1M203OXlEeW5fUFBLcmtBVzdoM1Qx?oc=5",
       "sentiment": "neutral",
       "daysAgo": 2,
       "isCritical": false,
       "pubDate": "Fri, 04 Sep 2026 15:24:00 GMT",
       "searchQuery": "college football depth chart"
+    },
+    {
+      "title": "College football live updates, scores: Week 1 schedule features Michigan, Texas A&amp;M, Texas Tech - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQMk16emRCdkg1WEtGMG9iTWpqZE5UU1JpR2pTVzhvcUd2bTRQajlZVnRnS0kwUUpKRzhGTUZsQ0VIeUdJWlE0RTRrNnlLWEM4ejNETkMwcllidmk1NHpTOFZXQ2MwVEFXYWZWQVFUXzZoeWJHVDIzb0N5bVJKVjlWQ0liTkdlUE1CcW1ORUtwNkx6RVhHYmxmQ1JDVVpYakx1S1BlSjZ6SnZQNU5SQnBWdg?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 02:50:23 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "College football game ends in tie after 108-degree heat index makes overtime untenable - The New York Times",
+      "source": "The New York Times",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOVEMtRVNqQmRzMkRNTjlwblpqVTZDWXpWUUxIcEtvbk14MVdLN09hM0FGNHBndVRER21FZk4xT21hMVRzTHNIblRIcDF2dnFLMWJSY1Q5Y2hBenBfNVdoWWRSbExjRjlHYUZIcXNrejh1S2dBdmJVN2p0bFFHdVYyN002TFBuZjJOUGtxVUUtZ3BlaUdRVXJTQWlrZHVrbXg5OG1tX290NlFwN25DcEl4ZA?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 21:11:56 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "College football Week 1: Recaps, highlights, scores and more - NCAA.com",
+      "source": "NCAA.com",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQNjZIdzlzbmtYMkRQVjFKWnlQSWRFWGx0QUh4ejJLcVFnY3AyVTQydS1VTkl4bVUzYnhMUFVkamUycUNYenh6cjR1a3Rqd1ZfcU50Z3B2X2dpeHpyR1Q4emNVVTk0TFZhWVI3bE5SRXQyX0lCT0pOYmFJTEZ2cWZ0VmFoMERkSmhuaExSTWgwcjVRV1VWNk5rb3FLRFdKM3FSRDVobl9hOA?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 03:27:54 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "How to Watch Utah Tech vs. No. 14 BYU: Live Stream NCAA CFB, TV Channel - athlonsports.com",
+      "source": "athlonsports.com",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQSmVYV00wNW9VSHJGVjd5Q2lGVlIxMGt6NGYzUDhEckZndFJ5Yk5WaENqUVZPSjNhMGxwQVJoaFJmVlExalh3Y2RERnZ1bTFRdWFadXo5UGFoRjE4OFZFakxneEdMWE9NXzg2cXVwRlRucUc2R2k5OElNY0lyRDlUTGRhQjlKcXNOaXhMOW5yVHNadUgzaEVRWk1lUGdXRDRCQ3M2dVNIcGwyRDFxVlE?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 22:56:55 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "Utah Tech vs. #14 BYU - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9mV0twX1lKVm4yRkh6b0pQVWxNUERnMFBnaWFqSTRrS2Zua3JTeEh3Z3FFUW5tSndMNWpvYnJDeDE3Uk44S0w5XzdrVmlhZEQyZENHN09EV2RUejBMQ2lsaUJydlNpNUZaMG9F?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 15:07:56 GMT",
+      "searchQuery": "NCAA college football"
     },
     {
       "title": "College football game ends in tie in overtime due to extreme heat - New York Post",
@@ -1375,54 +1466,54 @@
       "searchQuery": "college football suspended"
     },
     {
-      "title": "College football live updates, scores: Week 1 schedule features Michigan, Texas A&amp;M, Texas Tech - CBS Sports",
+      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 1 - CBS Sports",
       "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQMk16emRCdkg1WEtGMG9iTWpqZE5UU1JpR2pTVzhvcUd2bTRQajlZVnRnS0kwUUpKRzhGTUZsQ0VIeUdJWlE0RTRrNnlLWEM4ejNETkMwcllidmk1NHpTOFZXQ2MwVEFXYWZWQVFUXzZoeWJHVDIzb0N5bVJKVjlWQ0liTkdlUE1CcW1ORUtwNkx6RVhHYmxmQ1JDVVpYakx1S1BlSjZ6SnZQNU5SQnBWdg?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQcml6dzhFN0tjZk9wUGE3RXpwWlIwNmpOOE9qakt0czBaT1BtTXJwSzE5YzhDdFdEMFJITUJ5T2NXUThyN01seVhBUWZXWV81dnNkVTM1T2dfWnNTM2p3QWtfN095WlV1WkYtMFZGdjhnazJLMUthb19xQzFzS1dhUm1oeGtiWk5KcUhzZ3F0YUl1WE16dk94N1RQODhwVlN6QmxxT2dMallzdDZsWklsNzdSMmtyYmFTRk1JVjQ0ZEJaNkgxX2tXekZuV05JZENoalVqbk1yYWIxRFpoU3FvYWtn?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 02:50:23 GMT",
-      "searchQuery": "NCAA college football"
+      "pubDate": "Sat, 05 Sep 2026 19:45:00 GMT",
+      "searchQuery": "CFB picks predictions"
     },
     {
-      "title": "College football game ends in tie after 108-degree heat index makes overtime untenable - The New York Times",
-      "source": "The New York Times",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOVEMtRVNqQmRzMkRNTjlwblpqVTZDWXpWUUxIcEtvbk14MVdLN09hM0FGNHBndVRER21FZk4xT21hMVRzTHNIblRIcDF2dnFLMWJSY1Q5Y2hBenBfNVdoWWRSbExjRjlHYUZIcXNrejh1S2dBdmJVN2p0bFFHdVYyN002TFBuZjJOUGtxVUUtZ3BlaUdRVXJTQWlrZHVrbXg5OG1tX290NlFwN25DcEl4ZA?oc=5",
+      "title": "B/R Experts Bold Predictions for the 2026 College Football Season - bleacherreport.com",
+      "source": "bleacherreport.com",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPM2JxemhiVEJqOE5EUmpNQ2NYTUp3bXNTb21BbkViN1RnU3RsNDAxN0hzTVBUTk9nMEJ4d0RKTmJjeGxoR3lSUHhtYzFCR2ZnRU15dEZXdUlMR2hjSUdMYmlrVmk0eVlJc3Q5VDExSEZIYmNVTElpclVJMDU0VFowa3ZTYWtGemVKUGRFeEJXYVhMSjVOUmFpTnpnTXZ6Yk9ON2tv?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 0,
+      "daysAgo": 2,
       "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 21:11:56 GMT",
-      "searchQuery": "NCAA college football"
+      "pubDate": "Fri, 04 Sep 2026 11:09:48 GMT",
+      "searchQuery": "CFB picks predictions"
     },
     {
-      "title": "College football Week 1: Recaps, highlights, scores and more - NCAA.com",
-      "source": "NCAA.com",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQNjZIdzlzbmtYMkRQVjFKWnlQSWRFWGx0QUh4ejJLcVFnY3AyVTQydS1VTkl4bVUzYnhMUFVkamUycUNYenh6cjR1a3Rqd1ZfcU50Z3B2X2dpeHpyR1Q4emNVVTk0TFZhWVI3bE5SRXQyX0lCT0pOYmFJTEZ2cWZ0VmFoMERkSmhuaExSTWgwcjVRV1VWNk5rb3FLRFdKM3FSRDVobl9hOA?oc=5",
+      "title": "Texas Tech vs. Abilene Christian Prediction, Odds, Pick For College Football Week 1 - FOX Sports",
+      "source": "FOX Sports",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOb0J6d1Fiei1uNkxCVkRsQk5Lal9Udk1WQzdDLVdFVmthZV9pSlY1WXd4bWZXeTJpT3lfbHlhenV6VHdRaVJWaWdxX1laS25SakM4TTFoNHBCdHBzWll2UnBTTXg0U0swZDVVSk1sbU52clo3LVpnbGNmdmxGVFRZNUNpaXA2OXY1ZTdiZjMxaWpLUjBVSGhWRTZPNnRqRmZwSnZfd01PWG5FWGxFcFhCWDM3aDFkZXY5LVpNRVV4SnRDbWNacXfSAcYBQVVfeXFMT3VGNGdvbjlqcFhwTWhkT0MwOFZGR3dJY2xRbDJCaGl5YW5tdjJZNkFWMnk1MVFHdXBQb3FGNnBoWmRuYWJ4MzVkcFlpdi01YnE0dVg5ZjZjNFBiRFQwNTEyRnlPRWIxNXFzMVRqZmdqbXY5ZkVkTklCcHdoVnluN0RpQ2ZBZklHU3h1WGpZZGFZTHFDSy1ndnhlR0JieGh3N2l0VlRaUnM4MzNnYncwUnV1U3FwcGFpT19OTkJHZlRkY3BNWlpB?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 0,
+      "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 03:27:54 GMT",
-      "searchQuery": "NCAA college football"
+      "pubDate": "Sat, 05 Sep 2026 11:00:39 GMT",
+      "searchQuery": "CFB picks predictions"
     },
     {
-      "title": "How to watch UCLA vs Cal: Live stream College Football, NCAA, TV channel - Yahoo Sports",
+      "title": "Boise State vs Oregon Prediction, Top Picks &amp; Odds Today: College Football Week 1 - Yahoo Sports",
       "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9WdWRQR0h4MXVNU3BrcU80SWc1WG1KN0lOeFVUQVhWdjNVd0dDQzRpS1JvbmV1cFFEOUU3T0RERDcwa24xUXgzNXprOHlLNHNzMzI0N25KMU9ZMTZBR1dwMDM3RTlMWk9TN2RwRGJ1SFVxZEpCa2c4RmJXNA?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPUFYwTWluOVlZRFUyR3VvaFA0MkRKSi1wLS1YLS1Nd2d5TWNHZFhxUFlVbHBRWTNIZ1pHbEw3dER6dWxQblVfZ25GcFpvbEMzTktmWjdnVF9nUml2U2xGc1B3Z19KSVVZalJYamFtaS10OEluS1RabVFmbF9rNU42b0UxM085QW1F?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 0,
+      "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 01:30:00 GMT",
-      "searchQuery": "NCAA college football"
+      "pubDate": "Sat, 05 Sep 2026 13:17:00 GMT",
+      "searchQuery": "CFB picks predictions"
     },
     {
-      "title": "No. 14 BYU forces 4 turnovers in 63-7 rout of Utah Tech - newsday.com",
-      "source": "newsday.com",
-      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOZUhTOXZZdWlLclFuQ0NGcW9BdC13Yl8tOTROVGdTb01NVVNIU05iU0d3Ymdtc3Q5SDhuQlE3MUFKN25LWnc0ZG82NlZBbDRBSlZMeDA3WUpqeTJSdGFJVi0tWktMV1gyXzF6UG54Y3lDWnFyWHZFemlFbTJGd3hLS0ZEZVhEbjVJRnc?oc=5",
+      "title": "Oregon vs. Boise State prediction, pick, odds, spread: Ducks face stiff test from Group of Six CFP hopeful - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPbGRXbHpPeEh5ZGp2NVd4WVpOYzRvcmFEWDdKMEgtNGVyUWhOaUZQRDN2aFpnam5INjFuTEt1amRmVnZCQ0RvdnlPV1RBSzdoS3drandta1Npem03TG1vM25QbWhpYnlqdlUtemVWdHFrYlhpSVVZR1d2T0NXZVlXZDlRTFAzUG4tSmVvVEhhOFpxSkVCdWVaQllEQzJMaDhHd1Y1R25lcGZ1MThwRlIzOE93Z25tUQ?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 03:21:23 GMT",
-      "searchQuery": "NCAA college football"
+      "pubDate": "Sat, 05 Sep 2026 19:15:00 GMT",
+      "searchQuery": "CFB picks predictions"
     },
     {
       "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 1 - CBS Sports",
@@ -1435,8 +1526,8 @@
       "searchQuery": "college football spread odds"
     },
     {
-      "title": "College football odds, lines, spreads: Picks, predictions, betting advice for Week 1, 2026 from proven model - SportsLine",
-      "source": "SportsLine",
+      "title": "College football odds, lines, spreads: Picks, predictions, betting advice for Week 1, 2026 from proven model - sportsline.com",
+      "source": "sportsline.com",
       "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPal9OZDJMUjNfUkFqNXB6T1VJR0ZrYUpELXI3QkZzOHBrb3NPZWx4R0hGMEg0bDVrRGZDYmlqYkNkVUFySnNEOHR5RmZBSVp1T2RPRThqdGRqWDRXU0d2WEYzOUp6a2pEMjhyNXNubDFiYWVhajlzNDJ1dGowSzJWWnVOX29EdVdFeXZTZEl3c01IYndFSXIwaWxWNDJZbk1xdkJtX2RnOXpsOGg1dU1SN2Y0aUdYc1F6ZDVsS2Y4NElibjJUeEw3dGcxZklBeWZzZm5RRHd3?oc=5",
       "sentiment": "neutral",
       "daysAgo": 1,
@@ -1473,56 +1564,6 @@
       "isCritical": false,
       "pubDate": "Thu, 03 Sep 2026 19:52:00 GMT",
       "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 1 - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQcml6dzhFN0tjZk9wUGE3RXpwWlIwNmpOOE9qakt0czBaT1BtTXJwSzE5YzhDdFdEMFJITUJ5T2NXUThyN01seVhBUWZXWV81dnNkVTM1T2dfWnNTM2p3QWtfN095WlV1WkYtMFZGdjhnazJLMUthb19xQzFzS1dhUm1oeGtiWk5KcUhzZ3F0YUl1WE16dk94N1RQODhwVlN6QmxxT2dMallzdDZsWklsNzdSMmtyYmFTRk1JVjQ0ZEJaNkgxX2tXekZuV05JZENoalVqbk1yYWIxRFpoU3FvYWtn?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 19:45:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "FCS Picks, Predictions: Week 1 College Football Bets for Saturday, Sept. 5 - Action Network",
-      "source": "Action Network",
-      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOUHZjck45cHlGckJ0ZkFTdEJBTGdkZEhXYXBQbGVONjRhZXlwTWc4dFhUdFJESlRHYUxxX2g5Q2Jwc3pTbFYyMTBWYUVPOFZDNmVBcnFqeGNXZ1lRV2hFbS05WURpc0Y3ZkJvWWhoWVI5MW5SOHVncXhQZ1BNSURJS0hPRFVRclVKQWJGTnpYMks2dm0ydmQxSEN1M1BKbWtNdVY0Ng?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 10:48:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Texas Tech vs. Abilene Christian Prediction, Odds, Pick For College Football Week 1 - foxsports.com",
-      "source": "foxsports.com",
-      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOb0J6d1Fiei1uNkxCVkRsQk5Lal9Udk1WQzdDLVdFVmthZV9pSlY1WXd4bWZXeTJpT3lfbHlhenV6VHdRaVJWaWdxX1laS25SakM4TTFoNHBCdHBzWll2UnBTTXg0U0swZDVVSk1sbU52clo3LVpnbGNmdmxGVFRZNUNpaXA2OXY1ZTdiZjMxaWpLUjBVSGhWRTZPNnRqRmZwSnZfd01PWG5FWGxFcFhCWDM3aDFkZXY5LVpNRVV4SnRDbWNacXfSAcYBQVVfeXFMT3VGNGdvbjlqcFhwTWhkT0MwOFZGR3dJY2xRbDJCaGl5YW5tdjJZNkFWMnk1MVFHdXBQb3FGNnBoWmRuYWJ4MzVkcFlpdi01YnE0dVg5ZjZjNFBiRFQwNTEyRnlPRWIxNXFzMVRqZmdqbXY5ZkVkTklCcHdoVnluN0RpQ2ZBZklHU3h1WGpZZGFZTHFDSy1ndnhlR0JieGh3N2l0VlRaUnM4MzNnYncwUnV1U3FwcGFpT19OTkJHZlRkY3BNWlpB?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 11:00:39 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Boise State vs Oregon Prediction, Top Picks &amp; Odds Today: College Football Week 1 - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPUFYwTWluOVlZRFUyR3VvaFA0MkRKSi1wLS1YLS1Nd2d5TWNHZFhxUFlVbHBRWTNIZ1pHbEw3dER6dWxQblVfZ25GcFpvbEMzTktmWjdnVF9nUml2U2xGc1B3Z19KSVVZalJYamFtaS10OEluS1RabVFmbF9rNU42b0UxM085QW1F?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 13:17:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Oregon vs. Boise State prediction, pick, odds, spread: Ducks face stiff test from Group of Six CFP hopeful - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPbGRXbHpPeEh5ZGp2NVd4WVpOYzRvcmFEWDdKMEgtNGVyUWhOaUZQRDN2aFpnam5INjFuTEt1amRmVnZCQ0RvdnlPV1RBSzdoS3drandta1Npem03TG1vM25QbWhpYnlqdlUtemVWdHFrYlhpSVVZR1d2T0NXZVlXZDlRTFAzUG4tSmVvVEhhOFpxSkVCdWVaQllEQzJMaDhHd1Y1R25lcGZ1MThwRlIzOE93Z25tUQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 19:15:00 GMT",
-      "searchQuery": "CFB picks predictions"
     }
   ],
   "criticalAlerts": []
