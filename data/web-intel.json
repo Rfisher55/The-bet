@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-06T05:26:41.808Z",
-  "elapsedMs": 5242,
+  "generatedAt": "2026-09-06T05:31:02.934Z",
+  "elapsedMs": 4202,
   "atsRankings": {
     "w michigan": {
       "atsW": 1,
@@ -72,6 +72,13 @@
       "streak": "100.0%",
       "last5": "57.0"
     },
+    "florida": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "45.0"
+    },
     "kentucky": {
       "atsW": 1,
       "atsL": 0,
@@ -99,6 +106,13 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "53.0"
+    },
+    "northwestern": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "16.0"
     },
     "minnesota": {
       "atsW": 1,
@@ -212,6 +226,13 @@
       "streak": "100.0%",
       "last5": "46.0"
     },
+    "louisiana": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "31.0"
+    },
     "n texas": {
       "atsW": 1,
       "atsL": 0,
@@ -239,6 +260,13 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "52.0"
+    },
+    "byu": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "56.0"
     },
     "colorado st": {
       "atsW": 1,
@@ -281,6 +309,20 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "5.0"
+    },
+    "maryland": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "62.0"
+    },
+    "virginia tech": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "70.0"
     },
     "temple": {
       "atsW": 1,
@@ -344,6 +386,13 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "7.0"
+    },
+    "georgia so": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "31.0"
     },
     "sam houston": {
       "atsW": 1,
@@ -681,6 +730,13 @@
       "streak": "0.0%",
       "last5": "-22.0"
     },
+    "arizona": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "28.0"
+    },
     "oregon": {
       "atsW": 0,
       "atsL": 1,
@@ -751,6 +807,13 @@
       "streak": "0.0%",
       "last5": "-52.0"
     },
+    "florida atlantic": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "-45.0"
+    },
     "liberty": {
       "atsW": 0,
       "atsL": 1,
@@ -786,79 +849,7 @@
   "redditSentiment": {},
   "redditPosts": [],
   "newsByTeam": {
-    "texas": [
-      {
-        "title": "Texas football recruited a top transfer portal class last cycle — now, that effort is paying off - 247sports.com",
-        "source": "247sports.com",
-        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQlhsY2g4RTdUZm5jTUp2NEN2ZzlkYWhBTnJOZmFRTUtrZDAyX05JMGJNMUZBbXNmYThneWJqZnZ1aWtFbFpMVTA5cnN6M3RMZEFqYVhxOHo5NFoyaDA3RXVOanlVSUFPQnFSREFXWERfazNvM0g5di1HN29nNFltMWZiTEhLU1kydHNlaWRZYzdBbDZrYTZhb3FJckVjcVBGUFNUVjJIZnBRYUhKOHRDNHBYNFVxMXNmWkhNdHFUWXdodElteVlNSmRSbDhRSFRrcWdxOUZn?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 02:15:43 GMT",
-        "searchQuery": "college football transfer portal"
-      },
-      {
-        "title": "Will Hammond tosses TD in return from injury as No. 12 Texas Tech beats Abilene Christian 33-10 - lancasteronline.com",
-        "source": "lancasteronline.com",
-        "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxPUHNrd09BN3k3OW9ZazFxV2lxeVk3cXR4MFlmRVNmTmRwNHlVdFFCR2ZUV3oxN2JtU3ZkUnFqZE1Gb2ZMMUVNbzhaVzVaX2tBSlBwclRWVmxXQTZWN09rTTdrNk5JNGRFTy0waDJGNU4ySW5mS2lFbUQ2ZkNURC1yVXdXdFU3Z0Jac09TUWYtUC1talZqRVBwN2FsVWtjajRHaGVLRUxQX0VHa2xDbVFCVlgwSlI0LTFDUmpqU3ZNT1ZWRWp5VVBYd2FpSU95OWRtaFNRdGM2a2M4YTUtZUpPZEFyekRkTjF1UjZfdmdlcWNMdFpYU1RSUEk0Skwyckc0endkNjFqUk44UDVy?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 02:25:54 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
-        "title": "College Football Injury Report: Latest Week 1 updates at Clemson, Texas &amp; more - On3",
-        "source": "On3",
-        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQdkFSTldmZktTQnBFYWdEZFFwT2hGS2pMajBpTVMycENOUmI5azdmR2FJRHpyMGNmQS1BY0dxN0hielRxT1otbXhzbC0tLTFnbHl4SXNUY0gwbmktWmpvTXdLeGhvU3RzNEhsQTd1Q1VvaUdsdHZ3NXE3Y3pqZi04WWg1aHZXR1U4a1VKQndQUERZa21uNHJaV2VJX2FmOXFOVGc?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 2,
-        "isCritical": false,
-        "pubDate": "Fri, 04 Sep 2026 13:52:45 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
-        "title": "College football live updates, scores: Week 1 schedule features Michigan, Texas A&amp;M, Texas Tech - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQMk16emRCdkg1WEtGMG9iTWpqZE5UU1JpR2pTVzhvcUd2bTRQajlZVnRnS0kwUUpKRzhGTUZsQ0VIeUdJWlE0RTRrNnlLWEM4ejNETkMwcllidmk1NHpTOFZXQ2MwVEFXYWZWQVFUXzZoeWJHVDIzb0N5bVJKVjlWQ0liTkdlUE1CcW1ORUtwNkx6RVhHYmxmQ1JDVVpYakx1S1BlSjZ6SnZQNU5SQnBWdg?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 02:50:23 GMT",
-        "searchQuery": "NCAA college football"
-      },
-      {
-        "title": "No. 12 Texas Tech's defense maintains dominant look in comfortable win over Abilene Christian - Dallas News",
-        "source": "Dallas News",
-        "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNU0VfazZraFIwWHhRNGJlVHNaa1VaSGp0WDNpVzRmRnpmcV9pd0c5cmVHak9BRDFhWkczZ0VpaWxQZzFYWnVDb1Fjc1REX0JjTGZGeEk2cW1sY1ZaaTlrRS1ZTDB4SUZ3MmRES3FnbkowVWxjQWVKTkdqVTFPTnlDc0FVRGczalU2c3I1YzU1dloxQzVMNFlOVXREWkdQMjZZOFlvbUR6eTFlUjVnbUQyLTBtWFdkNmFRT1lOMjNWalRsREdo?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 03:14:37 GMT",
-        "searchQuery": "NCAA college football"
-      }
-    ],
     "notre_dame": [
-      {
-        "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
-        "source": "The New York Times",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS1d0bGdjQmhjSTNKb2FBZHJWM2NUMlFheGVocFBLaWNablQ3TEJ2YmZZa1dRSWRsbzNGcUtzUFJlRlZubmdnUVhqWnY1QjZoTFNWS2p4RjhLU25IZ0lBamd1TlpzbHdhY1A4Z3JFYkxVM2Vub0hNdUg5dkpNR0MxR1ZjWE9NbEhURFVfdzQ1MDJjemgwSUNKeUU2aW9ENjRtUWpN?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
-        "searchQuery": "college football transfer portal"
-      },
-      {
-        "title": "Will Hammond tosses TD in return from injury as No. 12 Texas Tech beats Abilene Christian 33-10 - lancasteronline.com",
-        "source": "lancasteronline.com",
-        "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxPUHNrd09BN3k3OW9ZazFxV2lxeVk3cXR4MFlmRVNmTmRwNHlVdFFCR2ZUV3oxN2JtU3ZkUnFqZE1Gb2ZMMUVNbzhaVzVaX2tBSlBwclRWVmxXQTZWN09rTTdrNk5JNGRFTy0waDJGNU4ySW5mS2lFbUQ2ZkNURC1yVXdXdFU3Z0Jac09TUWYtUC1talZqRVBwN2FsVWtjajRHaGVLRUxQX0VHa2xDbVFCVlgwSlI0LTFDUmpqU3ZNT1ZWRWp5VVBYd2FpSU95OWRtaFNRdGM2a2M4YTUtZUpPZEFyekRkTjF1UjZfdmdlcWNMdFpYU1RSUEk0Skwyckc0endkNjFqUk44UDVy?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 02:25:54 GMT",
-        "searchQuery": "college football injury"
-      },
       {
         "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - AP News",
         "source": "AP News",
@@ -888,9 +879,17 @@
         "isCritical": false,
         "pubDate": "Tue, 01 Sep 2026 21:16:39 GMT",
         "searchQuery": "college football coaching change"
-      }
-    ],
-    "clemson": [
+      },
+      {
+        "title": "Will Hammond tosses TD in return from injury as No. 12 Texas Tech beats Abilene Christian 33-10 - lancasteronline.com",
+        "source": "lancasteronline.com",
+        "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxPUHNrd09BN3k3OW9ZazFxV2lxeVk3cXR4MFlmRVNmTmRwNHlVdFFCR2ZUV3oxN2JtU3ZkUnFqZE1Gb2ZMMUVNbzhaVzVaX2tBSlBwclRWVmxXQTZWN09rTTdrNk5JNGRFTy0waDJGNU4ySW5mS2lFbUQ2ZkNURC1yVXdXdFU3Z0Jac09TUWYtUC1talZqRVBwN2FsVWtjajRHaGVLRUxQX0VHa2xDbVFCVlgwSlI0LTFDUmpqU3ZNT1ZWRWp5VVBYd2FpSU95OWRtaFNRdGM2a2M4YTUtZUpPZEFyekRkTjF1UjZfdmdlcWNMdFpYU1RSUEk0Skwyckc0endkNjFqUk44UDVy?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 02:25:54 GMT",
+        "searchQuery": "college football injury"
+      },
       {
         "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
         "source": "The New York Times",
@@ -900,6 +899,54 @@
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
         "searchQuery": "college football transfer portal"
+      }
+    ],
+    "penn_state": [
+      {
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 17,
+        "isCritical": false,
+        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
+      }
+    ],
+    "ole_miss": [
+      {
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 17,
+        "isCritical": false,
+        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
+      }
+    ],
+    "oklahoma": [
+      {
+        "title": "Oklahoma State football OL in limbo after Jacob Sexton carted off with leg injury vs Tulsa - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQYUE5SkFGdU5qUDJUeEh0N3dEWG1jTHBKbzc1Y1BraVljSk5ycFRqSHpwWUgxcUZxbDlVNGJ2alpJR01pOEVoMXpoZTR1TzIwcDlPaEl0UktMQ1h0elBaR3hDMmIzbGZabVZJNmVvTHdnbDZwZkE1ZW03X25XQjg4U0V4SVZpdDA3?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 02:45:00 GMT",
+        "searchQuery": "college football injury"
+      }
+    ],
+    "texas": [
+      {
+        "title": "Will Hammond tosses TD in return from injury as No. 12 Texas Tech beats Abilene Christian 33-10 - lancasteronline.com",
+        "source": "lancasteronline.com",
+        "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxPUHNrd09BN3k3OW9ZazFxV2lxeVk3cXR4MFlmRVNmTmRwNHlVdFFCR2ZUV3oxN2JtU3ZkUnFqZE1Gb2ZMMUVNbzhaVzVaX2tBSlBwclRWVmxXQTZWN09rTTdrNk5JNGRFTy0waDJGNU4ySW5mS2lFbUQ2ZkNURC1yVXdXdFU3Z0Jac09TUWYtUC1talZqRVBwN2FsVWtjajRHaGVLRUxQX0VHa2xDbVFCVlgwSlI0LTFDUmpqU3ZNT1ZWRWp5VVBYd2FpSU95OWRtaFNRdGM2a2M4YTUtZUpPZEFyekRkTjF1UjZfdmdlcWNMdFpYU1RSUEk0Skwyckc0endkNjFqUk44UDVy?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 02:25:54 GMT",
+        "searchQuery": "college football injury"
       },
       {
         "title": "College Football Injury Report: Latest Week 1 updates at Clemson, Texas &amp; more - On3",
@@ -910,6 +957,58 @@
         "isCritical": false,
         "pubDate": "Fri, 04 Sep 2026 13:52:45 GMT",
         "searchQuery": "college football injury"
+      },
+      {
+        "title": "Texas football recruited a top transfer portal class last cycle — now, that effort is paying off - 247sports.com",
+        "source": "247sports.com",
+        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQlhsY2g4RTdUZm5jTUp2NEN2ZzlkYWhBTnJOZmFRTUtrZDAyX05JMGJNMUZBbXNmYThneWJqZnZ1aWtFbFpMVTA5cnN6M3RMZEFqYVhxOHo5NFoyaDA3RXVOanlVSUFPQnFSREFXWERfazNvM0g5di1HN29nNFltMWZiTEhLU1kydHNlaWRZYzdBbDZrYTZhb3FJckVjcVBGUFNUVjJIZnBRYUhKOHRDNHBYNFVxMXNmWkhNdHFUWXdodElteVlNSmRSbDhRSFRrcWdxOUZn?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 02:15:43 GMT",
+        "searchQuery": "college football transfer portal"
+      },
+      {
+        "title": "College football live updates, scores: Week 1 schedule features Michigan, Texas A&amp;M, Texas Tech - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQMk16emRCdkg1WEtGMG9iTWpqZE5UU1JpR2pTVzhvcUd2bTRQajlZVnRnS0kwUUpKRzhGTUZsQ0VIeUdJWlE0RTRrNnlLWEM4ejNETkMwcllidmk1NHpTOFZXQ2MwVEFXYWZWQVFUXzZoeWJHVDIzb0N5bVJKVjlWQ0liTkdlUE1CcW1ORUtwNkx6RVhHYmxmQ1JDVVpYakx1S1BlSjZ6SnZQNU5SQnBWdg?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 02:50:23 GMT",
+        "searchQuery": "NCAA college football"
+      },
+      {
+        "title": "No. 12 Texas Tech's defense maintains dominant look in comfortable win over Abilene Christian - Dallas News",
+        "source": "Dallas News",
+        "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNU0VfazZraFIwWHhRNGJlVHNaa1VaSGp0WDNpVzRmRnpmcV9pd0c5cmVHak9BRDFhWkczZ0VpaWxQZzFYWnVDb1Fjc1REX0JjTGZGeEk2cW1sY1ZaaTlrRS1ZTDB4SUZ3MmRES3FnbkowVWxjQWVKTkdqVTFPTnlDc0FVRGczalU2c3I1YzU1dloxQzVMNFlOVXREWkdQMjZZOFlvbUR6eTFlUjVnbUQyLTBtWFdkNmFRT1lOMjNWalRsREdo?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 03:14:37 GMT",
+        "searchQuery": "NCAA college football"
+      }
+    ],
+    "clemson": [
+      {
+        "title": "College Football Injury Report: Latest Week 1 updates at Clemson, Texas &amp; more - On3",
+        "source": "On3",
+        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQdkFSTldmZktTQnBFYWdEZFFwT2hGS2pMajBpTVMycENOUmI5azdmR2FJRHpyMGNmQS1BY0dxN0hielRxT1otbXhzbC0tLTFnbHl4SXNUY0gwbmktWmpvTXdLeGhvU3RzNEhsQTd1Q1VvaUdsdHZ3NXE3Y3pqZi04WWg1aHZXR1U4a1VKQndQUERZa21uNHJaV2VJX2FmOXFOVGc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Fri, 04 Sep 2026 13:52:45 GMT",
+        "searchQuery": "college football injury"
+      },
+      {
+        "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
+        "source": "The New York Times",
+        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS1d0bGdjQmhjSTNKb2FBZHJWM2NUMlFheGVocFBLaWNablQ3TEJ2YmZZa1dRSWRsbzNGcUtzUFJlRlZubmdnUVhqWnY1QjZoTFNWS2p4RjhLU25IZ0lBamd1TlpzbHdhY1A4Z3JFYkxVM2Vub0hNdUg5dkpNR0MxR1ZjWE9NbEhURFVfdzQ1MDJjemgwSUNKeUU2aW9ENjRtUWpN?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
+        "searchQuery": "college football transfer portal"
       },
       {
         "title": "5 interesting things in LSU football's depth chart vs Clemson - Yahoo Sports",
@@ -996,42 +1095,6 @@
         "isCritical": false,
         "pubDate": "Sun, 06 Sep 2026 02:18:00 GMT",
         "searchQuery": "college football transfer portal"
-      }
-    ],
-    "oklahoma": [
-      {
-        "title": "Oklahoma State football OL in limbo after Jacob Sexton carted off with leg injury vs Tulsa - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQYUE5SkFGdU5qUDJUeEh0N3dEWG1jTHBKbzc1Y1BraVljSk5ycFRqSHpwWUgxcUZxbDlVNGJ2alpJR01pOEVoMXpoZTR1TzIwcDlPaEl0UktMQ1h0elBaR3hDMmIzbGZabVZJNmVvTHdnbDZwZkE1ZW03X25XQjg4U0V4SVZpdDA3?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 02:45:00 GMT",
-        "searchQuery": "college football injury"
-      }
-    ],
-    "penn_state": [
-      {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 17,
-        "isCritical": false,
-        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      }
-    ],
-    "ole_miss": [
-      {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 17,
-        "isCritical": false,
-        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
       }
     ],
     "colorado": [
@@ -1183,54 +1246,54 @@
   },
   "allNews": [
     {
-      "title": "Texas football recruited a top transfer portal class last cycle — now, that effort is paying off - 247sports.com",
-      "source": "247sports.com",
-      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQlhsY2g4RTdUZm5jTUp2NEN2ZzlkYWhBTnJOZmFRTUtrZDAyX05JMGJNMUZBbXNmYThneWJqZnZ1aWtFbFpMVTA5cnN6M3RMZEFqYVhxOHo5NFoyaDA3RXVOanlVSUFPQnFSREFXWERfazNvM0g5di1HN29nNFltMWZiTEhLU1kydHNlaWRZYzdBbDZrYTZhb3FJckVjcVBGUFNUVjJIZnBRYUhKOHRDNHBYNFVxMXNmWkhNdHFUWXdodElteVlNSmRSbDhRSFRrcWdxOUZn?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 02:15:43 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
-      "source": "The New York Times",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS1d0bGdjQmhjSTNKb2FBZHJWM2NUMlFheGVocFBLaWNablQ3TEJ2YmZZa1dRSWRsbzNGcUtzUFJlRlZubmdnUVhqWnY1QjZoTFNWS2p4RjhLU25IZ0lBamd1TlpzbHdhY1A4Z3JFYkxVM2Vub0hNdUg5dkpNR0MxR1ZjWE9NbEhURFVfdzQ1MDJjemgwSUNKeUU2aW9ENjRtUWpN?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "At Boston College, football roster building hasn’t gone as planned in the new world of college sports - The Boston Globe",
-      "source": "The Boston Globe",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNcVlYcFdKOUNHbVJHb2hJSlNwRFlJU2UtRTJfNEdUbk5wQkhfS0l2bEk5Z0xkdXFYckFtcG9kSkhGLXRON1FBTWtsX3hCU2dRODVWaTFZR2c5T05hWnhvQlpfYm5sazBPNGVoMGRDMDh3ZDFlZmZmQmxxbHptc19XcW05Y19xQzdVNVRnX3h5SDhsWlU?oc=5",
+      "title": "New faces, new places: Every FBS coaching change for 2026 college football season - USA Today",
+      "source": "USA Today",
+      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNRjdYSmJGRG4yLWJnaUFJdVg5RVpSSWZ0LWUzM3NPTlRhbkVqZUFzdDRiZk4xaTRZMnFoMGxNTU1zT3Z4QmEwNGpOSFpuQVNVVGNVTUdnWkJFbG02cEdEQ3ZpMGx0Sk1pdlZzbWFLdU41T0liSW5MZjN2YmNKYnhXN0NpR3IyeXo4aUhETjhEai1OMmxtWGFZaE5LcEpEb0l1TkwtR01ka05Yb1F2ZjEzTkpGZzQ3YVNiWURBRlN5cWtsV0U?oc=5",
       "sentiment": "neutral",
       "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 00:41:14 GMT",
-      "searchQuery": "college football transfer portal"
+      "pubDate": "Sat, 05 Sep 2026 10:01:00 GMT",
+      "searchQuery": "college football coaching change"
     },
     {
-      "title": "Former Georgia DB JaCorey Thomas enters transfer portal in light of eligibility lawsuit - On3",
-      "source": "On3",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxObkVUMkwxMVo4cTM3RmtrakdETkxWOEtHSTFqR080M3BQOWxZdlNFZHgzX3FIZnJ1R1pOeGxfVzJGUFZoeFNOTmRWUFlVTy1vTTQzalozSXN4T0k1LUNIX21MRWZVTVNSVlVTSnBoWDE2eWh0aVA3OU5ockxiYTJ0MXo1ei01RUhXbDlhSVhLRGtvcklnelExcnVNbUd2M2xfYW5oUkVFVUdJTER0UllPbHN4WQ?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 1,
+      "title": "College football coaching carousel 2026: Who to watch for the next big job opening - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOZzNodUFZcXVuOGZsSjdleDZyZVRlSGZjQURQbFgyYWdPNTNaOVVTX2tZb1NjQXpvUXZmSjBZbHBRQmRfcno4UEtTbFUwQXhpWDBza3ZaTkZ1RV93WVFqTG5VUXZxVUlyM1hBMGdjY1c2S0FfZUZ5dUxINUE1MEtWSU84WjRJNmRuZ0dSZzFmc2VjTmYtd3ZEXzVfT2JSRkJFTUYtNmRUbkxVRFBfOGQ4ckNB?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 6,
       "isCritical": false,
-      "pubDate": "Fri, 04 Sep 2026 21:36:38 GMT",
-      "searchQuery": "college football transfer portal"
+      "pubDate": "Mon, 31 Aug 2026 11:15:00 GMT",
+      "searchQuery": "college football coaching change"
     },
     {
-      "title": "North Carolina football news: Tar Heels lose starting safety to transfer portal - Yahoo Sports",
+      "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - AP News",
+      "source": "AP News",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPZlBNTUFQOFhwSDJVM1RyY3J1MkZmZUJxZFpYM0ptWnpJN2dTQ1FrV2hBdjB6SzlrSHBhY1p1MG5OUDBKWUtjbE42bEdHQUZsODNzWUIwZngwazdZdHp5c2tuMnU2dVhzMldVY3ZqV2g1aFNTLXh5TmZERVR2NXJoMDhBcmVGZmFaWnNxRQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 3,
+      "isCritical": false,
+      "pubDate": "Wed, 02 Sep 2026 21:52:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
       "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOZFlQWk1faG9FSTItSnhIT0pBRXVjZG5JSzdhZlhtN3U1OWNFSndiLUJlSVloUjNLYXBBU0hwa3NqSGxQR29VWkxnSEVlR1VWOTExOUUzbm1PM1JCRUhlVkl3eGVPWEM0SVFXbVhSYkRnMzMwSUlrbXd1Ymc4ZlZWWE1fNlNOQnNP?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 0,
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 17,
       "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 02:18:00 GMT",
-      "searchQuery": "college football transfer portal"
+      "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+      "searchQuery": "college football coaching change"
+    },
+    {
+      "title": "NDSU Tabbed For Potential Coaching Change in 2027 - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNMGw0cDVGcWhsYjV3eDRJNENDOE5WNzdmRTVIeUVTV1V6M1BFMGVGT08wVlV3Z1lnVU01ZjlEN21oMVMzamZCaHk3ZXNzZjJ0NElpbzBEdV9tcF9QeGFiRTl0QUF2dFpndjhRUVFlY3FkT3BIMERQY1BJZnlJWGpBYXdpV1ZKWFpTcTFvVmN0aw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 4,
+      "isCritical": false,
+      "pubDate": "Tue, 01 Sep 2026 21:16:39 GMT",
+      "searchQuery": "college football coaching change"
     },
     {
       "title": "Oklahoma State football OL in limbo after Jacob Sexton carted off with leg injury vs Tulsa - Yahoo Sports",
@@ -1283,54 +1346,54 @@
       "searchQuery": "college football injury"
     },
     {
-      "title": "New faces, new places: Every FBS coaching change for 2026 college football season - USA Today",
-      "source": "USA Today",
-      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNRjdYSmJGRG4yLWJnaUFJdVg5RVpSSWZ0LWUzM3NPTlRhbkVqZUFzdDRiZk4xaTRZMnFoMGxNTU1zT3Z4QmEwNGpOSFpuQVNVVGNVTUdnWkJFbG02cEdEQ3ZpMGx0Sk1pdlZzbWFLdU41T0liSW5MZjN2YmNKYnhXN0NpR3IyeXo4aUhETjhEai1OMmxtWGFZaE5LcEpEb0l1TkwtR01ka05Yb1F2ZjEzTkpGZzQ3YVNiWURBRlN5cWtsV0U?oc=5",
+      "title": "Texas football recruited a top transfer portal class last cycle — now, that effort is paying off - 247sports.com",
+      "source": "247sports.com",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPQlhsY2g4RTdUZm5jTUp2NEN2ZzlkYWhBTnJOZmFRTUtrZDAyX05JMGJNMUZBbXNmYThneWJqZnZ1aWtFbFpMVTA5cnN6M3RMZEFqYVhxOHo5NFoyaDA3RXVOanlVSUFPQnFSREFXWERfazNvM0g5di1HN29nNFltMWZiTEhLU1kydHNlaWRZYzdBbDZrYTZhb3FJckVjcVBGUFNUVjJIZnBRYUhKOHRDNHBYNFVxMXNmWkhNdHFUWXdodElteVlNSmRSbDhRSFRrcWdxOUZn?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 02:15:43 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "LSU and Clemson meet in a clash of contrasting roster-building strategies - The New York Times",
+      "source": "The New York Times",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS1d0bGdjQmhjSTNKb2FBZHJWM2NUMlFheGVocFBLaWNablQ3TEJ2YmZZa1dRSWRsbzNGcUtzUFJlRlZubmdnUVhqWnY1QjZoTFNWS2p4RjhLU25IZ0lBamd1TlpzbHdhY1A4Z3JFYkxVM2Vub0hNdUg5dkpNR0MxR1ZjWE9NbEhURFVfdzQ1MDJjemgwSUNKeUU2aW9ENjRtUWpN?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 19:17:11 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "At Boston College, football roster building hasn’t gone as planned in the new world of college sports - The Boston Globe",
+      "source": "The Boston Globe",
+      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNcVlYcFdKOUNHbVJHb2hJSlNwRFlJU2UtRTJfNEdUbk5wQkhfS0l2bEk5Z0xkdXFYckFtcG9kSkhGLXRON1FBTWtsX3hCU2dRODVWaTFZR2c5T05hWnhvQlpfYm5sazBPNGVoMGRDMDh3ZDFlZmZmQmxxbHptc19XcW05Y19xQzdVNVRnX3h5SDhsWlU?oc=5",
       "sentiment": "neutral",
       "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 10:01:00 GMT",
-      "searchQuery": "college football coaching change"
+      "pubDate": "Sat, 05 Sep 2026 00:41:14 GMT",
+      "searchQuery": "college football transfer portal"
     },
     {
-      "title": "College football coaching carousel 2026: Who to watch for the next big job opening - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOZzNodUFZcXVuOGZsSjdleDZyZVRlSGZjQURQbFgyYWdPNTNaOVVTX2tZb1NjQXpvUXZmSjBZbHBRQmRfcno4UEtTbFUwQXhpWDBza3ZaTkZ1RV93WVFqTG5VUXZxVUlyM1hBMGdjY1c2S0FfZUZ5dUxINUE1MEtWSU84WjRJNmRuZ0dSZzFmc2VjTmYtd3ZEXzVfT2JSRkJFTUYtNmRUbkxVRFBfOGQ4ckNB?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 6,
+      "title": "Former Georgia DB JaCorey Thomas enters transfer portal in light of eligibility lawsuit - On3",
+      "source": "On3",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxObkVUMkwxMVo4cTM3RmtrakdETkxWOEtHSTFqR080M3BQOWxZdlNFZHgzX3FIZnJ1R1pOeGxfVzJGUFZoeFNOTmRWUFlVTy1vTTQzalozSXN4T0k1LUNIX21MRWZVTVNSVlVTSnBoWDE2eWh0aVA3OU5ockxiYTJ0MXo1ei01RUhXbDlhSVhLRGtvcklnelExcnVNbUd2M2xfYW5oUkVFVUdJTER0UllPbHN4WQ?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 1,
       "isCritical": false,
-      "pubDate": "Mon, 31 Aug 2026 11:15:00 GMT",
-      "searchQuery": "college football coaching change"
+      "pubDate": "Fri, 04 Sep 2026 21:36:38 GMT",
+      "searchQuery": "college football transfer portal"
     },
     {
-      "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - AP News",
-      "source": "AP News",
-      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPZlBNTUFQOFhwSDJVM1RyY3J1MkZmZUJxZFpYM0ptWnpJN2dTQ1FrV2hBdjB6SzlrSHBhY1p1MG5OUDBKWUtjbE42bEdHQUZsODNzWUIwZngwazdZdHp5c2tuMnU2dVhzMldVY3ZqV2g1aFNTLXh5TmZERVR2NXJoMDhBcmVGZmFaWnNxRQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 3,
-      "isCritical": false,
-      "pubDate": "Wed, 02 Sep 2026 21:52:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
-      "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
+      "title": "North Carolina football news: Tar Heels lose starting safety to transfer portal - Yahoo Sports",
       "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 17,
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOZFlQWk1faG9FSTItSnhIT0pBRXVjZG5JSzdhZlhtN3U1OWNFSndiLUJlSVloUjNLYXBBU0hwa3NqSGxQR29VWkxnSEVlR1VWOTExOUUzbm1PM1JCRUhlVkl3eGVPWEM0SVFXbVhSYkRnMzMwSUlrbXd1Ymc4ZlZWWE1fNlNOQnNP?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-      "searchQuery": "college football coaching change"
-    },
-    {
-      "title": "NDSU Tabbed For Potential Coaching Change in 2027 - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNMGw0cDVGcWhsYjV3eDRJNENDOE5WNzdmRTVIeUVTV1V6M1BFMGVGT08wVlV3Z1lnVU01ZjlEN21oMVMzamZCaHk3ZXNzZjJ0NElpbzBEdV9tcF9QeGFiRTl0QUF2dFpndjhRUVFlY3FkT3BIMERQY1BJZnlJWGpBYXdpV1ZKWFpTcTFvVmN0aw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 4,
-      "isCritical": false,
-      "pubDate": "Tue, 01 Sep 2026 21:16:39 GMT",
-      "searchQuery": "college football coaching change"
+      "pubDate": "Sun, 06 Sep 2026 02:18:00 GMT",
+      "searchQuery": "college football transfer portal"
     },
     {
       "title": "College football game ends in tie in overtime due to extreme heat - New York Post",
