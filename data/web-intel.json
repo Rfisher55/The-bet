@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-07T03:43:35.207Z",
-  "elapsedMs": 5292,
+  "generatedAt": "2026-09-07T04:06:57.373Z",
+  "elapsedMs": 5608,
   "atsRankings": {
     "w michigan": {
       "atsW": 1,
@@ -64,6 +64,13 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "74.0"
+    },
+    "notre dame": {
+      "atsW": 1,
+      "atsL": 0,
+      "atsPct": 100,
+      "streak": "100.0%",
+      "last5": "28.0"
     },
     "georgia": {
       "atsW": 1,
@@ -660,6 +667,13 @@
       "streak": "0.0%",
       "last5": "17.0"
     },
+    "wisconsin": {
+      "atsW": 0,
+      "atsL": 1,
+      "atsPct": 0,
+      "streak": "0.0%",
+      "last5": "-28.0"
+    },
     "indiana": {
       "atsW": 0,
       "atsL": 1,
@@ -966,7 +980,7 @@
         "source": "Yahoo Sports",
         "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQOG93VllHMDFIVUVBTG1rajFObXBabElkM1YwLUFBSHJxM0N6MldoMmxDLWR3SzJzWDhjUlhEaW1QN2p6a2NLb05nNklvZmFMcDdtdFU5UnRhZmNtdTdvR1JReXVvSzlweHBWNFpGdEt2MElTRmxBTHN5enNXbXU4R0RfeUhNTjJfQkhJNw?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 2,
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 16:06:23 GMT",
         "searchQuery": "college football depth chart"
@@ -1188,35 +1202,27 @@
         "searchQuery": "college football depth chart"
       }
     ],
+    "north_carolina": [
+      {
+        "title": "North Carolina college football coach fired after 1st game of season at new school - WBTV",
+        "source": "WBTV",
+        "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPODZ5VXlORy1pWU9LSmRqWk1Nc0lpT2gwTHZPUmNJZDlWM1ZzNG9vSXFtYTZtS0x5bnA0R2JWNm90Q0l6V2EwSzJBRXFoMWV0eGI3cW5mMkJubkhvNGhlWXFMejgySWpPYV9RbGpWWGlGNWNLbzZwSFcxYXFSM0VWWFN6b2Y0R0h1N2RaX2M4TFJ1ZXFZVm9BNXdOZGxxUFU?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 4,
+        "isCritical": false,
+        "pubDate": "Wed, 02 Sep 2026 20:26:00 GMT",
+        "searchQuery": "college football suspended"
+      }
+    ],
     "michigan": [
       {
-        "title": "Was Western Michigan robbed? Evidence, rules expert question decision to give Michigan one more second - CBS Sports",
+        "title": "Acceptance over outrage: Inside how Western Michigan leaders dealt with controversial loss to Michigan - CBS Sports",
         "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPYlNFZno1MWJxWVZ2QmNhajV4VW85ZktqQmdKTnhJbGlUcTFwUVpSMlo5OUsyMU0xS2ZIOUsxaGppanlZSml3cEVlNXFYV3RGbkYxc21SMWZydkZ1UTlVQWl3WDJxSnlqR2QxTUFqV3pmVW0xVWpUSVRYNHEzVmlVYkxMMTUtMEl2TEQ3VUY3cjFYeF85MVVCNkhTR2xkaThKdjNLdnQ2V2ttdkpQZlE?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 05:04:00 GMT",
-        "searchQuery": "NCAA college football"
-      },
-      {
-        "title": "Week 1 gets its signature moment when No. 16 Michigan beats Western Michigan on disputed finish - AP News",
-        "source": "AP News",
-        "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQTjhpU0JoYnJYSEg5QjZzaTMzS19uOXdZeDUwamRXd0tLNWZmLXd1VWZ5Q2VXX2UwZkdyc1dqSnIxTkFPS1hJYjFoajhSRllYZW45TzZwX1dxVktRVkpBWldhU19FOUdWbElxdE1MNzJ1Q0k2d2o4QTF3ZzhDd2xFNllB?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 05:27:00 GMT",
-        "searchQuery": "NCAA college football"
-      },
-      {
-        "title": "WMU fans react to controversial call in game against Michigan - woodtv.com",
-        "source": "woodtv.com",
-        "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxORVpmSUhpQ200S1h5ZTlTMkRMX0dRM3EwbDJyaE1aYkVoenJra1VJLVdTY0tabk1qTFJ3T1l2OERON2Q2bjNLYWY5SEdQa1dRa1o0dlY3RGFET0VhUUlPci1aeU5nY3BJQzJjcmxYZHMzQnRhQk9Lc3F5RDY2ZmVJUzhIUU1abkRCUlhHejhoUk1ybmJjNnM40gGcAUFVX3lxTE9OM2hCMV9PMDkzM2hzRG9GeGVBTzNlV2xiSWJWWVFPdkNkLXpaMUhEcUJLTWZXczdaWlRBWkNKTURFZUQ5SWptVnFSYzdRTzgzbnRTT3h6WHpwM0lHVlh6ZS0xQjhsMGhVaE1nY2ZKQS05U19RTi1qV0RFTnhWWWhkVUNCOGZaNXpPZzdaMXZfcVdfSjlreXpmanFyMg?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPYXh1LWxxT3dDMWlCUUR2WE13d1FDakx3ME5KSE9nc1BLQTZEUmV0SkoxSnE4SUQ5UVMwS1JZc3gwWnRhTHJFWllCaDB1WTBZQUZ2cXA5Wm1ybTJHOVJfbGVqRmMxTVdsVEtLMFJlNUNyOTM0Q3lBS1VmY1NDMUhiN0tqSHNrQ052LTkwblhHSXFmZFpTN1RSeU41WVFMVVh1T1BtaXZzYjNndE5tQXhoNndid1ZndzBP?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 16:26:27 GMT",
+        "pubDate": "Sun, 06 Sep 2026 22:20:00 GMT",
         "searchQuery": "NCAA college football"
       }
     ],
@@ -1232,6 +1238,26 @@
         "searchQuery": "NCAA college football"
       },
       {
+        "title": "Wisconsin vs. Notre Dame prediction: College football Week 1 picks, best bets, odds Sunday at Lambeau Field - New York Post",
+        "source": "New York Post",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPcVc2T1JqbkZuOVludHJPbU1TcFplRGQwRWpGWU9zTHB6VTJhMjBUYUJGNEJCWV9FR3pPbDFqRHgtYXBpdGY3RXl4TTMtTkY2TXBYRHNvVUh6WlgzNlNtbnZ3VGpZa1JxSFUwOTlDN2c1TzBIS0dXemNpMUtyMnlHQzhaZHI1SnpDakpXRVVraU4zb1dvUTZ0WmtSNlA4X0p4YVJTWWlQMjAtUnB0S2prcW1QMU05eklJSHc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 19:30:00 GMT",
+        "searchQuery": "NCAA college football"
+      },
+      {
+        "title": "How to Watch Wisconsin vs Notre Dame: Live Stream NCAA CFB Game, TV Channel - Athlon Sports",
+        "source": "Athlon Sports",
+        "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPN3J4aXEyektQNzh1aGwxaE5JdVhNdFJFcTRYdGdEZFc5OW5RaGt6a1BYNnByZlVseUp6b0pMRnUxVVJKMjBxdnZHeWJZT1RwdVFXSzhXTk1Ea0g3Z0ctU2N1MWxJWVdzS1g1YlR1b2RmS0ZlWVNvU0xrTV84QTQ5aDNmYi11WGlCN2hZdTBTaHJZSkNXS29ZcDNYQ0pqVFBDN0hWcVJnRUN4NllGbmxwWkppMm9Vdw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 22:30:00 GMT",
+        "searchQuery": "NCAA college football"
+      },
+      {
         "title": "Notre Dame vs. Wisconsin prediction, picks, odds, spread: Fighting Irish, Badgers clash from Lambeau Field - CBS Sports",
         "source": "CBS Sports",
         "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNQ056SGs0a01JYnFDSHdCRWIxODAwekgzQ0dwUUhCSG1fcWNzOXVUM1dzanlXQlV4YlNodnJCdkJybkt0eURIWVJBb21JcjZWNHVlV2VDNVFOUHlOTF9uUXI3Q0RvV3FtLU9sbU9TNHNOSjNDcFptVTAzRi1CZ1o1c1dkQTktQTQ0VUU3SGlYSVB5aDNJZGs2UTRNd1hpdnN6LUI5Z3V6LTRBb2Jlb1NhaWt2RkNuRGJoR1E?oc=5",
@@ -1240,18 +1266,16 @@
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 23:20:00 GMT",
         "searchQuery": "CFB picks predictions"
-      }
-    ],
-    "north_carolina": [
+      },
       {
-        "title": "North Carolina college football coach fired after 1st game of season at new school - WBTV",
-        "source": "WBTV",
-        "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPODZ5VXlORy1pWU9LSmRqWk1Nc0lpT2gwTHZPUmNJZDlWM1ZzNG9vSXFtYTZtS0x5bnA0R2JWNm90Q0l6V2EwSzJBRXFoMWV0eGI3cW5mMkJubkhvNGhlWXFMejgySWpPYV9RbGpWWGlGNWNLbzZwSFcxYXFSM0VWWFN6b2Y0R0h1N2RaX2M4TFJ1ZXFZVm9BNXdOZGxxUFU?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 4,
+        "title": "Wisconsin vs. Notre Dame prediction: College football Week 1 picks, best bets, odds Sunday at Lambeau Field - New York Post",
+        "source": "New York Post",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPcVc2T1JqbkZuOVludHJPbU1TcFplRGQwRWpGWU9zTHB6VTJhMjBUYUJGNEJCWV9FR3pPbDFqRHgtYXBpdGY3RXl4TTMtTkY2TXBYRHNvVUh6WlgzNlNtbnZ3VGpZa1JxSFUwOTlDN2c1TzBIS0dXemNpMUtyMnlHQzhaZHI1SnpDakpXRVVraU4zb1dvUTZ0WmtSNlA4X0p4YVJTWWlQMjAtUnB0S2prcW1QMU05eklJSHc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Wed, 02 Sep 2026 20:26:00 GMT",
-        "searchQuery": "college football suspended"
+        "pubDate": "Sun, 06 Sep 2026 19:30:00 GMT",
+        "searchQuery": "CFB picks predictions"
       }
     ],
     "kansas_state": [
@@ -1264,50 +1288,6 @@
         "isCritical": false,
         "pubDate": "Thu, 03 Sep 2026 20:07:46 GMT",
         "searchQuery": "college football depth chart"
-      }
-    ],
-    "louisville": [
-      {
-        "title": "Louisville vs Mississippi Prediction &amp; Top Picks Tonight: College Football Week 1 - Covers.com",
-        "source": "Covers.com",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPWXJEanVpZ1JJbDlQa1U2OU5tU2o0NkxNYlVyY0V3UGxJMW8tUXlfNXh0blNtakc5TE14VnlUNnRNZE9sLXBqSTNGRWE1azJkOFQyUUVJNFpmQkpfem1ReUQ1RF80bEVCMUhnWnVuUWFXeF9RTEFxZjJTMGp1UUVacWdfTHcwemU1V09yOTdYZGFFRmN6SXJ3cVI1dFVUcThaMjk4?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 20:43:00 GMT",
-        "searchQuery": "CFB picks predictions"
-      }
-    ],
-    "washington": [
-      {
-        "title": "Washington State vs Washington Prediction, College Football Picks, Odds &amp; Best Bets Today - fanduel.com",
-        "source": "fanduel.com",
-        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOTVVNV3BxN0xwTl94ZjNYVS10a3ZhaVdBdHgyOENYbUo1Zm8zTGdVVTRfV1lRaWNZS0lkbUh4TVhQWVZWcFlZel9SV3NrbjU0aWg3WXdXZC1QeG51aXl4cDhaRWxUalNNOUx4dVc2Um1BUE0xamhCZG83MTBqYXl3b0NKRGRJaHl2UTI2Z3BsQ1J3ZDBWbGU2Q1YtMXU3clRzb1lqMzdXOFlLaUtRcU1lWHViTk5ocHM0REoxT3BvTQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 13:40:08 GMT",
-        "searchQuery": "CFB picks predictions"
-      },
-      {
-        "title": "Washington State vs. Washington odds, picks: Preview, prediction, start time for college football Week 1 game - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQMkVhRlM3T1F5YVFHaWFkZWpEU19pazdITTBxckFGMmxzRW9mU1FmZUxRVVdEYmtkNVpFa3IzVmM1Q0Rud21lU3FiZnRGbmswYXM3LWx0ZmVQaTdSdlFYSHpoV2hfLTdmTmZ0ei1zdlNFMGNRUGxZSGZzdWVlc0dJRXpmekFpYVJ5blNkWHJDWXBfTF8tekdGWHFtQ2tnUjhsOXlDek9uaVpTWlpTWjBhSzhBZ01wYzhCelZzNy15YWQ0eGIyaThHaHVpLWdSODZncVlLVV92dmx5Ym93?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 19:14:04 GMT",
-        "searchQuery": "CFB picks predictions"
-      },
-      {
-        "title": "Washington State vs Washington Prediction, Odds, Start Time: Expert Picks for 2026 Apple Cup - Action Network",
-        "source": "Action Network",
-        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPNHFmSmhpa1g2NExadEVIZDVzdUtGekNjaFhFTHpJNHdNV2dUQWpxVVJnX1hmRURMeGdtZ2VEdUlnUnllY1p2QTI5T1pnWWhOWHQzWjAzTHRfVXdUQ0VwWnNBWHoyaTJaMmFoc3lNUEtwU1p0amduRlJPbFhFSU1DT3doTmVJMkRudllDU0pjUVdIVDVDZ1pnYV9ZMTFBUjlTSFRlYkw3UF9ONjRMXzhhZmtJY1ZZSFNXTnk3dG9JU3RFLVQySlBuMGg1QjM2Sl9ZeUdfTVp3?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 17:21:00 GMT",
-        "searchQuery": "CFB picks predictions"
       }
     ],
     "ohio_state": [
@@ -1485,56 +1465,6 @@
       "searchQuery": "college football transfer portal"
     },
     {
-      "title": "Was Western Michigan robbed? Evidence, rules expert question decision to give Michigan one more second - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPYlNFZno1MWJxWVZ2QmNhajV4VW85ZktqQmdKTnhJbGlUcTFwUVpSMlo5OUsyMU0xS2ZIOUsxaGppanlZSml3cEVlNXFYV3RGbkYxc21SMWZydkZ1UTlVQWl3WDJxSnlqR2QxTUFqV3pmVW0xVWpUSVRYNHEzVmlVYkxMMTUtMEl2TEQ3VUY3cjFYeF85MVVCNkhTR2xkaThKdjNLdnQ2V2ttdkpQZlE?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 05:04:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "Week 1 gets its signature moment when No. 16 Michigan beats Western Michigan on disputed finish - AP News",
-      "source": "AP News",
-      "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQTjhpU0JoYnJYSEg5QjZzaTMzS19uOXdZeDUwamRXd0tLNWZmLXd1VWZ5Q2VXX2UwZkdyc1dqSnIxTkFPS1hJYjFoajhSRllYZW45TzZwX1dxVktRVkpBWldhU19FOUdWbElxdE1MNzJ1Q0k2d2o4QTF3ZzhDd2xFNllB?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 05:27:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "WMU fans react to controversial call in game against Michigan - woodtv.com",
-      "source": "woodtv.com",
-      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxORVpmSUhpQ200S1h5ZTlTMkRMX0dRM3EwbDJyaE1aYkVoenJra1VJLVdTY0tabk1qTFJ3T1l2OERON2Q2bjNLYWY5SEdQa1dRa1o0dlY3RGFET0VhUUlPci1aeU5nY3BJQzJjcmxYZHMzQnRhQk9Lc3F5RDY2ZmVJUzhIUU1abkRCUlhHejhoUk1ybmJjNnM40gGcAUFVX3lxTE9OM2hCMV9PMDkzM2hzRG9GeGVBTzNlV2xiSWJWWVFPdkNkLXpaMUhEcUJLTWZXczdaWlRBWkNKTURFZUQ5SWptVnFSYzdRTzgzbnRTT3h6WHpwM0lHVlh6ZS0xQjhsMGhVaE1nY2ZKQS05U19RTi1qV0RFTnhWWWhkVUNCOGZaNXpPZzdaMXZfcVdfSjlreXpmanFyMg?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 16:26:27 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "College Football Week 1: Team of the Week, Player Awards - PFF",
-      "source": "PFF",
-      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFAxeVpWTGtOWTRQTld0eDhJMVp0SzFrU05qWmZLajRkWjJuR2FhWExTdlZkTV9VN3JJdW1TNWQ3WFQzWS1aQlNjMHdkc1ZqT2cyRkJyc0RCZEJsRElFQjA0dFdlQQ?oc=5",
-      "sentiment": "positive",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 12:50:43 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "How to watch Notre Dame vs Wisconsin: Live stream College Football, NCAA, TV channel - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQVnh5Z1YyR1V1Q2Uwa2ZTOEpQbVFMYUtYTjJSMnRoVUxYWDdJODVxNW9TejdEajZwbGp1SmRVUU1GZElMWG1vbDk2cHczQS1HMzVQZWRCYXhYT0lDX0wzTDhaNFpkdDdiQUFIM1pRNWVDRXBrcE5oWlQ5U08tc25LMWhoeEw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 22:30:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
       "title": "College football game ends in tie in overtime due to extreme heat - New York Post",
       "source": "New York Post",
       "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNZUJpeUxzc0JRYWhuSHhkTG1CMDZpR2ZOVU1DUGN4UFNETXRuQ2ZVYlJhckR1OWVlNWpnR01MY0hqQUlMODh3b2tFUUdXREZfWGc2LWFVeG5ja09Na292REN1ZWt1aGsycjBlMk00ZjJzZkV4NTEteUU0aFBFVXBESjVoMmViaFRKMXBieVJ2SlRKc3hEMXdYVDBKY3lhVTNIc3UweXc1dzdsQQ?oc=5",
@@ -1559,7 +1489,7 @@
       "source": "Yahoo Sports",
       "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNUWR4c185UW55TjZnYV96c3MwY0dtcGNOX3dvWWItVmcxajRPN25KUmdUeDlKckRzMllQSUJIbjN1QTl3R1l1U3dJN3I3VlhLM0plcm5sbG1wYkJMU0gyaWtFb3BGUTRfdjN1aWV3Q1B3ajU4VldIZ3NqdHFPQk5PRTZ1bjJqOVZxSGo5VzlZTXg?oc=5",
       "sentiment": "negative",
-      "daysAgo": 1,
+      "daysAgo": 2,
       "isCritical": false,
       "pubDate": "Sat, 05 Sep 2026 15:57:39 GMT",
       "searchQuery": "college football suspended"
@@ -1585,11 +1515,61 @@
       "searchQuery": "college football suspended"
     },
     {
+      "title": "Acceptance over outrage: Inside how Western Michigan leaders dealt with controversial loss to Michigan - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPYXh1LWxxT3dDMWlCUUR2WE13d1FDakx3ME5KSE9nc1BLQTZEUmV0SkoxSnE4SUQ5UVMwS1JZc3gwWnRhTHJFWllCaDB1WTBZQUZ2cXA5Wm1ybTJHOVJfbGVqRmMxTVdsVEtLMFJlNUNyOTM0Q3lBS1VmY1NDMUhiN0tqSHNrQ052LTkwblhHSXFmZFpTN1RSeU41WVFMVVh1T1BtaXZzYjNndE5tQXhoNndid1ZndzBP?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 22:20:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "College Football Week 1: Team of the Week, Player Awards - PFF",
+      "source": "PFF",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFAxeVpWTGtOWTRQTld0eDhJMVp0SzFrU05qWmZLajRkWjJuR2FhWExTdlZkTV9VN3JJdW1TNWQ3WFQzWS1aQlNjMHdkc1ZqT2cyRkJyc0RCZEJsRElFQjA0dFdlQQ?oc=5",
+      "sentiment": "positive",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 12:50:43 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "How to watch Notre Dame vs Wisconsin: Live stream College Football, NCAA, TV channel - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQVnh5Z1YyR1V1Q2Uwa2ZTOEpQbVFMYUtYTjJSMnRoVUxYWDdJODVxNW9TejdEajZwbGp1SmRVUU1GZElMWG1vbDk2cHczQS1HMzVQZWRCYXhYT0lDX0wzTDhaNFpkdDdiQUFIM1pRNWVDRXBrcE5oWlQ5U08tc25LMWhoeEw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 22:30:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "Wisconsin vs. Notre Dame prediction: College football Week 1 picks, best bets, odds Sunday at Lambeau Field - New York Post",
+      "source": "New York Post",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPcVc2T1JqbkZuOVludHJPbU1TcFplRGQwRWpGWU9zTHB6VTJhMjBUYUJGNEJCWV9FR3pPbDFqRHgtYXBpdGY3RXl4TTMtTkY2TXBYRHNvVUh6WlgzNlNtbnZ3VGpZa1JxSFUwOTlDN2c1TzBIS0dXemNpMUtyMnlHQzhaZHI1SnpDakpXRVVraU4zb1dvUTZ0WmtSNlA4X0p4YVJTWWlQMjAtUnB0S2prcW1QMU05eklJSHc?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 19:30:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "How to Watch Wisconsin vs Notre Dame: Live Stream NCAA CFB Game, TV Channel - Athlon Sports",
+      "source": "Athlon Sports",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPN3J4aXEyektQNzh1aGwxaE5JdVhNdFJFcTRYdGdEZFc5OW5RaGt6a1BYNnByZlVseUp6b0pMRnUxVVJKMjBxdnZHeWJZT1RwdVFXSzhXTk1Ea0g3Z0ctU2N1MWxJWVdzS1g1YlR1b2RmS0ZlWVNvU0xrTV84QTQ5aDNmYi11WGlCN2hZdTBTaHJZSkNXS29ZcDNYQ0pqVFBDN0hWcVJnRUN4NllGbmxwWkppMm9Vdw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 22:30:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
       "title": "Final projected 2026 Texas football depth chart - Yahoo Sports",
       "source": "Yahoo Sports",
       "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQOG93VllHMDFIVUVBTG1rajFObXBabElkM1YwLUFBSHJxM0N6MldoMmxDLWR3SzJzWDhjUlhEaW1QN2p6a2NLb05nNklvZmFMcDdtdFU5UnRhZmNtdTdvR1JReXVvSzlweHBWNFpGdEt2MElTRmxBTHN5enNXbXU4R0RfeUhNTjJfQkhJNw?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 1,
+      "daysAgo": 2,
       "isCritical": false,
       "pubDate": "Sat, 05 Sep 2026 16:06:23 GMT",
       "searchQuery": "college football depth chart"
@@ -1633,56 +1613,6 @@
       "isCritical": false,
       "pubDate": "Sun, 06 Sep 2026 00:28:00 GMT",
       "searchQuery": "college football depth chart"
-    },
-    {
-      "title": "Louisville vs Mississippi Prediction &amp; Top Picks Tonight: College Football Week 1 - Covers.com",
-      "source": "Covers.com",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPWXJEanVpZ1JJbDlQa1U2OU5tU2o0NkxNYlVyY0V3UGxJMW8tUXlfNXh0blNtakc5TE14VnlUNnRNZE9sLXBqSTNGRWE1azJkOFQyUUVJNFpmQkpfem1ReUQ1RF80bEVCMUhnWnVuUWFXeF9RTEFxZjJTMGp1UUVacWdfTHcwemU1V09yOTdYZGFFRmN6SXJ3cVI1dFVUcThaMjk4?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 20:43:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Washington State vs Washington Prediction, College Football Picks, Odds &amp; Best Bets Today - fanduel.com",
-      "source": "fanduel.com",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOTVVNV3BxN0xwTl94ZjNYVS10a3ZhaVdBdHgyOENYbUo1Zm8zTGdVVTRfV1lRaWNZS0lkbUh4TVhQWVZWcFlZel9SV3NrbjU0aWg3WXdXZC1QeG51aXl4cDhaRWxUalNNOUx4dVc2Um1BUE0xamhCZG83MTBqYXl3b0NKRGRJaHl2UTI2Z3BsQ1J3ZDBWbGU2Q1YtMXU3clRzb1lqMzdXOFlLaUtRcU1lWHViTk5ocHM0REoxT3BvTQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 13:40:08 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Washington State vs. Washington odds, picks: Preview, prediction, start time for college football Week 1 game - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQMkVhRlM3T1F5YVFHaWFkZWpEU19pazdITTBxckFGMmxzRW9mU1FmZUxRVVdEYmtkNVpFa3IzVmM1Q0Rud21lU3FiZnRGbmswYXM3LWx0ZmVQaTdSdlFYSHpoV2hfLTdmTmZ0ei1zdlNFMGNRUGxZSGZzdWVlc0dJRXpmekFpYVJ5blNkWHJDWXBfTF8tekdGWHFtQ2tnUjhsOXlDek9uaVpTWlpTWjBhSzhBZ01wYzhCelZzNy15YWQ0eGIyaThHaHVpLWdSODZncVlLVV92dmx5Ym93?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 19:14:04 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Washington State vs Washington Prediction, Odds, Start Time: Expert Picks for 2026 Apple Cup - Action Network",
-      "source": "Action Network",
-      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPNHFmSmhpa1g2NExadEVIZDVzdUtGekNjaFhFTHpJNHdNV2dUQWpxVVJnX1hmRURMeGdtZ2VEdUlnUnllY1p2QTI5T1pnWWhOWHQzWjAzTHRfVXdUQ0VwWnNBWHoyaTJaMmFoc3lNUEtwU1p0amduRlJPbFhFSU1DT3doTmVJMkRudllDU0pjUVdIVDVDZ1pnYV9ZMTFBUjlTSFRlYkw3UF9ONjRMXzhhZmtJY1ZZSFNXTnk3dG9JU3RFLVQySlBuMGg1QjM2Sl9ZeUdfTVp3?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 17:21:00 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Notre Dame vs. Wisconsin prediction, picks, odds, spread: Fighting Irish, Badgers clash from Lambeau Field - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNQ056SGs0a01JYnFDSHdCRWIxODAwekgzQ0dwUUhCSG1fcWNzOXVUM1dzanlXQlV4YlNodnJCdkJybkt0eURIWVJBb21JcjZWNHVlV2VDNVFOUHlOTF9uUXI3Q0RvV3FtLU9sbU9TNHNOSjNDcFptVTAzRi1CZ1o1c1dkQTktQTQ0VUU3SGlYSVB5aDNJZGs2UTRNd1hpdnN6LUI5Z3V6LTRBb2Jlb1NhaWt2RkNuRGJoR1E?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 05 Sep 2026 23:20:00 GMT",
-      "searchQuery": "CFB picks predictions"
     },
     {
       "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 1 - CBS Sports",
@@ -1733,6 +1663,56 @@
       "isCritical": false,
       "pubDate": "Sun, 06 Sep 2026 12:15:00 GMT",
       "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 1 - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQcml6dzhFN0tjZk9wUGE3RXpwWlIwNmpOOE9qakt0czBaT1BtTXJwSzE5YzhDdFdEMFJITUJ5T2NXUThyN01seVhBUWZXWV81dnNkVTM1T2dfWnNTM2p3QWtfN095WlV1WkYtMFZGdjhnazJLMUthb19xQzFzS1dhUm1oeGtiWk5KcUhzZ3F0YUl1WE16dk94N1RQODhwVlN6QmxxT2dMallzdDZsWklsNzdSMmtyYmFTRk1JVjQ0ZEJaNkgxX2tXekZuV05JZENoalVqbk1yYWIxRFpoU3FvYWtn?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 19:45:00 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "Notre Dame vs. Wisconsin prediction, picks, odds, spread: Fighting Irish, Badgers clash from Lambeau Field - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNQ056SGs0a01JYnFDSHdCRWIxODAwekgzQ0dwUUhCSG1fcWNzOXVUM1dzanlXQlV4YlNodnJCdkJybkt0eURIWVJBb21JcjZWNHVlV2VDNVFOUHlOTF9uUXI3Q0RvV3FtLU9sbU9TNHNOSjNDcFptVTAzRi1CZ1o1c1dkQTktQTQ0VUU3SGlYSVB5aDNJZGs2UTRNd1hpdnN6LUI5Z3V6LTRBb2Jlb1NhaWt2RkNuRGJoR1E?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 23:20:00 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "Wisconsin vs. Notre Dame prediction: College football Week 1 picks, best bets, odds Sunday at Lambeau Field - New York Post",
+      "source": "New York Post",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPcVc2T1JqbkZuOVludHJPbU1TcFplRGQwRWpGWU9zTHB6VTJhMjBUYUJGNEJCWV9FR3pPbDFqRHgtYXBpdGY3RXl4TTMtTkY2TXBYRHNvVUh6WlgzNlNtbnZ3VGpZa1JxSFUwOTlDN2c1TzBIS0dXemNpMUtyMnlHQzhaZHI1SnpDakpXRVVraU4zb1dvUTZ0WmtSNlA4X0p4YVJTWWlQMjAtUnB0S2prcW1QMU05eklJSHc?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 19:30:00 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "Wisconsin Badgers vs. Notre Dame Fighting Irish pick, prediction for College Football Week 1 on Sunday 9/6/26 - DraftKings Network",
+      "source": "DraftKings Network",
+      "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOV2hGdnpHVkExR1FhWS1XMVJxWkk1UmJMQXVRM08tbDAxLW9SUEx3T2RtWlJSOUp5X1ItN0lCT3o0RWhkSTUyTjJjSFhTYjBjSFFSUG9sc3BJQjVJWkVpOU56R2hfaGdsUDBiQl9GRV8wV0F0VDlpdjdtWWxBUGZOSjZ1QlI0TlF2Zk5tQWZ3Vm93ZUo4NXhWdDFtTWVOUjBnWTBlZjhQb0VQQlpYQWR4VlVxN3ZRcmNuNzgyZjk0b1Q3NHA4OFJLU3drd2VvOFBOVEtJSTBPRTZtbTYzNUFfRkVMQXRHWXc?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 15:00:00 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "Texas Tech vs. Abilene Christian Prediction, Odds, Pick For College Football Week 1 - FOX Sports",
+      "source": "FOX Sports",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOb0J6d1Fiei1uNkxCVkRsQk5Lal9Udk1WQzdDLVdFVmthZV9pSlY1WXd4bWZXeTJpT3lfbHlhenV6VHdRaVJWaWdxX1laS25SakM4TTFoNHBCdHBzWll2UnBTTXg0U0swZDVVSk1sbU52clo3LVpnbGNmdmxGVFRZNUNpaXA2OXY1ZTdiZjMxaWpLUjBVSGhWRTZPNnRqRmZwSnZfd01PWG5FWGxFcFhCWDM3aDFkZXY5LVpNRVV4SnRDbWNacXfSAcYBQVVfeXFMT3VGNGdvbjlqcFhwTWhkT0MwOFZGR3dJY2xRbDJCaGl5YW5tdjJZNkFWMnk1MVFHdXBQb3FGNnBoWmRuYWJ4MzVkcFlpdi01YnE0dVg5ZjZjNFBiRFQwNTEyRnlPRWIxNXFzMVRqZmdqbXY5ZkVkTklCcHdoVnluN0RpQ2ZBZklHU3h1WGpZZGFZTHFDSy1ndnhlR0JieGh3N2l0VlRaUnM4MzNnYncwUnV1U3FwcGFpT19OTkJHZlRkY3BNWlpB?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Sat, 05 Sep 2026 11:00:39 GMT",
+      "searchQuery": "CFB picks predictions"
     }
   ],
   "criticalAlerts": []
