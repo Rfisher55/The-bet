@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-08T04:13:52.660Z",
-  "elapsedMs": 8525,
+  "generatedAt": "2026-09-08T06:09:34.313Z",
+  "elapsedMs": 3702,
   "atsRankings": {
     "w michigan": {
       "atsW": 1,
@@ -968,33 +968,11 @@
   "redditSentiment": {},
   "redditPosts": [],
   "newsByTeam": {
-    "lsu": [
-      {
-        "title": "Three LSU football transfers earn weekly honors from the SEC - LSU Wire",
-        "source": "LSU Wire",
-        "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQSVc4TV9sTDRvS0w1STh6MlEzckZneEZGYnVRNEViZGUySERBZTh2cDVCZFdjaDdza1FzNDQ4bDZkZlhBS3hRNWR3ajE0dHZrNFVtYlBZN3FvaUlDMVQzN3BVUTVSemVSb2RObFQySjhVYldBR0NITi1lWE8yc1I2MlRvQThyVER3OTI0dmNRYUo1eDkzSlktWGI4VUsxT0RXdTROSGdnUjdvUTZ1U3hvQndWcEdkTWdKVGlncUZNS25JeUN5dVloVDNxdVB3enBNdVJuMjNublduTGQzdEhfeHJISW52Y0JXVVB1aXE2NlM?oc=5",
-        "sentiment": "positive",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Tue, 08 Sep 2026 00:04:00 GMT",
-        "searchQuery": "college football transfer portal"
-      },
-      {
-        "title": "PFF grades for every LSU football transfer that played vs Clemson - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUkc2MVpael9MU19TdjItRmMtRmhCNHRRRFVZRy1zTUtNQnpTaUV6cXp6azd4aVlDSzFzbmVXT3VRU09jb3pZQmVSTE1WQ0xXNmxlYnpSVU9vVUxzX0d6VkRyTkh1NERVRk9WMGpTN1cwY3V3VjdpdW93SW82eGZHX0lOMlQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Mon, 07 Sep 2026 14:34:32 GMT",
-        "searchQuery": "college football transfer portal"
-      }
-    ],
     "notre_dame": [
       {
-        "title": "Notre Dame's early transfer portal returns is creating massive buzz - A to Z Sports",
-        "source": "A to Z Sports",
-        "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxPSDJaV29ZMUVuMUE1ZmtrVS1pUjVCTnNmRGRDV2J6LXYzOHFucjE4MjJkOTJQUmNOZ0JIY2l1MlZWaXRFcE5yYkVNS0x0ck5ucU0xVmlPTlhPV05lTUI5c3hKanFBWTNrSFo5TElyMGpTNGd1Vnd3YWstRVBDcV9LMThWb2MtNDdhM3pNSkVzTERCal9hVm40c29KZU16MzlnSkZFYlVwT3NhNXRDdnZUU2hWRG92cVBqVmVaLWdsMkgxZU85aGFtN01UOHV3TWY2VlBkWFlBS0huZWszRUNmd2YzNEVKeW4ybFJ2cDh5NEtKWDJtTjRBOHFFNWNHUmhWSHRjMlZ5MHk5Q29E?oc=5",
+        "title": "Notre Dame's early transfer portal returns is creating massive buzz following the team's season opening victory over Wisconsin - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQbGtGM3lXR2pwcDRuOGJIdW5XQnAyX196X0poY0o1ZjE3MGlFWTk0MjE4SEJBbTY2V2NWSGlONFU4UzdkQ0pNYndUMUx2R3oxSXhaOEZBQ0RvdnEzQnNJQXVwTmI5MjV6SHZEZ25ySnRNWnAzMEQ2dUlZMUlvdFZuT0o2eG5MMzJZbUE?oc=5",
         "sentiment": "negative",
         "daysAgo": 1,
         "isCritical": false,
@@ -1042,15 +1020,27 @@
         "searchQuery": "college football suspended"
       }
     ],
-    "clemson": [
+    "wisconsin": [
       {
-        "title": "PFF grades for every LSU football transfer that played vs Clemson - Yahoo Sports",
+        "title": "Notre Dame's early transfer portal returns is creating massive buzz following the team's season opening victory over Wisconsin - Yahoo Sports",
         "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUkc2MVpael9MU19TdjItRmMtRmhCNHRRRFVZRy1zTUtNQnpTaUV6cXp6azd4aVlDSzFzbmVXT3VRU09jb3pZQmVSTE1WQ0xXNmxlYnpSVU9vVUxzX0d6VkRyTkh1NERVRk9WMGpTN1cwY3V3VjdpdW93SW82eGZHX0lOMlQ?oc=5",
-        "sentiment": "neutral",
+        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQbGtGM3lXR2pwcDRuOGJIdW5XQnAyX196X0poY0o1ZjE3MGlFWTk0MjE4SEJBbTY2V2NWSGlONFU4UzdkQ0pNYndUMUx2R3oxSXhaOEZBQ0RvdnEzQnNJQXVwTmI5MjV6SHZEZ25ySnRNWnAzMEQ2dUlZMUlvdFZuT0o2eG5MMzJZbUE?oc=5",
+        "sentiment": "negative",
         "daysAgo": 1,
         "isCritical": false,
-        "pubDate": "Mon, 07 Sep 2026 14:34:32 GMT",
+        "pubDate": "Mon, 07 Sep 2026 12:16:14 GMT",
+        "searchQuery": "college football transfer portal"
+      }
+    ],
+    "lsu": [
+      {
+        "title": "Three LSU football transfers earn weekly honors from the SEC - LSU Wire",
+        "source": "LSU Wire",
+        "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQSVc4TV9sTDRvS0w1STh6MlEzckZneEZGYnVRNEViZGUySERBZTh2cDVCZFdjaDdza1FzNDQ4bDZkZlhBS3hRNWR3ajE0dHZrNFVtYlBZN3FvaUlDMVQzN3BVUTVSemVSb2RObFQySjhVYldBR0NITi1lWE8yc1I2MlRvQThyVER3OTI0dmNRYUo1eDkzSlktWGI4VUsxT0RXdTROSGdnUjdvUTZ1U3hvQndWcEdkTWdKVGlncUZNS25JeUN5dVloVDNxdVB3enBNdVJuMjNublduTGQzdEhfeHJISW52Y0JXVVB1aXE2NlM?oc=5",
+        "sentiment": "positive",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Tue, 08 Sep 2026 00:04:00 GMT",
         "searchQuery": "college football transfer portal"
       }
     ],
@@ -1076,13 +1066,23 @@
         "searchQuery": "college football depth chart"
       },
       {
-        "title": "SMU-Florida State to be played under unique circumstances after power outage at stadium - Dallas News",
-        "source": "Dallas News",
-        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOV1YtZEE1X2VFWWR4aGZNTy1raWZtOVdscnQtYzhxUGV1OFZ6R05oZUVYT3ZVS0Z5cy1NVEsxa3RXcVpfWjNTMXN1dlR6MWlNMGcxcnhPOTFXQ05adVUxbU9uU1hTTTB6VjFfS2xfaUpLSV9GcXBGUHllNlJhcmx4dmtHWmwtTWRfcnhaeGZxRUxfbW5Tb2IxU1plV1ZkbmUwMjR0VEdfVmRSSlI5MzVOSmkxTQ?oc=5",
+        "title": "FSU football's depth chart for Week 1 vs. SMU - FSU Wire",
+        "source": "FSU Wire",
+        "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQX09IZkszMjZhOEs2V3pSNUw2bjR4U1g5YjVXeUoxbVlHa2Z1YnduU2lnZkx2UlI0Z280N3dlSXVFdWdlRnB4S1Z3czVybzdMckItZDBrUmpzTTl0bm5fNUpHZW0tdjNQZmJ0WEVqNXJHcVd3WHB3bmptbUQ4WVNNN3JmTUpZeWRpemYtbjU4OVhhVHBNLWJ4WlgxaWw1X0UxVXhvaEFMSVB6VUNaajByQWRPaHpxUQ?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Tue, 08 Sep 2026 01:23:46 GMT",
+        "pubDate": "Mon, 07 Sep 2026 22:18:00 GMT",
+        "searchQuery": "college football depth chart"
+      },
+      {
+        "title": "5 thoughts from SMU-Florida State: Jennings' late-night heroics just enough for Mustangs - Dallas News",
+        "source": "Dallas News",
+        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPN2Z4TTQwZXNINk5zZDlwUlhuZktPWVNHcFlKQlNKSGhNTWpNRDJrSkl3SWNEcnBCWDQ3SUFUdTVoQVhNalI2UmJ3S2h6OE0xR3lHRS1GbEtsTnZ6S25lUS1HZ1JJZVdMaE9TM3oya0VmZEJpUlBzc0F0bFFRS29rWXBGWW5oajNTU01QSC1qX2Z2WHI3T1B3bHpIOGE0bDRyVmpiZXplZjlWLTZpOHo0QVFIWQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Tue, 08 Sep 2026 04:44:47 GMT",
         "searchQuery": "NCAA college football"
       },
       {
@@ -1108,13 +1108,13 @@
         "searchQuery": "college football injury"
       },
       {
-        "title": "SMU-Florida State to be played under unique circumstances after power outage at stadium - Dallas News",
+        "title": "5 thoughts from SMU-Florida State: Jennings' late-night heroics just enough for Mustangs - Dallas News",
         "source": "Dallas News",
-        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOV1YtZEE1X2VFWWR4aGZNTy1raWZtOVdscnQtYzhxUGV1OFZ6R05oZUVYT3ZVS0Z5cy1NVEsxa3RXcVpfWjNTMXN1dlR6MWlNMGcxcnhPOTFXQ05adVUxbU9uU1hTTTB6VjFfS2xfaUpLSV9GcXBGUHllNlJhcmx4dmtHWmwtTWRfcnhaeGZxRUxfbW5Tb2IxU1plV1ZkbmUwMjR0VEdfVmRSSlI5MzVOSmkxTQ?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPN2Z4TTQwZXNINk5zZDlwUlhuZktPWVNHcFlKQlNKSGhNTWpNRDJrSkl3SWNEcnBCWDQ3SUFUdTVoQVhNalI2UmJ3S2h6OE0xR3lHRS1GbEtsTnZ6S25lUS1HZ1JJZVdMaE9TM3oya0VmZEJpUlBzc0F0bFFRS29rWXBGWW5oajNTU01QSC1qX2Z2WHI3T1B3bHpIOGE0bDRyVmpiZXplZjlWLTZpOHo0QVFIWQ?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Tue, 08 Sep 2026 01:23:46 GMT",
+        "pubDate": "Tue, 08 Sep 2026 04:44:47 GMT",
         "searchQuery": "NCAA college football"
       },
       {
@@ -1150,13 +1150,23 @@
         "searchQuery": "college football depth chart"
       },
       {
-        "title": "SMU-Florida State to be played under unique circumstances after power outage at stadium - Dallas News",
-        "source": "Dallas News",
-        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOV1YtZEE1X2VFWWR4aGZNTy1raWZtOVdscnQtYzhxUGV1OFZ6R05oZUVYT3ZVS0Z5cy1NVEsxa3RXcVpfWjNTMXN1dlR6MWlNMGcxcnhPOTFXQ05adVUxbU9uU1hTTTB6VjFfS2xfaUpLSV9GcXBGUHllNlJhcmx4dmtHWmwtTWRfcnhaeGZxRUxfbW5Tb2IxU1plV1ZkbmUwMjR0VEdfVmRSSlI5MzVOSmkxTQ?oc=5",
+        "title": "FSU football's depth chart for Week 1 vs. SMU - FSU Wire",
+        "source": "FSU Wire",
+        "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQX09IZkszMjZhOEs2V3pSNUw2bjR4U1g5YjVXeUoxbVlHa2Z1YnduU2lnZkx2UlI0Z280N3dlSXVFdWdlRnB4S1Z3czVybzdMckItZDBrUmpzTTl0bm5fNUpHZW0tdjNQZmJ0WEVqNXJHcVd3WHB3bmptbUQ4WVNNN3JmTUpZeWRpemYtbjU4OVhhVHBNLWJ4WlgxaWw1X0UxVXhvaEFMSVB6VUNaajByQWRPaHpxUQ?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Tue, 08 Sep 2026 01:23:46 GMT",
+        "pubDate": "Mon, 07 Sep 2026 22:18:00 GMT",
+        "searchQuery": "college football depth chart"
+      },
+      {
+        "title": "5 thoughts from SMU-Florida State: Jennings' late-night heroics just enough for Mustangs - Dallas News",
+        "source": "Dallas News",
+        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPN2Z4TTQwZXNINk5zZDlwUlhuZktPWVNHcFlKQlNKSGhNTWpNRDJrSkl3SWNEcnBCWDQ3SUFUdTVoQVhNalI2UmJ3S2h6OE0xR3lHRS1GbEtsTnZ6S25lUS1HZ1JJZVdMaE9TM3oya0VmZEJpUlBzc0F0bFFRS29rWXBGWW5oajNTU01QSC1qX2Z2WHI3T1B3bHpIOGE0bDRyVmpiZXplZjlWLTZpOHo0QVFIWQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Tue, 08 Sep 2026 04:44:47 GMT",
         "searchQuery": "NCAA college football"
       },
       {
@@ -1170,19 +1180,17 @@
         "searchQuery": "CFB picks predictions"
       }
     ],
-    "usc": [
+    "michigan": [
       {
-        "title": "Fresno State coach Matt Entz updates status of starting safety injured at USC - Fresno Bee",
-        "source": "Fresno Bee",
-        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPYmZYemJNQlQybk1OTHNBdzdvSUJzRk1jTVRHNVBhY0NwOWxKdi1WOGRBcjlVanhOS05zOHBuVDhjQU4tYU1UVElFcWRjcndLVGRvMFVCYjA5X3hSRURwNlhCU3lndWhWWHpYUEM2TjhiTHFyYjhmVEYxN1FSYndkTnk2UjJNSGt3dmw3aWpEYXk0b1plczJKMXlBOUtGRGpiR0M0TVYwVTVWdG_SAasBQVVfeXFMUF9CeWhNc0JnaVhWT1F0aEJ3S3pTM0FqWXMtUnpaVk91VDd1emNBRW5zN0g2Y1RGMl9MMUgxeldzRmpuTV9yUkZFSldpaWUwMjRpMTN6SDhqVUNlSUl0QlptM2V2V2lJYjNvTjJYOTIyUkt1aGp1ejI2UFhvTEgxZWRYQTFSWE95UWFUMHJ4Z0lkQW5XLUh0U3NSMEtrTDZKeGN1NGlzdnBiakVn?oc=5",
-        "sentiment": "negative",
+        "title": "Oklahoma Sooners get a mixed bag of news regarding their injury report heading into Week 2 vs. the Michigan Wolverines - A to Z Sports",
+        "source": "A to Z Sports",
+        "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxOekJLUkVydzlpRS1vcHhTc1B5Si1Lc0JmelNBQ2RxZzhrSHlMQS1LRTZrQlZBSmRmU0RQUlY1WTRfbGxlWVktblloM0RDdVFzX1FsaldiTHFGc2xkQkxjX0J4b3RTYm12NGpkNnZ0dk90WU9NS0lhT1ZJSGF3THQ2R2ZXWWlqc043Q0RVRi03a0w3WFM3N2lKSlhZMHZzekl5NklWZFZFWVE4N0dpZ3h5cENFMDVvUG16RnN6ZE9WaHFDMndCQ2pzajZRNEVwc28tWVdCaGpsMVJSTVN4SEcyNW4tUG0xdjVlVTRJYQ?oc=5",
+        "sentiment": "neutral",
         "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Mon, 07 Sep 2026 21:07:51 GMT",
+        "pubDate": "Tue, 08 Sep 2026 02:17:00 GMT",
         "searchQuery": "college football injury"
-      }
-    ],
-    "michigan": [
+      },
       {
         "title": "OU football injury updates: Sooners DL Danny Okoye to play vs Michigan - The Oklahoman",
         "source": "The Oklahoman",
@@ -1194,17 +1202,47 @@
         "searchQuery": "college football injury"
       },
       {
-        "title": "College football odds, lines, schedule for Week 2: Texas favored vs. Ohio State, Michigan a home underdog - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNVDhZTUx1ZGh2aURkUlpwWm1nRnZKUVEzR0g4eC05V1hYY1V0cWV2eXJVQjVDNTVHaUxpbFRZYVVLeW9nZVp0QktWMkNJYXFhQTFiYXNVSDJPdGY3Rms1LXc5cE9jRXltVm9ObFlIWkJaVms3NnRTQ0VnNER3bkl6TDcwV3JTSGNsT193U3hJVGdtVXdTdG03cHZGOUExMm5NdU1WMFRmM3F5UEE4ZHRnVWNsZWtBNzhwME1HT3JR?oc=5",
+        "title": "Veteran coaches surprised that stadium clock was not official clock in wild Michigan win Saturday - Chicago Tribune",
+        "source": "Chicago Tribune",
+        "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQRWJPcVRDX3pqMEVWZ3gxNlRVV0NLYkhVVmhoU1hGdldxY3pOWm9IdmxSQXh5cXJNS0NsdGtfQ2dUNENnaGNVSzh5cXVXeEdCd2ctVVpDT2tuVVVxUi04eENaUGVOR1ZkTEJfWDlFYnJ0eUNuSEcxUXFmMUVtRmFCRm9GdGZST2pCaTNvS1hyUnFFcGs?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 1,
+        "daysAgo": 0,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 17:13:17 GMT",
+        "pubDate": "Mon, 07 Sep 2026 21:26:02 GMT",
+        "searchQuery": "NCAA college football"
+      },
+      {
+        "title": "Most controversial finishes in college football history: Revisiting wild endings on heels of Michigan-WMU - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQUC1QdDBaOGtyUnFUenVoNng5dUhJQmo4QklQMFhVZWFYSWR6WGwxR0VHV3YwN3gxVnVUWEZZUHIxa0U5bjQ5WXY5ZjNHVHRfZldnelcxVTBfTXJ6MWJVcDZ6N0huaGU0UmNKOFdiSWE3MkJTS3l5eU1kdnV1b0YtTnJLTUlDWDdXcTJqQlg3VjU3dUFpZEF0RjdUcEZpNXlYLTBRbGNRMlJRXzlTV2VsSDE3ZHdtOWlIQllwSHFXYW5sUTlyNWZra1Zla19ZZkdVQmVpdg?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Mon, 07 Sep 2026 18:56:00 GMT",
+        "searchQuery": "NCAA college football"
+      },
+      {
+        "title": "No. 16 Michigan escapes an 'epic loss' thanks to a disputed replay and a second-chance Hail Mary - AP News",
+        "source": "AP News",
+        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxORFRyTlhWeGp6MVlPbTk0cW5OaHdINzZKY291Z3BNY080ZUp1NGUwdHlSZnBQZ01CazBsYmRLZklpZVNFc3hDUUhUNGNpVWEya1JRTVpMOVRUOWRrbDZTQS1veExUUkdFYlhNRzNFbHpKLUEwSzhOOVJURGFDMVVjSXNnT3A?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 05:17:00 GMT",
         "searchQuery": "NCAA college football"
       }
     ],
     "oklahoma": [
+      {
+        "title": "Oklahoma Sooners get a mixed bag of news regarding their injury report heading into Week 2 vs. the Michigan Wolverines - A to Z Sports",
+        "source": "A to Z Sports",
+        "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxOekJLUkVydzlpRS1vcHhTc1B5Si1Lc0JmelNBQ2RxZzhrSHlMQS1LRTZrQlZBSmRmU0RQUlY1WTRfbGxlWVktblloM0RDdVFzX1FsaldiTHFGc2xkQkxjX0J4b3RTYm12NGpkNnZ0dk90WU9NS0lhT1ZJSGF3THQ2R2ZXWWlqc043Q0RVRi03a0w3WFM3N2lKSlhZMHZzekl5NklWZFZFWVE4N0dpZ3h5cENFMDVvUG16RnN6ZE9WaHFDMndCQ2pzajZRNEVwc28tWVdCaGpsMVJSTVN4SEcyNW4tUG0xdjVlVTRJYQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Tue, 08 Sep 2026 02:17:00 GMT",
+        "searchQuery": "college football injury"
+      },
       {
         "title": "OU football injury updates: Sooners DL Danny Okoye to play vs Michigan - The Oklahoman",
         "source": "The Oklahoman",
@@ -1213,6 +1251,18 @@
         "daysAgo": 0,
         "isCritical": false,
         "pubDate": "Tue, 08 Sep 2026 01:48:00 GMT",
+        "searchQuery": "college football injury"
+      }
+    ],
+    "usc": [
+      {
+        "title": "Fresno State coach Matt Entz updates status of starting safety injured at USC - Fresno Bee",
+        "source": "Fresno Bee",
+        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPYmZYemJNQlQybk1OTHNBdzdvSUJzRk1jTVRHNVBhY0NwOWxKdi1WOGRBcjlVanhOS05zOHBuVDhjQU4tYU1UVElFcWRjcndLVGRvMFVCYjA5X3hSRURwNlhCU3lndWhWWHpYUEM2TjhiTHFyYjhmVEYxN1FSYndkTnk2UjJNSGt3dmw3aWpEYXk0b1plczJKMXlBOUtGRGpiR0M0TVYwVTVWdG_SAasBQVVfeXFMUF9CeWhNc0JnaVhWT1F0aEJ3S3pTM0FqWXMtUnpaVk91VDd1emNBRW5zN0g2Y1RGMl9MMUgxeldzRmpuTV9yUkZFSldpaWUwMjRpMTN6SDhqVUNlSUl0QlptM2V2V2lJYjNvTjJYOTIyUkt1aGp1ejI2UFhvTEgxZWRYQTFSWE95UWFUMHJ4Z0lkQW5XLUh0U3NSMEtrTDZKeGN1NGlzdnBiakVn?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Mon, 07 Sep 2026 21:07:51 GMT",
         "searchQuery": "college football injury"
       }
     ],
@@ -1248,12 +1298,32 @@
         "isCritical": false,
         "pubDate": "Mon, 07 Sep 2026 10:46:52 GMT",
         "searchQuery": "NCAA college football"
+      },
+      {
+        "title": "Louisville vs. Ole Miss prediction, odds, time: 2026 college football picks, best bets by expert on 22-9 run - CBS Sports",
+        "source": "CBS Sports",
+        "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPNEUzV2kzUV9IUEFVV0pOYzFYS1FwR0FGc3h6SGpVQklYS2Y0UGR2NE9EejFUOWxtenVMeFBkOWV0ZlNzLUl2NGo4TFJwOGYtWk4yd2pWQ092VklHdG1ZTWhQY2JYeEROc05PMEhFV25VQWR3OWdxa2gzWEFTR2I1d285VFpIT2lQcHdMX05nRUVSRGJJenFMUkI0dEJCbUtkR2NUTlgwT3ZBUjN0X1c0VklCbTlLbDB4cDdXQjhfXzNrdlE?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 23:07:08 GMT",
+        "searchQuery": "CFB picks predictions"
+      },
+      {
+        "title": "Louisville vs Ole Miss Prediction: 5 College Football Best Bets and Player Props Today - FanDuel",
+        "source": "FanDuel",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNUnMtNFlBMmY5N2h2Nk8zV0RkUFBSazVySERZSWM2TnpRZl9RLXk0aDR6c0FYSHc2NFowbXdUVVJzYWVyWnhrMlZsNEdaVE4xMml3VXFfNDdPNXM0b1l1QW15MXJFM0tsV18xT0Z3Y0lGV3RTQlVJUUw2WGtuS3hVeEMzQm1VV25UTXZ3c294czd6a3M2TEtzaklaNENEbzJid1h3V1ZwckphZTV5M1h4c25DckF3VXFZeXc?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 2,
+        "isCritical": false,
+        "pubDate": "Sun, 06 Sep 2026 16:54:40 GMT",
+        "searchQuery": "CFB picks predictions"
       }
     ],
     "tennessee": [
       {
-        "title": "Tennessee LB Arion Carter turns NCAA suspension into donation for cancer treatment - knoxnews.com",
-        "source": "knoxnews.com",
+        "title": "Tennessee LB Arion Carter turns NCAA suspension into donation for cancer treatment - Knoxville News Sentinel",
+        "source": "Knoxville News Sentinel",
         "link": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNSWg5dkMzbi1NY3pzMm1lNlBuYmsxVTQ4OVB1dG1wbEJjeFJ1NXcwWk5DVlJyOWRCZThaVnFvTWc4dEZFbURFQ2dzU2k5MHhkOE5xdlpKSVlNdW1iZjVtVVNpMXY0WFJKSVkzRk1hV3lMa0xyOWlOLWVMNmZPYWgzZnJZVzItcnd3MkZCeV93TzlhY2hvZklxY3FxendBWmJlTHB5VlFYeTdHWmdjSkhGaDIwM3FYOG5zLVk1UVF0RjVKY2pmaXR3cThGSFZhdkZaNm5UWE90enQ4ek5nU0Z6VFJObXZHcGhyOGNjeTc2c1J6RnJFeFVpNV9YZDRRWTlURzVYT2RaZ0lmSmZWbDBFbEZOOEozYjQ?oc=5",
         "sentiment": "negative",
         "daysAgo": 0,
@@ -1266,7 +1336,7 @@
         "source": "247Sports",
         "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPX3hxdW05RVVpekxOUVdlUmZVVnhzRTR0Q1JWN2hza2dLQUFIbk4tZWM4cy1wbEFhdzRnOVFqcnV5ZG5PeDlZN051QjRNLW9fSWh0NjZqcEMzUVY4M056aFZOOHc2ekd6YUVqTmMyR3UxVEQwTDFnLTlvaWFjQWN6ZkFVaUNUbktKTWdfcm9yQXEzUHNGNnc3QVdiVzhaNktLc2J5SlVKQ0hqcW91MzVRaXAyMEo0Tk9iLU9RYURn?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 2,
+        "daysAgo": 3,
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 16:45:00 GMT",
         "searchQuery": "college football depth chart"
@@ -1281,16 +1351,6 @@
         "daysAgo": 0,
         "isCritical": false,
         "pubDate": "Mon, 07 Sep 2026 18:55:00 GMT",
-        "searchQuery": "college football depth chart"
-      },
-      {
-        "title": "Iowa Football Depth Chart: Key Lineup Tweaks Week 2 vs ISU - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOSXgzZ0JNeDhPQ2xpc3liX2JsZml4UENyQWNGUWk3ajV0OWQtbTBxQ2c3bjBkV1B2ZUVWeURwcWg1OVVteXVyU3Zwdll0c1RoTlltc2x1QS12WWQ4cEplS3k3SkhXWnBwMzczT3FZR3hya2lMMlNIZWJUcTZVZGFvODdxaVI?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Mon, 07 Sep 2026 19:47:02 GMT",
         "searchQuery": "college football depth chart"
       }
     ],
@@ -1310,7 +1370,7 @@
         "source": "Sports Illustrated",
         "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQS2h4am9QMEhNVmYzcHBHdlFlZlZUMDNwTzZnRHRiWnNRSlZOZGUzZThsS3RpUzZ4THV4N3RZZ3BMZUJKNFNrc0RoWVFaaGlGTkh1OU9KR29ncXh5bVlWS0R3aWNzSy01SHQzM2NLaWFXWDlXNlJiS1ZOYVpxbUs3b1ozWDNmNEJucFNVaFcwdjMzczhnOV80MERfVnlIbnVkU0E0Z08zcUNaYmxlZjNYWlBhSlExRXQ3S1U5QlJiamdCT040blY0blFwSlBmanBk?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 0,
+        "daysAgo": 1,
         "isCritical": false,
         "pubDate": "Mon, 07 Sep 2026 17:00:02 GMT",
         "searchQuery": "college football spread odds"
@@ -1332,7 +1392,7 @@
         "source": "Sports Illustrated",
         "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQS2h4am9QMEhNVmYzcHBHdlFlZlZUMDNwTzZnRHRiWnNRSlZOZGUzZThsS3RpUzZ4THV4N3RZZ3BMZUJKNFNrc0RoWVFaaGlGTkh1OU9KR29ncXh5bVlWS0R3aWNzSy01SHQzM2NLaWFXWDlXNlJiS1ZOYVpxbUs3b1ozWDNmNEJucFNVaFcwdjMzczhnOV80MERfVnlIbnVkU0E0Z08zcUNaYmxlZjNYWlBhSlExRXQ3S1U5QlJiamdCT040blY0blFwSlBmanBk?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 0,
+        "daysAgo": 1,
         "isCritical": false,
         "pubDate": "Mon, 07 Sep 2026 17:00:02 GMT",
         "searchQuery": "college football spread odds"
@@ -1344,99 +1404,41 @@
         "source": "247Sports",
         "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPX3hxdW05RVVpekxOUVdlUmZVVnhzRTR0Q1JWN2hza2dLQUFIbk4tZWM4cy1wbEFhdzRnOVFqcnV5ZG5PeDlZN051QjRNLW9fSWh0NjZqcEMzUVY4M056aFZOOHc2ekd6YUVqTmMyR3UxVEQwTDFnLTlvaWFjQWN6ZkFVaUNUbktKTWdfcm9yQXEzUHNGNnc3QVdiVzhaNktLc2J5SlVKQ0hqcW91MzVRaXAyMEo0Tk9iLU9RYURn?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 2,
+        "daysAgo": 3,
         "isCritical": false,
         "pubDate": "Sat, 05 Sep 2026 16:45:00 GMT",
         "searchQuery": "college football depth chart"
       }
     ],
-    "ohio_state": [
+    "louisville": [
       {
-        "title": "College Football Power Rankings: Ohio State, Texas bookend top five ahead of Week 2 showdown - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPUXlvY1paeGRBU2dTbDhPY3NCZ25SUHBFcU13UU5IeUtuU2lzeWlaZmZ0bi1RSU9sTE1Bcmx6VFZrMWxWRjBYbnNFazFGOFZrcU1oLXdsbzB6TG9hQl9mLTUxZno1bnR6MHh4Y3ZuaDhFQkhfSmhiTU1HNTk3d2doRkZIazNRRURKRHlqa195LUtOdDJuMlJiQkVXR3dveDVrTlNLdzhIdGpkdEJad01OYTlyVQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Mon, 07 Sep 2026 16:53:00 GMT",
-        "searchQuery": "NCAA college football"
-      },
-      {
-        "title": "College football odds, lines, schedule for Week 2: Texas favored vs. Ohio State, Michigan a home underdog - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNVDhZTUx1ZGh2aURkUlpwWm1nRnZKUVEzR0g4eC05V1hYY1V0cWV2eXJVQjVDNTVHaUxpbFRZYVVLeW9nZVp0QktWMkNJYXFhQTFiYXNVSDJPdGY3Rms1LXc5cE9jRXltVm9ObFlIWkJaVms3NnRTQ0VnNER3bkl6TDcwV3JTSGNsT193U3hJVGdtVXdTdG03cHZGOUExMm5NdU1WMFRmM3F5UEE4ZHRnVWNsZWtBNzhwME1HT3JR?oc=5",
+        "title": "Louisville vs Mississippi Prediction &amp; Top Picks Tonight: College Football Week 1 - Yahoo Sports",
+        "source": "Yahoo Sports",
+        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPdk5ZWk8wSE9QczlpaUMyTUhhN2ZHaWFzNWxOcFY3bzhHXzdFY1ZhbzdDQjJSaTlYWDNGeWp5MHFZMzN5bEZFdEVmdXN3VlJjUEF1ZzdyUDlMQnZDMThsMUREbVJFc0RYUncwUUEzNEJQTzhySVotZmFvRWpDeHc3ekRRUXUxcFhCRk1wbEhvX3piS29GdXc?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 17:13:17 GMT",
-        "searchQuery": "NCAA college football"
-      }
-    ],
-    "texas": [
-      {
-        "title": "College Football Power Rankings: Ohio State, Texas bookend top five ahead of Week 2 showdown - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPUXlvY1paeGRBU2dTbDhPY3NCZ25SUHBFcU13UU5IeUtuU2lzeWlaZmZ0bi1RSU9sTE1Bcmx6VFZrMWxWRjBYbnNFazFGOFZrcU1oLXdsbzB6TG9hQl9mLTUxZno1bnR6MHh4Y3ZuaDhFQkhfSmhiTU1HNTk3d2doRkZIazNRRURKRHlqa195LUtOdDJuMlJiQkVXR3dveDVrTlNLdzhIdGpkdEJad01OYTlyVQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Mon, 07 Sep 2026 16:53:00 GMT",
-        "searchQuery": "NCAA college football"
+        "pubDate": "Sun, 06 Sep 2026 20:43:00 GMT",
+        "searchQuery": "CFB picks predictions"
       },
       {
-        "title": "College football odds, lines, schedule for Week 2: Texas favored vs. Ohio State, Michigan a home underdog - CBS Sports",
+        "title": "Louisville vs. Ole Miss prediction, odds, time: 2026 college football picks, best bets by expert on 22-9 run - CBS Sports",
         "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNVDhZTUx1ZGh2aURkUlpwWm1nRnZKUVEzR0g4eC05V1hYY1V0cWV2eXJVQjVDNTVHaUxpbFRZYVVLeW9nZVp0QktWMkNJYXFhQTFiYXNVSDJPdGY3Rms1LXc5cE9jRXltVm9ObFlIWkJaVms3NnRTQ0VnNER3bkl6TDcwV3JTSGNsT193U3hJVGdtVXdTdG03cHZGOUExMm5NdU1WMFRmM3F5UEE4ZHRnVWNsZWtBNzhwME1HT3JR?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPNEUzV2kzUV9IUEFVV0pOYzFYS1FwR0FGc3h6SGpVQklYS2Y0UGR2NE9EejFUOWxtenVMeFBkOWV0ZlNzLUl2NGo4TFJwOGYtWk4yd2pWQ092VklHdG1ZTWhQY2JYeEROc05PMEhFV25VQWR3OWdxa2gzWEFTR2I1d285VFpIT2lQcHdMX05nRUVSRGJJenFMUkI0dEJCbUtkR2NUTlgwT3ZBUjN0X1c0VklCbTlLbDB4cDdXQjhfXzNrdlE?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 17:13:17 GMT",
-        "searchQuery": "NCAA college football"
+        "pubDate": "Sun, 06 Sep 2026 23:07:08 GMT",
+        "searchQuery": "CFB picks predictions"
       },
       {
-        "title": "Texas OL Cole Hutson ineligible after stints with NFL teams - ESPN",
-        "source": "ESPN",
-        "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxORGRydzlHSHNqaVREc1Fhb3JVREo3aW1Rc2RMTkFBME1vS3JJMG52WllpVWhHVklFbGhvWENUcWxPY3NlcmN2TTFjVUpIVWxhYk9DOUNQUnZ0b0xsQm9nS3RTdm5ZUzk4blZRSjJaREFXbnR4ZnhJVTBySXZEZGZFY1J3WWFBcFpxVldlQ25Dc01vUXVURU9hTGotdUdBenRvaVBkQ2JIVUpCUQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Mon, 07 Sep 2026 18:39:00 GMT",
-        "searchQuery": "NCAA college football"
-      }
-    ],
-    "washington": [
-      {
-        "title": "Washington State vs Washington Prediction, College Football Picks, Odds &amp; Best Bets Today - FanDuel",
+        "title": "Louisville vs Ole Miss Prediction: 5 College Football Best Bets and Player Props Today - FanDuel",
         "source": "FanDuel",
-        "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOTVVNV3BxN0xwTl94ZjNYVS10a3ZhaVdBdHgyOENYbUo1Zm8zTGdVVTRfV1lRaWNZS0lkbUh4TVhQWVZWcFlZel9SV3NrbjU0aWg3WXdXZC1QeG51aXl4cDhaRWxUalNNOUx4dVc2Um1BUE0xamhCZG83MTBqYXl3b0NKRGRJaHl2UTI2Z3BsQ1J3ZDBWbGU2Q1YtMXU3clRzb1lqMzdXOFlLaUtRcU1lWHViTk5ocHM0REoxT3BvTQ?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNUnMtNFlBMmY5N2h2Nk8zV0RkUFBSazVySERZSWM2TnpRZl9RLXk0aDR6c0FYSHc2NFowbXdUVVJzYWVyWnhrMlZsNEdaVE4xMml3VXFfNDdPNXM0b1l1QW15MXJFM0tsV18xT0Z3Y0lGV3RTQlVJUUw2WGtuS3hVeEMzQm1VV25UTXZ3c294czd6a3M2TEtzaklaNENEbzJid1h3V1ZwckphZTV5M1h4c25DckF3VXFZeXc?oc=5",
         "sentiment": "neutral",
         "daysAgo": 2,
         "isCritical": false,
-        "pubDate": "Sun, 06 Sep 2026 13:40:08 GMT",
-        "searchQuery": "CFB picks predictions"
-      }
-    ],
-    "alabama": [
-      {
-        "title": "Alabama vs Kentucky picks, predictions, odds for Week 2 game Saturday - azcentral.com",
-        "source": "azcentral.com",
-        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQTHFQRUJtTjE2UmJweEpmNzF4Y0hVQ3JsQzFTakFpUTdxbDgwWjlPOXBJbWRxRDJSNlUtZkJZYjRmaWM0THBHR2Ffa3FhQmljcjVZM2pQVUhZZ0haMmliWHFVS1hIT0hoV3NzTWQtZzZvSUFFZXlfSS1MeUU1V1lfTFFxWkdLX0h4dmVMb0JSYTJxSlNReUFBUnR3U2NFY1hqRlJwemNMNXpyLUZWZUdMTTEwbzlmVDV4Nk4wWE9wNEJrRmpXZXZCT1hGTE5mOGZDZjk5dnZR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Mon, 07 Sep 2026 19:37:00 GMT",
-        "searchQuery": "CFB picks predictions"
-      }
-    ],
-    "kentucky": [
-      {
-        "title": "Alabama vs Kentucky picks, predictions, odds for Week 2 game Saturday - azcentral.com",
-        "source": "azcentral.com",
-        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQTHFQRUJtTjE2UmJweEpmNzF4Y0hVQ3JsQzFTakFpUTdxbDgwWjlPOXBJbWRxRDJSNlUtZkJZYjRmaWM0THBHR2Ffa3FhQmljcjVZM2pQVUhZZ0haMmliWHFVS1hIT0hoV3NzTWQtZzZvSUFFZXlfSS1MeUU1V1lfTFFxWkdLX0h4dmVMb0JSYTJxSlNReUFBUnR3U2NFY1hqRlJwemNMNXpyLUZWZUdMTTEwbzlmVDV4Nk4wWE9wNEJrRmpXZXZCT1hGTE5mOGZDZjk5dnZR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Mon, 07 Sep 2026 19:37:00 GMT",
+        "pubDate": "Sun, 06 Sep 2026 16:54:40 GMT",
         "searchQuery": "CFB picks predictions"
       }
     ]
@@ -1453,6 +1455,16 @@
       "searchQuery": "college football transfer portal"
     },
     {
+      "title": "Notre Dame's early transfer portal returns is creating massive buzz following the team's season opening victory over Wisconsin - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQbGtGM3lXR2pwcDRuOGJIdW5XQnAyX196X0poY0o1ZjE3MGlFWTk0MjE4SEJBbTY2V2NWSGlONFU4UzdkQ0pNYndUMUx2R3oxSXhaOEZBQ0RvdnEzQnNJQXVwTmI5MjV6SHZEZ25ySnRNWnAzMEQ2dUlZMUlvdFZuT0o2eG5MMzJZbUE?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Mon, 07 Sep 2026 12:16:14 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
       "title": "Three LSU football transfers earn weekly honors from the SEC - LSU Wire",
       "source": "LSU Wire",
       "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQSVc4TV9sTDRvS0w1STh6MlEzckZneEZGYnVRNEViZGUySERBZTh2cDVCZFdjaDdza1FzNDQ4bDZkZlhBS3hRNWR3ajE0dHZrNFVtYlBZN3FvaUlDMVQzN3BVUTVSemVSb2RObFQySjhVYldBR0NITi1lWE8yc1I2MlRvQThyVER3OTI0dmNRYUo1eDkzSlktWGI4VUsxT0RXdTROSGdnUjdvUTZ1U3hvQndWcEdkTWdKVGlncUZNS25JeUN5dVloVDNxdVB3enBNdVJuMjNublduTGQzdEhfeHJISW52Y0JXVVB1aXE2NlM?oc=5",
@@ -1463,26 +1475,6 @@
       "searchQuery": "college football transfer portal"
     },
     {
-      "title": "Notre Dame's early transfer portal returns is creating massive buzz - A to Z Sports",
-      "source": "A to Z Sports",
-      "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxPSDJaV29ZMUVuMUE1ZmtrVS1pUjVCTnNmRGRDV2J6LXYzOHFucjE4MjJkOTJQUmNOZ0JIY2l1MlZWaXRFcE5yYkVNS0x0ck5ucU0xVmlPTlhPV05lTUI5c3hKanFBWTNrSFo5TElyMGpTNGd1Vnd3YWstRVBDcV9LMThWb2MtNDdhM3pNSkVzTERCal9hVm40c29KZU16MzlnSkZFYlVwT3NhNXRDdnZUU2hWRG92cVBqVmVaLWdsMkgxZU85aGFtN01UOHV3TWY2VlBkWFlBS0huZWszRUNmd2YzNEVKeW4ybFJ2cDh5NEtKWDJtTjRBOHFFNWNHUmhWSHRjMlZ5MHk5Q29E?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Mon, 07 Sep 2026 12:16:14 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "PFF grades for every LSU football transfer that played vs Clemson - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUkc2MVpael9MU19TdjItRmMtRmhCNHRRRFVZRy1zTUtNQnpTaUV6cXp6azd4aVlDSzFzbmVXT3VRU09jb3pZQmVSTE1WQ0xXNmxlYnpSVU9vVUxzX0d6VkRyTkh1NERVRk9WMGpTN1cwY3V3VjdpdW93SW82eGZHX0lOMlQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Mon, 07 Sep 2026 14:34:32 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
       "title": "Transfer portal didn't just change college football. It rewired QB development - The Quad-City Times",
       "source": "The Quad-City Times",
       "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOTkNaMGZkcGg0MWNOZzhSWXBObTUtakNENW5ucm1CX0YzNGFSTmNPR1dFNnIzWUlzUlB3RTczSWhvbzFXU0ZFYkxfZ25WY1A4bGlINUhxYW5DZkxld1dneTU1ejRaOTBEeVcyQk1IUFZKM2ZvVHJPUnRlYV8zVDJCeDMzaHZab2FwWmJOSFZIeUh4ajFTWmtrQg?oc=5",
@@ -1490,6 +1482,16 @@
       "daysAgo": 4,
       "isCritical": false,
       "pubDate": "Fri, 04 Sep 2026 15:30:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "Ranking the best players in the college football transfer portal - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPQ1FWeDlBMzhUVEYzNURMVWxTY0RPOGNYaVNmZTRxd0l5bjhudXRVN3dxcVg5X2NYQjFfckVmQXdHSHVSM0FXdFpqLW1OR1ZyaTkweVlleTZmcGdQWVdXY05SUFEyX2lxN3RkaXZvRXA4bTFkanNvZjREVkJCU1FhT1RKZEFjSWZlMVUyTkpiS3BtZjFua1BpOUhoTFdjbElmUUJ5cnRhYlc?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 57,
+      "isCritical": false,
+      "pubDate": "Mon, 13 Jul 2026 07:00:00 GMT",
       "searchQuery": "college football transfer portal"
     },
     {
@@ -1513,6 +1515,16 @@
       "searchQuery": "college football injury"
     },
     {
+      "title": "Oklahoma Sooners get a mixed bag of news regarding their injury report heading into Week 2 vs. the Michigan Wolverines - A to Z Sports",
+      "source": "A to Z Sports",
+      "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxOekJLUkVydzlpRS1vcHhTc1B5Si1Lc0JmelNBQ2RxZzhrSHlMQS1LRTZrQlZBSmRmU0RQUlY1WTRfbGxlWVktblloM0RDdVFzX1FsaldiTHFGc2xkQkxjX0J4b3RTYm12NGpkNnZ0dk90WU9NS0lhT1ZJSGF3THQ2R2ZXWWlqc043Q0RVRi03a0w3WFM3N2lKSlhZMHZzekl5NklWZFZFWVE4N0dpZ3h5cENFMDVvUG16RnN6ZE9WaHFDMndCQ2pzajZRNEVwc28tWVdCaGpsMVJSTVN4SEcyNW4tUG0xdjVlVTRJYQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Tue, 08 Sep 2026 02:17:00 GMT",
+      "searchQuery": "college football injury"
+    },
+    {
       "title": "Fresno State coach Matt Entz updates status of starting safety injured at USC - Fresno Bee",
       "source": "Fresno Bee",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPYmZYemJNQlQybk1OTHNBdzdvSUJzRk1jTVRHNVBhY0NwOWxKdi1WOGRBcjlVanhOS05zOHBuVDhjQU4tYU1UVElFcWRjcndLVGRvMFVCYjA5X3hSRURwNlhCU3lndWhWWHpYUEM2TjhiTHFyYjhmVEYxN1FSYndkTnk2UjJNSGt3dmw3aWpEYXk0b1plczJKMXlBOUtGRGpiR0M0TVYwVTVWdG_SAasBQVVfeXFMUF9CeWhNc0JnaVhWT1F0aEJ3S3pTM0FqWXMtUnpaVk91VDd1emNBRW5zN0g2Y1RGMl9MMUgxeldzRmpuTV9yUkZFSldpaWUwMjRpMTN6SDhqVUNlSUl0QlptM2V2V2lJYjNvTjJYOTIyUkt1aGp1ejI2UFhvTEgxZWRYQTFSWE95UWFUMHJ4Z0lkQW5XLUh0U3NSMEtrTDZKeGN1NGlzdnBiakVn?oc=5",
@@ -1530,16 +1542,6 @@
       "daysAgo": 0,
       "isCritical": false,
       "pubDate": "Tue, 08 Sep 2026 01:48:00 GMT",
-      "searchQuery": "college football injury"
-    },
-    {
-      "title": "OU football injury updates on Michael Fasusi, Ryan Fodje, Jake Maikkula - On3",
-      "source": "On3",
-      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQckYwMm9oU3NpSTN0cktoNHBTdnBkTHNPeHE4UmhCa25fMElIWkVwXzlqTnUxNi1CN2NhVXYzTkVBcWFPOFg1WVhXcnQwRVdhd3JpelhfX3pRSWtLOUM2RWF5SEdvRUs4OWNmdmVMdUJ5eThBOHFXa3lmSTkxSjNJTFJYN3dqT193dlRvbGdJZm9wX3g0cU5na0hJVTk5UGNBTlhPTHdualpBZGZpZFRnUktwczM0T3lZa0E?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Tue, 08 Sep 2026 00:49:12 GMT",
       "searchQuery": "college football injury"
     },
     {
@@ -1633,8 +1635,8 @@
       "searchQuery": "college football suspended"
     },
     {
-      "title": "Tennessee LB Arion Carter turns NCAA suspension into donation for cancer treatment - knoxnews.com",
-      "source": "knoxnews.com",
+      "title": "Tennessee LB Arion Carter turns NCAA suspension into donation for cancer treatment - Knoxville News Sentinel",
+      "source": "Knoxville News Sentinel",
       "link": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNSWg5dkMzbi1NY3pzMm1lNlBuYmsxVTQ4OVB1dG1wbEJjeFJ1NXcwWk5DVlJyOWRCZThaVnFvTWc4dEZFbURFQ2dzU2k5MHhkOE5xdlpKSVlNdW1iZjVtVVNpMXY0WFJKSVkzRk1hV3lMa0xyOWlOLWVMNmZPYWgzZnJZVzItcnd3MkZCeV93TzlhY2hvZklxY3FxendBWmJlTHB5VlFYeTdHWmdjSkhGaDIwM3FYOG5zLVk1UVF0RjVKY2pmaXR3cThGSFZhdkZaNm5UWE90enQ4ek5nU0Z6VFJObXZHcGhyOGNjeTc2c1J6RnJFeFVpNV9YZDRRWTlURzVYT2RaZ0lmSmZWbDBFbEZOOEozYjQ?oc=5",
       "sentiment": "negative",
       "daysAgo": 0,
@@ -1667,7 +1669,7 @@
       "source": "247Sports",
       "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPX3hxdW05RVVpekxOUVdlUmZVVnhzRTR0Q1JWN2hza2dLQUFIbk4tZWM4cy1wbEFhdzRnOVFqcnV5ZG5PeDlZN051QjRNLW9fSWh0NjZqcEMzUVY4M056aFZOOHc2ekd6YUVqTmMyR3UxVEQwTDFnLTlvaWFjQWN6ZkFVaUNUbktKTWdfcm9yQXEzUHNGNnc3QVdiVzhaNktLc2J5SlVKQ0hqcW91MzVRaXAyMEo0Tk9iLU9RYURn?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 2,
+      "daysAgo": 3,
       "isCritical": false,
       "pubDate": "Sat, 05 Sep 2026 16:45:00 GMT",
       "searchQuery": "college football depth chart"
@@ -1683,43 +1685,43 @@
       "searchQuery": "college football depth chart"
     },
     {
-      "title": "Iowa Football Depth Chart: Key Lineup Tweaks Week 2 vs ISU - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOSXgzZ0JNeDhPQ2xpc3liX2JsZml4UENyQWNGUWk3ajV0OWQtbTBxQ2c3bjBkV1B2ZUVWeURwcWg1OVVteXVyU3Zwdll0c1RoTlltc2x1QS12WWQ4cEplS3k3SkhXWnBwMzczT3FZR3hya2lMMlNIZWJUcTZVZGFvODdxaVI?oc=5",
+      "title": "FSU football's depth chart for Week 1 vs. SMU - FSU Wire",
+      "source": "FSU Wire",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQX09IZkszMjZhOEs2V3pSNUw2bjR4U1g5YjVXeUoxbVlHa2Z1YnduU2lnZkx2UlI0Z280N3dlSXVFdWdlRnB4S1Z3czVybzdMckItZDBrUmpzTTl0bm5fNUpHZW0tdjNQZmJ0WEVqNXJHcVd3WHB3bmptbUQ4WVNNN3JmTUpZeWRpemYtbjU4OVhhVHBNLWJ4WlgxaWw1X0UxVXhvaEFMSVB6VUNaajByQWRPaHpxUQ?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Mon, 07 Sep 2026 19:47:02 GMT",
+      "pubDate": "Mon, 07 Sep 2026 22:18:00 GMT",
       "searchQuery": "college football depth chart"
     },
     {
-      "title": "College Football Power Rankings: Ohio State, Texas bookend top five ahead of Week 2 showdown - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPUXlvY1paeGRBU2dTbDhPY3NCZ25SUHBFcU13UU5IeUtuU2lzeWlaZmZ0bi1RSU9sTE1Bcmx6VFZrMWxWRjBYbnNFazFGOFZrcU1oLXdsbzB6TG9hQl9mLTUxZno1bnR6MHh4Y3ZuaDhFQkhfSmhiTU1HNTk3d2doRkZIazNRRURKRHlqa195LUtOdDJuMlJiQkVXR3dveDVrTlNLdzhIdGpkdEJad01OYTlyVQ?oc=5",
+      "title": "Veteran coaches surprised that stadium clock was not official clock in wild Michigan win Saturday - Chicago Tribune",
+      "source": "Chicago Tribune",
+      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQRWJPcVRDX3pqMEVWZ3gxNlRVV0NLYkhVVmhoU1hGdldxY3pOWm9IdmxSQXh5cXJNS0NsdGtfQ2dUNENnaGNVSzh5cXVXeEdCd2ctVVpDT2tuVVVxUi04eENaUGVOR1ZkTEJfWDlFYnJ0eUNuSEcxUXFmMUVtRmFCRm9GdGZST2pCaTNvS1hyUnFFcGs?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Mon, 07 Sep 2026 16:53:00 GMT",
+      "pubDate": "Mon, 07 Sep 2026 21:26:02 GMT",
       "searchQuery": "NCAA college football"
     },
     {
-      "title": "College football odds, lines, schedule for Week 2: Texas favored vs. Ohio State, Michigan a home underdog - CBS Sports",
+      "title": "Most controversial finishes in college football history: Revisiting wild endings on heels of Michigan-WMU - CBS Sports",
       "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNVDhZTUx1ZGh2aURkUlpwWm1nRnZKUVEzR0g4eC05V1hYY1V0cWV2eXJVQjVDNTVHaUxpbFRZYVVLeW9nZVp0QktWMkNJYXFhQTFiYXNVSDJPdGY3Rms1LXc5cE9jRXltVm9ObFlIWkJaVms3NnRTQ0VnNER3bkl6TDcwV3JTSGNsT193U3hJVGdtVXdTdG03cHZGOUExMm5NdU1WMFRmM3F5UEE4ZHRnVWNsZWtBNzhwME1HT3JR?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 17:13:17 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "Texas OL Cole Hutson ineligible after stints with NFL teams - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxORGRydzlHSHNqaVREc1Fhb3JVREo3aW1Rc2RMTkFBME1vS3JJMG52WllpVWhHVklFbGhvWENUcWxPY3NlcmN2TTFjVUpIVWxhYk9DOUNQUnZ0b0xsQm9nS3RTdm5ZUzk4blZRSjJaREFXbnR4ZnhJVTBySXZEZGZFY1J3WWFBcFpxVldlQ25Dc01vUXVURU9hTGotdUdBenRvaVBkQ2JIVUpCUQ?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQUC1QdDBaOGtyUnFUenVoNng5dUhJQmo4QklQMFhVZWFYSWR6WGwxR0VHV3YwN3gxVnVUWEZZUHIxa0U5bjQ5WXY5ZjNHVHRfZldnelcxVTBfTXJ6MWJVcDZ6N0huaGU0UmNKOFdiSWE3MkJTS3l5eU1kdnV1b0YtTnJLTUlDWDdXcTJqQlg3VjU3dUFpZEF0RjdUcEZpNXlYLTBRbGNRMlJRXzlTV2VsSDE3ZHdtOWlIQllwSHFXYW5sUTlyNWZra1Zla19ZZkdVQmVpdg?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Mon, 07 Sep 2026 18:39:00 GMT",
+      "pubDate": "Mon, 07 Sep 2026 18:56:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "No. 16 Michigan escapes an 'epic loss' thanks to a disputed replay and a second-chance Hail Mary - AP News",
+      "source": "AP News",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxORFRyTlhWeGp6MVlPbTk0cW5OaHdINzZKY291Z3BNY080ZUp1NGUwdHlSZnBQZ01CazBsYmRLZklpZVNFc3hDUUhUNGNpVWEya1JRTVpMOVRUOWRrbDZTQS1veExUUkdFYlhNRzNFbHpKLUEwSzhOOVJURGFDMVVjSXNnT3A?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 2,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 05:17:00 GMT",
       "searchQuery": "NCAA college football"
     },
     {
@@ -1733,13 +1735,13 @@
       "searchQuery": "NCAA college football"
     },
     {
-      "title": "SMU-Florida State to be played under unique circumstances after power outage at stadium - Dallas News",
+      "title": "5 thoughts from SMU-Florida State: Jennings' late-night heroics just enough for Mustangs - Dallas News",
       "source": "Dallas News",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOV1YtZEE1X2VFWWR4aGZNTy1raWZtOVdscnQtYzhxUGV1OFZ6R05oZUVYT3ZVS0Z5cy1NVEsxa3RXcVpfWjNTMXN1dlR6MWlNMGcxcnhPOTFXQ05adVUxbU9uU1hTTTB6VjFfS2xfaUpLSV9GcXBGUHllNlJhcmx4dmtHWmwtTWRfcnhaeGZxRUxfbW5Tb2IxU1plV1ZkbmUwMjR0VEdfVmRSSlI5MzVOSmkxTQ?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPN2Z4TTQwZXNINk5zZDlwUlhuZktPWVNHcFlKQlNKSGhNTWpNRDJrSkl3SWNEcnBCWDQ3SUFUdTVoQVhNalI2UmJ3S2h6OE0xR3lHRS1GbEtsTnZ6S25lUS1HZ1JJZVdMaE9TM3oya0VmZEJpUlBzc0F0bFFRS29rWXBGWW5oajNTU01QSC1qX2Z2WHI3T1B3bHpIOGE0bDRyVmpiZXplZjlWLTZpOHo0QVFIWQ?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Tue, 08 Sep 2026 01:23:46 GMT",
+      "pubDate": "Tue, 08 Sep 2026 04:44:47 GMT",
       "searchQuery": "NCAA college football"
     },
     {
@@ -1753,6 +1755,16 @@
       "searchQuery": "college football spread odds"
     },
     {
+      "title": "Point spread, betting odds for Boise State vs. Memphis in college football Week 2 matchup - Sports Illustrated",
+      "source": "Sports Illustrated",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQS2h4am9QMEhNVmYzcHBHdlFlZlZUMDNwTzZnRHRiWnNRSlZOZGUzZThsS3RpUzZ4THV4N3RZZ3BMZUJKNFNrc0RoWVFaaGlGTkh1OU9KR29ncXh5bVlWS0R3aWNzSy01SHQzM2NLaWFXWDlXNlJiS1ZOYVpxbUs3b1ozWDNmNEJucFNVaFcwdjMzczhnOV80MERfVnlIbnVkU0E0Z08zcUNaYmxlZjNYWlBhSlExRXQ3S1U5QlJiamdCT040blY0blFwSlBmanBk?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Mon, 07 Sep 2026 17:00:02 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
       "title": "2026 College Football Odds Week 1: Lines, Spreads, Betting Trends on Biggest Games - VegasInsider",
       "source": "VegasInsider",
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQN0dob2RnNmJrOFVXR0U0LXRaaUw2X3FvdHYzeTVOd1NNUFBtX05FeHJlaG41azdxUGFKM1lhVnZTallidmtPTGlMem55ZVpCNDFIYWFaYUFKYWttZDY1UnNadkRLMjZEbTNTUmFOYnJlSENCUnNPWGhJc240QVl1LWljcUhRREk?oc=5",
@@ -1763,18 +1775,8 @@
       "searchQuery": "college football spread odds"
     },
     {
-      "title": "Point spread, betting odds for Boise State vs. Memphis in college football Week 2 matchup - Sports Illustrated",
-      "source": "Sports Illustrated",
-      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQS2h4am9QMEhNVmYzcHBHdlFlZlZUMDNwTzZnRHRiWnNRSlZOZGUzZThsS3RpUzZ4THV4N3RZZ3BMZUJKNFNrc0RoWVFaaGlGTkh1OU9KR29ncXh5bVlWS0R3aWNzSy01SHQzM2NLaWFXWDlXNlJiS1ZOYVpxbUs3b1ozWDNmNEJucFNVaFcwdjMzczhnOV80MERfVnlIbnVkU0E0Z08zcUNaYmxlZjNYWlBhSlExRXQ3S1U5QlJiamdCT040blY0blFwSlBmanBk?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Mon, 07 Sep 2026 17:00:02 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "Big 12 football Week 2 odds, point spreads, moneylines, over/unders - azcentral.com",
-      "source": "azcentral.com",
+      "title": "Big 12 football Week 2 odds, point spreads, moneylines, over/unders - azcentral.com and The Arizona Republic",
+      "source": "azcentral.com and The Arizona Republic",
       "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNclY5Z1BQaEprMktqVWg3dG5FMDcwQ1RrSFdjV1kydEl0X1BlNmdwbHJLYk9YTlVQdHc3XzhnTC1RbXgzMGdUUWpHMnFUbnI4Q1ZYVTg3eWhkano1ci1xSXk4Ry1GMjRyejduUE5mSHJKOVhZN2RwR24yVm5sdGhNVmdEUWhFVWJGT1FhbHdic1pwY0lMU2I1RWFtZHRrZU5zWm9fbUEycVZyV29uWFZ5bk43TS11TUxWbV83MjNlVElpSGFRcUExZURYa0s1SFROX3Rn?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
@@ -1813,33 +1815,33 @@
       "searchQuery": "CFB picks predictions"
     },
     {
-      "title": "Washington State vs Washington Prediction, College Football Picks, Odds &amp; Best Bets Today - FanDuel",
+      "title": "Louisville vs Mississippi Prediction &amp; Top Picks Tonight: College Football Week 1 - Yahoo Sports",
+      "source": "Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPdk5ZWk8wSE9QczlpaUMyTUhhN2ZHaWFzNWxOcFY3bzhHXzdFY1ZhbzdDQjJSaTlYWDNGeWp5MHFZMzN5bEZFdEVmdXN3VlJjUEF1ZzdyUDlMQnZDMThsMUREbVJFc0RYUncwUUEzNEJQTzhySVotZmFvRWpDeHc3ekRRUXUxcFhCRk1wbEhvX3piS29GdXc?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 20:43:00 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "Louisville vs. Ole Miss prediction, odds, time: 2026 college football picks, best bets by expert on 22-9 run - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPNEUzV2kzUV9IUEFVV0pOYzFYS1FwR0FGc3h6SGpVQklYS2Y0UGR2NE9EejFUOWxtenVMeFBkOWV0ZlNzLUl2NGo4TFJwOGYtWk4yd2pWQ092VklHdG1ZTWhQY2JYeEROc05PMEhFV25VQWR3OWdxa2gzWEFTR2I1d285VFpIT2lQcHdMX05nRUVSRGJJenFMUkI0dEJCbUtkR2NUTlgwT3ZBUjN0X1c0VklCbTlLbDB4cDdXQjhfXzNrdlE?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sun, 06 Sep 2026 23:07:08 GMT",
+      "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "Louisville vs Ole Miss Prediction: 5 College Football Best Bets and Player Props Today - FanDuel",
       "source": "FanDuel",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOTVVNV3BxN0xwTl94ZjNYVS10a3ZhaVdBdHgyOENYbUo1Zm8zTGdVVTRfV1lRaWNZS0lkbUh4TVhQWVZWcFlZel9SV3NrbjU0aWg3WXdXZC1QeG51aXl4cDhaRWxUalNNOUx4dVc2Um1BUE0xamhCZG83MTBqYXl3b0NKRGRJaHl2UTI2Z3BsQ1J3ZDBWbGU2Q1YtMXU3clRzb1lqMzdXOFlLaUtRcU1lWHViTk5ocHM0REoxT3BvTQ?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNUnMtNFlBMmY5N2h2Nk8zV0RkUFBSazVySERZSWM2TnpRZl9RLXk0aDR6c0FYSHc2NFowbXdUVVJzYWVyWnhrMlZsNEdaVE4xMml3VXFfNDdPNXM0b1l1QW15MXJFM0tsV18xT0Z3Y0lGV3RTQlVJUUw2WGtuS3hVeEMzQm1VV25UTXZ3c294czd6a3M2TEtzaklaNENEbzJid1h3V1ZwckphZTV5M1h4c25DckF3VXFZeXc?oc=5",
       "sentiment": "neutral",
       "daysAgo": 2,
       "isCritical": false,
-      "pubDate": "Sun, 06 Sep 2026 13:40:08 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "College Football Week 1 Top 25 Picks, Odds, Box Score Predictions, Rankings, Schedule - Bleacher Report",
-      "source": "Bleacher Report",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxONW5CZWhHSlVHUWg4eVFzLVcxdURFWWF5aDhzVzFVMXp0VGRwMjk0ZExOVWdIY01qVHRXbHBMZVRpSkN4SkdZMGFoUUc4M3E5Q0JZZkxQQkk1NmJFSzJsVUlNeVNfNTctN25sNEo3N1labndMX0RwQjZIbWszNElQMTllRVZoaWd0ZU40a3JVV2RQQUNMLTJKWkFvN0dMajFyWE1yZXQyVmp4Wk5fQjk2SHdOeHRnMUN2SzJWaXdnaDlSekNV?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 5,
-      "isCritical": false,
-      "pubDate": "Thu, 03 Sep 2026 01:39:37 GMT",
-      "searchQuery": "CFB picks predictions"
-    },
-    {
-      "title": "Alabama vs Kentucky picks, predictions, odds for Week 2 game Saturday - azcentral.com",
-      "source": "azcentral.com",
-      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQTHFQRUJtTjE2UmJweEpmNzF4Y0hVQ3JsQzFTakFpUTdxbDgwWjlPOXBJbWRxRDJSNlUtZkJZYjRmaWM0THBHR2Ffa3FhQmljcjVZM2pQVUhZZ0haMmliWHFVS1hIT0hoV3NzTWQtZzZvSUFFZXlfSS1MeUU1V1lfTFFxWkdLX0h4dmVMb0JSYTJxSlNReUFBUnR3U2NFY1hqRlJwemNMNXpyLUZWZUdMTTEwbzlmVDV4Nk4wWE9wNEJrRmpXZXZCT1hGTE5mOGZDZjk5dnZR?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Mon, 07 Sep 2026 19:37:00 GMT",
+      "pubDate": "Sun, 06 Sep 2026 16:54:40 GMT",
       "searchQuery": "CFB picks predictions"
     }
   ],
