@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-12T13:54:46.596Z",
+  "generated": "2026-09-12T14:10:11.305Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 757,
   "completedGames": 101,
   "liveGames": 0,
   "gamesWithLines": 0,
-  "gamesWithWeather": 83,
+  "gamesWithWeather": 0,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 0,
@@ -18,8 +18,7 @@
   "espnFallback": true,
   "dataSourcesActive": [
     "ESPN (schedule — CFBD preseason fallback)",
-    "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 129271
+  "fetchDurationMs": 116535
 }
