@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-12T15:46:51.694Z",
+  "generated": "2026-09-12T15:54:37.220Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 757,
   "completedGames": 101,
   "liveGames": 0,
   "gamesWithLines": 0,
-  "gamesWithWeather": 84,
+  "gamesWithWeather": 83,
   "gamesWithBettingPct": 0,
   "gamesWithOdds": 0,
   "rankedTeams": 0,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 105784,
+  "fetchDurationMs": 128052,
   "apRanks": {},
   "games": [
     {
@@ -23276,18 +23276,7 @@
       "homeElo": null,
       "awayElo": null,
       "bettingLines": null,
-      "weather": {
-        "condition": "Mostly Clear",
-        "tempF": 77,
-        "windMph": 9,
-        "gusts": 21,
-        "windDir": "S",
-        "precipitation": 0.07,
-        "humidity": 64,
-        "indoors": false,
-        "kickoffHour": 20,
-        "code": 1
-      },
+      "weather": null,
       "lineMovement": [],
       "situational": {},
       "xFactors": [],
