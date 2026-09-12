@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-12T23:40:40.037Z",
-  "elapsedMs": 3465,
+  "generatedAt": "2026-09-12T23:41:16.454Z",
+  "elapsedMs": 3568,
   "atsRankings": {
     "w michigan": {
       "atsW": 1,
@@ -10,11 +10,11 @@
       "last5": "-1.0"
     },
     "akron": {
-      "atsW": 1,
+      "atsW": 2,
       "atsL": 0,
       "atsPct": 100,
       "streak": "100.0%",
-      "last5": "-22.0"
+      "last5": "6.5"
     },
     "ucf": {
       "atsW": 1,
@@ -51,13 +51,6 @@
       "streak": "100.0%",
       "last5": "14.0"
     },
-    "rice": {
-      "atsW": 1,
-      "atsL": 0,
-      "atsPct": 100,
-      "streak": "100.0%",
-      "last5": "28.0"
-    },
     "louisiana tech": {
       "atsW": 1,
       "atsL": 0,
@@ -66,11 +59,11 @@
       "last5": "74.0"
     },
     "notre dame": {
-      "atsW": 1,
+      "atsW": 2,
       "atsL": 0,
       "atsPct": 100,
       "streak": "100.0%",
-      "last5": "28.0"
+      "last5": "40.0"
     },
     "georgia": {
       "atsW": 2,
@@ -325,18 +318,18 @@
       "last5": "14.0"
     },
     "maryland": {
-      "atsW": 1,
+      "atsW": 2,
       "atsL": 0,
       "atsPct": 100,
       "streak": "100.0%",
-      "last5": "62.0"
+      "last5": "43.0"
     },
     "virginia tech": {
-      "atsW": 1,
+      "atsW": 2,
       "atsL": 0,
       "atsPct": 100,
       "streak": "100.0%",
-      "last5": "70.0"
+      "last5": "46.5"
     },
     "temple": {
       "atsW": 2,
@@ -351,13 +344,6 @@
       "atsPct": 100,
       "streak": "100.0%",
       "last5": "45.0"
-    },
-    "uconn": {
-      "atsW": 1,
-      "atsL": 0,
-      "atsPct": 100,
-      "streak": "100.0%",
-      "last5": "49.0"
     },
     "syracuse": {
       "atsW": 1,
@@ -478,6 +464,13 @@
       "streak": "50.0%",
       "last5": "-18.0"
     },
+    "rice": {
+      "atsW": 1,
+      "atsL": 1,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-12.0"
+    },
     "michigan": {
       "atsW": 1,
       "atsL": 1,
@@ -541,6 +534,13 @@
       "streak": "50.0%",
       "last5": "7.0"
     },
+    "utah st": {
+      "atsW": 1,
+      "atsL": 1,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "-7.0"
+    },
     "unlv": {
       "atsW": 1,
       "atsL": 1,
@@ -603,6 +603,13 @@
       "atsPct": 50,
       "streak": "50.0%",
       "last5": "26.0"
+    },
+    "uconn": {
+      "atsW": 1,
+      "atsL": 1,
+      "atsPct": 50,
+      "streak": "50.0%",
+      "last5": "12.5"
     },
     "sacramento state": {
       "atsW": 1,
@@ -821,13 +828,6 @@
       "streak": "0.0%",
       "last5": "-49.0"
     },
-    "utah st": {
-      "atsW": 0,
-      "atsL": 1,
-      "atsPct": 0,
-      "streak": "0.0%",
-      "last5": "-12.0"
-    },
     "troy": {
       "atsW": 0,
       "atsL": 1,
@@ -858,10 +858,10 @@
     },
     "washington": {
       "atsW": 0,
-      "atsL": 1,
+      "atsL": 2,
       "atsPct": 0,
       "streak": "0.0%",
-      "last5": "14.0"
+      "last5": "8.0"
     },
     "california": {
       "atsW": 0,
@@ -956,10 +956,10 @@
     },
     "old dominion": {
       "atsW": 0,
-      "atsL": 1,
+      "atsL": 2,
       "atsPct": 0,
       "streak": "0.0%",
-      "last5": "21.0"
+      "last5": "-1.0"
     },
     "charlotte": {
       "atsW": 0,
@@ -975,110 +975,6 @@
   "redditSentiment": {},
   "redditPosts": [],
   "newsByTeam": {
-    "notre_dame": [
-      {
-        "title": "Notre Dame tops transfer portal talent exchange rankings - Fighting Irish Wire",
-        "source": "Fighting Irish Wire",
-        "link": "https://news.google.com/rss/articles/CBMiigJBVV95cUxPeGd6SHZndWt4MkxINnlDVUV4SFcwcEZZZFUzSTFVUTNaSnVIYmx6RDVBR01kT1pnclNocm15XzdpdkZhWkJ2OXpwNVgtQUJJalJjczBKaWVsc0E1RkFXYm92MElTVnNoVG5DWFBMSGo0bVJOc2Qwa3lDVmVWY0lXZ3hlRUhaZndPWmpaN0lnSkxycE1Td2YwbVRpYmhtQTlBRmp0YTFENTBPeHRYWi1lWHVoZEdFeGd5dW44UmFQdVQxTlpyMTJFNV85Y2JSb2lYN2tSMmFTOUxWckc2Q3lZdmhFcTh3Y040TXdQaDB1RmtHaXlWU2N4NjNRSWtHVFRWOXQ5R0lzNWw2QQ?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 12 Sep 2026 17:23:00 GMT",
-        "searchQuery": "college football transfer portal"
-      },
-      {
-        "title": "No. 11 Oklahoma LB Kip Lewis leaves Michigan game and will miss some time with knee injury - LancasterOnline",
-        "source": "LancasterOnline",
-        "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxPUkdwc0Z6TjJZYVdfTnRfTXpuMU01WmlFOGZPQU1QYUF6cjhrNjgzZjAzcnExc3lrQmM5N2FmbWpneHJfY0cwbHZ3STlfQ1ZLXzB6UDEwZzJDME9yc3BFcGdVdzF5VWRmMmRxUTFrZHhFaW5XMWhkUGxJNXd4YnRQUkk5R2pudVlCY0ZtVXI4X1FoanhyTnQyWk4tWWpZSG9LVDJESExtSjZMQWM1QlFiOVhQV0w5RlQ3a2dlSGdoUHF5VFhlOTdJMU9NdXBjbkVPRDFlWHdRZTl1SlFBcVpUUVNjUkUwX2o4T0J3bl9tUDB5ZGdiaG8zYWJrZHBrWnoxUC1jMFVIWkZQcW8?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 12 Sep 2026 21:39:50 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 24,
-        "isCritical": false,
-        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      },
-      {
-        "title": "2026 college football coaching carousel grades: Marks for Kyle Whittingham, Lane Kiffin and all 33 FBS hires - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOanVvZ3lkZ2RaNFBscXROVUkzYWR4dm1DUW5OR0QwanphTFRrM09uWldNakEyMjlySDBzU2hURV95SmQ5MFZQX2VpS1lGMFpXeDB0NTRGdkxQa3NGNk5QcWlvN1RzNDh2TC1YQW82a3I5RjBLaDNZLW1BODA4aU9IMWYxMjJTenpxbzB5aEVnXzlQT2tGVTJGSmdrVU1Kc2RKamJycGEwb2EyNEpWQ3dkSjdjd1puYU1OQmUwTVJmT3pDQjhuNVI4LW9kQ2R3UQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 212,
-        "isCritical": false,
-        "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      },
-      {
-        "title": "No. 6 Oregon vs. Oklahoma State Suspended Due To Weather - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE96eTFaaVNyZ29yOW1xaXpnTEdVMTZCQmdOTjZsTDVmQ3Q4NjNkV1kzSEI3Mm5zYkwyYkV0WmNyRXZjQ2JGdVMweGFMNXJrY1dYWFUwSmNXaXNOdVZRTjR1Tk8zajdBX2t5T0x4d1VEcVRRMUp2TkFBU0Q5ZXg?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 12 Sep 2026 19:30:20 GMT",
-        "searchQuery": "college football suspended"
-      }
-    ],
-    "oklahoma": [
-      {
-        "title": "92 of Oklahoma State's 105 players are new: Inside college football's most extreme makeover with Eric Morris - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPeW9qbmdkUndmRHBNYU9ISFhrNDlhWGI4N0xybmdvdnRPY1dVT04yb3lGSFpNUUxfYjlhTlYwZ3JhVENUUURyOUJna1c4SjQxeGV0elo4ZUpmZ18wMGdNMkJ3NHFZNWZIc2NCUkZmSWJwZmUtbkJLSU1mU0pRZFh2QThsU2p3Zw?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Sat, 12 Sep 2026 06:50:00 GMT",
-        "searchQuery": "college football transfer portal"
-      },
-      {
-        "title": "No. 11 Oklahoma LB Kip Lewis leaves Michigan game and will miss some time with knee injury - LancasterOnline",
-        "source": "LancasterOnline",
-        "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxPUkdwc0Z6TjJZYVdfTnRfTXpuMU01WmlFOGZPQU1QYUF6cjhrNjgzZjAzcnExc3lrQmM5N2FmbWpneHJfY0cwbHZ3STlfQ1ZLXzB6UDEwZzJDME9yc3BFcGdVdzF5VWRmMmRxUTFrZHhFaW5XMWhkUGxJNXd4YnRQUkk5R2pudVlCY0ZtVXI4X1FoanhyTnQyWk4tWWpZSG9LVDJESExtSjZMQWM1QlFiOVhQV0w5RlQ3a2dlSGdoUHF5VFhlOTdJMU9NdXBjbkVPRDFlWHdRZTl1SlFBcVpUUVNjUkUwX2o4T0J3bl9tUDB5ZGdiaG8zYWJrZHBrWnoxUC1jMFVIWkZQcW8?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 12 Sep 2026 21:39:50 GMT",
-        "searchQuery": "college football injury"
-      },
-      {
-        "title": "No. 6 Oregon vs. Oklahoma State Suspended Due To Weather - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE96eTFaaVNyZ29yOW1xaXpnTEdVMTZCQmdOTjZsTDVmQ3Q4NjNkV1kzSEI3Mm5zYkwyYkV0WmNyRXZjQ2JGdVMweGFMNXJrY1dYWFUwSmNXaXNOdVZRTjR1Tk8zajdBX2t5T0x4d1VEcVRRMUp2TkFBU0Q5ZXg?oc=5",
-        "sentiment": "negative",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 12 Sep 2026 19:30:20 GMT",
-        "searchQuery": "college football suspended"
-      },
-      {
-        "title": "Oklahoma State football outlasts Oregon in massive NCAA upset | Replay, highlights - The Oklahoman",
-        "source": "The Oklahoman",
-        "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNa3VSX1RuODFPNFc0bHJqLXg5Q2hJOERvWGd6ZXd1VEtFRVdlTW1PUDBncGdQS3Ztdkp3WGxrWDg1dzJfSmZCU2VsMlVlQVMyY1pibUpZaGFxRUtXRk0xSFZxSWVGemJJbGh0bDdPOFM5TmQzTVMzOU93d1hjdFVQV2Z5UjkwRFExOVFFbWo4dUZETXdELTZXV1g0WGd5SDVWQkVoREF0NXctWHk2aHFuNU1oQ0dMVnJZOTJoM04tYTV0WUxZM0NHamJpUkZBeTVscUZrZ2VIY2ozTjJaOXdDdlRTelRlRU8tTjdFTXdoaU0tU01UekFGcQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 12 Sep 2026 22:52:00 GMT",
-        "searchQuery": "NCAA college football"
-      },
-      {
-        "title": "Top 25 betting lines: Longhorns, Sooners favored in the week's biggest matchups - ESPN",
-        "source": "ESPN",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPQVZkQ20zODhKTFpDcTZWUVp6eU5qSENGRmFyUUE5UVl3YkxoQjQxQkRZajRWb3FBLUNhN2I5U0pPNkJlemZBXy1jUXNaYkc4VEF1Z0RPeHU1cHZPNnMtb2dpdzFGdElUNVN1UHVyc1psTmVxZFgwV1pfejRpNWVVeE9LRHFpTW1oYi1IREpUaWZmRTR5Z2owMFJrNU11UXR4SkxJ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 1,
-        "isCritical": false,
-        "pubDate": "Fri, 11 Sep 2026 16:51:00 GMT",
-        "searchQuery": "college football spread odds"
-      }
-    ],
     "ohio_state": [
       {
         "title": "College Football Injury Report: Latest Week 2 updates at Baylor, Ohio State, Ole Miss &amp; more - On3",
@@ -1101,8 +997,8 @@
         "searchQuery": "college football depth chart"
       },
       {
-        "title": "Week 2 college football odds, storylines: Best bets for the 5 biggest games, including Ohio State at Texas - Yahoo Sports",
-        "source": "Yahoo Sports",
+        "title": "Week 2 college football odds, storylines: Best bets for the 5 biggest games, including Ohio State at Texas - sports.yahoo.com",
+        "source": "sports.yahoo.com",
         "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQRHZPa3IybEJ2ZlJCcUdJcHlBSWhUX0pUd3JjZWIyUXVoakxqc18xbWpOb05GeElpdHc0SXVaQmtGa3Y1eXBiV2pnTjFZYWw3VEd5d0dfS1U3OW5wMTY5SWtWNEN6cWR5MmpneEItYVUzR1lYN1NFS0pKTGFWRU9QOGpGdnYtdzRBenYwdnBzekMzR3B1cGlSSDVJYkpnWUNUd1NLT2k0ZGt6alU4ZkZ5NTNVdXVXQmhjeUZIRXFPenY4akJtZDJ2akFGUXdRMGk2SS1SVE00RFVNdm1QS1EzNzRYc1pwaUF6bGY2c21panU?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
@@ -1133,8 +1029,30 @@
         "searchQuery": "college football injury"
       },
       {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - sports.yahoo.com",
+        "source": "sports.yahoo.com",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 24,
+        "isCritical": false,
+        "pubDate": "Thu, 20 Aug 2026 07:00:00 GMT",
+        "searchQuery": "college football coaching change"
+      }
+    ],
+    "notre_dame": [
+      {
+        "title": "No. 11 Oklahoma LB Kip Lewis leaves Michigan game and will miss some time with knee injury - LancasterOnline",
+        "source": "LancasterOnline",
+        "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxPUkdwc0Z6TjJZYVdfTnRfTXpuMU01WmlFOGZPQU1QYUF6cjhrNjgzZjAzcnExc3lrQmM5N2FmbWpneHJfY0cwbHZ3STlfQ1ZLXzB6UDEwZzJDME9yc3BFcGdVdzF5VWRmMmRxUTFrZHhFaW5XMWhkUGxJNXd4YnRQUkk5R2pudVlCY0ZtVXI4X1FoanhyTnQyWk4tWWpZSG9LVDJESExtSjZMQWM1QlFiOVhQV0w5RlQ3a2dlSGdoUHF5VFhlOTdJMU9NdXBjbkVPRDFlWHdRZTl1SlFBcVpUUVNjUkUwX2o4T0J3bl9tUDB5ZGdiaG8zYWJrZHBrWnoxUC1jMFVIWkZQcW8?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 21:39:50 GMT",
+        "searchQuery": "college football injury"
+      },
+      {
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - sports.yahoo.com",
+        "source": "sports.yahoo.com",
         "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
         "sentiment": "neutral",
         "daysAgo": 24,
@@ -1143,14 +1061,34 @@
         "searchQuery": "college football coaching change"
       },
       {
-        "title": "2026 college football coaching carousel grades: Marks for Kyle Whittingham, Lane Kiffin and all 33 FBS hires - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOanVvZ3lkZ2RaNFBscXROVUkzYWR4dm1DUW5OR0QwanphTFRrM09uWldNakEyMjlySDBzU2hURV95SmQ5MFZQX2VpS1lGMFpXeDB0NTRGdkxQa3NGNk5QcWlvN1RzNDh2TC1YQW82a3I5RjBLaDNZLW1BODA4aU9IMWYxMjJTenpxbzB5aEVnXzlQT2tGVTJGSmdrVU1Kc2RKamJycGEwb2EyNEpWQ3dkSjdjd1puYU1OQmUwTVJmT3pDQjhuNVI4LW9kQ2R3UQ?oc=5",
+        "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - WRAL",
+        "source": "WRAL",
+        "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPTGZQTDQzMzdLTXAxd0lCYlBFQ01LU09kUlJnMmZuQ0QwSi1wYUk4aVAwY0xJclYzVzA2UDh6b2lwSkRHVDJYRXBCdEFCdlVkVVo0enN6OG1vYnU0VF9DUWZ4RWVySUFIXzgxMHh1ZTIzSUtXQ3lyNXBkU3lLNnYyRVotdWszYlNvdDd4UXNPdmFYendrOERkM3FoXzlpVm1JMmFQUlVsY29reV9kYk5VN24wRlNCd1hFejF3UzQyajVTNkk?oc=5",
         "sentiment": "neutral",
-        "daysAgo": 212,
+        "daysAgo": 10,
         "isCritical": false,
-        "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
+        "pubDate": "Wed, 02 Sep 2026 21:57:19 GMT",
         "searchQuery": "college football coaching change"
+      },
+      {
+        "title": "Notre Dame tops transfer portal talent exchange rankings - Fighting Irish Wire",
+        "source": "Fighting Irish Wire",
+        "link": "https://news.google.com/rss/articles/CBMiigJBVV95cUxPeGd6SHZndWt4MkxINnlDVUV4SFcwcEZZZFUzSTFVUTNaSnVIYmx6RDVBR01kT1pnclNocm15XzdpdkZhWkJ2OXpwNVgtQUJJalJjczBKaWVsc0E1RkFXYm92MElTVnNoVG5DWFBMSGo0bVJOc2Qwa3lDVmVWY0lXZ3hlRUhaZndPWmpaN0lnSkxycE1Td2YwbVRpYmhtQTlBRmp0YTFENTBPeHRYWi1lWHVoZEdFeGd5dW44UmFQdVQxTlpyMTJFNV85Y2JSb2lYN2tSMmFTOUxWckc2Q3lZdmhFcTh3Y040TXdQaDB1RmtHaXlWU2N4NjNRSWtHVFRWOXQ5R0lzNWw2QQ?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 17:23:00 GMT",
+        "searchQuery": "college football transfer portal"
+      },
+      {
+        "title": "No. 6 Oregon vs. Oklahoma State Suspended Due To Weather - sports.yahoo.com",
+        "source": "sports.yahoo.com",
+        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE96eTFaaVNyZ29yOW1xaXpnTEdVMTZCQmdOTjZsTDVmQ3Q4NjNkV1kzSEI3Mm5zYkwyYkV0WmNyRXZjQ2JGdVMweGFMNXJrY1dYWFUwSmNXaXNOdVZRTjR1Tk8zajdBX2t5T0x4d1VEcVRRMUp2TkFBU0Q5ZXg?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 19:30:20 GMT",
+        "searchQuery": "college football suspended"
       }
     ],
     "michigan": [
@@ -1165,8 +1103,8 @@
         "searchQuery": "college football injury"
       },
       {
-        "title": "College football history is rich with controversial endings. Welcome to the club, Michigan-WMU - The New York Times",
-        "source": "The New York Times",
+        "title": "College football history is rich with controversial endings. Welcome to the club, Michigan-WMU - nytimes.com",
+        "source": "nytimes.com",
         "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOTHR6TFV0Z1ZBXzlVeENLaXltbnVXYUlLRENwTUNDbjNMNTVhbDdvTVZGS0h3aHYtYkF3OGdiZFU2ZkJUS2R4dUJuc3ptNVltamRYeWlfbmpROF9leUlvNnhaRTdJUUdEU2xoU1lLSDJBVERENHhnUjdLTTFPV1U4RDlGSTk1N3NGT2EzM3g4TVQtMVVRYWdaNURlM2RiRmM2NmZPXzZTUkdUZw?oc=5",
         "sentiment": "neutral",
         "daysAgo": 6,
@@ -1195,8 +1133,8 @@
         "searchQuery": "CFB picks predictions"
       },
       {
-        "title": "College Football Predictions, Picks: Stuckey’s Week 2 Bets for Michigan vs Oklahoma, Kentucky vs Alabama, More - actionnetwork.com",
-        "source": "actionnetwork.com",
+        "title": "College Football Predictions, Picks: Stuckey’s Week 2 Bets for Michigan vs Oklahoma, Kentucky vs Alabama, More - Action Network",
+        "source": "Action Network",
         "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNVFpNNWRjRWFCU1lWOHE4ZVQ0Tk5zN2dFaVlteHBGSjJwNFFFV2h3ejdoM1BlaDZldThLd19YaUJCWUxBQU9Hbm9rUVd6R09wU1JEVFZUdWloOGFsazdGY2NaR0E3TjZtNGNTT3R0Q1M5YVRzUHBRUW5kbWMxNldxbDBWNHliWHpiZVNqTjlyZmNXV09PLU5fOHFsWGlwbUNmV3JKVlZJUEo1VW9sR01XMFdoMWZ6QldIbDJ4U0tyLTdhTl9YclRUSk1PczdXY2Z4Z3Nlb2lB?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
@@ -1205,10 +1143,62 @@
         "searchQuery": "CFB picks predictions"
       }
     ],
+    "oklahoma": [
+      {
+        "title": "No. 11 Oklahoma LB Kip Lewis leaves Michigan game and will miss some time with knee injury - LancasterOnline",
+        "source": "LancasterOnline",
+        "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxPUkdwc0Z6TjJZYVdfTnRfTXpuMU01WmlFOGZPQU1QYUF6cjhrNjgzZjAzcnExc3lrQmM5N2FmbWpneHJfY0cwbHZ3STlfQ1ZLXzB6UDEwZzJDME9yc3BFcGdVdzF5VWRmMmRxUTFrZHhFaW5XMWhkUGxJNXd4YnRQUkk5R2pudVlCY0ZtVXI4X1FoanhyTnQyWk4tWWpZSG9LVDJESExtSjZMQWM1QlFiOVhQV0w5RlQ3a2dlSGdoUHF5VFhlOTdJMU9NdXBjbkVPRDFlWHdRZTl1SlFBcVpUUVNjUkUwX2o4T0J3bl9tUDB5ZGdiaG8zYWJrZHBrWnoxUC1jMFVIWkZQcW8?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 21:39:50 GMT",
+        "searchQuery": "college football injury"
+      },
+      {
+        "title": "92 of Oklahoma State's 105 players are new: Inside college football's most extreme makeover with Eric Morris - sports.yahoo.com",
+        "source": "sports.yahoo.com",
+        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPeW9qbmdkUndmRHBNYU9ISFhrNDlhWGI4N0xybmdvdnRPY1dVT04yb3lGSFpNUUxfYjlhTlYwZ3JhVENUUURyOUJna1c4SjQxeGV0elo4ZUpmZ18wMGdNMkJ3NHFZNWZIc2NCUkZmSWJwZmUtbkJLSU1mU0pRZFh2QThsU2p3Zw?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 06:50:00 GMT",
+        "searchQuery": "college football transfer portal"
+      },
+      {
+        "title": "No. 6 Oregon vs. Oklahoma State Suspended Due To Weather - sports.yahoo.com",
+        "source": "sports.yahoo.com",
+        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE96eTFaaVNyZ29yOW1xaXpnTEdVMTZCQmdOTjZsTDVmQ3Q4NjNkV1kzSEI3Mm5zYkwyYkV0WmNyRXZjQ2JGdVMweGFMNXJrY1dYWFUwSmNXaXNOdVZRTjR1Tk8zajdBX2t5T0x4d1VEcVRRMUp2TkFBU0Q5ZXg?oc=5",
+        "sentiment": "negative",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 19:30:20 GMT",
+        "searchQuery": "college football suspended"
+      },
+      {
+        "title": "Oklahoma State football outlasts Oregon in massive NCAA upset | Replay, highlights - The Oklahoman",
+        "source": "The Oklahoman",
+        "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNa3VSX1RuODFPNFc0bHJqLXg5Q2hJOERvWGd6ZXd1VEtFRVdlTW1PUDBncGdQS3Ztdkp3WGxrWDg1dzJfSmZCU2VsMlVlQVMyY1pibUpZaGFxRUtXRk0xSFZxSWVGemJJbGh0bDdPOFM5TmQzTVMzOU93d1hjdFVQV2Z5UjkwRFExOVFFbWo4dUZETXdELTZXV1g0WGd5SDVWQkVoREF0NXctWHk2aHFuNU1oQ0dMVnJZOTJoM04tYTV0WUxZM0NHamJpUkZBeTVscUZrZ2VIY2ozTjJaOXdDdlRTelRlRU8tTjdFTXdoaU0tU01UekFGcQ?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 22:52:00 GMT",
+        "searchQuery": "NCAA college football"
+      },
+      {
+        "title": "Oklahoma vs. Michigan Prediction, Odds, Pick For College Football Week 2 - FOX Sports",
+        "source": "FOX Sports",
+        "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOTUpoejItNGctZXE4ejZodXdmTy1BMEk4emZyUU9pLXZVSlV2SUNuV3l6MjdyWE40eE94QkFIZVpNV1BTZ0VJcGVEZHRuM0N4RHhxLTh3WHZqNjc2QkNnWGFPVHJDdzBsdkRKeDVNd1ctUC1KQW1Cd2NaSFcwOXJMSTdoUzBUc3Q5cE40bDNVRDFyd1NISTU3Q0E0LWRzSV9BZnpITkI4VFc1SUJmOGxhc3N0VVR1TE3SAbcBQVVfeXFMTTlNdWZaeTlpT0o1NFdGNDdJMHNwY3pLcm5OUDVvYjVtcS1wZC03VXF1b0ttb2FycVNuMkgxd0ZTbVF0Qzg0WDhsR1IxTHY1U3g3MmVHV1lUZzR4TlBRZ2ZHUU00Ti1Ha08zWE5MYkNTbTFuUy1uVG8xd3pYY0FfWDkyWVRCU0VlWWs0alFyQzgwb2Zjd3ItMkRVaDNHT0t3ekZjZGg2YkVYejlQdTg3ejhYUHFDVzA0?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 1,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 04:00:30 GMT",
+        "searchQuery": "CFB picks predictions"
+      }
+    ],
     "penn_state": [
       {
-        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-        "source": "Yahoo Sports",
+        "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - sports.yahoo.com",
+        "source": "sports.yahoo.com",
         "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
         "sentiment": "neutral",
         "daysAgo": 24,
@@ -1227,22 +1217,10 @@
         "searchQuery": "college football depth chart"
       }
     ],
-    "utah": [
-      {
-        "title": "2026 college football coaching carousel grades: Marks for Kyle Whittingham, Lane Kiffin and all 33 FBS hires - CBS Sports",
-        "source": "CBS Sports",
-        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOanVvZ3lkZ2RaNFBscXROVUkzYWR4dm1DUW5OR0QwanphTFRrM09uWldNakEyMjlySDBzU2hURV95SmQ5MFZQX2VpS1lGMFpXeDB0NTRGdkxQa3NGNk5QcWlvN1RzNDh2TC1YQW82a3I5RjBLaDNZLW1BODA4aU9IMWYxMjJTenpxbzB5aEVnXzlQT2tGVTJGSmdrVU1Kc2RKamJycGEwb2EyNEpWQ3dkSjdjd1puYU1OQmUwTVJmT3pDQjhuNVI4LW9kQ2R3UQ?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 212,
-        "isCritical": false,
-        "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
-        "searchQuery": "college football coaching change"
-      }
-    ],
     "oregon": [
       {
-        "title": "No. 6 Oregon vs. Oklahoma State Suspended Due To Weather - Yahoo Sports",
-        "source": "Yahoo Sports",
+        "title": "No. 6 Oregon vs. Oklahoma State Suspended Due To Weather - sports.yahoo.com",
+        "source": "sports.yahoo.com",
         "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE96eTFaaVNyZ29yOW1xaXpnTEdVMTZCQmdOTjZsTDVmQ3Q4NjNkV1kzSEI3Mm5zYkwyYkV0WmNyRXZjQ2JGdVMweGFMNXJrY1dYWFUwSmNXaXNOdVZRTjR1Tk8zajdBX2t5T0x4d1VEcVRRMUp2TkFBU0Q5ZXg?oc=5",
         "sentiment": "negative",
         "daysAgo": 0,
@@ -1258,30 +1236,6 @@
         "daysAgo": 0,
         "isCritical": false,
         "pubDate": "Sat, 12 Sep 2026 22:52:00 GMT",
-        "searchQuery": "NCAA college football"
-      }
-    ],
-    "auburn": [
-      {
-        "title": "How to watch Southern Miss vs Auburn: Live stream NCAA College Football, TV channel - Yahoo Sports",
-        "source": "Yahoo Sports",
-        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNLVB2VjVHWTdFRUVPdHFYQUMzZk9UdDJLMHdQVGJfMjVsTlp5UG4xM1k2WnNVTDFwSm9KOVQxaXZXVDZuYXZSbGpRNG9ZODFKSnlVVFBlY0FObU5DUVNwM1R3djNqZ0FPNzlBZ1BrS2laZllweWI4Nk5JVF9nSDNrUmVXX2w?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 12 Sep 2026 23:15:00 GMT",
-        "searchQuery": "NCAA college football"
-      }
-    ],
-    "usc": [
-      {
-        "title": "How to watch USC-Louisiana college football game for free tonight - AL.com",
-        "source": "AL.com",
-        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNQzV0YlRlYUFGalF6Vm9ScDNvLTY4Q1BnbXZ2Y21sd3R2SkdOUmtTMUI5bUJ4MXloaklHNWt3d01qczVUanFGS3BtSEVDNHRpdWhubUNaZU5kbEZEcmdGYnM5amFKOWp0NkxQMWt3ekdTcGhaZ0hCUTFqRjdSQUx3UFN6RHpncVJqS3R3bG54RzRvUUFSTlplNW9WNlFKY0J2Y0HSAbYBQVVfeXFMUEhWdTl6VmlWR0V5S1hiWW9WdGpGMkRFYW9pQk5sZjEyR1VTbVA2cnhsU0oyQWtxcjdfU3J1QmxTX2M0ejFjZmVFUXBIWWo0S1FSMWhmQ0FWbU1PN3dtTWMyT0NzRExDNGdCSWNaVWthMVc3aG5UYWVVSTdMakRjSGt5S3JRS1lraGM2RkIxTGtNbV85LVBTWEZSUV9ONnB2UFNSMHdrZXhnalZkQ3cwMzZoOWZqN3c?oc=5",
-        "sentiment": "neutral",
-        "daysAgo": 0,
-        "isCritical": false,
-        "pubDate": "Sat, 12 Sep 2026 22:00:00 GMT",
         "searchQuery": "NCAA college football"
       }
     ],
@@ -1333,8 +1287,8 @@
         "searchQuery": "college football depth chart"
       },
       {
-        "title": "Week 2 college football odds, storylines: Best bets for the 5 biggest games, including Ohio State at Texas - Yahoo Sports",
-        "source": "Yahoo Sports",
+        "title": "Week 2 college football odds, storylines: Best bets for the 5 biggest games, including Ohio State at Texas - sports.yahoo.com",
+        "source": "sports.yahoo.com",
         "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQRHZPa3IybEJ2ZlJCcUdJcHlBSWhUX0pUd3JjZWIyUXVoakxqc18xbWpOb05GeElpdHc0SXVaQmtGa3Y1eXBiV2pnTjFZYWw3VEd5d0dfS1U3OW5wMTY5SWtWNEN6cWR5MmpneEItYVUzR1lYN1NFS0pKTGFWRU9QOGpGdnYtdzRBenYwdnBzekMzR3B1cGlSSDVJYkpnWUNUd1NLT2k0ZGt6alU4ZkZ5NTNVdXVXQmhjeUZIRXFPenY4akJtZDJ2akFGUXdRMGk2SS1SVE00RFVNdm1QS1EzNzRYc1pwaUF6bGY2c21panU?oc=5",
         "sentiment": "neutral",
         "daysAgo": 0,
@@ -1363,10 +1317,34 @@
         "searchQuery": "college football spread odds"
       }
     ],
+    "auburn": [
+      {
+        "title": "How to watch Southern Miss vs Auburn: Live stream NCAA College Football, TV channel - sports.yahoo.com",
+        "source": "sports.yahoo.com",
+        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNLVB2VjVHWTdFRUVPdHFYQUMzZk9UdDJLMHdQVGJfMjVsTlp5UG4xM1k2WnNVTDFwSm9KOVQxaXZXVDZuYXZSbGpRNG9ZODFKSnlVVFBlY0FObU5DUVNwM1R3djNqZ0FPNzlBZ1BrS2laZllweWI4Nk5JVF9nSDNrUmVXX2w?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 23:15:00 GMT",
+        "searchQuery": "NCAA college football"
+      }
+    ],
+    "usc": [
+      {
+        "title": "How to watch USC-Louisiana college football game for free tonight - AL.com",
+        "source": "AL.com",
+        "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNQzV0YlRlYUFGalF6Vm9ScDNvLTY4Q1BnbXZ2Y21sd3R2SkdOUmtTMUI5bUJ4MXloaklHNWt3d01qczVUanFGS3BtSEVDNHRpdWhubUNaZU5kbEZEcmdGYnM5amFKOWp0NkxQMWt3ekdTcGhaZ0hCUTFqRjdSQUx3UFN6RHpncVJqS3R3bG54RzRvUUFSTlplNW9WNlFKY0J2Y0HSAbYBQVVfeXFMUEhWdTl6VmlWR0V5S1hiWW9WdGpGMkRFYW9pQk5sZjEyR1VTbVA2cnhsU0oyQWtxcjdfU3J1QmxTX2M0ejFjZmVFUXBIWWo0S1FSMWhmQ0FWbU1PN3dtTWMyT0NzRExDNGdCSWNaVWthMVc3aG5UYWVVSTdMakRjSGt5S3JRS1lraGM2RkIxTGtNbV85LVBTWEZSUV9ONnB2UFNSMHdrZXhnalZkQ3cwMzZoOWZqN3c?oc=5",
+        "sentiment": "neutral",
+        "daysAgo": 0,
+        "isCritical": false,
+        "pubDate": "Sat, 12 Sep 2026 22:00:00 GMT",
+        "searchQuery": "NCAA college football"
+      }
+    ],
     "alabama": [
       {
-        "title": "College Football Predictions, Picks: Stuckey’s Week 2 Bets for Michigan vs Oklahoma, Kentucky vs Alabama, More - actionnetwork.com",
-        "source": "actionnetwork.com",
+        "title": "College Football Predictions, Picks: Stuckey’s Week 2 Bets for Michigan vs Oklahoma, Kentucky vs Alabama, More - Action Network",
+        "source": "Action Network",
         "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNVFpNNWRjRWFCU1lWOHE4ZVQ0Tk5zN2dFaVlteHBGSjJwNFFFV2h3ejdoM1BlaDZldThLd19YaUJCWUxBQU9Hbm9rUVd6R09wU1JEVFZUdWloOGFsazdGY2NaR0E3TjZtNGNTT3R0Q1M5YVRzUHBRUW5kbWMxNldxbDBWNHliWHpiZVNqTjlyZmNXV09PLU5fOHFsWGlwbUNmV3JKVlZJUEo1VW9sR01XMFdoMWZ6QldIbDJ4U0tyLTdhTl9YclRUSk1PczdXY2Z4Z3Nlb2lB?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
@@ -1377,8 +1355,8 @@
     ],
     "kentucky": [
       {
-        "title": "College Football Predictions, Picks: Stuckey’s Week 2 Bets for Michigan vs Oklahoma, Kentucky vs Alabama, More - actionnetwork.com",
-        "source": "actionnetwork.com",
+        "title": "College Football Predictions, Picks: Stuckey’s Week 2 Bets for Michigan vs Oklahoma, Kentucky vs Alabama, More - Action Network",
+        "source": "Action Network",
         "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNVFpNNWRjRWFCU1lWOHE4ZVQ0Tk5zN2dFaVlteHBGSjJwNFFFV2h3ejdoM1BlaDZldThLd19YaUJCWUxBQU9Hbm9rUVd6R09wU1JEVFZUdWloOGFsazdGY2NaR0E3TjZtNGNTT3R0Q1M5YVRzUHBRUW5kbWMxNldxbDBWNHliWHpiZVNqTjlyZmNXV09PLU5fOHFsWGlwbUNmV3JKVlZJUEo1VW9sR01XMFdoMWZ6QldIbDJ4U0tyLTdhTl9YclRUSk1PczdXY2Z4Z3Nlb2lB?oc=5",
         "sentiment": "neutral",
         "daysAgo": 1,
@@ -1389,56 +1367,6 @@
     ]
   },
   "allNews": [
-    {
-      "title": "Notre Dame tops transfer portal talent exchange rankings - Fighting Irish Wire",
-      "source": "Fighting Irish Wire",
-      "link": "https://news.google.com/rss/articles/CBMiigJBVV95cUxPeGd6SHZndWt4MkxINnlDVUV4SFcwcEZZZFUzSTFVUTNaSnVIYmx6RDVBR01kT1pnclNocm15XzdpdkZhWkJ2OXpwNVgtQUJJalJjczBKaWVsc0E1RkFXYm92MElTVnNoVG5DWFBMSGo0bVJOc2Qwa3lDVmVWY0lXZ3hlRUhaZndPWmpaN0lnSkxycE1Td2YwbVRpYmhtQTlBRmp0YTFENTBPeHRYWi1lWHVoZEdFeGd5dW44UmFQdVQxTlpyMTJFNV85Y2JSb2lYN2tSMmFTOUxWckc2Q3lZdmhFcTh3Y040TXdQaDB1RmtHaXlWU2N4NjNRSWtHVFRWOXQ5R0lzNWw2QQ?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 17:23:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "College Football Transfer Portal Star Worth Over $6 Million Earns Major Recognition - Sports Illustrated",
-      "source": "Sports Illustrated",
-      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOWU96akU4bm9BVFZSNDhrMmhNRHhfdHQyVUFyWXNxVUF0WWFvbjRMdkpfSDk1Wlk0dUZRWjNFNEVYdVZSM3g2bGpwZVVsUVZjY0ZlMEc4SkoxZ2Y4aWt1bHJ3cVFyXzhNZFdfa0wzeFZlY1d5bkdrckF0ZVpHcnZiRGlKTERXS3NwWmtLdmJIYjB5Vms5YTlZOG1ScU90RE5qTm85OGJDR3VWb3R6Sm5SM3BjdUEyYkJadU0wcDE3SlU2djFjWjd3ZUkwTQ?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Fri, 11 Sep 2026 14:27:27 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "92 of Oklahoma State's 105 players are new: Inside college football's most extreme makeover with Eric Morris - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPeW9qbmdkUndmRHBNYU9ISFhrNDlhWGI4N0xybmdvdnRPY1dVT04yb3lGSFpNUUxfYjlhTlYwZ3JhVENUUURyOUJna1c4SjQxeGV0elo4ZUpmZ18wMGdNMkJ3NHFZNWZIc2NCUkZmSWJwZmUtbkJLSU1mU0pRZFh2QThsU2p3Zw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 06:50:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "NFL players enter ... college football transfer portal???; James Harden returns to Cavaliers - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPaV9tbnFGcDgzTXBBazR0VHQ4dmRzVy1sU3U0SFh4UmpVa1J0TU9rbEhhV2pLakFsaWV5S0h2YzBiZ2hVVkt4SzVuWVBlelU2UG1UdEhoeG51WDFNVmpQemxqd0dqSmJtc2hLaU5kQUQzbzFsWDZ4ZVprRnZBcDVvd0doSm4tWUdMSGtabGpJeGQzRFBzT0RPNDd3T2Jic0ROTTEwbEZsVWZETXlzby1XOUdCQmNtYV9EdzB3eFgzaVRrSEY3cFlDZXVsUEkydw?oc=5",
-      "sentiment": "negative",
-      "daysAgo": 23,
-      "isCritical": false,
-      "pubDate": "Fri, 21 Aug 2026 07:00:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
-    {
-      "title": "High school QBs face new reality as transfers dominate starting jobs at the top of college football - KWTX",
-      "source": "KWTX",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNTHlySlJlXzFYVENOOEJKODRRMUFJZ3VCX25YNnhMQ3g2N3NXTC1VcUpFNGZodV8ycmZKTHZNa0tTbGxxWlZiU2xQRFVLVUtzN3NmRmFpcjZmSHhBSmphOE02SzRfYkJENElZMUhhakV5VnlHV2RZZjJ1aFRZZHVLX2c5WktwSUdqMUxhdVN5cW90Y0ctd242eXdNSHhoYlBQR2phWktXYU9VT3lxc1FnTk03WWNEd1BnSU5V0gHPAUFVX3lxTFB2enNEcEdBazljZzItaFRhd3VIdkx5S2h0OWVITWxvV205TGdUMDQ5MFRzOFBKUkVpZ3M2WTR2YU1oNm94enlMNVpTczREeUF2VU9rZUh1S19hXzdUcXZRSXF3QXh0aV9pTHVtLVF4azRfcE9oVExlZWh6ZGQ5LWZNS2tFUEI2cGxSRElrR05paEg1M0dDQUdHUXN6UV9QaGpBendnaEF0N0FTamE5aHhXN2E3blFUOHM5eG9ieFpwaktSZUM1MVBhMmNGd0J3aw?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 5,
-      "isCritical": false,
-      "pubDate": "Mon, 07 Sep 2026 20:25:00 GMT",
-      "searchQuery": "college football transfer portal"
-    },
     {
       "title": "College Football Injury Report: Latest Week 2 updates at Baylor, Ohio State, Ole Miss &amp; more - On3",
       "source": "On3",
@@ -1460,8 +1388,8 @@
       "searchQuery": "college football injury"
     },
     {
-      "title": "Boston College linebacker Bodie Kahoun leaves field in ambulance after injury - The New York Times",
-      "source": "The New York Times",
+      "title": "Boston College linebacker Bodie Kahoun leaves field in ambulance after injury - nytimes.com",
+      "source": "nytimes.com",
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQcy1TbmJVWjRZZ1NrN0prdy1oeUtOWDhQNFJGNVBzem5HNHZTNFpIQVREemJGUFd5eTFKUWtsLUpRaFYxU0pDdnBYbGN6ZzlwNTg0V0dwcGRZN1lZQkpHaGd2dTkzQnI4WEpJWWN6b3U3Ulh1WFEwemNLYlVxNW43TEJ0cG5PaW9hdVowWVE4R1pfVzlwdnZpdjFOWERybFZhelkw?oc=5",
       "sentiment": "neutral",
       "daysAgo": 1,
@@ -1500,8 +1428,8 @@
       "searchQuery": "college football coaching change"
     },
     {
-      "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - Yahoo Sports",
-      "source": "Yahoo Sports",
+      "title": "College football coaching hires 2026: Handing out grades for Lane Kiffin, James Franklin and more - sports.yahoo.com",
+      "source": "sports.yahoo.com",
       "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOR3dJUjBDd2NQYWstX09CeHBHaVZVNnVZY3Y0VFhmZzVQXzhma0ExMy0xZHpWZDRrYjFUMl9qTzRNNEw5VFNaMVY2ZzlLR1hyNUszM2FlTnNDUENUZk5icVhaS0Y3dFJzcHhlNUNtVy1Xa0hBUDdjT0tDSlozR1JFelBNZmZ3ZGZid21GRnlR?oc=5",
       "sentiment": "neutral",
       "daysAgo": 24,
@@ -1530,18 +1458,68 @@
       "searchQuery": "college football coaching change"
     },
     {
-      "title": "2026 college football coaching carousel grades: Marks for Kyle Whittingham, Lane Kiffin and all 33 FBS hires - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOanVvZ3lkZ2RaNFBscXROVUkzYWR4dm1DUW5OR0QwanphTFRrM09uWldNakEyMjlySDBzU2hURV95SmQ5MFZQX2VpS1lGMFpXeDB0NTRGdkxQa3NGNk5QcWlvN1RzNDh2TC1YQW82a3I5RjBLaDNZLW1BODA4aU9IMWYxMjJTenpxbzB5aEVnXzlQT2tGVTJGSmdrVU1Kc2RKamJycGEwb2EyNEpWQ3dkSjdjd1puYU1OQmUwTVJmT3pDQjhuNVI4LW9kQ2R3UQ?oc=5",
+      "title": "College football coaching changes put Kiffin, Whittingham, Sumrall and others in new places - WRAL",
+      "source": "WRAL",
+      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPTGZQTDQzMzdLTXAxd0lCYlBFQ01LU09kUlJnMmZuQ0QwSi1wYUk4aVAwY0xJclYzVzA2UDh6b2lwSkRHVDJYRXBCdEFCdlVkVVo0enN6OG1vYnU0VF9DUWZ4RWVySUFIXzgxMHh1ZTIzSUtXQ3lyNXBkU3lLNnYyRVotdWszYlNvdDd4UXNPdmFYendrOERkM3FoXzlpVm1JMmFQUlVsY29reV9kYk5VN24wRlNCd1hFejF3UzQyajVTNkk?oc=5",
       "sentiment": "neutral",
-      "daysAgo": 212,
+      "daysAgo": 10,
       "isCritical": false,
-      "pubDate": "Fri, 13 Feb 2026 08:00:00 GMT",
+      "pubDate": "Wed, 02 Sep 2026 21:57:19 GMT",
       "searchQuery": "college football coaching change"
     },
     {
-      "title": "No. 6 Oregon vs. Oklahoma State Suspended Due To Weather - Yahoo Sports",
-      "source": "Yahoo Sports",
+      "title": "Notre Dame tops transfer portal talent exchange rankings - Fighting Irish Wire",
+      "source": "Fighting Irish Wire",
+      "link": "https://news.google.com/rss/articles/CBMiigJBVV95cUxPeGd6SHZndWt4MkxINnlDVUV4SFcwcEZZZFUzSTFVUTNaSnVIYmx6RDVBR01kT1pnclNocm15XzdpdkZhWkJ2OXpwNVgtQUJJalJjczBKaWVsc0E1RkFXYm92MElTVnNoVG5DWFBMSGo0bVJOc2Qwa3lDVmVWY0lXZ3hlRUhaZndPWmpaN0lnSkxycE1Td2YwbVRpYmhtQTlBRmp0YTFENTBPeHRYWi1lWHVoZEdFeGd5dW44UmFQdVQxTlpyMTJFNV85Y2JSb2lYN2tSMmFTOUxWckc2Q3lZdmhFcTh3Y040TXdQaDB1RmtHaXlWU2N4NjNRSWtHVFRWOXQ5R0lzNWw2QQ?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 12 Sep 2026 17:23:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "College Football Transfer Portal Star Worth Over $6 Million Earns Major Recognition - Sports Illustrated",
+      "source": "Sports Illustrated",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOWU96akU4bm9BVFZSNDhrMmhNRHhfdHQyVUFyWXNxVUF0WWFvbjRMdkpfSDk1Wlk0dUZRWjNFNEVYdVZSM3g2bGpwZVVsUVZjY0ZlMEc4SkoxZ2Y4aWt1bHJ3cVFyXzhNZFdfa0wzeFZlY1d5bkdrckF0ZVpHcnZiRGlKTERXS3NwWmtLdmJIYjB5Vms5YTlZOG1ScU90RE5qTm85OGJDR3VWb3R6Sm5SM3BjdUEyYkJadU0wcDE3SlU2djFjWjd3ZUkwTQ?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Fri, 11 Sep 2026 14:27:27 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "92 of Oklahoma State's 105 players are new: Inside college football's most extreme makeover with Eric Morris - sports.yahoo.com",
+      "source": "sports.yahoo.com",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPeW9qbmdkUndmRHBNYU9ISFhrNDlhWGI4N0xybmdvdnRPY1dVT04yb3lGSFpNUUxfYjlhTlYwZ3JhVENUUURyOUJna1c4SjQxeGV0elo4ZUpmZ18wMGdNMkJ3NHFZNWZIc2NCUkZmSWJwZmUtbkJLSU1mU0pRZFh2QThsU2p3Zw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Sat, 12 Sep 2026 06:50:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "NFL players enter ... college football transfer portal???; James Harden returns to Cavaliers - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPaV9tbnFGcDgzTXBBazR0VHQ4dmRzVy1sU3U0SFh4UmpVa1J0TU9rbEhhV2pLakFsaWV5S0h2YzBiZ2hVVkt4SzVuWVBlelU2UG1UdEhoeG51WDFNVmpQemxqd0dqSmJtc2hLaU5kQUQzbzFsWDZ4ZVprRnZBcDVvd0doSm4tWUdMSGtabGpJeGQzRFBzT0RPNDd3T2Jic0ROTTEwbEZsVWZETXlzby1XOUdCQmNtYV9EdzB3eFgzaVRrSEY3cFlDZXVsUEkydw?oc=5",
+      "sentiment": "negative",
+      "daysAgo": 23,
+      "isCritical": false,
+      "pubDate": "Fri, 21 Aug 2026 07:00:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "High school QBs face new reality as transfers dominate starting jobs at the top of college football - KWTX",
+      "source": "KWTX",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNTHlySlJlXzFYVENOOEJKODRRMUFJZ3VCX25YNnhMQ3g2N3NXTC1VcUpFNGZodV8ycmZKTHZNa0tTbGxxWlZiU2xQRFVLVUtzN3NmRmFpcjZmSHhBSmphOE02SzRfYkJENElZMUhhakV5VnlHV2RZZjJ1aFRZZHVLX2c5WktwSUdqMUxhdVN5cW90Y0ctd242eXdNSHhoYlBQR2phWktXYU9VT3lxc1FnTk03WWNEd1BnSU5V0gHPAUFVX3lxTFB2enNEcEdBazljZzItaFRhd3VIdkx5S2h0OWVITWxvV205TGdUMDQ5MFRzOFBKUkVpZ3M2WTR2YU1oNm94enlMNVpTczREeUF2VU9rZUh1S19hXzdUcXZRSXF3QXh0aV9pTHVtLVF4azRfcE9oVExlZWh6ZGQ5LWZNS2tFUEI2cGxSRElrR05paEg1M0dDQUdHUXN6UV9QaGpBendnaEF0N0FTamE5aHhXN2E3blFUOHM5eG9ieFpwaktSZUM1MVBhMmNGd0J3aw?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 5,
+      "isCritical": false,
+      "pubDate": "Mon, 07 Sep 2026 20:25:00 GMT",
+      "searchQuery": "college football transfer portal"
+    },
+    {
+      "title": "No. 6 Oregon vs. Oklahoma State Suspended Due To Weather - sports.yahoo.com",
+      "source": "sports.yahoo.com",
       "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE96eTFaaVNyZ29yOW1xaXpnTEdVMTZCQmdOTjZsTDVmQ3Q4NjNkV1kzSEI3Mm5zYkwyYkV0WmNyRXZjQ2JGdVMweGFMNXJrY1dYWFUwSmNXaXNOdVZRTjR1Tk8zajdBX2t5T0x4d1VEcVRRMUp2TkFBU0Q5ZXg?oc=5",
       "sentiment": "negative",
       "daysAgo": 0,
@@ -1560,8 +1538,8 @@
       "searchQuery": "college football suspended"
     },
     {
-      "title": "College football history is rich with controversial endings. Welcome to the club, Michigan-WMU - The New York Times",
-      "source": "The New York Times",
+      "title": "College football history is rich with controversial endings. Welcome to the club, Michigan-WMU - nytimes.com",
+      "source": "nytimes.com",
       "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOTHR6TFV0Z1ZBXzlVeENLaXltbnVXYUlLRENwTUNDbjNMNTVhbDdvTVZGS0h3aHYtYkF3OGdiZFU2ZkJUS2R4dUJuc3ptNVltamRYeWlfbmpROF9leUlvNnhaRTdJUUdEU2xoU1lLSDJBVERENHhnUjdLTTFPV1U4RDlGSTk1N3NGT2EzM3g4TVQtMVVRYWdaNURlM2RiRmM2NmZPXzZTUkdUZw?oc=5",
       "sentiment": "neutral",
       "daysAgo": 6,
@@ -1580,64 +1558,14 @@
       "searchQuery": "college football suspended"
     },
     {
-      "title": "College football player MicahJo Barnett dies after medical emergency on field - ABC News - Breaking News, Latest News and Videos",
-      "source": "ABC News - Breaking News, Latest News and Videos",
+      "title": "College football player MicahJo Barnett dies after medical emergency on field - abcnews.com",
+      "source": "abcnews.com",
       "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQNFdyQVcwb0JKdGFsUHBfZVZmT2xnN1RlNnc0aHF5Y3dpUW5PWGp2TlBnSXdOSWNmbGd4Qm9CTGRNM09kR2JMVGt6bnBqUGRSYUQxeHhnd0J1aUVzcURjMHNBZ2JtR0I3M2xCNWhLUlQ4NlpSOVBidEhRMW1nU3RYbW1odW9jTjJnWWRGSE03UnZkTGR2SnZ1ZnVPR0prWWFGcXfSAacBQVVfeXFMUEcyektjTzdjb1dTY1d2dlJqLTRzdU9weHU2TUdiTzF5UGxfalVmcUpRR2JFUW5kTjJRcnNJOGpKREJNeS1pS2VCcnp6Q2ZlbkpRcF9QQkRXa3l5SERTUDFSc1oxTVRPWHhRa2NGSDA2U0dXenQ5YnNpQ3NXMHlkckE0aGk2bHY3QmJUaFVkdnVrLUEtM1RpZndoYW8zRDRJVVlMSE9qUzg?oc=5",
       "sentiment": "neutral",
       "daysAgo": 2,
       "isCritical": false,
       "pubDate": "Thu, 10 Sep 2026 14:15:25 GMT",
       "searchQuery": "college football suspended"
-    },
-    {
-      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 2 - CBS Sports",
-      "source": "CBS Sports",
-      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOWm9fa3k2Y1V6bEVtcjR1X1FYajhRQkliNTcyQXk4UmNscUtmWlFYQWJSWFBIX1ZpaEIxVjE3TF9HN0I1TF9CNzJmcU9pakladERmUmZqUFg1Mk1WMmp6MTJZeXpNckY5ZzRJNDdiZ2tRWWxMM2Uzd2tyWVJwMzNvT0d3aW96Zm1KeGstRXVoWC13b2QxMEhMbk9jUEtrclVHakQ3UGV6b0pyM0FkdzEzOUtTNDN0aVllNDV1eU5sLWx0enFfWHRabQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 20:19:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "College football Week 2: Live updates, schedule, scores, highlights - NCAA.com",
-      "source": "NCAA.com",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQc2dvNE50bjV1Nm1ONTFIVFRvdmFnWWtENm9YaVhKLVQ1cEZtSkY0Y0lMVnFvR2V2cFBGQ0JuT0l0QmhudTBlbXB1UW0tcVA4UENkbUcwTFFaSS1hQU9YZjBBazBhWkRxd2lFbW56RGpRSnh2N2FOSE4xVXl4aXhXZkFzV0RSUHgwY2Y1bENRbldJazVUMUNwWTZFM3JhV0k1OV9SMTJqeWloTnYwM2pJ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 21:22:24 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "Oklahoma State football outlasts Oregon in massive NCAA upset | Replay, highlights - The Oklahoman",
-      "source": "The Oklahoman",
-      "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNa3VSX1RuODFPNFc0bHJqLXg5Q2hJOERvWGd6ZXd1VEtFRVdlTW1PUDBncGdQS3Ztdkp3WGxrWDg1dzJfSmZCU2VsMlVlQVMyY1pibUpZaGFxRUtXRk0xSFZxSWVGemJJbGh0bDdPOFM5TmQzTVMzOU93d1hjdFVQV2Z5UjkwRFExOVFFbWo4dUZETXdELTZXV1g0WGd5SDVWQkVoREF0NXctWHk2aHFuNU1oQ0dMVnJZOTJoM04tYTV0WUxZM0NHamJpUkZBeTVscUZrZ2VIY2ozTjJaOXdDdlRTelRlRU8tTjdFTXdoaU0tU01UekFGcQ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 22:52:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "How to watch Southern Miss vs Auburn: Live stream NCAA College Football, TV channel - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNLVB2VjVHWTdFRUVPdHFYQUMzZk9UdDJLMHdQVGJfMjVsTlp5UG4xM1k2WnNVTDFwSm9KOVQxaXZXVDZuYXZSbGpRNG9ZODFKSnlVVFBlY0FObU5DUVNwM1R3djNqZ0FPNzlBZ1BrS2laZllweWI4Nk5JVF9nSDNrUmVXX2w?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 23:15:00 GMT",
-      "searchQuery": "NCAA college football"
-    },
-    {
-      "title": "How to watch USC-Louisiana college football game for free tonight - AL.com",
-      "source": "AL.com",
-      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNQzV0YlRlYUFGalF6Vm9ScDNvLTY4Q1BnbXZ2Y21sd3R2SkdOUmtTMUI5bUJ4MXloaklHNWt3d01qczVUanFGS3BtSEVDNHRpdWhubUNaZU5kbEZEcmdGYnM5amFKOWp0NkxQMWt3ekdTcGhaZ0hCUTFqRjdSQUx3UFN6RHpncVJqS3R3bG54RzRvUUFSTlplNW9WNlFKY0J2Y0HSAbYBQVVfeXFMUEhWdTl6VmlWR0V5S1hiWW9WdGpGMkRFYW9pQk5sZjEyR1VTbVA2cnhsU0oyQWtxcjdfU3J1QmxTX2M0ejFjZmVFUXBIWWo0S1FSMWhmQ0FWbU1PN3dtTWMyT0NzRExDNGdCSWNaVWthMVc3aG5UYWVVSTdMakRjSGt5S3JRS1lraGM2RkIxTGtNbV85LVBTWEZSUV9ONnB2UFNSMHdrZXhnalZkQ3cwMzZoOWZqN3c?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 0,
-      "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 22:00:00 GMT",
-      "searchQuery": "NCAA college football"
     },
     {
       "title": "NC State Football 2026 Complete Depth Chart vs. Richmond in Week 2 - 247Sports",
@@ -1697,47 +1625,47 @@
       "daysAgo": 0,
       "isCritical": false,
       "pubDate": "Sat, 12 Sep 2026 20:19:00 GMT",
-      "searchQuery": "college football spread odds"
+      "searchQuery": "NCAA college football"
     },
     {
-      "title": "Week 2 college football odds, storylines: Best bets for the 5 biggest games, including Ohio State at Texas - Yahoo Sports",
-      "source": "Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQRHZPa3IybEJ2ZlJCcUdJcHlBSWhUX0pUd3JjZWIyUXVoakxqc18xbWpOb05GeElpdHc0SXVaQmtGa3Y1eXBiV2pnTjFZYWw3VEd5d0dfS1U3OW5wMTY5SWtWNEN6cWR5MmpneEItYVUzR1lYN1NFS0pKTGFWRU9QOGpGdnYtdzRBenYwdnBzekMzR3B1cGlSSDVJYkpnWUNUd1NLT2k0ZGt6alU4ZkZ5NTNVdXVXQmhjeUZIRXFPenY4akJtZDJ2akFGUXdRMGk2SS1SVE00RFVNdm1QS1EzNzRYc1pwaUF6bGY2c21panU?oc=5",
+      "title": "College football Week 2: Live updates, schedule, scores, highlights - NCAA.com",
+      "source": "NCAA.com",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQc2dvNE50bjV1Nm1ONTFIVFRvdmFnWWtENm9YaVhKLVQ1cEZtSkY0Y0lMVnFvR2V2cFBGQ0JuT0l0QmhudTBlbXB1UW0tcVA4UENkbUcwTFFaSS1hQU9YZjBBazBhWkRxd2lFbW56RGpRSnh2N2FOSE4xVXl4aXhXZkFzV0RSUHgwY2Y1bENRbldJazVUMUNwWTZFM3JhV0k1OV9SMTJqeWloTnYwM2pJ?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 17:00:48 GMT",
-      "searchQuery": "college football spread odds"
+      "pubDate": "Sat, 12 Sep 2026 21:22:24 GMT",
+      "searchQuery": "NCAA college football"
     },
     {
-      "title": "Predictions, picks, odds for Ohio State football vs Texas Week 2 - The Columbus Dispatch",
-      "source": "The Columbus Dispatch",
-      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPeHZpQWZzclYzMWJkQXpZZk80RTJXOXYtRWZscy1ZMzVCLWtCNm5OemtrMHhtU0NVV3V2eHJxTzJtdXEtbER6a1V3ZUZPd2xFNThqZ0tSRnVwaTY5S2F4TzNiVnhkLXlhaEsxYUR4MFJOdHg0TVFCT3hvUGg0VVVFM19nQi1GeXVId2xRZmk5eXJDSm1HbnVGTWwwTXNEYUJIQkt6eUlrQ0hXMG1KOFNvblJ4MXdXbXlqZV9HRkNhREVreHQ4eVF3T0ZUdWpObjNnRmJBaXF4cHo?oc=5",
+      "title": "Oklahoma State football outlasts Oregon in massive NCAA upset | Replay, highlights - The Oklahoman",
+      "source": "The Oklahoman",
+      "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNa3VSX1RuODFPNFc0bHJqLXg5Q2hJOERvWGd6ZXd1VEtFRVdlTW1PUDBncGdQS3Ztdkp3WGxrWDg1dzJfSmZCU2VsMlVlQVMyY1pibUpZaGFxRUtXRk0xSFZxSWVGemJJbGh0bDdPOFM5TmQzTVMzOU93d1hjdFVQV2Z5UjkwRFExOVFFbWo4dUZETXdELTZXV1g0WGd5SDVWQkVoREF0NXctWHk2aHFuNU1oQ0dMVnJZOTJoM04tYTV0WUxZM0NHamJpUkZBeTVscUZrZ2VIY2ozTjJaOXdDdlRTelRlRU8tTjdFTXdoaU0tU01UekFGcQ?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 21:18:00 GMT",
-      "searchQuery": "college football spread odds"
+      "pubDate": "Sat, 12 Sep 2026 22:52:00 GMT",
+      "searchQuery": "NCAA college football"
     },
     {
-      "title": "Top 25 betting lines: Longhorns, Sooners favored in the week's biggest matchups - ESPN",
-      "source": "ESPN",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPQVZkQ20zODhKTFpDcTZWUVp6eU5qSENGRmFyUUE5UVl3YkxoQjQxQkRZajRWb3FBLUNhN2I5U0pPNkJlemZBXy1jUXNaYkc4VEF1Z0RPeHU1cHZPNnMtb2dpdzFGdElUNVN1UHVyc1psTmVxZFgwV1pfejRpNWVVeE9LRHFpTW1oYi1IREpUaWZmRTR5Z2owMFJrNU11UXR4SkxJ?oc=5",
-      "sentiment": "neutral",
-      "daysAgo": 1,
-      "isCritical": false,
-      "pubDate": "Fri, 11 Sep 2026 16:51:00 GMT",
-      "searchQuery": "college football spread odds"
-    },
-    {
-      "title": "College Football Picks Against the Spread for Week 2 - Covers.com",
-      "source": "Covers.com",
-      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE90X1gyM1ozUW1GUjNhVDA3aHpkV1BJT2NwU0xaQzBmbW56MXN3aXZTV3NlTmtOQVdyLXVmWm12S3kxcXdVX0hFMWQyNU51bXFOZ3Bzam9DMC1jdEZXa2FYb1pMMllsaFJwUjhHVTY1T3BMODQ?oc=5",
+      "title": "How to watch Southern Miss vs Auburn: Live stream NCAA College Football, TV channel - sports.yahoo.com",
+      "source": "sports.yahoo.com",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNLVB2VjVHWTdFRUVPdHFYQUMzZk9UdDJLMHdQVGJfMjVsTlp5UG4xM1k2WnNVTDFwSm9KOVQxaXZXVDZuYXZSbGpRNG9ZODFKSnlVVFBlY0FObU5DUVNwM1R3djNqZ0FPNzlBZ1BrS2laZllweWI4Nk5JVF9nSDNrUmVXX2w?oc=5",
       "sentiment": "neutral",
       "daysAgo": 0,
       "isCritical": false,
-      "pubDate": "Sat, 12 Sep 2026 12:17:00 GMT",
-      "searchQuery": "college football spread odds"
+      "pubDate": "Sat, 12 Sep 2026 23:15:00 GMT",
+      "searchQuery": "NCAA college football"
+    },
+    {
+      "title": "How to watch USC-Louisiana college football game for free tonight - AL.com",
+      "source": "AL.com",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNQzV0YlRlYUFGalF6Vm9ScDNvLTY4Q1BnbXZ2Y21sd3R2SkdOUmtTMUI5bUJ4MXloaklHNWt3d01qczVUanFGS3BtSEVDNHRpdWhubUNaZU5kbEZEcmdGYnM5amFKOWp0NkxQMWt3ekdTcGhaZ0hCUTFqRjdSQUx3UFN6RHpncVJqS3R3bG54RzRvUUFSTlplNW9WNlFKY0J2Y0HSAbYBQVVfeXFMUEhWdTl6VmlWR0V5S1hiWW9WdGpGMkRFYW9pQk5sZjEyR1VTbVA2cnhsU0oyQWtxcjdfU3J1QmxTX2M0ejFjZmVFUXBIWWo0S1FSMWhmQ0FWbU1PN3dtTWMyT0NzRExDNGdCSWNaVWthMVc3aG5UYWVVSTdMakRjSGt5S3JRS1lraGM2RkIxTGtNbV85LVBTWEZSUV9ONnB2UFNSMHdrZXhnalZkQ3cwMzZoOWZqN3c?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 12 Sep 2026 22:00:00 GMT",
+      "searchQuery": "NCAA college football"
     },
     {
       "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 2 - CBS Sports",
@@ -1780,14 +1708,64 @@
       "searchQuery": "CFB picks predictions"
     },
     {
-      "title": "College Football Predictions, Picks: Stuckey’s Week 2 Bets for Michigan vs Oklahoma, Kentucky vs Alabama, More - actionnetwork.com",
-      "source": "actionnetwork.com",
+      "title": "College Football Predictions, Picks: Stuckey’s Week 2 Bets for Michigan vs Oklahoma, Kentucky vs Alabama, More - Action Network",
+      "source": "Action Network",
       "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNVFpNNWRjRWFCU1lWOHE4ZVQ0Tk5zN2dFaVlteHBGSjJwNFFFV2h3ejdoM1BlaDZldThLd19YaUJCWUxBQU9Hbm9rUVd6R09wU1JEVFZUdWloOGFsazdGY2NaR0E3TjZtNGNTT3R0Q1M5YVRzUHBRUW5kbWMxNldxbDBWNHliWHpiZVNqTjlyZmNXV09PLU5fOHFsWGlwbUNmV3JKVlZJUEo1VW9sR01XMFdoMWZ6QldIbDJ4U0tyLTdhTl9YclRUSk1PczdXY2Z4Z3Nlb2lB?oc=5",
       "sentiment": "neutral",
       "daysAgo": 1,
       "isCritical": false,
       "pubDate": "Sat, 12 Sep 2026 11:02:00 GMT",
       "searchQuery": "CFB picks predictions"
+    },
+    {
+      "title": "College football picks: Predictions against the spread, odds, betting lines for top 25 games in Week 2 - CBS Sports",
+      "source": "CBS Sports",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOWm9fa3k2Y1V6bEVtcjR1X1FYajhRQkliNTcyQXk4UmNscUtmWlFYQWJSWFBIX1ZpaEIxVjE3TF9HN0I1TF9CNzJmcU9pakladERmUmZqUFg1Mk1WMmp6MTJZeXpNckY5ZzRJNDdiZ2tRWWxMM2Uzd2tyWVJwMzNvT0d3aW96Zm1KeGstRXVoWC13b2QxMEhMbk9jUEtrclVHakQ3UGV6b0pyM0FkdzEzOUtTNDN0aVllNDV1eU5sLWx0enFfWHRabQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 12 Sep 2026 20:19:00 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "Week 2 college football odds, storylines: Best bets for the 5 biggest games, including Ohio State at Texas - sports.yahoo.com",
+      "source": "sports.yahoo.com",
+      "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQRHZPa3IybEJ2ZlJCcUdJcHlBSWhUX0pUd3JjZWIyUXVoakxqc18xbWpOb05GeElpdHc0SXVaQmtGa3Y1eXBiV2pnTjFZYWw3VEd5d0dfS1U3OW5wMTY5SWtWNEN6cWR5MmpneEItYVUzR1lYN1NFS0pKTGFWRU9QOGpGdnYtdzRBenYwdnBzekMzR3B1cGlSSDVJYkpnWUNUd1NLT2k0ZGt6alU4ZkZ5NTNVdXVXQmhjeUZIRXFPenY4akJtZDJ2akFGUXdRMGk2SS1SVE00RFVNdm1QS1EzNzRYc1pwaUF6bGY2c21panU?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 12 Sep 2026 17:00:48 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "Predictions, picks, odds for Ohio State football vs Texas Week 2 - The Columbus Dispatch",
+      "source": "The Columbus Dispatch",
+      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPeHZpQWZzclYzMWJkQXpZZk80RTJXOXYtRWZscy1ZMzVCLWtCNm5OemtrMHhtU0NVV3V2eHJxTzJtdXEtbER6a1V3ZUZPd2xFNThqZ0tSRnVwaTY5S2F4TzNiVnhkLXlhaEsxYUR4MFJOdHg0TVFCT3hvUGg0VVVFM19nQi1GeXVId2xRZmk5eXJDSm1HbnVGTWwwTXNEYUJIQkt6eUlrQ0hXMG1KOFNvblJ4MXdXbXlqZV9HRkNhREVreHQ4eVF3T0ZUdWpObjNnRmJBaXF4cHo?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 12 Sep 2026 21:18:00 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "Top 25 betting lines: Longhorns, Sooners favored in the week's biggest matchups - ESPN",
+      "source": "ESPN",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPQVZkQ20zODhKTFpDcTZWUVp6eU5qSENGRmFyUUE5UVl3YkxoQjQxQkRZajRWb3FBLUNhN2I5U0pPNkJlemZBXy1jUXNaYkc4VEF1Z0RPeHU1cHZPNnMtb2dpdzFGdElUNVN1UHVyc1psTmVxZFgwV1pfejRpNWVVeE9LRHFpTW1oYi1IREpUaWZmRTR5Z2owMFJrNU11UXR4SkxJ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 1,
+      "isCritical": false,
+      "pubDate": "Fri, 11 Sep 2026 16:51:00 GMT",
+      "searchQuery": "college football spread odds"
+    },
+    {
+      "title": "College Football Picks Against the Spread for Week 2 - Covers.com",
+      "source": "Covers.com",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE90X1gyM1ozUW1GUjNhVDA3aHpkV1BJT2NwU0xaQzBmbW56MXN3aXZTV3NlTmtOQVdyLXVmWm12S3kxcXdVX0hFMWQyNU51bXFOZ3Bzam9DMC1jdEZXa2FYb1pMMllsaFJwUjhHVTY1T3BMODQ?oc=5",
+      "sentiment": "neutral",
+      "daysAgo": 0,
+      "isCritical": false,
+      "pubDate": "Sat, 12 Sep 2026 12:17:00 GMT",
+      "searchQuery": "college football spread odds"
     }
   ],
   "criticalAlerts": []
