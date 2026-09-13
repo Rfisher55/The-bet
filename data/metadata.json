@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-13T06:19:56.124Z",
+  "generated": "2026-09-13T08:13:15.594Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 677,
-  "completedGames": 176,
-  "liveGames": 5,
+  "completedGames": 180,
+  "liveGames": 1,
   "gamesWithLines": 0,
   "gamesWithWeather": 80,
   "gamesWithBettingPct": 0,
@@ -21,5 +21,5 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 100712
+  "fetchDurationMs": 104087
 }
