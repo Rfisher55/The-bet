@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-14T00:28:08.714Z",
+  "generated": "2026-09-14T00:36:14.078Z",
   "season": 2026,
   "totalGames": 858,
   "scheduledGames": 677,
@@ -21,7 +21,7 @@
     "OpenMeteo (hourly game-time weather)",
     "GoogleNews (game headlines)"
   ],
-  "fetchDurationMs": 110582,
+  "fetchDurationMs": 102227,
   "apRanks": {},
   "games": [
     {
@@ -14572,7 +14572,7 @@
       "awayElo": null,
       "bettingLines": null,
       "weather": {
-        "condition": "Thunderstorm",
+        "condition": "Drizzle",
         "tempF": 76,
         "windMph": 8,
         "gusts": 20,
@@ -14581,7 +14581,7 @@
         "humidity": 84,
         "indoors": false,
         "kickoffHour": 15,
-        "code": 95
+        "code": 53
       },
       "lineMovement": [],
       "situational": {},
